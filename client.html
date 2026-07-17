@@ -5,84 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注文依頼テキスト作成ツール</title>
     <style>
-        body { font-family: sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; color: #333; padding-bottom: 120px; }
+        body { font-family: sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; padding-bottom: 120px; }
         .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
         h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
         .form-group { margin-bottom: 12px; }
-        .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
         label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
-        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        textarea { resize: vertical; height: 80px; }
-        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
-        .btn-secondary { background-color: #e5e5ea; color: #333; }
-        .btn-danger { background-color: #ff3b30; color: white; padding: 6px 10px; font-size: 12px; }
-        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-danger { background-color: #ff3b30; color: white; padding: 5px 10px; }
         .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
         .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-        .item-select { flex: 2; }
-        .item-qty-select { width: 60px; }
-        .subtotal-text { font-size: 13px; font-weight: bold; color: #007aff; margin-top: 5px; text-align: right; }
-        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; z-index: 1000; }
-        .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-<h2>注文依頼作成ツール</h2>
-<div class="card">
-    <h3>必要事項等</h3>
-    <textarea id="notes" placeholder="指定があればこちらに記入してください" oninput="saveLocalData()"></textarea>
-</div>
-<div class="card">
-    <h3>会員番号・名義の事前登録</h3>
-    <div id="member_register_container"></div>
-    <button class="btn btn-secondary" style="font-size: 12px;" onclick="addMemberRegisterRow()">+ 登録を追加</button>
-</div>
-<div class="card">
-    <h3>注文内容の入力</h3>
-    <div id="positions_container"></div>
-    <button class="btn btn-secondary" onclick="addPositionBox()">+ 注文行を追加</button>
-</div>
-<div class="footer-bar">
-    <button class="btn btn-copy" onclick="copyToClipboard()">LINE用に注文テキストをコピー</button>
-</div>
+    <h2>注文依頼作成ツール</h2>
+    <div class="card">
+        <h3>必要事項等</h3>
+        <textarea id="notes" placeholder="指定があればこちらに記入してください"></textarea>
+    </div>
+    <div class="card">
+        <h3>注文内容</h3>
+        <div id="positions_container"></div>
+        <button class="btn" onclick="addPositionBox()">+ 注文行を追加</button>
+    </div>
+    <div class="footer-bar">
+        <button class="btn" style="width:100%; background:#34c759;" onclick="copyToClipboard()">LINE用にコピー</button>
+    </div>
+
 <script>
 const products = [
     { name: "モンコパン", price: 3500, pt: 2800 },
     { name: "モンコパン ジュレ", price: 3500, pt: 2800 },
     { name: "サンテアージュOX-288", price: 13800, pt: 10000 }
 ];
-// (※必要な商品データは随時追加可能です)
-function addRegisterRow(c='', n='') {
-    const row = document.createElement('div'); row.className = 'member-reg-row';
-    row.innerHTML = `<input type="text" class="reg-code" placeholder="会員番号" value="${c}"> <input type="text" class="reg-name" placeholder="会員名" value="${n}"> <button class="btn btn-danger" onclick="this.parentElement.remove()">X</button>`;
-    document.getElementById('member_register_container').appendChild(row);
-}
+
 function addPositionBox() {
     const id = Date.now();
-    const box = document.createElement('div'); box.className = 'position-box'; box.id = `box_${id}`;
-    box.innerHTML = `<div style="display:flex; justify-content:space-between;"><strong>注文枠</strong><button class="btn btn-danger" onclick="document.getElementById('box_${id}').remove()">削除</button></div><input type="text" placeholder="会員番号-ポジション" style="margin-top:5px;"><input type="text" placeholder="会員名" style="margin-top:5px;"><div id="items_${id}"></div><button class="btn btn-secondary" style="font-size:12px;" onclick="addItem(${id})">+ 商品を追加</button><div class="subtotal-text" id="sub_${id}">小計：0円 (0pt)</div>`;
+    const box = document.createElement('div');
+    box.className = 'position-box';
+    box.id = `box_${id}`;
+    box.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <strong>注文枠</strong>
+            <button class="btn btn-danger" onclick="document.getElementById('box_${id}').remove()">削除</button>
+        </div>
+        <input type="text" id="code_${id}" placeholder="会員番号-ポジション" style="margin-bottom:5px;">
+        <input type="text" id="name_${id}" placeholder="会員名" style="margin-bottom:10px;">
+        <div id="items_${id}"></div>
+        <button class="btn" style="font-size:12px; background:#666;" onclick="addItem(${id})">+ 商品を追加</button>
+        <div id="sub_${id}" style="margin-top:10px; font-weight:bold; color:#007aff;">小計：0円 (0pt)</div>
+    `;
     document.getElementById('positions_container').appendChild(box);
     addItem(id);
 }
+
 function addItem(id) {
-    const row = document.createElement('div'); row.className = 'item-row';
-    let opts = products.map((p,i) => `<option value="${i}">${p.name}</option>`).join('');
-    let q = Array.from({length:30}, (_,i)=>`<option value="${i+1}">${i+1}</option>`).join('');
-    row.innerHTML = `<select class="item-select" onchange="calc(${id})">${opts}</select> × <select class="item-qty-select" onchange="calc(${id})">${q}</select><button class="btn btn-danger" onclick="this.parentElement.remove(); calc(${id})">X</button>`;
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    let pOpts = products.map((p, i) => `<option value="${i}">${p.name}</option>`).join('');
+    let qOpts = Array.from({length: 30}, (_, i) => `<option value="${i+1}" ${i==9?'selected':''}>${i+1}</option>`).join('');
+    row.innerHTML = `
+        <select class="p-sel" onchange="calc(${id})">${pOpts}</select>
+        × <select class="q-sel" onchange="calc(${id})">${qOpts}</select>
+        <button class="btn btn-danger" onclick="this.parentElement.remove(); calc(${id})">X</button>
+    `;
     document.getElementById(`items_${id}`).appendChild(row);
     calc(id);
 }
+
 function calc(id) {
     let p=0, pt=0;
     document.querySelectorAll(`#box_${id} .item-row`).forEach(r => {
-        const prod = products[r.querySelector('.item-select').value];
-        const qty = r.querySelector('.item-qty-select').value;
+        const prod = products[r.querySelector('.p-sel').value];
+        const qty = r.querySelector('.q-sel').value;
         p += prod.price * qty; pt += prod.pt * qty;
     });
     document.getElementById(`sub_${id}`).innerText = `小計：${p.toLocaleString()}円 (${pt.toLocaleString()}pt)`;
 }
-function copyToClipboard() { alert("LINE用にテキストをコピーしました"); }
+
+function copyToClipboard() {
+    let text = document.getElementById('notes').value + "\n\n";
+    document.querySelectorAll('.position-box').forEach(box => {
+        const id = box.id.replace('box_', '');
+        text += `◆${document.getElementById('code_'+id).value} ${document.getElementById('name_'+id).value}\n`;
+        box.querySelectorAll('.item-row').forEach(r => {
+            text += `${products[r.querySelector('.p-sel').value].name}　×${r.querySelector('.q-sel').value}\n`;
+        });
+        text += "\n";
+    });
+    navigator.clipboard.writeText(text).then(() => alert("コピーしました！"));
+}
 </script>
 </body>
 </html>
-
