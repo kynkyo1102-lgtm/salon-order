@@ -45,6 +45,12 @@ const products = [
     { name: "サンテアージュOX-288", price: 13800, pt: 10000 }
 ];
 
+// 01〜35までのポジション用オプションを生成
+const posOptions = Array.from({length: 35}, (_, i) => {
+    const val = (i + 1).toString().padStart(2, '0');
+    return `<option value="${val}">${val}</option>`;
+}).join('');
+
 function addMemberRow(c='', n='') {
     const row = document.createElement('div'); row.className = 'member-reg-row';
     row.innerHTML = `<input type="text" class="reg-code" placeholder="会員番号" value="${c}"> <input type="text" class="reg-name" placeholder="会員名" value="${n}"> <button class="btn btn-danger" onclick="this.parentElement.remove()">X</button>`;
@@ -67,7 +73,7 @@ function addPositionBox() {
         <select onchange="fillMember(this, ${id})" style="margin-bottom:10px;">${memOpts}</select>
         <div style="display:flex; gap:5px; margin-bottom:10px;">
             <input type="text" id="code_${id}" placeholder="番号" style="flex:2;">
-            <select id="pos_${id}" style="flex:1;"><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option></select>
+            <select id="pos_${id}" style="flex:1;">${posOptions}</select>
             <input type="text" id="name_${id}" placeholder="名義" style="flex:2;">
         </div>
         <div id="items_${id}"></div>
@@ -121,4 +127,3 @@ function copyToClipboard() {
 </script>
 </body>
 </html>
-
