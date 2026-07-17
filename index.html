@@ -76,7 +76,7 @@
     <!-- 3. 会員リポジトリ登録エリア -->
     <div class="card">
         <h3>3. 会員番号・名義の事前登録（複数可）</h3>
-        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号はハイフン前の番号（例：1267505）を登録してください</p>
+        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号は下2桁以前の番号（00、01、02等のポジションは後に選択できます）を登録してください</p>
         <div id="member_register_container"></div>
         <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
     </div>
@@ -289,7 +289,7 @@ function addPositionBox() {
                 <input type="text" id="pos_code_${positionCount}" placeholder="例：1267505" oninput="updatePreview()">
             </div>
             <div class="form-group" style="flex: 0.8;">
-                <label>最後2桁</label>
+                <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
                     <option value="01">01</option>
@@ -307,7 +307,7 @@ function addPositionBox() {
         </div>
 
         <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
-            <label>その他の最後2桁（手入力）</label>
+            <label>その他のポジション（手入力）</label>
             <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
         </div>
 
