@@ -9,10 +9,11 @@
         .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
         h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
         .form-group { margin-bottom: 12px; }
-        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
         input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-secondary { background: #e5e5ea; color: #333; }
         .btn-danger { background-color: #ff3b30; color: white; padding: 5px 10px; }
+        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
         .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
         .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
         .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
@@ -25,9 +26,14 @@
         <textarea id="notes" placeholder="指定があればこちらに記入してください"></textarea>
     </div>
     <div class="card">
+        <h3>会員番号・名義の事前登録</h3>
+        <div id="member_register_container"></div>
+        <button class="btn btn-secondary" style="font-size:12px;" onclick="addMemberRow()">+ 登録を追加</button>
+    </div>
+    <div class="card">
         <h3>注文内容</h3>
         <div id="positions_container"></div>
-        <button class="btn" onclick="addPositionBox()">+ 注文行を追加</button>
+        <button class="btn btn-secondary" onclick="addPositionBox()">+ 注文行を追加</button>
     </div>
     <div class="footer-bar">
         <button class="btn" style="width:100%; background:#34c759;" onclick="copyToClipboard()">LINE用にコピー</button>
@@ -40,24 +46,46 @@ const products = [
     { name: "サンテアージュOX-288", price: 13800, pt: 10000 }
 ];
 
+function addMemberRow(c='', n='') {
+    const row = document.createElement('div'); row.className = 'member-reg-row';
+    row.innerHTML = `<input type="text" class="reg-code" placeholder="会員番号" value="${c}"> <input type="text" class="reg-name" placeholder="会員名" value="${n}"> <button class="btn btn-danger" onclick="this.parentElement.remove()">X</button>`;
+    document.getElementById('member_register_container').appendChild(row);
+}
+
 function addPositionBox() {
     const id = Date.now();
     const box = document.createElement('div');
     box.className = 'position-box';
     box.id = `box_${id}`;
+    
+    // 会員リストのオプション生成
+    let memOpts = '<option value="">-- 会員を選択 --</option>';
+    document.querySelectorAll('.member-reg-row').forEach((r, i) => {
+        memOpts += `<option value="${i}">${r.querySelector('.reg-code').value} ${r.querySelector('.reg-name').value}</option>`;
+    });
+
     box.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
             <strong>注文枠</strong>
             <button class="btn btn-danger" onclick="document.getElementById('box_${id}').remove()">削除</button>
         </div>
+        <select onchange="fillMember(this, ${id})" style="margin-bottom:10px;">${memOpts}</select>
         <input type="text" id="code_${id}" placeholder="会員番号-ポジション" style="margin-bottom:5px;">
         <input type="text" id="name_${id}" placeholder="会員名" style="margin-bottom:10px;">
         <div id="items_${id}"></div>
-        <button class="btn" style="font-size:12px; background:#666;" onclick="addItem(${id})">+ 商品を追加</button>
+        <button class="btn btn-secondary" style="font-size:12px;" onclick="addItem(${id})">+ 商品を追加</button>
         <div id="sub_${id}" style="margin-top:10px; font-weight:bold; color:#007aff;">小計：0円 (0pt)</div>
     `;
     document.getElementById('positions_container').appendChild(box);
     addItem(id);
+}
+
+function fillMember(sel, id) {
+    const row = document.querySelectorAll('.member-reg-row')[sel.value];
+    if(row) {
+        document.getElementById('code_'+id).value = row.querySelector('.reg-code').value;
+        document.getElementById('name_'+id).value = row.querySelector('.reg-name').value;
+    }
 }
 
 function addItem(id) {
