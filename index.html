@@ -5,484 +5,242 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>サロン専用注文書作成ツール</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; color: #333; padding-bottom: 180px; }
-        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, サンセリフ体; background-color: #f5f7fa; padding: 20px; color: #333; line-height: 1.6; }
+        .card { background: 白; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 20px; }
         h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
         .form-group { margin-bottom: 12px; }
         .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
         .form-row .form-group { margin-bottom: 0; flex: 1; }
         label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
-        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
+        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
+        button { background-color: #007aff; color: 白; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        button:hover { background-color: #0056b3; }
         .btn-secondary { background-color: #e5e5ea; color: #333; }
-        .btn-danger { background-color: #ff3b30; color: white; padding: 6px 10px; font-size: 12px; }
-        .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-        .item-select { flex: 2; }
-        .item-qty { flex: 1; min-width: 60px; }
-        .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
-        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
-        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
-        .total-preview { font-size: 14px; font-weight: bold; text-align: center; }
-        .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
-        .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
-        .hidden-pw { display: none; }
-        .custom-pos-container { display: none; margin-top: 8px; }
+        .btn-secondary:hover { background-color: #d1d1d6; }
+        .btn-danger { background-color: #ff3b30; color: 白; }
+        .btn-danger:hover { background-color: #c93b2b; }
+        .item-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #eee; }
+        .output-box { width: 100%; height: 180px; font-family: monospace; font-size: 14px; background: #f9f9f9; resize: none; }
+        .flex-container { display: flex; flex-direction: column; gap: 10px; }
+        @media (min-width: 768px) {
+            .flex-container { flex-direction: row; }
+            .left-panel { flex: 1; }
+            .right-panel { flex: 1; }
+        }
+        .toast { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); color: 白; padding: 10px 20px; border-radius: 20px; font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .toast.show { opacity: 1; }
     </style>
 </head>
 <body>
 
-    <h2>注文書作成ツール</h2>
-
-    <!-- 1. お届け先情報 -->
-    <div class="card">
-        <h3>1. お届け先情報</h3>
-        <div class="form-row">
-            <div class="form-group" style="flex: 0 0 120px;">
-                <label>郵便番号</label>
-                <input type="text" id="ship_zip" placeholder="例：123-4567" oninput="saveBasicInfo(); updatePreview();">
+<div class="flex-container">
+    <!-- 左側：入力フォーム -->
+    <div class="left-panel">
+        <div class="card">
+            <h3>注文者情報</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="salonName">サロン名</label>
+                    <input type="text" id="salonName" placeholder="例：マノア">
+                </div>
+                <div class="form-group">
+                    <label for="ordererName">注文者氏名</label>
+                    <input type="text" id="ordererName" placeholder="例：山田花子">
+                </div>
             </div>
-            <div class="form-group">
-                <label>お届け先氏名（宛名）</label>
-                <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="shippingType">発送方法</label>
+                    <select id="shippingType">
+                        <option value="直送（顧客へ直接）">直送（顧客へ直接）</option>
+                        <option value="サロン留め（まとめて発送）">サロン留め（まとめて発送）</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paymentType">支払方法</label>
+                    <select id="paymentType">
+                        <option value="代引き">代引き</option>
+                        <option value="クレジットカード">クレジットカード</option>
+                        <option value="振込">振込</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label>ご住所</label>
-            <input type="text" id="ship_address" placeholder="都道府県・市区町村・番地・マンション名" oninput="saveBasicInfo(); updatePreview();">
-        </div>
-        <div class="form-group">
-            <label>電話番号</label>
-            <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
-        </div>
-    </div>
 
-    <!-- 2. 決済方法 -->
-    <div class="card">
-        <h3>2. 決済方法</h3>
-        <div class="form-group">
-            <label>決済方法の選択</label>
-            <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
-                <option value="現金">現金</option>
-                <option value="PayPay">PayPay</option>
-                <option value="クレジットカード">クレジットカード</option>
-            </select>
-        </div>
-        <div class="form-group hidden-pw" id="pw_container">
-            <label>クレジットカード PW</label>
-            <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+        <div class="card">
+            <h3>商品注文内容</h3>
+            <div id="itemsContainer">
+                <!-- ここに商品行が追加されます -->
+            </div>
+            <button type="button" class="btn-secondary" onclick="addItemRow()" style="margin-top: 10px;">+ 商品を追加</button>
         </div>
     </div>
 
-    <!-- 3. 会員リポジトリ登録エリア -->
-    <div class="card">
-        <h3>3. 会員番号・名義の事前登録（複数可）</h3>
-        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号は下2桁以前の番号（00、01、02等のポジションは後に選択できます）を登録してください</p>
-        <div id="member_register_container"></div>
-        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
+    <!-- 右側：出力結果 -->
+    <div class="right-panel">
+        <div class="card" style="height: calc(100% - 30px); display: flex; flex-direction: column;">
+            <h3>生成された注文テキスト</h3>
+            <textarea id="outputText" class="output-box" style="flex: 1; margin-bottom: 15px;" readonly placeholder="左側に入力するとここに自動生成されます..."></textarea>
+            <button type="button" onclick="copyToClipboard()">テキストをコピー</button>
+        </div>
     </div>
+</div>
 
-    <!-- 4. 月度選択 -->
-    <div class="card">
-        <h3>4. 処理月度の選択</h3>
-        <select id="target_month" onchange="updatePreview();">
-            <option value="6月度">6月度</option>
-            <option value="7月度" selected>7月度</option>
-        </select>
-    </div>
-
-    <!-- 5. ポジション別注文 -->
-    <div class="card">
-        <h3>5. 会員番号ごとの注文</h3>
-        <div id="positions_container"></div>
-        <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
-    </div>
-
-    <!-- 固定下部バー -->
-    <div class="footer-bar">
-        <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
-        <button class="btn btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
-    </div>
+<div id="toast" class="toast">コピーしました！</div>
 
 <script>
-// 商品データマスター
-const products = [
-    { name: "サンテアージュOX-288", price: 13800, p6: 10000, p7: 10000 },
-    { name: "サンテアージュOX-288〈追加購入>", price: 13800, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ0X-288・ゼリー", price: 14200, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ ボアソン", price: 10800, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ ハイプロリーナ", price: 7200, p6: 4000, p7: 6000 },
-    { name: "アルピニスト スラージュ", price: 4000, p6: 2800, p7: 1400 },
-    { name: "アルピニスト グロウジェルクリーム", price: 9800, p6: 3600, p7: 3600 },
-    { name: "O・M・Cプロテイン", price: 6000, p6: 5000, p7: 2000 },
-    { name: "モンコパン", price: 3500, p6: 1200, p7: 2800 },
-    { name: "モンコパン ジュレ", price: 3500, p6: 1200, p7: 2800 },
-    { name: "サヴォン アンベリール・120g", price: 5200, p6: 4300, p7: 1800 },
-    { name: "サヴォン アンベリール・70g", price: 3500, p6: 2900, p7: 1200 },
-    { name: "サヴォン アンベリール ブランシュール・150g", price: 12200, p6: 6000, p7: 10500 },
-    { name: "サヴォン アンベリール ブランシュール・80g", price: 6800, p6: 2400, p7: 5800 },
-    { name: "デマキヤン アセニール", price: 4100, p6: 1500, p7: 1500 },
-    { name: "アクティアージュ プレシャス+", price: 3600, p6: 3000, p7: 1300 },
-    { name: "アクティアージュ エフェクティブ+", price: 6400, p6: 5400, p7: 2300 },
-    { name: "アクティアージュ パスティーク+", price: 4800, p6: 4000, p7: 1700 },
-    { name: "ヴィブラン ローション プリュス", price: 3600, p6: 1300, p7: 3000 },
-    { name: "ヴィブラン セラム プリュス", price: 6400, p6: 2300, p7: 5400 },
-    { name: "ヴィブラン ジェル プリュス", price: 4800, p6: 1700, p7: 4000 },
-    { name: "ヴィブラン グルナードゥ", price: 32000, p6: 20000, p7: 26000 },
-    { name: "ゼログラビティ リペアセラム", price: 14800, p6: 5200, p7: 15000 },
-    { name: "ゼログラビティ リペアクリーム", price: 18700, p6: 15000, p7: 6600 },
-    { name: "クリーム レボリューション B-1789", price: 17200, p6: 9000, p7: 9000 },
-    { name: "オヴィ ハンドモイスチャー", price: 2200, p6: 700, p7: 700 },
-    { name: "オヴィ リップセラム", price: 2000, p6: 600, p7: 600 },
-    { name: "オヴィ ボディミルク", price: 3200, p6: 1000, p7: 1000 },
-    { name: "UVリキッド ミュー ヴィサージュ", price: 3300, p6: 1200, p7: 1200 },
-    { name: "UVリキッド ミュー コール", price: 3300, p6: 1200, p7: 2600 },
-    { name: "ボディソープ ポネージュ", price: 2700, p6: 2300, p7: 2300 },
-    { name: "フローラ バイオシールド ミストウォーター", price: 3700, p6: 1300, p7: 3000 },
-    { name: "フローラ バイオシールド ボディソープ", price: 3200, p6: 1000, p7: 2500 },
-    { name: "フローラ バイオシールド シャンプー", price: 3200, p6: 2500, p7: 1000 },
-    { name: "フローラ バイオシールド トリートメント", price: 3200, p6: 2500, p7: 1000 },
-    { name: "フローラ バイオシールド ヘアマスク", price: 3200, p6: 2500, p7: 1000 },
-    { name: "フローラ バイオシールド スカルプトナー", price: 9200, p6: 3200, p7: 7500 },
-    { name: "クレオ デンタルクリーン", price: 2200, p6: 700, p7: 700 },
-    { name: "クレオ マウスウォッシュ", price: 3200, p6: 1000, p7: 1000 },
-    { name: "アロマオイル インフィニティヴェルサイユローズ", price: 8700, p6: 3000, p7: 3000 },
-    { name: "サンテアージュOX-288 ゼウス2026", price: 17800, p6: 13000, p7: 13000 },
-    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, p6: 4000, p7: 4000 },
-    { name: "ゼウス オードゥ パルファン 2026", price: 21000, p6: 16000, p7: 16000 }
-];
+// 1. スプレッドシートからエクスポートしたCSVのURL（ウェブに公開したURL）
+const SPREADSHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT17XvD73VwGz_P4S0w4B01T2ZIn3u2M5bU_xH6Q_g5F5GzY_L3vY4n9X4zD5Xz6x8B5b7c7d7e7f7/pub?output=csv"; 
+// ※上記URLはダミーです。実際の手順で取得した「ウェブに公開」のCSV用URLに差し替えてください。
 
-let positionCount = 0;
-let registeredMembers = [];
+// 商品データを格納する配列
+let products = [];
 
-window.onload = function() {
-    if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
-    if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
-    if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
-    if(localStorage.getItem('ship_tel')) document.getElementById('ship_tel').value = localStorage.getItem('ship_tel');
-    if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
-    if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
-    
-    togglePwField();
-
-    const savedMembers = localStorage.getItem('registered_members');
-    if (savedMembers) {
-        registeredMembers = JSON.parse(savedMembers);
-        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
-    } else {
-        addMemberRegisterRow('', '');
-    }
-
-    addPositionBox();
-};
-
-function saveBasicInfo() {
-    localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
-    localStorage.setItem('ship_name', document.getElementById('ship_name').value);
-    localStorage.setItem('ship_address', document.getElementById('ship_address').value);
-    localStorage.setItem('ship_tel', document.getElementById('ship_tel').value);
-    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
-    localStorage.setItem('pw_code', document.getElementById('pw_code').value);
-}
-
-function togglePwField() {
-    const payMethod = document.getElementById('payment_method').value;
-    const pwContainer = document.getElementById('pw_container');
-    if (payMethod === 'クレジットカード') {
-        pwContainer.style.display = 'block';
-    } else {
-        pwContainer.style.display = 'none';
-        document.getElementById('pw_code').value = ''; 
-    }
-}
-
-function addMemberRegisterRow(code = '', name = '') {
-    const container = document.getElementById('member_register_container');
-    const row = document.createElement('div');
-    row.className = 'member-reg-row';
-    row.innerHTML = `
-        <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
-        <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
-        <button class="btn btn-danger" style="padding:10px;" onclick="removeMemberRegisterRow(this)">✕</button>
-    `;
-    container.appendChild(row);
-}
-
-function removeMemberRegisterRow(btn) {
-    btn.parentElement.remove();
-    saveMembers();
-}
-
-function saveMembers() {
-    const rows = document.querySelectorAll('.member-reg-row');
-    registeredMembers = [];
-    rows.forEach(row => {
-        const code = row.querySelector('.reg-code').value.trim();
-        const name = row.querySelector('.reg-name').value.trim();
-        if(code || name) {
-            registeredMembers.push({ code, name });
-        }
-    });
-    localStorage.setItem('registered_members', JSON.stringify(registeredMembers));
-    
-    document.querySelectorAll('.pos-select').forEach(select => {
-        const currentVal = select.value;
-        refreshMemberOptions(select);
-        select.value = currentVal;
-    });
-    updatePreview();
-}
-
-function refreshMemberOptions(selectElement) {
-    let options = '<option value="">-- 会員リストから選択 --</option>';
-    registeredMembers.forEach((m, idx) => {
-        options += `<option value="${idx}">${m.code} ${m.name}</option>`;
-    });
-    selectElement.innerHTML = options;
-}
-
-function onSelectMember(posId) {
-    const select = document.getElementById(`pos_select_${posId}`);
-    const codeInput = document.getElementById(`pos_code_${posId}`);
-    const nameInput = document.getElementById(`pos_name_${posId}`);
-    
-    const selectedIdx = select.value;
-    if (selectedIdx !== "") {
-        const member = registeredMembers[selectedIdx];
-        codeInput.value = member.code;
-        nameInput.value = member.name;
-    }
-    updatePreview();
-}
-
-function toggleCustomPos(posId) {
-    const pSel = document.getElementById(`pos_num_select_${posId}`);
-    const customContainer = document.getElementById(`custom_pos_container_${posId}`);
-    if (pSel.value === 'custom') {
-        customContainer.style.display = 'block';
-    } else {
-        customContainer.style.display = 'none';
-        document.getElementById(`pos_custom_num_${posId}`).value = '';
-    }
-    updatePreview();
-}
-
-function addPositionBox() {
-    positionCount++;
-    const container = document.getElementById('positions_container');
-    const box = document.createElement('div');
-    box.className = 'position-box';
-    box.id = `position_box_${positionCount}`;
-    
-    box.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong style="font-size:14px; color:#555;">ポジション #${positionCount}</strong>
-            ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
-        </div>
-        <div class="form-group">
-            <label>会員リストから選ぶ</label>
-            <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
-        </div>
+// スプレッドシートからデータを取得する関数
+async function fetchProducts() {
+    try {
+        const response = await fetch(SPREADSHEET_CSV_URL);
+        const csvText = await response.text();
         
-        <div class="form-row">
-            <div class="form-group" style="flex: 1.2;">
-                <label>会員番号</label>
-                <input type="text" id="pos_code_${positionCount}" placeholder="例：1267505" oninput="updatePreview()">
-            </div>
-            <div class="form-group" style="flex: 0.8;">
-                <label>ポジション</label>
-                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
-                    <option value="00">00</option>
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="custom">その他</option>
-                </select>
-            </div>
-            <div class="form-group" style="flex: 1.5;">
-                <label>会員名</label>
-                <input type="text" id="pos_name_${positionCount}" placeholder="例：山田太郎" oninput="updatePreview()">
-            </div>
-        </div>
-
-        <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
-            <label>その他のポジション（手入力）</label>
-            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
-        </div>
-
-        <div class="form-group">
-            <label>購入商品</label>
-            <div class="items-list" id="items_list_${positionCount}"></div>
-            <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
-        </div>
-        <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
-    `;
-    container.appendChild(box);
-    
-    const newSelect = document.getElementById(`pos_select_${positionCount}`);
-    refreshMemberOptions(newSelect);
-    addItemRow(positionCount);
-    updatePreview();
-}
-
-function removePositionBox(id) {
-    document.getElementById(`position_box_${id}`).remove();
-    updatePreview();
-}
-
-function addItemRow(posId) {
-    const list = document.getElementById(`items_list_${posId}`);
-    const row = document.createElement('div');
-    row.className = 'item-row';
-    
-    let options = '<option value="">-- 商品を選択 --</option>';
-    products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
-    });
-
-    row.innerHTML = `
-        <select class="item-select" onchange="updatePreview()">${options}</select>
-        <input type="number" class="item-qty" value="1" min="1" oninput="updatePreview()"> 個
-    `;
-    list.appendChild(row);
-}
-
-function calculateAll() {
-    const month = document.getElementById('target_month').value;
-    const positionBoxes = document.querySelectorAll('.position-box');
-    
-    let grandTotalQty = 0;
-    let grandTotalPrice = 0;
-    let grandTotalPt = 0;
-    
-    let positionsData = [];
-
-    positionBoxes.forEach((box) => {
-        const boxId = box.id.replace('position_box_', '');
+        // CSVを行ごとに分割してパース
+        const rows = csvText.split('\n').map(row => row.split(','));
         
-        const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
-        const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
-        
-        const numSel = document.getElementById(`pos_num_select_${boxId}`).value;
-        let suffix = numSel;
-        if (numSel === 'custom') {
-            suffix = document.getElementById(`pos_custom_num_${boxId}`).value.trim();
-        }
-
-        let posCode = rawCode;
-        if (rawCode && suffix) {
-            posCode = `${rawCode}-${suffix}`;
-        }
-
-        const posInfo = (posCode || posName) ? `${posCode} ${posName}`.trim() : "";
-
-        const rows = box.querySelectorAll('.item-row');
-        
-        let posQty = 0;
-        let posPrice = 0;
-        let posPt = 0;
-        let posItemsText = "";
-
-        rows.forEach(row => {
-            const pIndex = row.querySelector('.item-select').value;
-            const qty = parseInt(row.querySelector('.item-qty').value) || 0;
-            
-            if(pIndex !== "") {
-                const prod = products[pIndex];
-                const pt = (month === "6月度") ? prod.p6 : prod.p7;
-                
-                const subPrice = prod.price * qty;
-                const subPt = pt * qty;
-
-                posQty += qty;
-                posPrice += subPrice;
-                posPt += subPt;
-
-                posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
-            }
+        // 1行目のヘッダーを除外してループ処理
+        products = rows.slice(1).filter(row => row.length >= 4 && row[0].trim() !== "").map(row => {
+            return {
+                name: row[0].trim(),
+                price: parseInt(row[1]) || 0,
+                // スプレッドシート4列目（7月度ポイント）を取得
+                points: parseInt(row[3]) || 0 
+            };
         });
 
-        const subtotalDiv = document.getElementById(`pos_subtotal_${boxId}`);
-        if (subtotalDiv) {
-            subtotalDiv.innerText = `小計: ${posQty}点 ${posPrice.toLocaleString()}円 (${posPt.toLocaleString()}pt)`;
-        }
+        // 最初の1行目を初期配置
+        addItemRow();
+    } catch (error) {
+        console.error("スプレッドシートの読み込みに失敗しました。フォールバックデータを使用します:", error);
+        // 通信エラー時のバックアップ用データ
+        products = [
+            { name: "OX-288", price: 13800, points: 10000 },
+            { name: "ハイプロリーナ", price: 7200, points: 6000 }
+        ];
+        addItemRow();
+    }
+}
 
-        if(posInfo && posItemsText) {
-            positionsData.push({
-                info: posInfo,
-                itemsText: posItemsText,
-                qty: posQty,
-                price: posPrice,
-                pt: posPt
-            });
+// 商品行を追加する関数
+function addItemRow() {
+    const container = document.getElementById('itemsContainer');
+    const rowIndex = container.children.length;
+    
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    row.id = `itemRow_${rowIndex}`;
+    
+    // 商品選択プルダウンの作成
+    let optionsHtml = '<option value="">商品を選択してください</option>';
+    products.forEach((prod, idx) => {
+        // プルダウンの表示に（価格 / ポイント）を反映
+        optionsHtml += `<option value="${idx}">${prod.name} (${prod.price.toLocaleString()}円 / ${prod.points.toLocaleString()}pt)</option>`;
+    });
+    
+    row.innerHTML = `
+        <div class="form-group" style="flex: 2;">
+            <label>商品名</label>
+            <select class="product-select" onchange="updateCalculations()">${optionsHtml}</select>
+        </div>
+        <div class="form-group" style="flex: 1;">
+            <label>数量</label>
+            <input type="text" class="product-qty" value="1" style="text-align: center;" oninput="updateCalculations()">
+        </div>
+        <button type="button" class="btn-danger" onclick="removeItemRow(${rowIndex})" style="padding: 10px;">削除</button>
+    `;
+    
+    container.appendChild(row);
+    updateCalculations();
+}
+
+// 商品行を削除する関数
+function removeItemRow(index) {
+    const container = document.getElementById('itemsContainer');
+    if (container.children.length > 1) {
+        const row = document.getElementById(`itemRow_${index}`);
+        row.remove();
+        updateCalculations();
+    } else {
+        alert("これ以上削除できません。");
+    }
+}
+
+// 入力内容からテキストおよび合計金額・ポイントを自動計算して反映する関数
+function updateCalculations() {
+    const salonName = document.getElementById('salonName').value;
+    const ordererName = document.getElementById('ordererName').value;
+    const shippingType = document.getElementById('shippingType').value;
+    const paymentType = document.getElementById('paymentType').value;
+    
+    let itemsText = "";
+    let totalPrice = 0;
+    let totalPoints = 0;
+    
+    const rows = document.querySelectorAll('.item-row');
+    rows.forEach(row => {
+        const select = row.querySelector('.product-select');
+        const qtyInput = row.querySelector('.product-qty');
+        
+        const productIndex = select.value;
+        const qty = parseInt(qtyInput.value) || 0;
+        
+        if (productIndex !== "" && qty > 0) {
+            const prod = products[productIndex];
+            const itemPrice = prod.price * qty;
+            const itemPoints = prod.points * qty;
             
-            grandTotalQty += posQty;
-            grandTotalPrice += posPrice;
-            grandTotalPt += posPt;
+            totalPrice += itemPrice;
+            totalPoints += itemPoints;
+            
+            itemsText += `・${prod.name} × ${qty}（単価: ${prod.price.toLocaleString()}円 / ${prod.points.toLocaleString()}pt）\n`;
         }
     });
-
-    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt };
+    
+    // 出力用テキストの組み立て
+    let output = `【サロン注文書】\n`;
+    output += `---------------------------\n`;
+    output += `■ サロン名：${salonName || "未入力"}\n`;
+    output += `■ 注文者氏名：${ordererName || "未入力"}\n`;
+    output += `■ 発送方法：${shippingType}\n`;
+    output += `■ 支払方法：${paymentType}\n`;
+    output += `---------------------------\n`;
+    output += `■ 注文商品：\n${itemsText || "（商品が選択されていません）\n"}`;
+    output += `---------------------------\n`;
+    output += `■ 合計金額：${totalPrice.toLocaleString()} 円（税込）\n`;
+    output += `■ 合計ポイント：${totalPoints.toLocaleString()} pt\n`;
+    
+    document.getElementById('outputText').value = output;
 }
 
-function generateText() {
-    const shipZip = document.getElementById('ship_zip').value;
-    const shipName = document.getElementById('ship_name').value;
-    const shipAddr = document.getElementById('ship_address').value;
-    const shipTel = document.getElementById('ship_tel').value;
-    
-    const payment = document.getElementById('payment_method').value;
-    const pw = document.getElementById('pw_code').value;
-    const month = document.getElementById('target_month').value;
-    
-    const today = new Date();
-    const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
-
-    const data = calculateAll();
-
-    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
-    
-    if(payment) {
-        if(payment === 'クレジットカード' && pw) {
-            text += `クレジットカード決済 (PW: ${pw})\n`;
-        } else {
-            text += `${payment}決済\n`;
-        }
-    }
-    text += `\n`;
-
-    data.positionsData.forEach(pos => {
-        text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
-        text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
-    });
-
-    text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
-    
-    if(shipZip || shipName || shipAddr || shipTel) {
-        text += `\n(送付先)\n`;
-        if(shipZip) text += `〒${shipZip}\n`;
-        if(shipAddr) text += `${shipAddr}\n`;
-        if(shipName) text += `${shipName} 様\n`;
-        if(shipTel) text += `TEL: ${shipTel}\n`;
-    }
-
-    return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
-}
-
-function updatePreview() {
-    const result = generateText();
-    document.getElementById('total_summary_text').innerText = `合計 ${result.grandTotalQty}点 ${result.grandTotalPrice.toLocaleString()}円 (${result.grandTotalPt.toLocaleString()}pt)`;
-}
-
+// クリップボードにコピーする関数
 function copyToClipboard() {
-    const result = generateText();
-    navigator.clipboard.writeText(result.text).then(() => {
-        alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
-    }).catch(err => {
-        alert("コピーに失敗しました。お手数ですが画面の文字を手動でコピーしてください。");
-    });
+    const outputText = document.getElementById('outputText');
+    outputText.select();
+    document.execCommand('copy');
+    
+    const toast = document.getElementById('toast');
+    toast.className = "toast show";
+    setTimeout(() => { toast.className = "toast"; }, 2000);
 }
+
+// 画面を開いた際に入力フォームの変更を検知できるようにイベントを設定
+document.getElementById('salonName').addEventListener('input', updateCalculations);
+document.getElementById('ordererName').addEventListener('input', updateCalculations);
+document.getElementById('shippingType').addEventListener('change', updateCalculations);
+document.getElementById('paymentType').addEventListener('change', updateCalculations);
+
+// ページ読み込み開始時にスプレッドシートのデータをフェッチ
+window.addEventListener('DOMContentLoaded', () => {
+    fetchProducts();
+});
 </script>
+
 </body>
 </html>
