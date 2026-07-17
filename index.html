@@ -26,6 +26,7 @@
         .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
         .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
         .hidden-pw { display: none; }
+        .hidden-custom-pos { display: none; }
     </style>
 </head>
 <body>
@@ -75,6 +76,7 @@
     <!-- 3. 会員リポジトリ登録エリア -->
     <div class="card">
         <h3>3. 会員番号・名義の事前登録（複数可）</h3>
+        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号はハイフン前の番号（例：1267505）を登録してください</p>
         <div id="member_register_container"></div>
         <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
     </div>
@@ -108,7 +110,7 @@ const products = [
     { name: "サンテアージュOX-288〈追加購入>", price: 13800, p6: 10000, p7: 10000 },
     { name: "サンテアージュ0X-288・ゼリー", price: 14200, p6: 10000, p7: 10000 },
     { name: "サンテアージュ ボアソン", price: 10800, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ ハイプロリーナ", price: 7200, p6: 4000, p7: 6000 }, // 7月UP
+    { name: "サンテアージュ ハイプロリーナ", price: 7200, p6: 4000, p7: 6000 },
     { name: "アルピニスト スラージュ", price: 4000, p6: 2800, p7: 1400 },
     { name: "アルピニスト グロウジェルクリーム", price: 9800, p6: 3600, p7: 3600 },
     { name: "O・M・Cプロテイン", price: 6000, p6: 5000, p7: 2000 },
@@ -116,16 +118,16 @@ const products = [
     { name: "モンコパン ジュレ", price: 3500, p6: 1200, p7: 2800 },
     { name: "サヴォン アンベリール・120g", price: 5200, p6: 4300, p7: 1800 },
     { name: "サヴォン アンベリール・70g", price: 3500, p6: 2900, p7: 1200 },
-    { name: "サヴォン アンベリール ブランシュール・150g", price: 12200, p6: 6000, p7: 10500 }, // 7月UP
-    { name: "サヴォン アンベリール ブランシュール・80g", price: 6800, p6: 2400, p7: 5800 }, // 7月UP
+    { name: "サヴォン アンベリール ブランシュール・150g", price: 12200, p6: 6000, p7: 10500 },
+    { name: "サヴォン アンベリール ブランシュール・80g", price: 6800, p6: 2400, p7: 5800 },
     { name: "デマキヤン アセニール", price: 4100, p6: 1500, p7: 1500 },
     { name: "アクティアージュ プレシャス+", price: 3600, p6: 3000, p7: 1300 },
     { name: "アクティアージュ エフェクティブ+", price: 6400, p6: 5400, p7: 2300 },
     { name: "アクティアージュ パスティーク+", price: 4800, p6: 4000, p7: 1700 },
     { name: "ヴィブラン ローション プリュス", price: 3600, p6: 1300, p7: 3000 },
-    { name: "ヴィブラン セラム プリュス", price: 6400, p6: 2300, p7: 5400 }, // 7月UP
+    { name: "ヴィブラン セラム プリュス", price: 6400, p6: 2300, p7: 5400 },
     { name: "ヴィブラン ジェル プリュス", price: 4800, p6: 1700, p7: 4000 },
-    { name: "ヴィブラン グルナードゥ", price: 32000, p6: 20000, p7: 26000 }, // 7月UP
+    { name: "ヴィブラン グルナードゥ", price: 32000, p6: 20000, p7: 26000 },
     { name: "ゼログラビティ リペアセラム", price: 14800, p6: 5200, p7: 15000 },
     { name: "ゼログラビティ リペアクリーム", price: 18700, p6: 15000, p7: 6600 },
     { name: "クリーム レボリューション B-1789", price: 17200, p6: 9000, p7: 9000 },
@@ -189,7 +191,7 @@ function togglePwField() {
         pwContainer.style.display = 'block';
     } else {
         pwContainer.style.display = 'none';
-        document.getElementById('pw_code').value = ''; // クレカ以外ならPWをクリア
+        document.getElementById('pw_code').value = ''; 
     }
 }
 
@@ -198,7 +200,7 @@ function addMemberRegisterRow(code = '', name = '') {
     const row = document.createElement('div');
     row.className = 'member-reg-row';
     row.innerHTML = `
-        <input type="text" class="reg-code" placeholder="例：1234567-00" value="${code}" oninput="saveMembers()">
+        <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
         <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
         <button class="btn btn-danger" style="padding:10px;" onclick="removeMemberRegisterRow(this)">✕</button>
     `;
@@ -214,8 +216,8 @@ function saveMembers() {
     const rows = document.querySelectorAll('.member-reg-row');
     registeredMembers = [];
     rows.forEach(row => {
-        const code = row.querySelector('.reg-code').value;
-        const name = row.querySelector('.reg-name').value;
+        const code = row.querySelector('.reg-code').value.trim();
+        const name = row.querySelector('.reg-name').value.trim();
         if(code || name) {
             registeredMembers.push({ code, name });
         }
@@ -231,11 +233,37 @@ function saveMembers() {
 }
 
 function refreshMemberOptions(selectElement) {
-    let options = '<option value="">-- 会員番号を選択 --</option>';
-    registeredMembers.forEach(m => {
-        options += `<option value="${m.code} ${m.name}">${m.code} ${m.name}</option>`;
+    let options = '<option value="">-- 会員リストから選択 --</option>';
+    registeredMembers.forEach((m, idx) => {
+        options += `<option value="${idx}">${m.code} ${m.name}</option>`;
     });
     selectElement.innerHTML = options;
+}
+
+function onSelectMember(posId) {
+    const select = document.getElementById(`pos_select_${posId}`);
+    const codeInput = document.getElementById(`pos_code_${posId}`);
+    const nameInput = document.getElementById(`pos_name_${posId}`);
+    
+    const selectedIdx = select.value;
+    if (selectedIdx !== "") {
+        const member = registeredMembers[selectedIdx];
+        codeInput.value = member.code;
+        nameInput.value = member.name;
+    }
+    updatePreview();
+}
+
+function toggleCustomPos(posId) {
+    const pSel = document.getElementById(`pos_num_select_${posId}`);
+    const customContainer = document.getElementById(`custom_pos_container_${posId}`);
+    if (pSel.value === 'custom') {
+        customContainer.style.display = 'block';
+    } else {
+        customContainer.style.display = 'none';
+        document.getElementById(`pos_custom_num_${posId}`).value = '';
+    }
+    updatePreview();
 }
 
 function addPositionBox() {
@@ -251,9 +279,38 @@ function addPositionBox() {
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
-            <label>会員を選択</label>
-            <select class="pos-select" onchange="updatePreview()"></select>
+            <label>会員リストから選ぶ</label>
+            <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
         </div>
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 1.2;">
+                <label>会員番号</label>
+                <input type="text" id="pos_code_${positionCount}" placeholder="例：1234567" oninput="updatePreview()">
+            </div>
+            <div class="form-group" style="flex: 0.8;">
+                <label>最後2桁</label>
+                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount})">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="custom">その他</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex: 1.5;">
+                <label>会員名</label>
+                <input type="text" id="pos_name_${positionCount}" placeholder="例：山田太郎" oninput="updatePreview()">
+            </div>
+        </div>
+
+        <div class="form-group hidden-custom-pos" id="custom_pos_container_${positionCount}">
+            <label>その他の最後2桁（手入力）</label>
+            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
+        </div>
+
         <div class="form-group">
             <label>購入商品</label>
             <div class="items-list" id="items_list_${positionCount}"></div>
@@ -263,7 +320,7 @@ function addPositionBox() {
     `;
     container.appendChild(box);
     
-    const newSelect = box.querySelector('.pos-select');
+    const newSelect = document.getElementById(`pos_select_${positionCount}`);
     refreshMemberOptions(newSelect);
     addItemRow(positionCount);
 }
@@ -280,7 +337,7 @@ function addItemRow(posId) {
     
     let options = '<option value="">-- 商品を選択 --</option>';
     products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>';
     });
 
     row.innerHTML = `
@@ -302,7 +359,26 @@ function calculateAll() {
 
     positionBoxes.forEach((box) => {
         const boxId = box.id.replace('position_box_', '');
-        const posInfo = box.querySelector('.pos-select').value;
+        
+        // 会員番号、お名前
+        const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
+        const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
+        
+        // 最後2桁の判定
+        const numSel = document.getElementById(`pos_num_select_${boxId}`).value;
+        let suffix = numSel;
+        if (numSel === 'custom') {
+            suffix = document.getElementById(`pos_custom_num_${boxId}`).value.trim();
+        }
+
+        // 会員番号と最後2桁をハイフンで合体
+        let posCode = rawCode;
+        if (rawCode && suffix) {
+            posCode = `${rawCode}-${suffix}`;
+        }
+
+        const posInfo = (posCode || posName) ? `${posCode} ${posName}`.trim() : "";
+
         const rows = box.querySelectorAll('.item-row');
         
         let posQty = 0;
@@ -369,7 +445,6 @@ function generateText() {
 
     let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
     
-    // 決済とPWの出力
     if(payment) {
         if(payment === 'クレジットカード' && pw) {
             text += `クレジットカード決済 (PW: ${pw})\n`;
@@ -386,7 +461,6 @@ function generateText() {
 
     text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
     
-    // お届け先の出力
     if(shipZip || shipName || shipAddr || shipTel) {
         text += `\n(送付先)\n`;
         if(shipZip) text += `〒${shipZip}\n`;
