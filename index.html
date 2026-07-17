@@ -84,7 +84,7 @@
     <!-- 4. 月度選択 -->
     <div class="card">
         <h3>4. 処理月度の選択</h3>
-        <select id="target_month" onchange="updatePreview();">
+        <select id="target_month" onchange="updateAllSelectMenus(); updatePreview();">
             <option value="6月度">6月度</option>
             <option value="7月度" selected>7月度</option>
         </select>
@@ -104,41 +104,41 @@
     </div>
 
 <script>
-// 商品データマスター（スプレッドシートの最新データに書き換え済み）
+// 商品データマスター（スプレッドシートから正確に転記済み）
 const products = [
-    { name: "サンテアージュOX-288", price: 15120, p6: 10000, p7: 10000 },
-    { name: "サンテアージュOX-288〈追加購入>", price: 12000, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ0X-288・ゼリー", price: 15550, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ ボアソン", price: 11880, p6: 10000, p7: 10000 },
-    { name: "サンテアージュ ハイプロリーナ", price: 7770, p6: 4000, p7: 6000 },
-    { name: "アルピニスト スラージュ", price: 4320, p6: 2800, p7: 1400 },
-    { name: "アルピニスト グロウジェルクリーム", price: 10580, p6: 3600, p7: 3600 },
-    { name: "O・M・Cプロテイン", price: 6480, p6: 5000, p7: 2000 },
-    { name: "モンコパン", price: 3780, p6: 1200, p7: 2800 },
-    { name: "モンコパン ジュレ", price: 3780, p6: 1200, p7: 2800 },
-    { name: "サヴォン アンベリール・120g", price: 5610, p6: 4300, p7: 1800 },
-    { name: "サヴォン アンベリール・70g", price: 3780, p6: 2900, p7: 1200 },
-    { name: "サヴォン アンベリール ブランシュール・150g", price: 13170, p6: 6000, p7: 10500 },
-    { name: "サヴォン アンベリール ブランシュール・80g", price: 7340, p6: 2400, p7: 5800 },
-    { name: "デマキヤン アセニール", price: 4420, p6: 1500, p7: 1500 },
-    { name: "アクティアージュ プレシャス+", price: 3880, p6: 3000, p7: 1300 },
-    { name: "アクティアージュ エフェクティブ+", price: 6910, p6: 5400, p7: 2300 },
-    { name: "アクティアージュ パスティーク+", price: 5180, p6: 4000, p7: 1700 },
-    { name: "ヴィブラン ローション プリュス", price: 3880, p6: 1300, p7: 3000 },
-    { name: "ヴィブラン セラム プリュス", price: 6910, p6: 2300, p7: 5400 },
-    { name: "ヴィブラン ジェル プリュス", price: 5180, p6: 1700, p7: 4000 },
-    { name: "ヴィブラン グルナードゥ", price: 34560, p6: 20000, p7: 26000 },
-    { name: "ゼログラビティ リペアセラム", price: 15980, p6: 5200, p7: 15000 },
-    { name: "ゼログラビティ リペアクリーム", price: 20190, p6: 15000, p7: 6600 },
-    { name: "クリーム レボリューション B-1789", price: 18570, p6: 9000, p7: 9000 },
-    { name: "オヴィ ハンドモイスチャー", price: 2370, p6: 700, p7: 700 },
-    { name: "オヴィ リップセラム", price: 2160, p6: 600, p7: 600 },
-    { name: "オヴィ ボディミルク", price: 3450, p6: 1000, p7: 1000 },
-    { name: "UVリキッド ミュー ヴィサージュ", price: 3560, p6: 1200, p7: 1200 },
-    { name: "UVリキッド ミュー コール", price: 3560, p6: 1200, p7: 2600 },
-    { name: "ボディソープ ポネージュ", price: 2910, p6: 2300, p7: 2300 },
-    { name: "フローラ バイオシールド ミストウォーター", price: 3990, p6: 1300, p7: 3000 },
-    { name: "フローラ バイオシールド ボディソープ", price: 3450, p6: 1000, p7: 2500 }
+    { name: "サンテアージュOX-288", price: 13800, p6: 10000, p7: 10000 },
+    { name: "サンテアージュOX-288〈追加購入>", price: 13800, p6: 10000, p7: 10000 },
+    { name: "サンテアージュ0X-288・ゼリー", price: 14200, p6: 10000, p7: 10000 },
+    { name: "サンテアージュ ボアソン", price: 10800, p6: 10000, p7: 10000 },
+    { name: "サンテアージュ ハイプロリーナ", price: 7200, p6: 4000, p7: 6000 },
+    { name: "アルピニスト スラージュ", price: 4000, p6: 2800, p7: 1400 },
+    { name: "アルピニスト グロウジェルクリーム", price: 9800, p6: 3600, p7: 3600 },
+    { name: "O・M・Cプロテイン", price: 6000, p6: 5000, p7: 2000 },
+    { name: "モンコパン", price: 3500, p6: 1200, p7: 2800 },
+    { name: "モンコパン ジュレ", price: 3500, p6: 1200, p7: 2800 },
+    { name: "サヴォン アンベリール・120g", price: 5200, p6: 4300, p7: 1800 },
+    { name: "サヴォン アンベリール・70g", price: 3500, p6: 2900, p7: 1200 },
+    { name: "サヴォン アンベリール ブブランシュール・150g", price: 12200, p6: 6000, p7: 10500 },
+    { name: "サヴォン アンベリール ブブランシュール・80g", price: 6800, p6: 2400, p7: 5800 },
+    { name: "デマキヤン アセニール", price: 4100, p6: 1500, p7: 1500 },
+    { name: "アクティアージュ プレシャス+", price: 3600, p6: 3000, p7: 1300 },
+    { name: "アクティアージュ エフェクティブ+", price: 6400, p6: 5400, p7: 2300 },
+    { name: "アクティアージュ パスティーク+", price: 4800, p6: 4000, p7: 1700 },
+    { name: "ヴィブラン ローション プリュス", price: 3600, p6: 1300, p7: 3000 },
+    { name: "ヴィブラン セラム プリュス", price: 6400, p6: 2300, p7: 5400 },
+    { name: "ヴィブラン ジェル プリュス", price: 4800, p6: 1700, p7: 4000 },
+    { name: "ヴィブラン グルナードゥ", price: 32000, p6: 20000, p7: 26000 },
+    { name: "ゼログラビティ リペアセラム", price: 14800, p6: 5200, p7: 15000 },
+    { name: "ゼログラビティ リペアクリーム", price: 18700, p6: 15000, p7: 6600 },
+    { name: "クリーム レボリューション B-1789", price: 17200, p6: 9000, p7: 9000 },
+    { name: "オヴィ ハンドモイスチャー", price: 2200, p6: 700, p7: 700 },
+    { name: "オヴィ リップセラム", price: 2000, p6: 600, p7: 600 },
+    { name: "オヴィ ボディミルク", price: 3200, p6: 1000, p7: 1000 },
+    { name: "UVリキッド ミュー ヴィサージュ", price: 3300, p6: 1200, p7: 1200 },
+    { name: "UVリキッド ミュー コール", price: 3300, p6: 1200, p7: 2600 },
+    { name: "ボディソープ ポネージュ", price: 2700, p6: 2300, p7: 2300 },
+    { name: "フローラ バイオシールド ミストウォーター", price: 3700, p6: 1300, p7: 3000 },
+    { name: "フローラ バイオシールド ボディソープ", price: 3200, p6: 1000, p7: 2500 }
 ];
 
 let positionCount = 0;
@@ -321,15 +321,31 @@ function removePositionBox(id) {
     updatePreview();
 }
 
+function buildProductOptionsHtml() {
+    const month = document.getElementById('target_month').value;
+    let options = '<option value="">-- 商品を選択 --</option>';
+    products.forEach((p, index) => {
+        const pt = (month === "6月度") ? p.p6 : p.p7;
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${pt.toLocaleString()}pt)</option>`;
+    });
+    return options;
+}
+
+function updateAllSelectMenus() {
+    const newOptionsHtml = buildProductOptionsHtml();
+    document.querySelectorAll('.item-select').forEach(select => {
+        const currentSelectedValue = select.value;
+        select.innerHTML = newOptionsHtml;
+        select.value = currentSelectedValue;
+    });
+}
+
 function addItemRow(posId) {
     const list = document.getElementById('items_list_' + posId);
     const row = document.createElement('div');
     row.className = 'item-row';
     
-    let options = '<option value="">-- 商品を選択 --</option>';
-    products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
-    });
+    let options = buildProductOptionsHtml();
 
     row.innerHTML = `
         <select class="item-select" onchange="updatePreview()">${options}</select>
