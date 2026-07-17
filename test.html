@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サロン専用注文書作成ツール</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; color: #333; padding-bottom: 180px; }
+        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
+        .form-group { margin-bottom: 12px; }
+        .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
+        .form-row .form-group { margin-bottom: 0; flex: 1; }
+        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
+        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        textarea { height: 60px; resize: vertical; }
+        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
+        .btn-secondary { background-color: #e5e5ea; color: #333; }
+        .btn-danger { background-color: #ff3b30; color: white; padding: 6px 10px; font-size: 12px; }
+        .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+        .item-select { flex: 2; }
+        .item-qty { flex: 1; min-width: 75px; }
+        .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
+        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
+        .total-preview { font-size: 14px; font-weight: bold; text-align: center; }
+        .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
+        .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
+        .hidden-pw { display: none; }
+        .custom-pos-container { display: none; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+    <h2>注文書作成ツール</h2>
+
+    <!-- 1. お届け先情報 -->
+    <div class="card">
+        <h3>1. お届け先情報</h3>
+        <div class="form-row">
+            <div class="form-group" style="flex: 0 0 120px;">
+                <label>郵便番号</label>
+                <input type="text" id="ship_zip" placeholder="例：123-4567" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+            <div class="form-group">
+                <label>お届け先氏名（宛名）</label>
+                <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>ご住所</label>
+            <input type="text" id="ship_address" placeholder="都道府県・市区町村・番地・マンション名" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+        <div class="form-group">
+            <label>電話番号</label>
+            <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+        <div class="form-group">
+            <label>備考</label>
+            <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+    </div>
+
+    <!-- 2. 決済方法 -->
+    <div class="card">
+        <h3>2. 決済方法</h3>
+        <div class="form-group">
+            <label>決済方法の選択</label>
+            <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
+                <option value="現金">現金</option>
+                <option value="PayPay">PayPay</option>
+                <option value="クレジットカード">クレジットカード</option>
+            </select>
+        </div>
+        <div class="form-group hidden-pw" id="pw_container">
+            <label>クレジットカード PW</label>
+            <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+    </div>
+
+    <!-- 3. 会員リポジトリ登録エリア -->
+    <div class="card">
+        <h3>3. 会員番号・名義の事前登録（複数可）</h3>
+        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号は下2桁以前の番号（00、01、02等のポジションは後に選択できます）を登録してください</p>
+        <div id="member_register_container"></div>
+        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
+    </div>
+
+    <!-- 4. 月度選択 -->
+    <div class="card">
+        <h3>4. 処理月度の選択</h3>
+        <select id="target_month" onchange="updatePreview();">
+            <option value="6月度">6月度</option>
+            <option value="7月度" selected>7月度</option>
+        </select>
+    </div>
+
+    <!-- 5. ポジション別注文 -->
+    <div class="card">
+        <h3>5. 会員番号ごとの注文</h3>
+        <div id="positions_container"></div>
+        <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
+    </div>
+
+    <!-- 固定下部バー -->
+    <div class="footer-bar">
+        <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
+        <button class="btn btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
+    </div>
+
+<script>
+// 新しい商品データマスター
+const products = [
+    { name: "OX-288", price: 13800, p6: 10000, p7: 10000 },
+    { name: "OX-288(追加購入)", price: 13800, p6: 10000, p7: 10000 },
+    { name: "OX-288 (ゼリータイプ)", price: 14200, p6: 10000, p7: 10000 },
+    { name: "ボアソン", price: 10800, p6: 10000, p7: 10000 },
+    { name: "ハイプロリーナ", price: 7200, p6: 4000, p7: 6000 },
+    { name: "OX-288 ゼウス 2026", price: 17800, p6: 13000, p7: 13000 },
+    { name: "アルピニスト スラージュ", price: 4000, p6: 2800, p7: 1400 },
+    { name: "O・M・C プロテイン", price: 6000, p6: 5000, p7: 2000 },
+    { name: "サヴォン アンベリール (120g)", price: 5200, p6: 4300, p7: 1800 },
+    { name: "サヴォン アンベリール (70g)", price: 3500, p6: 2900, p7: 1200 },
+    { name: "ブランシュール (150g)", price: 12200, p6: 6000, p7: 10500 },
+    { name: "ブランシュール (80g)", price: 6800, p6: 2400, p7: 5800 },
+    { name: "デマキヤン", price: 4100, p6: 1500, p7: 1500 },
+    { name: "赤化粧水", price: 3600, p6: 3000, p7: 1300 },
+    { name: "赤美容液", price: 6400, p6: 5400, p7: 2300 },
+    { name: "赤ジェル", price: 4800, p6: 4000, p7: 1700 },
+    { name: "白化粧水", price: 3600, p6: 1300, p7: 3000 },
+    { name: "白美容液", price: 6400, p6: 2300, p7: 5400 },
+    { name: "白ジェル", price: 4800, p6: 1700, p7: 4000 },
+    { name: "グルナードゥ", price: 32000, p6: 20000, p7: 26000 },
+    { name: "リペアセラム", price: 14800, p6: 5200, p7: 15000 },
+    { name: "リペアクリーム", price: 18700, p6: 15000, p7: 6600 },
+    { name: "レボリューション", price: 17200, p6: 9000, p7: 9000 },
+    { name: "グロウジェルクリーム", price: 9800, p6: 3600, p7: 3600 },
+    { name: "ハンドモイスチャー", price: 2200, p6: 700, p7: 700 },
+    { name: "リップセラム", price: 2000, p6: 600, p7: 600 },
+    { name: "ボディミルク", price: 3200, p6: 1000, p7: 1000 },
+    { name: "ヴィサージュ", price: 3300, p6: 1200, p7: 1200 },
+    { name: "コール", price: 3300, p6: 1200, p7: 2600 },
+    { name: "バイオミスト", price: 3700, p6: 1300, p7: 3000 },
+    { name: "ボディソープ", price: 3200, p6: 1000, p7: 2500 },
+    { name: "シャンプー", price: 3200, p6: 2500, p7: 1000 },
+    { name: "トリートメント", price: 3200, p6: 2500, p7: 1000 },
+    { name: "ヘアマスク", price: 3200, p6: 2500, p7: 1000 },
+    { name: "スカルプトナー", price: 9200, p6: 3200, p7: 7500 },
+    { name: "クレオ", price: 2200, p6: 700, p7: 700 },
+    { name: "マウスウォッシュ", price: 3200, p6: 1000, p7: 1000 },
+    { name: "アロマオイル(ローズ)", price: 8700, p6: 3000, p7: 3000 },
+    { name: "ゼウス オードゥ パルファン 2026", price: 21000, p6: 16000, p7: 16000 },
+    { name: "モンコパン", price: 3500, p6: 1200, p7: 2800 },
+    { name: "モンコパン ジュレ", price: 3500, p6: 1200, p7: 2800 }
+];
+let positionCount = 0;
+let registeredMembers = [];
+
+window.onload = function() {
+    if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
+    if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
+    if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
+    if(localStorage.getItem('ship_tel')) document.getElementById('ship_tel').value = localStorage.getItem('ship_tel');
+    if(localStorage.getItem('ship_note')) document.getElementById('ship_note').value = localStorage.getItem('ship_note');
+    if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
+    if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
+    
+    togglePwField();
+
+    const savedMembers = localStorage.getItem('registered_members');
+    if (savedMembers) {
+        registeredMembers = JSON.parse(savedMembers);
+        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
+    } else {
+        addMemberRegisterRow('', '');
+    }
+
+    addPositionBox();
+};
+
+function saveBasicInfo() {
+    localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
+    localStorage.setItem('ship_name', document.getElementById('ship_name').value);
+    localStorage.setItem('ship_address', document.getElementById('ship_address').value);
+    localStorage.setItem('ship_tel', document.getElementById('ship_tel').value);
+    localStorage.setItem('ship_note', document.getElementById('ship_note').value);
+    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
+    localStorage.setItem('pw_code', document.getElementById('pw_code').value);
+}
+
+function togglePwField() {
+    const payMethod = document.getElementById('payment_method').value;
+    const pwContainer = document.getElementById('pw_container');
+    if (payMethod === 'クレジットカード') {
+        pwContainer.style.display = 'block';
+    } else {
+        pwContainer.style.display = 'none';
+        document.getElementById('pw_code').value = ''; 
+    }
+}
+
+function addMemberRegisterRow(code = '', name = '') {
+    const container = document.getElementById('member_register_container');
+    const row = document.createElement('div');
+    row.className = 'member-reg-row';
+    row.innerHTML = `
+        <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
+        <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
+        <button class="btn btn-danger" style="padding:10px;" onclick="removeMemberRegisterRow(this)">✕</button>
+    `;
+    container.appendChild(row);
+}
+
+function removeMemberRegisterRow(btn) {
+    btn.parentElement.remove();
+    saveMembers();
+}
+
+function saveMembers() {
+    const rows = document.querySelectorAll('.member-reg-row');
+    registeredMembers = [];
+    rows.forEach(row => {
+        const code = row.querySelector('.reg-code').value.trim();
+        const name = row.querySelector('.reg-name').value.trim();
+        if(code || name) {
+            registeredMembers.push({ code, name });
+        }
+    });
+    localStorage.setItem('registered_members', JSON.stringify(registeredMembers));
+    
+    document.querySelectorAll('.pos-select').forEach(select => {
+        const currentVal = select.value;
+        refreshMemberOptions(select);
+        select.value = currentVal;
+    });
+    updatePreview();
+}
+
+function refreshMemberOptions(selectElement) {
+    let options = '<option value="">-- 会員リストから選択 --</option>';
+    registeredMembers.forEach((m, idx) => {
+        options += `<option value="${idx}">${m.code} ${m.name}</option>';
+    });
+    selectElement.innerHTML = options;
+}
+
+function onSelectMember(posId) {
+    const select = document.getElementById(`pos_select_${posId}`);
+    const codeInput = document.getElementById(`pos_code_${posId}`);
+    const nameInput = document.getElementById(`pos_name_${posId}`);
+    
+    const selectedIdx = select.value;
+    if (selectedIdx !== "") {
+        const member = registeredMembers[selectedIdx];
+        codeInput.value = member.code;
+        nameInput.value = member.name;
+    }
+    updatePreview();
+}
+
+function toggleCustomPos(posId) {
+    const pSel = document.getElementById(`pos_num_select_${posId}`);
+    const customContainer = document.getElementById(`custom_pos_container_${posId}`);
+    if (pSel.value === 'custom') {
+        customContainer.style.display = 'block';
+    } else {
+        customContainer.style.display = 'none';
+        document.getElementById(`pos_custom_num_${posId}`).value = '';
+    }
+    updatePreview();
+}
+
+function addPositionBox() {
+    positionCount++;
+    const container = document.getElementById('positions_container');
+    const box = document.createElement('div');
+    box.className = 'position-box';
+    box.id = `position_box_${positionCount}`;
+    
+    box.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <strong style="font-size:14px; color:#555;">ポジション #${positionCount}</strong>
+            ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
+        </div>
+        <div class="form-group">
+            <label>会員リストから選ぶ</label>
+            <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 1.2;">
+                <label>会員番号</label>
+                <input type="text" id="pos_code_${positionCount}" placeholder="例：1267505" oninput="updatePreview()">
+            </div>
+            <div class="form-group" style="flex: 0.8;">
+                <label>ポジション</label>
+                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="custom">その他</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex: 1.5;">
+                <label>会員名</label>
+                <input type="text" id="pos_name_${positionCount}" placeholder="例：山田太郎" oninput="updatePreview()">
+            </div>
+        </div>
+
+        <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
+            <label>その他のポジション（手入力）</label>
+            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
+        </div>
+
+        <div class="form-group">
+            <label>購入商品</label>
+            <div class="items-list" id="items_list_${positionCount}"></div>
+            <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+        </div>
+        <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
+    `;
+    container.appendChild(box);
+    
+    const newSelect = document.getElementById(`pos_select_${positionCount}`);
+    refreshMemberOptions(newSelect);
+    addItemRow(positionCount);
+    updatePreview();
+}
+
+function removePositionBox(id) {
+    document.getElementById(`position_box_${id}`).remove();
+    updatePreview();
+}
+
+function addItemRow(posId) {
+    const list = document.getElementById(`items_list_${posId}`);
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    
+    let options = '<option value="">-- 商品を選択 --</option>';
+    products.forEach((p, index) => {
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>';
+    });
+
+    // 1〜40個のプルダウン選択肢を作成
+    let qtyOptions = '';
+    for(let i=1; i<=40; i++) {
+        qtyOptions += `<option value="${i}">${i}</option>`;
+    }
+
+    row.innerHTML = `
+        <select class="item-select" onchange="updatePreview()">${options}</select>
+        <div class="item-qty-container">
+            <select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個
+        </div>
+    `;
+    list.appendChild(row);
+}
+
+function calculateAll() {
+    const month = document.getElementById('target_month').value;
+    const positionBoxes = document.querySelectorAll('.position-box');
+    
+    let grandTotalQty = 0;
+    let grandTotalPrice = 0;
+    let grandTotalPt = 0;
+    
+    let positionsData = [];
+
+    positionBoxes.forEach((box) => {
+        const boxId = box.id.replace('position_box_', '');
+        
+        const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
+        const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
+        
+        const numSel = document.getElementById(`pos_num_select_${boxId}`).value;
+        let suffix = numSel;
+        if (numSel === 'custom') {
+            suffix = document.getElementById(`pos_custom_num_${boxId}`).value.trim();
+        }
+
+        let posCode = rawCode;
+        if (rawCode && suffix) {
+            posCode = `${rawCode}-${suffix}`;
+        }
+
+        const posInfo = (posCode || posName) ? `${posCode} ${posName}`.trim() : "";
+
+        const rows = box.querySelectorAll('.item-row');
+        
+        let posQty = 0;
+        let posPrice = 0;
+        let posPt = 0;
+        let posItemsText = "";
+
+        rows.forEach(row => {
+            const pIndex = row.querySelector('.item-select').value;
+            const qty = parseInt(row.querySelector('.item-qty').value) || 0;
+            
+            if(pIndex !== "") {
+                const prod = products[pIndex];
+                const pt = (month === "6月度") ? prod.p6 : prod.p7;
+                
+                const subPrice = prod.price * qty;
+                const subPt = pt * qty;
+
+                posQty += qty;
+                posPrice += subPrice;
+                posPt += subPt;
+
+                posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
+            }
+        });
+
+        const subtotalDiv = document.getElementById(`pos_subtotal_${boxId}`);
+        if (subtotalDiv) {
+            subtotalDiv.innerText = `小計: ${posQty}点 ${posPrice.toLocaleString()}円 (${posPt.toLocaleString()}pt)`;
+        }
+
+        if(posInfo && posItemsText) {
+            positionsData.push({
+                info: posInfo,
+                itemsText: posItemsText,
+                qty: posQty,
+                price: posPrice,
+                pt: posPt
+            });
+            
+            grandTotalQty += posQty;
+            grandTotalPrice += posPrice;
+            grandTotalPt += posPt;
+        }
+    });
+
+    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt };
+}
+
+function generateText() {
+    const shipZip = document.getElementById('ship_zip').value;
+    const shipName = document.getElementById('ship_name').value;
+    const shipAddr = document.getElementById('ship_address').value;
+    const shipTel = document.getElementById('ship_tel').value;
+    const shipNote = document.getElementById('ship_note').value.trim();
+    
+    const payment = document.getElementById('payment_method').value;
+    const pw = document.getElementById('pw_code').value;
+    const month = document.getElementById('target_month').value;
+    
+    const today = new Date();
+    const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
+
+    const data = calculateAll();
+
+    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
+    
+    if(payment) {
+        if(payment === 'クレジットカード' && pw) {
+            text += `クレジットカード決済 (PW: ${pw})\n`;
+        } else {
+            text += `${payment}決済\n`;
+        }
+    }
+    text += `\n`;
+
+    data.positionsData.forEach(pos => {
+        text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
+        text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
+    });
+
+    text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
+    
+    if(shipZip || shipName || shipAddr || shipTel || shipNote) {
+        text += `\n(送付先)\n`;
+        if(shipZip) text += `〒${shipZip}\n`;
+        if(shipAddr) text += `${shipAddr}\n`;
+        if(shipName) text += `${shipName} 様\n`;
+        if(shipTel) text += `TEL: ${shipTel}\n`;
+        if(shipNote) text += `備考: ${shipNote}\n`;
+    }
+
+    return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
+}
+
+function updatePreview() {
+    const result = generateText();
+    document.getElementById('total_summary_text').innerText = `合計 ${result.grandTotalQty}点 ${result.grandTotalPrice.toLocaleString()}円 (${result.grandTotalPt.toLocaleString()}pt)`;
+}
+
+function copyToClipboard() {
+    const result = generateText();
+    navigator.clipboard.writeText(result.text).then(() => {
+        alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
+    }).catch(err => {
+        alert("コピーに失敗しました。お手数ですが画面の文字を手動でコピーしてください。");
+    });
+}
+</script>
+</body>
+</html>
+
