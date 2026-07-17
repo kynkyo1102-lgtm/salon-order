@@ -22,7 +22,7 @@
     <h2>注文依頼作成ツール</h2>
     <div class="card">
         <h3>必要事項等</h3>
-        <textarea id="notes" style="width:100%; height:80px;" placeholder="指定があればこちらに記入してください"></textarea>
+        <textarea id="notes" style="width:100%; height:80px;" placeholder="指定があればこちらに記入してください" oninput="saveNotes()"></textarea>
     </div>
     <div class="card">
         <h3>会員番号・名義の事前登録</h3>
@@ -39,7 +39,7 @@
     </div>
 
 <script>
-// 全43商品のデータを完全登録
+// 全43商品のデータ
 const products = [
     { name: "モンコパン", price: 3500, pt: 2800 },
     { name: "モンコパン ジュレ", price: 3500, pt: 2800 },
@@ -91,10 +91,75 @@ const posOptions = Array.from({length: 35}, (_, i) => {
     return `<option value="${val}">${val}</option>`;
 }).join('');
 
+// ページを開いた時に、保存されているデータを読み込む
+window.onload = function() {
+    // 必要事項等の読み込み
+    if (localStorage.getItem('notes')) {
+        document.getElementById('notes').value = localStorage.getItem('notes');
+    }
+    // 会員リストの読み込み
+    const savedMembers = localStorage.getItem('members');
+    if (savedMembers) {
+        const members = JSON.parse(savedMembers);
+        members.forEach(m => addMemberRow(m.code, m.name));
+    } else {
+        // 保存データがない場合は空の入力欄を1つ出す
+        addMemberRow();
+    }
+    // 最初の注文枠を1つ出す
+    addPositionBox();
+};
+
+// 必要事項等の保存
+function saveNotes() {
+    localStorage.setItem('notes', document.getElementById('notes').value);
+}
+
+// 会員リストの保存
+function saveMembers() {
+    const members = [];
+    document.querySelectorAll('.member-reg-row').forEach(row => {
+        const code = row.querySelector('.reg-code').value.trim();
+        const name = row.querySelector('.reg-name').value.trim();
+        if (code || name) {
+            members.push({ code, name });
+        }
+    });
+    localStorage.setItem('members', JSON.stringify(members));
+    
+    // 注文枠の「会員を選択」プルダウンをすべて最新情報に更新する
+    document.querySelectorAll('[id^="box_"]').forEach(box => {
+        const id = box.id.replace('box_', '');
+        updateMemberSelect(id);
+    });
+}
+
+// 注文枠内の「会員を選択」プルダウンメニューを更新
+function updateMemberSelect(id) {
+    const select = document.getElementById(`select_${id}`);
+    if (!select) return;
+    const currentVal = select.value; // 現在選択中の値を覚えておく
+    
+    let memOpts = '<option value="">-- 会員を選択 --</option>';
+    document.querySelectorAll('.member-reg-row').forEach((r, i) => {
+        const code = r.querySelector('.reg-code').value.trim();
+        const name = r.querySelector('.reg-name').value.trim();
+        if (code || name) {
+            memOpts += `<option value="${i}">${code} ${name}</option>`;
+        }
+    });
+    select.innerHTML = memOpts;
+    select.value = currentVal; // 元に戻す
+}
+
 function addMemberRow(c='', n='') {
     const row = document.createElement('div'); row.className = 'member-reg-row';
-    row.innerHTML = `<input type="text" class="reg-code" placeholder="会員番号" value="${c}"> <input type="text" class="reg-name" placeholder="会員名" value="${n}"> <button class="btn btn-danger" onclick="this.parentElement.remove()">X</button>`;
+    row.innerHTML = `
+        <input type="text" class="reg-code" placeholder="会員番号" value="${c}" oninput="saveMembers()"> 
+        <input type="text" class="reg-name" placeholder="会員名" value="${n}" oninput="saveMembers()"> 
+        <button class="btn btn-danger" onclick="this.parentElement.remove(); saveMembers();">X</button>`;
     document.getElementById('member_register_container').appendChild(row);
+    saveMembers();
 }
 
 function addPositionBox() {
@@ -103,14 +168,12 @@ function addPositionBox() {
     box.className = 'position-box';
     box.id = `box_${id}`;
     
-    let memOpts = '<option value="">-- 会員を選択 --</option>';
-    document.querySelectorAll('.member-reg-row').forEach((r, i) => {
-        memOpts += `<option value="${i}">${r.querySelector('.reg-code').value} ${r.querySelector('.reg-name').value}</option>`;
-    });
-
     box.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><strong>注文枠</strong><button class="btn btn-danger" onclick="document.getElementById('box_${id}').remove()">削除</button></div>
-        <select onchange="fillMember(this, ${id})" style="margin-bottom:10px;">${memOpts}</select>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <strong>注文枠</strong>
+            <button class="btn btn-danger" onclick="document.getElementById('box_${id}').remove()">削除</button>
+        </div>
+        <select id="select_${id}" onchange="fillMember(this, ${id})" style="margin-bottom:10px;"></select>
         <div style="display:flex; gap:5px; margin-bottom:10px;">
             <input type="text" id="code_${id}" placeholder="番号" style="flex:2;">
             <select id="pos_${id}" style="flex:1;">${posOptions}</select>
@@ -121,11 +184,13 @@ function addPositionBox() {
         <div id="sub_${id}" style="margin-top:10px; font-weight:bold; color:#007aff;">小計：0円 (0pt)</div>
     `;
     document.getElementById('positions_container').appendChild(box);
+    updateMemberSelect(id);
     addItem(id);
 }
 
 function fillMember(sel, id) {
-    const row = document.querySelectorAll('.member-reg-row')[sel.value];
+    const rows = document.querySelectorAll('.member-reg-row');
+    const row = rows[sel.value];
     if(row) {
         document.getElementById('code_'+id).value = row.querySelector('.reg-code').value;
         document.getElementById('name_'+id).value = row.querySelector('.reg-name').value;
@@ -145,9 +210,12 @@ function addItem(id) {
 function calc(id) {
     let p=0, pt=0;
     document.querySelectorAll(`#box_${id} .item-row`).forEach(r => {
-        const prod = products[r.querySelector('.p-sel').value];
+        const pVal = r.querySelector('.p-sel').value;
         const qty = r.querySelector('.q-sel').value;
-        p += prod.price * qty; pt += prod.pt * qty;
+        if (pVal !== "") {
+            const prod = products[pVal];
+            p += prod.price * qty; pt += prod.pt * qty;
+        }
     });
     document.getElementById(`sub_${id}`).innerText = `小計：${p.toLocaleString()}円 (${pt.toLocaleString()}pt)`;
 }
@@ -156,9 +224,17 @@ function copyToClipboard() {
     let text = document.getElementById('notes').value + "\n\n";
     document.querySelectorAll('.position-box').forEach(box => {
         const id = box.id.replace('box_', '');
-        text += `◆${document.getElementById('code_'+id).value}-${document.getElementById('pos_'+id).value} ${document.getElementById('name_'+id).value}\n`;
+        const code = document.getElementById('code_'+id).value;
+        const pos = document.getElementById('pos_'+id).value;
+        const name = document.getElementById('name_'+id).value;
+        
+        text += `◆${code}-${pos} ${name}\n`;
         box.querySelectorAll('.item-row').forEach(r => {
-            text += `${products[r.querySelector('.p-sel').value].name}　×${r.querySelector('.q-sel').value}\n`;
+            const pVal = r.querySelector('.p-sel').value;
+            const qty = r.querySelector('.q-sel').value;
+            if (pVal !== "") {
+                text += `${products[pVal].name}　×${qty}\n`;
+            }
         });
         text += "\n";
     });
