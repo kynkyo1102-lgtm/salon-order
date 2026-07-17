@@ -34,16 +34,6 @@
         <select id="target_month" onchange="changeMonth()">
             <option value="6月度">6月度</option>
             <option value="7月度" selected>7月度</option>
-            <option value="8月度">8月度</option>
-            <option value="9月度">9月度</option>
-            <option value="10月度">10月度</option>
-            <option value="11月度">11月度</option>
-            <option value="12月度">12月度</option>
-            <option value="1月度">1月度</option>
-            <option value="2月度">2月度</option>
-            <option value="3月度">3月度</option>
-            <option value="4月度">4月度</option>
-            <option value="5月度">5月度</option>
         </select>
     </div>
     <div class="card">
@@ -56,7 +46,6 @@
     </div>
 
 <script>
-// スプレッドシートから反映した最新の商品データ
 const products = [
     { name: "OX-288", price: 13800, pt6: 10000, pt7: 10000 },
     { name: "OX-288(追加購入)", price: 13800, pt6: 10000, pt7: 10000 },
@@ -128,37 +117,22 @@ function saveNotes() {
     localStorage.setItem('notes', document.getElementById('notes').value);
 }
 
-// 月度が変更されたときの処理（プルダウンの表示をすべて更新し、計算をやり直す）
 function changeMonth() {
     const month = document.getElementById('target_month').value;
     localStorage.setItem('target_month', month);
     
-    // すべての商品選択プルダウンの中身を書き換える
-    document.querySelectorAll('.p-sel').forEach(select => {
-        const currentVal = select.value;
-        select.innerHTML = getProductOptions();
-        select.value = currentVal;
-    });
-    
-    // すべてのボックスの小計を再計算
     document.querySelectorAll('[id^="box_"]').forEach(box => {
         const id = box.id.replace('box_', '');
         calc(id);
     });
 }
 
-// 現在の月度に応じたポイントを取得する関数
 function getProductPt(prod, month) {
-    return month === "6月度" ? prod.pt6 : prod.pt7; // 8月度以降はとりあえず最新の7月度を適用
+    return month === "6月度" ? prod.pt6 : prod.pt7;
 }
 
-// プルダウン用の選択肢（商品名、価格、現在の月度ポイント）を生成
 function getProductOptions() {
-    const month = document.getElementById('target_month').value;
-    return products.map((p, i) => {
-        const pt = getProductPt(p, month);
-        return `<option value="${i}">${p.name} (￥${p.price.toLocaleString()} / ${pt.toLocaleString()}pt)</option>`;
-    }).join('');
+    return products.map((p, i) => `<option value="${i}">${p.name}</option>`).join('');
 }
 
 function saveMembers() {
@@ -266,14 +240,7 @@ function calc(id) {
 }
 
 function copyToClipboard() {
-    const month = document.getElementById('target_month').value;
-    let text = `【処理月度】${month}\n`;
-    
-    const notes = document.getElementById('notes').value.trim();
-    if (notes) {
-        text += `【必要事項等】\n${notes}\n`;
-    }
-    text += "\n";
+    let text = document.getElementById('notes').value + "\n\n";
 
     document.querySelectorAll('.position-box').forEach(box => {
         const id = box.id.replace('box_', '');
@@ -291,7 +258,7 @@ function copyToClipboard() {
         });
         text += "\n";
     });
-    navigator.clipboard.writeText(text).then(() => alert("月度・最新商品データを反映してコピーしました！"));
+    navigator.clipboard.writeText(text).then(() => alert("コピーしました！"));
 }
 </script>
 </body>
