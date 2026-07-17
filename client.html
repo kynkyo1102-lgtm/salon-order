@@ -86,36 +86,33 @@ const products = [
     { name: "ゼウス オードゥ パルファン 2026", price: 21000, pt: 15000 }
 ];
 
-const posOptions = Array.from({length: 35}, (_, i) => {
-    const val = (i + 1).toString().padStart(2, '0');
-    return `<option value="${val}">${val}</option>`;
+// 00〜35までのポジション用オプションを生成 (iを0から35まで回すように変更)
+const posOptions = Array.from({length: 36}, (_, i) => {
+    const val = i.toString().padStart(2, '0');
+    // 初期値として、よく使う「01」を選択状態(selected)にするための処理
+    const isSelected = val === '01' ? 'selected' : '';
+    return `<option value="${val}" ${isSelected}>${val}</option>`;
 }).join('');
 
 // ページを開いた時に、保存されているデータを読み込む
 window.onload = function() {
-    // 必要事項等の読み込み
     if (localStorage.getItem('notes')) {
         document.getElementById('notes').value = localStorage.getItem('notes');
     }
-    // 会員リストの読み込み
     const savedMembers = localStorage.getItem('members');
     if (savedMembers) {
         const members = JSON.parse(savedMembers);
         members.forEach(m => addMemberRow(m.code, m.name));
     } else {
-        // 保存データがない場合は空の入力欄を1つ出す
         addMemberRow();
     }
-    // 最初の注文枠を1つ出す
     addPositionBox();
 };
 
-// 必要事項等の保存
 function saveNotes() {
     localStorage.setItem('notes', document.getElementById('notes').value);
 }
 
-// 会員リストの保存
 function saveMembers() {
     const members = [];
     document.querySelectorAll('.member-reg-row').forEach(row => {
@@ -127,18 +124,16 @@ function saveMembers() {
     });
     localStorage.setItem('members', JSON.stringify(members));
     
-    // 注文枠の「会員を選択」プルダウンをすべて最新情報に更新する
     document.querySelectorAll('[id^="box_"]').forEach(box => {
         const id = box.id.replace('box_', '');
         updateMemberSelect(id);
     });
 }
 
-// 注文枠内の「会員を選択」プルダウンメニューを更新
 function updateMemberSelect(id) {
     const select = document.getElementById(`select_${id}`);
     if (!select) return;
-    const currentVal = select.value; // 現在選択中の値を覚えておく
+    const currentVal = select.value;
     
     let memOpts = '<option value="">-- 会員を選択 --</option>';
     document.querySelectorAll('.member-reg-row').forEach((r, i) => {
@@ -149,7 +144,7 @@ function updateMemberSelect(id) {
         }
     });
     select.innerHTML = memOpts;
-    select.value = currentVal; // 元に戻す
+    select.value = currentVal;
 }
 
 function addMemberRow(c='', n='') {
