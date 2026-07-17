@@ -18,16 +18,18 @@
         .item-select { flex: 2; }
         .item-qty { flex: 1; min-width: 60px; }
         .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
+        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
         .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
         .total-preview { font-size: 14px; font-weight: bold; text-align: center; }
         .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
+        .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
     </style>
 </head>
 <body>
 
     <h2>注文書作成ツール</h2>
 
-    <!-- 基本情報 (ブラウザに自動保存) -->
+    <!-- 1. 基本情報 (ブラウザに自動保存) -->
     <div class="card">
         <h3>1. 基本情報</h3>
         <div class="form-group">
@@ -48,18 +50,25 @@
         </div>
     </div>
 
-    <!-- 月度選択 -->
+    <!-- 2. 会員リポジトリ登録エリア -->
     <div class="card">
-        <h3>2. 処理月度の選択</h3>
+        <h3>2. 会員番号・名義の事前登録（複数可）</h3>
+        <div id="member_register_container"></div>
+        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
+    </div>
+
+    <!-- 3. 月度選択 -->
+    <div class="card">
+        <h3>3. 処理月度の選択</h3>
         <select id="target_month" onchange="updatePreview();">
             <option value="6月度">6月度</option>
             <option value="7月度" selected>7月度</option>
         </select>
     </div>
 
-    <!-- ポジション別注文 -->
+    <!-- 4. ポジション別注文 -->
     <div class="card">
-        <h3>3. 会員番号ごとの注文</h3>
+        <h3>4. 会員番号ごとの注文</h3>
         <div id="positions_container"></div>
         <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
@@ -119,15 +128,22 @@ const products = [
 ];
 
 let positionCount = 0;
+let registeredMembers = [];
 
-// 起動時にローカルストレージから個人情報を読み込む
 window.onload = function() {
     if(localStorage.getItem('buyer_name')) document.getElementById('buyer_name').value = localStorage.getItem('buyer_name');
     if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
     if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
     if(localStorage.getItem('shipping_address')) document.getElementById('shipping_address').value = localStorage.getItem('shipping_address');
     
-    // 最初のポジション枠を追加
+    const savedMembers = localStorage.getItem('registered_members');
+    if (savedMembers) {
+        registeredMembers = JSON.parse(savedMembers);
+        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
+    } else {
+        addMemberRegisterRow('', '');
+    }
+
     addPositionBox();
 };
 
@@ -138,28 +154,79 @@ function saveBasicInfo() {
     localStorage.setItem('shipping_address', document.getElementById('shipping_address').value);
 }
 
+function addMemberRegisterRow(code = '', name = '') {
+    const container = document.getElementById('member_register_container');
+    const row = document.createElement('div');
+    row.className = 'member-reg-row';
+    row.innerHTML = `
+        <input type="text" class="reg-code" placeholder="例：1234567-00" value="${code}" oninput="saveMembers()">
+        <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
+        <button class="btn btn-danger" style="padding:10px;" onclick="removeMemberRegisterRow(this)">✕</button>
+    `;
+    container.appendChild(row);
+}
+
+function removeMemberRegisterRow(btn) {
+    btn.parentElement.remove();
+    saveMembers();
+}
+
+function saveMembers() {
+    const rows = document.querySelectorAll('.member-reg-row');
+    registeredMembers = [];
+    rows.forEach(row => {
+        const code = row.querySelector('.reg-code').value;
+        const name = row.querySelector('.reg-name').value;
+        if(code || name) {
+            registeredMembers.push({ code, name });
+        }
+    });
+    localStorage.setItem('registered_members', JSON.stringify(registeredMembers));
+    
+    document.querySelectorAll('.pos-select').forEach(select => {
+        const currentVal = select.value;
+        refreshMemberOptions(select);
+        select.value = currentVal;
+    });
+    updatePreview();
+}
+
+function refreshMemberOptions(selectElement) {
+    let options = '<option value="">-- 会員番号を選択 --</option>';
+    registeredMembers.forEach(m => {
+        options += `<option value="${m.code} ${m.name}">${m.code} ${m.name}</option>`;
+    });
+    selectElement.innerHTML = options;
+}
+
 function addPositionBox() {
     positionCount++;
     const container = document.getElementById('positions_container');
     const box = document.createElement('div');
     box.className = 'position-box';
     box.id = `position_box_${positionCount}`;
+    
     box.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
             <strong style="font-size:14px; color:#555;">ポジション #${positionCount}</strong>
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
-            <label>会員番号 と 名義</label>
-            <input type="text" class="pos-info" placeholder="例：1234567-00 ●●●●" oninput="updatePreview()">
+            <label>会員を選択</label>
+            <select class="pos-select" onchange="updatePreview()"></select>
         </div>
         <div class="form-group">
             <label>購入商品</label>
             <div class="items-list" id="items_list_${positionCount}"></div>
             <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
         </div>
+        <!-- 各ポジションの小計表示欄 -->
+        <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
     `;
     container.appendChild(box);
+    
+    const newSelect = box.querySelector('.pos-select');
+    refreshMemberOptions(newSelect);
     addItemRow(positionCount);
 }
 
@@ -185,28 +252,19 @@ function addItemRow(posId) {
     list.appendChild(row);
 }
 
-function generateText() {
-    const buyerName = document.getElementById('buyer_name').value;
-    const payment = document.getElementById('payment_method').value;
-    const pw = document.getElementById('pw_code').value;
-    const address = document.getElementById('shipping_address').value;
+function calculateAll() {
     const month = document.getElementById('target_month').value;
+    const positionBoxes = document.querySelectorAll('.position-box');
     
-    const today = new Date();
-    const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
-
-    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
-    if(payment) text += `${payment}\n`;
-    if(pw) text += `PW: ${pw}\n`;
-    text += `\n`;
-
     let grandTotalQty = 0;
     let grandTotalPrice = 0;
     let grandTotalPt = 0;
+    
+    let positionsData = [];
 
-    const positionBoxes = document.querySelectorAll('.position-box');
     positionBoxes.forEach((box) => {
-        const posInfo = box.querySelector('.pos-info').value;
+        const boxId = box.id.replace('position_box_', '');
+        const posInfo = box.querySelector('.pos-select').value;
         const rows = box.querySelectorAll('.item-row');
         
         let posQty = 0;
@@ -233,9 +291,20 @@ function generateText() {
             }
         });
 
-        if(posInfo || posItemsText) {
-            text += `🔹${posInfo}\n \n${posItemsText}\n計  ${posQty}点 ${posPrice.toLocaleString()}円(${posPt.toLocaleString()}pt)\n`;
-            text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−\n\n`;
+        // 画面上のポジション枠の「小計」表示を更新
+        const subtotalDiv = document.getElementById(`pos_subtotal_${boxId}`);
+        if (subtotalDiv) {
+            subtotalDiv.innerText = `小計: ${posQty}点 ${posPrice.toLocaleString()}円 (${posPt.toLocaleString()}pt)`;
+        }
+
+        if(posInfo && posItemsText) {
+            positionsData.push({
+                info: posInfo,
+                itemsText: posItemsText,
+                qty: posQty,
+                price: posPrice,
+                pt: posPt
+            });
             
             grandTotalQty += posQty;
             grandTotalPrice += posPrice;
@@ -243,10 +312,35 @@ function generateText() {
         }
     });
 
-    text += `合計 ${grandTotalQty}点 ${grandTotalPrice.toLocaleString()}円(${grandTotalPt.toLocaleString()}pt)\n\n`;
+    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt };
+}
+
+function generateText() {
+    const buyerName = document.getElementById('buyer_name').value;
+    const payment = document.getElementById('payment_method').value;
+    const pw = document.getElementById('pw_code').value;
+    const address = document.getElementById('shipping_address').value;
+    const month = document.getElementById('target_month').value;
+    
+    const today = new Date();
+    const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
+
+    const data = calculateAll();
+
+    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
+    if(payment) text += `${payment}\n`;
+    if(pw) text += `PW: ${pw}\n`;
+    text += `\n`;
+
+    data.positionsData.forEach(pos => {
+        text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
+        text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−\n\n`;
+    });
+
+    text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
     if(address) text += `\n(送付先)\n${address}\n`;
 
-    return { text, grandTotalQty, grandTotalPrice, grandTotalPt };
+    return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
 }
 
 function updatePreview() {
