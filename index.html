@@ -104,7 +104,7 @@
     </div>
 
 <script>
-// ご提示いただいたテキストデータと完全に一致させた商品データマスター[span_0](start_span)[span_0](end_span)
+// PDFデータと完全に一致させた商品データマスター
 const products = [
     { name: "OX-288", price: 13800, p6: 10000, p7: 10000 },
     { name: "OX-288(追加購入)", price: 13800, p6: 10000, p7: 10000 },
@@ -459,5 +459,6 @@ function generateText() {
     
     if(payment) {
         if(payment === 'クレジットカード' && pw) {
-            text += `クレジットカード決済 (PW: ${pw})\n`;
+            text += `クレジットカード決済 (E-ServiceログインPW: ${pw})\n`;
         } else {
+            text += `${payment}決済
