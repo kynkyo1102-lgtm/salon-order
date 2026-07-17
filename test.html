@@ -239,7 +239,7 @@ function saveMembers() {
 function refreshMemberOptions(selectElement) {
     let options = '<option value="">-- 会員リストから選択 --</option>';
     registeredMembers.forEach((m, idx) => {
-        options += `<option value="${idx}">${m.code} ${m.name}</option>';
+        options += `<option value="${idx}">${m.code} ${m.name}</option>`;
     });
     selectElement.innerHTML = options;
 }
@@ -342,7 +342,7 @@ function addItemRow(posId) {
     
     let options = '<option value="">-- 商品を選択 --</option>';
     products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>';
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
     });
 
     // 1〜40個のプルダウン選択肢を作成
@@ -500,4 +500,3 @@ function copyToClipboard() {
 </script>
 </body>
 </html>
-
