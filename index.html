@@ -68,8 +68,8 @@
             </select>
         </div>
         <div class="form-group hidden-pw" id="pw_container">
-            <label>E-ServiceログインPW</label>
-            <input type="text" id="pw_code" placeholder="E-ServiceログインPWを入力してください" oninput="saveBasicInfo(); updatePreview();">
+            <label>クレジットカード PW</label>
+            <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
         </div>
     </div>
 
@@ -338,7 +338,7 @@ function addItemRow(posId) {
     
     let options = '<option value="">-- 商品を選択 --</option>';
     products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>';
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
     });
 
     row.innerHTML = `
@@ -445,7 +445,7 @@ function generateText() {
     
     if(payment) {
         if(payment === 'クレジットカード' && pw) {
-            text += `クレジットカード決済 (E-ServiceログインPW: ${pw})\n`;
+            text += `クレジットカード決済 (PW: ${pw})\n`;
         } else {
             text += `${payment}決済\n`;
         }
