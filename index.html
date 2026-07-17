@@ -26,14 +26,14 @@
         .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
         .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
         .hidden-pw { display: none; }
-        .hidden-custom-pos { display: none; }
+        .custom-pos-container { display: none; margin-top: 8px; }
     </style>
 </head>
 <body>
 
     <h2>注文書作成ツール</h2>
 
-    <!-- 1. お届け先情報 (ブラウザに自動保存) -->
+    <!-- 1. お届け先情報 -->
     <div class="card">
         <h3>1. お届け先情報</h3>
         <div class="form-row">
@@ -286,11 +286,11 @@ function addPositionBox() {
         <div class="form-row">
             <div class="form-group" style="flex: 1.2;">
                 <label>会員番号</label>
-                <input type="text" id="pos_code_${positionCount}" placeholder="例：1234567" oninput="updatePreview()">
+                <input type="text" id="pos_code_${positionCount}" placeholder="例：1267505" oninput="updatePreview()">
             </div>
             <div class="form-group" style="flex: 0.8;">
                 <label>最後2桁</label>
-                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount})">
+                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -306,7 +306,7 @@ function addPositionBox() {
             </div>
         </div>
 
-        <div class="form-group hidden-custom-pos" id="custom_pos_container_${positionCount}">
+        <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
             <label>その他の最後2桁（手入力）</label>
             <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
         </div>
@@ -323,6 +323,7 @@ function addPositionBox() {
     const newSelect = document.getElementById(`pos_select_${positionCount}`);
     refreshMemberOptions(newSelect);
     addItemRow(positionCount);
+    updatePreview();
 }
 
 function removePositionBox(id) {
@@ -337,7 +338,7 @@ function addItemRow(posId) {
     
     let options = '<option value="">-- 商品を選択 --</option>';
     products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>';
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
     });
 
     row.innerHTML = `
@@ -360,18 +361,15 @@ function calculateAll() {
     positionBoxes.forEach((box) => {
         const boxId = box.id.replace('position_box_', '');
         
-        // 会員番号、お名前
         const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
         const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
         
-        // 最後2桁の判定
         const numSel = document.getElementById(`pos_num_select_${boxId}`).value;
         let suffix = numSel;
         if (numSel === 'custom') {
             suffix = document.getElementById(`pos_custom_num_${boxId}`).value.trim();
         }
 
-        // 会員番号と最後2桁をハイフンで合体
         let posCode = rawCode;
         if (rawCode && suffix) {
             posCode = `${rawCode}-${suffix}`;
