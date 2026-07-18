@@ -89,7 +89,7 @@
     <!-- 4. 月度選択 -->
     <div class="card">
         <h3>4. 処理月度の選択</h3>
-        <select id="target_month" onchange="updatePreview();">
+        <select id="target_month" onchange="onMonthChange();">
             <option value="6月度">6月度</option>
             <option value="7月度" selected>7月度</option>
         </select>
@@ -109,7 +109,7 @@
     </div>
 
 <script>
-// 新しい商品データマスター
+// 商品データマスター
 const products = [
     { name: "OX-288", price: 13800, p6: 10000, p7: 10000 },
     { name: "OX-288(追加購入)", price: 13800, p6: 10000, p7: 10000 },
@@ -270,6 +270,25 @@ function toggleCustomPos(posId) {
     updatePreview();
 }
 
+function onMonthChange() {
+    document.querySelectorAll('.item-select').forEach(select => {
+        const selectedIndex = select.value;
+        refreshProductOptions(select);
+        select.value = selectedIndex;
+    });
+    updatePreview();
+}
+
+function refreshProductOptions(selectElement) {
+    const month = document.getElementById('target_month').value;
+    let options = '<option value="">-- 商品を選択 --</option>';
+    products.forEach((p, index) => {
+        const pt = (month === "6月度") ? p.p6 : p.p7;
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${pt.toLocaleString()}pt)</option>`;
+    });
+    selectElement.innerHTML = options;
+}
+
 function addPositionBox() {
     positionCount++;
     const container = document.getElementById('positions_container');
@@ -340,23 +359,25 @@ function addItemRow(posId) {
     const row = document.createElement('div');
     row.className = 'item-row';
     
-    let options = '<option value="">-- 商品を選択 --</option>';
-    products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円)</option>`;
-    });
+    const select = document.createElement('select');
+    select.className = 'item-select';
+    select.onchange = updatePreview;
+    refreshProductOptions(select);
 
-    // 1〜40個のプルダウン選択肢を作成
     let qtyOptions = '';
     for(let i=1; i<=40; i++) {
         qtyOptions += `<option value="${i}">${i}</option>`;
     }
 
-    row.innerHTML = `
-        <select class="item-select" onchange="updatePreview()">${options}</select>
-        <div class="item-qty-container">
-            <select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個
-        </div>
+    row.appendChild(select);
+    
+    const qtyContainer = document.createElement('div');
+    qtyContainer.className = 'item-qty-container';
+    qtyContainer.innerHTML = `
+        <select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個
     `;
+    row.appendChild(qtyContainer);
+    
     list.appendChild(row);
 }
 
@@ -474,11 +495,11 @@ function generateText() {
     
     if(shipZip || shipName || shipAddr || shipTel || shipNote) {
         text += `\n(送付先)\n`;
+        if(shipNote) text += `★${shipNote}★\n\n`;
         if(shipZip) text += `〒${shipZip}\n`;
         if(shipAddr) text += `${shipAddr}\n`;
         if(shipName) text += `${shipName} 様\n`;
         if(shipTel) text += `TEL: ${shipTel}\n`;
-        if(shipNote) text += `備考: ${shipNote}\n`;
     }
 
     return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
