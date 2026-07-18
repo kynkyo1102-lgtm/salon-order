@@ -40,7 +40,7 @@
         <div class="form-row">
             <div class="form-group" style="flex: 0 0 120px;">
                 <label>郵便番号</label>
-                <input type="text" id="ship_zip" placeholder="例：123-4567" oninput="saveBasicInfo(); updatePreview();">
+                <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
             </div>
             <div class="form-group">
                 <label>お届け先氏名（宛名）</label>
@@ -49,7 +49,7 @@
         </div>
         <div class="form-group">
             <label>ご住所</label>
-            <input type="text" id="ship_address" placeholder="都道府県・市区町村・番地・マンション名" oninput="saveBasicInfo(); updatePreview();">
+            <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
         </div>
         <div class="form-group">
             <label>電話番号</label>
@@ -155,6 +155,34 @@ const products = [
 ];
 let positionCount = 0;
 let registeredMembers = [];
+
+// 郵便番号から住所を自動検索する関数
+function checkZipCode() {
+    const zipInput = document.getElementById('ship_zip').value;
+    // ハイフンを取り除いて数字だけの7桁にする
+    const cleanZip = zipInput.replace(/[━ー*]/g, '').replace(/-/g, '').trim();
+
+    // 7桁の数字になった瞬間だけ検索を実行する
+    if (cleanZip.length === 7) {
+        fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${cleanZip}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    const res = data.results[0];
+                    // 都道府県 + 市区町村 + 町域名 をガッチャンコして住所欄に入れる
+                    const fullAddress = res.address1 + res.address2 + res.address3;
+                    document.getElementById('ship_address').value = fullAddress;
+                    
+                    // 入力された情報を保存して、画面下の合計表示も最新にする
+                    saveBasicInfo();
+                    updatePreview();
+                }
+            })
+            .catch(error => {
+                console.error("住所の取得に失敗しました:", error);
+            });
+    }
+}
 
 window.onload = function() {
     if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
@@ -355,7 +383,7 @@ function removePositionBox(id) {
 }
 
 function addItemRow(posId) {
-    const list = document.getElementById(`items_list_${posId}`);
+    const list = document.getElementById('items_list_' + posId);
     const row = document.createElement('div');
     row.className = 'item-row';
     
@@ -521,3 +549,4 @@ function copyToClipboard() {
 </script>
 </body>
 </html>
+
