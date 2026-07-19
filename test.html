@@ -80,7 +80,7 @@
             </div>
             <div class="form-group">
                 <label>使用するポイントNiNA</label>
-                <input type="text" id="nina_point" placeholder="ニナファームカードで決済される方でポイント使用する場合は記入してください" oninput="saveBasicInfo(); updatePreview();">
+                <input type="text" id="nina_point" placeholder="※ニナファームカード決済時のみ" oninput="saveBasicInfo(); updatePreview();">
             </div>
         </div>
     </div>
@@ -160,7 +160,7 @@ const products = [
     { name: "モンコパン", price: 3500, p6: 1200, p7: 2800 },
     { name: "モンコパン ジュレ", price: 3500, p6: 1200, p7: 2800 }
 ];
- let positionCount = 0;
+    let positionCount = 0;
 let registeredMembers = [];
 
 // 郵便番号から住所を自動検索する関数
@@ -558,4 +558,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html>   
+</html>
