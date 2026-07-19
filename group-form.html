@@ -205,7 +205,15 @@ function removeProductRow(id) {
     if (row) row.remove();
 }
 
-// リアルタイム表示の更新
+function onMonthPeriodChange() {
+    const selects = document.querySelectorAll('.prod-select');
+    selects.forEach((sel) => {
+        const rowId = sel.parentNode.parentNode.id.replace('product_row_', '');
+        updateRowInfo(rowId);
+    });
+}
+
+// 金額やポイントのリアルタイム表示
 function updateRowInfo(id) {
     const row = document.getElementById(`product_row_${id}`);
     if (!row) return;
@@ -227,15 +235,7 @@ function updateRowInfo(id) {
     infoBox.style.display = "flex";
 }
 
-function onMonthPeriodChange() {
-    const selects = document.querySelectorAll('.prod-select');
-    selects.forEach((sel) => {
-        const rowId = sel.parentNode.parentNode.id.replace('product_row_', '');
-        updateRowInfo(rowId);
-    });
-}
-
-// 送信処理
+// データの送信処理
 function sendToSpreadsheet() {
     const dateVal = document.getElementById('date').value;
     const monthPeriod = document.getElementById('month_period').value;
@@ -294,37 +294,46 @@ function sendToSpreadsheet() {
     btn.disabled = true;
     btn.innerText = "送信中...";
 
-    // スプレッドシート（GAS）へデータ送信を命令
     fetch(GAS_URL, {
         method: "POST",
-        body: JSON.stringify(payload),
-        mode: "no-cors" // CORS制限を無視してとにかくリクエストを送りつける設定
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success") {
+            document.getElementById('res_month').innerText = monthPeriod;
+            document.getElementById('res_contact').innerText = contact;
+            document.getElementById('res_id').innerText = memberId;
+            document.getElementById('res_name').innerText = positionName;
+
+            let html = "";
+            let totalSum = 0;
+            items.forEach(item => {
+                html += `<tr>
+                    <td>${item.productName}</td>
+                    <td style="text-align:center;">${item.quantity}</td>
+                    <td style="text-align:right;">${item.totalPrice.toLocaleString()}円</td>
+                </tr>`;
+                totalSum += item.totalPrice;
+            });
+            document.getElementById('res_items_body').innerHTML = html;
+            document.getElementById('res_total_box').innerText = `合計金額：${totalSum.toLocaleString()}円`;
+
+            document.getElementById('input_form_page').style.display = "none";
+            document.getElementById('success_page').style.display = "block";
+            window.scrollTo(0, 0);
+        } else {
+            alert("エラーが発生しました。");
+            btn.disabled = false;
+            btn.innerText = "注文を送信する";
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("送信に失敗しました。");
+        btn.disabled = false;
+        btn.innerText = "注文を送信する";
     });
-
-    // データはすでにシートに書き込まれているため、お返事を待たずに1秒後に確定で完了画面へ切り替える
-    setTimeout(() => {
-        document.getElementById('res_month').innerText = monthPeriod;
-        document.getElementById('res_contact').innerText = contact;
-        document.getElementById('res_id').innerText = memberId;
-        document.getElementById('res_name').innerText = positionName;
-
-        let html = "";
-        let totalSum = 0;
-        items.forEach(item => {
-            html += `<tr>
-                <td>${item.productName}</td>
-                <td style="text-align:center;">${item.quantity}</td>
-                <td style="text-align:right;">${item.totalPrice.toLocaleString()}円</td>
-            </tr>`;
-            totalSum += item.totalPrice;
-        });
-        document.getElementById('res_items_body').innerHTML = html;
-        document.getElementById('res_total_box').innerText = `合計金額：${totalSum.toLocaleString()}円`;
-
-        document.getElementById('input_form_page').style.display = "none";
-        document.getElementById('success_page').style.display = "block";
-        window.scrollTo(0, 0);
-    }, 1200);
 }
 </script>
 </body>
