@@ -72,9 +72,16 @@
                 <option value="クレジットカード">クレジットカード</option>
             </select>
         </div>
-        <div class="form-group hidden-pw" id="pw_container">
-            <label>クレジットカード PW</label>
-            <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+        <!-- クレカ選択時に表示されるエリア -->
+        <div class="hidden-pw" id="pw_container">
+            <div class="form-group">
+                <label>E-ServiceログインPW</label>
+                <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+            <div class="form-group">
+                <label>使用するポイントNiNA</label>
+                <input type="text" id="nina_point" placeholder="ニナファームカードで決済される方でポイント使用する場合は記入してください" oninput="saveBasicInfo(); updatePreview();">
+            </div>
         </div>
     </div>
 
@@ -153,27 +160,23 @@ const products = [
     { name: "モンコパン", price: 3500, p6: 1200, p7: 2800 },
     { name: "モンコパン ジュレ", price: 3500, p6: 1200, p7: 2800 }
 ];
-let positionCount = 0;
+ let positionCount = 0;
 let registeredMembers = [];
 
 // 郵便番号から住所を自動検索する関数
 function checkZipCode() {
     const zipInput = document.getElementById('ship_zip').value;
-    // ハイフンを取り除いて数字だけの7桁にする
     const cleanZip = zipInput.replace(/[━ー*]/g, '').replace(/-/g, '').trim();
 
-    // 7桁の数字になった瞬間だけ検索を実行する
     if (cleanZip.length === 7) {
         fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${cleanZip}`)
             .then(response => response.json())
             .then(data => {
                 if (data.results) {
                     const res = data.results[0];
-                    // 都道府県 + 市区町村 + 町域名 をガッチャンコして住所欄に入れる
                     const fullAddress = res.address1 + res.address2 + res.address3;
                     document.getElementById('ship_address').value = fullAddress;
                     
-                    // 入力された情報を保存して、画面下の合計表示も最新にする
                     saveBasicInfo();
                     updatePreview();
                 }
@@ -192,6 +195,7 @@ window.onload = function() {
     if(localStorage.getItem('ship_note')) document.getElementById('ship_note').value = localStorage.getItem('ship_note');
     if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
     if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
+    if(localStorage.getItem('nina_point')) document.getElementById('nina_point').value = localStorage.getItem('nina_point');
     
     togglePwField();
 
@@ -214,6 +218,7 @@ function saveBasicInfo() {
     localStorage.setItem('ship_note', document.getElementById('ship_note').value);
     localStorage.setItem('payment_method', document.getElementById('payment_method').value);
     localStorage.setItem('pw_code', document.getElementById('pw_code').value);
+    localStorage.setItem('nina_point', document.getElementById('nina_point').value);
 }
 
 function togglePwField() {
@@ -224,6 +229,7 @@ function togglePwField() {
     } else {
         pwContainer.style.display = 'none';
         document.getElementById('pw_code').value = ''; 
+        document.getElementById('nina_point').value = ''; 
     }
 }
 
@@ -496,6 +502,7 @@ function generateText() {
     
     const payment = document.getElementById('payment_method').value;
     const pw = document.getElementById('pw_code').value;
+    const ninaPt = document.getElementById('nina_point').value.trim();
     const month = document.getElementById('target_month').value;
     
     const today = new Date();
@@ -506,8 +513,11 @@ function generateText() {
     let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
     
     if(payment) {
-        if(payment === 'クレジットカード' && pw) {
-            text += `クレジットカード決済 (PW: ${pw})\n`;
+        if(payment === 'クレジットカード') {
+            text += `クレジットカード決済`;
+            if(pw) text += ` (PW: ${pw})`;
+            if(ninaPt) text += `\n使用するポイントNiNA: ${ninaPt}`;
+            text += `\n`;
         } else {
             text += `${payment}決済\n`;
         }
@@ -548,5 +558,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html>
-
+</html>   
