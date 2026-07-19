@@ -49,8 +49,8 @@
     </div>
 
     <div class="input-group">
-        <label>連絡先（あなたのお名前）</label>
-        <input type="text" id="contact" placeholder="例：サトコ、ママ、たかし">
+        <label>連絡先（あなたのメールアドレス）</label>
+        <input type="text" id="contact" placeholder="example@gmail.com">
     </div>
 
     <div class="input-group">
@@ -77,7 +77,7 @@
 <!-- 送信完了時の確認画面 -->
 <div class="result-card" id="success_page">
     <div class="result-success">✓ 送信が完了しました</div>
-    <p style="text-align: center; color: #666; font-size: 14px;">スプレッドシートへ正常に記録されました。<br>送信内容は以下の通りです。</p>
+    <p style="text-align: center; color: #666; font-size: 14px;">メールにて自動控えを送信しました。<br>送信内容は以下の通りです。</p>
     
     <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; font-size: 14px; line-height: 1.6;">
         <strong>注文月度：</strong> <span id="res_month"></span><br>
@@ -103,7 +103,7 @@
 </div>
 
 <script>
-// いただいた正確な商品データ一覧
+// 製品データ一覧
 const productsData = [
     { name: "OX-288", price: 13800, pt6: 10000, pt7: 10000 },
     { name: "OX-288(追加購入)", price: 13800, pt6: 10000, pt7: 10000 },
@@ -152,13 +152,10 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbx4WePzlfSn7YjEJD1MBhcP
 let rowCounter = 0;
 
 window.onload = function() {
-    // 今日を初期値にする
     document.getElementById('date').value = new Date().toISOString().split('T')[0];
-    // 最初の製品入力枠を1つ用意
     addProductRow();
 };
 
-// 新しい製品入力欄を追加する
 function addProductRow() {
     rowCounter++;
     const container = document.getElementById('product_list_container');
@@ -167,7 +164,6 @@ function addProductRow() {
     div.className = 'product-item';
     div.id = `product_row_${rowCounter}`;
     
-    // 2つ目以降の枠には削除ボタンを付ける
     let removeBtnHtml = '';
     if (container.children.length > 0) {
         removeBtnHtml = `<button type="button" class="remove-btn" onclick="removeProductRow(${rowCounter})">削除</button>`;
@@ -195,7 +191,6 @@ function addProductRow() {
     
     container.appendChild(div);
 
-    // セレクトボックスに商品一覧を詰め込む
     const select = div.querySelector('.prod-select');
     productsData.forEach((p, index) => {
         const opt = document.createElement('option');
@@ -205,13 +200,11 @@ function addProductRow() {
     });
 }
 
-// 追加した製品入力欄を消す
 function removeProductRow(id) {
     const row = document.getElementById(`product_row_${id}`);
     if (row) row.remove();
 }
 
-// 選択した月度が変わったら全ての行のポイント表示を更新する
 function onMonthPeriodChange() {
     const selects = document.querySelectorAll('.prod-select');
     selects.forEach((sel) => {
@@ -220,7 +213,7 @@ function onMonthPeriodChange() {
     });
 }
 
-// 商品名や数量が変わったときに、単価やポイント表示を書き換える
+// 金額やポイントのリアルタイム表示
 function updateRowInfo(id) {
     const row = document.getElementById(`product_row_${id}`);
     if (!row) return;
@@ -235,8 +228,6 @@ function updateRowInfo(id) {
     
     const month = document.getElementById('month_period').value;
     const prod = productsData[pIndex];
-    
-    // 月度によって見るポイントを切り替える
     const activePt = (month === "6月度") ? prod.pt6 : prod.pt7;
     
     document.getElementById(`price_text_${id}`).innerText = `単価: ${prod.price.toLocaleString()}円`;
@@ -244,7 +235,7 @@ function updateRowInfo(id) {
     infoBox.style.display = "flex";
 }
 
-// スプレッドシートへデータ送信
+// データの送信処理
 function sendToSpreadsheet() {
     const dateVal = document.getElementById('date').value;
     const monthPeriod = document.getElementById('month_period').value;
@@ -253,11 +244,10 @@ function sendToSpreadsheet() {
     const positionName = document.getElementById('position_name').value.trim();
 
     if (!contact || !memberId || !positionName) {
-        alert("お名前、購入ID、ポジション名を入力してください！");
+        alert("メールアドレス、購入ID、ポジション名を入力してください！");
         return;
     }
 
-    // 複数商品のデータを配列に集める
     const items = [];
     const rows = document.querySelectorAll('.product-item');
     let hasError = false;
@@ -291,7 +281,6 @@ function sendToSpreadsheet() {
     const d = new Date(dateVal);
     const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
 
-    // 送信用データ作成
     const payload = {
         date: dateStr,
         monthPeriod: monthPeriod,
@@ -312,7 +301,6 @@ function sendToSpreadsheet() {
     .then(res => res.json())
     .then(data => {
         if(data.status === "success") {
-            // 送信完了画面に内容を表示
             document.getElementById('res_month').innerText = monthPeriod;
             document.getElementById('res_contact').innerText = contact;
             document.getElementById('res_id').innerText = memberId;
@@ -331,7 +319,6 @@ function sendToSpreadsheet() {
             document.getElementById('res_items_body').innerHTML = html;
             document.getElementById('res_total_box').innerText = `合計金額：${totalSum.toLocaleString()}円`;
 
-            // ページ表示切り替え
             document.getElementById('input_form_page').style.display = "none";
             document.getElementById('success_page').style.display = "block";
             window.scrollTo(0, 0);
@@ -343,7 +330,7 @@ function sendToSpreadsheet() {
     })
     .catch(err => {
         console.error(err);
-        alert("送信に失敗しました。接続設定を確認してください。");
+        alert("送信に失敗しました。");
         btn.disabled = false;
         btn.innerText = "注文を送信する";
     });
