@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注文依頼テキスト作成ツール</title>
     <style>
-        body { font-family: sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; padding-bottom: 120px; }
+        body { font-family: sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; padding-bottom: 120px; color: #333; }
         .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
         h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
-        input[type="text"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
+        input[type="text"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        textarea { height: 70px; resize: vertical; }
         .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .btn-secondary { background: #e5e5ea; color: #333; }
         .btn-danger { background-color: #ff3b30; color: white; padding: 5px 10px; }
@@ -16,19 +19,20 @@
         .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
         .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
         .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        .hidden-pw { display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
     <h2>注文依頼作成ツール</h2>
-    <div class="card">
-        <h3>必要事項等</h3>
-        <textarea id="notes" style="width:100%; height:80px;" placeholder="指定があればこちらに記入してください" oninput="saveNotes()"></textarea>
-    </div>
+
+    <!-- 1. 会員番号・名義の事前登録 -->
     <div class="card">
         <h3>会員番号・名義の事前登録</h3>
         <div id="member_register_container"></div>
         <button class="btn btn-secondary" style="font-size:12px;" onclick="addMemberRow()">+ 登録を追加</button>
     </div>
+
+    <!-- 2. 処理月度 -->
     <div class="card">
         <h3>処理月度</h3>
         <select id="target_month" onchange="changeMonth()">
@@ -36,11 +40,36 @@
             <option value="7月度" selected>7月度</option>
         </select>
     </div>
+
+    <!-- 3. 支払い方法 -->
+    <div class="card">
+        <h3>支払い方法</h3>
+        <div class="form-group">
+            <select id="payment_method" onchange="togglePwField(); savePayment();">
+                <option value="現金">現金</option>
+                <option value="PayPay">PayPay</option>
+                <option value="クレジットカード">クレジットカード</option>
+            </select>
+        </div>
+        <div class="hidden-pw" id="pw_container">
+            <label>E-ServiceログインPW</label>
+            <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="savePayment()">
+        </div>
+    </div>
+
+    <!-- 4. 必要事項等 -->
+    <div class="card">
+        <h3>必要事項等</h3>
+        <textarea id="notes" placeholder="例：領収書が必要、不在時宅配BOXなど" oninput="saveNotes()"></textarea>
+    </div>
+
+    <!-- 5. 注文内容 -->
     <div class="card">
         <h3>注文内容</h3>
         <div id="positions_container"></div>
         <button class="btn btn-secondary" onclick="addPositionBox()">+ 注文行を追加</button>
     </div>
+
     <div class="footer-bar">
         <button class="btn" style="width:100%; background:#34c759;" onclick="copyToClipboard()">LINE用にコピー</button>
     </div>
@@ -89,8 +118,7 @@ const products = [
     { name: "モン コパン", price: 3500, pt6: 1200, pt7: 2800 },
     { name: "モン コパン ジュレ", price: 3500, pt6: 1200, pt7: 2800 }
 ];
-
-const posOptions = Array.from({length: 36}, (_, i) => {
+    const posOptions = Array.from({length: 36}, (_, i) => {
     const val = i.toString().padStart(2, '0');
     const isSelected = val === '01' ? 'selected' : '';
     return `<option value="${val}" ${isSelected}>${val}</option>`;
@@ -103,6 +131,15 @@ window.onload = function() {
     if (localStorage.getItem('target_month')) {
         document.getElementById('target_month').value = localStorage.getItem('target_month');
     }
+    if (localStorage.getItem('payment_method')) {
+        document.getElementById('payment_method').value = localStorage.getItem('payment_method');
+    }
+    if (localStorage.getItem('pw_code')) {
+        document.getElementById('pw_code').value = localStorage.getItem('pw_code');
+    }
+
+    togglePwField();
+
     const savedMembers = localStorage.getItem('members');
     if (savedMembers) {
         const members = JSON.parse(savedMembers);
@@ -115,6 +152,23 @@ window.onload = function() {
 
 function saveNotes() {
     localStorage.setItem('notes', document.getElementById('notes').value);
+}
+
+function savePayment() {
+    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
+    localStorage.setItem('pw_code', document.getElementById('pw_code').value);
+}
+
+function togglePwField() {
+    const payMethod = document.getElementById('payment_method').value;
+    const pwContainer = document.getElementById('pw_container');
+    if (payMethod === 'クレジットカード') {
+        pwContainer.style.display = 'block';
+    } else {
+        pwContainer.style.display = 'none';
+        document.getElementById('pw_code').value = '';
+        savePayment();
+    }
 }
 
 function changeMonth() {
@@ -218,7 +272,7 @@ function addItem(id) {
     const row = document.createElement('div');
     row.className = 'item-row';
     let pOpts = getProductOptions();
-    let qOpts = Array.from({length: 30}, (_, i) => `<option value="${i+1}" ${i==9?'selected':''}>${i+1}</option>`).join('');
+    let qOpts = Array.from({length: 30}, (_, i) => `<option value="${i+1}" ${i==0?'selected':''}>${i+1}</option>`).join('');
     row.innerHTML = `<select class="p-sel" onchange="calc(${id})">${pOpts}</select> × <select class="q-sel" onchange="calc(${id})">${qOpts}</select><button class="btn btn-danger" onclick="this.parentElement.remove(); calc(${id})">X</button>`;
     document.getElementById(`items_${id}`).appendChild(row);
     calc(id);
@@ -240,7 +294,21 @@ function calc(id) {
 }
 
 function copyToClipboard() {
-    let text = document.getElementById('notes').value + "\n\n";
+    const month = document.getElementById('target_month').value;
+    const notes = document.getElementById('notes').value.trim();
+    const payMethod = document.getElementById('payment_method').value;
+    const pw = document.getElementById('pw_code').value.trim();
+
+    let text = `【${month}】\n`;
+    if (notes) {
+        text += `${notes}\n`;
+    }
+    
+    if (payMethod === 'クレジットカード') {
+        text += `支払い方法：クレジットカード (PW: ${pw})\n\n`;
+    } else {
+        text += `支払い方法：${payMethod}\n\n`;
+    }
 
     document.querySelectorAll('.position-box').forEach(box => {
         const id = box.id.replace('box_', '');
@@ -248,16 +316,19 @@ function copyToClipboard() {
         const pos = document.getElementById('pos_'+id).value;
         const name = document.getElementById('name_'+id).value;
         
-        text += `◆${code}-${pos} ${name}\n`;
-        box.querySelectorAll('.item-row').forEach(r => {
-            const pVal = r.querySelector('.p-sel').value;
-            const qty = r.querySelector('.q-sel').value;
-            if (pVal !== "") {
-                text += `${products[pVal].name} ×${qty}\n`;
-            }
-        });
-        text += "\n";
+        if (code || name) {
+            text += `◆${code}-${pos} ${name}\n`;
+            box.querySelectorAll('.item-row').forEach(r => {
+                const pVal = r.querySelector('.p-sel').value;
+                const qty = r.querySelector('.q-sel').value;
+                if (pVal !== "") {
+                    text += `${products[pVal].name} ×${qty}\n`;
+                }
+            });
+            text += "\n";
+        }
     });
+
     navigator.clipboard.writeText(text).then(() => alert("コピーしました！"));
 }
 </script>
