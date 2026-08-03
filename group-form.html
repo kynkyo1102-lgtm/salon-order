@@ -80,7 +80,7 @@
         <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
         <span>-</span>
         <select id="memberIdSub" style="width: 85px;">
-          <!-- JSで自動生成 -->
+          <!-- JSで自動生成（2桁） -->
         </select>
       </div>
     </div>
@@ -141,7 +141,7 @@
         </select>
 
         <select id="quantity" name="quantity" style="flex: 1;" required>
-          <!-- JSで自動生成 -->
+          <!-- JSで自動生成（1〜20個） -->
         </select>
       </div>
 
@@ -155,7 +155,7 @@
     <!-- 5. 注文者名（連絡先） -->
     <div style="margin-bottom: 15px;">
       <label for="contact">5. 注文者名（連絡先）</label>
-      <input type="text" id="contact" name="contact" placeholder="お名前、または電話番号・メールアドレス" required>
+      <input type="text" id="contact" name="contact" required>
     </div>
 
     <!-- 送信ボタン -->
@@ -211,19 +211,19 @@ const productData = {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  // 枝番生成
+  // 枝番生成（2桁: 01〜20）
   const subSelect = document.getElementById("memberIdSub");
   for (let i = 1; i <= 20; i++) {
     const opt = document.createElement("option");
-    const numStr = String(i).padStart(3, "0");
+    const numStr = String(i).padStart(2, "0");
     opt.value = numStr;
     opt.textContent = numStr;
     subSelect.appendChild(opt);
   }
 
-  // 数量生成
+  // 数量生成（1〜20個）
   const qtySelect = document.getElementById("quantity");
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 20; i++) {
     const opt = document.createElement("option");
     opt.value = i;
     opt.textContent = i + "個";
