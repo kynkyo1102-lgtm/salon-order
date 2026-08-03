@@ -1,181 +1,79 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>グループ専用 注文フォーム</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: #4a5568;
-      --secondary-color: #718096;
-      --success-color: #48bb78;
-      --danger-color: #f56565;
-      --background-color: #f7fafc;
-      --card-background: #ffffff;
-      --border-color: #e2e8f0;
-      --text-color: #2d3748;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 20px 10px; }
-    .container { max-width: 600px; margin: 0 auto; background: var(--card-background); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); padding: 24px; }
-    h1 { text-align: center; color: var(--primary-color); margin-bottom: 24px; font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .form-group { margin-bottom: 20px; }
-    label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-color); font-size: 0.95rem; }
-    .input-icon-wrapper { position: relative; }
-    .input-icon-wrapper i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--secondary-color); }
-    input[type="text"], input[type="tel"], select { width: 100%; padding: 12px 12px 12px 40px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; transition: all 0.2s; background-color: #fff; }
-    input:focus, select:focus { outline: none; border-color: #a0aec0; box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.2); }
-    .order-item-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; margin-bottom: 16px; position: relative; }
-    .item-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
-    .item-row-three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-    .item-form-group { display: flex; flex-direction: column; }
-    .item-form-group label { font-size: 0.85rem; margin-bottom: 4px; }
-    .item-form-group input { padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s; margin-top: 10px; }
-    .btn-success { background-color: var(--success-color); color: white; }
-    .btn-success:hover { background-color: #38a169; }
-    .btn-success:disabled { background-color: #cbd5e0; cursor: not-allowed; }
-    .loading-spinner { display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s ease-in-out infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
-</head>
-<body>
+<!-- 注文送信フォーム -->
+<form id="orderForm" style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+  <h2>注文送信フォーム</h2>
 
-<div class="container">
-  <h1><i class="fas fa-clipboard-list"></i>グループ専用 注文フォーム</h1>
-  <form id="orderForm">
-    <div class="form-group">
-      <label for="positionName">お名前（役職など）</label>
-      <div class="input-icon-wrapper">
-        <i class="fas fa-user"></i>
-        <input type="text" id="positionName" placeholder="例: スタイリスト 山田" required>
-      </div>
+  <!-- 1. 発注月度 -->
+  <div style="margin-bottom: 15px;">
+    <label for="month">1. 発注月度</label><br>
+    <select id="month" name="month" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+      <option value="">選択してください</option>
+      <option value="7月度">7月度</option>
+      <option value="8月度">8月度</option>
+    </select>
+  </div>
+
+  <!-- 2. 会員番号 -->
+  <div style="margin-bottom: 15px;">
+    <label for="memberId">2. 購入会員番号</label><br>
+    <div style="display: flex; gap: 10px; align-items: center; margin-top: 5px;">
+      <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1; padding: 8px;" required>
+      <span>-</span>
+      <select id="memberIdSub" style="width: 80px; padding: 8px;">
+        <!-- JSで001〜020まで自動生成します -->
+      </select>
+    </div>
+  </div>
+
+  <!-- 3. ポジション名 -->
+  <div style="margin-bottom: 15px;">
+    <label for="position">3. ポジション名</label><br>
+    <input type="text" id="position" name="position" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+  </div>
+
+  <!-- 4. 製品名・数量 -->
+  <div style="margin-bottom: 15px;">
+    <label>4. 製品名 × 数量</label><br>
+    <div style="display: flex; gap: 10px; margin-top: 5px;">
+      <select id="product" name="product" style="flex: 2; padding: 8px;" required>
+        <option value="">製品を選択</option>
+        <option value="OX-288">OX-288</option>
+        <option value="OX-288(追加購入)">OX-288(追加購入)</option>
+        <option value="OX-288（ゼリータイプ）">OX-288（ゼリータイプ）</option>
+        <option value="ボアソン">ボアソン</option>
+        <option value="ハイプロリーナ">ハイプロリーナ</option>
+        <option value="ゼウス 2026">ゼウス 2026</option>
+        <option value="アルピニスト スラージュ">アルピニスト スラージュ</option>
+        <option value="Ｏ・Ｍ・Ｃ プロテイン">Ｏ・Ｍ・Ｃ プロテイン</option>
+        <option value="サヴォン アンベリール（120g）">サヴォン アンベリール（120g）</option>
+        <option value="サヴォン アンベリール（70g）">サヴォン アンベリール（70g）</option>
+        <option value="ブランシュール（150g）">ブランシュール（150g）</option>
+        <option value="ブランシュール（80g）">ブランシュール（80g）</option>
+        <option value="デマキヤン">デマキヤン</option>
+        <option value="赤化粧水">赤化粧水</option>
+        <option value="赤美容液">赤美容液</option>
+        <option value="赤ジェル">赤ジェル</option>
+      </select>
+
+      <select id="quantity" name="quantity" style="flex: 1; padding: 8px;" required>
+        <!-- JSで1〜10などの数量を選択肢として生成します -->
+      </select>
     </div>
 
-    <div class="form-group">
-      <label for="contact">連絡先（電話番号）</label>
-      <div class="input-icon-wrapper">
-        <i class="fas fa-phone"></i>
-        <input type="tel" id="contact" placeholder="例: 09012345678" required>
-      </div>
+    <!-- 自動計算結果の表示スペース -->
+    <div style="margin-top: 10px; padding: 10px; background-color: #f9f9f9; text-align: right; border-radius: 4px;">
+      <div>合計金額: <strong id="totalPrice" style="font-size: 1.2em; color: #d9534f;">¥0</strong></div>
+      <div style="font-size: 0.9em; color: #666;">（獲得ポイント: <span id="totalPt">0</span> pt）</div>
     </div>
+  </div>
 
-    <div id="orderItemsContainer">
-      <div class="order-item-card">
-        <div class="item-row">
-          <div class="item-form-group">
-            <label>商品名</label>
-            <input type="text" class="item-name" placeholder="例: シャンプーA" required>
-          </div>
-          <div class="item-form-group">
-            <label>数量</label>
-            <input type="number" class="item-quantity" min="1" value="1" required>
-          </div>
-        </div>
-        <div class="item-row-three">
-          <div class="item-form-group">
-            <label>単価 (円)</label>
-            <input type="number" class="item-price" min="0" placeholder="例: 2000" required>
-          </div>
-          <div class="item-form-group">
-            <label>小計 (円)</label>
-            <input type="number" class="item-subtotal" readonly style="background-color: #edf2f7;">
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- 5. 連絡先 -->
+  <div style="margin-bottom: 20px;">
+    <label for="contact">5. 連絡先</label><br>
+    <input type="text" id="contact" name="contact" placeholder="電話番号またはメールアドレス" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+  </div>
 
-    <button type="submit" id="submitBtn" class="btn btn-success">
-      <span class="loading-spinner" id="spinner"></span>
-      <span id="btnText"><i class="fas fa-paper-plane"></i> 注文を送信する</span>
-    </button>
-  </form>
-</div>
-
-<script>
-  // 小計の自動計算設定
-  function initAutoCalc() {
-    const card = document.querySelector('.order-item-card');
-    const qtyInput = card.querySelector('.item-quantity');
-    const priceInput = card.querySelector('.item-price');
-    const subtotalInput = card.querySelector('.item-subtotal');
-
-    function calc() {
-      const qty = parseInt(qtyInput.value) || 0;
-      const price = parseInt(priceInput.value) || 0;
-      subtotalInput.value = qty * price;
-    }
-    qtyInput.addEventListener('input', calc);
-    priceInput.addEventListener('input', calc);
-  }
-  initAutoCalc();
-
-  // フォーム送信処理
-  document.getElementById('orderForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    const spinner = document.getElementById('spinner');
-    const btnText = document.getElementById('btnText');
-
-    submitBtn.disabled = true;
-    spinner.style.display = 'inline-block';
-    btnText.textContent = ' 送信中...';
-
-    // 最新のGASの公開URLに修正済みです
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4WePzlfSn7YjEJD1MBhcPTa9FD3W5Fu2Pol75IaSSaeMQOqJNONQdAR913sRsyUJd/exec";
-
-    const positionName = document.getElementById('positionName').value;
-    const contact = document.getElementById('contact').value;
-
-    const card = document.querySelector('.order-item-card');
-    const itemName = card.querySelector('.item-name').value;
-    const quantity = parseInt(card.querySelector('.item-quantity').value) || 0;
-    const price = parseInt(card.querySelector('.item-price').value) || 0;
-    const subtotal = quantity * price;
-
-    const today = new Date();
-    const dateStr = today.getFullYear() + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + String(today.getDate()).padStart(2, '0');
-
-    const orderData = {
-      date: dateStr,
-      monthPeriod: String(today.getMonth() + 1) + "月度",
-      contact: contact,
-      memberId: "MEM-" + Math.floor(1000 + Math.random() * 9000),
-      positionName: positionName,
-      orders: [
-        {
-          name: itemName,
-          quantity: quantity,
-          price: price,
-          subtotal: subtotal
-        }
-      ]
-    };
-
-    fetch(WEB_APP_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData)
-    })
-    .then(() => {
-      alert('注文が送信されました！LINE通知をご確認ください。');
-      document.getElementById('orderForm').reset();
-      card.querySelector('.item-subtotal').value = '';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('送信に失敗しました。');
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      spinner.style.display = 'none';
-      btnText.innerHTML = '<i class="fas fa-paper-plane"></i> 注文を送信する';
-    });
-  });
-</script>
-
-</body>
-</html>
+  <!-- 送信ボタン -->
+  <button type="submit" style="width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 1em; cursor: pointer;">
+    注文を送信する
+  </button>
+</form>
