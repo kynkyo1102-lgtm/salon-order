@@ -19,7 +19,8 @@
         .btn-danger { background-color: #ff3b30; color: white; padding: 6px 10px; font-size: 12px; }
         .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
         .item-select { flex: 2; }
-        .item-qty { flex: 1; min-width: 75px; }
+        .item-qty-container { display: flex; align-items: center; gap: 4px; }
+        .item-qty { min-width: 60px; }
         .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
         .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
         .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
@@ -109,7 +110,7 @@
         <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
 
-    <!-- 6. 生成された注文テキスト（確認・手動コピー用エリアを追加） -->
+    <!-- 6. 生成された注文テキスト（確認・手動コピー用エリア） -->
     <div class="card">
         <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
         <p style="font-size: 12px; margin-top: -5px; color: #666;">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
@@ -168,7 +169,7 @@ const products = [
     { name: "モン コパン", price: 3500, p7: 2800, p8: 2800 },
     { name: "モン コパン ジュレ", price: 3500, p7: 2800, p8: 2800 }
 ];
-    let positionCount = 0;
+let positionCount = 0;
 let registeredMembers = [];
 
 // 郵便番号から住所を自動検索する関数
@@ -401,24 +402,40 @@ function addItemRow(posId) {
     const row = document.createElement('div');
     row.className = 'item-row';
     
+    // 商品選択セレクト
     const select = document.createElement('select');
     select.className = 'item-select';
     select.onchange = updatePreview;
     refreshProductOptions(select);
 
+    // 数量セレクト
     let qtyOptions = '';
-    for(let i=1; i<=40; i++) {
+    for(let i = 1; i <= 40; i++) {
         qtyOptions += `<option value="${i}">${i}</option>`;
     }
 
-    row.appendChild(select);
-    
     const qtyContainer = document.createElement('div');
     qtyContainer.className = 'item-qty-container';
-    qtyContainer.innerHTML = `
-        <select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個
-    `;
+    qtyContainer.innerHTML = `<select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個`;
+
+    // 削除ボタン (✕)
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger';
+    deleteBtn.style.cssText = 'padding: 6px 10px; font-size: 12px; margin-left: 4px;';
+    deleteBtn.innerText = '✕';
+    deleteBtn.onclick = function() {
+        if (list.querySelectorAll('.item-row').length > 1) {
+            row.remove();
+        } else {
+            select.value = '';
+            row.querySelector('.item-qty').value = '1';
+        }
+        updatePreview();
+    };
+
+    row.appendChild(select);
     row.appendChild(qtyContainer);
+    row.appendChild(deleteBtn);
     
     list.appendChild(row);
 }
@@ -432,6 +449,7 @@ function calculateAll() {
     let grandTotalPt = 0;
     
     let positionsData = [];
+    let itemSummaryMap = {};
 
     positionBoxes.forEach((box) => {
         const boxId = box.id.replace('position_box_', '');
@@ -475,6 +493,12 @@ function calculateAll() {
                 posPt += subPt;
 
                 posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
+
+                if (itemSummaryMap[prod.name]) {
+                    itemSummaryMap[prod.name] += qty;
+                } else {
+                    itemSummaryMap[prod.name] = qty;
+                }
             }
         });
 
@@ -498,7 +522,7 @@ function calculateAll() {
         }
     });
 
-    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt };
+    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt, itemSummaryMap };
 }
 
 function generateText() {
@@ -539,8 +563,16 @@ function generateText() {
 
     text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
     
+    const summaryKeys = Object.keys(data.itemSummaryMap);
+    if (summaryKeys.length > 0) {
+        summaryKeys.forEach(prodName => {
+            text += `●${prodName}×${data.itemSummaryMap[prodName]}\n`;
+        });
+        text += `\n`;
+    }
+
     if(shipZip || shipName || shipAddr || shipTel || shipNote) {
-        text += `\n(送付先)\n`;
+        text += `(送付先)\n`;
         if(shipNote) text += `★${shipNote}★\n\n`;
         if(shipZip) text += `〒${shipZip}\n`;
         if(shipAddr) text += `${shipAddr}\n`;
@@ -555,7 +587,6 @@ function updatePreview() {
     const result = generateText();
     document.getElementById('total_summary_text').innerText = `合計 ${result.grandTotalQty}点 ${result.grandTotalPrice.toLocaleString()}円 (${result.grandTotalPt.toLocaleString()}pt)`;
     
-    // 生成テキストを画面上のテキストエリアにリアルタイム反映
     const outputArea = document.getElementById('output_text');
     if (outputArea) {
         outputArea.value = result.text;
