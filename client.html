@@ -5,23 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注文依頼テキスト作成ツール</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; padding-bottom: 180px; color: #333; }
+        body { font-family: sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; padding-bottom: 120px; color: #333; }
         .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
         h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
         .form-group { margin-bottom: 12px; }
         label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
         input[type="text"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         textarea { height: 70px; resize: vertical; }
-        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
+        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .btn-secondary { background: #e5e5ea; color: #333; }
-        .btn-danger { background-color: #ff3b30; color: white; padding: 5px 10px; font-size: 12px; }
+        .btn-danger { background-color: #ff3b30; color: white; padding: 5px 10px; }
         .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
         .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
         .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
         .hidden-pw { display: none; margin-top: 10px; }
-        .total-preview { font-size: 14px; font-weight: bold; text-align: center; }
-        .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
     </style>
 </head>
 <body>
@@ -29,14 +27,14 @@
 
     <!-- 1. 会員番号・名義の事前登録 -->
     <div class="card">
-        <h3>1. 会員番号・名義の事前登録</h3>
+        <h3>会員番号・名義の事前登録</h3>
         <div id="member_register_container"></div>
         <button class="btn btn-secondary" style="font-size:12px;" onclick="addMemberRow()">+ 登録を追加</button>
     </div>
 
     <!-- 2. 処理月度 -->
     <div class="card">
-        <h3>2. 処理月度</h3>
+        <h3>処理月度</h3>
         <select id="target_month" onchange="changeMonth()">
             <option value="7月度">7月度</option>
             <option value="8月度" selected>8月度</option>
@@ -45,7 +43,7 @@
 
     <!-- 3. 支払い方法 -->
     <div class="card">
-        <h3>3. 支払い方法</h3>
+        <h3>支払い方法</h3>
         <div class="form-group">
             <select id="payment_method" onchange="togglePwField(); savePayment();">
                 <option value="現金">現金</option>
@@ -61,78 +59,67 @@
 
     <!-- 4. 必要事項等 -->
     <div class="card">
-        <h3>4. 必要事項等</h3>
+        <h3>必要事項等</h3>
         <textarea id="notes" placeholder="例：領収書が必要など" oninput="saveNotes()"></textarea>
     </div>
 
     <!-- 5. 注文内容 -->
     <div class="card">
-        <h3>5. 注文内容</h3>
+        <h3>注文内容</h3>
         <div id="positions_container"></div>
         <button class="btn btn-secondary" onclick="addPositionBox()">+ 注文行を追加</button>
     </div>
 
-    <!-- 6. 生成された注文テキスト（確認・手動コピー用） -->
-    <div class="card">
-        <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
-        <p style="font-size: 12px; margin-top: -5px; color: #666;">※万が一「LINE用にコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
-        <textarea id="output_text" style="height: 180px; font-family: monospace;" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
-    </div>
-
-    <!-- 固定下部バー -->
     <div class="footer-bar">
-        <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
-        <button class="btn" style="width:100%; background:#34c759; padding: 12px; font-size: 16px;" onclick="copyToClipboard()">LINE用にコピー</button>
+        <button class="btn" style="width:100%; background:#34c759;" onclick="copyToClipboard()">LINE用にコピー</button>
     </div>
 
 <script>
-// 商品データマスター（最新データ）
 const products = [
-    { name: "OX-288", price: 13800, p7: 10000, p8: 10000 },
-    { name: "OX-288(追加購入)", price: 13800, p7: 10000, p8: 10000 },
-    { name: "OX-288 (ゼリータイプ)", price: 14200, p7: 10000, p8: 10000 },
-    { name: "ボアソン", price: 10800, p7: 10000, p8: 10000 },
-    { name: "ハイプロリーナ", price: 7200, p7: 6000, p8: 6000 },
-    { name: "ゼウス 2026", price: 17800, p7: 13000, p8: 13000 },
-    { name: "アルピニスト スラージュ", price: 4000, p7: 1400, p8: 2800 },
-    { name: "O・M・C プロテイン", price: 6000, p7: 2000, p8: 5000 },
-    { name: "サヴォン アンベリール (120g)", price: 5200, p7: 1800, p8: 4300 },
-    { name: "サヴォン アンベリール (70g)", price: 3500, p7: 1200, p8: 2900 },
-    { name: "ブランシュール (150g)", price: 12200, p7: 10500, p8: 10500 },
-    { name: "ブランシュール (80g)", price: 6800, p7: 5800, p8: 5800 },
-    { name: "デマキヤン", price: 4100, p7: 1500, p8: 3400 },
-    { name: "赤化粧水", price: 3600, p7: 1300, p8: 3000 },
-    { name: "赤美容液", price: 6400, p7: 2300, p8: 5400 },
-    { name: "赤ジェル", price: 4800, p7: 1700, p8: 4000 },
-    { name: "白化粧水", price: 3600, p7: 3000, p8: 3000 },
-    { name: "白美容液", price: 6400, p7: 5400, p8: 5400 },
-    { name: "白ジェル", price: 4800, p7: 4000, p8: 4000 },
-    { name: "グルナードゥ", price: 32000, p7: 26000, p8: 26000 },
-    { name: "リペアセラム", price: 14800, p7: 15000, p8: 15000 },
-    { name: "リペアクリーム", price: 18700, p7: 6600, p8: 15000 },
-    { name: "レボリューション", price: 17200, p7: 9000, p8: 14500 },
-    { name: "グロウジェルクリーム", price: 9800, p7: 3600, p8: 8000 },
-    { name: "ハンドモイスチャー", price: 2200, p7: 700, p8: 1800 },
-    { name: "リップセラム", price: 2000, p7: 600, p8: 1600 },
-    { name: "ボディミルク", price: 3200, p7: 1000, p8: 2500 },
-    { name: "ミュー ヴィサージュ", price: 3300, p7: 1200, p8: 2600 },
-    { name: "ミューコール", price: 3300, p7: 2600, p8: 2600 },
-    { name: "バイオミスト", price: 3700, p7: 3000, p8: 3000 },
-    { name: "ボディソープ", price: 3200, p7: 2500, p8: 2500 },
-    { name: "シャンプー", price: 3200, p7: 1000, p8: 2500 },
-    { name: "トリートメント", price: 3200, p7: 1000, p8: 2500 },
-    { name: "ヘアマスク", price: 3200, p7: 1000, p8: 2500 },
-    { name: "スカルプトナー", price: 9200, p7: 7500, p8: 7500 },
-    { name: "クレオ デンタルクリーン", price: 2200, p7: 700, p8: 1800 },
-    { name: "クレオ マウスウォッシュ", price: 3200, p7: 1000, p8: 2500 },
-    { name: "アロマオイル ローズ", price: 8700, p7: 3000, p8: 7300 },
-    { name: "ゼウス オードゥ パルファン 2026", price: 21000, p7: 16000, p8: 18000 },
-    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, p7: 4000, p8: 8000 },
-    { name: "モン コパン", price: 3500, p7: 2800, p8: 2800 },
-    { name: "モン コパン ジュレ", price: 3500, p7: 2800, p8: 2800 }
+    { name: "OX-288", price: 13800, pt7: 10000, pt8: 10000 },
+    { name: "OX-288(追加購入)", price: 13800, pt7: 10000, pt8: 10000 },
+    { name: "OX-288（ゼリータイプ ）", price: 14200, pt7: 10000, pt8: 10000 },
+    { name: "ボアソン", price: 10800, pt7: 10000, pt8: 10000 },
+    { name: "ハイプロリーナ", price: 7200, pt7: 6000, pt8: 6000 },
+    { name: "OX-288 ゼウス 2026", price: 17800, pt7: 13000, pt8: 13000 },
+    { name: "アルピニスト スラージュ", price: 4000, pt7: 1400, pt8: 2800 },
+    { name: "O・M・C プロテイン", price: 6000, pt7: 2000, pt8: 5000 },
+    { name: "サヴォン アンベリール（120g）", price: 5200, pt7: 1800, pt8: 4300 },
+    { name: "サヴォン アンベリール（70g）", price: 3500, pt7: 1200, pt8: 2900 },
+    { name: "ブランシュール（150g）", price: 12200, pt7: 10500, pt8: 10500 },
+    { name: "ブランシュール（80g）", price: 6800, pt7: 5800, pt8: 5800 },
+    { name: "デマキヤン", price: 4100, pt7: 1500, pt8: 3400 },
+    { name: "赤化粧水", price: 3600, pt7: 1300, pt8: 3000 },
+    { name: "赤美容液", price: 6400, pt7: 2300, pt8: 5400 },
+    { name: "赤ジェル", price: 4800, pt7: 1700, pt8: 4000 },
+    { name: "白化粧水", price: 3600, pt7: 3000, pt8: 3000 },
+    { name: "白美容液", price: 6400, pt7: 5400, pt8: 5400 },
+    { name: "白ジェル", price: 4800, pt7: 4000, pt8: 4000 },
+    { name: "グルナードゥ", price: 32000, pt7: 26000, pt8: 26000 },
+    { name: "リペアセラム", price: 14800, pt7: 15000, pt8: 15000 },
+    { name: "リペアクリーム", price: 18700, pt7: 6600, pt8: 15000 },
+    { name: "レボリューション", price: 17200, pt7: 9000, pt8: 14500 },
+    { name: "グロウジェルクリーム", price: 9800, pt7: 3600, pt8: 8000 },
+    { name: "ハンドモイスチャー", price: 2200, pt7: 700, pt8: 1800 },
+    { name: "リップセラム", price: 2000, pt7: 600, pt8: 1600 },
+    { name: "ボディミルク", price: 3200, pt7: 1000, pt8: 2500 },
+    { name: "ヴィサージュ", price: 3300, pt7: 1200, pt8: 2600 },
+    { name: "コール", price: 3300, pt7: 2600, pt8: 2600 },
+    { name: "バイオミスト", price: 3700, pt7: 3000, pt8: 3000 },
+    { name: "ボディソープ", price: 3200, pt7: 2500, pt8: 2500 },
+    { name: "シャンプー", price: 3200, pt7: 1000, pt8: 2500 },
+    { name: "トリートメント", price: 3200, pt7: 1000, pt8: 2500 },
+    { name: "ヘアマスク", price: 3200, pt7: 1000, pt8: 2500 },
+    { name: "スカルプトナー", price: 9200, pt7: 7500, pt8: 7500 },
+    { name: "クレオ", price: 2200, pt7: 700, pt8: 1800 },
+    { name: "マウスウォッシュ", price: 3200, pt7: 1000, pt8: 2500 },
+    { name: "アロマオイル (ローズ)", price: 8700, pt7: 3000, pt8: 7300 },
+    { name: "ゼウス オードゥ パルファン 2026", price: 21000, pt7: 16000, pt8: 18000 },
+    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pt7: 4000, pt8: 8000 },
+    { name: "モン コパン", price: 3500, pt7: 2800, pt8: 2800 },
+    { name: "モン コパン ジュレ", price: 3500, pt7: 2800, pt8: 2800 }
 ];
     let positionCount = 0;
-let registeredMembers = [];
 
 // ポジション選択肢 (00, 01〜35)
 const posOptions = Array.from({length: 36}, (_, i) => {
@@ -142,32 +129,38 @@ const posOptions = Array.from({length: 36}, (_, i) => {
 }).join('');
 
 window.onload = function() {
-    if(localStorage.getItem('payment_method_client')) document.getElementById('payment_method').value = localStorage.getItem('payment_method_client');
-    if(localStorage.getItem('pw_code_client')) document.getElementById('pw_code').value = localStorage.getItem('pw_code_client');
-    if(localStorage.getItem('notes_client')) document.getElementById('notes').value = localStorage.getItem('notes_client');
-    
-    togglePwField();
-
-    const savedMembers = localStorage.getItem('registered_members_client');
-    if (savedMembers) {
-        registeredMembers = JSON.parse(savedMembers);
-        registeredMembers.forEach(m => addMemberRow(m.code, m.name));
-    } else {
-        addMemberRow('', '');
+    if (localStorage.getItem('notes')) {
+        document.getElementById('notes').value = localStorage.getItem('notes');
+    }
+    if (localStorage.getItem('target_month')) {
+        document.getElementById('target_month').value = localStorage.getItem('target_month');
+    }
+    if (localStorage.getItem('payment_method')) {
+        document.getElementById('payment_method').value = localStorage.getItem('payment_method');
+    }
+    if (localStorage.getItem('pw_code')) {
+        document.getElementById('pw_code').value = localStorage.getItem('pw_code');
     }
 
+    togglePwField();
+
+    const savedMembers = localStorage.getItem('members');
+    if (savedMembers) {
+        const members = JSON.parse(savedMembers);
+        members.forEach(m => addMemberRow(m.code, m.name));
+    } else {
+        addMemberRow();
+    }
     addPositionBox();
 };
 
-function savePayment() {
-    localStorage.setItem('payment_method_client', document.getElementById('payment_method').value);
-    localStorage.setItem('pw_code_client', document.getElementById('pw_code').value);
-    updatePreview();
+function saveNotes() {
+    localStorage.setItem('notes', document.getElementById('notes').value);
 }
 
-function saveNotes() {
-    localStorage.setItem('notes_client', document.getElementById('notes').value);
-    updatePreview();
+function savePayment() {
+    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
+    localStorage.setItem('pw_code', document.getElementById('pw_code').value);
 }
 
 function togglePwField() {
@@ -177,278 +170,170 @@ function togglePwField() {
         pwContainer.style.display = 'block';
     } else {
         pwContainer.style.display = 'none';
-        document.getElementById('pw_code').value = ''; 
+        document.getElementById('pw_code').value = '';
+        savePayment();
     }
-}
-
-function addMemberRow(code = '', name = '') {
-    const container = document.getElementById('member_register_container');
-    const row = document.createElement('div');
-    row.className = 'member-reg-row';
-    row.innerHTML = `
-        <input type="text" class="reg-code" placeholder="会員番号" value="${code}" oninput="saveMembers()">
-        <input type="text" class="reg-name" placeholder="氏名" value="${name}" oninput="saveMembers()">
-        <button class="btn btn-danger" onclick="removeMemberRow(this)">✕</button>
-    `;
-    container.appendChild(row);
-}
-
-function removeMemberRow(btn) {
-    btn.parentElement.remove();
-    saveMembers();
-}
-
-function saveMembers() {
-    const rows = document.querySelectorAll('.member-reg-row');
-    registeredMembers = [];
-    rows.forEach(row => {
-        const code = row.querySelector('.reg-code').value.trim();
-        const name = row.querySelector('.reg-name').value.trim();
-        if(code || name) {
-            registeredMembers.push({ code, name });
-        }
-    });
-    localStorage.setItem('registered_members_client', JSON.stringify(registeredMembers));
-    
-    document.querySelectorAll('.pos-select').forEach(select => {
-        const currentVal = select.value;
-        refreshMemberOptions(select);
-        select.value = currentVal;
-    });
-    updatePreview();
-}
-
-function refreshMemberOptions(selectElement) {
-    let options = '<option value="">-- 登録メンバーから選択 --</option>';
-    registeredMembers.forEach((m, idx) => {
-        options += `<option value="${idx}">${m.code} ${m.name}</option>`;
-    });
-    selectElement.innerHTML = options;
-}
-
-function onSelectMember(posId) {
-    const select = document.getElementById(`pos_select_${posId}`);
-    const codeInput = document.getElementById(`pos_code_${posId}`);
-    const nameInput = document.getElementById(`pos_name_${posId}`);
-    
-    const selectedIdx = select.value;
-    if (selectedIdx !== "") {
-        const member = registeredMembers[selectedIdx];
-        codeInput.value = member.code;
-        nameInput.value = member.name;
-    }
-    updatePreview();
 }
 
 function changeMonth() {
-    document.querySelectorAll('.item-select').forEach(select => {
-        const selectedIndex = select.value;
-        refreshProductOptions(select);
-        select.value = selectedIndex;
+    const month = document.getElementById('target_month').value;
+    localStorage.setItem('target_month', month);
+    
+    document.querySelectorAll('[id^="box_"]').forEach(box => {
+        const id = box.id.replace('box_', '');
+        calc(id);
     });
-    updatePreview();
 }
 
-function refreshProductOptions(selectElement) {
-    const month = document.getElementById('target_month').value;
-    let options = '<option value="">-- 商品を選択 --</option>';
-    products.forEach((p, index) => {
-        const pt = (month === "7月度") ? p.p7 : p.p8;
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${pt.toLocaleString()}pt)</option>`;
+function getProductPt(prod, month) {
+    return month === "7月度" ? prod.pt7 : prod.pt8;
+}
+
+function getProductOptions() {
+    return products.map((p, i) => `<option value="${i}">${p.name}</option>`).join('');
+}
+
+function saveMembers() {
+    const members = [];
+    document.querySelectorAll('.member-reg-row').forEach(row => {
+        const code = row.querySelector('.reg-code').value.trim();
+        const name = row.querySelector('.reg-name').value.trim();
+        if (code || name) {
+            members.push({ code, name });
+        }
     });
-    selectElement.innerHTML = options;
+    localStorage.setItem('members', JSON.stringify(members));
+    
+    document.querySelectorAll('[id^="box_"]').forEach(box => {
+        const id = box.id.replace('box_', '');
+        updateMemberSelect(id);
+    });
+}
+
+function updateMemberSelect(id) {
+    const select = document.getElementById(`select_${id}`);
+    if (!select) return;
+    const currentVal = select.value;
+    
+    let memOpts = '<option value="">-- 会員を選択 --</option>';
+    document.querySelectorAll('.member-reg-row').forEach((r, i) => {
+        const code = r.querySelector('.reg-code').value.trim();
+        const name = r.querySelector('.reg-name').value.trim();
+        if (code || name) {
+            memOpts += `<option value="${i}">${code} ${name}</option>`;
+        }
+    });
+    select.innerHTML = memOpts;
+    select.value = currentVal;
+}
+
+function addMemberRow(c='', n='') {
+    const row = document.createElement('div'); row.className = 'member-reg-row';
+    row.innerHTML = `
+        <input type="text" class="reg-code" placeholder="会員番号" value="${c}" oninput="saveMembers()"> 
+        <input type="text" class="reg-name" placeholder="会員名" value="${n}" oninput="saveMembers()"> 
+        <button class="btn btn-danger" onclick="this.parentElement.remove(); saveMembers();">X</button>`;
+    document.getElementById('member_register_container').appendChild(row);
+    saveMembers();
 }
 
 function addPositionBox() {
-    positionCount++;
-    const container = document.getElementById('positions_container');
+    const id = Date.now();
     const box = document.createElement('div');
     box.className = 'position-box';
-    box.id = `position_box_${positionCount}`;
+    box.id = `box_${id}`;
     
     box.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong style="font-size:14px; color:#555;">注文枠 #${positionCount}</strong>
-            ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <strong>注文枠</strong>
+            <button class="btn btn-danger" onclick="document.getElementById('box_${id}').remove()">削除</button>
         </div>
-        <div class="form-group">
-            <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
+        <select id="select_${id}" onchange="fillMember(this, ${id})" style="margin-bottom:10px;"></select>
+        <div style="display:flex; gap:5px; margin-bottom:10px;">
+            <input type="text" id="code_${id}" placeholder="番号" style="flex:2;">
+            <select id="pos_${id}" style="flex:1;">${posOptions}</select>
+            <input type="text" id="name_${id}" placeholder="名義" style="flex:2;">
         </div>
-        <div style="display:flex; gap:8px; margin-bottom:8px;">
-            <input type="text" id="pos_code_${positionCount}" placeholder="会員番号" style="flex:1;" oninput="updatePreview()">
-            <select id="pos_num_${positionCount}" style="flex:0.8;" onchange="updatePreview()">${posOptions}</select>
-            <input type="text" id="pos_name_${positionCount}" placeholder="氏名" style="flex:1.2;" oninput="updatePreview()">
-        </div>
-        <div class="items-list" id="items_list_${positionCount}"></div>
-        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
-        <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
+        <div id="items_${id}"></div>
+        <button class="btn btn-secondary" style="font-size:12px;" onclick="addItem(${id})">+ 商品を追加</button>
+        <div id="sub_${id}" style="margin-top:10px; font-weight:bold; color:#007aff;">小計：0円 (0pt)</div>
     `;
-    container.appendChild(box);
-    
-    refreshMemberOptions(document.getElementById(`pos_select_${positionCount}`));
-    addItemRow(positionCount);
-    updatePreview();
+    document.getElementById('positions_container').appendChild(box);
+    updateMemberSelect(id);
+    addItem(id);
 }
 
-function removePositionBox(id) {
-    document.getElementById(`position_box_${id}`).remove();
-    updatePreview();
+function fillMember(sel, id) {
+    const rows = document.querySelectorAll('.member-reg-row');
+    const row = rows[sel.value];
+    if(row) {
+        document.getElementById('code_'+id).value = row.querySelector('.reg-code').value;
+        document.getElementById('name_'+id).value = row.querySelector('.reg-name').value;
+    }
 }
 
-function addItemRow(posId) {
-    const list = document.getElementById('items_list_' + posId);
+function addItem(id) {
     const row = document.createElement('div');
     row.className = 'item-row';
-    
-    const select = document.createElement('select');
-    select.className = 'item-select';
-    select.style.flex = "2";
-    select.onchange = updatePreview;
-    refreshProductOptions(select);
-
-    let qtyOptions = '';
-    for(let i=1; i<=20; i++) {
-        qtyOptions += `<option value="${i}">${i}</option>`;
-    }
-
-    const qtySelect = document.createElement('select');
-    qtySelect.className = 'item-qty';
-    qtySelect.style.flex = "1";
-    qtySelect.innerHTML = qtyOptions;
-    qtySelect.onchange = updatePreview;
-
-    row.appendChild(select);
-    row.appendChild(qtySelect);
-    list.appendChild(row);
+    let pOpts = getProductOptions();
+    let qOpts = Array.from({length: 30}, (_, i) => `<option value="${i+1}" ${i==0?'selected':''}>${i+1}</option>`).join('');
+    row.innerHTML = `<select class="p-sel" onchange="calc(${id})">${pOpts}</select> × <select class="q-sel" onchange="calc(${id})">${qOpts}</select><button class="btn btn-danger" onclick="this.parentElement.remove(); calc(${id})">X</button>`;
+    document.getElementById(`items_${id}`).appendChild(row);
+    calc(id);
 }
 
-function calculateAll() {
+function calc(id) {
     const month = document.getElementById('target_month').value;
-    const positionBoxes = document.querySelectorAll('.position-box');
-    
-    let grandTotalQty = 0;
-    let grandTotalPrice = 0;
-    let grandTotalPt = 0;
-    let positionsData = [];
-
-    positionBoxes.forEach((box) => {
-        const boxId = box.id.replace('position_box_', '');
-        
-        const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
-        const posNum = document.getElementById(`pos_num_${boxId}`).value;
-        const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
-        
-        let posCode = rawCode;
-        if (rawCode && posNum) {
-            posCode = `${rawCode}-${posNum}`;
-        }
-
-        const posInfo = (posCode || posName) ? `${posCode} ${posName}`.trim() : "";
-        const rows = box.querySelectorAll('.item-row');
-        
-        let posQty = 0;
-        let posPrice = 0;
-        let posPt = 0;
-        let posItemsText = "";
-
-        rows.forEach(row => {
-            const pIndex = row.querySelector('.item-select').value;
-            const qty = parseInt(row.querySelector('.item-qty').value) || 0;
-            
-            if(pIndex !== "") {
-                const prod = products[pIndex];
-                const pt = (month === "7月度") ? prod.p7 : prod.p8;
-                
-                const subPrice = prod.price * qty;
-                const subPt = pt * qty;
-
-                posQty += qty;
-                posPrice += subPrice;
-                posPt += subPt;
-
-                posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
-            }
-        });
-
-        const subtotalDiv = document.getElementById(`pos_subtotal_${boxId}`);
-        if (subtotalDiv) {
-            subtotalDiv.innerText = `小計: ${posQty}点 ${posPrice.toLocaleString()}円 (${posPt.toLocaleString()}pt)`;
-        }
-
-        if(posInfo && posItemsText) {
-            positionsData.push({
-                info: posInfo,
-                itemsText: posItemsText,
-                qty: posQty,
-                price: posPrice,
-                pt: posPt
-            });
-            
-            grandTotalQty += posQty;
-            grandTotalPrice += posPrice;
-            grandTotalPt += posPt;
+    let p=0, pt=0;
+    document.querySelectorAll(`#box_${id} .item-row`).forEach(r => {
+        const pVal = r.querySelector('.p-sel').value;
+        const qty = r.querySelector('.q-sel').value;
+        if (pVal !== "") {
+            const prod = products[pVal];
+            p += prod.price * qty; 
+            pt += getProductPt(prod, month) * qty;
         }
     });
-
-    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt };
-}
-
-function generateText() {
-    const month = document.getElementById('target_month').value;
-    const payment = document.getElementById('payment_method').value;
-    const pw = document.getElementById('pw_code').value.trim();
-    const notes = document.getElementById('notes').value.trim();
-    
-    const today = new Date();
-    const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
-
-    const data = calculateAll();
-
-    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
-    
-    if(payment) {
-        if(payment === 'クレジットカード') {
-            text += `クレジットカード決済`;
-            if(pw) text += ` (PW: ${pw})`;
-            text += `\n`;
-        } else {
-            text += `${payment}決済\n`;
-        }
-    }
-    text += `\n`;
-
-    data.positionsData.forEach(pos => {
-        text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
-        text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
-    });
-
-    text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n`;
-
-    if(notes) {
-        text += `\n【備考】\n${notes}\n`;
-    }
-
-    return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
-}
-
-function updatePreview() {
-    const result = generateText();
-    document.getElementById('total_summary_text').innerText = `合計 ${result.grandTotalQty}点 ${result.grandTotalPrice.toLocaleString()}円 (${result.grandTotalPt.toLocaleString()}pt)`;
-    
-    // 生成テキストを画面上のテキストエリアにリアルタイム反映
-    const outputArea = document.getElementById('output_text');
-    if (outputArea) {
-        outputArea.value = result.text;
-    }
+    document.getElementById(`sub_${id}`).innerText = `小計：${p.toLocaleString()}円 (${pt.toLocaleString()}pt)`;
 }
 
 function copyToClipboard() {
-    const result = generateText();
-    navigator.clipboard.writeText(result.text).then(() => {
-        alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
-    }).catch(err => {
-        alert("コピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
+    const month = document.getElementById('target_month').value;
+    const notes = document.getElementById('notes').value.trim();
+    const payMethod = document.getElementById('payment_method').value;
+    const pw = document.getElementById('pw_code').value.trim();
+
+    let text = `【${month}】\n`;
+    if (notes) {
+        text += `${notes}\n`;
+    }
+    
+    if (payMethod === 'クレジットカード') {
+        text += `支払い方法：クレジットカード (PW: ${pw})\n\n`;
+    } else {
+        text += `支払い方法：${payMethod}\n\n`;
+    }
+
+    document.querySelectorAll('.position-box').forEach(box => {
+        const id = box.id.replace('box_', '');
+        const code = document.getElementById('code_'+id).value;
+        const pos = document.getElementById('pos_'+id).value;
+        const name = document.getElementById('name_'+id).value;
+        
+        if (code || name) {
+            text += `◆${code}-${pos} ${name}\n`;
+            box.querySelectorAll('.item-row').forEach(r => {
+                const pVal = r.querySelector('.p-sel').value;
+                const qty = r.querySelector('.q-sel').value;
+                if (pVal !== "") {
+                    text += `${products[pVal].name} ×${qty}\n`;
+                }
+            });
+            text += "\n";
+        }
     });
+
+    navigator.clipboard.writeText(text).then(() => alert("コピーしました！"));
 }
 </script>
 </body>
