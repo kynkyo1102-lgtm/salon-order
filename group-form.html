@@ -77,3 +77,72 @@
     注文を送信する
   </button>
 </form>
+<script>
+  // 商品データ（製品名、価格、7月度pt、8月度pt）
+  const productData = {
+    "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 8000 } },
+    "OX-288(追加購入)": { price: 11000, pt: { "7月度": 8000, "8月度": 8000 } },
+    "OX-288（ゼリータイプ）": { price: 14000, pt: { "7月度": 10000, "8月度": 8000 } },
+    "ボアソン": { price: 12500, pt: { "7月度": 9000, "8月度": 7500 } },
+    "ハイプロリーナ": { price: 10500, pt: { "7月度": 7500, "8月度": 6000 } },
+    "ゼウス 2026": { price: 15000, pt: { "7月度": 11000, "8月度": 9000 } },
+    "アルピニスト スラージュ": { price: 13000, pt: { "7月度": 9500, "8月度": 7800 } },
+    "Ｏ・Ｍ・Ｃ プロテイン": { price: 8800, pt: { "7月度": 6000, "8月度": 5000 } },
+    "サヴォン アンベリール（120g）": { price: 5500, pt: { "7月度": 3500, "8月度": 3000 } },
+    "サヴォン アンベリール（70g）": { price: 3500, pt: { "7月度": 2000, "8月度": 1800 } },
+    "ブランシュール（150g）": { price: 6000, pt: { "7月度": 4000, "8月度": 3500 } },
+    "ブランシュール（80g）": { price: 3800, pt: { "7月度": 2300, "8月度": 2000 } },
+    "デマキヤン": { price: 4800, pt: { "7月度": 3000, "8月度": 2500 } },
+    "赤化粧水": { price: 5000, pt: { "7月度": 3200, "8月度": 2700 } },
+    "赤美容液": { price: 7500, pt: { "7月度": 5000, "8月度": 4200 } },
+    "赤ジェル": { price: 6500, pt: { "7月度": 4200, "8月度": 3600 } }
+  };
+
+  // 1. 会員番号の枝番（-001〜-020）を自動生成
+  const subSelect = document.getElementById("memberIdSub");
+  for (let i = 1; i <= 20; i++) {
+    const opt = document.createElement("option");
+    const numStr = String(i).padStart(3, "0"); // 001, 002...
+    opt.value = numStr;
+    opt.textContent = numStr;
+    subSelect.appendChild(opt);
+  }
+
+  // 2. 数量（1〜10個）の選択肢を自動生成
+  const qtySelect = document.getElementById("quantity");
+  for (let i = 1; i <= 10; i++) {
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = i + "個";
+    qtySelect.appendChild(opt);
+  }
+  // 3. 金額とポイントを自動計算する関数
+  function calculateTotal() {
+    const selectedMonth = document.getElementById("month").value;
+    const selectedProduct = document.getElementById("product").value;
+    const quantity = parseInt(document.getElementById("quantity").value) || 1;
+
+    let price = 0;
+    let pt = 0;
+
+    if (selectedProduct && productData[selectedProduct]) {
+      price = productData[selectedProduct].price;
+      // 選択された月度に応じたポイントを取得（未選択の場合は0pt）
+      if (selectedMonth && productData[selectedProduct].pt[selectedMonth]) {
+        pt = productData[selectedProduct].pt[selectedMonth];
+      }
+    }
+
+    const totalPrice = price * quantity;
+    const totalPt = pt * quantity;
+
+    // 画面の表示を更新
+    document.getElementById("totalPrice").textContent = "¥" + totalPrice.toLocaleString();
+    document.getElementById("totalPt").textContent = totalPt.toLocaleString();
+  }
+
+  // 4. イベントリスナー（選択が変わったら自動計算を実行）
+  document.getElementById("month").addEventListener("change", calculateTotal);
+  document.getElementById("product").addEventListener("change", calculateTotal);
+  document.getElementById("quantity").addEventListener("change", calculateTotal);
+</script>
