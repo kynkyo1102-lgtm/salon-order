@@ -3,92 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>注文依頼テキスト作成ツール（管理者用）</title>
+    <title>サロン専用注文書作成ツール</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; padding-bottom: 180px; color: #333; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; color: #333; padding-bottom: 180px; }
         .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
         h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
         .form-group { margin-bottom: 12px; }
+        .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
+        .form-row .form-group { margin-bottom: 0; flex: 1; }
         label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
-        input[type="text"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        textarea { height: 70px; resize: vertical; }
+        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        textarea { height: 60px; resize: vertical; }
         .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
-        .btn-secondary { background: #e5e5ea; color: #333; }
-        .btn-danger { background-color: #ff3b30; color: white; padding: 5px 10px; font-size: 12px; }
-        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
-        .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
+        .btn-secondary { background-color: #e5e5ea; color: #333; }
+        .btn-danger { background-color: #ff3b30; color: white; padding: 6px 10px; font-size: 12px; }
         .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
-        .hidden-pw { display: none; margin-top: 10px; }
+        .item-select { flex: 2; }
+        .item-qty { flex: 1; min-width: 75px; }
+        .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
+        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
         .total-preview { font-size: 14px; font-weight: bold; text-align: center; }
+        .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
         .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
+        .hidden-pw { display: none; }
+        .custom-pos-container { display: none; margin-top: 8px; }
     </style>
 </head>
 <body>
-    <h2>注文依頼作成ツール（管理者用）</h2>
 
-    <!-- 1. 会員番号・名義の事前登録 -->
+    <h2>注文書作成ツール</h2>
+
+    <!-- 1. 会員リポジトリ登録エリア -->
     <div class="card">
-        <h3>1. 会員番号・名義の事前登録</h3>
+        <h3>1. 会員番号・名義の事前登録（複数可）</h3>
+        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号は下2桁以前の番号（00、01、02等のポジションは後に選択できます）を登録してください</p>
         <div id="member_register_container"></div>
-        <button class="btn btn-secondary" style="font-size:12px;" onclick="addMemberRow()">+ 登録を追加</button>
+        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
     </div>
 
-    <!-- 2. 処理月度 -->
+    <!-- 2. お届け先情報 -->
     <div class="card">
-        <h3>2. 処理月度</h3>
-        <select id="target_month" onchange="changeMonth()">
-            <option value="7月度">7月度</option>
-            <option value="8月度" selected>8月度</option>
-        </select>
-    </div>
-
-    <!-- 3. 支払い方法 -->
-    <div class="card">
-        <h3>3. 支払い方法</h3>
+        <h3>2. お届け先情報</h3>
+        <div class="form-row">
+            <div class="form-group" style="flex: 0 0 120px;">
+                <label>郵便番号</label>
+                <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
+            </div>
+            <div class="form-group">
+                <label>お届け先氏名（宛名）</label>
+                <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+        </div>
         <div class="form-group">
-            <select id="payment_method" onchange="togglePwField(); savePayment();">
+            <label>ご住所</label>
+            <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+        <div class="form-group">
+            <label>電話番号</label>
+            <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+        <div class="form-group">
+            <label>備考</label>
+            <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+    </div>
+
+    <!-- 3. 決済方法 -->
+    <div class="card">
+        <h3>3. 決済方法</h3>
+        <div class="form-group">
+            <label>決済方法の選択</label>
+            <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
                 <option value="現金">現金</option>
                 <option value="PayPay">PayPay</option>
                 <option value="クレジットカード">クレジットカード</option>
             </select>
         </div>
+        <!-- クレカ選択時に表示されるエリア -->
         <div class="hidden-pw" id="pw_container">
-            <label>E-ServiceログインPW</label>
-            <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="savePayment()">
+            <div class="form-group">
+                <label>E-ServiceログインPW</label>
+                <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+            <div class="form-group">
+                <label>使用するポイントNiNA</label>
+                <input type="text" id="nina_point" placeholder="※ニナファームカード決済時のみ" oninput="saveBasicInfo(); updatePreview();">
+            </div>
         </div>
     </div>
 
-    <!-- 4. 送付先情報 -->
+    <!-- 4. 処理月度の選択 -->
     <div class="card">
-        <h3>4. 送付先情報</h3>
-        <textarea id="shipping_address" style="height: 100px;" placeholder="郵便番号、住所、お名前、電話番号、日時指定などを入力" oninput="saveAddress()"></textarea>
+        <h3>4. 処理月度の選択</h3>
+        <select id="target_month" onchange="onMonthChange();">
+            <option value="7月度">7月度</option>
+            <option value="8月度" selected>8月度</option>
+        </select>
     </div>
 
-    <!-- 5. 必要事項等 -->
+    <!-- 5. ポジション別注文 -->
     <div class="card">
-        <h3>5. 必要事項等</h3>
-        <textarea id="notes" placeholder="例：領収書が必要など" oninput="saveNotes()"></textarea>
-    </div>
-
-    <!-- 6. 注文内容 -->
-    <div class="card">
-        <h3>6. 注文内容</h3>
+        <h3>5. 会員番号ごとの注文</h3>
         <div id="positions_container"></div>
-        <button class="btn btn-secondary" onclick="addPositionBox()">+ 注文行を追加</button>
+        <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
 
-    <!-- 7. 生成された注文テキスト（確認・手動コピー用） -->
+    <!-- 6. 生成された注文テキスト（確認・手動コピー用エリアを追加） -->
     <div class="card">
-        <h3>7. 生成された注文テキスト（確認・手動コピー用）</h3>
-        <p style="font-size: 12px; margin-top: -5px; color: #666;">※万が一「LINE用にコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
-        <textarea id="output_text" style="height: 220px; font-family: monospace;" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
+        <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
+        <p style="font-size: 12px; margin-top: -5px; color: #666;">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+        <textarea id="output_text" style="height: 180px; font-family: monospace;" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
     </div>
 
     <!-- 固定下部バー -->
     <div class="footer-bar">
         <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
-        <button class="btn" style="width:100%; background:#34c759; padding: 12px; font-size: 16px;" onclick="copyToClipboard()">LINE用にコピー</button>
+        <button class="btn-copy btn" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
     </div>
 
 <script>
@@ -140,46 +171,62 @@ const products = [
 let positionCount = 0;
 let registeredMembers = [];
 
-// ポジション選択肢 (00, 01〜35)
-const posOptions = Array.from({length: 36}, (_, i) => {
-    const val = i.toString().padStart(2, '0');
-    const isSelected = val === '01' ? 'selected' : '';
-    return `<option value="${val}" ${isSelected}>${val}</option>`;
-}).join('');
+// 郵便番号から住所を自動検索する関数
+function checkZipCode() {
+    const zipInput = document.getElementById('ship_zip').value;
+    const cleanZip = zipInput.replace(/[━ー*]/g, '').replace(/-/g, '').trim();
+
+    if (cleanZip.length === 7) {
+        fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${cleanZip}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    const res = data.results[0];
+                    const fullAddress = res.address1 + res.address2 + res.address3;
+                    document.getElementById('ship_address').value = fullAddress;
+                    
+                    saveBasicInfo();
+                    updatePreview();
+                }
+            })
+            .catch(error => {
+                console.error("住所の取得に失敗しました:", error);
+            });
+    }
+}
 
 window.onload = function() {
+    if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
+    if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
+    if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
+    if(localStorage.getItem('ship_tel')) document.getElementById('ship_tel').value = localStorage.getItem('ship_tel');
+    if(localStorage.getItem('ship_note')) document.getElementById('ship_note').value = localStorage.getItem('ship_note');
     if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
     if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
-    if(localStorage.getItem('shipping_address')) document.getElementById('shipping_address').value = localStorage.getItem('shipping_address');
-    if(localStorage.getItem('notes')) document.getElementById('notes').value = localStorage.getItem('notes');
+    if(localStorage.getItem('nina_point')) document.getElementById('nina_point').value = localStorage.getItem('nina_point');
     
     togglePwField();
 
     const savedMembers = localStorage.getItem('registered_members');
     if (savedMembers) {
         registeredMembers = JSON.parse(savedMembers);
-        registeredMembers.forEach(m => addMemberRow(m.code, m.name));
+        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
     } else {
-        addMemberRow('', '');
+        addMemberRegisterRow('', '');
     }
 
     addPositionBox();
 };
 
-function savePayment() {
+function saveBasicInfo() {
+    localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
+    localStorage.setItem('ship_name', document.getElementById('ship_name').value);
+    localStorage.setItem('ship_address', document.getElementById('ship_address').value);
+    localStorage.setItem('ship_tel', document.getElementById('ship_tel').value);
+    localStorage.setItem('ship_note', document.getElementById('ship_note').value);
     localStorage.setItem('payment_method', document.getElementById('payment_method').value);
     localStorage.setItem('pw_code', document.getElementById('pw_code').value);
-    updatePreview();
-}
-
-function saveAddress() {
-    localStorage.setItem('shipping_address', document.getElementById('shipping_address').value);
-    updatePreview();
-}
-
-function saveNotes() {
-    localStorage.setItem('notes', document.getElementById('notes').value);
-    updatePreview();
+    localStorage.setItem('nina_point', document.getElementById('nina_point').value);
 }
 
 function togglePwField() {
@@ -190,22 +237,23 @@ function togglePwField() {
     } else {
         pwContainer.style.display = 'none';
         document.getElementById('pw_code').value = ''; 
+        document.getElementById('nina_point').value = ''; 
     }
 }
 
-function addMemberRow(code = '', name = '') {
+function addMemberRegisterRow(code = '', name = '') {
     const container = document.getElementById('member_register_container');
     const row = document.createElement('div');
     row.className = 'member-reg-row';
     row.innerHTML = `
-        <input type="text" class="reg-code" placeholder="会員番号" value="${code}" oninput="saveMembers()">
-        <input type="text" class="reg-name" placeholder="氏名" value="${name}" oninput="saveMembers()">
-        <button class="btn btn-danger" onclick="removeMemberRow(this)">✕</button>
+        <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
+        <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
+        <button class="btn btn-danger" style="padding:10px;" onclick="removeMemberRegisterRow(this)">✕</button>
     `;
     container.appendChild(row);
 }
 
-function removeMemberRow(btn) {
+function removeMemberRegisterRow(btn) {
     btn.parentElement.remove();
     saveMembers();
 }
@@ -231,7 +279,7 @@ function saveMembers() {
 }
 
 function refreshMemberOptions(selectElement) {
-    let options = '<option value="">-- 登録メンバーから選択 --</option>';
+    let options = '<option value="">-- 会員リストから選択 --</option>';
     registeredMembers.forEach((m, idx) => {
         options += `<option value="${idx}">${m.code} ${m.name}</option>`;
     });
@@ -252,7 +300,19 @@ function onSelectMember(posId) {
     updatePreview();
 }
 
-function changeMonth() {
+function toggleCustomPos(posId) {
+    const pSel = document.getElementById(`pos_num_select_${posId}`);
+    const customContainer = document.getElementById(`custom_pos_container_${posId}`);
+    if (pSel.value === 'custom') {
+        customContainer.style.display = 'block';
+    } else {
+        customContainer.style.display = 'none';
+        document.getElementById(`pos_custom_num_${posId}`).value = '';
+    }
+    updatePreview();
+}
+
+function onMonthChange() {
     document.querySelectorAll('.item-select').forEach(select => {
         const selectedIndex = select.value;
         refreshProductOptions(select);
@@ -280,24 +340,53 @@ function addPositionBox() {
     
     box.innerHTML = `
         <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong style="font-size:14px; color:#555;">注文枠 #${positionCount}</strong>
+            <strong style="font-size:14px; color:#555;">ポジション #${positionCount}</strong>
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
+            <label>会員リストから選ぶ</label>
             <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
         </div>
-        <div style="display:flex; gap:8px; margin-bottom:8px;">
-            <input type="text" id="pos_code_${positionCount}" placeholder="会員番号" style="flex:1;" oninput="updatePreview()">
-            <select id="pos_num_${positionCount}" style="flex:0.8;" onchange="updatePreview()">${posOptions}</select>
-            <input type="text" id="pos_name_${positionCount}" placeholder="氏名" style="flex:1.2;" oninput="updatePreview()">
+        
+        <div class="form-row">
+            <div class="form-group" style="flex: 1.2;">
+                <label>会員番号</label>
+                <input type="text" id="pos_code_${positionCount}" placeholder="例：1267505" oninput="updatePreview()">
+            </div>
+            <div class="form-group" style="flex: 0.8;">
+                <label>ポジション</label>
+                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="custom">その他</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex: 1.5;">
+                <label>会員名</label>
+                <input type="text" id="pos_name_${positionCount}" placeholder="例：山田太郎" oninput="updatePreview()">
+            </div>
         </div>
-        <div class="items-list" id="items_list_${positionCount}"></div>
-        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+
+        <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
+            <label>その他のポジション（手入力）</label>
+            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
+        </div>
+
+        <div class="form-group">
+            <label>購入商品</label>
+            <div class="items-list" id="items_list_${positionCount}"></div>
+            <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+        </div>
         <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
     `;
     container.appendChild(box);
     
-    refreshMemberOptions(document.getElementById(`pos_select_${positionCount}`));
+    const newSelect = document.getElementById(`pos_select_${positionCount}`);
+    refreshMemberOptions(newSelect);
     addItemRow(positionCount);
     updatePreview();
 }
@@ -314,23 +403,23 @@ function addItemRow(posId) {
     
     const select = document.createElement('select');
     select.className = 'item-select';
-    select.style.flex = "2";
     select.onchange = updatePreview;
     refreshProductOptions(select);
 
     let qtyOptions = '';
-    for(let i=1; i<=20; i++) {
+    for(let i=1; i<=40; i++) {
         qtyOptions += `<option value="${i}">${i}</option>`;
     }
 
-    const qtySelect = document.createElement('select');
-    qtySelect.className = 'item-qty';
-    qtySelect.style.flex = "1";
-    qtySelect.innerHTML = qtyOptions;
-    qtySelect.onchange = updatePreview;
-
     row.appendChild(select);
-    row.appendChild(qtySelect);
+    
+    const qtyContainer = document.createElement('div');
+    qtyContainer.className = 'item-qty-container';
+    qtyContainer.innerHTML = `
+        <select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個
+    `;
+    row.appendChild(qtyContainer);
+    
     list.appendChild(row);
 }
 
@@ -341,28 +430,35 @@ function calculateAll() {
     let grandTotalQty = 0;
     let grandTotalPrice = 0;
     let grandTotalPt = 0;
+    
     let positionsData = [];
+    let itemSummaryMap = {};
 
     positionBoxes.forEach((box) => {
         const boxId = box.id.replace('position_box_', '');
         
         const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
-        const posNum = document.getElementById(`pos_num_${boxId}`).value;
         const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
         
+        const numSel = document.getElementById(`pos_num_select_${boxId}`).value;
+        let suffix = numSel;
+        if (numSel === 'custom') {
+            suffix = document.getElementById(`pos_custom_num_${boxId}`).value.trim();
+        }
+
         let posCode = rawCode;
-        if (rawCode && posNum) {
-            posCode = `${rawCode}-${posNum}`;
+        if (rawCode && suffix) {
+            posCode = `${rawCode}-${suffix}`;
         }
 
         const posInfo = (posCode || posName) ? `${posCode} ${posName}`.trim() : "";
+
         const rows = box.querySelectorAll('.item-row');
         
         let posQty = 0;
         let posPrice = 0;
         let posPt = 0;
         let posItemsText = "";
-        let posItems = []; // 集計用
 
         rows.forEach(row => {
             const pIndex = row.querySelector('.item-select').value;
@@ -380,7 +476,12 @@ function calculateAll() {
                 posPt += subPt;
 
                 posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
-                posItems.push({ name: prod.name, qty: qty });
+
+                if (itemSummaryMap[prod.name]) {
+                    itemSummaryMap[prod.name] += qty;
+                } else {
+                    itemSummaryMap[prod.name] = qty;
+                }
             }
         });
 
@@ -393,7 +494,6 @@ function calculateAll() {
             positionsData.push({
                 info: posInfo,
                 itemsText: posItemsText,
-                items: posItems,
                 qty: posQty,
                 price: posPrice,
                 pt: posPt
@@ -405,15 +505,20 @@ function calculateAll() {
         }
     });
 
-    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt };
+    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt, itemSummaryMap };
 }
 
 function generateText() {
-    const month = document.getElementById('target_month').value;
+    const shipZip = document.getElementById('ship_zip').value;
+    const shipName = document.getElementById('ship_name').value;
+    const shipAddr = document.getElementById('ship_address').value;
+    const shipTel = document.getElementById('ship_tel').value;
+    const shipNote = document.getElementById('ship_note').value.trim();
+    
     const payment = document.getElementById('payment_method').value;
-    const pw = document.getElementById('pw_code').value.trim();
-    const address = document.getElementById('shipping_address').value.trim();
-    const notes = document.getElementById('notes').value.trim();
+    const pw = document.getElementById('pw_code').value;
+    const ninaPt = document.getElementById('nina_point').value.trim();
+    const month = document.getElementById('target_month').value;
     
     const today = new Date();
     const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
@@ -426,6 +531,7 @@ function generateText() {
         if(payment === 'クレジットカード') {
             text += `クレジットカード決済`;
             if(pw) text += ` (PW: ${pw})`;
+            if(ninaPt) text += `\n使用するポイントNiNA: ${ninaPt}`;
             text += `\n`;
         } else {
             text += `${payment}決済\n`;
@@ -433,36 +539,28 @@ function generateText() {
     }
     text += `\n`;
 
-    // 商品ごとの合計個数を集計するオブジェクト
-    const summaryMap = {};
-
     data.positionsData.forEach(pos => {
         text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
         text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
-
-        // 集計用データの蓄積
-        pos.items.forEach(item => {
-            if (summaryMap[item.name]) {
-                summaryMap[item.name] += item.qty;
-            } else {
-                summaryMap[item.name] = item.qty;
-            }
-        });
     });
 
     text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
-
-    // ★商品ごとの合算（●商品名×数量）を出力
-    Object.keys(summaryMap).forEach(prodName => {
-        text += `●${prodName}×${summaryMap[prodName]}\n`;
-    });
-
-    if(address) {
-        text += `\n(送付先)\n${address}\n`;
+    
+    const summaryKeys = Object.keys(data.itemSummaryMap);
+    if (summaryKeys.length > 0) {
+        summaryKeys.forEach(prodName => {
+            text += `●${prodName}×${data.itemSummaryMap[prodName]}\n`;
+        });
+        text += `\n`;
     }
 
-    if(notes) {
-        text += `\n備考: ${notes}\n`;
+    if(shipZip || shipName || shipAddr || shipTel || shipNote) {
+        text += `(送付先)\n`;
+        if(shipNote) text += `★${shipNote}★\n\n`;
+        if(shipZip) text += `〒${shipZip}\n`;
+        if(shipAddr) text += `${shipAddr}\n`;
+        if(shipName) text += `${shipName} 様\n`;
+        if(shipTel) text += `TEL: ${shipTel}\n`;
     }
 
     return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
@@ -481,9 +579,9 @@ function updatePreview() {
 function copyToClipboard() {
     const result = generateText();
     navigator.clipboard.writeText(result.text).then(() => {
-        alert("LINE用の注文テキストをコピーしました！");
+        alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
     }).catch(err => {
-        alert("コピーに失敗しました。画面下の「7. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
+        alert("コピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
     });
 }
 </script>
