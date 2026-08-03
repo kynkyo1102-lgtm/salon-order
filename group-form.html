@@ -78,6 +78,7 @@
   </button>
 </form>
 <script>
+  window.addEventListener("DOMContentLoaded", () => {
   // 商品データ（製品名、価格、7月度pt、8月度pt）
   const productData = {
     "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 8000 } },
@@ -145,4 +146,5 @@
   document.getElementById("month").addEventListener("change", calculateTotal);
   document.getElementById("product").addEventListener("change", calculateTotal);
   document.getElementById("quantity").addEventListener("change", calculateTotal);
+});
 </script>
