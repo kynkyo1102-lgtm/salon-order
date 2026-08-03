@@ -1,11 +1,13 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- 注文送信フォーム -->
-<form id="orderForm" style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-  <h2>注文送信フォーム</h2>
+<form id="orderForm" style="max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+  <h2 style="font-size: 1.4em; text-align: center; margin-bottom: 20px;">注文送信フォーム</h2>
 
   <!-- 1. 発注月度 -->
   <div style="margin-bottom: 15px;">
-    <label for="month">1. 発注月度</label><br>
-    <select id="month" name="month" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+    <label for="month" style="font-weight: bold;">1. 発注月度</label><br>
+    <select id="month" name="month" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" required>
       <option value="">選択してください</option>
       <option value="7月度">7月度</option>
       <option value="8月度">8月度</option>
@@ -14,27 +16,27 @@
 
   <!-- 2. 会員番号 -->
   <div style="margin-bottom: 15px;">
-    <label for="memberId">2. 購入会員番号</label><br>
-    <div style="display: flex; gap: 10px; align-items: center; margin-top: 5px;">
-      <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1; padding: 8px;" required>
+    <label for="memberId" style="font-weight: bold;">2. 購入会員番号</label><br>
+    <div style="display: flex; gap: 8px; align-items: center; margin-top: 5px;">
+      <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" required>
       <span>-</span>
-      <select id="memberIdSub" style="width: 80px; padding: 8px;">
-        <!-- JSで001〜020まで自動生成します -->
+      <select id="memberIdSub" style="width: 90px; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;">
+        <!-- JSで001〜020まで自動生成 -->
       </select>
     </div>
   </div>
 
   <!-- 3. ポジション名 -->
   <div style="margin-bottom: 15px;">
-    <label for="position">3. ポジション名</label><br>
-    <input type="text" id="position" name="position" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+    <label for="position" style="font-weight: bold;">3. ポジション名</label><br>
+    <input type="text" id="position" name="position" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" required>
   </div>
 
   <!-- 4. 製品名・数量 -->
   <div style="margin-bottom: 15px;">
-    <label>4. 製品名 × 数量</label><br>
-    <div style="display: flex; gap: 10px; margin-top: 5px;">
-      <select id="product" name="product" style="flex: 2; padding: 8px;" required>
+    <label style="font-weight: bold;">4. 製品名 × 数量</label><br>
+    <div style="display: flex; gap: 8px; margin-top: 5px;">
+      <select id="product" name="product" style="flex: 2; padding: 10px; font-size: 15px; border: 1px solid #ccc; border-radius: 4px;" required>
         <option value="">製品を選択</option>
         <option value="OX-288">OX-288</option>
         <option value="OX-288(追加購入)">OX-288(追加購入)</option>
@@ -79,33 +81,32 @@
         <option value="モン コパン ジュレ">モン コパン ジュレ</option>
       </select>
 
-      <select id="quantity" name="quantity" style="flex: 1; padding: 8px;" required>
-        <!-- JSで1〜10個を自動生成 -->
+      <select id="quantity" name="quantity" style="flex: 1; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" required>
+        <!-- JSで自動生成 -->
       </select>
     </div>
 
     <!-- 自動計算結果表示 -->
-    <div style="margin-top: 10px; padding: 10px; background-color: #f9f9f9; text-align: right; border-radius: 4px;">
-      <div>合計金額: <strong id="totalPrice" style="font-size: 1.2em; color: #d9534f;">¥0</strong></div>
-      <div style="font-size: 0.9em; color: #666;">（獲得ポイント: <span id="totalPt">0</span> pt）</div>
+    <div style="margin-top: 10px; padding: 12px; background-color: #f9f9f9; text-align: right; border-radius: 4px;">
+      <div style="font-size: 1.1em;">合計金額: <strong id="totalPrice" style="font-size: 1.3em; color: #d9534f;">¥0</strong></div>
+      <div style="font-size: 0.95em; color: #666; margin-top: 4px;">（獲得ポイント: <span id="totalPt">0</span> pt）</div>
     </div>
   </div>
 
   <!-- 5. 連絡先 -->
   <div style="margin-bottom: 20px;">
-    <label for="contact">5. 連絡先</label><br>
-    <input type="text" id="contact" name="contact" placeholder="電話番号またはメールアドレス" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+    <label for="contact" style="font-weight: bold;">5. 連絡先</label><br>
+    <input type="text" id="contact" name="contact" placeholder="電話番号またはメールアドレス" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;" required>
   </div>
 
   <!-- 送信ボタン -->
-  <button type="submit" style="width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 1em; cursor: pointer;">
+  <button type="submit" style="width: 100%; padding: 14px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 1.1em; font-weight: bold; cursor: pointer;">
     注文を送信する
   </button>
 </form>
 
 <script>
 window.addEventListener("DOMContentLoaded", () => {
-  // 正確な商品データ（資料より作成）
   const productData = {
     "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
     "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
