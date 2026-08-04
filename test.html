@@ -3,80 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>南熊本サロン 商品購入注文受付</title>
+  <title>プラッスドゥニナ南熊本店</title>
   <style>
     :root {
       --primary-color: #007bff;
-      --secondary-color: #28a745;
-      --bg-color: #f4f6f9;
+      --success-color: #28a745;
+      --bg-color: #f8f9fa;
       --card-bg: #ffffff;
       --text-color: #333333;
+      --sub-text: #666666;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      margin: 0;
-      padding: 30px 15px;
-      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .header {
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e9ecef;
+      padding: 20px 15px;
       text-align: center;
-      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     }
 
-    .header h1 {
-      font-size: 22px;
-      margin-bottom: 8px;
-      color: #1a1a1a;
-    }
-
-    .header p {
-      font-size: 14px;
-      color: #666;
+    h1 {
       margin: 0;
+      font-size: 1.4rem;
+      color: #1a1a1a;
+      letter-spacing: 0.05em;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--sub-text);
+      margin-top: 6px;
+    }
+
+    main {
+      flex: 1;
+      max-width: 500px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 15px;
+      box-sizing: border-box;
     }
 
     .menu-card {
-      background: var(--card-bg);
+      background-color: var(--card-bg);
       border-radius: 12px;
-      padding: 22px 20px;
+      padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e9ecef;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #edf2f7;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .menu-card:active {
       transform: scale(0.98);
-      background-color: #f8f9fa;
     }
 
-    .badge {
+    .card-badge {
       display: inline-block;
-      padding: 4px 10px;
-      font-size: 12px;
+      font-size: 0.75rem;
       font-weight: bold;
+      padding: 4px 8px;
       border-radius: 20px;
-      color: #fff;
       margin-bottom: 10px;
     }
 
-    .badge-single { background-color: var(--primary-color); }
-    .badge-bulk { background-color: var(--secondary-color); }
+    .badge-single {
+      background-color: #e3f2fd;
+      color: #0d47a1;
+    }
+
+    .badge-bulk {
+      background-color: #e8f5e9;
+      color: #1b5e20;
+    }
 
     .card-title {
-      font-size: 18px;
+      font-size: 1.15rem;
       font-weight: bold;
       margin-bottom: 8px;
       display: flex;
@@ -84,47 +100,53 @@
       justify-content: space-between;
     }
 
+    .card-title::after {
+      content: "➔";
+      font-size: 1rem;
+      color: #ccc;
+    }
+
     .card-desc {
-      font-size: 13px;
-      color: #666;
+      font-size: 0.85rem;
+      color: var(--sub-text);
+      line-height: 1.5;
       margin: 0;
     }
 
-    .arrow {
-      font-size: 18px;
-      color: #007bff;
-      font-weight: bold;
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.75rem;
+      color: #999999;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header">
-      <h1>南熊本サロン<br>商品購入注文受付</h1>
-      <p>ご希望の注文方式を選択してください</p>
-    </div>
+  <header>
+    <h1>プラッスドゥニナ南熊本店</h1>
+    <div class="subtitle">ご希望の注文方式を選択してください</div>
+  </header>
 
-    <!-- 通常注文（single.html へリンク） -->
+  <main>
+    <!-- single.html へ移動 -->
     <a href="single.html" class="menu-card">
-      <span class="badge badge-single">通常用</span>
-      <div class="card-title">
-        👤 通常注文（1名様分）
-        <span class="arrow">➔</span>
-      </div>
-      <p class="card-desc">今まで通りの注文フォームです。1名様分の注文を入力・送信する場合にお使いください。</p>
+      <span class="card-badge badge-single">通常用</span>
+      <div class="card-title">👤 LINEノートコピペ用(直接)</div>
+      <p class="card-desc">LINEノートへ直接貼り付ける場合にお使いください。</p>
     </a>
 
-    <!-- まとめ注文（bulk.html へリンク） -->
+    <!-- bulk.html へ移動 -->
     <a href="bulk.html" class="menu-card">
-      <span class="badge badge-bulk">まとめて計算</span>
-      <div class="card-title">
-        👥 複数人一括・まとめ注文
-        <span class="arrow" style="color: #28a745;">➔</span>
-      </div>
-      <p class="card-desc">複数人分の注文をまとめて入力し、全体の合算計算や控え画像を作成したい場合にお使いください。</p>
+      <span class="card-badge badge-bulk">まとめて計算</span>
+      <div class="card-title">👥 注文書作成用(画像保存)</div>
+      <p class="card-desc">注文書を作成したい場合にお使いください。画像で保存できます。</p>
     </a>
-  </div>
+  </main>
+
+  <footer>
+    &copy; プラッスドゥニナ南熊本店
+  </footer>
 
 </body>
 </html>
