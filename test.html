@@ -28,9 +28,17 @@
     header {
       background-color: #ffffff;
       border-bottom: 1px solid #e9ecef;
-      padding: 25px 15px 20px;
+      padding: 20px 15px;
       text-align: center;
       box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    /* ロゴ画像用スタイル */
+    .header-logo {
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 10px;
+      display: inline-block;
     }
 
     .header-badge {
@@ -135,6 +143,10 @@
 <body>
 
   <header>
+    <!-- ロゴ画像（GitHubに789.pngをアップロードするとここに表示されます） -->
+    <div>
+      <img src="789.png" alt="Place de Nina" class="header-logo">
+    </div>
     <div class="header-badge">ONLINE ORDER</div>
     <h1>プラッスドゥニナ南熊本店</h1>
     <div class="subtitle">ご希望の注文方式を選択してください</div>
