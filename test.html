@@ -199,7 +199,7 @@
       margin-bottom: 15px;
     }
 
-    /* 画像保存用モーダル（ポップアップ）追加分 */
+    /* iPhone保存用モーダル */
     .image-modal-overlay {
       position: fixed;
       top: 0;
@@ -357,7 +357,7 @@
     <div id="completeSection" style="display: none;">
       
       <div class="screenshot-notice">
-        📱 各カード下の緑のボタンをタップすると、画像を長押しして保存できる画面が表示されます！
+        📱 各カード下の緑のボタンをタップすると、その控えを画像として保存できます！
       </div>
 
       <!-- 控えカードが動的に生成されるコンテナ -->
@@ -758,7 +758,7 @@
       window.scrollTo(0, 0);
     }
 
-    // iPhone・LINEでも100%保存できるポップアップ表示処理
+    // Android・iPhone（LINEブラウザ含む）両対応の画像保存処理
     async function downloadSingleCard(elementId) {
       const targetElement = document.getElementById(elementId);
       if (!targetElement) return;
@@ -772,19 +772,36 @@
         const canvas = await html2canvas(targetElement, { scale: 2 });
         const imgData = canvas.toDataURL('image/png');
 
-        const modal = document.createElement('div');
-        modal.className = 'image-modal-overlay';
-        modal.innerHTML = `
-          <div class="image-modal-instruction">
-            📱 画像が生成されました！<br>
-            下の画像を<span style="color: #ffeb3b; font-size: 1.1em;">「長押し」</span>して<br>
-            【"写真"に追加】または【保存】してください
-          </div>
-          <img src="${imgData}" class="image-modal-content" alt="控え画像">
-          <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
-        `;
+        // iOS (iPhone / iPad) かどうかの判定
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-        document.body.appendChild(modal);
+        if (isIOS) {
+          // iPhoneの場合：長押しで「写真に追加」できるモーダルを表示
+          const modal = document.createElement('div');
+          modal.className = 'image-modal-overlay';
+          modal.innerHTML = `
+            <div class="image-modal-instruction">
+              📱 画像が生成されました！<br>
+              下の画像を<span style="color: #ffeb3b; font-size: 1.1em;">「長押し」</span>して<br>
+              【"写真"に追加】または【保存】してください
+            </div>
+            <img src="${imgData}" class="image-modal-content" alt="控え画像">
+            <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
+          `;
+          document.body.appendChild(modal);
+        } else {
+          // Android / PCの場合：直接ファイル保存（ダウンロード）を実行
+          const link = document.createElement('a');
+          link.href = imgData;
+          // ファイル名に日時を入れて重複を防ぐ
+          const now = new Date();
+          const timeStr = now.getFullYear() + String(now.getMonth()+1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + "_" + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+          link.download = `注文控え_${timeStr}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
       } catch (e) {
         alert("画像の生成に失敗しました: " + e.message);
       } finally {
