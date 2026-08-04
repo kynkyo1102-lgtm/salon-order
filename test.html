@@ -55,6 +55,62 @@
       box-sizing: border-box;
     }
 
+    /* 注文方法ガイドボックス */
+    .guide-box {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .guide-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guide-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .guide-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background-color: #edf2f7;
+      color: #4a5568;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .step-text {
+      color: #4a5568;
+    }
+
+    .step-text strong {
+      color: #1a202c;
+    }
+
+    /* メニューカード */
     .menu-card {
       background-color: var(--card-bg);
       border-radius: 12px;
@@ -128,6 +184,28 @@
   </header>
 
   <main>
+
+    <!-- 注文方法ガイド -->
+    <div class="guide-box">
+      <div class="guide-title">🔰 注文方法のご案内</div>
+      
+      <div class="guide-step">
+        <span class="step-num">①</span>
+        <div class="step-text">
+          <strong>LINEノート用（文字コピペ）</strong><br>
+          注文内容をテキストで作成し、LINEノート等に貼り付けたい場合におすすめ。
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <span class="step-num">②</span>
+        <div class="step-text">
+          <strong>注文書作成（画像保存）</strong><br>
+          正式な注文書を作成し、画像で保存して送信・管理したい場合におすすめ。
+        </div>
+      </div>
+    </div>
+
     <!-- single.html へ移動 -->
     <a href="single.html" class="menu-card">
       <div class="card-icon">
@@ -135,7 +213,7 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
       </div>
       <div class="card-content">
-        <div class="card-title">LINEノート コピペ直接用</div>
+        <div class="card-title">① LINEノート コピペ直接用</div>
         <p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成する場合にお使いください。</p>
       </div>
     </a>
@@ -147,10 +225,11 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
       </div>
       <div class="card-content">
-        <div class="card-title">注文書作成 画像保存用</div>
+        <div class="card-title">② 注文書作成 画像保存用</div>
         <p class="card-desc">注文書を発行・作成したい場合にお使いください。控えを画像（またはPDF）で保存できます。</p>
       </div>
     </a>
+
   </main>
 
   <footer>
