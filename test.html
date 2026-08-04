@@ -97,7 +97,7 @@
     .steps-list {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       padding-left: 4px;
     }
 
@@ -118,6 +118,13 @@
       font-size: 0.75rem;
       padding: 2px 6px;
       border-radius: 4px;
+    }
+
+    .step-note {
+      font-size: 0.75rem;
+      color: #718096;
+      margin-top: 2px;
+      display: block;
     }
 
     /* メニューカード */
@@ -195,7 +202,7 @@
 
   <main>
 
-    <!-- コンビニ風 注文手順ガイド -->
+    <!-- 注文手順ガイド -->
     <div class="guide-box">
       <div class="guide-header">📱 注文の手順・流れ</div>
       
@@ -205,20 +212,23 @@
         <div class="steps-list">
           <div class="step-item">
             <span class="step-badge">①入力</span>
-            <span>下の青いボタンを押して、商品名や数量を入力</span>
+            <span>下の青いボタンを押して、お届け先や注文内容を入力</span>
           </div>
           <div class="step-item">
-            <span class="step-badge">②作成</span>
-            <span>「注文テキスト作成」ボタンをタップ</span>
+            <span class="step-badge">②コピー</span>
+            <div>
+              <span>緑色の「LINE用に注文書をコピー」ボタンをタップ</span>
+              <span class="step-note">※失敗する場合は「6. 生成された注文テキスト」から手動でコピーしてください。</span>
+            </div>
           </div>
           <div class="step-item">
-            <span class="step-badge">③コピー</span>
-            <span>表示された文字を「コピー」してLINEノートに貼り付け</span>
+            <span class="step-badge">③投稿</span>
+            <span>コピーしたテキストをLINEノートへ貼り付けて送信</span>
           </div>
         </div>
       </div>
 
-      <hr style="border: none; border-top: 1px dashed #e2e8f0; margin: 12px 0;">
+      <hr style="border: none; border-top: 1px dashed #e2e8f0; margin: 14px 0;">
 
       <!-- 注文書作成手順 -->
       <div class="flow-section">
@@ -226,15 +236,19 @@
         <div class="steps-list">
           <div class="step-item">
             <span class="step-badge">①入力</span>
-            <span>下の緑のボタンを押して、注文内容を入力</span>
+            <span>下の緑のボタンを押して、お届け先や注文内容を入力</span>
           </div>
           <div class="step-item">
-            <span class="step-badge">②発行</span>
-            <span>「注文書を作成する」をタップしてプレビュー確認</span>
+            <span class="step-badge">②作成</span>
+            <span>緑色の「控えを一括作成画面へ」ボタンをタップ</span>
           </div>
           <div class="step-item">
             <span class="step-badge">③保存</span>
-            <span>「画像を保存」して、LINEのチャット等に送信</span>
+            <span>会員番号ごとの控えと全体集計の控えが表示されるので、1枚ずつ画像を保存</span>
+          </div>
+          <div class="step-item">
+            <span class="step-badge">④投稿</span>
+            <span>保存した画像をLINEノートへ投稿して完了</span>
           </div>
         </div>
       </div>
