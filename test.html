@@ -100,6 +100,7 @@
       width: 65px;
       text-align: right;
       color: #0275d8;
+      font-weight: bold;
     }
 
     /* 下部固定バー */
@@ -181,9 +182,8 @@
     <div id="formSection">
       <h2>南熊本サロン専用商品購入注文書</h2>
       
-      <!-- 住所自動入力のため class="h-adr" を追加 -->
+      <!-- 住所自動入力のため class="h-adr" を指定 -->
       <form id="orderForm" class="h-adr">
-        <!-- 郵便番号国設定（隠し要素） -->
         <span class="p-country-name" style="display:none;">Japan</span>
         
         <!-- 基本情報エリア -->
@@ -216,6 +216,11 @@
         <div class="section-box">
           <div class="section-title">📦 お届け先（配送ご希望の方のみ入力）</div>
           
+          <div style="margin-bottom: 8px;">
+            <label for="shipName">お届け先お名前</label>
+            <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）">
+          </div>
+
           <div style="margin-bottom: 8px;">
             <label for="zip">郵便番号（ハイフンなし7桁）</label>
             <input type="text" id="zip" class="p-postal-code" maxlength="7" placeholder="例: 8600000">
@@ -279,7 +284,8 @@
           
           <!-- お届け先情報（入力がある場合のみ表示） -->
           <div id="sumAddressBlock" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ccc; display: none;">
-            <div>【お届け先】</div>
+            <div style="font-weight: bold; color: #007bff; margin-bottom: 2px;">【お届け先情報】</div>
+            <div id="sumShipName"></div>
             <div id="sumZip"></div>
             <div id="sumAddress"></div>
             <div id="sumPhone"></div>
@@ -321,7 +327,7 @@
   </div>
 
   <script>
-    // 商品マスタ
+    // 商品マスタ (表記揺れを整頓済み)
     const productMaster = {
       "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
       "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
@@ -334,7 +340,7 @@
       "サヴォン アンベリール (120g)": { price: 5200, pt: { "7月度": 1800, "8月度": 4300 } },
       "サヴォン アンベリール (70g)": { price: 3500, pt: { "7月度": 1200, "8月度": 2900 } },
       "ブランシュール (150g)": { price: 12200, pt: { "7月度": 10500, "8月度": 10500 } },
-      "ブブランシュール (80g)": { price: 6800, pt: { "7月度": 5800, "8月度": 5800 } },
+      "ブランシュール (80g)": { price: 6800, pt: { "7月度": 5800, "8月度": 5800 } },
       "デマキヤン": { price: 4100, pt: { "7月度": 1500, "8月度": 3400 } },
       "赤化粧水": { price: 3600, pt: { "7月度": 1300, "8月度": 3000 } },
       "赤美容液": { price: 6400, pt: { "7月度": 2300, "8月度": 5400 } },
@@ -366,6 +372,8 @@
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
 
+    let prodIndex = 0;
+
     window.addEventListener('DOMContentLoaded', () => {
       // 枝番生成
       const memberIdSub = document.getElementById('memberIdSub');
@@ -380,6 +388,7 @@
       // 商品テーブル生成
       const tbody = document.getElementById('productTableBody');
       for (let prod in productMaster) {
+        prodIndex++;
         const tr = document.createElement('tr');
         let qtyOptions = '<option value="0">0</option>';
         for (let i = 1; i <= 20; i++) {
@@ -389,7 +398,7 @@
         tr.innerHTML = `
           <td><strong>${prod}</strong></td>
           <td style="color: #666; text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
-          <td class="pt-col" id="pt-cell-${prod.replace(/[^a-zA-Z0-9]/g, '')}">-</td>
+          <td class="pt-col" id="pt-cell-${prodIndex}">-</td>
           <td class="qty-col">
             <select class="qty-select" data-product="${prod}">
               ${qtyOptions}
@@ -415,12 +424,13 @@
       currentGrandPt = 0;
       currentItemsData = [];
 
-      // 各商品のポイント列表示を更新
+      // 各商品のポイント列表示を更新（インデックス基準で安全に処理）
+      let idx = 0;
       for (let prod in productMaster) {
-        const cellId = `pt-cell-${prod.replace(/[^a-zA-Z0-9]/g, '')}`;
-        const cell = document.getElementById(cellId);
+        idx++;
+        const cell = document.getElementById(`pt-cell-${idx}`);
         if (cell) {
-          if (month && productMaster[prod].pt[month] !== undefined) {
+          if (month && productMaster[prod].pt && productMaster[prod].pt[month] !== undefined) {
             cell.textContent = productMaster[prod].pt[month].toLocaleString() + "pt";
           } else {
             cell.textContent = "-";
@@ -434,7 +444,7 @@
         if (qty > 0) {
           const prod = sel.getAttribute('data-product');
           const itemPrice = productMaster[prod].price * qty;
-          let itemPt = (month && productMaster[prod].pt[month]) ? productMaster[prod].pt[month] * qty : 0;
+          let itemPt = (month && productMaster[prod].pt && productMaster[prod].pt[month]) ? productMaster[prod].pt[month] * qty : 0;
 
           currentGrandTotal += itemPrice;
           currentGrandPt += itemPt;
@@ -464,6 +474,7 @@
       const memberId = document.getElementById('memberIdMain').value.trim() + "-" + document.getElementById('memberIdSub').value;
       const fullName = document.getElementById('fullName').value.trim();
 
+      const shipName = document.getElementById('shipName').value.trim();
       const zip = document.getElementById('zip').value.trim();
       const address = document.getElementById('address').value.trim();
       const phone = document.getElementById('phone').value.trim();
@@ -478,10 +489,11 @@
 
       // お届け先の表示制御
       const sumAddressBlock = document.getElementById('sumAddressBlock');
-      if (address || zip || phone) {
+      if (shipName || address || zip || phone) {
         sumAddressBlock.style.display = "block";
+        document.getElementById('sumShipName').textContent = shipName ? "お名前: " + shipName : "お名前: " + fullName;
         document.getElementById('sumZip').textContent = zip ? "〒" + zip : "";
-        document.getElementById('sumAddress').textContent = address;
+        document.getElementById('sumAddress').textContent = address ? "住所: " + address : "";
         document.getElementById('sumPhone').textContent = phone ? "TEL: " + phone : "";
       } else {
         sumAddressBlock.style.display = "none";
