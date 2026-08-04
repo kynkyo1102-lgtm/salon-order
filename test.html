@@ -1,150 +1,466 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サロンインフォメーション＆注文 portal</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f5f5f7;
-            margin: 0;
-            padding: 20px 15px;
-            color: #333;
-        }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            font-size: 20px;
-            margin: 0 0 5px 0;
-            color: #1d1d1f;
-        }
-        .header p {
-            font-size: 13px;
-            color: #86868b;
-            margin: 0;
-        }
-        .card {
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
-        }
-        .card-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #007aff;
-            margin-top: 0;
-            margin-bottom: 12px;
-            border-bottom: 2px solid #f0f0f2;
-            padding-bottom: 8px;
-        }
-        .notice-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .notice-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f2;
-        }
-        .notice-item:last-child {
-            border-bottom: none;
-        }
-        .badge-soldout {
-            background-color: #ff3b30;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-right: 6px;
-        }
-        .badge-info {
-            background-color: #34c759;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-right: 6px;
-        }
-        .hours-info {
-            font-size: 14px;
-            line-height: 1.8;
-        }
-        .btn-order {
-            display: block;
-            background-color: #007aff;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0 4px 12px rgba(0,122,255,0.25);
-            margin-top: 20px;
-        }
-        .btn-order:active {
-            opacity: 0.8;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サロン専用商品購入注文書</title>
+  
+  <!-- 画像化・PDF化用ライブラリ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      padding-bottom: 90px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+    h2 {
+      font-size: 1.2em;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .flex-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    /* 商品テーブルスタイル */
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .product-table th, .product-table td {
+      border: 1px solid #ddd;
+      padding: 8px 6px;
+      text-align: left;
+    }
+    .product-table th {
+      background-color: #f0f0f0;
+      font-size: 12px;
+    }
+    .product-table td.qty-col {
+      width: 75px;
+      text-align: center;
+    }
+
+    /* 下部固定バー */
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      border-top: 2px solid #28a745;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+      padding: 10px 15px;
+      z-index: 100;
+    }
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-totals {
+      font-size: 13px;
+    }
+    .footer-totals div span {
+      font-weight: bold;
+    }
+    .btn-submit {
+      padding: 12px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ダウンロード・作成された控え用スタイル */
+    .receipt-box {
+      background-color: #fff;
+      border: 2px solid #333;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+    .receipt-info {
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .btn-action {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-img { background-color: #007bff; color: white; }
+    .btn-pdf { background-color: #17a2b8; color: white; }
+    .btn-reload { background-color: #6c757d; color: white; }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <div class="form-container">
     
-    <!-- ヘッダー -->
-    <div class="header">
-        <h1>サロン注文＆インフォメーション</h1>
-        <p>最新のお知らせ・完売情報</p>
-    </div>
+    <!-- 入力フォーム画面 -->
+    <div id="formSection">
+      <h2>サロン専用商品購入注文書</h2>
+      
+      <form id="orderForm">
+        
+        <!-- 基本情報エリア -->
+        <div style="background-color: #fafafa; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; margin-bottom: 15px;">
+          
+          <div style="margin-bottom: 10px;">
+            <label for="month">発注月度 *</label>
+            <select id="month" name="month" required>
+              <option value="">選択してください</option>
+              <option value="7月度">7月度</option>
+              <option value="8月度">8月度</option>
+            </select>
+          </div>
 
-    <!-- 1. お知らせ・完売情報 -->
-    <div class="card">
-        <div class="card-title">📢 最新のお知らせ・在庫状況</div>
-        <ul class="notice-list">
-            <li class="notice-item">
-                <span class="badge-soldout">完売</span>
-                OX-288 (ゼリータイプ) は本日分完売しました
-            </li>
-            <li class="notice-item">
-                <span class="badge-info">入荷</span>
-                ゼウス 2026 再入荷いたしました
-            </li>
-            <li class="notice-item">
-                <span class="badge-info">案内</span>
-                8月度の注文受付を開始しております
-            </li>
-        </ul>
-    </div>
-
-    <!-- 2. 営業時間案内 -->
-    <div class="card">
-        <div class="card-title">⏰ 営業時間・受付時間</div>
-        <div class="hours-info">
-            <div><strong>【注文受付時間】</strong> 10:00 〜 19:00</div>
-            <div><strong>【定休日】</strong> 日曜日・祝日</div>
-            <div style="font-size: 12px; color: #86868b; margin-top: 6px;">
-                ※時間外の送信分は翌営業日の処理となります。
+          <div style="margin-bottom: 10px;">
+            <label>購入会員番号 *</label>
+            <div class="flex-row">
+              <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
+              <span>-</span>
+              <select id="memberIdSub" style="width: 85px;"></select>
             </div>
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            <label for="position">ポジション名 *</label>
+            <input type="text" id="position" name="position" placeholder="例: 注文者名または登録名" required>
+          </div>
+
+          <div>
+            <label for="contact">注文者名（連絡先） *</label>
+            <input type="text" id="contact" name="contact" placeholder="例: 山田 太郎" required>
+          </div>
+
         </div>
+
+        <!-- 商品一覧テーブル -->
+        <label>注文商品と数量を選択してください</label>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th style="width: 70px;">価格(税込)</th>
+              <th class="qty-col">数量</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody">
+            <!-- JSで出力 -->
+          </tbody>
+        </table>
+
+        <!-- 下部固定フッター -->
+        <div class="fixed-footer">
+          <div class="footer-content">
+            <div class="footer-totals">
+              <div>合計金額: <span id="displayPrice" style="font-size: 16px; color: #d9534f;">¥0</span></div>
+              <div style="margin-top: 2px;">獲得Pt: <span id="displayPt" style="font-size: 14px; color: #0275d8;">0pt</span></div>
+            </div>
+            <button type="submit" id="submitBtn" class="btn-submit">注文書を作成</button>
+          </div>
+        </div>
+
+      </form>
     </div>
 
-    <!-- 3. 注文ツールへのリンクボタン（※現在は仮でindex.htmlに繋いでいます） -->
-    <a href="index.html" class="btn-order">🛍️ 注文書を作成する</a>
+    <!-- 完成注文書＆保存画面 -->
+    <div id="completeSection" style="display: none;">
+      
+      <!-- ダウンロード対象エリア -->
+      <div id="receiptArea" class="receipt-box">
+        <div class="receipt-header">
+          <h3 style="margin: 0; font-size: 18px;">商品購入注文書（控え）</h3>
+          <p id="recDate" style="margin: 5px 0 0 0; font-size: 12px; color: #666;"></p>
+        </div>
 
-</div>
+        <div class="receipt-info">
+          <div>発注月度: <strong id="sumMonth"></strong></div>
+          <div>購入会員番号: <strong id="sumMemberId"></strong></div>
+          <div>ポジション名: <strong id="sumPosition"></strong></div>
+          <div>注文者名: <strong id="sumContact"></strong></div>
+        </div>
 
+        <table class="product-table" style="margin-bottom: 15px;">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th style="width: 50px; text-align: center;">数量</th>
+              <th style="width: 80px; text-align: right;">小計(税込)</th>
+            </tr>
+          </thead>
+          <tbody id="sumProductTable"></tbody>
+        </table>
+
+        <div style="border-top: 2px dashed #333; padding-top: 10px; font-size: 15px;">
+          <div style="display: flex; justify-content: space-between; font-weight: bold;">
+            <span>合計金額:</span>
+            <span id="sumPrice" style="color: #d9534f;"></span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 5px;">
+            <span>獲得ポイント:</span>
+            <span id="sumPt" style="color: #0275d8;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ダウンロードボタンエリア -->
+      <div style="margin-top: 20px;">
+        <button onclick="downloadImage()" class="btn-action btn-img">📸 画像（PNG）として保存</button>
+        <button onclick="downloadPDF()" class="btn-action btn-pdf">📄 PDFファイルとして保存</button>
+        <button onclick="location.reload()" class="btn-action btn-reload">🔄 修正・新しい注文を作成</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // 商品マスタ
+    const productMaster = {
+      "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
+      "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
+      "OX-288 (ゼリータイプ)": { price: 14200, pt: { "7月度": 10000, "8月度": 10000 } },
+      "ボアソン": { price: 10800, pt: { "7月度": 10000, "8月度": 10000 } },
+      "ハイプロリーナ": { price: 7200, pt: { "7月度": 6000, "8月度": 6000 } },
+      "ゼウス 2026": { price: 17800, pt: { "7月度": 13000, "8月度": 13000 } },
+      "アルピニスト スラージュ": { price: 4000, pt: { "7月度": 1400, "8月度": 2800 } },
+      "O・M・C プロテイン": { price: 6000, pt: { "7月度": 2000, "8月度": 5000 } },
+      "サヴォン アンベリール (120g)": { price: 5200, pt: { "7月度": 1800, "8月度": 4300 } },
+      "サヴォン アンベリール (70g)": { price: 3500, pt: { "7月度": 1200, "8月度": 2900 } },
+      "ブランシュール (150g)": { price: 12200, pt: { "7月度": 10500, "8月度": 10500 } },
+      "ブブランシュール (80g)": { price: 6800, pt: { "7月度": 5800, "8月度": 5800 } },
+      "デマキヤン": { price: 4100, pt: { "7月度": 1500, "8月度": 3400 } },
+      "赤化粧水": { price: 3600, pt: { "7月度": 1300, "8月度": 3000 } },
+      "赤美容液": { price: 6400, pt: { "7月度": 2300, "8月度": 5400 } },
+      "赤ジェル": { price: 4800, pt: { "7月度": 1700, "8月度": 4000 } },
+      "白化粧水": { price: 3600, pt: { "7月度": 3000, "8月度": 3000 } },
+      "白美容液": { price: 6400, pt: { "7月度": 5400, "8月度": 5400 } },
+      "白ジェル": { price: 4800, pt: { "7月度": 4000, "8月度": 4000 } },
+      "グルナードゥ": { price: 32000, pt: { "7月度": 26000, "8月度": 26000 } },
+      "リペアセラム": { price: 14800, pt: { "7月度": 15000, "8月度": 15000 } },
+      "リペアクリーム": { price: 18700, pt: { "7月度": 6600, "8月度": 15000 } },
+      "レボリューション": { price: 17200, pt: { "7月度": 9000, "8月度": 14500 } },
+      "グロウジェルクリーム": { price: 9800, pt: { "7月度": 3600, "8月度": 8000 } },
+      "ハンドモイスチャー": { price: 2200, pt: { "7月度": 700, "8月度": 1800 } },
+      "リップセラム": { price: 2000, pt: { "7月度": 600, "8月度": 1600 } },
+      "ボディミルク": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
+      "ミュー ヴィサージュ": { price: 3300, pt: { "7月度": 1200, "8月度": 2600 } },
+      "ミューコール": { price: 3300, pt: { "7月度": 2600, "8月度": 2600 } },
+      "バイオミスト": { price: 3700, pt: { "7月度": 3000, "8月度": 3000 } },
+      "ボディソープ": { price: 3200, pt: { "7月度": 2500, "8月度": 2500 } },
+      "シャンプー": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
+      "トリートメント": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
+      "ヘアマスク": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
+      "スカルプトナー": { price: 9200, pt: { "7月度": 7500, "8月度": 7500 } },
+      "クレオ デンタルクリーン": { price: 2200, pt: { "7月度": 700, "8月度": 1800 } },
+      "クレオ マウスウォッシュ": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
+      "アロマオイル ローズ": { price: 8700, pt: { "7月度": 3000, "8月度": 7300 } },
+      "ゼウス オードゥ パルファン 2026": { price: 21000, pt: { "7月度": 16000, "8月度": 18000 } },
+      "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
+      "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 枝番生成
+      const memberIdSub = document.getElementById('memberIdSub');
+      for (let i = 1; i <= 20; i++) {
+        const opt = document.createElement('option');
+        const val = String(i).padStart(2, '0');
+        opt.value = val;
+        opt.textContent = val;
+        memberIdSub.appendChild(opt);
+      }
+
+      // 商品テーブル生成
+      const tbody = document.getElementById('productTableBody');
+      for (let prod in productMaster) {
+        const tr = document.createElement('tr');
+        let qtyOptions = '<option value="0">0</option>';
+        for (let i = 1; i <= 20; i++) {
+          qtyOptions += `<option value="${i}">${i}</option>`;
+        }
+
+        tr.innerHTML = `
+          <td><strong>${prod}</strong></td>
+          <td style="color: #666;">¥${productMaster[prod].price.toLocaleString()}</td>
+          <td class="qty-col">
+            <select class="qty-select" data-product="${prod}">
+              ${qtyOptions}
+            </select>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
+      document.getElementById('month').addEventListener('change', updateCalc);
+    });
+
+    let currentGrandTotal = 0;
+    let currentGrandPt = 0;
+    let currentItemsData = [];
+
+    function updateCalc() {
+      const month = document.getElementById('month').value;
+      const selects = document.querySelectorAll('.qty-select');
+      
+      currentGrandTotal = 0;
+      currentGrandPt = 0;
+      currentItemsData = [];
+
+      selects.forEach(sel => {
+        const qty = parseInt(sel.value) || 0;
+        if (qty > 0) {
+          const prod = sel.getAttribute('data-product');
+          const itemPrice = productMaster[prod].price * qty;
+          let itemPt = (month && productMaster[prod].pt[month]) ? productMaster[prod].pt[month] * qty : 0;
+
+          currentGrandTotal += itemPrice;
+          currentGrandPt += itemPt;
+
+          currentItemsData.push({
+            product: prod,
+            quantity: qty,
+            price: itemPrice
+          });
+        }
+      });
+
+      document.getElementById('displayPrice').textContent = "¥" + currentGrandTotal.toLocaleString();
+      document.getElementById('displayPt').textContent = currentGrandPt.toLocaleString() + "pt";
+    }
+
+    // 注文書生成処理
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (currentItemsData.length === 0) {
+        alert("数量が選択されている商品がありません。1点以上の数量を選んでください。");
+        return;
+      }
+
+      const month = document.getElementById('month').value;
+      const memberId = document.getElementById('memberIdMain').value.trim() + "-" + document.getElementById('memberIdSub').value;
+      const position = document.getElementById('position').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+
+      // 日付セット
+      const now = new Date();
+      document.getElementById('recDate').textContent = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
+
+      document.getElementById('sumMonth').textContent = month;
+      document.getElementById('sumMemberId').textContent = memberId;
+      document.getElementById('sumPosition').textContent = position;
+      document.getElementById('sumContact').textContent = contact;
+
+      // 選んだ商品のみテーブルに出力
+      const sumTbody = document.getElementById('sumProductTable');
+      sumTbody.innerHTML = '';
+      currentItemsData.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.product}</strong></td>
+          <td style="text-align: center;">${item.quantity}</td>
+          <td style="text-align: right;">¥${item.price.toLocaleString()}</td>
+        `;
+        sumTbody.appendChild(tr);
+      });
+
+      document.getElementById('sumPrice').textContent = "¥" + currentGrandTotal.toLocaleString();
+      document.getElementById('sumPt').textContent = currentGrandPt.toLocaleString() + "pt";
+
+      // 画面切り替え
+      document.getElementById('formSection').style.display = "none";
+      document.querySelector('.fixed-footer').style.display = "none";
+      document.getElementById('completeSection').style.display = "block";
+      window.scrollTo(0, 0);
+    });
+
+    // 画像（PNG）保存
+    function downloadImage() {
+      const element = document.getElementById('receiptArea');
+      html2canvas(element, { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `注文書_${document.getElementById('sumMemberId').textContent}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    // PDF保存
+    function downloadPDF() {
+      const element = document.getElementById('receiptArea');
+      html2canvas(element, { scale: 2 }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth() - 20;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        
+        pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
+        pdf.save(`注文書_${document.getElementById('sumMemberId').textContent}.pdf`);
+      });
+    }
+  </script>
 </body>
 </html>
