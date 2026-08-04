@@ -247,6 +247,13 @@
             <label for="phone">電話番号</label>
             <input type="tel" id="phone" placeholder="例: 09012345678">
           </div>
+
+          <!-- 保存クリアボタン -->
+          <div style="text-align: right; margin-top: 10px;">
+            <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: #888; text-decoration: underline; font-size: 11px; cursor: pointer;">
+              端末に保存された情報を削除する
+            </button>
+          </div>
         </div>
 
         <!-- 商品一覧テーブル -->
@@ -429,6 +436,26 @@
 
       document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
       document.getElementById('month').addEventListener('change', updateCalc);
+
+      // --- ローカルストレージからの復元処理 ---
+      const savedData = localStorage.getItem('salonOrderUserInfo');
+      if (savedData) {
+        try {
+          const user = JSON.parse(savedData);
+          if (user.month) document.getElementById('month').value = user.month;
+          if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
+          if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
+          if (user.fullName) document.getElementById('fullName').value = user.fullName;
+          if (user.shipName) document.getElementById('shipName').value = user.shipName;
+          if (user.zip) document.getElementById('zip').value = user.zip;
+          if (user.address) document.getElementById('address').value = user.address;
+          if (user.phone) document.getElementById('phone').value = user.phone;
+          
+          updateCalc(); // 復元した月度に応じてPtを再計算
+        } catch (e) {
+          console.error("保存データの復元エラー", e);
+        }
+      }
     });
 
     let currentGrandTotal = 0;
@@ -488,13 +515,28 @@
       }
 
       const month = document.getElementById('month').value;
-      const memberId = document.getElementById('memberIdMain').value.trim() + "-" + document.getElementById('memberIdSub').value;
+      const memberIdMain = document.getElementById('memberIdMain').value.trim();
+      const memberIdSub = document.getElementById('memberIdSub').value;
+      const memberId = memberIdMain + "-" + memberIdSub;
       const fullName = document.getElementById('fullName').value.trim();
 
       const shipName = document.getElementById('shipName').value.trim();
       const zip = document.getElementById('zip').value.trim();
       const address = document.getElementById('address').value.trim();
       const phone = document.getElementById('phone').value.trim();
+
+      // --- ローカルストレージへ保存 ---
+      const userInfo = {
+        month: month,
+        memberIdMain: memberIdMain,
+        memberIdSub: memberIdSub,
+        fullName: fullName,
+        shipName: shipName,
+        zip: zip,
+        address: address,
+        phone: phone
+      };
+      localStorage.setItem('salonOrderUserInfo', JSON.stringify(userInfo));
 
       const now = new Date();
       document.getElementById('recDate').textContent = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
@@ -534,6 +576,15 @@
       document.getElementById('completeSection').style.display = "block";
       window.scrollTo(0, 0);
     });
+
+    // 保存データの消去関数
+    function clearSavedInfo() {
+      if (confirm("端末に保存されているお名前や住所などの情報を削除しますか？")) {
+        localStorage.removeItem('salonOrderUserInfo');
+        alert("保存情報を削除しました。");
+        location.reload();
+      }
+    }
 
     // 画像（PNG）保存
     function downloadImage() {
