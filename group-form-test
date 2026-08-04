@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注文送信フォーム</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 15px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+    label {
+      font-weight: bold;
+      font-size: 15px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .flex-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-submit, .btn-reload {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    .btn-submit:disabled {
+      background-color: #ccc;
+    }
+    .summary-box {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 12px;
+      margin-top: 15px;
+      text-align: left;
+    }
+    .summary-item {
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .summary-item span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    
+    <!-- 1. 入力フォーム画面 -->
+    <div id="formSection">
+      <h2 style="font-size: 1.3em; text-align: center; margin-top: 5px; margin-bottom: 20px;">注文送信フォーム</h2>
+      <form id="orderForm">
+        
+        <!-- 1. 発注月度 -->
+        <div style="margin-bottom: 15px;">
+          <label for="month">1. 発注月度</label>
+          <select id="month" name="month" required>
+            <option value="">選択してください</option>
+            <option value="7月度">7月度</option>
+            <option value="8月度">8月度</option>
+          </select>
+        </div>
+
+        <!-- 2. 会員番号 -->
+        <div style="margin-bottom: 15px;">
+          <label>2. 購入会員番号</label>
+          <div class="flex-row">
+            <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
+            <span>-</span>
+            <select id="memberIdSub" style="width: 85px;"></select>
+          </div>
+        </div>
+
+        <!-- 3. ポジション名 -->
+        <div style="margin-bottom: 15px;">
+          <label for="position">3. ポジション名</label>
+          <input type="text" id="position" name="position" required>
+        </div>
+
+        <!-- 4. 製品名・数量 -->
+        <div style="margin-bottom: 15px;">
+          <label>4. 製品名 × 数量</label>
+          <div class="flex-row">
+            <select id="product" name="product" style="flex: 2;" required>
+              <option value="">製品を選択</option>
+              <option value="OX-288">OX-288</option>
+              <option value="OX-288(追加購入)">OX-288(追加購入)</option>
+              <option value="OX-288 (ゼリータイプ)">OX-288 (ゼリータイプ)</option>
+              <option value="ボアソン">ボアソン</option>
+              <option value="ハイプロリーナ">ハイプロリーナ</option>
+              <option value="ゼウス 2026">ゼウス 2026</option>
+              <option value="アルピニスト スラージュ">アルピニスト スラージュ</option>
+              <option value="O・M・C プロテイン">O・M・C プロテイン</option>
+              <option value="サヴォン アンベリール (120g)">サヴォン アンベリール (120g)</option>
+              <option value="サヴォン アンベリール (70g)">サヴォン アンベリール (70g)</option>
+              <option value="ブランシュール (150g)">ブランシュール (150g)</option>
+              <option value="ブブランシュール (80g)">ブブランシュール (80g)</option>
+              <option value="デマキヤン">デマキヤン</option>
+              <option value="赤化粧水">赤化粧水</option>
+              <option value="赤美容液">赤美容液</option>
+              <option value="赤ジェル">赤ジェル</option>
+              <option value="白化粧水">白化粧水</option>
+              <option value="白美容液">白美容液</option>
+              <option value="白ジェル">白ジェル</option>
+              <option value="グルナードゥ">グルナードゥ</option>
+              <option value="リペアセラム">リペアセラム</option>
+              <option value="リペアクリーム">リペアクリーム</option>
+              <option value="レボリューション">レボリューション</option>
+              <option value="グロウジェルクリーム">グロウジェルクリーム</option>
+              <option value="ハンドモイスチャー">ハンドモイスチャー</option>
+              <option value="リップセラム">リップセラム</option>
+              <option value="ボディミルク">ボディミルク</option>
+              <option value="ミュー ヴィサージュ">ミュー ヴィサージュ</option>
+              <option value="ミューコール">ミューコール</option>
+              <option value="バイオミスト">バイオミスト</option>
+              <option value="ボディソープ">ボディソープ</option>
+              <option value="シャンプー">シャンプー</option>
+              <option value="トリートメント">トリートメント</option>
+              <option value="ヘアマスク">ヘアマスク</option>
+              <option value="スカルプトナー">スカルプトナー</option>
+              <option value="クレオ デンタルクリーン">クレオ デンタルクリーン</option>
+              <option value="クレオ マウスウォッシュ">クレオ マウスウォッシュ</option>
+              <option value="アロマオイル ローズ">アロマオイル ローズ</option>
+            </select>
+            <select id="quantity" name="quantity" style="flex: 1;" required>
+              <option value="1個">1個</option>
+              <option value="2個">2個</option>
+              <option value="3個">3個</option>
+              <option value="4個">4個</option>
+              <option value="5個">5個</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 金額・ポイント表示エリア -->
+        <div style="margin-bottom: 15px; background-color: #f8f9fa; padding: 10px; border-radius: 4px;">
+          <div style="font-size: 14px; color: #555;">合計金額: <span id="displayPrice" style="font-size: 18px; font-weight: bold; color: #d9534f;">¥0</span></div>
+          <div style="font-size: 14px; color: #555; margin-top: 5px;">獲得ポイント: <span id="displayPt" style="font-size: 16px; font-weight: bold; color: #0275d8;">0pt</span></div>
+        </div>
+
+        <!-- 5. 注文者名（連絡先） -->
+        <div style="margin-bottom: 15px;">
+          <label for="contact">5. 注文者名（連絡先）</label>
+          <input type="text" id="contact" name="contact" required>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">注文を送信する</button>
+      </form>
+    </div>
+
+    <!-- 2. 送信完了画面（初期状態は非表示） -->
+    <div id="completeSection" style="display: none; text-align: center;">
+      <h2 style="color: #28a745; margin-top: 10px;">✅ ご注文を受け付けました</h2>
+      <p style="font-size: 14px; color: #555;">スプレッドシートへの記録が正常に完了いたしました。</p>
+      
+      <div class="summary-box">
+        <h4 style="margin-top: 0; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">【ご注文内容の控え】</h4>
+        <div class="summary-item">発注月度: <span id="sumMonth"></span></div>
+        <div class="summary-item">購入会員番号: <span id="sumMemberId"></span></div>
+        <div class="summary-item">ポジション名: <span id="sumPosition"></span></div>
+        <div class="summary-item">ご注文製品: <span id="sumProduct"></span> × <span id="sumQuantity"></span></div>
+        <div class="summary-item">合計金額: <span id="sumPrice"></span></div>
+        <div class="summary-item">獲得ポイント: <span id="sumPt"></span></div>
+        <div class="summary-item">注文者名: <span id="sumContact"></span></div>
+      </div>
+
+      <p style="font-size: 12px; color: #888; margin-top: 15px;">※この画面をスクリーンショットして保管してください。</p>
+      
+      <button onclick="location.reload()" class="btn-reload">続けて別の注文を入力する</button>
+    </div>
+
+  </div>
+
+  <script>
+    // 会員番号の枝番（01〜20）を自動生成
+    const memberIdSub = document.getElementById('memberIdSub');
+    for (let i = 1; i <= 20; i++) {
+      const opt = document.createElement('option');
+      const val = String(i).padStart(2, '0');
+      opt.value = val;
+      opt.textContent = val;
+      memberIdSub.appendChild(opt);
+    }
+
+    // GASのウェブアプリURL
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxSS7HPjWxDYajNI9elvw5eKbE8PWytInY-wJZgss4PqlTQN56IPoZRcgKi2dClM6t5/exec";
+
+    // 商品マスタ（単価とポイント）
+    const productMaster = {
+      "OX-288": { price: 12000, pt: 8000 },
+      "OX-288(追加購入)": { price: 10000, pt: 0 },
+      "OX-288 (ゼリータイプ)": { price: 12000, pt: 8000 },
+      "ボアソン": { price: 12000, pt: 8000 },
+      "ハイプロリーナ": { price: 12000, pt: 8000 },
+      "ゼウス 2026": { price: 17800, pt: 13000 },
+      "アルピニスト スラージュ": { price: 12000, pt: 8000 },
+      "O・M・C プロテイン": { price: 8000, pt: 5000 },
+      "サヴォン アンベリール (120g)": { price: 10000, pt: 6500 },
+      "サヴォン アンベリール (70g)": { price: 6000, pt: 3500 },
+      "ブランシュール (150g)": { price: 12000, pt: 8000 },
+      "ブブランシュール (80g)": { price: 7000, pt: 4000 },
+      "デマキヤン": { price: 6000, pt: 3500 },
+      "赤化粧水": { price: 6000, pt: 3500 },
+      "赤美容液": { price: 10000, pt: 6500 },
+      "赤ジェル": { price: 8000, pt: 5000 },
+      "白化粧水": { price: 6000, pt: 3500 },
+      "白美容液": { price: 10000, pt: 6500 },
+      "白ジェル": { price: 8000, pt: 5000 },
+      "グルナードゥ": { price: 10000, pt: 6500 },
+      "リペアセラム": { price: 12000, pt: 8000 },
+      "リペアクリーム": { price: 12000, pt: 8000 },
+      "レボリューション": { price: 18000, pt: 12000 },
+      "グロウジェルクリーム": { price: 10000, pt: 6500 },
+      "ハンドモイスチャー": { price: 3000, pt: 1800 },
+      "リップセラム": { price: 3000, pt: 1800 },
+      "ボディミルク": { price: 6000, pt: 3500 },
+      "ミュー ヴィサージュ": { price: 6000, pt: 3500 },
+      "ミューコール": { price: 6000, pt: 3500 },
+      "バイオミスト": { price: 4000, pt: 2300 },
+      "ボディソープ": { price: 4000, pt: 2300 },
+      "シャンプー": { price: 4000, pt: 2300 },
+      "トリートメント": { price: 4000, pt: 2300 },
+      "ヘアマスク": { price: 4000, pt: 2300 },
+      "スカルプトナー": { price: 5000, pt: 3000 },
+      "クレオ デンタルクリーン": { price: 2500, pt: 1500 },
+      "クレオ マウスウォッシュ": { price: 3000, pt: 1800 },
+      "アロマオイル ローズ": { price: 8000, pt: 5000 }
+    };
+
+    let calculatedPrice = 0;
+    let calculatedPt = 0;
+
+    function updateCalc() {
+      const prodKey = document.getElementById('product').value;
+      const qtyVal = parseInt(document.getElementById('quantity').value) || 1;
+      if (prodKey && productMaster[prodKey]) {
+        calculatedPrice = productMaster[prodKey].price * qtyVal;
+        calculatedPt = productMaster[prodKey].pt * qtyVal;
+        document.getElementById('displayPrice').textContent = "¥" + calculatedPrice.toLocaleString();
+        document.getElementById('displayPt').textContent = calculatedPt.toLocaleString() + "pt";
+      } else {
+        calculatedPrice = 0;
+        calculatedPt = 0;
+        document.getElementById('displayPrice').textContent = "¥0";
+        document.getElementById('displayPt').textContent = "0pt";
+      }
+    }
+
+    document.getElementById('product').addEventListener('change', updateCalc);
+    document.getElementById('quantity').addEventListener('change', updateCalc);
+
+    // フォーム送信処理（JSONPで確実にレスポンスを確認）
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "送信中...";
+
+      const month = document.getElementById('month').value;
+      const memberId = document.getElementById('memberIdMain').value + "-" + document.getElementById('memberIdSub').value;
+      const position = document.getElementById('position').value;
+      const product = document.getElementById('product').value;
+      const quantity = document.getElementById('quantity').value;
+      const contact = document.getElementById('contact').value;
+
+      // ユニークなコールバック関数名を生成
+      const callbackName = "handleGasResponse_" + Date.now();
+
+      // パラメータ作成
+      const params = new URLSearchParams({
+        callback: callbackName,
+        month: month,
+        memberId: memberId,
+        position: position,
+        product: product,
+        quantity: quantity,
+        totalPrice: "¥" + calculatedPrice.toLocaleString(),
+        totalPt: calculatedPt.toLocaleString() + "pt",
+        contact: contact
+      });
+
+      // スクリプトタグを生成して通信 (JSONP)
+      const script = document.createElement('script');
+      script.src = `${GAS_URL}?${params.toString()}`;
+
+      // GASからのコールバック受付
+      window[callbackName] = function(response) {
+        // クリーンアップ
+        document.body.removeChild(script);
+        delete window[callbackName];
+
+        if (response && response.result === "success") {
+          // 控欄にデータをセット
+          document.getElementById('sumMonth').textContent = month;
+          document.getElementById('sumMemberId').textContent = memberId;
+          document.getElementById('sumPosition').textContent = position;
+          document.getElementById('sumProduct').textContent = product;
+          document.getElementById('sumQuantity').textContent = quantity;
+          document.getElementById('sumPrice').textContent = "¥" + calculatedPrice.toLocaleString();
+          document.getElementById('sumPt').textContent = calculatedPt.toLocaleString() + "pt";
+          document.getElementById('sumContact').textContent = contact;
+
+          // 画面切り替え
+          document.getElementById('formSection').style.display = "none";
+          document.getElementById('completeSection').style.display = "block";
+        } else {
+          alert("送信エラー: スプレッドシートへの記録に失敗しました。\n" + (response.message || ""));
+          submitBtn.disabled = false;
+          submitBtn.textContent = "注文を送信する";
+        }
+      };
+
+      // 通信エラー時
+      script.onerror = function() {
+        alert("通信エラーが発生しました。ネットワーク状況を確認してください。");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "注文を送信する";
+      };
+
+      document.body.appendChild(script);
+    });
+  </script>
+</body>
+</html>
