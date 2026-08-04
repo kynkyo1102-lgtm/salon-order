@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>サロン専用商品購入注文書</title>
+  <title>南熊本サロン専用商品購入注文書</title>
   
   <!-- 画像化・PDF化用ライブラリ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- 郵便番号住所自動入力ライブラリ -->
+  <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 
   <style>
     body {
@@ -29,7 +31,7 @@
       box-sizing: border-box;
     }
     h2 {
-      font-size: 1.2em;
+      font-size: 1.1em;
       text-align: center;
       margin-top: 5px;
       margin-bottom: 15px;
@@ -40,14 +42,14 @@
     }
     label {
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
       display: block;
       margin-bottom: 4px;
     }
     input, select {
       width: 100%;
-      padding: 10px;
-      font-size: 15px;
+      padding: 9px;
+      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
@@ -57,26 +59,47 @@
       gap: 8px;
       align-items: center;
     }
+    .section-box {
+      background-color: #fafafa;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 14px;
+      color: #007bff;
+      margin-bottom: 8px;
+      border-bottom: 1px dashed #007bff;
+      padding-bottom: 4px;
+    }
     
     /* 商品テーブルスタイル */
     .product-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      font-size: 13px;
+      font-size: 12px;
     }
     .product-table th, .product-table td {
       border: 1px solid #ddd;
-      padding: 8px 6px;
+      padding: 6px 4px;
       text-align: left;
     }
     .product-table th {
       background-color: #f0f0f0;
-      font-size: 12px;
+      font-size: 11px;
+      text-align: center;
     }
     .product-table td.qty-col {
-      width: 75px;
+      width: 65px;
       text-align: center;
+    }
+    .product-table td.pt-col {
+      width: 65px;
+      text-align: right;
+      color: #0275d8;
     }
 
     /* 下部固定バー */
@@ -115,11 +138,11 @@
       cursor: pointer;
     }
 
-    /* ダウンロード・作成された控え用スタイル */
+    /* 完成控えスタイル */
     .receipt-box {
       background-color: #fff;
       border: 2px solid #333;
-      padding: 20px;
+      padding: 15px;
       border-radius: 8px;
       margin-top: 10px;
       text-align: left;
@@ -127,12 +150,12 @@
     .receipt-header {
       text-align: center;
       border-bottom: 2px solid #333;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
     }
     .receipt-info {
-      margin-bottom: 15px;
-      font-size: 14px;
+      margin-bottom: 12px;
+      font-size: 13px;
       line-height: 1.6;
     }
     .btn-action {
@@ -156,13 +179,15 @@
     
     <!-- 入力フォーム画面 -->
     <div id="formSection">
-      <h2>サロン専用商品購入注文書</h2>
+      <h2>南熊本サロン専用商品購入注文書</h2>
       
-      <form id="orderForm">
+      <!-- 住所自動入力のため class="h-adr" を追加 -->
+      <form id="orderForm" class="h-adr">
+        <!-- 郵便番号国設定（隠し要素） -->
+        <span class="p-country-name" style="display:none;">Japan</span>
         
         <!-- 基本情報エリア -->
-        <div style="background-color: #fafafa; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; margin-bottom: 15px;">
-          
+        <div class="section-box">
           <div style="margin-bottom: 10px;">
             <label for="month">発注月度 *</label>
             <select id="month" name="month" required>
@@ -181,16 +206,30 @@
             </div>
           </div>
 
-          <div style="margin-bottom: 10px;">
-            <label for="position">ポジション名 *</label>
-            <input type="text" id="position" name="position" placeholder="例: 注文者名または登録名" required>
+          <div>
+            <label for="fullName">氏名 *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="例: 山田 太郎" required>
+          </div>
+        </div>
+
+        <!-- お届け先エリア（任意入力） -->
+        <div class="section-box">
+          <div class="section-title">📦 お届け先（配送ご希望の方のみ入力）</div>
+          
+          <div style="margin-bottom: 8px;">
+            <label for="zip">郵便番号（ハイフンなし7桁）</label>
+            <input type="text" id="zip" class="p-postal-code" maxlength="7" placeholder="例: 8600000">
+          </div>
+
+          <div style="margin-bottom: 8px;">
+            <label for="address">住所</label>
+            <input type="text" id="address" class="p-region p-locality p-street-address p-extended-address" placeholder="自動入力されます">
           </div>
 
           <div>
-            <label for="contact">注文者名（連絡先） *</label>
-            <input type="text" id="contact" name="contact" placeholder="例: 山田 太郎" required>
+            <label for="phone">電話番号</label>
+            <input type="tel" id="phone" placeholder="例: 09012345678">
           </div>
-
         </div>
 
         <!-- 商品一覧テーブル -->
@@ -199,7 +238,8 @@
           <thead>
             <tr>
               <th>商品名</th>
-              <th style="width: 70px;">価格(税込)</th>
+              <th style="width: 60px;">価格(税込)</th>
+              <th style="width: 55px;">獲得Pt</th>
               <th class="qty-col">数量</th>
             </tr>
           </thead>
@@ -228,34 +268,41 @@
       <!-- ダウンロード対象エリア -->
       <div id="receiptArea" class="receipt-box">
         <div class="receipt-header">
-          <h3 style="margin: 0; font-size: 18px;">商品購入注文書（控え）</h3>
-          <p id="recDate" style="margin: 5px 0 0 0; font-size: 12px; color: #666;"></p>
+          <h3 style="margin: 0; font-size: 16px;">南熊本サロン専用商品購入注文書（控え）</h3>
+          <p id="recDate" style="margin: 5px 0 0 0; font-size: 11px; color: #666;"></p>
         </div>
 
         <div class="receipt-info">
           <div>発注月度: <strong id="sumMonth"></strong></div>
           <div>購入会員番号: <strong id="sumMemberId"></strong></div>
-          <div>ポジション名: <strong id="sumPosition"></strong></div>
-          <div>注文者名: <strong id="sumContact"></strong></div>
+          <div>氏名: <strong id="sumFullName"></strong></div>
+          
+          <!-- お届け先情報（入力がある場合のみ表示） -->
+          <div id="sumAddressBlock" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ccc; display: none;">
+            <div>【お届け先】</div>
+            <div id="sumZip"></div>
+            <div id="sumAddress"></div>
+            <div id="sumPhone"></div>
+          </div>
         </div>
 
         <table class="product-table" style="margin-bottom: 15px;">
           <thead>
             <tr>
               <th>商品名</th>
-              <th style="width: 50px; text-align: center;">数量</th>
-              <th style="width: 80px; text-align: right;">小計(税込)</th>
+              <th style="width: 45px; text-align: center;">数量</th>
+              <th style="width: 75px; text-align: right;">小計(税込)</th>
             </tr>
           </thead>
           <tbody id="sumProductTable"></tbody>
         </table>
 
-        <div style="border-top: 2px dashed #333; padding-top: 10px; font-size: 15px;">
+        <div style="border-top: 2px dashed #333; padding-top: 10px; font-size: 14px;">
           <div style="display: flex; justify-content: space-between; font-weight: bold;">
             <span>合計金額:</span>
             <span id="sumPrice" style="color: #d9534f;"></span>
           </div>
-          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 5px;">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
             <span>獲得ポイント:</span>
             <span id="sumPt" style="color: #0275d8;"></span>
           </div>
@@ -341,7 +388,8 @@
 
         tr.innerHTML = `
           <td><strong>${prod}</strong></td>
-          <td style="color: #666;">¥${productMaster[prod].price.toLocaleString()}</td>
+          <td style="color: #666; text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
+          <td class="pt-col" id="pt-cell-${prod.replace(/[^a-zA-Z0-9]/g, '')}">-</td>
           <td class="qty-col">
             <select class="qty-select" data-product="${prod}">
               ${qtyOptions}
@@ -367,6 +415,20 @@
       currentGrandPt = 0;
       currentItemsData = [];
 
+      // 各商品のポイント列表示を更新
+      for (let prod in productMaster) {
+        const cellId = `pt-cell-${prod.replace(/[^a-zA-Z0-9]/g, '')}`;
+        const cell = document.getElementById(cellId);
+        if (cell) {
+          if (month && productMaster[prod].pt[month] !== undefined) {
+            cell.textContent = productMaster[prod].pt[month].toLocaleString() + "pt";
+          } else {
+            cell.textContent = "-";
+          }
+        }
+      }
+
+      // 合計計算
       selects.forEach(sel => {
         const qty = parseInt(sel.value) || 0;
         if (qty > 0) {
@@ -400,8 +462,11 @@
 
       const month = document.getElementById('month').value;
       const memberId = document.getElementById('memberIdMain').value.trim() + "-" + document.getElementById('memberIdSub').value;
-      const position = document.getElementById('position').value.trim();
-      const contact = document.getElementById('contact').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+
+      const zip = document.getElementById('zip').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const phone = document.getElementById('phone').value.trim();
 
       // 日付セット
       const now = new Date();
@@ -409,8 +474,18 @@
 
       document.getElementById('sumMonth').textContent = month;
       document.getElementById('sumMemberId').textContent = memberId;
-      document.getElementById('sumPosition').textContent = position;
-      document.getElementById('sumContact').textContent = contact;
+      document.getElementById('sumFullName').textContent = fullName;
+
+      // お届け先の表示制御
+      const sumAddressBlock = document.getElementById('sumAddressBlock');
+      if (address || zip || phone) {
+        sumAddressBlock.style.display = "block";
+        document.getElementById('sumZip').textContent = zip ? "〒" + zip : "";
+        document.getElementById('sumAddress').textContent = address;
+        document.getElementById('sumPhone').textContent = phone ? "TEL: " + phone : "";
+      } else {
+        sumAddressBlock.style.display = "none";
+      }
 
       // 選んだ商品のみテーブルに出力
       const sumTbody = document.getElementById('sumProductTable');
