@@ -198,6 +198,50 @@
       line-height: 1.5;
       margin-bottom: 15px;
     }
+
+    /* 長押し保存用モーダル（スマホ全般） */
+    .image-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .image-modal-content {
+      max-width: 90%;
+      max-height: 65vh;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      background: #fff;
+      object-fit: contain;
+    }
+    .image-modal-instruction {
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 12px;
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+    .image-modal-close {
+      margin-top: 15px;
+      padding: 10px 25px;
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -313,7 +357,7 @@
     <div id="completeSection" style="display: none;">
       
       <div class="screenshot-notice">
-        📱 各カード下の緑のボタンをタップすると、その控えだけを1枚ずつ画像として保存できます！
+        📱 各カード下の緑のボタンをタップすると、その控えを画像として表示・保存できます！
       </div>
 
       <!-- 控えカードが動的に生成されるコンテナ -->
@@ -328,7 +372,6 @@
     </div>
 
   </div>
-
   <script>
     const productMaster = {
       "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
@@ -374,6 +417,7 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
+
     let allOrders = []; // 蓄積用配列
     let currentGrandTotal = 0;
     let currentGrandPt = 0;
@@ -594,7 +638,6 @@
           `;
         }
 
-        const fileName = `注文書_${ord.memberId}_${ord.fullName}`;
         const cardWrapper = document.createElement('div');
         cardWrapper.className = "card-wrapper";
         cardWrapper.innerHTML = `
@@ -631,7 +674,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-${index}', '${fileName}')">
+          <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-${index}')">
             📷 この控え（${ord.fullName}様分）を画像保存
           </button>
         `;
@@ -668,7 +711,6 @@
         `;
       }
 
-      const summaryFileName = `全体の合算まとめ控え`;
       const summaryWrapper = document.createElement('div');
       summaryWrapper.className = "card-wrapper";
       summaryWrapper.innerHTML = `
@@ -703,7 +745,7 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn-card-download" style="background-color: #007bff;" onclick="downloadSingleCard('card-target-summary', '${summaryFileName}')">
+        <button type="button" class="btn-card-download" style="background-color: #007bff;" onclick="downloadSingleCard('card-target-summary')">
           📊 「全体まとめ控え」を画像保存
         </button>
       `;
@@ -716,16 +758,54 @@
       window.scrollTo(0, 0);
     }
 
-    // カード単体をPNGとして画像ダウンロード
-    async function downloadSingleCard(elementId, fileName) {
+    // iPhone・Android（LINEブラウザ等）すべてに対応した画像保存処理
+    async function downloadSingleCard(elementId) {
       const targetElement = document.getElementById(elementId);
       if (!targetElement) return;
 
-      const canvas = await html2canvas(targetElement, { scale: 2 });
-      const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
-      link.download = `${fileName}.png`;
-      link.click();
+      const btn = event.currentTarget;
+      const originalText = btn.textContent;
+      btn.textContent = "⌛ 画像を生成中...";
+      btn.disabled = true;
+
+      try {
+        const canvas = await html2canvas(targetElement, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
+
+        // スマホ（iPhone / Android）全般の判定
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (isMobile) {
+          // スマホの場合（LINEアプリ内ブラウザ等含む）：長押し保存モーダルを表示
+          const modal = document.createElement('div');
+          modal.className = 'image-modal-overlay';
+          modal.innerHTML = `
+            <div class="image-modal-instruction">
+              📱 画像が生成されました！<br>
+              下の画像を<span style="color: #ffeb3b; font-size: 1.1em;">「長押し」</span>して<br>
+              【画像を保存】または【"写真"に追加】してください
+            </div>
+            <img src="${imgData}" class="image-modal-content" alt="控え画像">
+            <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
+          `;
+          document.body.appendChild(modal);
+        } else {
+          // パソコンの場合：ファイルとして直接ダウンロード
+          const link = document.createElement('a');
+          link.href = imgData;
+          const now = new Date();
+          const timeStr = now.getFullYear() + String(now.getMonth()+1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + "_" + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+          link.download = `注文控え_${timeStr}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (e) {
+        alert("画像の生成に失敗しました: " + e.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
     }
 
     // 複数ページPDF保存（全枚数を1つのPDFに結合して保存）
