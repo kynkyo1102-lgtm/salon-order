@@ -55,11 +55,84 @@
       box-sizing: border-box;
     }
 
+    /* 注文手順ガイドボックス */
+    .guide-box {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .guide-header {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #1a202c;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 8px;
+    }
+
+    .flow-section {
+      margin-bottom: 16px;
+    }
+
+    .flow-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .flow-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flow-title.blue { color: var(--primary-color); }
+    .flow-title.green { color: var(--success-color); }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 4px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #4a5568;
+      line-height: 1.4;
+    }
+
+    .step-badge {
+      flex-shrink: 0;
+      background-color: #edf2f7;
+      color: #2d3748;
+      font-weight: bold;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .step-note {
+      font-size: 0.75rem;
+      color: #718096;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* メニューカード */
     .menu-card {
       background-color: var(--card-bg);
       border-radius: 12px;
       padding: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       border: 1px solid #edf2f7;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -128,6 +201,59 @@
   </header>
 
   <main>
+
+    <!-- 注文手順ガイド -->
+    <div class="guide-box">
+      <div class="guide-header">📱 注文の手順・流れ</div>
+      
+      <!-- LINEノート用手順 -->
+      <div class="flow-section">
+        <div class="flow-title blue">📋 LINEノート コピペ直接用</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <span class="step-badge">①入力</span>
+            <span>下の青いボタンを押して、お届け先や注文内容を入力</span>
+          </div>
+          <div class="step-item">
+            <span class="step-badge">②コピー</span>
+            <div>
+              <span>緑色の「LINE用に注文書をコピー」ボタンをタップ</span>
+              <span class="step-note">※失敗する場合は「6. 生成された注文テキスト」から手動でコピーしてください。</span>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-badge">③投稿</span>
+            <span>コピーしたテキストをLINEノートへ貼り付けて送信</span>
+          </div>
+        </div>
+      </div>
+
+      <hr style="border: none; border-top: 1px dashed #e2e8f0; margin: 14px 0;">
+
+      <!-- 注文書作成手順 -->
+      <div class="flow-section">
+        <div class="flow-title green">📄 注文書作成 画像保存用</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <span class="step-badge">①入力</span>
+            <span>下の緑のボタンを押して、お届け先や注文内容を入力</span>
+          </div>
+          <div class="step-item">
+            <span class="step-badge">②作成</span>
+            <span>緑色の「控えを一括作成画面へ」ボタンをタップ</span>
+          </div>
+          <div class="step-item">
+            <span class="step-badge">③保存</span>
+            <span>会員番号ごとの控えと全体集計の控えが表示されるので、1枚ずつ画像を保存</span>
+          </div>
+          <div class="step-item">
+            <span class="step-badge">④投稿</span>
+            <span>保存した画像をLINEノートへ投稿して完了</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- single.html へ移動 -->
     <a href="single.html" class="menu-card">
       <div class="card-icon">
@@ -151,6 +277,7 @@
         <p class="card-desc">注文書を発行・作成したい場合にお使いください。控えを画像（またはPDF）で保存できます。</p>
       </div>
     </a>
+
   </main>
 
   <footer>
