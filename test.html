@@ -172,6 +172,19 @@
     .btn-img { background-color: #007bff; color: white; }
     .btn-pdf { background-color: #17a2b8; color: white; }
     .btn-reload { background-color: #6c757d; color: white; }
+
+    /* スクショ用案内メッセージ */
+    .screenshot-notice {
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      color: #856404;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
   </style>
 </head>
 <body>
@@ -182,7 +195,6 @@
     <div id="formSection">
       <h2>南熊本サロン専用商品購入注文書</h2>
       
-      <!-- 住所自動入力のため class="h-adr" を指定 -->
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
         
@@ -270,6 +282,11 @@
     <!-- 完成注文書＆保存画面 -->
     <div id="completeSection" style="display: none;">
       
+      <!-- スクショ用案内メッセージ -->
+      <div class="screenshot-notice">
+        💡 以下の画面（枠内）を<strong>スクリーンショット</strong>して保存・送信することも可能です！
+      </div>
+
       <!-- ダウンロード対象エリア -->
       <div id="receiptArea" class="receipt-box">
         <div class="receipt-header">
@@ -282,7 +299,7 @@
           <div>購入会員番号: <strong id="sumMemberId"></strong></div>
           <div>氏名: <strong id="sumFullName"></strong></div>
           
-          <!-- お届け先情報（入力がある場合のみ表示） -->
+          <!-- お届け先情報 -->
           <div id="sumAddressBlock" style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ccc; display: none;">
             <div style="font-weight: bold; color: #007bff; margin-bottom: 2px;">【お届け先情報】</div>
             <div id="sumShipName"></div>
@@ -317,6 +334,9 @@
 
       <!-- ダウンロードボタンエリア -->
       <div style="margin-top: 20px;">
+        <div class="screenshot-notice" style="margin-bottom: 10px; background-color: #e2e3e5; border-color: #d6d8db; color: #383d41;">
+          ボタンで保存できない場合は、上記の枠線を画面内に収めてスクショしてください 📸
+        </div>
         <button onclick="downloadImage()" class="btn-action btn-img">📸 画像（PNG）として保存</button>
         <button onclick="downloadPDF()" class="btn-action btn-pdf">📄 PDFファイルとして保存</button>
         <button onclick="location.reload()" class="btn-action btn-reload">🔄 修正・新しい注文を作成</button>
@@ -325,9 +345,8 @@
     </div>
 
   </div>
-
   <script>
-    // 商品マスタ (表記揺れを整頓済み)
+    // 商品マスタ
     const productMaster = {
       "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
       "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
@@ -424,7 +443,6 @@
       currentGrandPt = 0;
       currentItemsData = [];
 
-      // 各商品のポイント列表示を更新（インデックス基準で安全に処理）
       let idx = 0;
       for (let prod in productMaster) {
         idx++;
@@ -438,7 +456,6 @@
         }
       }
 
-      // 合計計算
       selects.forEach(sel => {
         const qty = parseInt(sel.value) || 0;
         if (qty > 0) {
@@ -479,7 +496,6 @@
       const address = document.getElementById('address').value.trim();
       const phone = document.getElementById('phone').value.trim();
 
-      // 日付セット
       const now = new Date();
       document.getElementById('recDate').textContent = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
 
@@ -487,7 +503,6 @@
       document.getElementById('sumMemberId').textContent = memberId;
       document.getElementById('sumFullName').textContent = fullName;
 
-      // お届け先の表示制御
       const sumAddressBlock = document.getElementById('sumAddressBlock');
       if (shipName || address || zip || phone) {
         sumAddressBlock.style.display = "block";
@@ -499,7 +514,6 @@
         sumAddressBlock.style.display = "none";
       }
 
-      // 選んだ商品のみテーブルに出力
       const sumTbody = document.getElementById('sumProductTable');
       sumTbody.innerHTML = '';
       currentItemsData.forEach(item => {
@@ -515,7 +529,6 @@
       document.getElementById('sumPrice').textContent = "¥" + currentGrandTotal.toLocaleString();
       document.getElementById('sumPt').textContent = currentGrandPt.toLocaleString() + "pt";
 
-      // 画面切り替え
       document.getElementById('formSection').style.display = "none";
       document.querySelector('.fixed-footer').style.display = "none";
       document.getElementById('completeSection').style.display = "block";
