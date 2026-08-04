@@ -298,7 +298,7 @@
           <div class="footer-content">
             <div class="footer-totals">
               <div>選択中: <span id="displayPrice" style="font-size: 15px; color: #d9534f; font-weight:bold;">¥0</span></div>
-              <div style="font-size: 11px;">(獲得Pt: <span id="displayPt" style="color: #0275d8;">0pt</span>)</div>
+              <div style="font-size: 11px;">(合計Pt: <span id="displayPt" style="color: #0275d8;">0pt</span>)</div>
             </div>
             <button type="button" onclick="addOrderToList()" class="btn-add">
               ＋ この注文を追加
@@ -467,7 +467,8 @@
           currentItemsData.push({
             product: prod,
             quantity: qty,
-            price: itemPrice
+            price: itemPrice,
+            pt: itemPt
           });
         }
       });
@@ -575,6 +576,7 @@
               <td><strong>${item.product}</strong></td>
               <td style="text-align: center;">${item.quantity}</td>
               <td style="text-align: right;">¥${item.price.toLocaleString()}</td>
+              <td style="text-align: right; color: #0275d8;">${item.pt ? item.pt.toLocaleString() + 'pt' : '-'}</td>
             </tr>
           `;
         });
@@ -611,8 +613,9 @@
               <thead>
                 <tr>
                   <th>商品名</th>
-                  <th style="width: 45px; text-align: center;">数量</th>
-                  <th style="width: 75px; text-align: right;">小計(税込)</th>
+                  <th style="width: 35px; text-align: center;">数量</th>
+                  <th style="width: 70px; text-align: right;">小計(税込)</th>
+                  <th style="width: 55px; text-align: right;">ポイント</th>
                 </tr>
               </thead>
               <tbody>${itemRows}</tbody>
@@ -623,7 +626,7 @@
                 <span style="color: #d9534f;">¥${ord.totalPrice.toLocaleString()}</span>
               </div>
               <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-                <span>獲得ポイント:</span>
+                <span>合計ポイント:</span>
                 <span style="color: #0275d8;">${ord.totalPt.toLocaleString()}pt</span>
               </div>
             </div>
@@ -645,10 +648,11 @@
         totalAllPt += ord.totalPt;
         ord.items.forEach(item => {
           if (!summaryItems[item.product]) {
-            summaryItems[item.product] = { quantity: 0, price: 0 };
+            summaryItems[item.product] = { quantity: 0, price: 0, pt: 0 };
           }
           summaryItems[item.product].quantity += item.quantity;
           summaryItems[item.product].price += item.price;
+          summaryItems[item.product].pt += (item.pt || 0);
         });
       });
 
@@ -659,6 +663,7 @@
             <td><strong>${prod}</strong></td>
             <td style="text-align: center;">${summaryItems[prod].quantity}</td>
             <td style="text-align: right;">¥${summaryItems[prod].price.toLocaleString()}</td>
+            <td style="text-align: right; color: #0275d8;">${summaryItems[prod].pt ? summaryItems[prod].pt.toLocaleString() + 'pt' : '-'}</td>
           </tr>
         `;
       }
@@ -680,8 +685,9 @@
             <thead>
               <tr>
                 <th>商品名（全体合計）</th>
-                <th style="width: 55px; text-align: center;">総数量</th>
-                <th style="width: 85px; text-align: right;">総合計(税込)</th>
+                <th style="width: 45px; text-align: center;">総数量</th>
+                <th style="width: 75px; text-align: right;">総合計(税込)</th>
+                <th style="width: 60px; text-align: right;">総ポイント</th>
               </tr>
             </thead>
             <tbody>${summaryRows}</tbody>
@@ -692,7 +698,7 @@
               <span style="color: #d9534f; font-size: 17px;">¥${totalAllPrice.toLocaleString()}</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-              <span>全合算 総獲得ポイント:</span>
+              <span>全合算 合計ポイント:</span>
               <span style="color: #0275d8;">${totalAllPt.toLocaleString()}pt</span>
             </div>
           </div>
