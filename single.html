@@ -77,19 +77,20 @@
             <label>決済方法の選択</label>
             <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
                 <option value="現金">現金</option>
-                <option value="PayPay">PayPay</option>
+                <option value="ニナファームカード">ニナファームカード</option>
                 <option value="クレジットカード">クレジットカード</option>
+                <option value="PayPay">PayPay</option>
             </select>
         </div>
-        <!-- クレカ選択時に表示されるエリア -->
+        <!-- ニナファームカード / クレカ選択時に表示されるエリア -->
         <div class="hidden-pw" id="pw_container">
-            <div class="form-group">
+            <div class="form-group" id="group_pw_code">
                 <label>E-ServiceログインPW</label>
                 <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="group_nina_point">
                 <label>使用するポイントNiNA</label>
-                <input type="text" id="nina_point" placeholder="※ニナファームカード決済時のみ" oninput="saveBasicInfo(); updatePreview();">
+                <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
             </div>
         </div>
     </div>
@@ -233,10 +234,22 @@ function saveBasicInfo() {
 function togglePwField() {
     const payMethod = document.getElementById('payment_method').value;
     const pwContainer = document.getElementById('pw_container');
-    if (payMethod === 'クレジットカード') {
+    const groupPw = document.getElementById('group_pw_code');
+    const groupPt = document.getElementById('group_nina_point');
+
+    if (payMethod === 'ニナファームカード') {
         pwContainer.style.display = 'block';
+        groupPw.style.display = 'block';
+        groupPt.style.display = 'block';
+    } else if (payMethod === 'クレジットカード') {
+        pwContainer.style.display = 'block';
+        groupPw.style.display = 'block';
+        groupPt.style.display = 'none';
+        document.getElementById('nina_point').value = ''; 
     } else {
         pwContainer.style.display = 'none';
+        groupPw.style.display = 'none';
+        groupPt.style.display = 'none';
         document.getElementById('pw_code').value = ''; 
         document.getElementById('nina_point').value = ''; 
     }
@@ -533,7 +546,7 @@ function generateText() {
     const shipNote = document.getElementById('ship_note').value.trim();
     
     const payment = document.getElementById('payment_method').value;
-    const pw = document.getElementById('pw_code').value;
+    const pw = document.getElementById('pw_code').value.trim();
     const ninaPt = document.getElementById('nina_point').value.trim();
     const month = document.getElementById('target_month').value;
     
@@ -545,10 +558,14 @@ function generateText() {
     let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
     
     if(payment) {
-        if(payment === 'クレジットカード') {
-            text += `クレジットカード決済`;
+        if(payment === 'ニナファームカード') {
+            text += `ニナファームカード決済`;
             if(pw) text += ` (PW: ${pw})`;
             if(ninaPt) text += `\n使用するポイントNiNA: ${ninaPt}`;
+            text += `\n`;
+        } else if(payment === 'クレジットカード') {
+            text += `クレジットカード決済`;
+            if(pw) text += ` (PW: ${pw})`;
             text += `\n`;
         } else {
             text += `${payment}決済\n`;
@@ -604,4 +621,3 @@ function copyToClipboard() {
 </script>
 </body>
 </html>
-
