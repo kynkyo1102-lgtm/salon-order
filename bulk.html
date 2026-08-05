@@ -287,21 +287,24 @@
           
           <div style="margin-bottom: 8px;">
             <label for="paymentMethod">お支払い方法を選択 *</label>
-            <select id="paymentMethod" required onchange="toggleCreditOptions()">
+            <select id="paymentMethod" required onchange="togglePaymentFields()">
               <option value="現金">現金</option>
+              <option value="ニナファームカード">ニナファームカード</option>
               <option value="クレジットカード">クレジットカード</option>
               <option value="PayPay">PayPay</option>
             </select>
           </div>
 
-          <!-- クレジットカード選択時のみ表示される追加項目 -->
-          <div id="creditFields" style="display: none; background-color: #f0f7ff; padding: 10px; border-radius: 6px; border: 1px solid #b8daff; margin-top: 8px;">
-            <div style="margin-bottom: 8px;">
+          <!-- ニナファームカード / クレジットカード選択時の追加エリア -->
+          <div id="paymentExtraFields" style="display: none; background-color: #f0f7ff; padding: 10px; border-radius: 6px; border: 1px solid #b8daff; margin-top: 8px;">
+            <!-- E-Service PW（両方で表示） -->
+            <div id="eservicePwGroup" style="margin-bottom: 8px;">
               <label for="eservicePw">E-Service PW</label>
               <input type="password" id="eservicePw" placeholder="パスワードを入力">
             </div>
 
-            <div>
+            <!-- ニナポイント（ニナファームカードのみ表示） -->
+            <div id="ninaPointGroup" style="display: none;">
               <label for="ninaPoint">ニナポイント利用（※利用する場合のみ）</label>
               <input type="number" id="ninaPoint" placeholder="例: 1000" min="0" oninput="updateCalc()">
               <small style="color: #666; font-size: 11px;">※1pt ＝ 1円としてお値引きされます</small>
@@ -501,7 +504,7 @@
           if (user.fullName) document.getElementById('fullName').value = user.fullName;
           if (user.paymentMethod) {
             document.getElementById('paymentMethod').value = user.paymentMethod;
-            toggleCreditOptions();
+            togglePaymentFields();
           }
           if (user.shipName) document.getElementById('shipName').value = user.shipName;
           if (user.zip) document.getElementById('zip').value = user.zip;
@@ -512,14 +515,26 @@
       }
     });
 
-    // クレジットカード選択時の追加表示切替
-    function toggleCreditOptions() {
+    // お支払い方法に応じた追加項目の切り替え
+    function togglePaymentFields() {
       const method = document.getElementById('paymentMethod').value;
-      const creditFields = document.getElementById('creditFields');
-      if (method === 'クレジットカード') {
-        creditFields.style.display = 'block';
+      const extraContainer = document.getElementById('paymentExtraFields');
+      const pwGroup = document.getElementById('eservicePwGroup');
+      const ptGroup = document.getElementById('ninaPointGroup');
+
+      if (method === 'ニナファームカード') {
+        extraContainer.style.display = 'block';
+        pwGroup.style.display = 'block';
+        ptGroup.style.display = 'block';
+      } else if (method === 'クレジットカード') {
+        extraContainer.style.display = 'block';
+        pwGroup.style.display = 'block';
+        ptGroup.style.display = 'none';
+        document.getElementById('ninaPoint').value = ''; // クレカ時はポイントクリア
       } else {
-        creditFields.style.display = 'none';
+        extraContainer.style.display = 'none';
+        pwGroup.style.display = 'none';
+        ptGroup.style.display = 'none';
         document.getElementById('eservicePw').value = '';
         document.getElementById('ninaPoint').value = '';
       }
@@ -566,10 +581,10 @@
         }
       });
 
-      // ニナポイントによる値引き計算（クレカ選択時のみ）
+      // ニナポイントによる値引き計算（ニナファームカード選択時のみ）
       const method = document.getElementById('paymentMethod').value;
       let usedPt = 0;
-      if (method === 'クレジットカード') {
+      if (method === 'ニナファームカード') {
         usedPt = parseInt(document.getElementById('ninaPoint').value) || 0;
       }
 
@@ -617,8 +632,8 @@
         memberId: memberIdMain + "-" + memberIdSub,
         fullName,
         paymentMethod,
-        eservicePw: paymentMethod === 'クレジットカード' ? eservicePw : '',
-        ninaPoint: paymentMethod === 'クレジットカード' ? ninaPoint : 0,
+        eservicePw: (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? eservicePw : '',
+        ninaPoint: paymentMethod === 'ニナファームカード' ? ninaPoint : 0,
         shipName, zip, address, phone,
         items: [...currentItemsData],
         subtotalPrice: currentSubtotal,
@@ -698,13 +713,13 @@
 
         // 支払い情報ブロック
         let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
-        if (ord.paymentMethod === 'クレジットカード') {
+        if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
           if (ord.eservicePw) {
             paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
           }
-          if (ord.ninaPoint > 0) {
-            paymentInfoBlock += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
-          }
+        }
+        if (ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) {
+          paymentInfoBlock += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
         }
 
         let addressBlock = "";
