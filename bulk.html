@@ -199,6 +199,18 @@
       margin-bottom: 15px;
     }
 
+    /* 発注IDバッジのスタイル */
+    .order-id-badge {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 4px;
+    }
+
     /* 長押し保存用モーダル（スマホ全般） */
     .image-modal-overlay {
       position: fixed;
@@ -403,9 +415,7 @@
       </div>
 
     </div>
-
-  </div>
-  <script>
+    <script>
     const productMaster = {
       "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
       "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
@@ -699,8 +709,12 @@
 
       // 1. 各会員ごとの控えカードを作成
       allOrders.forEach((ord, index) => {
+        const orderId = index + 1; // 自動採番される発注ID
+        
+        let totalQty = 0;
         let itemRows = "";
         ord.items.forEach(item => {
+          totalQty += item.quantity;
           itemRows += `
             <tr>
               <td><strong>${item.product}</strong></td>
@@ -766,6 +780,7 @@
           <div id="card-target-${index}" class="receipt-box target-card">
             <div class="receipt-header">
               <h3 style="margin: 0; font-size: 16px;">南熊本サロン専用商品購入注文書（控え）</h3>
+              <div class="order-id-badge">発注ID: ${orderId}</div>
               <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">${dateStr}</p>
             </div>
             <div class="receipt-info">
@@ -787,6 +802,10 @@
               <tbody>${itemRows}</tbody>
             </table>
             <div style="border-top: 2px dashed #333; padding-top: 10px; font-size: 14px;">
+              <div style="display: flex; justify-content: space-between; font-weight: bold; color: #333; margin-bottom: 4px;">
+                <span>合計数量:</span>
+                <span>${totalQty} 点</span>
+              </div>
               ${totalBlock}
               <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
                 <span>獲得ポイント:</span>
@@ -807,6 +826,7 @@
       let totalAllNinaPoint = 0;
       let totalAllPayPrice = 0;
       let totalAllPt = 0;
+      let grandTotalQty = 0;
 
       allOrders.forEach(ord => {
         totalAllSubtotal += ord.subtotalPrice;
@@ -815,6 +835,7 @@
         totalAllPt += ord.totalPt;
 
         ord.items.forEach(item => {
+          grandTotalQty += item.quantity;
           if (!summaryItems[item.product]) {
             summaryItems[item.product] = { quantity: 0, price: 0, pt: 0 };
           }
@@ -885,6 +906,10 @@
             <tbody>${summaryRows}</tbody>
           </table>
           <div style="border-top: 2px solid #007bff; padding-top: 10px; font-size: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: #007bff; margin-bottom: 4px;">
+              <span>全合算 総数量:</span>
+              <span>${grandTotalQty} 点</span>
+            </div>
             ${summaryTotalBlock}
             <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
               <span>全合算 総獲得ポイント:</span>
@@ -994,3 +1019,5 @@
   </script>
 </body>
 </html>
+
+  </div>
