@@ -40,26 +40,18 @@
       border-radius: 4px;
     }
 
-    /* 手順説明ページへのボタン（パターンA） */
-　.btn-guide {
-    display: block;
-    margin: 0 auto 15px; /* 上0、左右中央、下15px */
-    padding: 6px 16px;
-    color: #007bff;
-    background-color: transparent;
-    border: 1px solid #007bff;
-    border-radius: 20px;
-    font-size: 12px;
-    text-decoration: none;
-    text-align: center;
-    width: fit-content;
-    transition: all 0.2s;
-  }
-
-.btn-guide:hover {
-  background-color: #f0f7ff; /* うっすら青い背景 */
-}
-
+    /* ヘッダー内の案内リンク用スタイル */
+    .header-guide-link {
+      display: block;
+      font-size: 11px;
+      color: #ccc;
+      font-weight: normal;
+      margin-top: 6px;
+      text-decoration: underline;
+    }
+    .header-guide-link:hover {
+      color: #fff;
+    }
 
     label {
       font-weight: bold;
@@ -284,12 +276,13 @@
     
     <!-- 入力フォーム画面 -->
     <div id="formSection">
-      <h2>南熊本サロン専用商品購入注文書</h2>
-
-      <!-- 👇【パターンA】タイトル直下に手順説明ページボタンを配置 -->
-      <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="btn-guide">
-        📖 詳しい操作手順・使い方を見る
-      </a>
+      <!-- 黒ヘッダー内に手順リンクを直接入れ込み -->
+      <h2>
+        南熊本サロン専用商品購入注文書
+        <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="header-guide-link">
+          📖 詳しい操作手順・使い方を見る
+        </a>
+      </h2>
       
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
