@@ -133,7 +133,7 @@
       cursor: pointer;
     }
 
-    /* 各控えカードのコンテナ */
+    /* 各注文書カードのコンテナ */
     .card-wrapper {
       margin-bottom: 25px;
       background-color: #fff;
@@ -376,7 +376,7 @@
           </div>
           <div id="addedOrdersList" style="font-size: 13px; margin-bottom: 10px;"></div>
           <button type="button" onclick="generateAllReceipts()" class="btn-action" style="background-color: #28a745; color: white; margin-top: 5px;">
-            🏁 控えを一括作成画面へ
+            🏁 注文書の一括作成画面へ
           </button>
         </div>
 
@@ -398,14 +398,14 @@
       </form>
     </div>
 
-    <!-- 完成控え画面 -->
+    <!-- 完成画面 -->
     <div id="completeSection" style="display: none;">
       
       <div class="screenshot-notice">
-        📱 各カード下の緑のボタンをタップすると、その控えを画像として表示・保存できます！
+        📱 各カード下の緑のボタンをタップすると、注文書を画像として表示・保存できます！
       </div>
 
-      <!-- 控えカードが動的に生成されるコンテナ -->
+      <!-- 注文書カードが動的に生成されるコンテナ -->
       <div id="receiptsWrapper"></div>
 
       <!-- 下部ボタンエリア -->
@@ -415,7 +415,9 @@
       </div>
 
     </div>
-    <script>
+  </div>
+
+  <script>
     const productMaster = {
       "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
       "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
@@ -460,7 +462,6 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
-
     let allOrders = []; // 蓄積用配列
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
@@ -636,8 +637,17 @@
         month, memberIdMain, memberIdSub, fullName, paymentMethod, shipName, zip, address, phone
       }));
 
+      // 短いユニークな発注IDの生成 (例: 260806-A1B2)
+      const today = new Date();
+      const yy = String(today.getFullYear()).slice(-2);
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const generatedOrderId = `${yy}${mm}${dd}-${randomStr}`;
+
       // 配列に保存
       allOrders.push({
+        orderId: generatedOrderId,
         month,
         memberId: memberIdMain + "-" + memberIdSub,
         fullName,
@@ -682,7 +692,7 @@
         html += `
           <div style="border-bottom: 1px dashed #ccc; padding: 6px 0; display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) - <span style="color:#007bff;">${ord.paymentMethod}</span><br>
+              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:#666;">[ID: ${ord.orderId}]</small> - <span style="color:#007bff;">${ord.paymentMethod}</span><br>
               <small style="color: #666;">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
             </div>
             <button type="button" onclick="removeOrder(${i})" style="color: red; border: none; background: none; cursor: pointer; font-size: 11px;">削除</button>
@@ -707,9 +717,9 @@
       const now = new Date();
       const dateStr = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
 
-      // 1. 各会員ごとの控えカードを作成
+      // 1. 各会員ごとの注文書カードを作成
       allOrders.forEach((ord, index) => {
-        const orderId = index + 1; // 自動採番される発注ID
+        const orderId = ord.orderId;
         
         let totalQty = 0;
         let itemRows = "";
@@ -779,7 +789,7 @@
         cardWrapper.innerHTML = `
           <div id="card-target-${index}" class="receipt-box target-card">
             <div class="receipt-header">
-              <h3 style="margin: 0; font-size: 16px;">南熊本サロン専用商品購入注文書（控え）</h3>
+              <h3 style="margin: 0; font-size: 16px;">南熊本サロン専用商品購入注文書</h3>
               <div class="order-id-badge">発注ID: ${orderId}</div>
               <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">${dateStr}</p>
             </div>
@@ -814,7 +824,7 @@
             </div>
           </div>
           <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-${index}')">
-            📷 この控え（${ord.fullName}様分）を画像保存
+            📷 この注文書（${ord.fullName}様分）を画像保存
           </button>
         `;
         wrapper.appendChild(cardWrapper);
@@ -887,12 +897,12 @@
       summaryWrapper.innerHTML = `
         <div id="card-target-summary" class="receipt-box target-card" style="border-color: #007bff;">
           <div class="receipt-header" style="border-color: #007bff;">
-            <h3 style="margin: 0; font-size: 16px; color: #007bff;">【全体合算】注文集計まとめ（控え）</h3>
+            <h3 style="margin: 0; font-size: 16px; color: #007bff;">【全体合算】注文集計まとめ</h3>
             <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
           </div>
           <div style="font-size: 12px; margin-bottom: 10px; background-color: #e9ecef; padding: 8px; border-radius: 4px;">
             <strong>対象会員一覧:</strong><br>
-            ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [${o.paymentMethod}]`).join('<br>')}
+            ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
           </div>
           <table class="product-table" style="margin-bottom: 15px;">
             <thead>
@@ -918,7 +928,7 @@
           </div>
         </div>
         <button type="button" class="btn-card-download" style="background-color: #007bff;" onclick="downloadSingleCard('card-target-summary')">
-          📊 「全体まとめ控え」を画像保存
+          📊 「全体まとめ」を画像保存
         </button>
       `;
       wrapper.appendChild(summaryWrapper);
@@ -957,7 +967,7 @@
               下の画像を<span style="color: #ffeb3b; font-size: 1.1em;">「長押し」</span>して<br>
               【画像を保存】または【"写真"に追加】してください
             </div>
-            <img src="${imgData}" class="image-modal-content" alt="控え画像">
+            <img src="${imgData}" class="image-modal-content" alt="注文書画像">
             <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
           `;
           document.body.appendChild(modal);
@@ -967,7 +977,7 @@
           link.href = imgData;
           const now = new Date();
           const timeStr = now.getFullYear() + String(now.getMonth()+1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + "_" + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
-          link.download = `注文控え_${timeStr}.png`;
+          link.download = `注文書_${timeStr}.png`;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -1005,7 +1015,7 @@
       }
 
       if (pdf) {
-        pdf.save("注文控え_まとめ一括.pdf");
+        pdf.save("注文書_まとめ一括.pdf");
       }
     }
 
@@ -1019,5 +1029,3 @@
   </script>
 </body>
 </html>
-
-  </div>
