@@ -37,14 +37,24 @@
       border: 1px solid #e0e0e0;
       border-left: 4px solid #007bff;
       border-radius: 4px;
-      padding: 12px 15px;
-      margin-bottom: 15px;
+      padding: 15px;
+      margin-bottom: 20px;
     }
     .step-title {
       font-weight: bold;
       font-size: 15px;
       color: #007bff;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+    }
+    .step-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      display: block;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .step-box ul {
       margin: 0;
@@ -82,8 +92,6 @@
       font-size: 14px;
       font-weight: bold;
       text-align: center;
-      text-decoration: none;
-      box-sizing: border-box;
       cursor: pointer;
     }
   </style>
@@ -96,6 +104,8 @@
     <!-- ステップ1 -->
     <div class="step-box">
       <div class="step-title">ステップ1：発注月度・会員情報の入力</div>
+      <!-- 画像1 -->
+      <img src="step1.jpg" alt="発注月度・会員情報の入力画面" class="step-img">
       <ul>
         <li><strong>「発注月度」</strong> のリストから、注文する対象月（例：「7月度」など）を選択します。</li>
         <li><strong>「購入会員番号」</strong> の欄に、【番号（数字）】 を半角で入力し、【購入ポジション（2桁）】 を選択します。</li>
@@ -106,6 +116,8 @@
     <!-- ステップ2 -->
     <div class="step-box">
       <div class="step-title">ステップ2：お支払い方法・お届け先情報の入力</div>
+      <!-- 画像2 -->
+      <img src="step2.jpg" alt="お支払い方法・お届け先情報の入力画面" class="step-img">
       <ul>
         <li><strong>「お支払い方法」</strong>を選択します。</li>
         <li><strong>ニナファームカード</strong> を選択した場合：E-Service PW と 利用ニナポイント の入力欄が表示されます。</li>
@@ -118,6 +130,8 @@
     <!-- ステップ3 -->
     <div class="step-box">
       <div class="step-title">ステップ3：注文商品の選択</div>
+      <!-- 画像3 -->
+      <img src="step3.jpg" alt="注文商品と数量選択の画面" class="step-img">
       <ul>
         <li>商品一覧から、購入希望の商品の <strong>「数量」</strong> を選択します。</li>
         <li>数量を選ぶと、画面下部の固定エリアに 「選択商品数」「小計金額」「（ポイント値引き後の）合計金額」「獲得ポイント」 がリアルタイムで自動計算されます。</li>
@@ -127,11 +141,13 @@
     <!-- ステップ4 -->
     <div class="step-box">
       <div class="step-title">ステップ4：注文の追加（複数人分のまとめ発注時）</div>
+      <!-- 画像4 -->
+      <img src="step4.jpg" alt="追加済みの注文リスト画面" class="step-img">
       <ul>
-        <li>入力が完了したら、<strong>「➕ この内容で注文を追加する」</strong> ボタンを押します。</li>
-        <li>追加された注文は、フォーム下部の <strong>「追加済み注文リスト」</strong> に蓄積されます。</li>
-        <li>複数人分の発注を一度にまとめる場合は、ステップ1に戻り、別の会員様の情報と商品を選択して再度「注文を追加する」を押してください。</li>
-        <li style="color: #d9534f; list-style: none; margin-left: -15px; margin-top: 4px;">※誤って追加した場合は、リスト内の「削除」ボタンで取り消せます。</li>
+        <li>入力が完了したら、<strong>「➕ この注文を追加」</strong> ボタンを押します。</li>
+        <li>追加された注文は、フォーム下部の <strong>「追加済みの注文」</strong> リストに蓄積されます。</li>
+        <li>複数人分の発注を一度にまとめる場合は、ステップ1に戻り、別の会員様の情報と商品を選択して再度「この注文を追加」を押してください。</li>
+        <li style="color: #d9534f; list-style: none; margin-left: -15px; margin-top: 6px;">※誤って追加した場合は、リスト内の「削除」ボタンで取り消せます。</li>
       </ul>
     </div>
 
@@ -139,7 +155,7 @@
     <div class="step-box">
       <div class="step-title">ステップ5：注文控え（カード・PDF）の一括作成・保存</div>
       <ul>
-        <li>すべての注文を追加し終えたら、画面最下部の <strong>「✨ 注文控えカードを一括作成する」</strong> ボタンを押します。</li>
+        <li>すべての注文を追加し終えたら、緑色の <strong>「🏁 控えを一括作成画面へ」</strong> ボタンを押します。</li>
         <li>作成完了画面に切り替わり、以下のカード（控え）が生成されます。
           <ul>
             <li>会員ごとの個別控えカード（人数分）</li>
@@ -148,7 +164,7 @@
         </li>
       </ul>
       
-      <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc;">
+      <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">
         <strong>【保存方法】</strong>
         <ul style="margin-top: 5px;">
           <li><strong>画像として保存する場合：</strong> 各カードの下にある 「📷 この控えを画像保存」 ボタンを押します。
@@ -165,10 +181,10 @@
     <!-- 便利な機能 -->
     <div class="note-box">
       <div class="note-title">💡 便利な機能</div>
-      <strong>入力情報の自動保存：</strong> ご利用の端末（スマホやPC）に発注月度やご住所等の基本情報が保存されるため、次回からの入力がスムーズになります。情報をクリアしたい場合は、フォーム内の 「保存された情報をクリア」 ボタンをご利用ください。
+      <strong>入力情報の自動保存：</strong> ご利用の端末（スマホやPC）に発注月度やご住所等の基本情報が保存されるため、次回からの入力がスムーズになります。情報をクリアしたい場合は、フォーム内の 「端末に保存された住所等を削除」 ボタンをご利用ください。
     </div>
 
-    <!-- 注文画面に戻るボタン -->
+    <!-- 閉じるボタン -->
     <button type="button" class="btn-close" onclick="window.close();">画面を閉じる</button>
   </div>
 
