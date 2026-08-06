@@ -462,7 +462,7 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
-    let allOrders = []; // 蓄積用配列
+let allOrders = []; // 蓄積用配列
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
     let currentGrandPt = 0;
@@ -470,9 +470,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const memberIdSub = document.getElementById('memberIdSub');
-      for (let i = 1; i <= 20; i++) {
+      memberIdSub.innerHTML = ''; // 念のため初期化
+
+      // 枝番を「00」〜「20」で生成（※必要に応じて 10 などに変更可）
+      for (let i = 0; i <= 20; i++) {
         const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0');
+        const val = String(i).padStart(2, '0'); // 0 -> "00", 1 -> "01", ...
         opt.value = val;
         opt.textContent = val;
         memberIdSub.appendChild(opt);
