@@ -33,12 +33,34 @@
       font-size: 1.1em;
       text-align: center;
       margin-top: 5px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       background-color: #333;
       color: #fff;
       padding: 10px;
       border-radius: 4px;
     }
+
+    /* 手順説明ページへのボタン（パターンA） */
+    .btn-guide {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #17a2b8;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background-color 0.2s;
+    }
+    .btn-guide:hover {
+      background-color: #138496;
+    }
+
     label {
       font-weight: bold;
       font-size: 13px;
@@ -263,6 +285,11 @@
     <!-- 入力フォーム画面 -->
     <div id="formSection">
       <h2>南熊本サロン専用商品購入注文書</h2>
+
+      <!-- 👇【パターンA】タイトル直下に手順説明ページボタンを配置 -->
+      <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="btn-guide">
+        📖 詳しい操作手順・使い方を見る
+      </a>
       
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
