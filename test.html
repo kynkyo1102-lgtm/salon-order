@@ -29,15 +29,43 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       box-sizing: border-box;
     }
-    h2 {
-      font-size: 1.1em;
-      text-align: center;
-      margin-top: 5px;
-      margin-bottom: 15px;
+    /* ヘッダーエリアのスタイリング */
+    .header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       background-color: #333;
       color: #fff;
-      padding: 10px;
+      padding: 10px 12px;
       border-radius: 4px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    .header-area h2 {
+      font-size: 1.05em;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+      color: #fff;
+      text-align: left;
+    }
+    .btn-guide-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      border-radius: 15px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+    .btn-guide-head:hover {
+      background-color: #f0f0f0;
     }
     label {
       font-weight: bold;
@@ -262,7 +290,12 @@
     
     <!-- 入力フォーム画面 -->
     <div id="formSection">
-      <h2>南熊本サロン専用商品購入注文書</h2>
+      <div class="header-area">
+        <h2>南熊本サロン専用商品購入注文書</h2>
+        <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" class="btn-guide-head">
+          📖 ご利用手順
+        </a>
+      </div>
       
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
@@ -462,6 +495,7 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
+    <script>
     let allOrders = []; // 蓄積用配列
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
@@ -470,9 +504,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const memberIdSub = document.getElementById('memberIdSub');
-      for (let i = 1; i <= 20; i++) {
+      memberIdSub.innerHTML = ''; // 念のため初期化
+
+      // 枝番を「00」〜「20」で生成（デフォルト: 00）
+      for (let i = 0; i <= 20; i++) {
         const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0');
+        const val = String(i).padStart(2, '0'); // 0 -> "00", 1 -> "01", ...
         opt.value = val;
         opt.textContent = val;
         memberIdSub.appendChild(opt);
