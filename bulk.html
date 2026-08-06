@@ -33,12 +33,26 @@
       font-size: 1.1em;
       text-align: center;
       margin-top: 5px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       background-color: #333;
       color: #fff;
       padding: 10px;
       border-radius: 4px;
     }
+
+    /* ヘッダー内の案内リンク用スタイル */
+    .header-guide-link {
+      display: block;
+      font-size: 11px;
+      color: #ccc;
+      font-weight: normal;
+      margin-top: 6px;
+      text-decoration: underline;
+    }
+    .header-guide-link:hover {
+      color: #fff;
+    }
+
     label {
       font-weight: bold;
       font-size: 13px;
@@ -262,7 +276,13 @@
     
     <!-- 入力フォーム画面 -->
     <div id="formSection">
-      <h2>南熊本サロン専用商品購入注文書</h2>
+      <!-- 黒ヘッダー内に手順リンクを直接入れ込み -->
+      <h2>
+        南熊本サロン専用商品購入注文書
+        <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="header-guide-link">
+          📖 詳しい操作手順・使い方を見る
+        </a>
+      </h2>
       
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
@@ -462,7 +482,7 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
-let allOrders = []; // 蓄積用配列
+    let allOrders = []; // 蓄積用配列
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
     let currentGrandPt = 0;
@@ -472,10 +492,10 @@ let allOrders = []; // 蓄積用配列
       const memberIdSub = document.getElementById('memberIdSub');
       memberIdSub.innerHTML = ''; // 念のため初期化
 
-      // 枝番を「00」〜「20」で生成（※必要に応じて 10 などに変更可）
+      // 枝番を「00」〜「20」で生成
       for (let i = 0; i <= 20; i++) {
         const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0'); // 0 -> "00", 1 -> "01", ...
+        const val = String(i).padStart(2, '0');
         opt.value = val;
         opt.textContent = val;
         memberIdSub.appendChild(opt);
@@ -544,7 +564,7 @@ let allOrders = []; // 蓄積用配列
         extraContainer.style.display = 'block';
         pwGroup.style.display = 'block';
         ptGroup.style.display = 'none';
-        document.getElementById('ninaPoint').value = ''; // クレカ時はポイントクリア
+        document.getElementById('ninaPoint').value = '';
       } else {
         extraContainer.style.display = 'none';
         pwGroup.style.display = 'none';
@@ -595,7 +615,6 @@ let allOrders = []; // 蓄積用配列
         }
       });
 
-      // ニナポイントによる値引き計算（ニナファームカード選択時のみ）
       const method = document.getElementById('paymentMethod').value;
       let usedPt = 0;
       if (method === 'ニナファームカード') {
@@ -635,12 +654,10 @@ let allOrders = []; // 蓄積用配列
       const address = document.getElementById('address').value.trim();
       const phone = document.getElementById('phone').value.trim();
 
-      // ローカルストレージにデフォルト保存
       localStorage.setItem('salonOrderUserInfo', JSON.stringify({
         month, memberIdMain, memberIdSub, fullName, paymentMethod, shipName, zip, address, phone
       }));
 
-      // 短いユニークな発注IDの生成 (例: 260806-A1B2)
       const today = new Date();
       const yy = String(today.getFullYear()).slice(-2);
       const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -648,7 +665,6 @@ let allOrders = []; // 蓄積用配列
       const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
       const generatedOrderId = `${yy}${mm}${dd}-${randomStr}`;
 
-      // 配列に保存
       allOrders.push({
         orderId: generatedOrderId,
         month,
@@ -664,7 +680,6 @@ let allOrders = []; // 蓄積用配列
         totalPt: currentGrandPt
       });
 
-      // フォームを一部リセット
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
       document.getElementById('memberIdMain').value = "";
       document.getElementById('fullName').value = "";
@@ -715,12 +730,11 @@ let allOrders = []; // 蓄積用配列
       if (allOrders.length === 0) return;
 
       const wrapper = document.getElementById('receiptsWrapper');
-      wrapper.innerHTML = ""; // 初期化
+      wrapper.innerHTML = "";
 
       const now = new Date();
       const dateStr = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
 
-      // 1. 各会員ごとの注文書カードを作成
       allOrders.forEach((ord, index) => {
         const orderId = ord.orderId;
         
@@ -738,7 +752,6 @@ let allOrders = []; // 蓄積用配列
           `;
         });
 
-        // 支払い情報ブロック
         let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
         if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
           if (ord.eservicePw) {
@@ -833,7 +846,7 @@ let allOrders = []; // 蓄積用配列
         wrapper.appendChild(cardWrapper);
       });
 
-      // 2. 全体の「合算・まとめカード」を作成
+      // 全体の「合算・まとめカード」を作成
       const summaryItems = {};
       let totalAllSubtotal = 0;
       let totalAllNinaPoint = 0;
@@ -936,32 +949,32 @@ let allOrders = []; // 蓄積用配列
       `;
       wrapper.appendChild(summaryWrapper);
 
-      // 画面切り替え
       document.getElementById('formSection').style.display = "none";
       document.querySelector('.fixed-footer').style.display = "none";
       document.getElementById('completeSection').style.display = "block";
       window.scrollTo(0, 0);
     }
 
-    // iPhone・Android（LINEブラウザ等）すべてに対応した画像保存処理
+    // iPhone・Android（LINEブラウザ等）すべてに対応した画像保存処理（安全対策版）
     async function downloadSingleCard(elementId) {
       const targetElement = document.getElementById(elementId);
       if (!targetElement) return;
 
-      const btn = event.currentTarget;
-      const originalText = btn.textContent;
-      btn.textContent = "⌛ 画像を生成中...";
-      btn.disabled = true;
+      // ボタン要素を安全に取得（eventが未定義でもエラーにならないように保護）
+      const btn = (typeof event !== 'undefined' && event) ? event.currentTarget : null;
+      const originalText = btn ? btn.textContent : '';
+      if (btn) {
+        btn.textContent = "⌛ 画像を生成中...";
+        btn.disabled = true;
+      }
 
       try {
         const canvas = await html2canvas(targetElement, { scale: 2 });
         const imgData = canvas.toDataURL('image/png');
 
-        // スマホ（iPhone / Android）全般の判定
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         if (isMobile) {
-          // スマホの場合（LINEアプリ内ブラウザ等含む）：長押し保存モーダルを表示
           const modal = document.createElement('div');
           modal.className = 'image-modal-overlay';
           modal.innerHTML = `
@@ -975,7 +988,6 @@ let allOrders = []; // 蓄積用配列
           `;
           document.body.appendChild(modal);
         } else {
-          // パソコンの場合：ファイルとして直接ダウンロード
           const link = document.createElement('a');
           link.href = imgData;
           const now = new Date();
@@ -988,8 +1000,10 @@ let allOrders = []; // 蓄積用配列
       } catch (e) {
         alert("画像の生成に失敗しました: " + e.message);
       } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
+        if (btn) {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }
       }
     }
 
