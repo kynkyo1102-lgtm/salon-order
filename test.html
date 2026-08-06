@@ -74,40 +74,34 @@
       padding-bottom: 4px;
     }
 
-    /* ご利用手順用スタイル */
-    .guide-accordion {
-      background-color: #eef7ff;
-      border: 1px solid #b8daff;
-      border-radius: 6px;
+    /* ご利用手順用スタイル（guidebulk.html のデザインをそのまま反映） */
+    .guide-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-left: 4px solid #007bff;
+      padding: 12px;
+      border-radius: 4px;
       margin-bottom: 15px;
-      overflow: hidden;
-    }
-    .guide-header {
-      padding: 10px 12px;
-      font-weight: bold;
-      font-size: 14px;
-      color: #0056b3;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-    }
-    .guide-content {
-      padding: 10px 12px;
-      border-top: 1px dashed #b8daff;
-      background-color: #ffffff;
       font-size: 12px;
       line-height: 1.6;
-      display: none; /* デフォルトは閉じた状態 */
     }
-    .guide-step {
-      margin-bottom: 10px;
-    }
-    .guide-step-title {
-      font-weight: bold;
+    .guide-box h3 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
       color: #007bff;
-      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .guide-box ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .guide-box li {
+      margin-bottom: 6px;
+    }
+    .guide-box li:last-child {
+      margin-bottom: 0;
     }
     
     .product-table {
@@ -299,32 +293,16 @@
     <!-- 入力フォーム画面 -->
     <div id="formSection">
       <h2>南熊本サロン専用商品購入注文書</h2>
-      
-      <!-- ご利用手順（アコーディオン） -->
-      <div class="guide-accordion">
-        <div class="guide-header" onclick="toggleGuide()">
-          <span>📖 ご利用手順（クリックで開閉）</span>
-          <span id="guideIcon">▼</span>
-        </div>
-        <div class="guide-content" id="guideContent">
-          <div class="guide-step">
-            <div class="guide-step-title">① 注文情報の入力</div>
-            発注月度、会員番号、氏名、お支払い方法を選択・入力します。<br>
-            ※配送希望の方は「お届け先情報」も入力してください。
-          </div>
-          <div class="guide-step">
-            <div class="guide-step-title">② 商品と数量の選択</div>
-            購入したい商品の数量（1〜20）を選択します。獲得ポイントや小計が自動計算されます。
-          </div>
-          <div class="guide-step">
-            <div class="guide-step-title">③ 注文の追加</div>
-            画面下の「＋ この注文を追加」ボタンを押してリストに蓄積します。複数人分をまとめて登録可能です。
-          </div>
-          <div class="guide-step">
-            <div class="guide-step-title">④ 一括作成・保存</div>
-            「🏁 注文書の一括作成画面へ」を押し、生成された各注文書カードや全体集計を画像・PDFで保存します。
-          </div>
-        </div>
+
+      <!-- guidebulk.html のご利用手順内容をそのまま追加 -->
+      <div class="guide-box">
+        <h3>📖 一括発注・まとめ注文書の発行手順</h3>
+        <ol>
+          <li><strong>注文内容の入力:</strong> 発注月度、会員番号、お名前、お支払い方法を選択・入力し、ご希望の商品数量を選択します。</li>
+          <li><strong>リストへ追加:</strong> 画面下の「＋ この注文を追加」ボタンを押すと、入力した注文が一時保持されます。必要に応じて複数人分を繰り返し追加してください。</li>
+          <li><strong>注文書の生成:</strong> 注文を追加すると表示される「🏁 注文書の一括作成画面へ」ボタンを押します。</li>
+          <li><strong>保存・提出:</strong> 各個人用の注文書カードおよび集計表が生成されます。各カード下の「画像保存」ボタン、または全体の「PDF保存」ボタンから保存してサロンへ提出してください。</li>
+        </ol>
       </div>
 
       <form id="orderForm" class="h-adr">
@@ -479,52 +457,20 @@
 
     </div>
   </div>
-
   <script>
+    // 商品マスタ定義
     const productMaster = {
-      "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
-      "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
-      "OX-288 (ゼリータイプ)": { price: 14200, pt: { "7月度": 10000, "8月度": 10000 } },
-      "ボアソン": { price: 10800, pt: { "7月度": 10000, "8月度": 10000 } },
-      "ハイプロリーナ": { price: 7200, pt: { "7月度": 6000, "8月度": 6000 } },
-      "ゼウス 2026": { price: 17800, pt: { "7月度": 13000, "8月度": 13000 } },
-      "アルピニスト スラージュ": { price: 4000, pt: { "7月度": 1400, "8月度": 2800 } },
-      "O・M・C プロテイン": { price: 6000, pt: { "7月度": 2000, "8月度": 5000 } },
-      "オヴェルデ エクストラバージンオリーブオイル": { price: 4000, pt: { "7月度": 1400, "8月度": 3300 } },
-      "サヴォン アンベリール (120g)": { price: 5200, pt: { "7月度": 1800, "8月度": 4300 } },
-      "サヴォン アンベリール (70g)": { price: 3500, pt: { "7月度": 1200, "8月度": 2900 } },
-      "ブランシュール (150g)": { price: 12200, pt: { "7月度": 10500, "8月度": 10500 } },
-      "ブランシュール (80g)": { price: 6800, pt: { "7月度": 5800, "8月度": 5800 } },
-      "デマキヤン": { price: 4100, pt: { "7月度": 1500, "8月度": 3400 } },
-      "赤化粧水": { price: 3600, pt: { "7月度": 1300, "8月度": 3000 } },
-      "赤美容液": { price: 6400, pt: { "7月度": 2300, "8月度": 5400 } },
-      "赤ジェル": { price: 4800, pt: { "7月度": 1700, "8月度": 4000 } },
-      "白化粧水": { price: 3600, pt: { "7月度": 3000, "8月度": 3000 } },
-      "白美容液": { price: 6400, pt: { "7月度": 5400, "8月度": 5400 } },
-      "白ジェル": { price: 4800, pt: { "7月度": 4000, "8月度": 4000 } },
-      "グルナードゥ": { price: 32000, pt: { "7月度": 26000, "8月度": 26000 } },
-      "リペアセラム": { price: 14800, pt: { "7月度": 15000, "8月度": 15000 } },
-      "リペアクリーム": { price: 18700, pt: { "7月度": 6600, "8月度": 15000 } },
-      "レボリューション": { price: 17200, pt: { "7月度": 9000, "8月度": 14500 } },
-      "グロウジェルクリーム": { price: 9800, pt: { "7月度": 3600, "8月度": 8000 } },
-      "ハンドモイスチャー": { price: 2200, pt: { "7月度": 700, "8月度": 1800 } },
-      "リップセラム": { price: 2000, pt: { "7月度": 600, "8月度": 1600 } },
-      "ボディミルク": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
-      "ミュー ヴィサージュ": { price: 3300, pt: { "7月度": 1200, "8月度": 2600 } },
-      "ミューコール": { price: 3300, pt: { "7月度": 2600, "8月度": 2600 } },
-      "バイオミスト": { price: 3700, pt: { "7月度": 3000, "8月度": 3000 } },
-      "ボディソープ": { price: 3200, pt: { "7月度": 2500, "8月度": 2500 } },
-      "シャンプー": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
-      "トリートメント": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
-      "ヘアマスク": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
-      "スカルプトナー": { price: 9200, pt: { "7月度": 7500, "8月度": 7500 } },
-      "クレオ デンタルクリーン": { price: 2200, pt: { "7月度": 700, "8月度": 1800 } },
-      "クレオ マウスウォッシュ": { price: 3200, pt: { "7月度": 1000, "8月度": 2500 } },
-      "アロマオイル ローズ": { price: 8700, pt: { "7月度": 3000, "8月度": 7300 } },
-      "ゼウス オードゥ パルファン 2026": { price: 21000, pt: { "7月度": 16000, "8月度": 18000 } },
-      "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
-      "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
+      "サンテアージュ OX-288": { price: 12300, pt: { "7月度": 7500, "8月度": 7500 } },
+      "サンテアージュ ボアソン": { price: 11000, pt: { "7月度": 7000, "8月度": 7000 } },
+      "サンテアージュ ジェネシス-2000": { price: 11000, pt: { "7月度": 6000, "8月度": 6000 } },
+      "サンテアージュ ムーサ プレミアム": { price: 11000, pt: { "7月度": 6000, "8月度": 6000 } },
+      "ボアソン 2個セット": { price: 21000, pt: { "7月度": 14000, "8月度": 14000 } },
+      "OX-288 2個セット": { price: 23600, pt: { "7月度": 15000, "8月度": 15000 } },
+      "アクティアージュ 3点セット": { price: 15300, pt: { "7月度": 9000, "8月度": 9000 } },
+      "ヴォルティージュ 3点セット": { price: 15300, pt: { "7月度": 9000, "8月度": 9000 } },
+      "ピュアリス 3点セット": { price: 12000, pt: { "7月度": 7000, "8月度": 7000 } }
     };
+
     let allOrders = [];
 
     // 初期化処理
@@ -569,19 +515,6 @@
       loadSavedInfo();
       updateCalc();
     });
-
-    // ご利用手順（アコーディオン）の開閉切替
-    function toggleGuide() {
-      const content = document.getElementById("guideContent");
-      const icon = document.getElementById("guideIcon");
-      if (content.style.display === "block") {
-        content.style.display = "none";
-        icon.textContent = "▼";
-      } else {
-        content.style.display = "block";
-        icon.textContent = "▲";
-      }
-    }
 
     // 支払い項目の表示制御
     function togglePaymentFields() {
@@ -761,7 +694,7 @@
       allOrders.push(orderData);
       renderOrderList();
 
-      // フォームの一部リセット（同一人物の追加購入や連続入力を考慮）
+      // フォームの一部リセット
       qtySelects.forEach(select => select.value = "0");
       document.getElementById("ninaPoint").value = "";
       updateCalc();
@@ -900,7 +833,6 @@
       const summaryWrapper = document.createElement("div");
       summaryWrapper.className = "card-wrapper";
 
-      // 全体での商品集計
       let summaryItems = {};
       let totalAllPrice = 0;
       let totalAllPt = 0;
@@ -970,15 +902,11 @@
       
       html2canvas(element, { scale: 2, useCORS: true }).then(canvas => {
         const imgData = canvas.toDataURL("image/png");
-        
-        // スマホ環境判定（iOS / Android等）
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
         if (isMobile) {
-          // モーダル表示による長押し保存誘導
           showImageModal(imgData, orderId);
         } else {
-          // PC等の直接ダウンロード
           const a = document.createElement("a");
           a.href = imgData;
           a.download = `注文書_${orderId}.png`;
@@ -1027,7 +955,7 @@
           if (idx > 0) pdf.addPage();
           
           const imgData = canvas.toDataURL("image/png");
-          const imgWidth = 190; // A4幅に収めるサイズ
+          const imgWidth = 190;
           const pageHeight = 295;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
           
