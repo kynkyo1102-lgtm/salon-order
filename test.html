@@ -41,26 +41,25 @@
     }
 
     /* 手順説明ページへのボタン（パターンA） */
-.btn-guide {
-  display: block;
-  width: fit-content;        /* 幅を文字に合わせてコンパクトに */
-  margin: 0 auto 15px auto;   /* 中央寄せ＆下の余白 */
-  padding: 6px 14px;         /* ボタンの内側余白を小さめに */
-  background-color: #007bff; /* 「この注文を追加」と同じ青 */
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  font-size: 12px;           /* 文字サイズを12pxに小さく */
-  font-weight: normal;       /* 主張を抑えるため太字を解除 */
-  border-radius: 4px;        /* 角丸を控えめに */
-  box-shadow: none;          /* 影を消してフラットに */
-  transition: background-color 0.2s, opacity 0.2s;
-}
+　　.btn-guide {
+    display: block;
+    margin: 0 auto 15px; /* 上0、左右中央、下15px */
+    padding: 6px 16px;
+    color: #007bff;
+    background-color: transparent;
+    border: 1px solid #007bff;
+    border-radius: 20px;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content;
+    transition: all 0.2s;
+  }
 
 .btn-guide:hover {
-  background-color: #0056b3; /* ホバー時は少し濃い青 */
-  opacity: 0.9;
+  background-color: #f0f7ff; /* うっすら青い背景 */
 }
+
 
     label {
       font-weight: bold;
