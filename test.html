@@ -12,7 +12,7 @@
         .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
         .form-row .form-group { margin-bottom: 0; flex: 1; }
         label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
-        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        input[type="text"], input[type="number"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         textarea { height: 60px; resize: vertical; }
         .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
         .btn-secondary { background-color: #e5e5ea; color: #333; }
@@ -133,7 +133,7 @@ const products = [
     { name: "ボアソン", price: 10800, p7: 10000, p8: 10000 },
     { name: "ハイプロリーナ", price: 7200, p7: 6000, p8: 6000 },
     { name: "ゼウス 2026", price: 17800, p7: 13000, p8: 13000 },
-  { name: "アルピニスト スラージュ", price: 4000, p7: 1400, p8: 2800 },
+    { name: "アルピニスト スラージュ", price: 4000, p7: 1400, p8: 2800 },
     { name: "O・M・C プロテイン", price: 6000, p7: 2000, p8: 5000 },
     { name: "サヴォン アンベリール (120g)", price: 5200, p7: 1800, p8: 4300 },
     { name: "サヴォン アンベリール (70g)", price: 3500, p7: 1200, p8: 2900 },
@@ -353,8 +353,11 @@ function addPositionBox() {
     box.id = `position_box_${positionCount}`;
     
     box.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong style="font-size:14px; color:#555;">ポジション #${positionCount}</strong>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px; align-items:center;">
+            <div>
+                <strong style="font-size:14px; color:#555;">注文枠 #${positionCount}</strong>
+                <span class="order-id-badge">発注ID: ${positionCount}</span>
+            </div>
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
@@ -464,8 +467,9 @@ function calculateAll() {
     let positionsData = [];
     let itemSummaryMap = {};
 
-    positionBoxes.forEach((box) => {
+    positionBoxes.forEach((box, index) => {
         const boxId = box.id.replace('position_box_', '');
+        const autoOrderId = index + 1; // 自動発注ID (1, 2, 3...)
         
         const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
         const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
@@ -522,6 +526,7 @@ function calculateAll() {
 
         if(posInfo && posItemsText) {
             positionsData.push({
+                orderId: autoOrderId,
                 info: posInfo,
                 itemsText: posItemsText,
                 qty: posQty,
@@ -574,7 +579,8 @@ function generateText() {
     text += `\n`;
 
     data.positionsData.forEach(pos => {
-        text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
+        text += `🔹発注ID: ${pos.orderId}\n`;
+        text += `${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
         text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
     });
 
