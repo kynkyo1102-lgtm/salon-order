@@ -415,7 +415,9 @@
       </div>
 
     </div>
-      <script>
+  </div>
+
+  <script>
     const productMaster = {
       "OX-288": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
       "OX-288(追加購入)": { price: 13800, pt: { "7月度": 10000, "8月度": 10000 } },
@@ -460,7 +462,6 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
-
     let allOrders = []; // 蓄積用配列
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
@@ -636,8 +637,17 @@
         month, memberIdMain, memberIdSub, fullName, paymentMethod, shipName, zip, address, phone
       }));
 
+      // 短いユニークな発注IDの生成 (例: 260806-A1B2)
+      const today = new Date();
+      const yy = String(today.getFullYear()).slice(-2);
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const generatedOrderId = `${yy}${mm}${dd}-${randomStr}`;
+
       // 配列に保存
       allOrders.push({
+        orderId: generatedOrderId,
         month,
         memberId: memberIdMain + "-" + memberIdSub,
         fullName,
@@ -682,7 +692,7 @@
         html += `
           <div style="border-bottom: 1px dashed #ccc; padding: 6px 0; display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) - <span style="color:#007bff;">${ord.paymentMethod}</span><br>
+              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:#666;">[ID: ${ord.orderId}]</small> - <span style="color:#007bff;">${ord.paymentMethod}</span><br>
               <small style="color: #666;">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
             </div>
             <button type="button" onclick="removeOrder(${i})" style="color: red; border: none; background: none; cursor: pointer; font-size: 11px;">削除</button>
@@ -709,7 +719,7 @@
 
       // 1. 各会員ごとの控えカードを作成
       allOrders.forEach((ord, index) => {
-        const orderId = index + 1; // 自動採番される発注ID
+        const orderId = ord.orderId; // 注文作成時に割り当てられた個別IDを使用
         
         let totalQty = 0;
         let itemRows = "";
@@ -892,7 +902,7 @@
           </div>
           <div style="font-size: 12px; margin-bottom: 10px; background-color: #e9ecef; padding: 8px; border-radius: 4px;">
             <strong>対象会員一覧:</strong><br>
-            ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [${o.paymentMethod}]`).join('<br>')}
+            ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
           </div>
           <table class="product-table" style="margin-bottom: 15px;">
             <thead>
@@ -1019,6 +1029,3 @@
   </script>
 </body>
 </html>
-      
-
-  </div>
