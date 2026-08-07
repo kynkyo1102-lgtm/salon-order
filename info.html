@@ -3,184 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>店舗案内 - プラッスドゥニナ南熊本店</title>
-  <style>
-    :root {
-      --primary-color: #007bff;
-      --bg-color: #f8f9fa;
-      --card-bg: #ffffff;
-      --text-color: #333333;
-      --sub-text: #666666;
-      --border-color: #edf2f7;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background-color: #ffffff;
-      border-bottom: 1px solid #e9ecef;
-      padding: 20px 15px;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-      position: relative;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #1a1a1a;
-      letter-spacing: 0.05em;
-    }
-
-    main {
-      flex: 1;
-      max-width: 500px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px 15px;
-      box-sizing: border-box;
-    }
-
-    /* 店舗基本情報カード */
-    .info-card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      margin-bottom: 20px;
-    }
-
-    .info-dl {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      row-gap: 16px;
-      margin: 0;
-      font-size: 0.9rem;
-    }
-
-    .info-dl dt {
-      color: var(--sub-text);
-      font-weight: bold;
-    }
-
-    .info-dl dd {
-      margin: 0;
-      color: var(--text-color);
-      line-height: 1.5;
-    }
-
-    /* 電話番号リンク */
-    .tel-link {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-    }
-
-    /* ボタン類 */
-    .btn-map {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background-color: #e6f2ff;
-      color: var(--primary-color);
-      font-weight: bold;
-      padding: 10px 0;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-top: 8px;
-      font-size: 0.85rem;
-      box-sizing: border-box;
-    }
-
-    .btn-back {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 14px 0;
-      background-color: #ffffff;
-      color: var(--sub-text);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.9rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-      transition: background-color 0.2s;
-    }
-
-    .btn-back:active {
-      background-color: #f1f3f5;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px 15px;
-      font-size: 0.75rem;
-      color: #999999;
-    }
-  </style>
+  <title>店舗案内 - プラッス ドゥ ニナ 南熊本店</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
   <header>
-    <h1>📍 店舗案内</h1>
+    <div class="header-logo">Place de Nina</div>
+    <h1>店舗案内・アクセス</h1>
   </header>
 
   <main>
 
     <div class="info-card">
-      <dl class="info-dl">
-        <dt>店名</dt>
-        <dd>プラッスドゥニナ南熊本店</dd>
+      <dl class="info-list">
+        <div class="info-item">
+          <dt>店名</dt>
+          <dd>プラッス ドゥ ニナ 南熊本店</dd>
+        </div>
 
-        <dt>住所</dt>
-        <dd>
-          〒000-0000<br>
-          熊本県熊本市中央区〇〇 1-2-3<br>
-          <!-- Googleマップへのリンク（実際の住所の検索URLに変更してください） -->
-          <a href="https://maps.google.com/?q=熊本県熊本市" target="_blank" rel="noopener noreferrer" class="btn-map">
-            🗺️ Googleマップで開く
-          </a>
-        </dd>
+        <div class="info-item">
+          <dt>住所</dt>
+          <dd>
+            〒000-0000<br>
+            熊本県熊本市中央区◯◯ 1-2-3
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="map-btn">
+              📍 Googleマップで開く
+            </a>
+          </dd>
+        </div>
 
-        <dt>営業時間</dt>
-        <dd>10:00 〜 19:00</dd>
+        <div class="info-item">
+          <dt>営業時間</dt>
+          <dd>10:00 〜 19:00</dd>
+        </div>
 
-        <dt>定休日</dt>
-        <dd>水曜日・第2火曜日</dd>
+        <div class="info-item">
+          <dt>定休日</dt>
+          <dd>水曜日・第2火曜日</dd>
+        </div>
 
-        <dt>電話番号</dt>
-        <dd>
-          <a href="tel:0960000000" class="tel-link">📞 096-000-0000</a>
-        </dd>
+        <div class="info-item">
+          <dt>電話番号</dt>
+          <dd><a href="tel:096-000-0000" class="tel-link">096-000-0000</a></dd>
+        </div>
 
-        <dt>アクセス</dt>
-        <dd>JR南熊本駅より徒歩〇分 / 駐車場〇台あり</dd>
+        <div class="info-item">
+          <dt>アクセス</dt>
+          <dd>JR南熊本駅より徒歩◯分 / 駐車場◯台あり</dd>
+        </div>
       </dl>
     </div>
 
-    <!-- トップページへ戻るボタン -->
-    <a href="index.html" class="btn-back">
-      ← トップページへ戻る
+    <!-- 戻るボタン -->
+    <a href="test2.html" class="back-btn">
+      ‹ トップページへ戻る
     </a>
 
   </main>
 
   <footer>
-    &copy; プラッスドゥニナ南熊本店
+    &copy; PLACE DE NINA MINAMIKUMAMOTO
   </footer>
 
 </body>
