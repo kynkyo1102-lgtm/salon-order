@@ -4,28 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>プラッスドゥニナ南熊本店</title>
-  <!-- やわらかい手触り感のある明朝体・英字フォント -->
+  <!-- 柔らかい丸ゴシック＆レトロ感のある丸みフォントを読み込み -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* 森の図書室・クラフトカフェ風カラー */
-      --bg-color: #f7f3ec;          /* ほんのり紙の温かみがある生成り色 */
-      --card-bg: #ffffff;          /* クリスプなホワイト */
-      --wood-dark: #3a281e;        /* お写真の棚のようなディープウッド */
-      --wood-warm: #6a4c3b;        /* 温かみのあるミディアムブラウン */
-      --forest-green: #3d5a45;     /* 差し色のシックなグリーン（森のイメージ） */
-      --text-main: #332c27;        /* 漆黒ではなく優しいダークブラウン */
-      --text-sub: #786f68;         /* やわらかい灰褐色 */
-      --border-color: #e5dec3;      /* クラフト感のあるやさしいボーダー */
-      --font-serif: 'Shippori Mincho', 'Noto Serif JP', "Yu Mincho", serif;
+      /* レトロ喫茶＆ウッド調のカラーパレット */
+      --bg-color: #f6f0e8;          /* 珈琲用紙フィルターのような温かい生成り色 */
+      --card-bg: #fffdfa;          /* ほっとする温もりホワイト */
+      --wood-dark: #362215;        /* 深煎りコーヒー・木製棚のダークブラウン */
+      --wood-medium: #5a3e2b;      /* 珈琲色のミディアムブラウン */
+      --coffee-milk: #cbb298;      /* カフェオレ風のやわらかいブラウン */
+      --accent-amber: #d48b38;     /* レトロなアンバー（琥珀色） */
+      --text-main: #2b2017;        /* 濃い珈琲ブラウン */
+      --text-sub: #7a6b5d;         /* やさしいブラウン */
+      --border-color: #e2d5c5;      /* メニュー表風の繊細な枠線 */
+      --font-rounded: 'Kiwi Maru', 'Zen Maru Gothic', sans-serif;
     }
 
     body {
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: var(--font-rounded);
       background-color: var(--bg-color);
       color: var(--text-main);
       display: flex;
@@ -34,35 +35,46 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ヘッダー：喫茶店の木製看板イメージ */
     header {
       background-color: var(--wood-dark);
       color: #ffffff;
-      padding: 32px 20px 24px;
+      padding: 30px 20px 24px;
       text-align: center;
-      border-bottom: 3px solid var(--forest-green);
-      box-shadow: 0 4px 12px rgba(58, 40, 30, 0.12);
+      border-bottom: 4px solid var(--accent-amber);
+      box-shadow: 0 4px 12px rgba(54, 34, 21, 0.15);
+      position: relative;
+    }
+
+    /* 看板の内枠飾りライン */
+    header::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 10px; left: 12px; right: 12px; bottom: 10px;
+      border: 1px dashed rgba(212, 139, 56, 0.4);
+      border-radius: 6px;
+      pointer-events: none;
     }
 
     .header-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.25em;
-      color: #d1be9d;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--coffee-milk);
       margin-bottom: 6px;
     }
 
     h1 {
       margin: 0;
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: #fbf9f6;
-      letter-spacing: 0.1em;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fffefb;
+      letter-spacing: 0.08em;
     }
 
     .subtitle {
       font-size: 0.78rem;
-      color: #c0b4a8;
+      color: #d8c8b8;
       margin-top: 8px;
       letter-spacing: 0.05em;
     }
@@ -76,12 +88,11 @@
       box-sizing: border-box;
     }
 
-    /* セクションタイトル */
+    /* セクションタイトル：喫茶メニュー風の見出し */
     .section-title {
-      font-family: var(--font-serif);
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--wood-dark);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--wood-medium);
       margin: 28px 0 12px 4px;
       letter-spacing: 0.08em;
       display: flex;
@@ -96,24 +107,25 @@
       background-color: var(--border-color);
     }
 
-    /* お知らせ枠 */
+    /* お知らせ枠：マスターからの伝言メモ風 */
     .news-box {
-      background-color: #fcfaf5;
-      border: 1px dashed #d1c5a5;    /* ステッチ風破線でナチュラル感を強調 */
+      background-color: #fbf6ee;
+      border: 2px dashed #d8c2aa;
       border-radius: 12px;
       padding: 16px 18px;
       margin-bottom: 24px;
-      font-size: 0.83rem;
+      font-size: 0.85rem;
       line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(90, 62, 43, 0.04);
     }
 
     .news-tag {
       display: inline-block;
-      background-color: var(--forest-green);
+      background-color: var(--accent-amber);
       color: #fff;
-      font-size: 0.65rem;
-      padding: 2px 8px;
-      border-radius: 20px;
+      font-size: 0.68rem;
+      padding: 2px 10px;
+      border-radius: 12px;
       margin-bottom: 8px;
       letter-spacing: 0.05em;
     }
@@ -123,14 +135,14 @@
       color: var(--text-main);
     }
 
-    /* メニューカード */
+    /* メニューカード：喫茶メニューのカード風 */
     .menu-card {
       background-color: var(--card-bg);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 18px 20px;
       margin-bottom: 14px;
-      box-shadow: 0 4px 14px rgba(92, 73, 56, 0.06);
-      border: 1px solid #ebd3c8;
+      box-shadow: 0 4px 12px rgba(54, 34, 21, 0.05);
+      border: 1px solid var(--border-color);
       transition: all 0.2s ease;
       text-decoration: none;
       color: inherit;
@@ -141,19 +153,19 @@
 
     .menu-card:active {
       transform: scale(0.98);
-      box-shadow: 0 2px 6px rgba(92, 73, 56, 0.04);
+      box-shadow: 0 2px 6px rgba(54, 34, 21, 0.03);
     }
 
     .card-icon {
       flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      background-color: #f2ebe1;
-      border-radius: 50%; /* 柔らかい丸型 */
+      width: 46px;
+      height: 46px;
+      background-color: #f3e9dc;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--wood-warm);
+      color: var(--wood-medium);
     }
 
     .card-content {
@@ -161,9 +173,8 @@
     }
 
     .card-title {
-      font-family: var(--font-serif);
-      font-size: 0.98rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 500;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
@@ -173,8 +184,9 @@
 
     .card-title::after {
       content: "›";
-      font-size: 1.2rem;
-      color: var(--forest-green);
+      font-size: 1.3rem;
+      color: var(--accent-amber);
+      font-weight: bold;
     }
 
     .card-desc {
@@ -198,23 +210,23 @@
   <header>
     <div class="header-brand">PLACE DE NINA</div>
     <h1>プラッスドゥニナ南熊本店</h1>
-    <div class="subtitle">公式ご注文・店舗インフォメーション</div>
+    <div class="subtitle">ご注文・インフォメーション</div>
   </header>
 
   <main>
 
     <!-- 本日のお知らせ -->
     <div class="news-box">
-      <span class="news-tag">INFORMATION</span>
+      <span class="news-tag">本日のお知らせ</span>
       <p>【完売案内】本日◯◯は完売いたしました。<br>その他商品は通常通りご注文いただけます。</p>
     </div>
 
     <!-- 注文セクション -->
-    <div class="section-title">ORDER MENU</div>
+    <div class="section-title">☕ ご注文メニュー</div>
 
     <a href="single.html" class="menu-card">
       <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
       </div>
       <div class="card-content">
         <div class="card-title">LINEノート コピペ用</div>
@@ -224,7 +236,7 @@
 
     <a href="bulk.html" class="menu-card">
       <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
       </div>
       <div class="card-content">
         <div class="card-title">注文書作成 画像保存用</div>
@@ -233,11 +245,11 @@
     </a>
 
     <!-- 店舗案内セクション -->
-    <div class="section-title">SHOP INFO</div>
+    <div class="section-title">📍 お店のご案内</div>
 
     <a href="info.html" class="menu-card">
       <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
       </div>
       <div class="card-content">
         <div class="card-title">店舗案内（住所・営業時間）</div>
@@ -247,7 +259,7 @@
 
     <a href="bank.html" class="menu-card">
       <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
       </div>
       <div class="card-content">
         <div class="card-title">お振込先のご案内</div>
