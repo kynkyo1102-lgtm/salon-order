@@ -1,128 +1,128 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サロン専用注文書作成ツール - Place de Nina</title>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-　 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="style.css?v=3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サロン専用注文書作成ツール - Place de Nina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
-    <header>
-        <div class="header-logo">Place de Nina</div>
-        <h1>LINEご注文作成ツール</h1>
-    </header>
+  <header>
+    <div class="header-logo">Place de Nina</div>
+    <h1>LINEご注文作成ツール</h1>
+  </header>
 
-    <main>
+  <main>
 
-        <!-- 1. 会員リポジトリ登録エリア -->
-        <div class="card card-accent">
-            <h3>1. よく使う会員番号の事前登録 <span class="badge-info">次回から自動入力！</span></h3>
-            
-            <div class="guide-box">
-                <strong>💡 事前登録しておくと便利です！</strong><br>
-                ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
-                ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
-                <span class="note-text">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
-            </div>
+    <!-- 1. 会員リポジトリ登録エリア -->
+    <div class="info-card card-accent">
+      <div class="section-title">1. よく使う会員番号の事前登録</div>
+      
+      <div class="usage-guide">
+        <strong>💡 事前登録しておくと便利です！</strong><br>
+        ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
+        ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
+        <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+      </div>
 
-            <div id="member_register_container"></div>
-            <button class="btn btn-secondary btn-sm" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
-        </div>
-
-        <!-- 2. お届け先情報 -->
-        <div class="card">
-            <h3>2. お届け先情報</h3>
-            <div class="form-row">
-                <div class="form-group fg-zip">
-                    <label>郵便番号</label>
-                    <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
-                </div>
-                <div class="form-group">
-                    <label>お届け先氏名（宛名）</label>
-                    <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>ご住所</label>
-                <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
-            </div>
-            <div class="form-group">
-                <label>電話番号</label>
-                <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
-            </div>
-            <div class="form-group">
-                <label>備考</label>
-                <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
-            </div>
-        </div>
-
-        <!-- 3. 決済方法 -->
-        <div class="card">
-            <h3>3. 決済方法</h3>
-            <div class="form-group">
-                <label>決済方法の選択</label>
-                <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
-                    <option value="現金">現金</option>
-                    <option value="ニナファームカード">ニナファームカード</option>
-                    <option value="クレジットカード">クレジットカード</option>
-                    <option value="PayPay">PayPay</option>
-                </select>
-            </div>
-            <div class="hidden-pw" id="pw_container">
-                <div class="form-group" id="group_pw_code">
-                    <label>E-ServiceログインPW</label>
-                    <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
-                </div>
-                <div class="form-group" id="group_nina_point">
-                    <label>使用するポイントNiNA</label>
-                    <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
-                </div>
-            </div>
-            <div class="form-group mt-10">
-                <label>🧾 領収書が必要な場合は宛名をお書きください</label>
-                <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
-            </div>
-        </div>
-
-        <!-- 4. 処理月度の選択 -->
-        <div class="card">
-            <h3>4. 処理月度の選択</h3>
-            <select id="target_month" onchange="onMonthChange();">
-                <option value="7月度">7月度</option>
-                <option value="8月度" selected>8月度</option>
-            </select>
-        </div>
-
-        <!-- 5. ポジション別注文 -->
-        <div class="card">
-            <h3>5. 会員番号ごとの注文</h3>
-            <div id="positions_container"></div>
-            <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
-        </div>
-
-        <!-- 6. 生成された注文テキスト -->
-        <div class="card">
-            <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
-            <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
-            <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
-        </div>
-
-        <!-- 戻るボタン -->
-        <a href="index.html" class="back-btn">
-            ‹ トップページへ戻る
-        </a>
-
-    </main>
-
-    <!-- 固定下部バー -->
-    <div class="footer-bar">
-        <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
-        <button class="btn-copy btn" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
+      <div id="member_register_container"></div>
+      <button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
     </div>
+
+    <!-- 2. お届け先情報 -->
+    <div class="info-card">
+      <div class="section-title">2. お届け先情報</div>
+      <div class="form-row">
+        <div class="form-group fg-zip">
+          <label>郵便番号</label>
+          <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
+        </div>
+        <div class="form-group">
+          <label>お届け先氏名（宛名）</label>
+          <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ご住所</label>
+        <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+      <div class="form-group">
+        <label>電話番号</label>
+        <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+      <div class="form-group">
+        <label>備考</label>
+        <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+    </div>
+
+    <!-- 3. 決済方法 -->
+    <div class="info-card">
+      <div class="section-title">3. 決済方法</div>
+      <div class="form-group">
+        <label>決済方法の選択</label>
+        <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
+          <option value="現金">現金</option>
+          <option value="ニナファームカード">ニナファームカード</option>
+          <option value="クレジットカード">クレジットカード</option>
+          <option value="PayPay">PayPay</option>
+        </select>
+      </div>
+      <div class="hidden-pw" id="pw_container">
+        <div class="form-group" id="group_pw_code">
+          <label>E-ServiceログインPW</label>
+          <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+        <div class="form-group" id="group_nina_point">
+          <label>使用するポイントNiNA</label>
+          <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
+        </div>
+      </div>
+      <div class="form-group mt-10">
+        <label>🧾 領収書が必要な場合は宛名をお書きください</label>
+        <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+    </div>
+
+    <!-- 4. 処理月度の選択 -->
+    <div class="info-card">
+      <div class="section-title">4. 処理月度の選択</div>
+      <select id="target_month" onchange="onMonthChange();">
+        <option value="7月度">7月度</option>
+        <option value="8月度" selected>8月度</option>
+      </select>
+    </div>
+
+    <!-- 5. ポジション別注文 -->
+    <div class="info-card">
+      <div class="section-title">5. 会員番号ごとの注文</div>
+      <div id="positions_container"></div>
+      <button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
+    </div>
+
+    <!-- 6. 生成された注文テキスト -->
+    <div class="info-card">
+      <div class="section-title">6. 生成された注文テキスト</div>
+      <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+      <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
+    </div>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="back-btn">
+      ‹ トップページへ戻る
+    </a>
+
+  </main>
+
+  <!-- 固定下部バー -->
+  <div class="footer-bar">
+    <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
+    <button class="btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
+  </div>
 
 <script>
 // 商品データマスター
@@ -170,7 +170,8 @@ const products = [
     { name: "モン コパン", price: 3500, p7: 2800, p8: 2800 },
     { name: "モン コパン ジュレ", price: 3500, p7: 2800, p8: 2800 }
 ];
-    let positionCount = 0;
+
+let positionCount = 0;
 let registeredMembers = [];
 
 function checkZipCode() {
@@ -263,7 +264,7 @@ function addMemberRegisterRow(code = '', name = '') {
     row.innerHTML = `
         <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
         <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
-        <button class="btn btn-danger" onclick="removeMemberRegisterRow(this)">✕</button>
+        <button class="btn-danger" onclick="removeMemberRegisterRow(this)">✕</button>
     `;
     container.appendChild(row);
 }
@@ -301,8 +302,7 @@ function refreshMemberOptions(selectElement) {
     options += '<option value="manual">＋ 新しい会員情報を直接入力する</option>';
     selectElement.innerHTML = options;
 }
-
-function onSelectMember(posId) {
+ function onSelectMember(posId) {
     const select = document.getElementById(`pos_select_${posId}`);
     const codeInput = document.getElementById(`pos_code_${posId}`);
     const nameInput = document.getElementById(`pos_name_${posId}`);
@@ -378,7 +378,7 @@ function addPositionBox() {
     box.innerHTML = `
         <div class="pos-header">
             <strong class="pos-title">ポジション #${positionCount}</strong>
-            ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
+            ${positionCount > 1 ? `<button class="btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
             <label class="label-accent">👤 会員の選択</label>
@@ -425,7 +425,7 @@ function addPositionBox() {
         <div class="form-group mt-10">
             <label>購入商品</label>
             <div class="items-list" id="items_list_${positionCount}"></div>
-            <button class="btn btn-secondary btn-add-item" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+            <button class="sub-btn mt-8" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
         </div>
         <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
     `;
@@ -462,7 +462,7 @@ function addItemRow(posId) {
     qtyContainer.innerHTML = `<select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個`;
 
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn-danger btn-del-item';
+    deleteBtn.className = 'btn-danger btn-del-item';
     deleteBtn.innerText = '✕';
     deleteBtn.onclick = function() {
         if (list.querySelectorAll('.item-row').length > 1) {
@@ -654,4 +654,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html>
+</html>   
