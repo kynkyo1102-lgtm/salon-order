@@ -46,7 +46,7 @@
             <strong>💡 事前登録しておくと便利です！</strong><br>
             ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
             ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
-            <span style="color: #666; font-size: 11px;">※会員番号は「1234567」のように枝番（00, 01等）を除いた番号で登録してください。</span>
+            <span style="color: #666; font-size: 11px;">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
         </div>
 
         <div id="member_register_container"></div>
@@ -316,7 +316,7 @@ function refreshMemberOptions(selectElement) {
     options += '<option value="manual">＋ 新しい会員情報を直接入力する</option>';
     selectElement.innerHTML = options;
 }
- function onSelectMember(posId) {
+  function onSelectMember(posId) {
     const select = document.getElementById(`pos_select_${posId}`);
     const codeInput = document.getElementById(`pos_code_${posId}`);
     const nameInput = document.getElementById(`pos_name_${posId}`);
@@ -412,7 +412,7 @@ function addPositionBox() {
                 <input type="text" id="pos_code_${positionCount}" readonly placeholder="上枠で選択してください" oninput="updatePreview()">
             </div>
             <div class="form-group" style="flex: 0.8;">
-                <label>枝番</label>
+                <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
                     <option value="01">01</option>
@@ -420,6 +420,11 @@ function addPositionBox() {
                     <option value="03">03</option>
                     <option value="04">04</option>
                     <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
                     <option value="custom">その他</option>
                 </select>
             </div>
@@ -430,8 +435,8 @@ function addPositionBox() {
         </div>
 
         <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
-            <label>その他の枝番（手入力）</label>
-            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：10" oninput="updatePreview()">
+            <label>その他のポジション（手入力）</label>
+            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：11" oninput="updatePreview()">
         </div>
 
         <div class="form-group" style="margin-top: 10px;">
@@ -667,4 +672,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html> 
+</html>  
