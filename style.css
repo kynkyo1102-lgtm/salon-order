@@ -428,3 +428,47 @@ footer {
 .bank-sub-note li {
   margin-bottom: 4px;
 }
+/* ==========================================
+   プライバシーポリシー（privacy.html）用追加スタイル
+========================================== */
+.policy-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 22px 20px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+
+.policy-intro {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.policy-sec {
+  margin-bottom: 18px;
+}
+
+.policy-sec:last-child {
+  margin-bottom: 0;
+}
+
+.policy-sec h2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--wood-medium);
+  margin: 0 0 6px 0;
+  letter-spacing: 0.03em;
+}
+
+.policy-sec p {
+  font-size: 0.78rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin: 0;
+}
