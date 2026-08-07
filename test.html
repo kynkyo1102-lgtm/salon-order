@@ -8,234 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=2">
-
-    <style>
-        /* 注文書ツール固有の追加・調整スタイル */
-        body {
-            padding-bottom: 180px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 18px 20px;
-            box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        h3 {
-            margin-top: 0;
-            color: var(--wood-dark);
-            border-bottom: 1.5px solid var(--border-color);
-            padding-bottom: 10px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .badge-info {
-            font-size: 0.7rem;
-            background-color: #f0eae1;
-            color: var(--wood-dark);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 500;
-        }
-
-        .guide-box {
-            background-color: rgba(200, 162, 97, 0.1);
-            border: 1px solid var(--accent-gold);
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 14px;
-            font-size: 0.78rem;
-            color: var(--wood-medium);
-            line-height: 1.5;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .form-row .form-group {
-            margin-bottom: 0;
-            flex: 1;
-        }
-
-        label {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--wood-dark);
-        }
-
-        input[type="text"], textarea, select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 0.88rem;
-            background-color: #fcfcfc;
-            color: var(--text-main);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        input[type="text"]:focus, textarea:focus, select:focus {
-            border-color: var(--accent-gold);
-            background-color: #fff;
-        }
-
-        input[readonly] {
-            background-color: #f5f2ed;
-            color: var(--text-sub);
-            cursor: not-allowed;
-            border-color: var(--border-color);
-        }
-
-        textarea {
-            height: 80px;
-            resize: vertical;
-        }
-
-        .btn {
-            background-color: var(--wood-dark);
-            color: var(--gold-light);
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-block;
-            font-size: 0.85rem;
-            text-align: center;
-            transition: opacity 0.2s;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .btn-secondary {
-            background-color: #f0eae1;
-            color: var(--wood-dark);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-danger {
-            background-color: #c94b4b;
-            color: white;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            border-radius: 6px;
-        }
-
-        .item-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-            align-items: center;
-        }
-
-        .item-select {
-            flex: 2;
-        }
-
-        .item-qty-container {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.82rem;
-            color: var(--wood-dark);
-            font-weight: 500;
-        }
-
-        .item-qty {
-            min-width: 60px;
-        }
-
-        .position-box {
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            background-color: #fdfbf7;
-        }
-
-        .member-reg-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .footer-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
-            border-top: 1px solid var(--border-color);
-            padding: 12px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 1000;
-        }
-
-        .total-preview {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--wood-dark);
-            text-align: center;
-        }
-
-        .btn-copy {
-            background-color: var(--wood-dark);
-            color: var(--gold-light);
-            border: 1px solid var(--accent-gold);
-            padding: 13px;
-            font-size: 0.95rem;
-            width: 100%;
-            border-radius: 30px;
-            box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
-        }
-
-        .pos-subtotal {
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px dashed var(--border-color);
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--wood-medium);
-            text-align: right;
-        }
-
-        .hidden-pw { display: none; }
-        .custom-pos-container { display: none; margin-top: 8px; }
-        .manual-input-box {
-            display: none;
-            margin-top: 8px;
-            padding: 10px;
-            background-color: #fdfaf3;
-            border: 1px solid var(--accent-gold);
-            border-radius: 8px;
-        }
-    </style>
 </head>
 <body>
 
@@ -247,25 +19,25 @@
     <main>
 
         <!-- 1. 会員リポジトリ登録エリア -->
-        <div class="card" style="border-left: 4px solid var(--accent-gold);">
+        <div class="card card-accent">
             <h3>1. よく使う会員番号の事前登録 <span class="badge-info">次回から自動入力！</span></h3>
             
             <div class="guide-box">
                 <strong>💡 事前登録しておくと便利です！</strong><br>
                 ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
                 ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
-                <span style="color: var(--text-sub); font-size: 0.72rem;">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+                <span class="note-text">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
             </div>
 
             <div id="member_register_container"></div>
-            <button class="btn btn-secondary" style="font-size:0.75rem; padding:6px 12px; margin-top:4px;" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
+            <button class="btn btn-secondary btn-sm" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
         </div>
 
         <!-- 2. お届け先情報 -->
         <div class="card">
             <h3>2. お届け先情報</h3>
             <div class="form-row">
-                <div class="form-group" style="flex: 0 0 120px;">
+                <div class="form-group fg-zip">
                     <label>郵便番号</label>
                     <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
                 </div>
@@ -310,7 +82,7 @@
                     <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
                 </div>
             </div>
-            <div class="form-group" style="margin-top: 10px;">
+            <div class="form-group mt-10">
                 <label>🧾 領収書が必要な場合は宛名をお書きください</label>
                 <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
             </div>
@@ -335,8 +107,8 @@
         <!-- 6. 生成された注文テキスト -->
         <div class="card">
             <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
-            <p style="font-size: 0.72rem; margin-top: -5px; color: var(--text-sub);">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
-            <textarea id="output_text" style="height: 180px; font-family: monospace;" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
+            <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+            <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
         </div>
 
         <!-- 戻るボタン -->
@@ -398,7 +170,7 @@ const products = [
     { name: "モン コパン", price: 3500, p7: 2800, p8: 2800 },
     { name: "モン コパン ジュレ", price: 3500, p7: 2800, p8: 2800 }
 ];
-let positionCount = 0;
+    let positionCount = 0;
 let registeredMembers = [];
 
 function checkZipCode() {
@@ -539,7 +311,6 @@ function onSelectMember(posId) {
     const selectedVal = select.value;
 
     if (selectedVal === "manual") {
-        // 直接手入力する場合
         manualBox.style.display = 'block';
         codeInput.value = '';
         nameInput.value = '';
@@ -548,7 +319,6 @@ function onSelectMember(posId) {
         codeInput.placeholder = "例：1267505";
         nameInput.placeholder = "例：山田太郎";
     } else if (selectedVal !== "") {
-        // 登録済み会員から選択した場合
         manualBox.style.display = 'none';
         const member = registeredMembers[selectedVal];
         codeInput.value = member.code;
@@ -556,7 +326,6 @@ function onSelectMember(posId) {
         codeInput.setAttribute('readonly', true);
         nameInput.setAttribute('readonly', true);
     } else {
-        // 未選択状態
         manualBox.style.display = 'none';
         codeInput.value = '';
         nameInput.value = '';
@@ -607,25 +376,25 @@ function addPositionBox() {
     box.id = `position_box_${positionCount}`;
     
     box.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong style="font-size:14px; color:var(--wood-dark);">ポジション #${positionCount}</strong>
+        <div class="pos-header">
+            <strong class="pos-title">ポジション #${positionCount}</strong>
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
-            <label style="color: var(--wood-medium);">👤 会員の選択</label>
+            <label class="label-accent">👤 会員の選択</label>
             <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
         </div>
 
         <div class="manual-input-box" id="manual_input_box_${positionCount}">
-            <span style="font-size: 12px; color: #8a6d3b; font-weight: bold;">📝 未登録の会員情報を下に入力してください</span>
+            <span class="manual-input-text">📝 未登録の会員情報を下に入力してください</span>
         </div>
         
-        <div class="form-row" style="margin-top: 8px;">
-            <div class="form-group" style="flex: 1.2;">
+        <div class="form-row mt-8">
+            <div class="form-group fg-code">
                 <label>会員番号</label>
                 <input type="text" id="pos_code_${positionCount}" readonly placeholder="上枠で選択してください" oninput="updatePreview()">
             </div>
-            <div class="form-group" style="flex: 0.8;">
+            <div class="form-group fg-num">
                 <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
@@ -642,7 +411,7 @@ function addPositionBox() {
                     <option value="custom">その他</option>
                 </select>
             </div>
-            <div class="form-group" style="flex: 1.5;">
+            <div class="form-group fg-name">
                 <label>会員名</label>
                 <input type="text" id="pos_name_${positionCount}" readonly placeholder="上枠で選択してください" oninput="updatePreview()">
             </div>
@@ -653,10 +422,10 @@ function addPositionBox() {
             <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：11" oninput="updatePreview()">
         </div>
 
-        <div class="form-group" style="margin-top: 10px;">
+        <div class="form-group mt-10">
             <label>購入商品</label>
             <div class="items-list" id="items_list_${positionCount}"></div>
-            <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+            <button class="btn btn-secondary btn-add-item" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
         </div>
         <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
     `;
@@ -693,8 +462,7 @@ function addItemRow(posId) {
     qtyContainer.innerHTML = `<select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個`;
 
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn-danger';
-    deleteBtn.style.cssText = 'padding: 6px 10px; font-size: 12px; margin-left: 4px;';
+    deleteBtn.className = 'btn btn-danger btn-del-item';
     deleteBtn.innerText = '✕';
     deleteBtn.onclick = function() {
         if (list.querySelectorAll('.item-row').length > 1) {
