@@ -36,11 +36,19 @@
     <h2>注文書作成ツール</h2>
 
     <!-- 1. 会員リポジトリ登録エリア -->
-    <div class="card">
-        <h3>1. 会員番号・名義の事前登録（複数可）</h3>
-        <p style="font-size: 12px; margin-top: -5px; color: #666;">※会員番号は下2桁以前の番号（00、01、02等のポジションは後に選択できます）を登録してください</p>
+    <div class="card" style="border-left: 4px solid #007aff;">
+        <h3>1. よく使う会員番号の事前登録 <span style="font-size: 11px; background: #e5f1ff; color: #007aff; padding: 2px 6px; border-radius: 4px; font-weight: normal; margin-left: 5px;">次回から自動入力！</span></h3>
+        
+        <!-- 注意書き案内ボックス -->
+        <div style="background-color: #f0f8ff; border: 1px solid #bae0ff; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; color: #1d395c; line-height: 1.5;">
+            <strong>💡 事前登録しておくと便利です！</strong><br>
+            ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
+            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
+            <span style="color: #666; font-size: 11px;">※会員番号は「1234567」のように枝番（00, 01等）を除いた番号で登録してください。</span>
+        </div>
+
         <div id="member_register_container"></div>
-        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px;" onclick="addMemberRegisterRow('', '')">+ 登録を追加</button>
+        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px; margin-top:4px;" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
     </div>
 
     <!-- 2. お届け先情報 -->
@@ -299,13 +307,13 @@ function saveMembers() {
 }
 
 function refreshMemberOptions(selectElement) {
-    let options = '<option value="">-- 会員リストから選択 --</option>';
+    let options = '<option value="">-- 選択すると自動入力されます --</option>';
     registeredMembers.forEach((m, idx) => {
         options += `<option value="${idx}">${m.code} ${m.name}</option>`;
     });
     selectElement.innerHTML = options;
 }
-  function onSelectMember(posId) {
+    function onSelectMember(posId) {
     const select = document.getElementById(`pos_select_${posId}`);
     const codeInput = document.getElementById(`pos_code_${posId}`);
     const nameInput = document.getElementById(`pos_name_${posId}`);
@@ -363,7 +371,7 @@ function addPositionBox() {
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
-            <label>会員リストから選ぶ</label>
+            <label style="color: #007aff;">👇 登録済み会員から選択（自動入力）</label>
             <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
         </div>
         
