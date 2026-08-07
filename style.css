@@ -472,3 +472,247 @@ footer {
   line-height: 1.6;
   margin: 0;
 }
+/* ==========================================
+   注文ツール（single.html）専用スタイル
+   ========================================== */
+
+body {
+    padding-bottom: 180px;
+}
+
+.card-accent {
+    border-left: 4px solid var(--accent-gold);
+}
+
+.badge-info {
+    font-size: 0.7rem;
+    background-color: #f0eae1;
+    color: var(--wood-dark);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.guide-box {
+    background-color: rgba(200, 162, 97, 0.1);
+    border: 1px solid var(--accent-gold);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    font-size: 0.78rem;
+    color: var(--wood-medium);
+    line-height: 1.5;
+}
+
+.note-text {
+    color: var(--text-sub);
+    font-size: 0.72rem;
+}
+
+.sub-note {
+    font-size: 0.72rem;
+    margin-top: -5px;
+    color: var(--text-sub);
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.fg-zip { flex: 0 0 120px; }
+.fg-code { flex: 1.2; }
+.fg-num { flex: 0.8; }
+.fg-name { flex: 1.5; }
+
+label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--wood-dark);
+}
+
+.label-accent {
+    color: var(--wood-medium);
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 0.88rem;
+    background-color: #fcfcfc;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--accent-gold);
+    background-color: #fff;
+}
+
+input[readonly] {
+    background-color: #f5f2ed;
+    color: var(--text-sub);
+    cursor: not-allowed;
+    border-color: var(--border-color);
+}
+
+textarea#output_text {
+    height: 180px;
+    font-family: monospace;
+}
+
+.btn-sm {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    margin-top: 4px;
+}
+
+.btn-danger {
+    background-color: #c94b4b;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+}
+
+.item-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.item-select {
+    flex: 2;
+}
+
+.item-qty-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.82rem;
+    color: var(--wood-dark);
+    font-weight: 500;
+}
+
+.item-qty {
+    min-width: 60px;
+}
+
+.btn-add-item {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.btn-del-item {
+    padding: 6px 10px;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.position-box {
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: #fdfbf7;
+}
+
+.pos-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.pos-title {
+    font-size: 14px;
+    color: var(--wood-dark);
+}
+
+.member-reg-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.footer-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
+    border-top: 1px solid var(--border-color);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.total-preview {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--wood-dark);
+    text-align: center;
+}
+
+.btn-copy {
+    background-color: var(--wood-dark);
+    color: var(--gold-light);
+    border: 1px solid var(--accent-gold);
+    padding: 13px;
+    font-size: 0.95rem;
+    width: 100%;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+}
+
+.pos-subtotal {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--wood-medium);
+    text-align: right;
+}
+
+.hidden-pw { display: none; }
+.custom-pos-container { display: none; margin-top: 8px; }
+
+.manual-input-box {
+    display: none;
+    margin-top: 8px;
+    padding: 10px;
+    background-color: #fdfaf3;
+    border: 1px solid var(--accent-gold);
+    border-radius: 8px;
+}
+
+.manual-input-text {
+    font-size: 12px;
+    color: #8a6d3b;
+    font-weight: bold;
+}
+
+.mt-8 { margin-top: 8px; }
+.mt-10 { margin-top: 10px; }
