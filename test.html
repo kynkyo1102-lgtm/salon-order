@@ -711,7 +711,8 @@
       wrapper.appendChild(summaryWrapper);
 
       document.getElementById('formSection').style.display = "none";
-      document.querySelector('.fixed-footer').style.display = "none";
+      const footerBar = document.querySelector('.footer-bar');
+      if (footerBar) footerBar.style.display = "none";
       document.getElementById('completeSection').style.display = "block";
       window.scrollTo(0, 0);
     }
