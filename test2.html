@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>プラッス ドゥ ニナ 南熊本店</title>
-  <!-- ロゴ用の筆記体(Great Vibes)と、重厚で綺麗な明朝体(Noto Serif JP) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* 時計のお写真から抽出したカラーパレット */
-      --wood-dark: #231610;        /* カウンター・奥の棚のディープブラウン */
-      --wood-medium: #4a3222;      /* 木目の温かみのあるブラウン */
-      --accent-gold: #c8a261;      /* 時計の文字盤・歯車のアンティークゴールド */
-      --gold-light: #e6cb96;       /* やわらかいゴールドの輝き */
-      --bg-color: #f7f4ee;          /* ガラス越しの光を感じる生成り色 */
+      --wood-dark: #231610;
+      --wood-medium: #4a3222;
+      --accent-gold: #c8a261;
+      --gold-light: #e6cb96;
+      --bg-color: #f7f4ee;
       --card-bg: #ffffff;
-      --text-main: #2b2019;        /* ダークブラウンブラック */
-      --text-sub: #78695f;         /* シックなブラウングレー */
-      --border-color: #e5dac9;      /* 繊細なゴールド調の境界線 */
+      --text-main: #2b2019;
+      --text-sub: #78695f;
+      --border-color: #e5dac9;
       --font-serif: 'Noto Serif JP', "Yu Mincho", serif;
       --font-script: 'Great Vibes', cursive;
     }
@@ -36,18 +34,17 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ヘッダー：記念時計と木製カウンターの重厚感 */
+    /* ヘッダー */
     header {
       background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
       color: #ffffff;
-      padding: 36px 20px 28px;
+      padding: 32px 20px 24px;
       text-align: center;
       border-bottom: 3px solid var(--accent-gold);
       box-shadow: 0 4px 20px rgba(0,0,0,0.25);
       position: relative;
     }
 
-    /* 時計のようなゴールドの繊細な枠線飾り */
     header::after {
       content: "";
       position: absolute;
@@ -57,7 +54,6 @@
       pointer-events: none;
     }
 
-    /* 時計のロゴ風 筆記体ブランド名 */
     .header-logo {
       font-family: var(--font-script);
       font-size: 2.2rem;
@@ -75,30 +71,49 @@
       letter-spacing: 0.12em;
     }
 
-    .subtitle {
-      font-size: 0.75rem;
-      color: var(--gold-light);
-      margin-top: 8px;
-      letter-spacing: 0.08em;
-      opacity: 0.85;
-    }
-
     main {
       flex: 1;
       max-width: 480px;
       width: 100%;
       margin: 0 auto;
-      padding: 26px 16px;
+      padding: 24px 16px;
       box-sizing: border-box;
     }
 
-    /* セクションタイトル */
-    .section-title {
-      font-size: 0.9rem;
+    /* 8/7●● 日付形式のお知らせ */
+    .news-box {
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(35, 22, 16, 0.04);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .news-date {
       font-weight: 600;
       color: var(--wood-medium);
-      margin: 28px 0 12px 4px;
-      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .news-text {
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    /* ツールセクションの見出し */
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--wood-medium);
+      margin: 20px 0 12px 4px;
+      letter-spacing: 0.08em;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -111,36 +126,18 @@
       background: linear-gradient(90deg, var(--border-color), transparent);
     }
 
-    /* お知らせ枠：時計のプレイト風メモ */
-    .news-box {
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent-gold);
-      border-radius: 8px;
-      padding: 16px 18px;
-      margin-bottom: 24px;
-      font-size: 0.83rem;
-      line-height: 1.6;
-      box-shadow: 0 2px 8px rgba(35, 22, 16, 0.04);
+    /* LINE送信用注釈ガイド */
+    .usage-guide {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      background-color: rgba(200, 162, 97, 0.1);
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      line-height: 1.4;
     }
 
-    .news-tag {
-      display: inline-block;
-      background-color: var(--wood-dark);
-      color: var(--gold-light);
-      font-size: 0.65rem;
-      padding: 2px 8px;
-      border-radius: 4px;
-      margin-bottom: 8px;
-      letter-spacing: 0.08em;
-    }
-
-    .news-box p {
-      margin: 0;
-      color: var(--text-main);
-    }
-
-    /* メニューカード：透明感と重厚感の融合 */
+    /* メニューカード */
     .menu-card {
       background-color: var(--card-bg);
       border-radius: 12px;
@@ -166,7 +163,7 @@
       width: 44px;
       height: 44px;
       background: linear-gradient(135deg, #fbf7ef, #ebd8ba);
-      border-radius: 50%; /* 時計の丸型文字盤イメージ */
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -203,9 +200,44 @@
       margin: 0;
     }
 
+    /* 店舗案内・サブ情報（目立たずコンパクトに配置） */
+    .sub-info-area {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .sub-info-title {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .sub-info-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .sub-link-btn {
+      flex: 1;
+      background-color: rgba(255,255,255,0.7);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 8px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
     footer {
       text-align: center;
-      padding: 26px 15px;
+      padding: 24px 15px;
       font-size: 0.7rem;
       color: var(--text-sub);
       letter-spacing: 0.1em;
@@ -215,22 +247,24 @@
 <body>
 
   <header>
-    <!-- 時計に彫刻されているロゴ「Place de Nina」を再現 -->
     <div class="header-logo">Place de Nina</div>
     <h1>プラッス ドゥ ニナ 南熊本店</h1>
-    <div class="subtitle">公式ご注文・インフォメーション</div>
   </header>
 
   <main>
 
-    <!-- 本日のお知らせ -->
+    <!-- 8/7●● 日付形式のお知らせ -->
     <div class="news-box">
-      <span class="news-tag">INFORMATION</span>
-      <p>【完売案内】本日◯◯は完売いたしました。<br>その他商品は通常通りご注文いただけます。</p>
+      <span class="news-date">8/7</span>
+      <p class="news-text">【完売案内】本日◯◯は完売いたしました。</p>
     </div>
 
-    <!-- 注文セクション -->
-    <div class="section-title">ORDER MENU</div>
+    <!-- 注文ツールセクション -->
+    <div class="section-title">LINEご注文作成ツール</div>
+    
+    <div class="usage-guide">
+      ※ここで作成したテキストや画像をLINEに貼り付けてご送信ください。
+    </div>
 
     <a href="single.html" class="menu-card">
       <div class="card-icon">
@@ -252,28 +286,18 @@
       </div>
     </a>
 
-    <!-- 店舗案内セクション -->
-    <div class="section-title">SHOP INFO</div>
-
-    <a href="info.html" class="menu-card">
-      <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+    <!-- 店舗情報・お振込先（最下部にコンパクト配置） -->
+    <div class="sub-info-area">
+      <div class="sub-info-title">店舗情報・各種ご案内</div>
+      <div class="sub-info-links">
+        <a href="info.html" class="sub-link-btn">
+          <span>📍</span> 店舗案内・営業時間
+        </a>
+        <a href="bank.html" class="sub-link-btn">
+          <span>💳</span> お振込先のご案内
+        </a>
       </div>
-      <div class="card-content">
-        <div class="card-title">店舗案内（住所・営業時間）</div>
-        <p class="card-desc">アクセス、営業時間、お電話番号はこちらからご確認いただけます。</p>
-      </div>
-    </a>
-
-    <a href="bank.html" class="menu-card">
-      <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-      </div>
-      <div class="card-content">
-        <div class="card-title">お振込先のご案内</div>
-        <p class="card-desc">お支払いにご利用いただける銀行口座情報の一覧です。</p>
-      </div>
-    </a>
+    </div>
 
   </main>
 
