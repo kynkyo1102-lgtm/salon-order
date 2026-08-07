@@ -14,6 +14,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+
+  <style>
+    /* スマホでの入力しやすさと視認性を向上させるためのスタイル調整 */
+    input[type="text"], 
+    input[type="password"], 
+    input[type="number"], 
+    input[type="tel"], 
+    select {
+      font-size: 1rem !important; /* スマホでの自動ズーム防止 & 視認性確保 */
+      padding: 12px 14px !important;
+      height: auto !important;
+      box-sizing: border-box;
+      border-radius: 6px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+    }
+    .form-row input, .form-row select {
+      width: auto;
+    }
+    /* 数量セレクトボックス等の操作性向上 */
+    .qty-select {
+      font-size: 1rem !important;
+      padding: 8px !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -29,7 +55,7 @@
       <div id="formSection">
         
         <div style="text-align: right; margin-bottom: 12px;">
-          <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" style="font-size: 12px; color: var(--wood-medium); text-decoration: underline;">
+          <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" style="font-size: 13px; color: var(--wood-medium); text-decoration: underline;">
             📖 詳しい操作手順・使い方を見る
           </a>
         </div>
@@ -40,7 +66,7 @@
           <!-- 基本情報エリア -->
           <div class="info-card">
             <div class="section-title">1. 基本情報</div>
-            <div class="form-group" style="margin-bottom: 12px;">
+            <div class="form-group" style="margin-bottom: 14px;">
               <label for="month">発注月度 *</label>
               <select id="month" name="month" required>
                 <option value="">選択してください</option>
@@ -49,12 +75,12 @@
               </select>
             </div>
 
-            <div class="form-group" style="margin-bottom: 12px;">
+            <div class="form-group" style="margin-bottom: 14px;">
               <label>購入会員番号 *</label>
               <div class="form-row" style="display: flex; gap: 8px; align-items: center;">
                 <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
                 <span>-</span>
-                <select id="memberIdSub" style="width: 85px;"></select>
+                <select id="memberIdSub" style="width: 90px;"></select>
               </div>
             </div>
 
@@ -68,7 +94,7 @@
           <div class="info-card">
             <div class="section-title">2. お支払い方法</div>
             
-            <div class="form-group" style="margin-bottom: 8px;">
+            <div class="form-group" style="margin-bottom: 10px;">
               <label for="paymentMethod">お支払い方法を選択 *</label>
               <select id="paymentMethod" required onchange="togglePaymentFields()">
                 <option value="現金">現金</option>
@@ -79,14 +105,14 @@
             </div>
 
             <!-- ニナファームカード / クレジットカード選択時の追加エリア -->
-            <div id="paymentExtraFields" style="display: none; background-color: rgba(200, 162, 97, 0.08); padding: 12px; border-radius: 8px; border: 1px solid var(--accent-gold); margin-top: 10px;">
-              <!-- E-Service PW（両方で表示） -->
-              <div class="form-group" id="eservicePwGroup" style="margin-bottom: 8px;">
+            <div id="paymentExtraFields" style="display: none; background-color: rgba(200, 162, 97, 0.08); padding: 14px; border-radius: 8px; border: 1px solid var(--accent-gold); margin-top: 10px;">
+              <!-- E-Service PW -->
+              <div class="form-group" id="eservicePwGroup" style="margin-bottom: 12px;">
                 <label for="eservicePw">E-Service PW</label>
                 <input type="password" id="eservicePw" placeholder="パスワードを入力">
               </div>
 
-              <!-- ニナポイント（ニナファームカードのみ表示） -->
+              <!-- ニナポイント -->
               <div class="form-group" id="ninaPointGroup" style="display: none;">
                 <label for="ninaPoint">ニナポイント利用（※利用する場合のみ）</label>
                 <input type="number" id="ninaPoint" placeholder="例: 1000" min="0" oninput="updateCalc()">
@@ -99,17 +125,17 @@
           <div class="info-card">
             <div class="section-title">3. お届け先（配送ご希望の方のみ入力）</div>
             
-            <div class="form-group" style="margin-bottom: 8px;">
+            <div class="form-group" style="margin-bottom: 12px;">
               <label for="shipName">お届け先お名前</label>
               <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）">
             </div>
 
-            <div class="form-group" style="margin-bottom: 8px;">
+            <div class="form-group" style="margin-bottom: 12px;">
               <label for="zip">郵便番号（ハイフンなし7桁）</label>
               <input type="text" id="zip" class="p-postal-code" maxlength="7" placeholder="例: 8600000">
             </div>
 
-            <div class="form-group" style="margin-bottom: 8px;">
+            <div class="form-group" style="margin-bottom: 12px;">
               <label for="address">住所</label>
               <input type="text" id="address" class="p-region p-locality p-street-address p-extended-address" placeholder="自動入力されます">
             </div>
@@ -119,8 +145,8 @@
               <input type="tel" id="phone" placeholder="例: 09012345678">
             </div>
 
-            <div style="text-align: right; margin-top: 10px;">
-              <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: var(--wood-medium); text-decoration: underline; font-size: 11px; cursor: pointer;">
+            <div style="text-align: right; margin-top: 12px;">
+              <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: var(--wood-medium); text-decoration: underline; font-size: 12px; cursor: pointer; padding: 6px;">
                 端末に保存された住所等を削除
               </button>
             </div>
@@ -134,9 +160,9 @@
               <thead>
                 <tr style="background-color: var(--bg-cream);">
                   <th style="border: 1px solid var(--border-color); padding: 8px 6px; text-align: left;">商品名</th>
-                  <th style="border: 1px solid var(--border-color); padding: 8px 6px; width: 70px; text-align: center;">価格(税込)</th>
-                  <th style="border: 1px solid var(--border-color); padding: 8px 6px; width: 65px; text-align: center;">獲得Pt</th>
-                  <th style="border: 1px solid var(--border-color); padding: 8px 6px; width: 70px; text-align: center;">数量</th>
+                  <th style="border: 1px solid var(--border-color); padding: 8px 6px; width: 75px; text-align: center;">価格(税込)</th>
+                  <th style="border: 1px solid var(--border-color); padding: 8px 6px; width: 70px; text-align: center;">獲得Pt</th>
+                  <th style="border: 1px solid var(--border-color); padding: 8px 6px; width: 75px; text-align: center;">数量</th>
                 </tr>
               </thead>
               <tbody id="productTableBody"></tbody>
@@ -149,23 +175,23 @@
               📋 追加済みの注文（<span id="orderCount">0</span>件）
             </div>
             <div id="addedOrdersList" style="font-size: 0.88rem; margin-bottom: 12px;"></div>
-            <button type="button" onclick="generateAllReceipts()" class="btn-secondary" style="width: 100%; padding: 12px; background-color: var(--wood-dark); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px;">
+            <button type="button" onclick="generateAllReceipts()" class="btn-secondary" style="width: 100%; padding: 14px; background-color: var(--wood-dark); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 1rem;">
               🏁 注文書の一括作成画面へ
             </button>
           </div>
 
           <!-- 戻るボタン -->
-          <a href="index.html" class="back-btn" style="display: block; text-align: center; margin-top: 20px; color: var(--wood-medium); text-decoration: none; font-size: 0.9rem;">
+          <a href="index.html" class="back-btn" style="display: block; text-align: center; margin-top: 20px; color: var(--wood-medium); text-decoration: none; font-size: 0.95rem; padding: 10px;">
             ‹ トップページへ戻る
           </a>
 
           <!-- 下部固定フッター -->
           <div class="footer-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px;">
             <div class="total-preview" style="font-size: 0.88rem;">
-              お支払額: <span id="displayPrice" style="font-size: 1.1rem; color: #b22222; font-weight:bold;">¥0</span><br>
-              <span style="font-size: 0.75rem; color: var(--wood-medium);">(小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" style="color: #2b5797;">0pt</span>)</span>
+              お支払額: <span id="displayPrice" style="font-size: 1.15rem; color: #b22222; font-weight:bold;">¥0</span><br>
+              <span style="font-size: 0.78rem; color: var(--wood-medium);">(小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" style="color: #2b5797;">0pt</span>)</span>
             </div>
-            <button type="button" onclick="addOrderToList()" class="btn-copy" style="padding: 10px 18px; font-size: 0.88rem;">
+            <button type="button" onclick="addOrderToList()" class="btn-copy" style="padding: 12px 20px; font-size: 0.92rem; font-weight: bold;">
               ＋ この注文を追加
             </button>
           </div>
@@ -176,8 +202,8 @@
       <!-- 完成画面 -->
       <div id="completeSection" style="display: none;">
         
-        <div class="screenshot-notice" style="background-color: rgba(200, 162, 97, 0.1); border: 1px solid var(--accent-gold); color: var(--wood-dark); padding: 12px; border-radius: 8px; font-size: 0.85rem; text-align: center; line-height: 1.5; margin-bottom: 15px;">
-          📱 各カード下の緑のボタンをタップすると、注文書を画像として表示・保存できます！
+        <div class="screenshot-notice" style="background-color: rgba(200, 162, 97, 0.1); border: 1px solid var(--accent-gold); color: var(--wood-dark); padding: 14px; border-radius: 8px; font-size: 0.88rem; text-align: center; line-height: 1.6; margin-bottom: 15px;">
+          📱 各カード下の緑のボタンをタップすると、注文書画像を保存できます！
         </div>
 
         <!-- 注文書カードが動的に生成されるコンテナ -->
@@ -185,8 +211,8 @@
 
         <!-- 下部ボタンエリア -->
         <div style="margin-top: 20px;">
-          <button onclick="downloadAllPDF()" class="btn-secondary" style="width: 100%; padding: 12px; background-color: #2b5797; color: white; border: none; border-radius: 8px; font-weight: bold; margin-bottom: 10px; cursor: pointer;">📄 全枚数をまとめて1つのPDFで保存</button>
-          <button onclick="location.reload()" class="btn-secondary" style="width: 100%; padding: 12px; background-color: #6c757d; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">🔄 最初の入力に戻る</button>
+          <button onclick="downloadAllPDF()" class="btn-secondary" style="width: 100%; padding: 14px; background-color: #2b5797; color: white; border: none; border-radius: 8px; font-weight: bold; margin-bottom: 12px; cursor: pointer; font-size: 1rem;">📄 全枚数をまとめて1つのPDFで保存</button>
+          <button onclick="location.reload()" class="btn-secondary" style="width: 100%; padding: 14px; background-color: #6c757d; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem;">🔄 最初の入力に戻る</button>
         </div>
 
       </div>
@@ -267,11 +293,11 @@
         }
 
         tr.innerHTML = `
-          <td style="border: 1px solid var(--border-color); padding: 6px 4px;"><strong>${prod}</strong></td>
-          <td style="border: 1px solid var(--border-color); padding: 6px 4px; color: var(--wood-medium); text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
-          <td style="border: 1px solid var(--border-color); padding: 6px 4px; text-align: right; color: #2b5797; font-weight: bold;" id="pt-cell-${prodIndex}">-</td>
-          <td style="border: 1px solid var(--border-color); padding: 6px 4px; text-align: center;">
-            <select class="qty-select" data-product="${prod}" style="width: 100%; padding: 4px; border: 1px solid var(--border-color); border-radius: 4px;">
+          <td style="border: 1px solid var(--border-color); padding: 8px 6px;"><strong>${prod}</strong></td>
+          <td style="border: 1px solid var(--border-color); padding: 8px 6px; color: var(--wood-medium); text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
+          <td style="border: 1px solid var(--border-color); padding: 8px 6px; text-align: right; color: #2b5797; font-weight: bold;" id="pt-cell-${prodIndex}">-</td>
+          <td style="border: 1px solid var(--border-color); padding: 8px 6px; text-align: center;">
+            <select class="qty-select" data-product="${prod}">
               ${qtyOptions}
             </select>
           </td>
@@ -459,12 +485,12 @@
       allOrders.forEach((ord, i) => {
         let ptNote = ord.ninaPoint > 0 ? ` (ポイント利用 -¥${ord.ninaPoint.toLocaleString()})` : '';
         html += `
-          <div style="border-bottom: 1px dashed var(--border-color); padding: 6px 0; display: flex; justify-content: space-between; align-items: center;">
+          <div style="border-bottom: 1px dashed var(--border-color); padding: 8px 0; display: flex; justify-content: space-between; align-items: center;">
             <div>
               <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:var(--wood-medium);">[ID: ${ord.orderId}]</small> - <span style="color:var(--wood-dark);">${ord.paymentMethod}</span><br>
               <small style="color: var(--wood-medium);">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
             </div>
-            <button type="button" onclick="removeOrder(${i})" style="color: #b22222; border: none; background: none; cursor: pointer; font-size: 0.8rem;">削除</button>
+            <button type="button" onclick="removeOrder(${i})" style="color: #b22222; border: none; background: none; cursor: pointer; font-size: 0.85rem; padding: 6px;">削除</button>
           </div>
         `;
       });
@@ -595,7 +621,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn-card-download" style="width: 100%; padding: 12px; background-color: #2e7d32; color: white; border: none; border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: bold; cursor: pointer;" onclick="downloadSingleCard('card-target-${index}')">
+          <button type="button" class="btn-card-download" style="width: 100%; padding: 14px; background-color: #2e7d32; color: white; border: none; border-radius: 0 0 8px 8px; font-size: 0.95rem; font-weight: bold; cursor: pointer;" onclick="downloadSingleCard('card-target-${index}')">
             📷 この注文書（${ord.fullName}様分）を画像保存
           </button>
         `;
@@ -704,7 +730,7 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn-card-download" style="width: 100%; padding: 12px; background-color: var(--wood-dark); color: white; border: none; border-radius: 0 0 8px 8px; font-size: 0.9rem; font-weight: bold; cursor: pointer;" onclick="downloadSingleCard('card-target-summary')">
+        <button type="button" class="btn-card-download" style="width: 100%; padding: 14px; background-color: var(--wood-dark); color: white; border: none; border-radius: 0 0 8px 8px; font-size: 0.95rem; font-weight: bold; cursor: pointer;" onclick="downloadSingleCard('card-target-summary')">
           📊 「全体まとめ」を画像保存
         </button>
       `;
@@ -732,9 +758,13 @@
         const canvas = await html2canvas(targetElement, { scale: 2 });
         const imgData = canvas.toDataURL('image/png');
 
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const now = new Date();
+        const timeStr = now.getFullYear() + String(now.getMonth()+1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + "_" + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+        const filename = `注文書_${timeStr}.png`;
 
-        if (isMobile) {
+        if (isIOS) {
+          // iPhoneの場合は従来どおり長押し保存用モーダルを表示
           const modal = document.createElement('div');
           modal.className = 'image-modal-overlay';
           modal.style.position = 'fixed';
@@ -752,24 +782,34 @@
           modal.style.boxSizing = 'border-box';
 
           modal.innerHTML = `
-            <div style="color: #fff; font-size: 0.9rem; margin-bottom: 12px; text-align: center; font-weight: bold; line-height: 1.5;">
+            <div style="color: #fff; font-size: 0.95rem; margin-bottom: 12px; text-align: center; font-weight: bold; line-height: 1.5;">
               📱 画像が生成されました！<br>
               下の画像を<span style="color: #ffeb3b; font-size: 1.1em;">「長押し」</span>して<br>
               【画像を保存】または【"写真"に追加】してください
             </div>
             <img src="${imgData}" style="max-width: 90%; max-height: 65vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); background: #fff; object-fit: contain;" alt="注文書画像">
-            <button type="button" style="margin-top: 15px; padding: 10px 25px; background: #6c757d; color: white; border: none; border-radius: 20px; font-size: 0.9rem; cursor: pointer; font-weight: bold;" onclick="this.parentElement.remove()">✕ 閉じる</button>
+            <button type="button" style="margin-top: 15px; padding: 10px 25px; background: #6c757d; color: white; border: none; border-radius: 20px; font-size: 0.95rem; cursor: pointer; font-weight: bold;" onclick="this.parentElement.remove()">✕ 閉じる</button>
           `;
           document.body.appendChild(modal);
         } else {
+          // AndroidおよびPCの場合はBlobを経由して直接ファイルとしてダウンロード
+          const byteString = atob(imgData.split(',')[1]);
+          const mimeString = imgData.split(',')[0].split(':')[1].split(';')[0];
+          const ab = new ArrayBuffer(byteString.length);
+          const ia = new Uint8Array(ab);
+          for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+          }
+          const blob = new Blob([ab], {type: mimeString});
+          const blobUrl = URL.createObjectURL(blob);
+
           const link = document.createElement('a');
-          link.href = imgData;
-          const now = new Date();
-          const timeStr = now.getFullYear() + String(now.getMonth()+1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + "_" + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
-          link.download = `注文書_${timeStr}.png`;
+          link.href = blobUrl;
+          link.download = filename;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
         }
       } catch (e) {
         alert("画像の生成に失敗しました: " + e.message);
