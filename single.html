@@ -3,135 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サロン専用注文書作成ツール</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f5f5f7; margin: 0; padding: 15px; color: #333; padding-bottom: 180px; }
-        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; }
-        h3 { margin-top: 0; color: #007aff; border-bottom: 2px solid #f0f0f2; padding-bottom: 8px; font-size: 16px; }
-        .form-group { margin-bottom: 12px; }
-        .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
-        .form-row .form-group { margin-bottom: 0; flex: 1; }
-        label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #555; }
-        input[type="text"], textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        input[readonly] { background-color: #f0f0f2; color: #555; cursor: not-allowed; border-color: #e0e0e5; }
-        textarea { height: 60px; resize: vertical; }
-        .btn { background-color: #007aff; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; font-size: 14px; }
-        .btn-secondary { background-color: #e5e5ea; color: #333; }
-        .btn-danger { background-color: #ff3b30; color: white; padding: 6px 10px; font-size: 12px; }
-        .item-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-        .item-select { flex: 2; }
-        .item-qty-container { display: flex; align-items: center; gap: 4px; }
-        .item-qty { min-width: 60px; }
-        .position-box { border: 1px solid #e5e5ea; padding: 12px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
-        .member-reg-row { display: flex; gap: 8px; margin-bottom: 8px; }
-        .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); padding: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
-        .total-preview { font-size: 14px; font-weight: bold; text-align: center; }
-        .btn-copy { background-color: #34c759; padding: 12px; font-size: 16px; width: 100%; text-align: center; }
-        .pos-subtotal { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #ccc; font-size: 13px; font-weight: bold; color: #007aff; text-align: right; }
-        .hidden-pw { display: none; }
-        .custom-pos-container { display: none; margin-top: 8px; }
-        .manual-input-box { display: none; margin-top: 8px; padding: 10px; background: #fff8e6; border: 1px solid #ffe58f; border-radius: 8px; }
-    </style>
+    <title>サロン専用注文書作成ツール - Place de Nina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
-    <h2>注文書作成ツール</h2>
+    <header>
+        <div class="header-logo">Place de Nina</div>
+        <h1>LINEご注文作成ツール</h1>
+    </header>
 
-    <!-- 1. 会員リポジトリ登録エリア -->
-    <div class="card" style="border-left: 4px solid #007aff;">
-        <h3>1. よく使う会員番号の事前登録 <span style="font-size: 11px; background: #e5f1ff; color: #007aff; padding: 2px 6px; border-radius: 4px; font-weight: normal; margin-left: 5px;">次回から自動入力！</span></h3>
-        
-        <!-- 注意書き案内ボックス -->
-        <div style="background-color: #f0f8ff; border: 1px solid #bae0ff; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; color: #1d395c; line-height: 1.5;">
-            <strong>💡 事前登録しておくと便利です！</strong><br>
-            ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
-            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
-            <span style="color: #666; font-size: 11px;">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+    <main>
+
+        <!-- 1. 会員リポジトリ登録エリア -->
+        <div class="card card-accent">
+            <h3>1. よく使う会員番号の事前登録 <span class="badge-info">次回から自動入力！</span></h3>
+            
+            <div class="guide-box">
+                <strong>💡 事前登録しておくと便利です！</strong><br>
+                ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
+                ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
+                <span class="note-text">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+            </div>
+
+            <div id="member_register_container"></div>
+            <button class="btn btn-secondary btn-sm" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
         </div>
 
-        <div id="member_register_container"></div>
-        <button class="btn btn-secondary" style="font-size:12px; padding:6px 12px; margin-top:4px;" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
-    </div>
-
-    <!-- 2. お届け先情報 -->
-    <div class="card">
-        <h3>2. お届け先情報</h3>
-        <div class="form-row">
-            <div class="form-group" style="flex: 0 0 120px;">
-                <label>郵便番号</label>
-                <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
+        <!-- 2. お届け先情報 -->
+        <div class="card">
+            <h3>2. お届け先情報</h3>
+            <div class="form-row">
+                <div class="form-group fg-zip">
+                    <label>郵便番号</label>
+                    <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
+                </div>
+                <div class="form-group">
+                    <label>お届け先氏名（宛名）</label>
+                    <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+                </div>
             </div>
             <div class="form-group">
-                <label>お届け先氏名（宛名）</label>
-                <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+                <label>ご住所</label>
+                <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+            <div class="form-group">
+                <label>電話番号</label>
+                <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+            <div class="form-group">
+                <label>備考</label>
+                <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
             </div>
         </div>
-        <div class="form-group">
-            <label>ご住所</label>
-            <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
-        </div>
-        <div class="form-group">
-            <label>電話番号</label>
-            <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
-        </div>
-        <div class="form-group">
-            <label>備考</label>
-            <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
-        </div>
-    </div>
 
-    <!-- 3. 決済方法 -->
-    <div class="card">
-        <h3>3. 決済方法</h3>
-        <div class="form-group">
-            <label>決済方法の選択</label>
-            <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
-                <option value="現金">現金</option>
-                <option value="ニナファームカード">ニナファームカード</option>
-                <option value="クレジットカード">クレジットカード</option>
-                <option value="PayPay">PayPay</option>
+        <!-- 3. 決済方法 -->
+        <div class="card">
+            <h3>3. 決済方法</h3>
+            <div class="form-group">
+                <label>決済方法の選択</label>
+                <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
+                    <option value="現金">現金</option>
+                    <option value="ニナファームカード">ニナファームカード</option>
+                    <option value="クレジットカード">クレジットカード</option>
+                    <option value="PayPay">PayPay</option>
+                </select>
+            </div>
+            <div class="hidden-pw" id="pw_container">
+                <div class="form-group" id="group_pw_code">
+                    <label>E-ServiceログインPW</label>
+                    <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+                </div>
+                <div class="form-group" id="group_nina_point">
+                    <label>使用するポイントNiNA</label>
+                    <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
+                </div>
+            </div>
+            <div class="form-group mt-10">
+                <label>🧾 領収書が必要な場合は宛名をお書きください</label>
+                <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
+            </div>
+        </div>
+
+        <!-- 4. 処理月度の選択 -->
+        <div class="card">
+            <h3>4. 処理月度の選択</h3>
+            <select id="target_month" onchange="onMonthChange();">
+                <option value="7月度">7月度</option>
+                <option value="8月度" selected>8月度</option>
             </select>
         </div>
-        <!-- ニナファームカード / クレカ選択時に表示されるエリア -->
-        <div class="hidden-pw" id="pw_container">
-            <div class="form-group" id="group_pw_code">
-                <label>E-ServiceログインPW</label>
-                <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
-            </div>
-            <div class="form-group" id="group_nina_point">
-                <label>使用するポイントNiNA</label>
-                <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
-            </div>
+
+        <!-- 5. ポジション別注文 -->
+        <div class="card">
+            <h3>5. 会員番号ごとの注文</h3>
+            <div id="positions_container"></div>
+            <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
         </div>
-        <!-- 領収書宛名入力枠 -->
-        <div class="form-group" style="margin-top: 10px;">
-            <label>🧾 領収書が必要な場合は宛名をお書きください</label>
-            <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
+
+        <!-- 6. 生成された注文テキスト -->
+        <div class="card">
+            <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
+            <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+            <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
         </div>
-    </div>
 
-    <!-- 4. 処理月度の選択 -->
-    <div class="card">
-        <h3>4. 処理月度の選択</h3>
-        <select id="target_month" onchange="onMonthChange();">
-            <option value="7月度">7月度</option>
-            <option value="8月度" selected>8月度</option>
-        </select>
-    </div>
+        <!-- 戻るボタン -->
+        <a href="index.html" class="back-btn">
+            ‹ トップページへ戻る
+        </a>
 
-    <!-- 5. ポジション別注文 -->
-    <div class="card">
-        <h3>5. 会員番号ごとの注文</h3>
-        <div id="positions_container"></div>
-        <button class="btn btn-secondary" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
-    </div>
-
-    <!-- 6. 生成された注文テキスト（確認・手動コピー用エリア） -->
-    <div class="card">
-        <h3>6. 生成された注文テキスト（確認・手動コピー用）</h3>
-        <p style="font-size: 12px; margin-top: -5px; color: #666;">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
-        <textarea id="output_text" style="height: 180px; font-family: monospace;" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
-    </div>
+    </main>
 
     <!-- 固定下部バー -->
     <div class="footer-bar">
@@ -278,7 +263,7 @@ function addMemberRegisterRow(code = '', name = '') {
     row.innerHTML = `
         <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
         <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
-        <button class="btn btn-danger" style="padding:10px;" onclick="removeMemberRegisterRow(this)">✕</button>
+        <button class="btn btn-danger" onclick="removeMemberRegisterRow(this)">✕</button>
     `;
     container.appendChild(row);
 }
@@ -316,7 +301,8 @@ function refreshMemberOptions(selectElement) {
     options += '<option value="manual">＋ 新しい会員情報を直接入力する</option>';
     selectElement.innerHTML = options;
 }
-  function onSelectMember(posId) {
+
+function onSelectMember(posId) {
     const select = document.getElementById(`pos_select_${posId}`);
     const codeInput = document.getElementById(`pos_code_${posId}`);
     const nameInput = document.getElementById(`pos_name_${posId}`);
@@ -325,7 +311,6 @@ function refreshMemberOptions(selectElement) {
     const selectedVal = select.value;
 
     if (selectedVal === "manual") {
-        // 直接手入力する場合
         manualBox.style.display = 'block';
         codeInput.value = '';
         nameInput.value = '';
@@ -334,7 +319,6 @@ function refreshMemberOptions(selectElement) {
         codeInput.placeholder = "例：1267505";
         nameInput.placeholder = "例：山田太郎";
     } else if (selectedVal !== "") {
-        // 登録済み会員から選択した場合
         manualBox.style.display = 'none';
         const member = registeredMembers[selectedVal];
         codeInput.value = member.code;
@@ -342,7 +326,6 @@ function refreshMemberOptions(selectElement) {
         codeInput.setAttribute('readonly', true);
         nameInput.setAttribute('readonly', true);
     } else {
-        // 未選択状態
         manualBox.style.display = 'none';
         codeInput.value = '';
         nameInput.value = '';
@@ -393,25 +376,25 @@ function addPositionBox() {
     box.id = `position_box_${positionCount}`;
     
     box.innerHTML = `
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong style="font-size:14px; color:#555;">ポジション #${positionCount}</strong>
+        <div class="pos-header">
+            <strong class="pos-title">ポジション #${positionCount}</strong>
             ${positionCount > 1 ? `<button class="btn btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
         </div>
         <div class="form-group">
-            <label style="color: #007aff;">👤 会員の選択</label>
+            <label class="label-accent">👤 会員の選択</label>
             <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
         </div>
 
         <div class="manual-input-box" id="manual_input_box_${positionCount}">
-            <span style="font-size: 12px; color: #8a6d3b; font-weight: bold;">📝 未登録の会員情報を下に入力してください</span>
+            <span class="manual-input-text">📝 未登録の会員情報を下に入力してください</span>
         </div>
         
-        <div class="form-row" style="margin-top: 8px;">
-            <div class="form-group" style="flex: 1.2;">
+        <div class="form-row mt-8">
+            <div class="form-group fg-code">
                 <label>会員番号</label>
                 <input type="text" id="pos_code_${positionCount}" readonly placeholder="上枠で選択してください" oninput="updatePreview()">
             </div>
-            <div class="form-group" style="flex: 0.8;">
+            <div class="form-group fg-num">
                 <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
@@ -428,7 +411,7 @@ function addPositionBox() {
                     <option value="custom">その他</option>
                 </select>
             </div>
-            <div class="form-group" style="flex: 1.5;">
+            <div class="form-group fg-name">
                 <label>会員名</label>
                 <input type="text" id="pos_name_${positionCount}" readonly placeholder="上枠で選択してください" oninput="updatePreview()">
             </div>
@@ -439,10 +422,10 @@ function addPositionBox() {
             <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：11" oninput="updatePreview()">
         </div>
 
-        <div class="form-group" style="margin-top: 10px;">
+        <div class="form-group mt-10">
             <label>購入商品</label>
             <div class="items-list" id="items_list_${positionCount}"></div>
-            <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px; margin-top:5px;" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+            <button class="btn btn-secondary btn-add-item" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
         </div>
         <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
     `;
@@ -479,8 +462,7 @@ function addItemRow(posId) {
     qtyContainer.innerHTML = `<select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個`;
 
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn-danger';
-    deleteBtn.style.cssText = 'padding: 6px 10px; font-size: 12px; margin-left: 4px;';
+    deleteBtn.className = 'btn btn-danger btn-del-item';
     deleteBtn.innerText = '✕';
     deleteBtn.onclick = function() {
         if (list.querySelectorAll('.item-row').length > 1) {
@@ -672,4 +654,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html>  
+</html>
