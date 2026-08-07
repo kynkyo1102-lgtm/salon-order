@@ -6,8 +6,8 @@
     <title>サロン専用注文書作成ツール - Place de Nina</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -87,7 +87,6 @@
                 <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
             </div>
         </div>
-
         <!-- 4. 処理月度の選択 -->
         <div class="card">
             <h3>4. 処理月度の選択</h3>
@@ -170,7 +169,7 @@ const products = [
     { name: "モン コパン", price: 3500, p7: 2800, p8: 2800 },
     { name: "モン コパン ジュレ", price: 3500, p7: 2800, p8: 2800 }
 ];
-    let positionCount = 0;
+ let positionCount = 0;
 let registeredMembers = [];
 
 function checkZipCode() {
@@ -654,4 +653,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html>
+</html>   
