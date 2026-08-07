@@ -257,3 +257,95 @@ footer {
   color: var(--text-sub);
   letter-spacing: 0.1em;
 }
+/* ==========================================
+   店舗案内（info.html）用追加スタイル
+========================================== */
+.info-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+
+.info-list {
+  margin: 0;
+  padding: 0;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.info-item:first-child {
+  padding-top: 0;
+}
+
+.info-item dt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--wood-medium);
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+
+.info-item dd {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* マップボタン */
+.map-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: rgba(200, 162, 97, 0.12);
+  color: var(--wood-medium);
+  border: 1px solid var(--accent-gold);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.map-btn:active {
+  background-color: var(--accent-gold);
+  color: #ffffff;
+}
+
+/* 電話リンク */
+.tel-link {
+  color: var(--wood-medium);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* 戻るボタン */
+.back-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-sub);
+  font-size: 0.8rem;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
+  transition: all 0.2s ease;
+}
+
+.back-btn:active {
+  background-color: #fcf9f2;
+}
