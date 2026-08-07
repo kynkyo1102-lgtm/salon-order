@@ -4,21 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>プラッスドゥニナ南熊本店</title>
-  <!-- シックでクラシカルなフォントを読み込み -->
+  <!-- 重厚感のある明朝体と洗練された英字フォント -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* 店舗のお写真から抽出したシックなカラーパレット */
-      --wood-dark: #3a2518;         /* 深みのあるダークブラウン */
-      --wood-medium: #5c3d2e;       /* カウンター・棚の木目色 */
-      --accent-gold: #c5a059;       /* 上品なアンティークゴールド */
-      --bg-color: #f7f5f0;          /* 落ち着いた生成り・アイボリー */
-      --card-bg: #ffffff;
-      --text-color: #2b231d;        /* 濃いブラウンブラック */
-      --sub-text: #73665c;         /* レトロな落ち着いたブラウングレー */
-      --border-color: #e6dfd5;      /* 優しい木目調ライン */
+      /* ダークシックなカラーパレット */
+      --bg-color: #121212;          /* 重厚感のあるダークグレー（ほぼ黒） */
+      --card-bg: #1e1e1e;          /* カード用のやや明るいブラック */
+      --card-border: #2c2c2c;      /* 微かな境界線 */
+      --text-main: #f0ece6;        /* 温かみのあるオフホワイト */
+      --text-sub: #9e9a93;         /* シックなグレー */
+      --accent-gold: #c5a059;      /* アンティークゴールド */
+      --wood-dark: #2a1b12;        /* 木目を感じさせる深みブラウン */
       --font-serif: 'Shippori Mincho', 'Noto Serif JP', "Yu Mincho", serif;
     }
 
@@ -27,45 +26,43 @@
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg-color);
-      color: var(--text-color);
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ヘッダー：ダークウッド風のシックな背景 */
     header {
-      background-color: var(--wood-dark);
-      color: #ffffff;
-      padding: 32px 20px 28px;
+      background-color: #0a0a0a;
+      border-bottom: 1px solid var(--accent-gold);
+      padding: 36px 20px 28px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      border-bottom: 3px solid var(--accent-gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
 
     .header-brand {
       font-family: 'Cinzel', serif;
       font-size: 0.8rem;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.3em;
       color: var(--accent-gold);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     h1 {
       margin: 0;
       font-family: var(--font-serif);
       font-size: 1.35rem;
-      font-weight: 600;
-      color: #fcfbfa;
-      letter-spacing: 0.1em;
+      font-weight: 400;
+      color: #ffffff;
+      letter-spacing: 0.12em;
     }
 
     .subtitle {
       font-size: 0.78rem;
-      color: #d1c7bd;
+      color: var(--text-sub);
       margin-top: 8px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     main {
@@ -73,68 +70,67 @@
       max-width: 480px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 16px;
+      padding: 28px 16px;
       box-sizing: border-box;
     }
 
     /* セクションタイトル */
     .section-title {
       font-family: var(--font-serif);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      color: var(--wood-medium);
-      margin: 28px 0 12px 4px;
-      letter-spacing: 0.08em;
+      color: var(--accent-gold);
+      margin: 32px 0 14px 4px;
+      letter-spacing: 0.12em;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .section-title::after {
       content: "";
       flex: 1;
       height: 1px;
-      background-color: var(--border-color);
+      background-color: var(--card-border);
     }
 
     /* お知らせ枠 */
     .news-box {
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent-gold);
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--accent-gold);
       border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 24px;
-      font-size: 0.83rem;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+      font-size: 0.82rem;
       line-height: 1.6;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .news-tag {
       display: inline-block;
-      background-color: var(--wood-medium);
-      color: #fff;
-      font-size: 0.68rem;
+      background-color: var(--wood-dark);
+      color: var(--accent-gold);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      font-size: 0.65rem;
       padding: 2px 8px;
       border-radius: 4px;
       margin-bottom: 8px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .news-box p {
       margin: 0;
-      color: var(--text-color);
+      color: var(--text-main);
     }
 
     /* メニューカード */
     .menu-card {
       background-color: var(--card-bg);
       border-radius: 10px;
-      padding: 18px 20px;
+      padding: 20px;
       margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(58, 37, 24, 0.05);
-      border: 1px solid var(--border-color);
-      transition: all 0.2s ease;
+      border: 1px solid var(--card-border);
+      transition: all 0.25s ease;
       text-decoration: none;
       color: inherit;
       display: flex;
@@ -144,20 +140,21 @@
 
     .menu-card:active {
       transform: translateY(2px);
-      box-shadow: 0 2px 4px rgba(58, 37, 24, 0.05);
+      background-color: #252525;
+      border-color: var(--accent-gold);
     }
 
     .card-icon {
       flex-shrink: 0;
       width: 44px;
       height: 44px;
-      background-color: #f4efe8;
+      background-color: #141414;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--wood-medium);
-      border: 1px solid #e3d9cc;
+      color: var(--accent-gold);
+      border: 1px solid var(--card-border);
     }
 
     .card-content {
@@ -167,12 +164,13 @@
     .card-title {
       font-family: var(--font-serif);
       font-size: 0.98rem;
-      font-weight: 600;
+      font-weight: 400;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--text-color);
+      color: #ffffff;
+      letter-spacing: 0.04em;
     }
 
     .card-title::after {
@@ -183,17 +181,17 @@
 
     .card-desc {
       font-size: 0.78rem;
-      color: var(--sub-text);
+      color: var(--text-sub);
       line-height: 1.4;
       margin: 0;
     }
 
     footer {
       text-align: center;
-      padding: 24px 15px;
-      font-size: 0.72rem;
-      color: var(--sub-text);
-      letter-spacing: 0.08em;
+      padding: 28px 15px;
+      font-size: 0.7rem;
+      color: #555555;
+      letter-spacing: 0.1em;
     }
   </style>
 </head>
@@ -202,7 +200,7 @@
   <header>
     <div class="header-brand">PLACE DE NINA</div>
     <h1>プラッスドゥニナ南熊本店</h1>
-    <div class="subtitle">公式ご注文・店舗インフォメーション</div>
+    <div class="subtitle">公式ご注文・インフォメーション</div>
   </header>
 
   <main>
