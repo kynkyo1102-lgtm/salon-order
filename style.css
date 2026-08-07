@@ -10,7 +10,9 @@
   --text-main: #2b2019;
   --text-sub: #78695f;
   --border-color: #e5dac9;
-  --font-serif: 'Noto Serif JP', "Yu Mincho", serif;
+  
+  /* フォント指定を和文ゴシックに変更 */
+  --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-script: 'Great Vibes', cursive;
   
   --line-subtle: #05a043;
@@ -20,7 +22,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-main);
   display: flex;
@@ -49,21 +51,22 @@ header::after {
   pointer-events: none;
 }
 
+/* 上のロゴだけ筆記体のまま残します */
 .header-logo {
   font-family: var(--font-script);
   font-size: 2.2rem;
   color: var(--gold-light);
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 h1 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: #ffffff;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
 main {
@@ -92,7 +95,7 @@ main {
 }
 
 .news-date {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--wood-medium);
   white-space: nowrap;
 }
@@ -105,10 +108,10 @@ main {
 /* セクションタイトル */
 .section-title {
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--wood-medium);
   margin: 20px 0 12px 4px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -125,11 +128,11 @@ main {
 .usage-guide {
   font-size: 0.78rem;
   color: var(--text-sub);
-  background-color: rgba(200, 162, 97, 0.1);
+  background-color: rgba(200, 162, 97, 0.12);
   padding: 10px 14px;
   border-radius: 6px;
   margin-bottom: 16px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 /* メニューカード */
@@ -138,7 +141,7 @@ main {
   border-radius: 12px;
   padding: 18px 20px;
   margin-bottom: 14px;
-  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.06);
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
   border: 1px solid var(--border-color);
   transition: all 0.25s ease;
   text-decoration: none;
@@ -172,19 +175,19 @@ main {
 }
 
 .card-title {
-  font-size: 0.98rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   margin-bottom: 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: var(--text-main);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
 .card-title::after {
   content: "›";
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--accent-gold);
 }
 
@@ -204,10 +207,11 @@ main {
 
 .sub-info-title {
   font-size: 0.75rem;
+  font-weight: 500;
   color: var(--text-sub);
   text-align: center;
   margin-bottom: 14px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .sub-grid {
