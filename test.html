@@ -29,8 +29,6 @@
       --border-color: #e5dac9;
       --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-script: 'Great Vibes', cursive;
-      --line-subtle: #05a043;
-      --insta-subtle: #b83262;
     }
 
     body {
@@ -330,7 +328,7 @@
     }
     .image-modal-content {
       max-width: 90%;
-      max-height: 65vh;
+      max-height: 55vh;
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       background: #fff;
@@ -338,14 +336,14 @@
     }
     .image-modal-instruction {
       color: #fff;
-      font-size: 0.85rem;
-      margin-bottom: 12px;
+      font-size: 0.82rem;
+      margin-bottom: 10px;
       text-align: center;
       font-weight: bold;
       line-height: 1.5;
     }
     .image-modal-close {
-      margin-top: 15px;
+      margin-top: 12px;
       padding: 8px 24px;
       background: #6c757d;
       color: white;
@@ -354,6 +352,17 @@
       font-size: 0.8rem;
       cursor: pointer;
       font-weight: bold;
+    }
+    .android-warning-box {
+      margin-top: 8px;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      text-align: left;
     }
   </style>
 </head>
@@ -399,6 +408,7 @@
             <input type="text" id="fullName" name="fullName" placeholder="例: 山田 太郎" required>
           </div>
         </div>
+
         <!-- お支払い方法エリア -->
         <div class="section-title">💳 お支払い方法</div>
         <div class="card-box">
@@ -410,6 +420,12 @@
               <option value="クレジットカード">クレジットカード</option>
               <option value="PayPay">PayPay</option>
             </select>
+          </div>
+
+          <!-- 領収書の宛名（※必要な場合のみ） -->
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="receiptName">領収書の宛名 <span style="font-weight: normal; font-size: 0.72rem; color: var(--text-sub);">(※必要な場合のみ)</span></label>
+            <input type="text" id="receiptName" placeholder="例: 株式会社〇〇、〇〇様">
           </div>
 
           <div id="paymentExtraFields" style="display: none; background-color: #fcfaf5; padding: 12px; border-radius: 8px; border: 1px solid var(--accent-gold); margin-top: 10px;">
@@ -425,7 +441,6 @@
             </div>
           </div>
         </div>
-
         <!-- お届け先エリア -->
         <div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
         <div class="card-box">
@@ -620,6 +635,7 @@
             document.getElementById('paymentMethod').value = user.paymentMethod;
             togglePaymentFields();
           }
+          if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
           if (user.shipName) document.getElementById('shipName').value = user.shipName;
           if (user.zip) document.getElementById('zip').value = user.zip;
           if (user.address) document.getElementById('address').value = user.address;
@@ -724,6 +740,7 @@
       }
 
       const paymentMethod = document.getElementById('paymentMethod').value;
+      const receiptName = document.getElementById('receiptName').value.trim();
       const eservicePw = document.getElementById('eservicePw').value.trim();
       const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
 
@@ -733,7 +750,7 @@
       const phone = document.getElementById('phone').value.trim();
 
       localStorage.setItem('salonOrderUserInfo', JSON.stringify({
-        month, memberIdMain, memberIdSub, fullName, paymentMethod, shipName, zip, address, phone
+        month, memberIdMain, memberIdSub, fullName, paymentMethod, receiptName, shipName, zip, address, phone
       }));
 
       const today = new Date();
@@ -749,6 +766,7 @@
         memberId: memberIdMain + "-" + memberIdSub,
         fullName,
         paymentMethod,
+        receiptName,
         eservicePw: (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? eservicePw : '',
         ninaPoint: paymentMethod === 'ニナファームカード' ? ninaPoint : 0,
         shipName, zip, address, phone,
@@ -761,6 +779,7 @@
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
       document.getElementById('memberIdMain').value = "";
       document.getElementById('fullName').value = "";
+      document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
       document.getElementById('ninaPoint').value = "";
       updateCalc();
@@ -784,10 +803,11 @@
       let html = "";
       allOrders.forEach((ord, i) => {
         let ptNote = ord.ninaPoint > 0 ? ` (ポイント利用 -¥${ord.ninaPoint.toLocaleString()})` : '';
+        let receiptNote = ord.receiptName ? ` / 領収書: ${ord.receiptName}` : '';
         html += `
           <div style="border-bottom: 1px dashed var(--border-color); padding: 8px 0; display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:var(--text-sub);">[ID: ${ord.orderId}]</small> - <span style="color:var(--wood-medium); font-weight:bold;">${ord.paymentMethod}</span><br>
+              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:var(--text-sub);">[ID: ${ord.orderId}]</small> - <span style="color:var(--wood-medium); font-weight:bold;">${ord.paymentMethod}</span>${receiptNote}<br>
               <small style="color: var(--text-sub);">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
             </div>
             <button type="button" onclick="removeOrder(${i})" style="color: #c94b4b; border: none; background: none; cursor: pointer; font-size: 0.75rem; font-weight: bold;">削除</button>
@@ -829,6 +849,9 @@
         });
 
         let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
+        if (ord.receiptName) {
+          paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
+        }
         if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
           if (ord.eservicePw) {
             paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
@@ -1045,16 +1068,32 @@
         const canvas = await html2canvas(targetElement, { scale: 2 });
         const imgData = canvas.toDataURL('image/png');
 
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+        const isLine = /Line/i.test(ua);
+        const isAndroid = /Android/i.test(ua);
 
         if (isMobile) {
           const modal = document.createElement('div');
           modal.className = 'image-modal-overlay';
+          
+          let lineWarningText = "";
+          if (isAndroid && isLine) {
+            lineWarningText = `
+              <div class="android-warning-box">
+                ⚠️ <strong>LINEなどのアプリ内で開いている場合</strong><br>
+                長押し保存が動作しないことがあります。<br>
+                画面右上の「⋮」や「Share」から<strong>『他のブラウザで開く（Chrome等）』</strong>をお試しください。
+              </div>
+            `;
+          }
+
           modal.innerHTML = `
             <div class="image-modal-instruction">
               📱 画像が生成されました！<br>
               下の画像を<span style="color: var(--gold-light); font-size: 1.1em;">「長押し」</span>して<br>
               【画像を保存】または【"写真"に追加】してください
+              ${lineWarningText}
             </div>
             <img src="${imgData}" class="image-modal-content" alt="注文書画像">
             <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
