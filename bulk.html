@@ -5,103 +5,182 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>南熊本サロン専用商品購入注文書</title>
   
-  <!-- ライブラリ群 -->
+  <!-- フォント・ライブラリ群 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 
   <style>
+    @charset "UTF-8";
+
+    :root {
+      --wood-dark: #231610;
+      --wood-medium: #4a3222;
+      --accent-gold: #c8a261;
+      --gold-light: #e6cb96;
+      --bg-color: #f7f4ee;
+      --card-bg: #ffffff;
+      --text-main: #2b2019;
+      --text-sub: #78695f;
+      --border-color: #e5dac9;
+      --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-script: 'Great Vibes', cursive;
+    }
+
     body {
       margin: 0;
-      padding: 10px;
-      padding-bottom: 90px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-    .form-container {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 15px;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-    }
-    h2 {
-      font-size: 1.1em;
-      text-align: center;
-      margin-top: 5px;
-      margin-bottom: 12px;
-      background-color: #333;
-      color: #fff;
-      padding: 10px;
-      border-radius: 4px;
+      padding: 0;
+      padding-bottom: 110px;
+      font-family: var(--font-sans);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ヘッダー内の案内リンク用スタイル */
+    /* ヘッダー */
+    header {
+      background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
+      color: #ffffff;
+      padding: 24px 20px 20px;
+      text-align: center;
+      border-bottom: 3px solid var(--accent-gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid rgba(200, 162, 97, 0.3);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .header-logo {
+      font-family: var(--font-script);
+      font-size: 2.2rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0.1em;
+    }
     .header-guide-link {
-      display: block;
-      font-size: 11px;
-      color: #ccc;
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--gold-light);
       font-weight: normal;
-      margin-top: 6px;
+      margin-top: 8px;
       text-decoration: underline;
     }
-    .header-guide-link:hover {
-      color: #fff;
-    }
 
-    label {
-      font-weight: bold;
-      font-size: 13px;
-      display: block;
-      margin-bottom: 4px;
-    }
-    input, select {
+    main {
+      flex: 1;
+      max-width: 520px;
       width: 100%;
-      padding: 9px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      margin: 0 auto;
+      padding: 20px 16px;
       box-sizing: border-box;
     }
+
+    /* セクション＆カード */
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--wood-medium);
+      margin: 20px 0 10px 4px;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-color), transparent);
+    }
+
+    .card-box {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    /* フォーム要素 */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+    label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--wood-dark);
+    }
+    input[type="text"], input[type="password"], input[type="number"], input[type="tel"], select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 0.88rem;
+      background-color: #fcfcfc;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+
     .flex-row {
       display: flex;
       gap: 8px;
       align-items: center;
     }
-    .section-box {
-      background-color: #fafafa;
-      padding: 12px;
-      border: 1px solid #e0e0e0;
-      border-radius: 6px;
-      margin-bottom: 15px;
-    }
-    .section-title {
-      font-weight: bold;
-      font-size: 14px;
-      color: #007bff;
-      margin-bottom: 8px;
-      border-bottom: 1px dashed #007bff;
-      padding-bottom: 4px;
-    }
-    
+
+    /* 商品テーブル */
     .product-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
-      font-size: 12px;
+      font-size: 0.78rem;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
     }
     .product-table th, .product-table td {
-      border: 1px solid #ddd;
-      padding: 6px 4px;
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 6px;
       text-align: left;
     }
     .product-table th {
-      background-color: #f0f0f0;
-      font-size: 11px;
+      background-color: #f7f3eb;
+      color: var(--wood-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
       text-align: center;
     }
     .product-table td.qty-col {
@@ -111,127 +190,133 @@
     .product-table td.pt-col {
       width: 65px;
       text-align: right;
-      color: #0275d8;
+      color: var(--wood-medium);
       font-weight: bold;
     }
 
-    .fixed-footer {
+    /* 固定フッター */
+    .footer-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: #ffffff;
-      border-top: 2px solid #007bff;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
-      padding: 10px 15px;
-      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
+      border-top: 1px solid var(--border-color);
+      padding: 12px 16px;
+      z-index: 1000;
     }
     .footer-content {
-      max-width: 600px;
+      max-width: 520px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .footer-totals {
-      font-size: 13px;
+      font-size: 0.82rem;
+      color: var(--wood-dark);
     }
     .btn-add {
-      padding: 12px 18px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: bold;
+      background-color: var(--wood-dark);
+      color: var(--gold-light);
+      border: 1px solid var(--accent-gold);
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 20px;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+      transition: all 0.2s;
+    }
+    .btn-add:active {
+      transform: translateY(1px);
     }
 
-    /* 各注文書カードのコンテナ */
+    /* 注文書カードスタイル */
     .card-wrapper {
-      margin-bottom: 25px;
+      margin-bottom: 24px;
       background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(35, 22, 16, 0.08);
       overflow: hidden;
+      border: 1px solid var(--border-color);
     }
     .receipt-box {
-      background-color: #fff;
-      border: 2px solid #333;
-      padding: 15px;
-      border-radius: 8px 8px 0 0;
+      background-color: #fffdf9;
+      padding: 18px;
       text-align: left;
     }
     .receipt-header {
       text-align: center;
-      border-bottom: 2px solid #333;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
+      border-bottom: 2px solid var(--accent-gold);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
     }
     .receipt-info {
       margin-bottom: 12px;
-      font-size: 13px;
+      font-size: 0.8rem;
       line-height: 1.6;
+      color: var(--text-main);
+    }
+    .order-id-badge {
+      display: inline-block;
+      background-color: var(--wood-dark);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: bold;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-top: 6px;
+      border: 1px solid var(--accent-gold);
     }
     .btn-card-download {
       width: 100%;
       padding: 12px;
-      background-color: #28a745;
-      color: white;
+      background-color: var(--wood-medium);
+      color: var(--gold-light);
       border: none;
-      border-radius: 0 0 8px 8px;
-      font-size: 14px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
       font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.2s;
     }
     .btn-card-download:active {
-      background-color: #1e7e34;
+      background-color: var(--wood-dark);
     }
 
     .btn-action {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       margin-top: 10px;
-      border: none;
-      border-radius: 4px;
-      font-size: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      font-size: 0.88rem;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(35, 22, 16, 0.08);
     }
-    .btn-pdf { background-color: #17a2b8; color: white; }
-    .btn-reload { background-color: #6c757d; color: white; }
+    .btn-pdf { background-color: var(--wood-dark); color: var(--gold-light); border-color: var(--accent-gold); }
+    .btn-reload { background-color: #ffffff; color: var(--text-sub); }
 
-    .screenshot-notice {
-      background-color: #e6f2ff;
-      border: 1px solid #b8daff;
-      color: #004085;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      text-align: center;
+    .guide-box {
+      background-color: rgba(200, 162, 97, 0.12);
+      border: 1px solid var(--accent-gold);
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.78rem;
+      color: var(--wood-medium);
       line-height: 1.5;
-      margin-bottom: 15px;
+      text-align: center;
     }
 
-    /* 発注IDバッジのスタイル */
-    .order-id-badge {
-      display: inline-block;
-      background-color: #007bff;
-      color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 2px 8px;
-      border-radius: 12px;
-      margin-top: 4px;
-    }
-
-    /* 長押し保存用モーダル（スマホ全般） */
+    /* 長押し保存用モーダル */
     .image-modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
@@ -243,7 +328,7 @@
     }
     .image-modal-content {
       max-width: 90%;
-      max-height: 65vh;
+      max-height: 55vh;
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       background: #fff;
@@ -251,45 +336,56 @@
     }
     .image-modal-instruction {
       color: #fff;
-      font-size: 14px;
-      margin-bottom: 12px;
+      font-size: 0.82rem;
+      margin-bottom: 10px;
       text-align: center;
       font-weight: bold;
       line-height: 1.5;
     }
     .image-modal-close {
-      margin-top: 15px;
-      padding: 10px 25px;
+      margin-top: 12px;
+      padding: 8px 24px;
       background: #6c757d;
       color: white;
       border: none;
       border-radius: 20px;
-      font-size: 14px;
+      font-size: 0.8rem;
       cursor: pointer;
       font-weight: bold;
+    }
+    .android-warning-box {
+      margin-top: 8px;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      text-align: left;
     }
   </style>
 </head>
 <body>
 
-  <div class="form-container">
-    
+  <header>
+    <div class="header-logo">Salon Order</div>
+    <h1>南熊本サロン専用商品購入注文書</h1>
+    <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="header-guide-link">
+      📖 詳しい操作手順・使い方を見る
+    </a>
+  </header>
+
+  <main>
     <!-- 入力フォーム画面 -->
     <div id="formSection">
-      <!-- 黒ヘッダー内に手順リンクを直接入れ込み -->
-      <h2>
-        南熊本サロン専用商品購入注文書
-        <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="header-guide-link">
-          📖 詳しい操作手順・使い方を見る
-        </a>
-      </h2>
-      
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
         
         <!-- 基本情報エリア -->
-        <div class="section-box">
-          <div style="margin-bottom: 10px;">
+        <div class="section-title">👤 ご注文者様基本情報</div>
+        <div class="card-box">
+          <div class="form-group">
             <label for="month">発注月度 *</label>
             <select id="month" name="month" required>
               <option value="">選択してください</option>
@@ -298,7 +394,7 @@
             </select>
           </div>
 
-          <div style="margin-bottom: 10px;">
+          <div class="form-group">
             <label>購入会員番号 *</label>
             <div class="flex-row">
               <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
@@ -307,17 +403,16 @@
             </div>
           </div>
 
-          <div>
+          <div class="form-group">
             <label for="fullName">氏名 *</label>
             <input type="text" id="fullName" name="fullName" placeholder="例: 山田 太郎" required>
           </div>
         </div>
 
         <!-- お支払い方法エリア -->
-        <div class="section-box">
-          <div class="section-title">💳 お支払い方法 *</div>
-          
-          <div style="margin-bottom: 8px;">
+        <div class="section-title">💳 お支払い方法</div>
+        <div class="card-box">
+          <div class="form-group">
             <label for="paymentMethod">お支払い方法を選択 *</label>
             <select id="paymentMethod" required onchange="togglePaymentFields()">
               <option value="現金">現金</option>
@@ -327,61 +422,63 @@
             </select>
           </div>
 
-          <!-- ニナファームカード / クレジットカード選択時の追加エリア -->
-          <div id="paymentExtraFields" style="display: none; background-color: #f0f7ff; padding: 10px; border-radius: 6px; border: 1px solid #b8daff; margin-top: 8px;">
-            <!-- E-Service PW（両方で表示） -->
-            <div id="eservicePwGroup" style="margin-bottom: 8px;">
+          <!-- 領収書の宛名（※必要な場合のみ） -->
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="receiptName">領収書の宛名 <span style="font-weight: normal; font-size: 0.72rem; color: var(--text-sub);">(※必要な場合のみ)</span></label>
+            <input type="text" id="receiptName" placeholder="例: 株式会社〇〇、〇〇様">
+          </div>
+
+          <div id="paymentExtraFields" style="display: none; background-color: #fcfaf5; padding: 12px; border-radius: 8px; border: 1px solid var(--accent-gold); margin-top: 10px;">
+            <div id="eservicePwGroup" class="form-group">
               <label for="eservicePw">E-Service PW</label>
               <input type="password" id="eservicePw" placeholder="パスワードを入力">
             </div>
 
-            <!-- ニナポイント（ニナファームカードのみ表示） -->
-            <div id="ninaPointGroup" style="display: none;">
+            <div id="ninaPointGroup" class="form-group" style="display: none;">
               <label for="ninaPoint">ニナポイント利用（※利用する場合のみ）</label>
               <input type="number" id="ninaPoint" placeholder="例: 1000" min="0" oninput="updateCalc()">
-              <small style="color: #666; font-size: 11px;">※1pt ＝ 1円としてお値引きされます</small>
+              <small style="color: var(--text-sub); font-size: 0.72rem;">※1pt ＝ 1円としてお値引きされます</small>
             </div>
           </div>
         </div>
-
         <!-- お届け先エリア -->
-        <div class="section-box">
-          <div class="section-title">📦 お届け先（配送ご希望の方のみ入力）</div>
-          
-          <div style="margin-bottom: 8px;">
+        <div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
+        <div class="card-box">
+          <div class="form-group">
             <label for="shipName">お届け先お名前</label>
             <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）">
           </div>
 
-          <div style="margin-bottom: 8px;">
+          <div class="form-group">
             <label for="zip">郵便番号（ハイフンなし7桁）</label>
             <input type="text" id="zip" class="p-postal-code" maxlength="7" placeholder="例: 8600000">
           </div>
 
-          <div style="margin-bottom: 8px;">
+          <div class="form-group">
             <label for="address">住所</label>
             <input type="text" id="address" class="p-region p-locality p-street-address p-extended-address" placeholder="自動入力されます">
           </div>
 
-          <div>
+          <div class="form-group">
             <label for="phone">電話番号</label>
             <input type="tel" id="phone" placeholder="例: 09012345678">
           </div>
 
-          <div style="text-align: right; margin-top: 10px;">
-            <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: #888; text-decoration: underline; font-size: 11px; cursor: pointer;">
+          <div style="text-align: right; margin-top: 8px;">
+            <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: var(--text-sub); text-decoration: underline; font-size: 0.72rem; cursor: pointer;">
               端末に保存された住所等を削除
             </button>
           </div>
         </div>
 
         <!-- 商品一覧テーブル -->
-        <label>注文商品と数量を選択してください</label>
+        <div class="section-title">🛍️ 注文商品選択</div>
+        <div style="margin-bottom: 6px; font-size: 0.78rem; color: var(--text-sub);">ご希望商品の数量を選択してください</div>
         <table class="product-table">
           <thead>
             <tr>
               <th>商品名</th>
-              <th style="width: 60px;">価格(税込)</th>
+              <th style="width: 65px;">価格(税込)</th>
               <th style="width: 55px;">獲得Pt</th>
               <th class="qty-col">数量</th>
             </tr>
@@ -390,23 +487,23 @@
         </table>
 
         <!-- 追加済み注文リスト（確認用） -->
-        <div id="orderListContainer" class="section-box" style="margin-top: 20px; display: none; border: 2px solid #007bff; background-color: #f0f7ff;">
-          <div class="section-title" style="color: #007bff; border-color: #007bff;">
+        <div id="orderListContainer" class="card-box" style="margin-top: 20px; display: none; border-color: var(--accent-gold); background-color: #fcfaf5;">
+          <div style="font-weight: bold; font-size: 0.88rem; color: var(--wood-dark); border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 8px;">
             📋 追加済みの注文（<span id="orderCount">0</span>件）
           </div>
-          <div id="addedOrdersList" style="font-size: 13px; margin-bottom: 10px;"></div>
-          <button type="button" onclick="generateAllReceipts()" class="btn-action" style="background-color: #28a745; color: white; margin-top: 5px;">
+          <div id="addedOrdersList" style="font-size: 0.8rem; margin-bottom: 12px;"></div>
+          <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf">
             🏁 注文書の一括作成画面へ
           </button>
         </div>
 
         <!-- 下部固定フッター -->
-        <div class="fixed-footer">
+        <div class="footer-bar">
           <div class="footer-content">
             <div class="footer-totals">
-              <div>お支払額: <span id="displayPrice" style="font-size: 15px; color: #d9534f; font-weight:bold;">¥0</span></div>
-              <div style="font-size: 11px;">
-                (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" style="color: #0275d8;">0pt</span>)
+              <div>お支払額: <span id="displayPrice" style="font-size: 1.05rem; color: #c94b4b; font-weight:bold;">¥0</span></div>
+              <div style="font-size: 0.72rem; color: var(--text-sub);">
+                (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" style="color: var(--wood-medium); font-weight: bold;">0pt</span>)
               </div>
             </div>
             <button type="button" onclick="addOrderToList()" class="btn-add">
@@ -421,21 +518,21 @@
     <!-- 完成画面 -->
     <div id="completeSection" style="display: none;">
       
-      <div class="screenshot-notice">
-        📱 各カード下の緑のボタンをタップすると、注文書を画像として表示・保存できます！
+      <div class="guide-box">
+        📱 各カード下のボタンをタップすると、注文書を画像として保存できます。
       </div>
 
       <!-- 注文書カードが動的に生成されるコンテナ -->
       <div id="receiptsWrapper"></div>
 
       <!-- 下部ボタンエリア -->
-      <div style="margin-top: 10px;">
+      <div style="margin-top: 15px;">
         <button onclick="downloadAllPDF()" class="btn-action btn-pdf">📄 全枚数をまとめて1つのPDFで保存</button>
         <button onclick="location.reload()" class="btn-action btn-reload">🔄 最初の入力に戻る</button>
       </div>
 
     </div>
-  </div>
+  </main>
 
   <script>
     const productMaster = {
@@ -482,7 +579,7 @@
       "モン コパン": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } },
       "モン コパン ジュレ": { price: 3500, pt: { "7月度": 2800, "8月度": 2800 } }
     };
-    let allOrders = []; // 蓄積用配列
+    let allOrders = [];
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
     let currentGrandPt = 0;
@@ -490,9 +587,8 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const memberIdSub = document.getElementById('memberIdSub');
-      memberIdSub.innerHTML = ''; // 念のため初期化
+      memberIdSub.innerHTML = '';
 
-      // 枝番を「00」〜「20」で生成
       for (let i = 0; i <= 20; i++) {
         const opt = document.createElement('option');
         const val = String(i).padStart(2, '0');
@@ -513,7 +609,7 @@
 
         tr.innerHTML = `
           <td><strong>${prod}</strong></td>
-          <td style="color: #666; text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
+          <td style="color: var(--text-sub); text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
           <td class="pt-col" id="pt-cell-${prodIndex}">-</td>
           <td class="qty-col">
             <select class="qty-select" data-product="${prod}">
@@ -527,7 +623,6 @@
       document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
       document.getElementById('month').addEventListener('change', updateCalc);
 
-      // 自動復元
       const savedData = localStorage.getItem('salonOrderUserInfo');
       if (savedData) {
         try {
@@ -540,6 +635,7 @@
             document.getElementById('paymentMethod').value = user.paymentMethod;
             togglePaymentFields();
           }
+          if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
           if (user.shipName) document.getElementById('shipName').value = user.shipName;
           if (user.zip) document.getElementById('zip').value = user.zip;
           if (user.address) document.getElementById('address').value = user.address;
@@ -549,7 +645,6 @@
       }
     });
 
-    // お支払い方法に応じた追加項目の切り替え
     function togglePaymentFields() {
       const method = document.getElementById('paymentMethod').value;
       const extraContainer = document.getElementById('paymentExtraFields');
@@ -628,7 +723,6 @@
       document.getElementById('displayPt').textContent = currentGrandPt.toLocaleString() + "pt";
     }
 
-    // 1件分の注文を追加する関数
     function addOrderToList() {
       if (currentItemsData.length === 0) {
         alert("数量が選択されている商品がありません。1点以上選択してください。");
@@ -646,6 +740,7 @@
       }
 
       const paymentMethod = document.getElementById('paymentMethod').value;
+      const receiptName = document.getElementById('receiptName').value.trim();
       const eservicePw = document.getElementById('eservicePw').value.trim();
       const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
 
@@ -655,7 +750,7 @@
       const phone = document.getElementById('phone').value.trim();
 
       localStorage.setItem('salonOrderUserInfo', JSON.stringify({
-        month, memberIdMain, memberIdSub, fullName, paymentMethod, shipName, zip, address, phone
+        month, memberIdMain, memberIdSub, fullName, paymentMethod, receiptName, shipName, zip, address, phone
       }));
 
       const today = new Date();
@@ -671,6 +766,7 @@
         memberId: memberIdMain + "-" + memberIdSub,
         fullName,
         paymentMethod,
+        receiptName,
         eservicePw: (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? eservicePw : '',
         ninaPoint: paymentMethod === 'ニナファームカード' ? ninaPoint : 0,
         shipName, zip, address, phone,
@@ -683,6 +779,7 @@
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
       document.getElementById('memberIdMain').value = "";
       document.getElementById('fullName').value = "";
+      document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
       document.getElementById('ninaPoint').value = "";
       updateCalc();
@@ -691,7 +788,6 @@
       alert(`「${fullName}」様の注文を追加しました！（現在 ${allOrders.length} 件）`);
     }
 
-    // 追加済みリストの描画
     function renderOrderList() {
       const container = document.getElementById('orderListContainer');
       const listDiv = document.getElementById('addedOrdersList');
@@ -707,13 +803,14 @@
       let html = "";
       allOrders.forEach((ord, i) => {
         let ptNote = ord.ninaPoint > 0 ? ` (ポイント利用 -¥${ord.ninaPoint.toLocaleString()})` : '';
+        let receiptNote = ord.receiptName ? ` / 領収書: ${ord.receiptName}` : '';
         html += `
-          <div style="border-bottom: 1px dashed #ccc; padding: 6px 0; display: flex; justify-content: space-between; align-items: center;">
+          <div style="border-bottom: 1px dashed var(--border-color); padding: 8px 0; display: flex; justify-content: space-between; align-items: center;">
             <div>
-              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:#666;">[ID: ${ord.orderId}]</small> - <span style="color:#007bff;">${ord.paymentMethod}</span><br>
-              <small style="color: #666;">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
+              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:var(--text-sub);">[ID: ${ord.orderId}]</small> - <span style="color:var(--wood-medium); font-weight:bold;">${ord.paymentMethod}</span>${receiptNote}<br>
+              <small style="color: var(--text-sub);">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
             </div>
-            <button type="button" onclick="removeOrder(${i})" style="color: red; border: none; background: none; cursor: pointer; font-size: 11px;">削除</button>
+            <button type="button" onclick="removeOrder(${i})" style="color: #c94b4b; border: none; background: none; cursor: pointer; font-size: 0.75rem; font-weight: bold;">削除</button>
           </div>
         `;
       });
@@ -725,7 +822,6 @@
       renderOrderList();
     }
 
-    // 「一括作成」を押したとき（全カードの描画）
     function generateAllReceipts() {
       if (allOrders.length === 0) return;
 
@@ -747,12 +843,15 @@
               <td><strong>${item.product}</strong></td>
               <td style="text-align: center;">${item.quantity}</td>
               <td style="text-align: right;">¥${item.price.toLocaleString()}</td>
-              <td style="text-align: right; color: #0275d8;">${item.pt ? item.pt.toLocaleString() + 'pt' : '-'}</td>
+              <td style="text-align: right; color: var(--wood-medium);">${item.pt ? item.pt.toLocaleString() + 'pt' : '-'}</td>
             </tr>
           `;
         });
 
         let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
+        if (ord.receiptName) {
+          paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
+        }
         if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
           if (ord.eservicePw) {
             paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
@@ -765,8 +864,8 @@
         let addressBlock = "";
         if (ord.shipName || ord.address || ord.zip || ord.phone) {
           addressBlock = `
-            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ccc;">
-              <div style="font-weight: bold; color: #007bff; margin-bottom: 2px;">【お届け先情報】</div>
+            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
+              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
               <div>${ord.shipName ? "お名前: " + ord.shipName : "お名前: " + ord.fullName}</div>
               <div>${ord.zip ? "〒" + ord.zip : ""}</div>
               <div>${ord.address ? "住所: " + ord.address : ""}</div>
@@ -778,24 +877,24 @@
         let totalBlock = "";
         if (ord.ninaPoint > 0) {
           totalBlock = `
-            <div style="display: flex; justify-content: space-between; color: #666; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
               <span>小計金額:</span>
               <span>¥${ord.subtotalPrice.toLocaleString()}</span>
             </div>
-            <div style="display: flex; justify-content: space-between; color: #d9534f; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
               <span>ニナポイント値引き:</span>
               <span>-¥${ord.ninaPoint.toLocaleString()}</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
               <span>お支払い合計金額:</span>
-              <span style="color: #d9534f; font-size: 16px;">¥${ord.totalPrice.toLocaleString()}</span>
+              <span style="color: #c94b4b; font-size: 1rem;">¥${ord.totalPrice.toLocaleString()}</span>
             </div>
           `;
         } else {
           totalBlock = `
             <div style="display: flex; justify-content: space-between; font-weight: bold;">
               <span>合計金額:</span>
-              <span style="color: #d9534f;">¥${ord.totalPrice.toLocaleString()}</span>
+              <span style="color: #c94b4b;">¥${ord.totalPrice.toLocaleString()}</span>
             </div>
           `;
         }
@@ -805,9 +904,9 @@
         cardWrapper.innerHTML = `
           <div id="card-target-${index}" class="receipt-box target-card">
             <div class="receipt-header">
-              <h3 style="margin: 0; font-size: 16px;">南熊本サロン専用商品購入注文書</h3>
+              <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">南熊本サロン専用商品購入注文書</h3>
               <div class="order-id-badge">発注ID: ${orderId}</div>
-              <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">${dateStr}</p>
+              <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
             </div>
             <div class="receipt-info">
               <div>発注月度: <strong>${ord.month}</strong></div>
@@ -827,15 +926,15 @@
               </thead>
               <tbody>${itemRows}</tbody>
             </table>
-            <div style="border-top: 2px dashed #333; padding-top: 10px; font-size: 14px;">
-              <div style="display: flex; justify-content: space-between; font-weight: bold; color: #333; margin-bottom: 4px;">
+            <div style="border-top: 2px dashed var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
+              <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
                 <span>合計数量:</span>
                 <span>${totalQty} 点</span>
               </div>
               ${totalBlock}
               <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
                 <span>獲得ポイント:</span>
-                <span style="color: #0275d8;">${ord.totalPt.toLocaleString()}pt</span>
+                <span style="color: var(--wood-medium);">${ord.totalPt.toLocaleString()}pt</span>
               </div>
             </div>
           </div>
@@ -846,7 +945,6 @@
         wrapper.appendChild(cardWrapper);
       });
 
-      // 全体の「合算・まとめカード」を作成
       const summaryItems = {};
       let totalAllSubtotal = 0;
       let totalAllNinaPoint = 0;
@@ -878,7 +976,7 @@
             <td><strong>${prod}</strong></td>
             <td style="text-align: center;">${summaryItems[prod].quantity}</td>
             <td style="text-align: right;">¥${summaryItems[prod].price.toLocaleString()}</td>
-            <td style="text-align: right; color: #0275d8;">${summaryItems[prod].pt ? summaryItems[prod].pt.toLocaleString() + 'pt' : '-'}</td>
+            <td style="text-align: right; color: var(--wood-medium);">${summaryItems[prod].pt ? summaryItems[prod].pt.toLocaleString() + 'pt' : '-'}</td>
           </tr>
         `;
       }
@@ -886,24 +984,24 @@
       let summaryTotalBlock = "";
       if (totalAllNinaPoint > 0) {
         summaryTotalBlock = `
-          <div style="display: flex; justify-content: space-between; color: #666; font-size: 13px;">
+          <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
             <span>全商品 定価総額:</span>
             <span>¥${totalAllSubtotal.toLocaleString()}</span>
           </div>
-          <div style="display: flex; justify-content: space-between; color: #d9534f; font-size: 13px;">
+          <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
             <span>ニナポイント利用総額:</span>
             <span>-¥${totalAllNinaPoint.toLocaleString()}</span>
           </div>
           <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
             <span>全合算 実際の支払総合計:</span>
-            <span style="color: #d9534f; font-size: 17px;">¥${totalAllPayPrice.toLocaleString()}</span>
+            <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
           </div>
         `;
       } else {
         summaryTotalBlock = `
           <div style="display: flex; justify-content: space-between; font-weight: bold;">
             <span>全合算 総合計金額:</span>
-            <span style="color: #d9534f; font-size: 17px;">¥${totalAllPayPrice.toLocaleString()}</span>
+            <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
           </div>
         `;
       }
@@ -911,12 +1009,12 @@
       const summaryWrapper = document.createElement('div');
       summaryWrapper.className = "card-wrapper";
       summaryWrapper.innerHTML = `
-        <div id="card-target-summary" class="receipt-box target-card" style="border-color: #007bff;">
-          <div class="receipt-header" style="border-color: #007bff;">
-            <h3 style="margin: 0; font-size: 16px; color: #007bff;">【全体合算】注文集計まとめ</h3>
-            <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
+        <div id="card-target-summary" class="receipt-box target-card">
+          <div class="receipt-header">
+            <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">【全体合算】注文集計まとめ</h3>
+            <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
           </div>
-          <div style="font-size: 12px; margin-bottom: 10px; background-color: #e9ecef; padding: 8px; border-radius: 4px;">
+          <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
             <strong>対象会員一覧:</strong><br>
             ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
           </div>
@@ -931,36 +1029,34 @@
             </thead>
             <tbody>${summaryRows}</tbody>
           </table>
-          <div style="border-top: 2px solid #007bff; padding-top: 10px; font-size: 15px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; color: #007bff; margin-bottom: 4px;">
+          <div style="border-top: 2px solid var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
               <span>全合算 総数量:</span>
               <span>${grandTotalQty} 点</span>
             </div>
             ${summaryTotalBlock}
             <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
               <span>全合算 総獲得ポイント:</span>
-              <span style="color: #0275d8;">${totalAllPt.toLocaleString()}pt</span>
+              <span style="color: var(--wood-medium);">${totalAllPt.toLocaleString()}pt</span>
             </div>
           </div>
         </div>
-        <button type="button" class="btn-card-download" style="background-color: #007bff;" onclick="downloadSingleCard('card-target-summary')">
+        <button type="button" class="btn-card-download" style="background-color: var(--wood-dark); color: var(--gold-light);" onclick="downloadSingleCard('card-target-summary')">
           📊 「全体まとめ」を画像保存
         </button>
       `;
       wrapper.appendChild(summaryWrapper);
 
       document.getElementById('formSection').style.display = "none";
-      document.querySelector('.fixed-footer').style.display = "none";
+      document.querySelector('.footer-bar').style.display = "none";
       document.getElementById('completeSection').style.display = "block";
       window.scrollTo(0, 0);
     }
 
-    // iPhone・Android（LINEブラウザ等）すべてに対応した画像保存処理（安全対策版）
     async function downloadSingleCard(elementId) {
       const targetElement = document.getElementById(elementId);
       if (!targetElement) return;
 
-      // ボタン要素を安全に取得（eventが未定義でもエラーにならないように保護）
       const btn = (typeof event !== 'undefined' && event) ? event.currentTarget : null;
       const originalText = btn ? btn.textContent : '';
       if (btn) {
@@ -972,16 +1068,32 @@
         const canvas = await html2canvas(targetElement, { scale: 2 });
         const imgData = canvas.toDataURL('image/png');
 
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+        const isLine = /Line/i.test(ua);
+        const isAndroid = /Android/i.test(ua);
 
         if (isMobile) {
           const modal = document.createElement('div');
           modal.className = 'image-modal-overlay';
+          
+          let lineWarningText = "";
+          if (isAndroid && isLine) {
+            lineWarningText = `
+              <div class="android-warning-box">
+                ⚠️ <strong>LINEなどのアプリ内で開いている場合</strong><br>
+                長押し保存が動作しないことがあります。<br>
+                画面右上の「⋮」や「Share」から<strong>『他のブラウザで開く（Chrome等）』</strong>をお試しください。
+              </div>
+            `;
+          }
+
           modal.innerHTML = `
             <div class="image-modal-instruction">
               📱 画像が生成されました！<br>
-              下の画像を<span style="color: #ffeb3b; font-size: 1.1em;">「長押し」</span>して<br>
+              下の画像を<span style="color: var(--gold-light); font-size: 1.1em;">「長押し」</span>して<br>
               【画像を保存】または【"写真"に追加】してください
+              ${lineWarningText}
             </div>
             <img src="${imgData}" class="image-modal-content" alt="注文書画像">
             <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
@@ -1007,7 +1119,6 @@
       }
     }
 
-    // 複数ページPDF保存（全枚数を1つのPDFに結合して保存）
     async function downloadAllPDF() {
       const cards = document.querySelectorAll('.target-card');
       const { jsPDF } = window.jspdf;
