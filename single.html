@@ -92,12 +92,11 @@
     <div class="info-card">
       <div class="section-title">4. 処理月度の選択</div>
       <select id="target_month" onchange="onMonthChange();">
-        <option value="7月度">7月度</option>
         <option value="8月度" selected>8月度</option>
       </select>
     </div>
 
-    <!-- 5. ポジション別注文 -->
+    <!-- 5. 会員番号ごとの注文 -->
     <div class="info-card">
       <div class="section-title">5. 会員番号ごとの注文</div>
       <div id="positions_container"></div>
@@ -125,50 +124,50 @@
   </div>
 
 <script>
-// 商品データマスター
+// 商品データマスター（8月度ポイント）
 const products = [
-    { name: "OX-288", price: 13800, p7: 10000, p8: 10000 },
-    { name: "OX-288(追加購入)", price: 13800, p7: 10000, p8: 10000 },
-    { name: "OX-288 (ゼリータイプ)", price: 14200, p7: 10000, p8: 10000 },
-    { name: "ボアソン", price: 10800, p7: 10000, p8: 10000 },
-    { name: "ハイプロリーナ", price: 7200, p7: 6000, p8: 6000 },
-    { name: "ゼウス 2026", price: 17800, p7: 13000, p8: 13000 },
-    { name: "アルピニスト スラージュ", price: 4000, p7: 1400, p8: 2800 },
-    { name: "O・M・C プロテイン", price: 6000, p7: 2000, p8: 5000 },
-    { name: "サヴォン アンベリール (120g)", price: 5200, p7: 1800, p8: 4300 },
-    { name: "サヴォン アンベリール (70g)", price: 3500, p7: 1200, p8: 2900 },
-    { name: "ブランシュール (150g)", price: 12200, p7: 10500, p8: 10500 },
-    { name: "ブランシュール (80g)", price: 6800, p7: 5800, p8: 5800 },
-    { name: "デマキヤン", price: 4100, p7: 1500, p8: 3400 },
-    { name: "赤化粧水", price: 3600, p7: 1300, p8: 3000 },
-    { name: "赤美容液", price: 6400, p7: 2300, p8: 5400 },
-    { name: "赤ジェル", price: 4800, p7: 1700, p8: 4000 },
-    { name: "白化粧水", price: 3600, p7: 3000, p8: 3000 },
-    { name: "白美容液", price: 6400, p7: 5400, p8: 5400 },
-    { name: "白ジェル", price: 4800, p7: 4000, p8: 4000 },
-    { name: "グルナードゥ", price: 32000, p7: 26000, p8: 26000 },
-    { name: "リペアセラム", price: 14800, p7: 15000, p8: 15000 },
-    { name: "リペアクリーム", price: 18700, p7: 6600, p8: 15000 },
-    { name: "レボリューション", price: 17200, p7: 9000, p8: 14500 },
-    { name: "グロウジェルクリーム", price: 9800, p7: 3600, p8: 8000 },
-    { name: "ハンドモイスチャー", price: 2200, p7: 700, p8: 1800 },
-    { name: "リップセラム", price: 2000, p7: 600, p8: 1600 },
-    { name: "ボディミルク", price: 3200, p7: 1000, p8: 2500 },
-    { name: "ミュー ヴィサージュ", price: 3300, p7: 1200, p8: 2600 },
-    { name: "ミューコール", price: 3300, p7: 2600, p8: 2600 },
-    { name: "バイオミスト", price: 3700, p7: 3000, p8: 3000 },
-    { name: "ボディソープ", price: 3200, p7: 2500, p8: 2500 },
-    { name: "シャンプー", price: 3200, p7: 1000, p8: 2500 },
-    { name: "トリートメント", price: 3200, p7: 1000, p8: 2500 },
-    { name: "ヘアマスク", price: 3200, p7: 1000, p8: 2500 },
-    { name: "スカルプトナー", price: 9200, p7: 7500, p8: 7500 },
-    { name: "クレオ デンタルクリーン", price: 2200, p7: 700, p8: 1800 },
-    { name: "クレオ マウスウォッシュ", price: 3200, p7: 1000, p8: 2500 },
-    { name: "アロマオイル ローズ", price: 8700, p7: 3000, p8: 7300 },
-    { name: "ゼウス オードゥ パルファン 2026", price: 21000, p7: 16000, p8: 18000 },
-    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, p7: 4000, p8: 8000 },
-    { name: "モン コパン", price: 3500, p7: 2800, p8: 2800 },
-    { name: "モン コパン ジュレ", price: 3500, p7: 2800, p8: 2800 }
+    { name: "OX-288", price: 13800, pt: 10000 },
+    { name: "OX-288(追加購入)", price: 13800, pt: 10000 },
+    { name: "OX-288 (ゼリータイプ)", price: 14200, pt: 10000 },
+    { name: "ボアソン", price: 10800, pt: 10000 },
+    { name: "ハイプロリーナ", price: 7200, pt: 6000 },
+    { name: "ゼウス 2026", price: 17800, pt: 13000 },
+    { name: "アルピニスト スラージュ", price: 4000, pt: 2800 },
+    { name: "O・M・C プロテイン", price: 6000, pt: 5000 },
+    { name: "サヴォン アンベリール (120g)", price: 5200, pt: 4300 },
+    { name: "サヴォン アンベリール (70g)", price: 3500, pt: 2900 },
+    { name: "ブランシュール (150g)", price: 12200, pt: 10500 },
+    { name: "ブランシュール (80g)", price: 6800, pt: 5800 },
+    { name: "デマキヤン", price: 4100, pt: 3400 },
+    { name: "赤化粧水", price: 3600, pt: 3000 },
+    { name: "赤美容液", price: 6400, pt: 5400 },
+    { name: "赤ジェル", price: 4800, pt: 4000 },
+    { name: "白化粧水", price: 3600, pt: 3000 },
+    { name: "白美容液", price: 6400, pt: 5400 },
+    { name: "白ジェル", price: 4800, pt: 4000 },
+    { name: "グルナードゥ", price: 32000, pt: 26000 },
+    { name: "リペアセラム", price: 14800, pt: 15000 },
+    { name: "リペアクリーム", price: 18700, pt: 15000 },
+    { name: "レボリューション", price: 17200, pt: 14500 },
+    { name: "グロウジェルクリーム", price: 9800, pt: 8000 },
+    { name: "ハンドモイスチャー", price: 2200, pt: 1800 },
+    { name: "リップセラム", price: 2000, pt: 1600 },
+    { name: "ボディミルク", price: 3200, pt: 2500 },
+    { name: "ミュー ヴィサージュ", price: 3300, pt: 2600 },
+    { name: "ミューコール", price: 3300, pt: 2600 },
+    { name: "バイオミスト", price: 3700, pt: 3000 },
+    { name: "ボディソープ", price: 3200, pt: 2500 },
+    { name: "シャンプー", price: 3200, pt: 2500 },
+    { name: "トリートメント", price: 3200, pt: 2500 },
+    { name: "ヘアマスク", price: 3200, pt: 2500 },
+    { name: "スカルプトナー", price: 9200, pt: 7500 },
+    { name: "クレオ デンタルクリーン", price: 2200, pt: 1800 },
+    { name: "クレオ マウスウォッシュ", price: 3200, pt: 2500 },
+    { name: "アロマオイル ローズ", price: 8700, pt: 7300 },
+    { name: "ゼウス オードゥ パルファン 2026", price: 21000, pt: 18000 },
+    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pt: 8000 },
+    { name: "モン コパン", price: 3500, pt: 2800 },
+    { name: "モン コパン ジュレ", price: 3500, pt: 2800 }
 ];
 
 let positionCount = 0;
@@ -302,7 +301,8 @@ function refreshMemberOptions(selectElement) {
     options += '<option value="manual">＋ 新しい会員情報を直接入力する</option>';
     selectElement.innerHTML = options;
 }
- function onSelectMember(posId) {
+
+function onSelectMember(posId) {
     const select = document.getElementById(`pos_select_${posId}`);
     const codeInput = document.getElementById(`pos_code_${posId}`);
     const nameInput = document.getElementById(`pos_name_${posId}`);
@@ -359,11 +359,9 @@ function onMonthChange() {
 }
 
 function refreshProductOptions(selectElement) {
-    const month = document.getElementById('target_month').value;
     let options = '<option value="">-- 商品を選択 --</option>';
     products.forEach((p, index) => {
-        const pt = (month === "7月度") ? p.p7 : p.p8;
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${pt.toLocaleString()}pt)</option>`;
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${p.pt.toLocaleString()}pt)</option>`;
     });
     selectElement.innerHTML = options;
 }
@@ -482,7 +480,6 @@ function addItemRow(posId) {
 }
 
 function calculateAll() {
-    const month = document.getElementById('target_month').value;
     const positionBoxes = document.querySelectorAll('.position-box');
     
     let grandTotalQty = 0;
@@ -524,10 +521,9 @@ function calculateAll() {
             
             if(pIndex !== "") {
                 const prod = products[pIndex];
-                const pt = (month === "7月度") ? prod.p7 : prod.p8;
                 
                 const subPrice = prod.price * qty;
-                const subPt = pt * qty;
+                const subPt = prod.pt * qty;
 
                 posQty += qty;
                 posPrice += subPrice;
@@ -654,4 +650,4 @@ function copyToClipboard() {
 }
 </script>
 </body>
-</html>   
+</html>
