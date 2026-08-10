@@ -24,7 +24,7 @@
       
       <div class="usage-guide">
         <strong>💡 事前登録しておくと便利です！</strong><br>
-        ・ここに家族やご自身の会員情報を登録しておくと、下の「4. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
+        ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
         ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
         <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
       </div>
@@ -88,16 +88,24 @@
       </div>
     </div>
 
-    <!-- 4. 会員番号ごとの注文 -->
+    <!-- 4. 処理月度の選択 -->
     <div class="info-card">
-      <div class="section-title">4. 会員番号ごとの注文</div>
+      <div class="section-title">4. 処理月度の選択</div>
+      <select id="target_month" onchange="onMonthChange();">
+        <option value="8月度" selected>8月度</option>
+      </select>
+    </div>
+
+    <!-- 5. 会員番号ごとの注文 -->
+    <div class="info-card">
+      <div class="section-title">5. 会員番号ごとの注文</div>
       <div id="positions_container"></div>
       <button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
 
-    <!-- 5. 生成された注文テキスト -->
+    <!-- 6. 生成された注文テキスト -->
     <div class="info-card">
-      <div class="section-title">5. 生成された注文テキスト</div>
+      <div class="section-title">6. 生成された注文テキスト</div>
       <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
       <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
     </div>
@@ -116,7 +124,7 @@
   </div>
 
 <script>
-// 商品データマスター（8月度ポイントに統一）
+// 商品データマスター（8月度ポイント）
 const products = [
     { name: "OX-288", price: 13800, pt: 10000 },
     { name: "OX-288(追加購入)", price: 13800, pt: 10000 },
@@ -341,6 +349,15 @@ function toggleCustomPos(posId) {
     updatePreview();
 }
 
+function onMonthChange() {
+    document.querySelectorAll('.item-select').forEach(select => {
+        const selectedIndex = select.value;
+        refreshProductOptions(select);
+        select.value = selectedIndex;
+    });
+    updatePreview();
+}
+
 function refreshProductOptions(selectElement) {
     let options = '<option value="">-- 商品を選択 --</option>';
     products.forEach((p, index) => {
@@ -556,13 +573,14 @@ function generateText() {
     const pw = document.getElementById('pw_code').value.trim();
     const ninaPt = document.getElementById('nina_point').value.trim();
     const receiptName = document.getElementById('receipt_name').value.trim();
+    const month = document.getElementById('target_month').value;
     
     const today = new Date();
     const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
 
     const data = calculateAll();
 
-    let text = `🇫🇷注文分①${dateStr}\n\n`;
+    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
     
     if(payment) {
         if(payment === 'ニナファームカード') {
@@ -627,7 +645,7 @@ function copyToClipboard() {
     navigator.clipboard.writeText(result.text).then(() => {
         alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
     }).catch(err => {
-        alert("コピーに失敗しました。画面下の「5. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
+        alert("コピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
     });
 }
 </script>
