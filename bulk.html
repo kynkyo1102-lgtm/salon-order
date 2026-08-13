@@ -389,7 +389,6 @@
             <label for="month">発注月度 *</label>
             <select id="month" name="month" required>
               <option value="">選択してください</option>
-              <option value="8月度">8月度</option>
             </select>
           </div>
 
@@ -440,6 +439,7 @@
             </div>
           </div>
         </div>
+
         <!-- お届け先エリア -->
         <div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
         <div class="card-box">
@@ -534,49 +534,53 @@
   </main>
 
   <script>
-    const productMaster = {
-      "OX-288": { price: 13800, pt: { "8月度": 10000 } },
-      "OX-288(追加購入)": { price: 13800, pt: { "8月度": 10000 } },
-      "OX-288 (ゼリータイプ)": { price: 14200, pt: { "8月度": 10000 } },
-      "ボアソン": { price: 10800, pt: { "8月度": 10000 } },
-      "ハイプロリーナ": { price: 7200, pt: { "8月度": 6000 } },
-      "ゼウス 2026": { price: 17800, pt: { "8月度": 13000 } },
-      "アルピニスト スラージュ": { price: 4000, pt: { "8月度": 2800 } },
-      "O・M・C プロテイン": { price: 6000, pt: { "8月度": 5000 } },
-      "サヴォン アンベリール (120g)": { price: 5200, pt: { "8月度": 4300 } },
-      "サヴォン アンベリール (70g)": { price: 3500, pt: { "8月度": 2900 } },
-      "ブランシュール (150g)": { price: 12200, pt: { "8月度": 10500 } },
-      "ブランシュール (80g)": { price: 6800, pt: { "8月度": 5800 } },
-      "デマキヤン": { price: 4100, pt: { "8月度": 3400 } },
-      "赤化粧水": { price: 3600, pt: { "8月度": 3000 } },
-      "赤美容液": { price: 6400, pt: { "8月度": 5400 } },
-      "赤ジェル": { price: 4800, pt: { "8月度": 4000 } },
-      "白化粧水": { price: 3600, pt: { "8月度": 3000 } },
-      "白美容液": { price: 6400, pt: { "8月度": 5400 } },
-      "白ジェル": { price: 4800, pt: { "8月度": 4000 } },
-      "グルナードゥ": { price: 32000, pt: { "8月度": 26000 } },
-      "リペアセラム": { price: 14800, pt: { "8月度": 15000 } },
-      "リペアクリーム": { price: 18700, pt: { "8月度": 15000 } },
-      "レボリューション": { price: 17200, pt: { "8月度": 14500 } },
-      "グロウジェルクリーム": { price: 9800, pt: { "8月度": 8000 } },
-      "ハンドモイスチャー": { price: 2200, pt: { "8月度": 1800 } },
-      "リップセラム": { price: 2000, pt: { "8月度": 1600 } },
-      "ボディミルク": { price: 3200, pt: { "8月度": 2500 } },
-      "ミュー ヴィサージュ": { price: 3300, pt: { "8月度": 2600 } },
-      "ミューコール": { price: 3300, pt: { "8月度": 2600 } },
-      "バイオミスト": { price: 3700, pt: { "8月度": 3000 } },
-      "ボディソープ": { price: 3200, pt: { "8月度": 2500 } },
-      "シャンプー": { price: 3200, pt: { "8月度": 2500 } },
-      "トリートメント": { price: 3200, pt: { "8月度": 2500 } },
-      "ヘアマスク": { price: 3200, pt: { "8月度": 2500 } },
-      "スカルプトナー": { price: 9200, pt: { "8月度": 7500 } },
-      "クレオ デンタルクリーン": { price: 2200, pt: { "8月度": 1800 } },
-      "クレオ マウスウォッシュ": { price: 3200, pt: { "8月度": 2500 } },
-      "アロマオイル ローズ": { price: 8700, pt: { "8月度": 7300 } },
-      "ゼウス オードゥ パルファン 2026": { price: 21000, pt: { "8月度": 18000 } },
-      "オヴェルデ エクストラバージンオリーブオイル": { price: 16200, pt: { "8月度": 8000 } },
-      "モン コパン": { price: 3500, pt: { "8月度": 2800 } },
-      "モン コパン ジュレ": { price: 3500, pt: { "8月度": 2800 } }
+    // フォールバック用デフォルトデータ（JSON取得失敗時に使用）
+    let currentMaster = {
+      activeMonths: ["8月度"],
+      products: [
+        { name: "OX-288", price: 13800, pts: { "8月度": 10000 } },
+        { name: "OX-288(追加購入)", price: 13800, pts: { "8月度": 10000 } },
+        { name: "OX-288 (ゼリータイプ)", price: 14200, pts: { "8月度": 10000 } },
+        { name: "ボアソン", price: 10800, pts: { "8月度": 10000 } },
+        { name: "ハイプロリーナ", price: 7200, pts: { "8月度": 6000 } },
+        { name: "ゼウス 2026", price: 17800, pts: { "8月度": 13000 } },
+        { name: "アルピニスト スラージュ", price: 4000, pts: { "8月度": 2800 } },
+        { name: "O・M・C プロテイン", price: 6000, pts: { "8月度": 5000 } },
+        { name: "サヴォン アンベリール (120g)", price: 5200, pts: { "8月度": 4300 } },
+        { name: "サヴォン アンベリール (70g)", price: 3500, pts: { "8月度": 2900 } },
+        { name: "ブランシュール (150g)", price: 12200, pts: { "8月度": 10500 } },
+        { name: "ブランシュール (80g)", price: 6800, pts: { "8月度": 5800 } },
+        { name: "デマキヤン", price: 4100, pts: { "8月度": 3400 } },
+        { name: "赤化粧水", price: 3600, pts: { "8月度": 3000 } },
+        { name: "赤美容液", price: 6400, pts: { "8月度": 5400 } },
+        { name: "赤ジェル", price: 4800, pts: { "8月度": 4000 } },
+        { name: "白化粧水", price: 3600, pts: { "8月度": 3000 } },
+        { name: "白美容液", price: 6400, pts: { "8月度": 5400 } },
+        { name: "白ジェル", price: 4800, pts: { "8月度": 4000 } },
+        { name: "グルナードゥ", price: 32000, pts: { "8月度": 26000 } },
+        { name: "リペアセラム", price: 14800, pts: { "8月度": 15000 } },
+        { name: "リペアクリーム", price: 18700, pts: { "8月度": 15000 } },
+        { name: "レボリューション", price: 17200, pts: { "8月度": 14500 } },
+        { name: "グロウジェルクリーム", price: 9800, pts: { "8月度": 8000 } },
+        { name: "ハンドモイスチャー", price: 2200, pts: { "8月度": 1800 } },
+        { name: "リップセラム", price: 2000, pts: { "8月度": 1600 } },
+        { name: "ボディミルク", price: 3200, pts: { "8月度": 2500 } },
+        { name: "ミュー ヴィサージュ", price: 3300, pts: { "8月度": 2600 } },
+        { name: "ミューコール", price: 3300, pts: { "8月度": 2600 } },
+        { name: "バイオミスト", price: 3700, pts: { "8月度": 3000 } },
+        { name: "ボディソープ", price: 3200, pts: { "8月度": 2500 } },
+        { name: "シャンプー", price: 3200, pts: { "8月度": 2500 } },
+        { name: "トリートメント", price: 3200, pts: { "8月度": 2500 } },
+        { name: "ヘアマスク", price: 3200, pts: { "8月度": 2500 } },
+        { name: "スカルプトナー", price: 9200, pts: { "8月度": 7500 } },
+        { name: "クレオ デンタルクリーン", price: 2200, pts: { "8月度": 1800 } },
+        { name: "クレオ マウスウォッシュ", price: 3200, pts: { "8月度": 2500 } },
+        { name: "アロマオイル ローズ", price: 8700, pts: { "8月度": 7300 } },
+        { name: "ゼウス オードゥ パルファン 2026", price: 21000, pts: { "8月度": 18000 } },
+        { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pts: { "8月度": 8000 } },
+        { name: "モン コパン", price: 3500, pts: { "8月度": 2800 } },
+        { name: "モン コパン ジュレ", price: 3500, pts: { "8月度": 2800 } }
+      ]
     };
 
     let allOrders = [];
@@ -585,49 +589,35 @@
     let currentGrandPt = 0;
     let currentItemsData = [];
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const memberIdSub = document.getElementById('memberIdSub');
-      memberIdSub.innerHTML = '';
+    window.addEventListener('DOMContentLoaded', async () => {
+      initMemberSubSelect();
 
-      for (let i = 0; i <= 20; i++) {
-        const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0');
-        opt.value = val;
-        opt.textContent = val;
-        memberIdSub.appendChild(opt);
-      }
-
-      const tbody = document.getElementById('productTableBody');
-      let prodIndex = 0;
-      for (let prod in productMaster) {
-        prodIndex++;
-        const tr = document.createElement('tr');
-        let qtyOptions = '<option value="0">0</option>';
-        for (let i = 1; i <= 20; i++) {
-          qtyOptions += `<option value="${i}">${i}</option>`;
+      // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
+      try {
+        const response = await fetch('./month_config.json?cache=' + new Date().getTime());
+        if (response.ok) {
+          const remoteConfig = await response.json();
+          currentMaster = remoteConfig;
+          localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
         }
-
-        tr.innerHTML = `
-          <td><strong>${prod}</strong></td>
-          <td style="color: var(--text-sub); text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
-          <td class="pt-col" id="pt-cell-${prodIndex}">-</td>
-          <td class="qty-col">
-            <select class="qty-select" data-product="${prod}">
-              ${qtyOptions}
-            </select>
-          </td>
-        `;
-        tbody.appendChild(tr);
+      } catch (e) {
+        // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
+        const savedConfig = localStorage.getItem('salonOrderMasterConfig');
+        if (savedConfig) {
+          try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
+        }
       }
 
-      document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
-      document.getElementById('month').addEventListener('change', updateCalc);
+      renderUIFromMaster();
 
-      const savedData = localStorage.getItem('salonOrderUserInfo');
-      if (savedData) {
+      // ユーザー情報復元
+      const savedUser = localStorage.getItem('salonOrderUserInfo');
+      if (savedUser) {
         try {
-          const user = JSON.parse(savedData);
-          if (user.month) document.getElementById('month').value = user.month;
+          const user = JSON.parse(savedUser);
+          if (user.month && currentMaster.activeMonths.includes(user.month)) {
+            document.getElementById('month').value = user.month;
+          }
           if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
           if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
           if (user.fullName) document.getElementById('fullName').value = user.fullName;
@@ -644,6 +634,65 @@
         } catch (e) {}
       }
     });
+
+    function initMemberSubSelect() {
+      const memberIdSub = document.getElementById('memberIdSub');
+      memberIdSub.innerHTML = '';
+      for (let i = 0; i <= 20; i++) {
+        const opt = document.createElement('option');
+        const val = String(i).padStart(2, '0');
+        opt.value = val;
+        opt.textContent = val;
+        memberIdSub.appendChild(opt);
+      }
+    }
+
+    function renderUIFromMaster() {
+      // 月度プルダウン描画
+      const monthSelect = document.getElementById('month');
+      const currentVal = monthSelect.value;
+      monthSelect.innerHTML = '<option value="">選択してください</option>';
+      currentMaster.activeMonths.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        monthSelect.appendChild(opt);
+      });
+      if (currentMaster.activeMonths.includes(currentVal)) {
+        monthSelect.value = currentVal;
+      } else if (currentMaster.activeMonths.length > 0) {
+        monthSelect.value = currentMaster.activeMonths[0];
+      }
+
+      // 商品テーブル描画
+      const tbody = document.getElementById('productTableBody');
+      tbody.innerHTML = '';
+
+      currentMaster.products.forEach((prod, index) => {
+        const tr = document.createElement('tr');
+        let qtyOptions = '<option value="0">0</option>';
+        for (let i = 1; i <= 20; i++) {
+          qtyOptions += `<option value="${i}">${i}</option>`;
+        }
+
+        tr.innerHTML = `
+          <td><strong>${prod.name}</strong></td>
+          <td style="color: var(--text-sub); text-align: right;">¥${prod.price.toLocaleString()}</td>
+          <td class="pt-col" id="pt-cell-${index}">-</td>
+          <td class="qty-col">
+            <select class="qty-select" data-index="${index}">
+              ${qtyOptions}
+            </select>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
+      document.getElementById('month').addEventListener('change', updateCalc);
+
+      updateCalc();
+    }
 
     function togglePaymentFields() {
       const method = document.getElementById('paymentMethod').value;
@@ -678,31 +727,30 @@
       currentGrandPt = 0;
       currentItemsData = [];
 
-      let idx = 0;
-      for (let prod in productMaster) {
-        idx++;
-        const cell = document.getElementById(`pt-cell-${idx}`);
+      currentMaster.products.forEach((prod, index) => {
+        const cell = document.getElementById(`pt-cell-${index}`);
         if (cell) {
-          if (month && productMaster[prod].pt && productMaster[prod].pt[month] !== undefined) {
-            cell.textContent = productMaster[prod].pt[month].toLocaleString() + "pt";
+          if (month && prod.pts && prod.pts[month] !== undefined) {
+            cell.textContent = prod.pts[month].toLocaleString() + "pt";
           } else {
             cell.textContent = "-";
           }
         }
-      }
+      });
 
       selects.forEach(sel => {
         const qty = parseInt(sel.value) || 0;
         if (qty > 0) {
-          const prod = sel.getAttribute('data-product');
-          const itemPrice = productMaster[prod].price * qty;
-          let itemPt = (month && productMaster[prod].pt && productMaster[prod].pt[month]) ? productMaster[prod].pt[month] * qty : 0;
+          const index = sel.getAttribute('data-index');
+          const prod = currentMaster.products[index];
+          const itemPrice = prod.price * qty;
+          let itemPt = (month && prod.pts && prod.pts[month]) ? prod.pts[month] * qty : 0;
 
           currentSubtotal += itemPrice;
           currentGrandPt += itemPt;
 
           currentItemsData.push({
-            product: prod,
+            product: prod.name,
             quantity: qty,
             price: itemPrice,
             pt: itemPt
