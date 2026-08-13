@@ -377,17 +377,6 @@
   </header>
 
   <main>
-    <!-- 設定ファイル読み込みエリア（アコーディオン） -->
-    <div class="card-box" style="background-color: #fdfbf7; border-left-color: var(--wood-medium);">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 0.8rem; font-weight: bold; color: var(--wood-dark);">⚙️ 月度・商品設定ファイルの読み込み</span>
-        <button type="button" onclick="document.getElementById('configFileInput').click()" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 12px; border: 1px solid var(--accent-gold); background: var(--wood-dark); color: var(--gold-light); cursor: pointer;">
-          📂 JSON選択
-        </button>
-        <input type="file" id="configFileInput" accept=".json" style="display:none;" onchange="importConfigJSON(event)">
-      </div>
-    </div>
-
     <!-- 入力フォーム画面 -->
     <div id="formSection">
       <form id="orderForm" class="h-adr">
@@ -545,7 +534,7 @@
   </main>
 
   <script>
-    // 初期デフォルトのマスタデータ
+    // フォールバック用デフォルトデータ（JSON取得失敗時に使用）
     let currentMaster = {
       activeMonths: ["8月度"],
       products: [
@@ -600,16 +589,25 @@
     let currentGrandPt = 0;
     let currentItemsData = [];
 
-    window.addEventListener('DOMContentLoaded', () => {
-      // 外部設定ファイル（保存済み）の読み込み確認
-      const savedConfig = localStorage.getItem('salonOrderMasterConfig');
-      if (savedConfig) {
-        try {
-          currentMaster = JSON.parse(savedConfig);
-        } catch (e) {}
+    window.addEventListener('DOMContentLoaded', async () => {
+      initMemberSubSelect();
+
+      // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
+      try {
+        const response = await fetch('./month_config.json?cache=' + new Date().getTime());
+        if (response.ok) {
+          const remoteConfig = await response.json();
+          currentMaster = remoteConfig;
+          localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
+        }
+      } catch (e) {
+        // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
+        const savedConfig = localStorage.getItem('salonOrderMasterConfig');
+        if (savedConfig) {
+          try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
+        }
       }
 
-      initMemberSubSelect();
       renderUIFromMaster();
 
       // ユーザー情報復元
@@ -694,29 +692,6 @@
       document.getElementById('month').addEventListener('change', updateCalc);
 
       updateCalc();
-    }
-
-    function importConfigJSON(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (imported.activeMonths && imported.products) {
-            currentMaster = imported;
-            localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
-            renderUIFromMaster();
-            alert("設定ファイル（JSON）を更新しました！");
-          } else {
-            alert("フォーマットが不正です。正しい設定ファイルを選択してください。");
-          }
-        } catch (err) {
-          alert("JSONの読み込みに失敗しました。");
-        }
-      };
-      reader.readAsText(file);
     }
 
     function togglePaymentFields() {
