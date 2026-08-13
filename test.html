@@ -92,7 +92,7 @@
     <div class="info-card">
       <div class="section-title">4. 処理月度の選択</div>
       <select id="target_month" onchange="onMonthChange();">
-        <option value="8月度" selected>8月度</option>
+        <!-- JSで動的生成されます -->
       </select>
     </div>
 
@@ -124,23 +124,57 @@
   </div>
 
 <script>
-// 動的に読み込むため空配列で宣言
-let products = [];
+// デフォルトマスター設定（JSONロード失敗時のバックアップ）
+let currentMaster = {
+  activeMonths: ["8月度"],
+  products: [
+    { name: "OX-288", price: 13800, pts: { "8月度": 10000 } },
+    { name: "OX-288(追加購入)", price: 13800, pts: { "8月度": 10000 } },
+    { name: "OX-288 (ゼリータイプ)", price: 14200, pts: { "8月度": 10000 } },
+    { name: "ボアソン", price: 10800, pts: { "8月度": 10000 } },
+    { name: "ハイプロリーナ", price: 7200, pts: { "8月度": 6000 } },
+    { name: "ゼウス 2026", price: 17800, pts: { "8月度": 13000 } },
+    { name: "アルピニスト スラージュ", price: 4000, pts: { "8月度": 2800 } },
+    { name: "O・M・C プロテイン", price: 6000, pts: { "8月度": 5000 } },
+    { name: "サヴォン アンベリール (120g)", price: 5200, pts: { "8月度": 4300 } },
+    { name: "サヴォン アンベリール (70g)", price: 3500, pts: { "8月度": 2900 } },
+    { name: "ブランシュール (150g)", price: 12200, pts: { "8月度": 10500 } },
+    { name: "ブランシュール (80g)", price: 6800, pts: { "8月度": 5800 } },
+    { name: "デマキヤン", price: 4100, pts: { "8月度": 3400 } },
+    { name: "赤化粧水", price: 3600, pts: { "8月度": 3000 } },
+    { name: "赤美容液", price: 6400, pts: { "8月度": 5400 } },
+    { name: "赤ジェル", price: 4800, pts: { "8月度": 4000 } },
+    { name: "白化粧水", price: 3600, pts: { "8月度": 3000 } },
+    { name: "白美容液", price: 6400, pts: { "8月度": 5400 } },
+    { name: "白ジェル", price: 4800, pts: { "8月度": 4000 } },
+    { name: "グルナードゥ", price: 32000, pts: { "8月度": 26000 } },
+    { name: "リペアセラム", price: 14800, pts: { "8月度": 15000 } },
+    { name: "リペアクリーム", price: 18700, pts: { "8月度": 15000 } },
+    { name: "レボリューション", price: 17200, pts: { "8月度": 14500 } },
+    { name: "グロウジェルクリーム", price: 9800, pts: { "8月度": 8000 } },
+    { name: "ハンドモイスチャー", price: 2200, pts: { "8月度": 1800 } },
+    { name: "リップセラム", price: 2000, pts: { "8月度": 1600 } },
+    { name: "ボディミルク", price: 3200, pts: { "8月度": 2500 } },
+    { name: "ミュー ヴィサージュ", price: 3300, pts: { "8月度": 2600 } },
+    { name: "ミューコール", price: 3300, pts: { "8月度": 2600 } },
+    { name: "バイオミスト", price: 3700, pts: { "8月度": 3000 } },
+    { name: "ボディソープ", price: 3200, pts: { "8月度": 2500 } },
+    { name: "シャンプー", price: 3200, pts: { "8月度": 2500 } },
+    { name: "トリートメント", price: 3200, pts: { "8月度": 2500 } },
+    { name: "ヘアマスク", price: 3200, pts: { "8月度": 2500 } },
+    { name: "スカルプトナー", price: 9200, pts: { "8月度": 7500 } },
+    { name: "クレオ デンタルクリーン", price: 2200, pts: { "8月度": 1800 } },
+    { name: "クレオ マウスウォッシュ", price: 3200, pts: { "8月度": 2500 } },
+    { name: "アロマオイル ローズ", price: 8700, pts: { "8月度": 7300 } },
+    { name: "ゼウス オードゥ パルファン 2026", price: 21000, pts: { "8月度": 18000 } },
+    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pts: { "8月度": 8000 } },
+    { name: "モン コパン", price: 3500, pts: { "8月度": 2800 } },
+    { name: "モン コパン ジュレ", price: 3500, pts: { "8月度": 2800 } }
+  ]
+};
+
 let positionCount = 0;
 let registeredMembers = [];
-
-// products.json から商品データを取得する関数
-async function loadProducts() {
-    try {
-        const cacheBuster = new Date().getTime();
-        const res = await fetch('./products.json?v=' + cacheBuster);
-        if (!res.ok) throw new Error('HTTP status ' + res.status);
-        products = await res.json();
-    } catch (e) {
-        console.error("products.json の読み込みに失敗しました:", e);
-        alert("商品データの読み込みに失敗しました。ページを再読み込みしてください。");
-    }
-}
 
 function checkZipCode() {
     const zipInput = document.getElementById('ship_zip').value;
@@ -166,9 +200,25 @@ function checkZipCode() {
 }
 
 window.onload = async function() {
-    // 最初に商品データをJSONから読み込む
-    await loadProducts();
+    // 1. 最新の month_config.json を自動バックグラウンド取得
+    try {
+        const response = await fetch('./month_config.json?cache=' + new Date().getTime());
+        if (response.ok) {
+            const remoteConfig = await response.json();
+            currentMaster = remoteConfig;
+            localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
+        }
+    } catch (e) {
+        const savedConfig = localStorage.getItem('salonOrderMasterConfig');
+        if (savedConfig) {
+            try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
+        }
+    }
 
+    // 2. 月度プルダウンの描画
+    renderMonthOptions();
+
+    // 3. 保存データの復元
     if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
     if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
     if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
@@ -191,6 +241,25 @@ window.onload = async function() {
 
     addPositionBox();
 };
+
+function renderMonthOptions() {
+    const monthSelect = document.getElementById('target_month');
+    monthSelect.innerHTML = '';
+    
+    if (currentMaster.activeMonths && currentMaster.activeMonths.length > 0) {
+        currentMaster.activeMonths.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            monthSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = "8月度";
+        opt.textContent = "8月度";
+        monthSelect.appendChild(opt);
+    }
+}
 
 function saveBasicInfo() {
     localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
@@ -331,9 +400,17 @@ function onMonthChange() {
 }
 
 function refreshProductOptions(selectElement) {
+    const selectedMonth = document.getElementById('target_month').value;
     let options = '<option value="">-- 商品を選択 --</option>';
-    products.forEach((p, index) => {
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${p.pt.toLocaleString()}pt)</option>`;
+    
+    currentMaster.products.forEach((p, index) => {
+        let ptVal = 0;
+        if (p.pts && p.pts[selectedMonth] !== undefined) {
+            ptVal = p.pts[selectedMonth];
+        } else if (p.pt !== undefined) {
+            ptVal = p.pt;
+        }
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${ptVal.toLocaleString()}pt)</option>`;
     });
     selectElement.innerHTML = options;
 }
@@ -453,6 +530,7 @@ function addItemRow(posId) {
 
 function calculateAll() {
     const positionBoxes = document.querySelectorAll('.position-box');
+    const selectedMonth = document.getElementById('target_month').value;
     
     let grandTotalQty = 0;
     let grandTotalPrice = 0;
@@ -492,22 +570,28 @@ function calculateAll() {
             const qty = parseInt(row.querySelector('.item-qty').value) || 0;
             
             if(pIndex !== "") {
-                const prod = products[pIndex];
-                if (prod) {
-                    const subPrice = prod.price * qty;
-                    const subPt = prod.pt * qty;
+                const prod = currentMaster.products[pIndex];
+                
+                let itemPt = 0;
+                if (prod.pts && prod.pts[selectedMonth] !== undefined) {
+                    itemPt = prod.pts[selectedMonth];
+                } else if (prod.pt !== undefined) {
+                    itemPt = prod.pt;
+                }
 
-                    posQty += qty;
-                    posPrice += subPrice;
-                    posPt += subPt;
+                const subPrice = prod.price * qty;
+                const subPt = itemPt * qty;
 
-                    posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
+                posQty += qty;
+                posPrice += subPrice;
+                posPt += subPt;
 
-                    if (itemSummaryMap[prod.name]) {
-                        itemSummaryMap[prod.name] += qty;
-                    } else {
-                        itemSummaryMap[prod.name] = qty;
-                    }
+                posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
+
+                if (itemSummaryMap[prod.name]) {
+                    itemSummaryMap[prod.name] += qty;
+                } else {
+                    itemSummaryMap[prod.name] = qty;
                 }
             }
         });
