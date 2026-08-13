@@ -50,14 +50,19 @@
   <script>
     let products = [];
 
-    // products.json を読み込む
+    // products.json を読み込む（キャッシュ対策付き）
     async function init() {
       try {
-        const res = await fetch('products.json');
+        const cacheBuster = new Date().getTime();
+        const res = await fetch('./products.json?v=' + cacheBuster);
+        if (!res.ok) {
+          throw new Error('HTTP status ' + res.status);
+        }
         products = await res.json();
         renderTable();
       } catch(e) {
-        alert("products.json の読み込みに失敗しました。ファイルが存在するか確認してください。");
+        console.error(e);
+        alert("products.json の読み込みに失敗しました。\nエラー: " + e.message);
       }
     }
 
