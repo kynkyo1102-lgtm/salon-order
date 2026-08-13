@@ -388,7 +388,7 @@
           <div class="form-group">
             <label for="month">発注月度 *</label>
             <select id="month" name="month" required>
-              <option value="">データを読み込み中...</option>
+              <option value="">選択してください</option>
             </select>
           </div>
 
@@ -439,6 +439,7 @@
             </div>
           </div>
         </div>
+
         <!-- お届け先エリア -->
         <div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
         <div class="card-box">
@@ -543,19 +544,21 @@
     window.addEventListener('DOMContentLoaded', async () => {
       // 枝番ドロップダウン生成 (00-20)
       const memberIdSub = document.getElementById('memberIdSub');
-      memberIdSub.innerHTML = '';
-      for (let i = 0; i <= 20; i++) {
-        const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0');
-        opt.value = val;
-        opt.textContent = val;
-        memberIdSub.appendChild(opt);
+      if (memberIdSub) {
+        memberIdSub.innerHTML = '';
+        for (let i = 0; i <= 20; i++) {
+          const opt = document.createElement('option');
+          const val = String(i).padStart(2, '0');
+          opt.value = val;
+          opt.textContent = val;
+          memberIdSub.appendChild(opt);
+        }
       }
 
-      // products.json の自動読み込み
+      // products.json の自動読み込み処理
       try {
         const res = await fetch('./products.json');
-        if (!res.ok) throw new Error("JSON読み込みエラー");
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const jsonProducts = await res.json();
 
         const monthSet = new Set();
@@ -563,40 +566,70 @@
 
         jsonProducts.forEach(item => {
           productMaster[item.name] = {
-            price: Number(item.price),
+            price: Number(item.price) || 0,
             pt: item.pt || {}
           };
-          if (item.pt) {
-            Object.keys(item.pt).forEach(m => monthSet.add(m));
+
+          if (item.pt && typeof item.pt === 'object') {
+            Object.keys(item.pt).forEach(m => {
+              if (m && m.trim() !== '') {
+                monthSet.add(m.trim());
+              }
+            });
           }
         });
 
         // 月度ドロップダウンの更新
         const monthSelect = document.getElementById('month');
-        monthSelect.innerHTML = '<option value="">選択してください</option>';
-        Array.from(monthSet).forEach(m => {
-          const opt = document.createElement('option');
-          opt.value = m;
-          opt.textContent = m;
-          monthSelect.appendChild(opt);
-        });
+        if (monthSelect) {
+          monthSelect.innerHTML = '<option value="">選択してください</option>';
+          const months = Array.from(monthSet);
+          
+          if (months.length === 0) {
+            // 月度がJSONから取得できなかった場合の予備表示（フォールバック）
+            ['8月度', '9月度', '10月度'].forEach(m => {
+              const opt = document.createElement('option');
+              opt.value = m;
+              opt.textContent = m;
+              monthSelect.appendChild(opt);
+            });
+          } else {
+            months.forEach(m => {
+              const opt = document.createElement('option');
+              opt.value = m;
+              opt.textContent = m;
+              monthSelect.appendChild(opt);
+            });
+          }
+        }
 
       } catch (err) {
         console.error("products.json の読み込みに失敗しました:", err);
-        alert("商品データの読み込みに失敗しました。products.jsonの配置を確認してください。");
+        
+        // 読み込み失敗時のフォールバック処理
+        const monthSelect = document.getElementById('month');
+        if (monthSelect) {
+          monthSelect.innerHTML = `
+            <option value="">選択してください</option>
+            <option value="8月度">8月度</option>
+            <option value="9月度">9月度</option>
+            <option value="10月度">10月度</option>
+          `;
+        }
       }
 
-      // 商品テーブルの生成
+      // 商品テーブル描画
       renderProductTable();
 
-      document.getElementById('month').addEventListener('change', updateCalc);
+      const monthEl = document.getElementById('month');
+      if (monthEl) monthEl.addEventListener('change', updateCalc);
 
       // ローカルストレージからの復元
       const savedData = localStorage.getItem('salonOrderUserInfo');
       if (savedData) {
         try {
           const user = JSON.parse(savedData);
-          if (user.month) document.getElementById('month').value = user.month;
+          if (user.month && monthEl) monthEl.value = user.month;
           if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
           if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
           if (user.fullName) document.getElementById('fullName').value = user.fullName;
@@ -616,6 +649,7 @@
 
     function renderProductTable() {
       const tbody = document.getElementById('productTableBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
       let prodIndex = 0;
 
