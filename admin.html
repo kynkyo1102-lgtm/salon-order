@@ -3,287 +3,191 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>商品マスタ管理画面</title>
+  <title>サロン注文ツール - 月度＆ポイント管理画面</title>
   <style>
-    :root {
-      --wood-dark: #231610;
-      --wood-medium: #4a3222;
-      --accent-gold: #c8a261;
-      --bg-color: #f7f4ee;
-      --card-bg: #ffffff;
-      --text-main: #2b2019;
-      --border-color: #e5dac9;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      border: 1px solid var(--border-color);
-    }
-
-    h1 {
-      font-size: 1.4rem;
-      color: var(--wood-dark);
-      margin-top: 0;
-      border-bottom: 2px solid var(--accent-gold);
-      padding-bottom: 8px;
-    }
-
-    .month-selector-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background-color: #fcfaf5;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--accent-gold);
-      margin-bottom: 20px;
-    }
-
-    .month-selector-area label {
-      font-weight: bold;
-      color: var(--wood-dark);
-      font-size: 0.9rem;
-    }
-
-    select, input[type="text"], input[type="number"] {
-      padding: 8px 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.88rem;
-    }
-
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-
-    .admin-table th, .admin-table td {
-      border: 1px solid var(--border-color);
-      padding: 8px 10px;
-      text-align: left;
-    }
-
-    .admin-table th {
-      background-color: #f7f3eb;
-      color: var(--wood-dark);
-      font-size: 0.85rem;
-    }
-
-    .btn {
-      background-color: var(--wood-dark);
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: opacity 0.2s;
-    }
-
-    .btn:hover {
-      opacity: 0.9;
-    }
-
-    .btn-danger {
-      background-color: #c94b4b;
-      padding: 4px 10px;
-      font-size: 0.8rem;
-    }
-
-    .btn-add {
-      background-color: var(--accent-gold);
-      color: #2b2019;
-      margin-bottom: 15px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 200px;
-      font-family: monospace;
-      padding: 10px;
-      box-sizing: border-box;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      margin-top: 10px;
-    }
+    body { font-family: sans-serif; padding: 20px; background: #f4f4f9; max-width: 900px; margin: 0 auto; }
+    h1, h2 { color: #333; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    label { font-weight: bold; display: block; margin-bottom: 5px; }
+    input[type="text"], input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-sizing: border-box; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .btn { padding: 10px 16px; background: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+    .btn-secondary { background: #008cba; }
+    .btn-danger { background: #f44336; }
+    .flex { display: flex; gap: 10px; align-items: center; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>🛠️ 商品マスタ & 月度別ポイント管理</h1>
+  <h1>⚙️ 月度・商品ポイント管理画面</h1>
 
-    <!-- 対象月度選択・追加エリア -->
-    <div class="month-selector-area">
-      <label for="currentMonthSelect">📅 表示・編集する月度を選択:</label>
-      <select id="currentMonthSelect" onchange="renderTable()"></select>
-      <button type="button" class="btn" onclick="addNewMonth()">＋ 新しい月度を追加</button>
-    </div>
+  <!-- 1. 処理月度の設定 -->
+  <div class="card">
+    <h2>1. 選択可能な処理月度の設定</h2>
+    <p style="font-size: 0.85rem; color: #666;">
+      ※1〜10日は「先月度, 今月度」（例: 8月度, 9月度）、11日以降は「今月度」（例: 9月度）のようにカンマ区切りで入力してください。
+    </p>
+    <label>有効な月度 (カンマ区切り)</label>
+    <input type="text" id="activeMonthsInput" value="8月度, 9月度" onchange="renderTableHeaders()">
+  </div>
 
-    <button type="button" class="btn btn-add" onclick="addProductRow()">＋ 商品を追加</button>
-
-    <table class="admin-table">
+  <!-- 2. 商品マスター・ポイント一覧 -->
+  <div class="card">
+    <h2>2. 商品価格 & 月度別ポイント編集</h2>
+    <table id="productTable">
       <thead>
-        <tr>
+        <tr id="tableHeader">
           <th>商品名</th>
-          <th style="width: 130px;">本体価格 (税込)</th>
-          <th style="width: 140px;" id="ptHeaderTitle">ポイント (pt)</th>
-          <th style="width: 60px; text-align: center;">操作</th>
+          <th style="width: 100px;">価格(円)</th>
+          <!-- 月度別ポイントヘッダーが動的に入ります -->
         </tr>
       </thead>
-      <tbody id="productTbody"></tbody>
+      <tbody id="productTableBody"></tbody>
     </table>
+    <br>
+    <button class="btn btn-secondary" onclick="addNewProductRow()">＋ 商品を追加</button>
+  </div>
 
-    <button type="button" class="btn" onclick="generateJSON()" style="width: 100%; padding: 12px; font-size: 1rem;">
-      💾 JSONデータを生成（コピー用）
-    </button>
-
-    <h2 style="font-size: 1rem; margin-top: 25px;">出力用 JSON</h2>
-    <textarea id="jsonOutput" readonly placeholder="上記のボタンを押すと、ここに products.json 用のテキストが出力されます"></textarea>
+  <!-- 3. 保存・出力 -->
+  <div class="card">
+    <h2>3. 設定ファイルの書き出し</h2>
+    <div class="flex">
+      <button class="btn" onclick="exportJSON()">💾 month_config.json をダウンロード</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+      <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📂 既存の JSON を読み込んで編集</button>
+    </div>
   </div>
 
   <script>
-    // 初期データ
-    let products = [
-      { name: "OX-288", price: 13800, pt: { "8月度": 10000 } },
-      { name: "OX-288(追加購入)", price: 13800, pt: { "8月度": 10000 } },
-      { name: "OX-288 (ゼリータイプ)", price: 14200, pt: { "8月度": 10000 } },
-      { name: "ボアソン", price: 10800, pt: { "8月度": 10000 } },
-      { name: "ハイプロリーナ", price: 7200, pt: { "8月度": 6000 } },
-      { name: "ゼウス 2026", price: 17800, pt: { "8月度": 13000 } },
-      { name: "アルピニスト スラージュ", price: 4000, pt: { "8月度": 2800 } },
-      { name: "O・M・C プロテイン", price: 6000, pt: { "8月度": 5000 } },
-      { name: "サヴォン アンベリール (120g)", price: 5200, pt: { "8月度": 4300 } },
-      { name: "サヴォン アンベリール (70g)", price: 3500, pt: { "8月度": 2900 } },
-      { name: "ブランシュール (150g)", price: 12200, pt: { "8月度": 10500 } },
-      { name: "ブランシュール (80g)", price: 6800, pt: { "8月度": 5800 } },
-      { name: "デマキヤン", price: 4100, pt: { "8月度": 3400 } },
-      { name: "赤化粧水", price: 3600, pt: { "8月度": 3000 } },
-      { name: "赤美容液", price: 6400, pt: { "8月度": 5400 } },
-      { name: "赤ジェル", price: 4800, pt: { "8月度": 4000 } },
-      { name: "白化粧水", price: 3600, pt: { "8月度": 3000 } },
-      { name: "白美容液", price: 6400, pt: { "8月度": 5400 } },
-      { name: "白ジェル", price: 4800, pt: { "8月度": 4000 } },
-      { name: "グルナードゥ", price: 32000, pt: { "8月度": 26000 } },
-      { name: "リペアセラム", price: 14800, pt: { "8月度": 15000 } },
-      { name: "リペアクリーム", price: 18700, pt: { "8月度": 15000 } },
-      { name: "レボリューション", price: 17200, pt: { "8月度": 14500 } },
-      { name: "グロウジェルクリーム", price: 9800, pt: { "8月度": 8000 } },
-      { name: "ハンドモイスチャー", price: 2200, pt: { "8月度": 1800 } },
-      { name: "リップセラム", price: 2000, pt: { "8月度": 1600 } },
-      { name: "ボディミルク", price: 3200, pt: { "8月度": 2500 } },
-      { name: "ミュー ヴィサージュ", price: 3300, pt: { "8月度": 2600 } },
-      { name: "ミューコール", price: 3300, pt: { "8月度": 2600 } },
-      { name: "バイオミスト", price: 3700, pt: { "8月度": 3000 } },
-      { name: "ボディソープ", price: 3200, pt: { "8月度": 2500 } },
-      { name: "シャンプー", "price": 3200, pt: { "8月度": 2500 } },
-      { name: "トリートメント", price: 3200, pt: { "8月度": 2500 } },
-      { name: "ヘアマスク", price: 3200, pt: { "8月度": 2500 } },
-      { name: "スカルプトナー", price: 9200, pt: { "8月度": 7500 } },
-      { name: "クレオ デンタルクリーン", price: 2200, pt: { "8月度": 1800 } },
-      { name: "クレオ マウスウォッシュ", price: 3200, pt: { "8月度": 2500 } },
-      { name: "アロマオイル ローズ", price: 8700, pt: { "8月度": 7300 } },
-      { name: "ゼウス オードゥ パルファン 2026", price: 21000, pt: { "8月度": 18000 } },
-      { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pt: { "8月度": 8000 } },
-      { name: "モン コパン", price: 3500, pt: { "8月度": 2800 } },
-      { name: "モン コパン ジュレ", price: 3500, pt: { "8月度": 2800 } }
-    ];
+    // デフォルトの商品データ構造
+    let masterData = {
+      activeMonths: ["8月度", "9月度"],
+      products: [
+        { name: "OX-288", price: 13800, pts: { "8月度": 10000, "9月度": 10000 } },
+        { name: "ボアソン", price: 10800, pts: { "8月度": 10000, "9月度": 10000 } },
+        { name: "ハイプロリーナ", price: 7200, pts: { "8月度": 6000, "9月度": 6000 } }
+      ]
+    };
 
-    let months = ["8月度"];
+    window.onload = () => {
+      renderAll();
+    };
 
-    window.addEventListener('DOMContentLoaded', () => {
-      initMonthSelect();
-      renderTable();
-    });
-
-    function initMonthSelect() {
-      const select = document.getElementById('currentMonthSelect');
-      select.innerHTML = '';
-      months.forEach(m => {
-        const opt = document.createElement('option');
-        opt.value = m;
-        opt.textContent = m;
-        select.appendChild(opt);
-      });
+    function renderAll() {
+      document.getElementById('activeMonthsInput').value = masterData.activeMonths.join(', ');
+      renderTableHeaders();
     }
 
-    function addNewMonth() {
-      const input = prompt("追加したい月度を入力してください (例: 9月度)", "9月度");
-      if (input && !months.includes(input)) {
-        months.push(input);
-        initMonthSelect();
-        document.getElementById('currentMonthSelect').value = input;
-        renderTable();
-      }
+    function getMonths() {
+      const input = document.getElementById('activeMonthsInput').value;
+      return input.split(',').map(m => m.trim()).filter(m => m.length > 0);
     }
 
-    function renderTable() {
-      const currentMonth = document.getElementById('currentMonthSelect').value;
-      document.getElementById('ptHeaderTitle').textContent = `${currentMonth} ポイント`;
+    function renderTableHeaders() {
+      const months = getMonths();
+      masterData.activeMonths = months;
 
-      const tbody = document.getElementById('productTbody');
+      const headerTr = document.getElementById('tableHeader');
+      headerTr.innerHTML = `
+        <th>商品名</th>
+        <th style="width: 110px;">価格(税込)</th>
+        ${months.map(m => `<th>${m} Pt</th>`).join('')}
+        <th style="width: 50px;">操作</th>
+      `;
+
+      renderTableBody();
+    }
+
+    function renderTableBody() {
+      const tbody = document.getElementById('productTableBody');
       tbody.innerHTML = '';
+      const months = masterData.activeMonths;
 
-      products.forEach((p, index) => {
+      masterData.products.forEach((prod, index) => {
         const tr = document.createElement('tr');
         
-        const ptVal = (p.pt && p.pt[currentMonth] !== undefined) ? p.pt[currentMonth] : 0;
+        let ptCells = months.map(m => {
+          const ptVal = (prod.pts && prod.pts[m] !== undefined) ? prod.pts[m] : 0;
+          return `<td><input type="number" class="input-pt" data-index="${index}" data-month="${m}" value="${ptVal}"></td>`;
+        }).join('');
 
         tr.innerHTML = `
-          <td><input type="text" value="${p.name}" onchange="updateName(${index}, this.value)" style="width: 95%;"></td>
-          <td><input type="number" value="${p.price}" onchange="updatePrice(${index}, this.value)" style="width: 100px;"> 円</td>
-          <td><input type="number" value="${ptVal}" onchange="updatePt(${index}, '${currentMonth}', this.value)" style="width: 100px;"> pt</td>
-          <td style="text-align: center;"><button type="button" class="btn btn-danger" onclick="deleteRow(${index})">✕</button></td>
+          <td><input type="text" class="input-name" data-index="${index}" value="${prod.name}"></td>
+          <td><input type="number" class="input-price" data-index="${index}" value="${prod.price}"></td>
+          ${ptCells}
+          <td><button class="btn btn-danger" onclick="deleteRow(${index})">✕</button></td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    function updateName(index, val) {
-      products[index].name = val.trim();
-    }
-
-    function updatePrice(index, val) {
-      products[index].price = parseInt(val) || 0;
-    }
-
-    function updatePt(index, month, val) {
-      if (!products[index].pt) products[index].pt = {};
-      products[index].pt[month] = parseInt(val) || 0;
-    }
-
-    function addProductRow() {
-      const currentMonth = document.getElementById('currentMonthSelect').value;
-      const newProd = { name: "新規商品", price: 0, pt: {} };
-      newProd.pt[currentMonth] = 0;
-      products.push(newProd);
-      renderTable();
+    function addNewProductRow() {
+      saveCurrentTableToData();
+      masterData.products.push({
+        name: "新商品",
+        price: 0,
+        pts: {}
+      });
+      renderTableBody();
     }
 
     function deleteRow(index) {
-      if (confirm("この商品を削除しますか？")) {
-        products.splice(index, 1);
-        renderTable();
-      }
+      saveCurrentTableToData();
+      masterData.products.splice(index, 1);
+      renderTableBody();
     }
 
-    function generateJSON() {
-      const jsonStr = JSON.stringify(products, null, 2);
-      document.getElementById('jsonOutput').value = jsonStr;
+    function saveCurrentTableToData() {
+      const months = getMonths();
+      const rows = document.querySelectorAll('#productTableBody tr');
+
+      const updatedProducts = [];
+
+      rows.forEach((row, idx) => {
+        const name = row.querySelector('.input-name').value;
+        const price = parseInt(row.querySelector('.input-price').value) || 0;
+        const pts = {};
+
+        months.forEach(m => {
+          const ptInput = row.querySelector(`.input-pt[data-month="${m}"]`);
+          pts[m] = ptInput ? (parseInt(ptInput.value) || 0) : 0;
+        });
+
+        updatedProducts.push({ name, price, pts });
+      });
+
+      masterData.activeMonths = months;
+      masterData.products = updatedProducts;
+    }
+
+    function exportJSON() {
+      saveCurrentTableToData();
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(masterData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "month_config.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          masterData = JSON.parse(e.target.result);
+          renderAll();
+          alert("JSONファイルを正常に読み込みました。");
+        } catch (err) {
+          alert("JSONの読み込みに失敗しました。正しいフォーマットか確認してください。");
+        }
+      };
+      reader.readAsText(file);
     }
   </script>
 </body>
