@@ -377,6 +377,17 @@
   </header>
 
   <main>
+    <!-- 設定ファイル読み込みエリア（アコーディオン） -->
+    <div class="card-box" style="background-color: #fdfbf7; border-left-color: var(--wood-medium);">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.8rem; font-weight: bold; color: var(--wood-dark);">⚙️ 月度・商品設定ファイルの読み込み</span>
+        <button type="button" onclick="document.getElementById('configFileInput').click()" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 12px; border: 1px solid var(--accent-gold); background: var(--wood-dark); color: var(--gold-light); cursor: pointer;">
+          📂 JSON選択
+        </button>
+        <input type="file" id="configFileInput" accept=".json" style="display:none;" onchange="importConfigJSON(event)">
+      </div>
+    </div>
+
     <!-- 入力フォーム画面 -->
     <div id="formSection">
       <form id="orderForm" class="h-adr">
@@ -534,93 +545,81 @@
   </main>
 
   <script>
-    let productMaster = {};
+    // 初期デフォルトのマスタデータ
+    let currentMaster = {
+      activeMonths: ["8月度"],
+      products: [
+        { name: "OX-288", price: 13800, pts: { "8月度": 10000 } },
+        { name: "OX-288(追加購入)", price: 13800, pts: { "8月度": 10000 } },
+        { name: "OX-288 (ゼリータイプ)", price: 14200, pts: { "8月度": 10000 } },
+        { name: "ボアソン", price: 10800, pts: { "8月度": 10000 } },
+        { name: "ハイプロリーナ", price: 7200, pts: { "8月度": 6000 } },
+        { name: "ゼウス 2026", price: 17800, pts: { "8月度": 13000 } },
+        { name: "アルピニスト スラージュ", price: 4000, pts: { "8月度": 2800 } },
+        { name: "O・M・C プロテイン", price: 6000, pts: { "8月度": 5000 } },
+        { name: "サヴォン アンベリール (120g)", price: 5200, pts: { "8月度": 4300 } },
+        { name: "サヴォン アンベリール (70g)", price: 3500, pts: { "8月度": 2900 } },
+        { name: "ブランシュール (150g)", price: 12200, pts: { "8月度": 10500 } },
+        { name: "ブランシュール (80g)", price: 6800, pts: { "8月度": 5800 } },
+        { name: "デマキヤン", price: 4100, pts: { "8月度": 3400 } },
+        { name: "赤化粧水", price: 3600, pts: { "8月度": 3000 } },
+        { name: "赤美容液", price: 6400, pts: { "8月度": 5400 } },
+        { name: "赤ジェル", price: 4800, pts: { "8月度": 4000 } },
+        { name: "白化粧水", price: 3600, pts: { "8月度": 3000 } },
+        { name: "白美容液", price: 6400, pts: { "8月度": 5400 } },
+        { name: "白ジェル", price: 4800, pts: { "8月度": 4000 } },
+        { name: "グルナードゥ", price: 32000, pts: { "8月度": 26000 } },
+        { name: "リペアセラム", price: 14800, pts: { "8月度": 15000 } },
+        { name: "リペアクリーム", price: 18700, pts: { "8月度": 15000 } },
+        { name: "レボリューション", price: 17200, pts: { "8月度": 14500 } },
+        { name: "グロウジェルクリーム", price: 9800, pts: { "8月度": 8000 } },
+        { name: "ハンドモイスチャー", price: 2200, pts: { "8月度": 1800 } },
+        { name: "リップセラム", price: 2000, pts: { "8月度": 1600 } },
+        { name: "ボディミルク", price: 3200, pts: { "8月度": 2500 } },
+        { name: "ミュー ヴィサージュ", price: 3300, pts: { "8月度": 2600 } },
+        { name: "ミューコール", price: 3300, pts: { "8月度": 2600 } },
+        { name: "バイオミスト", price: 3700, pts: { "8月度": 3000 } },
+        { name: "ボディソープ", price: 3200, pts: { "8月度": 2500 } },
+        { name: "シャンプー", price: 3200, pts: { "8月度": 2500 } },
+        { name: "トリートメント", price: 3200, pts: { "8月度": 2500 } },
+        { name: "ヘアマスク", price: 3200, pts: { "8月度": 2500 } },
+        { name: "スカルプトナー", price: 9200, pts: { "8月度": 7500 } },
+        { name: "クレオ デンタルクリーン", price: 2200, pts: { "8月度": 1800 } },
+        { name: "クレオ マウスウォッシュ", price: 3200, pts: { "8月度": 2500 } },
+        { name: "アロマオイル ローズ", price: 8700, pts: { "8月度": 7300 } },
+        { name: "ゼウス オードゥ パルファン 2026", price: 21000, pts: { "8月度": 18000 } },
+        { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pts: { "8月度": 8000 } },
+        { name: "モン コパン", price: 3500, pts: { "8月度": 2800 } },
+        { name: "モン コパン ジュレ", price: 3500, pts: { "8月度": 2800 } }
+      ]
+    };
+
     let allOrders = [];
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
     let currentGrandPt = 0;
     let currentItemsData = [];
 
-    window.addEventListener('DOMContentLoaded', async () => {
-      // 枝番ドロップダウン生成 (00-20)
-      const memberIdSub = document.getElementById('memberIdSub');
-      if (memberIdSub) {
-        memberIdSub.innerHTML = '';
-        for (let i = 0; i <= 20; i++) {
-          const opt = document.createElement('option');
-          const val = String(i).padStart(2, '0');
-          opt.value = val;
-          opt.textContent = val;
-          memberIdSub.appendChild(opt);
-        }
-      }
-
-      // products.json の自動読み込み処理（JSON完全同期型）
-      try {
-        const res = await fetch('./products.json');
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        const jsonProducts = await res.json();
-
-        const monthSet = new Set();
-        productMaster = {};
-
-        jsonProducts.forEach(item => {
-          productMaster[item.name] = {
-            price: Number(item.price) || 0,
-            pt: item.pt || {}
-          };
-
-          // JSON内のptデータから「月度」を動的にすべて取得
-          if (item.pt && typeof item.pt === 'object') {
-            Object.keys(item.pt).forEach(m => {
-              if (m && m.trim() !== '') {
-                monthSet.add(m.trim());
-              }
-            });
-          }
-        });
-
-        // 月度ドロップダウンの更新
-        const monthSelect = document.getElementById('month');
-        if (monthSelect) {
-          monthSelect.innerHTML = '<option value="">選択してください</option>';
-          const months = Array.from(monthSet);
-          
-          if (months.length === 0) {
-            // JSONに月度データが存在しない場合
-            monthSelect.innerHTML = '<option value="">⚠️ 月度データが設定されていません</option>';
-          } else {
-            months.forEach(m => {
-              const opt = document.createElement('option');
-              opt.value = m;
-              opt.textContent = m;
-              monthSelect.appendChild(opt);
-            });
-          }
-        }
-
-      } catch (err) {
-        console.error("products.json の読み込みに失敗しました:", err);
-        
-        // 読み込み失敗時はエラー表示にして再読み込みを促す
-        const monthSelect = document.getElementById('month');
-        if (monthSelect) {
-          monthSelect.innerHTML = '<option value="">⚠️ データ読み込み失敗（再読み込みしてください）</option>';
-        }
-      }
-
-      // 商品テーブル描画
-      renderProductTable();
-
-      const monthEl = document.getElementById('month');
-      if (monthEl) monthEl.addEventListener('change', updateCalc);
-
-      // ローカルストレージからの復元
-      const savedData = localStorage.getItem('salonOrderUserInfo');
-      if (savedData) {
+    window.addEventListener('DOMContentLoaded', () => {
+      // 外部設定ファイル（保存済み）の読み込み確認
+      const savedConfig = localStorage.getItem('salonOrderMasterConfig');
+      if (savedConfig) {
         try {
-          const user = JSON.parse(savedData);
-          if (user.month && monthEl) monthEl.value = user.month;
+          currentMaster = JSON.parse(savedConfig);
+        } catch (e) {}
+      }
+
+      initMemberSubSelect();
+      renderUIFromMaster();
+
+      // ユーザー情報復元
+      const savedUser = localStorage.getItem('salonOrderUserInfo');
+      if (savedUser) {
+        try {
+          const user = JSON.parse(savedUser);
+          if (user.month && currentMaster.activeMonths.includes(user.month)) {
+            document.getElementById('month').value = user.month;
+          }
           if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
           if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
           if (user.fullName) document.getElementById('fullName').value = user.fullName;
@@ -638,14 +637,40 @@
       }
     });
 
-    function renderProductTable() {
-      const tbody = document.getElementById('productTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      let prodIndex = 0;
+    function initMemberSubSelect() {
+      const memberIdSub = document.getElementById('memberIdSub');
+      memberIdSub.innerHTML = '';
+      for (let i = 0; i <= 20; i++) {
+        const opt = document.createElement('option');
+        const val = String(i).padStart(2, '0');
+        opt.value = val;
+        opt.textContent = val;
+        memberIdSub.appendChild(opt);
+      }
+    }
 
-      for (let prod in productMaster) {
-        prodIndex++;
+    function renderUIFromMaster() {
+      // 月度プルダウン描画
+      const monthSelect = document.getElementById('month');
+      const currentVal = monthSelect.value;
+      monthSelect.innerHTML = '<option value="">選択してください</option>';
+      currentMaster.activeMonths.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        monthSelect.appendChild(opt);
+      });
+      if (currentMaster.activeMonths.includes(currentVal)) {
+        monthSelect.value = currentVal;
+      } else if (currentMaster.activeMonths.length > 0) {
+        monthSelect.value = currentMaster.activeMonths[0];
+      }
+
+      // 商品テーブル描画
+      const tbody = document.getElementById('productTableBody');
+      tbody.innerHTML = '';
+
+      currentMaster.products.forEach((prod, index) => {
         const tr = document.createElement('tr');
         let qtyOptions = '<option value="0">0</option>';
         for (let i = 1; i <= 20; i++) {
@@ -653,20 +678,45 @@
         }
 
         tr.innerHTML = `
-          <td><strong>${prod}</strong></td>
-          <td style="color: var(--text-sub); text-align: right;">¥${productMaster[prod].price.toLocaleString()}</td>
-          <td class="pt-col" id="pt-cell-${prodIndex}">-</td>
+          <td><strong>${prod.name}</strong></td>
+          <td style="color: var(--text-sub); text-align: right;">¥${prod.price.toLocaleString()}</td>
+          <td class="pt-col" id="pt-cell-${index}">-</td>
           <td class="qty-col">
-            <select class="qty-select" data-product="${prod}">
+            <select class="qty-select" data-index="${index}">
               ${qtyOptions}
             </select>
           </td>
         `;
         tbody.appendChild(tr);
-      }
+      });
 
       document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
+      document.getElementById('month').addEventListener('change', updateCalc);
+
       updateCalc();
+    }
+
+    function importConfigJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.activeMonths && imported.products) {
+            currentMaster = imported;
+            localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
+            renderUIFromMaster();
+            alert("設定ファイル（JSON）を更新しました！");
+          } else {
+            alert("フォーマットが不正です。正しい設定ファイルを選択してください。");
+          }
+        } catch (err) {
+          alert("JSONの読み込みに失敗しました。");
+        }
+      };
+      reader.readAsText(file);
     }
 
     function togglePaymentFields() {
@@ -702,31 +752,30 @@
       currentGrandPt = 0;
       currentItemsData = [];
 
-      let idx = 0;
-      for (let prod in productMaster) {
-        idx++;
-        const cell = document.getElementById(`pt-cell-${idx}`);
+      currentMaster.products.forEach((prod, index) => {
+        const cell = document.getElementById(`pt-cell-${index}`);
         if (cell) {
-          if (month && productMaster[prod].pt && productMaster[prod].pt[month] !== undefined) {
-            cell.textContent = productMaster[prod].pt[month].toLocaleString() + "pt";
+          if (month && prod.pts && prod.pts[month] !== undefined) {
+            cell.textContent = prod.pts[month].toLocaleString() + "pt";
           } else {
             cell.textContent = "-";
           }
         }
-      }
+      });
 
       selects.forEach(sel => {
         const qty = parseInt(sel.value) || 0;
         if (qty > 0) {
-          const prod = sel.getAttribute('data-product');
-          const itemPrice = productMaster[prod].price * qty;
-          let itemPt = (month && productMaster[prod].pt && productMaster[prod].pt[month]) ? productMaster[prod].pt[month] * qty : 0;
+          const index = sel.getAttribute('data-index');
+          const prod = currentMaster.products[index];
+          const itemPrice = prod.price * qty;
+          let itemPt = (month && prod.pts && prod.pts[month]) ? prod.pts[month] * qty : 0;
 
           currentSubtotal += itemPrice;
           currentGrandPt += itemPt;
 
           currentItemsData.push({
-            product: prod,
+            product: prod.name,
             quantity: qty,
             price: itemPrice,
             pt: itemPt
