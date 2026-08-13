@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品マスタ管理画面</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; padding: 20px; background-color: #f7f4ee; }
+    .admin-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h1 { font-size: 1.2rem; color: #231610; border-bottom: 2px solid #c8a261; padding-bottom: 8px; }
+    .prod-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    .prod-table th, .prod-table td { border: 1px solid #e5dac9; padding: 8px; font-size: 0.85rem; }
+    .prod-table th { background: #f7f3eb; }
+    input[type="text"], input[type="number"] { width: 100%; box-sizing: border-box; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+    .btn-group { margin-top: 20px; display: flex; gap: 10px; }
+    .btn { padding: 10px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .btn-add { background: #4a3222; color: #fff; }
+    .btn-generate { background: #c8a261; color: #231610; }
+    .btn-del { background: #c94b4b; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+    textarea { width: 100%; height: 150px; margin-top: 15px; font-family: monospace; font-size: 0.8rem; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    <h1>🛍️ 商品マスタ管理画面（JSON更新）</h1>
+    <p style="font-size: 0.8rem; color: #666;">画面上で価格やポイントを変更し、「更新用JSONを出力」ボタンを押してコピーし、GitHubの `products.json` に貼り付けて更新してください。</p>
+
+    <table class="prod-table">
+      <thead>
+        <tr>
+          <th>商品名</th>
+          <th style="width: 120px;">価格 (税込)</th>
+          <th style="width: 120px;">ポイント (pt)</th>
+          <th style="width: 50px;">操作</th>
+        </tr>
+      </thead>
+      <tbody id="prodTbody"></tbody>
+    </table>
+
+    <div class="btn-group">
+      <button class="btn btn-add" onclick="addRow()">＋ 商品を追加</button>
+      <button class="btn btn-generate" onclick="generateJSON()">📋 更新用JSONデータを出力・コピー</button>
+    </div>
+
+    <textarea id="jsonOutput" readonly placeholder="ここに生成されたJSONが出力されます"></textarea>
+  </div>
+
+  <script>
+    let products = [];
+
+    // products.json を読み込む
+    async function init() {
+      try {
+        const res = await fetch('products.json');
+        products = await res.json();
+        renderTable();
+      } catch(e) {
+        alert("products.json の読み込みに失敗しました。ファイルが存在するか確認してください。");
+      }
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('prodTbody');
+      tbody.innerHTML = '';
+      products.forEach((p, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="text" value="${p.name}" oninput="products[${i}].name = this.value"></td>
+          <td><input type="number" value="${p.price}" oninput="products[${i}].price = Number(this.value)"></td>
+          <td><input type="number" value="${p.pt}" oninput="products[${i}].pt = Number(this.value)"></td>
+          <td style="text-align:center;"><button class="btn-del" onclick="deleteRow(${i})">✕</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function addRow() {
+      products.push({ name: "", price: 0, pt: 0 });
+      renderTable();
+    }
+
+    function deleteRow(i) {
+      products.splice(i, 1);
+      renderTable();
+    }
+
+    function generateJSON() {
+      const jsonStr = JSON.stringify(products, null, 2);
+      const output = document.getElementById('jsonOutput');
+      output.value = jsonStr;
+      
+      navigator.clipboard.writeText(jsonStr).then(() => {
+        alert("クリップボードに最新のJSONデータをコピーしました！GitHubの products.json に貼り付けて保存してください。");
+      });
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
