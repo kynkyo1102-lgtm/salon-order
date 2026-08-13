@@ -555,7 +555,7 @@
         }
       }
 
-      // products.json の自動読み込み処理
+      // products.json の自動読み込み処理（JSON完全同期型）
       try {
         const res = await fetch('./products.json');
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -570,6 +570,7 @@
             pt: item.pt || {}
           };
 
+          // JSON内のptデータから「月度」を動的にすべて取得
           if (item.pt && typeof item.pt === 'object') {
             Object.keys(item.pt).forEach(m => {
               if (m && m.trim() !== '') {
@@ -586,13 +587,8 @@
           const months = Array.from(monthSet);
           
           if (months.length === 0) {
-            // 月度がJSONから取得できなかった場合の予備表示（フォールバック）
-            ['8月度', '9月度', '10月度'].forEach(m => {
-              const opt = document.createElement('option');
-              opt.value = m;
-              opt.textContent = m;
-              monthSelect.appendChild(opt);
-            });
+            // JSONに月度データが存在しない場合
+            monthSelect.innerHTML = '<option value="">⚠️ 月度データが設定されていません</option>';
           } else {
             months.forEach(m => {
               const opt = document.createElement('option');
@@ -606,15 +602,10 @@
       } catch (err) {
         console.error("products.json の読み込みに失敗しました:", err);
         
-        // 読み込み失敗時のフォールバック処理
+        // 読み込み失敗時はエラー表示にして再読み込みを促す
         const monthSelect = document.getElementById('month');
         if (monthSelect) {
-          monthSelect.innerHTML = `
-            <option value="">選択してください</option>
-            <option value="8月度">8月度</option>
-            <option value="9月度">9月度</option>
-            <option value="10月度">10月度</option>
-          `;
+          monthSelect.innerHTML = '<option value="">⚠️ データ読み込み失敗（再読み込みしてください）</option>';
         }
       }
 
