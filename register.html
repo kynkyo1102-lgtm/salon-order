@@ -3,176 +3,395 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>会員番号 事前登録</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <title>会員番号 事前登録 | Place de Nina</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
+    @charset "UTF-8";
+
+    :root {
+      --wood-dark: #231610;
+      --wood-medium: #4a3222;
+      --accent-gold: #c8a261;
+      --gold-light: #e6cb96;
+      --bg-color: #f7f4ee;
+      --card-bg: #ffffff;
+      --text-main: #2b2019;
+      --text-sub: #78695f;
+      --border-color: #e5dac9;
+      --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-script: 'Great Vibes', cursive;
+    }
+
     body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: #f7f4ee;
-      color: #2b2019;
-      max-width: 480px;
-      margin: 0 auto;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ヘッダー */
+    header {
+      background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
+      color: #ffffff;
       padding: 20px 16px;
+      text-align: center;
+      border-bottom: 3px solid var(--accent-gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 1px solid rgba(200, 162, 97, 0.3);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .header-logo {
+      font-family: var(--font-script);
+      font-size: 1.8rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 4px;
+      text-decoration: none;
+      display: inline-block;
     }
     h1 {
-      font-size: 1.1rem;
-      border-bottom: 2px solid #c8a261;
-      padding-bottom: 8px;
-      color: #231610;
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0.08em;
     }
-    .card {
-      background: #fff;
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid #e5dac9;
-      margin-bottom: 20px;
+
+    main {
+      flex: 1;
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      box-sizing: border-box;
     }
+
+    /* セクション＆カード */
+    .section-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--wood-medium);
+      margin: 16px 0 10px 4px;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border-color), transparent);
+    }
+
+    .card-box {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    /* フォーム要素 */
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .form-group:last-child {
+      margin-bottom: 0;
     }
     label {
       display: block;
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-bottom: 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--wood-dark);
     }
-    input {
+    input[type="text"] {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #e5dac9;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #231610;
-      color: #e6cb96;
-      border: 1px solid #c8a261;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      background: #fff;
       padding: 10px 12px;
-      border: 1px solid #e5dac9;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 0.9rem;
+      background-color: #fcfcfc;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
     }
-    .btn-del {
+    input:focus {
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+
+    .flex-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .fixed-sub-id {
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--wood-dark);
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+
+    /* ボタン */
+    .btn-submit {
+      width: 100%;
+      background-color: var(--wood-dark);
+      color: var(--gold-light);
+      border: 1px solid var(--accent-gold);
+      padding: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+
+    /* 登録リストテーブル */
+    .member-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.82rem;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .member-table th, .member-table td {
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 8px;
+      text-align: left;
+    }
+    .member-table th {
+      background-color: #f7f3eb;
+      color: var(--wood-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .member-table td.actions {
+      text-align: right;
+      white-space: nowrap;
+    }
+    .btn-default {
+      background: none;
+      border: 1px solid var(--border-color);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      color: var(--text-sub);
+    }
+    .btn-default.is-default {
+      background-color: var(--accent-gold);
+      color: #fff;
+      border-color: var(--accent-gold);
+      font-weight: bold;
+    }
+    .btn-delete {
       background: none;
       border: none;
       color: #c94b4b;
-      font-weight: bold;
       cursor: pointer;
-      width: auto;
-      padding: 0;
+      font-size: 0.75rem;
+      margin-left: 6px;
+      font-weight: bold;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      padding: 16px;
     }
   </style>
 </head>
 <body>
 
-  <h1>👤 会員番号 事前登録ページ</h1>
-  <p style="font-size: 0.78rem; color: #78695f;">ここで登録しておくと、注文画面でプルダウンから選択できるようになります。</p>
+  <header>
+    <div class="header-logo">Place de Nina</div>
+    <h1>会員番号 事前登録</h1>
+  </header>
 
-  <div class="card">
-    <div class="form-group">
-      <label>会員番号（主番 5〜7桁など） *</label>
-      <input type="text" id="regMain" placeholder="例: 1267505">
-    </div>
-    <div class="form-group">
-      <label>枝番（2桁） *</label>
-      <input type="text" id="regSub" placeholder="例: 06" value="00">
-    </div>
-    <div class="form-group">
-      <label>お名前（任意・自動入力用）</label>
-      <input type="text" id="regName" placeholder="例: 杉本 景香">
-    </div>
-    <button type="button" onclick="addMember()">＋ この会員を登録</button>
-  </div>
+  <main>
+    <!-- 新規登録フォーム -->
+    <div class="section-title">✍️ 会員番号の登録</div>
+    <div class="card-box">
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <!-- 指示通り「（主義〜）」削除、枝番固定「- 00」 -->
+        <div class="form-group">
+          <label for="memberIdMain">会員番号 *</label>
+          <div class="flex-row">
+            <input type="text" id="memberIdMain" placeholder="例: 12345" required pattern="^[0-9a-zA-Z]+$" title="半角英数字で入力してください">
+            <span class="fixed-sub-id">- 00</span>
+          </div>
+        </div>
 
-  <h2>📋 登録済み一覧</h2>
-  <ul id="memberList"></ul>
+        <!-- 指示通り「（任意〜）」削除 -->
+        <div class="form-group">
+          <label for="memberName">お名前</label>
+          <input type="text" id="memberName" placeholder="例: 山田 太郎">
+        </div>
 
-  <div style="margin-top: 20px; text-align: center;">
-    <a href="./test.html" style="color: #4a3222; font-size: 0.85rem; font-weight: bold;">← 注文書画面に戻る</a>
-  </div>
+        <button type="submit" class="btn-submit">＋ 会員番号を登録する</button>
+      </form>
+    </div>
+
+    <!-- 登録済みリスト -->
+    <div class="section-title">📋 登録済み会員番号一覧</div>
+    <div class="card-box" style="padding: 10px;">
+      <div id="memberListContainer"></div>
+    </div>
+  </main>
 
   <script>
-    function getMembers() {
-      return JSON.parse(localStorage.getItem('salonPresetMembers') || '[]');
-    }
+    let registeredMembers = []; // 会員番号メイン値の配列 (例: ["12345", "67890"])
+    let memberNames = {};       // 名前マップ (例: {"12345": "山田 太郎"})
+    let defaultMember = "";     // デフォルト会員番号
 
-    function saveMembers(list) {
-      localStorage.setItem('salonPresetMembers', JSON.stringify(list));
-      renderList();
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedData();
+      renderMemberList();
+    });
 
-    function addMember() {
-      const main = document.getElementById('regMain').value.trim();
-      const sub = document.getElementById('regSub').value.trim();
-      const name = document.getElementById('regName').value.trim();
-
-      if (!main) {
-        alert('会員番号を入力してください');
-        return;
+    function loadSavedData() {
+      const savedList = localStorage.getItem('registeredMembers');
+      if (savedList) {
+        try { registeredMembers = JSON.parse(savedList); } catch (e) { registeredMembers = []; }
       }
+      const savedNames = localStorage.getItem('registeredMemberNames');
+      if (savedNames) {
+        try { memberNames = JSON.parse(savedNames); } catch (e) { memberNames = {}; }
+      }
+      defaultMember = localStorage.getItem('defaultMember') || "";
+    }
 
-      const list = getMembers();
-      const fullId = main + '-' + String(sub).padStart(2, '0');
+    function saveData() {
+      localStorage.setItem('registeredMembers', JSON.stringify(registeredMembers));
+      localStorage.setItem('registeredMemberNames', JSON.stringify(memberNames));
+      localStorage.setItem('defaultMember', defaultMember);
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const idInput = document.getElementById('memberIdMain');
+      const nameInput = document.getElementById('memberName');
+
+      const idVal = idInput.value.trim();
+      const nameVal = nameInput.value.trim();
+
+      if (!idVal) return;
+
+      if (!registeredMembers.includes(idVal)) {
+        registeredMembers.push(idVal);
+      }
       
-      // 重複チェック
-      if (list.some(m => m.fullId === fullId)) {
-        alert('この会員番号は既に登録されています');
+      if (nameVal) {
+        memberNames[idVal] = nameVal;
+      } else {
+        delete memberNames[idVal];
+      }
+
+      // 最初の1件目の場合はデフォルトに自動設定
+      if (registeredMembers.length === 1 || !defaultMember) {
+        defaultMember = idVal;
+      }
+
+      saveData();
+      renderMemberList();
+
+      idInput.value = "";
+      nameInput.value = "";
+      alert(`会員番号「${idVal}-00」を登録しました！`);
+    }
+
+    function renderMemberList() {
+      const container = document.getElementById('memberListContainer');
+
+      if (registeredMembers.length === 0) {
+        container.innerHTML = '<div class="empty-msg">登録された会員番号はありません</div>';
         return;
       }
 
-      list.push({ main, sub: String(sub).padStart(2, '0'), fullId, name });
-      saveMembers(list);
+      let html = `
+        <table class="member-table">
+          <thead>
+            <tr>
+              <th>会員番号</th>
+              <th>お名前</th>
+              <th style="text-align: right;">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
 
-      document.getElementById('regMain').value = '';
-      document.getElementById('regName').value = '';
-      alert('登録しました！');
-    }
-
-    function removeMember(index) {
-      const list = getMembers();
-      list.splice(index, 1);
-      saveMembers(list);
-    }
-
-    function renderList() {
-      const list = getMembers();
-      const ul = document.getElementById('memberList');
-      ul.innerHTML = '';
-
-      if (list.length === 0) {
-        ul.innerHTML = '<li style="color:#78695f;">登録されている会員はありません</li>';
-        return;
-      }
-
-      list.forEach((m, idx) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <div>
-            <strong>${m.fullId}</strong> ${m.name ? `(${m.name})` : ''}
-          </div>
-          <button class="btn-del" onclick="removeMember(${idx})">削除</button>
+      registeredMembers.forEach(id => {
+        const isDefault = (id === defaultMember);
+        const name = memberNames[id] || '-';
+        html += `
+          <tr>
+            <td><strong>${id}-00</strong></td>
+            <td>${name}</td>
+            <td class="actions">
+              <button type="button" class="btn-default ${isDefault ? 'is-default' : ''}" onclick="setDefault('${id}')">
+                ${isDefault ? '★ デフォルト' : '標準にする'}
+              </button>
+              <button type="button" class="btn-delete" onclick="deleteMember('${id}')">削除</button>
+            </td>
+          </tr>
         `;
-        ul.appendChild(li);
       });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
     }
 
-    window.addEventListener('DOMContentLoaded', renderList);
+    function setDefault(id) {
+      defaultMember = id;
+      saveData();
+      renderMemberList();
+    }
+
+    function deleteMember(id) {
+      if (!confirm(`会員番号「${id}-00」を削除しますか？`)) return;
+
+      registeredMembers = registeredMembers.filter(m => m !== id);
+      delete memberNames[id];
+
+      if (defaultMember === id) {
+        defaultMember = registeredMembers.length > 0 ? registeredMembers[0] : "";
+      }
+
+      saveData();
+      renderMemberList();
+    }
   </script>
 </body>
 </html>
