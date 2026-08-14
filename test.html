@@ -741,20 +741,29 @@
       }
     }
 
-    // 会員番号ドロップダウン選択時の処理
-    function handleMemberSelectChange() {
-      const selectEl = document.getElementById('memberIdSelect');
-      const inputEl = document.getElementById('memberIdMain');
+    // 会員番号ドロップダウン選択時の処理（氏名自動入力の連動対応版）
+function handleMemberSelectChange() {
+  const selectEl = document.getElementById('memberIdSelect');
+  const inputEl = document.getElementById('memberIdMain');
+  const fullNameEl = document.getElementById('fullName');
 
-      if (selectEl.value === 'DIRECT_INPUT') {
-        selectEl.style.display = 'none';
-        inputEl.style.display = 'block';
-        inputEl.value = '';
-        inputEl.focus();
-      } else {
-        inputEl.value = selectEl.value;
-      }
+  if (selectEl.value === 'DIRECT_INPUT') {
+    selectEl.style.display = 'none';
+    inputEl.style.display = 'block';
+    inputEl.value = '';
+    fullNameEl.value = ''; // 直接入力切替時は氏名を空に
+    inputEl.focus();
+  } else {
+    const selectedMemberId = selectEl.value;
+    inputEl.value = selectedMemberId;
+
+    // register.html で保存した「会員番号 ↔ 氏名」のマッピング情報を取得して自動入力
+    const memberNameMap = JSON.parse(localStorage.getItem('salonOrderMemberNames') || '{}');
+    if (memberNameMap[selectedMemberId]) {
+      fullNameEl.value = memberNameMap[selectedMemberId];
     }
+  }
+}
 
     function renderUIFromMaster() {
       // 月度プルダウン描画
