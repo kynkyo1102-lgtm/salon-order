@@ -673,8 +673,43 @@
       const selectEl = document.getElementById('memberIdSelect');
       const inputEl = document.getElementById('memberIdMain');
       
-      const savedMembers = JSON.parse(localStorage.getItem('registeredMembers') || '[]');
-      const defaultMember = localStorage.getItem('defaultMember') || '';
+      function initMemberIdOptions() {
+  const selectEl = document.getElementById('memberIdSelect');
+  const inputEl = document.getElementById('memberIdMain');
+  
+  // register.htmlの保存名 (salonOrderMembers / salonOrderDefaultMember) に合わせる
+  const savedMembers = JSON.parse(localStorage.getItem('salonOrderMembers') || '[]');
+  const defaultMember = localStorage.getItem('salonOrderDefaultMember') || '';
+
+  if (savedMembers.length > 0) {
+    selectEl.innerHTML = '';
+    savedMembers.forEach(mem => {
+      const opt = document.createElement('option');
+      opt.value = mem;
+      opt.textContent = mem + (mem === defaultMember ? '（デフォルト）' : '');
+      selectEl.appendChild(opt);
+    });
+
+    // 直接入力切替用オプション
+    const customOpt = document.createElement('option');
+    customOpt.value = 'DIRECT_INPUT';
+    customOpt.textContent = '✍️ 直接入力する';
+    selectEl.appendChild(customOpt);
+
+    selectEl.style.display = 'block';
+    inputEl.style.display = 'none';
+
+    if (defaultMember && savedMembers.includes(defaultMember)) {
+      selectEl.value = defaultMember;
+    } else {
+      selectEl.value = savedMembers[0];
+    }
+    handleMemberSelectChange();
+  } else {
+    selectEl.style.display = 'none';
+    inputEl.style.display = 'block';
+  }
+}
 
       if (savedMembers.length > 0) {
         selectEl.innerHTML = '';
