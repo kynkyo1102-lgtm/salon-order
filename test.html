@@ -398,8 +398,14 @@
           </div>
 
           <div class="form-group">
-            <label>購入会員番号 *</label>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label style="margin-bottom: 0;">購入会員番号 *</label>
+              <a href="register.html" target="_blank" style="font-size: 0.72rem; color: var(--wood-medium); text-decoration: underline;">⚙️ 番号の事前登録はこちら</a>
+            </div>
             <div class="flex-row">
+              <!-- ドロップダウン選択欄（登録がある場合） -->
+              <select id="memberIdSelect" style="flex: 1; display: none;" onchange="handleMemberSelectChange()"></select>
+              <!-- 直接入力欄（登録がない場合や手入力切替時） -->
               <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
               <span>-</span>
               <select id="memberIdSub" style="width: 85px;"></select>
@@ -596,6 +602,7 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       initMemberSubSelect();
+      initMemberIdOptions(); // 会員番号の初期化・連動処理
 
       // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
       try {
@@ -623,7 +630,15 @@
           if (user.month && currentMaster.activeMonths.includes(user.month)) {
             document.getElementById('month').value = user.month;
           }
-          if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
+          if (user.memberIdMain) {
+            const memberSelect = document.getElementById('memberIdSelect');
+            if (memberSelect.style.display !== 'none' && Array.from(memberSelect.options).some(o => o.value === user.memberIdMain)) {
+              memberSelect.value = user.memberIdMain;
+              handleMemberSelectChange();
+            } else {
+              document.getElementById('memberIdMain').value = user.memberIdMain;
+            }
+          }
           if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
           if (user.fullName) document.getElementById('fullName').value = user.fullName;
           if (user.paymentMethod) {
@@ -640,6 +655,7 @@
       }
     });
 
+    // 会員番号（サブ）のプルダウン作成
     function initMemberSubSelect() {
       const memberIdSub = document.getElementById('memberIdSub');
       memberIdSub.innerHTML = '';
@@ -649,6 +665,59 @@
         opt.value = val;
         opt.textContent = val;
         memberIdSub.appendChild(opt);
+      }
+    }
+
+    // 会員番号の事前登録データの読み込み・UI設定
+    function initMemberIdOptions() {
+      const selectEl = document.getElementById('memberIdSelect');
+      const inputEl = document.getElementById('memberIdMain');
+      
+      const savedMembers = JSON.parse(localStorage.getItem('registeredMembers') || '[]');
+      const defaultMember = localStorage.getItem('defaultMember') || '';
+
+      if (savedMembers.length > 0) {
+        selectEl.innerHTML = '';
+        savedMembers.forEach(mem => {
+          const opt = document.createElement('option');
+          opt.value = mem;
+          opt.textContent = mem + (mem === defaultMember ? '（デフォルト）' : '');
+          selectEl.appendChild(opt);
+        });
+
+        // 直接入力切替用オプション
+        const customOpt = document.createElement('option');
+        customOpt.value = 'DIRECT_INPUT';
+        customOpt.textContent = '✍️ 直接入力する';
+        selectEl.appendChild(customOpt);
+
+        selectEl.style.display = 'block';
+        inputEl.style.display = 'none';
+
+        if (defaultMember && savedMembers.includes(defaultMember)) {
+          selectEl.value = defaultMember;
+        } else {
+          selectEl.value = savedMembers[0];
+        }
+        handleMemberSelectChange();
+      } else {
+        selectEl.style.display = 'none';
+        inputEl.style.display = 'block';
+      }
+    }
+
+    // 会員番号ドロップダウン選択時の処理
+    function handleMemberSelectChange() {
+      const selectEl = document.getElementById('memberIdSelect');
+      const inputEl = document.getElementById('memberIdMain');
+
+      if (selectEl.value === 'DIRECT_INPUT') {
+        selectEl.style.display = 'none';
+        inputEl.style.display = 'block';
+        inputEl.value = '';
+        inputEl.focus();
+      } else {
+        inputEl.value = selectEl.value;
       }
     }
 
@@ -830,7 +899,9 @@
       });
 
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
-      document.getElementById('memberIdMain').value = "";
+      
+      // 登録情報がある場合はプルダウンの選択をリセットして手入力フォームに戻さない
+      initMemberIdOptions();
       document.getElementById('fullName').value = "";
       document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
