@@ -22,6 +22,7 @@
 body {
   margin: 0;
   padding: 0;
+  padding-bottom: 110px;
   font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-main);
@@ -35,7 +36,7 @@ body {
 header {
   background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
   color: #ffffff;
-  padding: 32px 20px 24px;
+  padding: 24px 20px 20px;
   text-align: center;
   border-bottom: 3px solid var(--accent-gold);
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
@@ -45,20 +46,26 @@ header {
 header::after {
   content: "";
   position: absolute;
-  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  top: 8px; left: 8px; right: 8px; bottom: 8px;
   border: 1px solid rgba(200, 162, 97, 0.3);
   border-radius: 4px;
   pointer-events: none;
 }
 
-/* 上のロゴだけ筆記体のまま残します */
+/* 上のロゴ */
 .header-logo {
   font-family: var(--font-script);
   font-size: 2.2rem;
   color: var(--gold-light);
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.header-logo:hover {
+  opacity: 0.85;
 }
 
 h1 {
@@ -69,12 +76,21 @@ h1 {
   letter-spacing: 0.1em;
 }
 
+.header-guide-link {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--gold-light);
+  font-weight: normal;
+  margin-top: 8px;
+  text-decoration: underline;
+}
+
 main {
   flex: 1;
-  max-width: 480px;
+  max-width: 520px;
   width: 100%;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 20px 16px;
   box-sizing: border-box;
 }
 
@@ -110,7 +126,7 @@ main {
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--wood-medium);
-  margin: 20px 0 12px 4px;
+  margin: 20px 0 10px 4px;
   letter-spacing: 0.05em;
   display: flex;
   align-items: center;
@@ -124,7 +140,7 @@ main {
   background: linear-gradient(90deg, var(--border-color), transparent);
 }
 
-/* ガイドテキスト */
+/* ガイドテキスト・ボックス */
 .usage-guide {
   font-size: 0.78rem;
   color: var(--text-sub);
@@ -133,6 +149,144 @@ main {
   border-radius: 6px;
   margin-bottom: 16px;
   line-height: 1.45;
+}
+
+.guide-box {
+  background-color: rgba(200, 162, 97, 0.12);
+  border: 1px solid var(--accent-gold);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  color: var(--wood-medium);
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* カードボックス */
+.card-box {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-gold);
+}
+
+.card-accent {
+  border-left: 4px solid var(--accent-gold);
+}
+
+/* フォーム要素 */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.flex-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fg-zip { flex: 0 0 120px; }
+.fg-code { flex: 1.2; }
+.fg-num { flex: 0.8; }
+.fg-name { flex: 1.5; }
+
+label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--wood-dark);
+}
+
+.label-accent {
+  color: var(--wood-medium);
+}
+
+input[type="text"], input[type="password"], input[type="number"], input[type="tel"], textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.88rem;
+  background-color: #fcfcfc;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-gold);
+  background-color: #fff;
+}
+
+input[readonly] {
+  background-color: #f5f2ed;
+  color: var(--text-sub);
+  cursor: not-allowed;
+  border-color: var(--border-color);
+}
+
+textarea#output_text {
+  height: 180px;
+  font-family: monospace;
+}
+
+/* 商品テーブル */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.78rem;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.product-table th, .product-table td {
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 6px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #f7f3eb;
+  color: var(--wood-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.product-table td.qty-col {
+  width: 65px;
+  text-align: center;
+}
+
+.product-table td.pt-col {
+  width: 65px;
+  text-align: right;
+  color: var(--wood-medium);
+  font-weight: bold;
 }
 
 /* メニューカード */
@@ -198,6 +352,157 @@ main {
   margin: 0;
 }
 
+/* 注文書カード・出力画面スタイル */
+.card-wrapper {
+  margin-bottom: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.receipt-box {
+  background-color: #fffdf9;
+  padding: 18px;
+  text-align: left;
+}
+
+.receipt-header {
+  text-align: center;
+  border-bottom: 2px solid var(--accent-gold);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.receipt-info {
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+.order-id-badge {
+  display: inline-block;
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-top: 6px;
+  border: 1px solid var(--accent-gold);
+}
+
+/* ボタン類 */
+.btn-add {
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--accent-gold);
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+  transition: all 0.2s;
+}
+
+.btn-add:active {
+  transform: translateY(1px);
+}
+
+.btn-card-download {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--wood-medium);
+  color: var(--gold-light);
+  border: none;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-card-download:active {
+  background-color: var(--wood-dark);
+}
+
+.btn-action {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  font-size: 0.88rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.08);
+}
+
+.btn-pdf { background-color: var(--wood-dark); color: var(--gold-light); border-color: var(--accent-gold); }
+.btn-reload { background-color: #ffffff; color: var(--text-sub); }
+
+.btn-sm {
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  margin-top: 4px;
+}
+
+.btn-danger {
+  background-color: #c94b4b;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+
+.btn-copy {
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--accent-gold);
+  padding: 13px;
+  font-size: 0.95rem;
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+}
+
+/* 固定フッターバー */
+.footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
+  border-top: 1px solid var(--border-color);
+  padding: 12px 16px;
+  z-index: 1000;
+}
+
+.footer-content {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-totals {
+  font-size: 0.82rem;
+  color: var(--wood-dark);
+}
+
+.total-preview {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  text-align: center;
+}
+
 /* サブエリア */
 .sub-info-area {
   margin-top: 36px;
@@ -257,6 +562,7 @@ footer {
   color: var(--text-sub);
   letter-spacing: 0.1em;
 }
+
 /* ==========================================
    店舗案内（info.html）用追加スタイル
 ========================================== */
@@ -349,6 +655,7 @@ footer {
 .back-btn:active {
   background-color: #fcf9f2;
 }
+
 /* ==========================================
    お振込先（bank.html）用追加スタイル
 ========================================== */
@@ -428,6 +735,7 @@ footer {
 .bank-sub-note li {
   margin-bottom: 4px;
 }
+
 /* ==========================================
    プライバシーポリシー（privacy.html）用追加スタイル
 ========================================== */
@@ -472,247 +780,176 @@ footer {
   line-height: 1.6;
   margin: 0;
 }
+
 /* ==========================================
-   注文ツール（single.html）専用スタイル
-   ========================================== */
-
-body {
-    padding-bottom: 180px;
-}
-
-.card-accent {
-    border-left: 4px solid var(--accent-gold);
-}
-
+   注文ツール（single.html 等）用追加スタイル
+========================================== */
 .badge-info {
-    font-size: 0.7rem;
-    background-color: #f0eae1;
-    color: var(--wood-dark);
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-weight: 500;
-}
-
-.guide-box {
-    background-color: rgba(200, 162, 97, 0.1);
-    border: 1px solid var(--accent-gold);
-    padding: 10px 12px;
-    border-radius: 8px;
-    margin-bottom: 14px;
-    font-size: 0.78rem;
-    color: var(--wood-medium);
-    line-height: 1.5;
+  font-size: 0.7rem;
+  background-color: #f0eae1;
+  color: var(--wood-dark);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
 }
 
 .note-text {
-    color: var(--text-sub);
-    font-size: 0.72rem;
+  color: var(--text-sub);
+  font-size: 0.72rem;
 }
 
 .sub-note {
-    font-size: 0.72rem;
-    margin-top: -5px;
-    color: var(--text-sub);
-}
-
-.form-group {
-    margin-bottom: 12px;
-}
-
-.form-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.form-row .form-group {
-    margin-bottom: 0;
-    flex: 1;
-}
-
-.fg-zip { flex: 0 0 120px; }
-.fg-code { flex: 1.2; }
-.fg-num { flex: 0.8; }
-.fg-name { flex: 1.5; }
-
-label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: var(--wood-dark);
-}
-
-.label-accent {
-    color: var(--wood-medium);
-}
-
-input[type="text"], textarea, select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 0.88rem;
-    background-color: #fcfcfc;
-    color: var(--text-main);
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-input[type="text"]:focus, textarea:focus, select:focus {
-    border-color: var(--accent-gold);
-    background-color: #fff;
-}
-
-input[readonly] {
-    background-color: #f5f2ed;
-    color: var(--text-sub);
-    cursor: not-allowed;
-    border-color: var(--border-color);
-}
-
-textarea#output_text {
-    height: 180px;
-    font-family: monospace;
-}
-
-.btn-sm {
-    font-size: 0.75rem;
-    padding: 6px 12px;
-    margin-top: 4px;
-}
-
-.btn-danger {
-    background-color: #c94b4b;
-    color: white;
-    padding: 6px 12px;
-    font-size: 0.75rem;
-    border-radius: 6px;
+  font-size: 0.72rem;
+  margin-top: -5px;
+  color: var(--text-sub);
 }
 
 .item-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-    align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
 }
 
 .item-select {
-    flex: 2;
+  flex: 2;
 }
 
 .item-qty-container {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.82rem;
-    color: var(--wood-dark);
-    font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--wood-dark);
+  font-weight: 500;
 }
 
 .item-qty {
-    min-width: 60px;
+  min-width: 60px;
 }
 
 .btn-add-item {
-    padding: 5px 10px;
-    font-size: 12px;
-    margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin-top: 5px;
 }
 
 .btn-del-item {
-    padding: 6px 10px;
-    font-size: 12px;
-    margin-left: 4px;
+  padding: 6px 10px;
+  font-size: 12px;
+  margin-left: 4px;
 }
 
 .position-box {
-    border: 1px solid var(--border-color);
-    padding: 14px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    background-color: #fdfbf7;
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: #fdfbf7;
 }
 
 .pos-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .pos-title {
-    font-size: 14px;
-    color: var(--wood-dark);
+  font-size: 14px;
+  color: var(--wood-dark);
 }
 
 .member-reg-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.footer-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
-    border-top: 1px solid var(--border-color);
-    padding: 12px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    z-index: 1000;
-}
-
-.total-preview {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--wood-dark);
-    text-align: center;
-}
-
-.btn-copy {
-    background-color: var(--wood-dark);
-    color: var(--gold-light);
-    border: 1px solid var(--accent-gold);
-    padding: 13px;
-    font-size: 0.95rem;
-    width: 100%;
-    border-radius: 30px;
-    box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .pos-subtotal {
-    margin-top: 10px;
-    padding-top: 8px;
-    border-top: 1px dashed var(--border-color);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--wood-medium);
-    text-align: right;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--wood-medium);
+  text-align: right;
 }
 
 .hidden-pw { display: none; }
 .custom-pos-container { display: none; margin-top: 8px; }
 
 .manual-input-box {
-    display: none;
-    margin-top: 8px;
-    padding: 10px;
-    background-color: #fdfaf3;
-    border: 1px solid var(--accent-gold);
-    border-radius: 8px;
+  display: none;
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #fdfaf3;
+  border: 1px solid var(--accent-gold);
+  border-radius: 8px;
 }
 
 .manual-input-text {
-    font-size: 12px;
-    color: #8a6d3b;
-    font-weight: bold;
+  font-size: 12px;
+  color: #8a6d3b;
+  font-weight: bold;
 }
 
 .mt-8 { margin-top: 8px; }
 .mt-10 { margin-top: 10px; }
+
+/* ==========================================
+   長押し保存用モーダル（全ページ共通）
+========================================== */
+.image-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.image-modal-content {
+  max-width: 90%;
+  max-height: 55vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  background: #fff;
+  object-fit: contain;
+}
+
+.image-modal-instruction {
+  color: #fff;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.image-modal-close {
+  margin-top: 12px;
+  padding: 8px 24px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.android-warning-box {
+  margin-top: 8px;
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  text-align: left;
+}
