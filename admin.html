@@ -18,7 +18,7 @@
     .btn-danger { background: #f44336; }
     .flex { display: flex; gap: 10px; align-items: center; }
     
-    /* お知らせ用スタイルの修正：入力欄がつぶれないように設定 */
+    /* お知らせ用スタイル：入力欄がつぶれないように設定 */
     .news-item-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; width: 100%; }
     .news-item-date { width: 110px; flex-shrink: 0; }
     .news-item-text { flex: 1; min-width: 0; width: 100%; }
@@ -306,14 +306,11 @@
         updatedProducts.push({ name, price, pts });
       });
 
-      masterData.activeMonths = months;
-      masterData.products = updatedProducts.length > 0 ? updatedProducts : defaultProducts;
-      masterData.newsList = getNewsData();
-
-      if (masterData.newsList.length > 0) {
-        masterData.newsDate = masterData.newsList[0].date || "";
-        masterData.newsText = masterData.newsList[0].text || "";
-      }
+      masterData = {
+        activeMonths: months,
+        newsList: getNewsData(),
+        products: updatedProducts.length > 0 ? updatedProducts : defaultProducts
+      };
     }
 
     function exportJSON() {
