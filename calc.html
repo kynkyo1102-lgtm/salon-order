@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>注文サポート計算ツール</title>
+  <title>注文サポートツール</title>
   
   <!-- Google Fonts の読み込み (Place de Nina のロゴフォント) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,6 +94,43 @@
       border: 1px solid var(--border-color);
       border-radius: 8px;
     }
+
+    /* 分配結果リストの見やすさ改善カードスタイル */
+    .split-item-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .split-item-name {
+      font-weight: bold;
+      color: var(--wood-dark);
+      margin-bottom: 2px;
+    }
+    .split-item-sub {
+      color: var(--text-sub);
+      font-size: 0.78rem;
+    }
+
+    /* 強調用合計スタイル */
+    .total-box {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .total-pt-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #b87b2a; /* ゴールド系ブラウン */
+    }
+    .total-cost-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #2b6cb0; /* ディープブルー */
+    }
   </style>
 </head>
 <body>
@@ -104,9 +141,10 @@
   </header>
 
   <main>
-    <!-- 機能1: 最適目標PT計算 -->
+    <!-- 機能1: 購入PT計算 -->
     <div class="card-box">
-      <div class="section-title">1. 目標PTに対する最適組み合わせ計算</div>
+      <div class="section-title">1. 購入PTに対する最適組み合わせ計算</div>
+      <p class="usage-guide" style="margin-bottom: 12px;">指定したポイントに最も効率よく到達できる商品の組み合わせパターンを自動計算します。</p>
       
       <div class="form-group">
         <label class="label-accent">対象月度</label>
@@ -114,19 +152,19 @@
       </div>
 
       <div class="form-group" style="margin-top: 12px;">
-        <label class="label-accent">目標ポイント（例: 10000, 200000）</label>
+        <label class="label-accent">購入ポイント（例: 10000, 200000）</label>
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
-      <button class="btn-copy" style="margin-top: 16px;" onclick="calculateBestCombos()">3つのパターンを提案</button>
+      <button class="btn-copy" style="margin-top: 16px;" onclick="calculateBestCombos()">おすすめ購入パターン</button>
 
       <div id="comboResult" class="result-container" style="display:none;"></div>
     </div>
 
-    <!-- 機能2: 左右均等バイナリー分配 -->
+    <!-- 機能2: 左右バランス分配 -->
     <div class="card-box">
       <div class="section-title">2. 購入商品の左右バランス分配</div>
-      <p class="usage-guide" style="margin-bottom: 10px;">購入する個数を指定してください（1個以上でハイライトされます）。</p>
+      <p class="usage-guide" style="margin-bottom: 10px;">購入する商品と個数をお選びください。</p>
       
       <div id="productQtyList" class="product-list-box">
         <!-- JSで動的生成 -->
@@ -137,23 +175,29 @@
       <div id="splitResult" class="result-container" style="display:none;">
         <div class="split-container">
           <div class="split-col">
-            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px;">左グループ (L)</h3>
-            <ul id="leftList" style="padding-left:16px; font-size:0.82rem; margin:8px 0; color:var(--text-main);"></ul>
-            <hr style="border:none; border-top:1px dashed var(--border-color); margin:8px 0;">
-            <p style="font-size:0.82rem; margin:2px 0;">PT合計: <strong id="leftTotalPt">0</strong> PT</p>
-            <p style="font-size:0.82rem; margin:2px 0;">金額合計: <strong id="leftTotalCost">0</strong> 円</p>
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">左 (L)</h3>
+            <div id="leftList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="leftTotalPt">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+            </div>
           </div>
+
           <div class="split-col">
-            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px;">右グループ (R)</h3>
-            <ul id="rightList" style="padding-left:16px; font-size:0.82rem; margin:8px 0; color:var(--text-main);"></ul>
-            <hr style="border:none; border-top:1px dashed var(--border-color); margin:8px 0;">
-            <p style="font-size:0.82rem; margin:2px 0;">PT合計: <strong id="rightTotalPt">0</strong> PT</p>
-            <p style="font-size:0.82rem; margin:2px 0;">金額合計: <strong id="rightTotalCost">0</strong> 円</p>
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">右 (R)</h3>
+            <div id="rightList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="rightTotalPt">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+            </div>
           </div>
         </div>
+
         <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
-          左右のPT差: <strong id="ptDiff" style="color:#c94b4b;">0</strong> PT<br>
-          合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.05rem;">0</strong> 円
+          左右のPT差: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT<br>
+          総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
         </div>
       </div>
     </div>
@@ -218,7 +262,7 @@
       }
     }
 
-    // 機能1: 最適目標PT計算
+    // 機能1: 購入PT計算
     function calculateBestCombos() {
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
@@ -276,9 +320,9 @@
               ${displayItems.map(i => `<li>${i.displayName} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
             </ul>
             <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
-              合計ポイント: <strong>${plan.totalPt.toLocaleString()} PT</strong> 
+              合計ポイント: <strong style="color:#b87b2a;">${plan.totalPt.toLocaleString()} PT</strong> 
               <span style="color:#c94b4b; font-size:0.78rem;">(超過: +${(plan.totalPt - targetPt).toLocaleString()} PT)</span><br>
-              合計金額: <strong style="color:var(--wood-dark);">${plan.totalCost.toLocaleString()} 円</strong>
+              合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
             </div>
           </div>
         `;
@@ -424,17 +468,24 @@
         }
       });
 
-      const summarize = (list) => {
+      // 見やすいカード型で商品を出力
+      const summarizeToCards = (list) => {
         let map = {};
         list.forEach(i => {
           if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
           map[i.name].count++;
         });
-        return Object.keys(map).map(k => `<li>${k} × ${map[k].count}個 (${(map[k].pt * map[k].count).toLocaleString()}PT / ${(map[k].price * map[k].count).toLocaleString()}円)</li>`).join('');
+        
+        return Object.keys(map).map(k => `
+          <div class="split-item-card">
+            <div class="split-item-name">${k} × ${map[k].count}個</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()} PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+          </div>
+        `).join('');
       };
 
-      document.getElementById('leftList').innerHTML = summarize(left);
-      document.getElementById('rightList').innerHTML = summarize(right);
+      document.getElementById('leftList').innerHTML = summarizeToCards(left);
+      document.getElementById('rightList').innerHTML = summarizeToCards(right);
       
       document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
       document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
