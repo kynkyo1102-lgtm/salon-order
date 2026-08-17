@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>購入ポイント・バイナリー最適化計算ツール</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f9f9f9; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    h2 { font-size: 1.2rem; color: #333; margin-top: 0; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    input, select, button { padding: 10px; width: 100%; box-sizing: border-box; margin-bottom: 12px; }
+    button { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
+    button:hover { background: #218838; }
+    .result-box { background: #e9ecef; padding: 15px; border-radius: 4px; margin-top: 10px; }
+    .split-container { display: flex; gap: 10px; }
+    .split-col { flex: 1; background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>サロン商品 発注サポートツール</h1>
+
+  <!-- 機能1: 最安コスパ計算 & 差額補填 -->
+  <div class="card">
+    <h2>1. 目標PTに対する最安買い方計算</h2>
+    <label>対象月度</label>
+    <select id="monthSelect"></select>
+
+    <label>目標ポイント（例: 10000 や 200000）</label>
+    <input type="number" id="targetPt" value="10000" step="1000">
+
+    <button onclick="calculateBestCombo()">最安組み合わせを計算</button>
+
+    <div id="comboResult" class="result-box" style="display:none;"></div>
+  </div>
+
+  <!-- 機能2: 左右均等バイナリー振り分け -->
+  <div class="card">
+    <h2>2. 購入商品の左右バランス分配</h2>
+    <p style="font-size: 0.9rem; color: #666;">選択した商品を左右でポイント差が最小になるよう自動振り分けします。</p>
+    
+    <div id="productChecklist" style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+      <!-- JavaScriptで商品チェックボックスを動的生成 -->
+    </div>
+
+    <button onclick="calculateBinarySplit()">左右均等に割り振り</button>
+
+    <div id="splitResult" class="result-box" style="display:none;">
+      <div class="split-container">
+        <div class="split-col">
+          <h3>左グループ (L)</h3>
+          <ul id="leftList"></ul>
+          <p><strong>合計: <span id="leftTotal">0</span> PT</strong></p>
+        </div>
+        <div class="split-col">
+          <h3>右グループ (R)</h3>
+          <ul id="rightList"></ul>
+          <p><strong>合計: <span id="rightTotal">0</span> PT</strong></p>
+        </div>
+      </div>
+      <p style="margin-top:10px;">左右のPT差: <strong id="ptDiff">0</strong> PT</p>
+    </div>
+  </div>
+
+  <script>
+    let configData = null;
+
+    // JSONデータの読み込み
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        // 月度選択肢の設定
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        renderProductChecklist();
+      } catch (e) {
+        alert('month_config.json の読み込みに失敗しました。');
+      }
+    }
+
+    // 商品チェックリストの生成
+    function renderProductChecklist() {
+      const month = document.getElementById('monthSelect').value;
+      const container = document.getElementById('productChecklist');
+      container.innerHTML = '';
+
+      configData.products.forEach((p, index) => {
+        const pt = p.pts[month] || 0;
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <label style="font-weight:normal;">
+            <input type="checkbox" class="product-cb" data-index="${index}" style="width:auto;">
+            ${p.name} (${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT)
+          </label>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // 機能1: コスパ計算ロジック（1PTあたりの価格が安い順に選定）
+    function calculateBestCombo() {
+      const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
+      const month = document.getElementById('monthSelect').value;
+
+      // PTが設定されている商品のみ抽出し、コスパ順（price/pt）にソート
+      let validProducts = configData.products
+        .map(p => ({ name: p.name, price: p.price, pt: p.pts[month] || 0 }))
+        .filter(p => p.pt > 0)
+        .sort((a, b) => (a.price / a.pt) - (b.price / b.pt));
+
+      let currentPt = 0;
+      let currentCost = 0;
+      let selectedMap = {};
+
+      // 最もコスパが良いものを優先的に組み合わせて目標PTを達成
+      while (currentPt < targetPt) {
+        let best = validProducts[0];
+        selectedMap[best.name] = (selectedMap[best.name] || 0) + 1;
+        currentPt += best.pt;
+        currentCost += best.price;
+      }
+
+      // 結果表示
+      const resDiv = document.getElementById('comboResult');
+      resDiv.style.display = 'block';
+      let html = `<strong>【おすすめ最安構成】</strong><br><ul>`;
+      for (let name in selectedMap) {
+        html += `<li>${name} × ${selectedMap[name]}個</li>`;
+      }
+      html += `</ul>`;
+      html += `<p>合計ポイント: <strong>${currentPt.toLocaleString()} PT</strong></p>`;
+      html += `<p>合計金額: <strong>${currentCost.toLocaleString()} 円</strong></p>`;
+      resDiv.innerHTML = html;
+    }
+
+    // 機能2: バイナリー振り分けロジック
+    function calculateBinarySplit() {
+      const month = document.getElementById('monthSelect').value;
+      const checkboxes = document.querySelectorAll('.product-cb:checked');
+      
+      let selectedItems = [];
+      checkboxes.forEach(cb => {
+        const idx = cb.getAttribute('data-index');
+        const p = configData.products[idx];
+        selectedItems.push({ name: p.name, pt: p.pts[month] || 0 });
+      });
+
+      if (selectedItems.length === 0) {
+        alert('分配する商品を1つ以上選択してください。');
+        return;
+      }
+
+      // PTが大きい順にソートして、少ない側に順番に入れる（貪欲法）
+      selectedItems.sort((a, b) => b.pt - a.pt);
+
+      let left = [], right = [];
+      let leftPt = 0, rightPt = 0;
+
+      selectedItems.forEach(item => {
+        if (leftPt <= rightPt) {
+          left.push(item);
+          leftPt += item.pt;
+        } else {
+          right.push(item);
+          rightPt += item.pt;
+        }
+      });
+
+      // 画面更新
+      document.getElementById('leftList').innerHTML = left.map(i => `<li>${i.name} (${i.pt.toLocaleString()}PT)</li>`).join('');
+      document.getElementById('rightList').innerHTML = right.map(i => `<li>${i.name} (${i.pt.toLocaleString()}PT)</li>`).join('');
+      document.getElementById('leftTotal').textContent = leftPt.toLocaleString();
+      document.getElementById('rightTotal').textContent = rightPt.toLocaleString();
+      document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      document.getElementById('splitResult').style.display = 'block';
+    }
+
+    // 初期化
+    document.getElementById('monthSelect').addEventListener('change', renderProductChecklist);
+    window.onload = loadConfig;
+  </script>
+</body>
+</html>
