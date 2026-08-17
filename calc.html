@@ -96,6 +96,9 @@
       container.innerHTML = '';
 
       configData.products.forEach((p, index) => {
+        // リペアセラムを除外
+        if (p.name === 'リペアセラム') return;
+
         const pt = p.pts[month] || 0;
         const div = document.createElement('div');
         div.className = 'product-item';
@@ -115,19 +118,20 @@
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
 
+      // リペアセラムを除外した有効商品リストを作成
       const validProducts = configData.products
+        .filter(p => p.name !== 'リペアセラム')
         .map(p => ({ name: p.name, price: p.price, pt: p.pts[month] || 0 }))
         .filter(p => p.pt > 0);
 
       if (validProducts.length === 0 || targetPt <= 0) return;
 
-      // 1. 動的計画法（DP）で「余り最小 且つ 金額最小」を厳密計算
+      // 1. 動的計画法（DP）で「余り最小 且つ 金額最小」を計算
       let bestPlan = findOptimalCombo(validProducts, targetPt);
 
-      // 2. 参考パターン（主力商品ベースなど）の生成
       let plans = [bestPlan];
 
-      // 参考2: 単一商品での切り上げ達成パターン
+      // 参考1: 単一商品での切り上げ達成パターン
       let singleBest = validProducts
         .map(p => {
           let count = Math.ceil(targetPt / p.pt);
@@ -171,7 +175,6 @@
 
     // 目標PT以上の「PT最小・金額最小」を導くアルゴリズム
     function findOptimalCombo(products, target) {
-      // 探索上限を定める（目標PT + 最大商品PT）
       const maxPt = Math.max(...products.map(p => p.pt));
       const limit = target + maxPt;
 
@@ -191,16 +194,14 @@
         }
       }
 
-      // target 以上で dp[pt] が最も小さく（PT最小）、かつ価格最小の pt を探す
       let bestPt = -1;
       for (let pt = target; pt <= limit; pt++) {
         if (dp[pt] !== Infinity) {
           bestPt = pt;
-          break; // 最初に見つかったものが「超過PT最小」かつ「最安」
+          break;
         }
       }
 
-      // 復元処理
       let counts = {};
       let curr = bestPt;
       while (curr > 0 && parent[curr]) {
@@ -223,7 +224,7 @@
       const month = document.getElementById('monthSelect').value;
       const inputs = document.querySelectorAll('.prod-qty');
       
-      let allUnitItems = []; // 個別化アイテム配列
+      let allUnitItems = [];
 
       inputs.forEach(input => {
         const qty = parseInt(input.value) || 0;
@@ -242,7 +243,6 @@
         return;
       }
 
-      // 貪欲法による左右均分配
       allUnitItems.sort((a, b) => b.pt - a.pt);
 
       let left = [], right = [];
@@ -258,7 +258,6 @@
         }
       });
 
-      // 同一商品の表示をカウントでまとめる関数
       const summarize = (list) => {
         let map = {};
         list.forEach(i => {
