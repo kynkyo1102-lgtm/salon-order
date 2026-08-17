@@ -71,7 +71,7 @@
       </div>
       <div style="margin-top:12px; padding-top:10px; border-top:2px solid #ccc; font-size:1rem;">
         左右のPT差: <strong id="ptDiff" style="color:red;">0</strong> PT<br>
-        左右の金額差: <strong id="costDiff" style="color:#333;">0</strong> 円
+        合計金額: <strong id="grandTotalCost" style="color:#111;">0</strong> 円
       </div>
     </div>
   </div>
@@ -131,7 +131,7 @@
       }
     }
 
-    // 高速・爆速計算ロジック
+    // 機能1: 最適目標PT計算
     function calculateBestCombos() {
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
@@ -143,14 +143,11 @@
 
       if (validProducts.length < 2 || targetPt <= 0) return;
 
-      // 1. 全体でDP計算（高速）
       let bestPlan = findOptimalMultiCombo(validProducts, targetPt);
 
-      // 2. 定番（OX-288 / ボアソン）を固定した高速プラン
       let mainProd = validProducts.find(p => p.name === 'OX-288' || p.name === 'ボアソン') || validProducts[0];
       let planA = createMainProdCombo(validProducts, mainProd, targetPt);
 
-      // 3. サブ商品メインプラン
       let subProd = validProducts.find(p => p.name !== mainProd.name) || validProducts[1];
       let planB = createMainProdCombo(validProducts, subProd, targetPt);
 
@@ -203,7 +200,6 @@
       resDiv.innerHTML = html;
     }
 
-    // 2種類以上の商品を組み合わせる高速DP計算
     function findOptimalMultiCombo(products, target) {
       const maxPt = Math.max(...products.map(p => p.pt));
       const limit = target + maxPt;
@@ -235,14 +231,12 @@
             curr = parent[curr].prev;
           }
           let items = Object.values(counts);
-          // 2種類以上の商品が含まれていればOK
           if (items.length >= 2) {
             return { items, totalPt: pt, totalCost: dp[pt] };
           }
         }
       }
 
-      // 単一になってしまった場合は強引に2種類目を組み合わせる補正
       let baseProd = products[0];
       let subProd = products[1];
       let count1 = Math.max(1, Math.floor((target - subProd.pt) / baseProd.pt));
@@ -259,7 +253,6 @@
       return { items, totalPt, totalCost };
     }
 
-    // 特定商品を軸にした高速組み合わせ生成
     function createMainProdCombo(products, mainProd, target) {
       let subProducts = products.filter(p => p.name !== mainProd.name);
       let mainCount = Math.floor(target / mainProd.pt);
@@ -285,7 +278,6 @@
       return { items, totalPt, totalCost };
     }
 
-    // 同一PT・同一金額の商品をカッコで表記する処理
     function formatItemsWithSamePrice(items, allValidProducts) {
       return items.map(item => {
         let sameSpecProducts = allValidProducts.filter(p => p.pt === item.pt && p.price === item.price && p.name !== item.name);
@@ -303,7 +295,7 @@
       });
     }
 
-    // 機能2: 左右分配
+    // 機能2: 左右分配（合計金額表示に更新）
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
       const inputs = document.querySelectorAll('.prod-qty');
@@ -364,7 +356,8 @@
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
       document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
-      document.getElementById('costDiff').textContent = Math.abs(leftCost - rightCost).toLocaleString();
+      // 全体合計金額を計算してセット
+      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
 
       document.getElementById('splitResult').style.display = 'block';
     }
