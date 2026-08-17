@@ -35,7 +35,7 @@
       ※1〜10日は「先月度, 今月度」（例: 8月度, 9月度）、11日以降は「今月度」（例: 9月度）のようにカンマ区切りで入力してください。
     </p>
     <label>有効な月度 (カンマ区切り)</label>
-    <input type="text" id="activeMonthsInput" value="8月度, 9月度" onchange="renderTableHeaders()">
+    <input type="text" id="activeMonthsInput" value="8月度, 9月度" onchange="handleMonthChange()">
   </div>
 
   <!-- 2. お知らせ設定 (複数登録対応) -->
@@ -133,7 +133,7 @@
     };
 
     function renderAll() {
-      document.getElementById('activeMonthsInput').value = masterData.activeMonths.join(', ');
+      document.getElementById('activeMonthsInput').value = (masterData.activeMonths || []).join(', ');
       renderNewsList();
       renderTableHeaders();
     }
@@ -174,17 +174,23 @@
       rows.forEach(row => {
         const date = row.querySelector('.input-news-date').value.trim();
         const text = row.querySelector('.input-news-text').value.trim();
-        if (date !== '' || text !== '') {
+        // 本文が入力されている行のみを有効なお知らせとして収集する
+        if (text !== '') {
           newsList.push({ date, text });
         }
       });
       return newsList;
     }
 
-    /* --- 商品・ポイント用処理 (元のロジック完全保持) --- */
+    /* --- 商品・ポイント用処理 --- */
     function getMonths() {
       const input = document.getElementById('activeMonthsInput').value;
       return input.split(',').map(m => m.trim()).filter(m => m.length > 0);
+    }
+
+    function handleMonthChange() {
+      saveCurrentTableToData();
+      renderTableHeaders();
     }
 
     function renderTableHeaders() {
@@ -207,19 +213,19 @@
       tbody.innerHTML = '';
       const months = masterData.activeMonths;
 
-      masterData.products.forEach((prod, index) => {
+      (masterData.products || []).forEach((prod) => {
         const tr = document.createElement('tr');
         
         let ptCells = months.map(m => {
           const ptVal = (prod.pts && prod.pts[m] !== undefined) ? prod.pts[m] : 0;
-          return `<td><input type="number" class="input-pt" data-index="${index}" data-month="${m}" value="${ptVal}"></td>`;
+          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}"></td>`;
         }).join('');
 
         tr.innerHTML = `
-          <td><input type="text" class="input-name" data-index="${index}" value="${prod.name}"></td>
-          <td><input type="number" class="input-price" data-index="${index}" value="${prod.price}"></td>
+          <td><input type="text" class="input-name" value="${prod.name || ''}"></td>
+          <td><input type="number" class="input-price" value="${prod.price || 0}"></td>
           ${ptCells}
-          <td><button class="btn btn-danger" onclick="deleteRow(${index})">✕</button></td>
+          <td><button class="btn btn-danger" onclick="deleteRow(this)">✕</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -235,26 +241,29 @@
       renderTableBody();
     }
 
-    function deleteRow(index) {
+    function deleteRow(btnElement) {
+      btnElement.closest('tr').remove();
       saveCurrentTableToData();
-      masterData.products.splice(index, 1);
       renderTableBody();
     }
 
     function saveCurrentTableToData() {
       const months = getMonths();
       const rows = document.querySelectorAll('#productTableBody tr');
-
       const updatedProducts = [];
 
-      rows.forEach((row, idx) => {
-        const name = row.querySelector('.input-name').value;
-        const price = parseInt(row.querySelector('.input-price').value) || 0;
+      rows.forEach((row) => {
+        const nameInput = row.querySelector('.input-name');
+        const priceInput = row.querySelector('.input-price');
+        if (!nameInput || !priceInput) return;
+
+        const name = nameInput.value;
+        const price = parseInt(priceInput.value, 10) || 0;
         const pts = {};
 
         months.forEach(m => {
           const ptInput = row.querySelector(`.input-pt[data-month="${m}"]`);
-          pts[m] = ptInput ? (parseInt(ptInput.value) || 0) : 0;
+          pts[m] = ptInput ? (parseInt(ptInput.value, 10) || 0) : 0;
         });
 
         updatedProducts.push({ name, price, pts });
@@ -264,10 +273,10 @@
       masterData.products = updatedProducts;
       masterData.newsList = getNewsData();
 
-      // 単体系プロパティ（下位互換用）
+      // 下位互換用単体系プロパティ
       if (masterData.newsList.length > 0) {
-        masterData.newsDate = masterData.newsList[0].date;
-        masterData.newsText = masterData.newsList[0].text;
+        masterData.newsDate = masterData.newsList[0].date || "";
+        masterData.newsText = masterData.newsList[0].text || "";
       } else {
         masterData.newsDate = "";
         masterData.newsText = "";
@@ -276,13 +285,17 @@
 
     function exportJSON() {
       saveCurrentTableToData();
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(masterData, null, 2));
+      const jsonString = JSON.stringify(masterData, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      
       const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("href", url);
       downloadAnchor.setAttribute("download", "month_config.json");
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
+      URL.revokeObjectURL(url);
     }
 
     function importJSON(event) {
@@ -292,7 +305,9 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         try {
-          masterData = JSON.parse(e.target.result);
+          const parsed = JSON.parse(e.target.result);
+          if (typeof parsed !== 'object' || parsed === null) throw new Error();
+          masterData = parsed;
           renderAll();
           alert("JSONファイルを正常に読み込みました。");
         } catch (err) {
@@ -300,6 +315,7 @@
         }
       };
       reader.readAsText(file);
+      event.target.value = '';
     }
   </script>
 </body>
