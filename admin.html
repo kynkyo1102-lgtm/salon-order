@@ -45,7 +45,7 @@
       ※日付と本文を入力してください。不要な項目は右の「✕」で削除できます。すべて空にするとトップページで非表示になります。
     </p>
     <div id="newsContainer"></div>
-    <button class="btn btn-secondary" onclick="addNewsRow()">＋ お知らせを追加</button>
+    <button type="button" class="btn btn-secondary" onclick="addNewsRowUI()">＋ お知らせを追加</button>
   </div>
 
   <!-- 3. 商品マスター・ポイント一覧 -->
@@ -62,16 +62,16 @@
       <tbody id="productTableBody"></tbody>
     </table>
     <br>
-    <button class="btn btn-secondary" onclick="addNewProductRow()">＋ 商品を追加</button>
+    <button type="button" class="btn btn-secondary" onclick="addNewProductRow()">＋ 商品を追加</button>
   </div>
 
   <!-- 4. 保存・出力 -->
   <div class="card">
     <h2>4. 設定ファイルの書き出し</h2>
     <div class="flex">
-      <button class="btn" onclick="exportJSON()">💾 month_config.json をダウンロード</button>
+      <button type="button" class="btn" onclick="exportJSON()">💾 month_config.json をダウンロード</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
-      <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📂 既存の JSON を読み込んで編集</button>
+      <button type="button" class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📂 既存の JSON を読み込んで編集</button>
     </div>
   </div>
 
@@ -152,30 +152,41 @@
       }
 
       list.forEach((item) => {
-        addNewsRow(item.date, item.text);
+        addNewsRowUI(item.date, item.text);
       });
     }
 
-    function addNewsRow(date = '', text = '') {
+    function addNewsRowUI(date = '', text = '') {
       const container = document.getElementById('newsContainer');
       const div = document.createElement('div');
       div.className = 'news-item-row';
       div.innerHTML = `
-        <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/7)" value="${date}">
-        <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}">
-        <button class="btn btn-danger" onclick="this.parentElement.remove()" style="padding: 6px 12px;">✕</button>
+        <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/7)" value="${date}" onchange="saveCurrentTableToData()">
+        <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}" onchange="saveCurrentTableToData()">
+        <button type="button" class="btn btn-danger" onclick="removeNewsRow(this)" style="padding: 6px 12px;">✕</button>
       `;
       container.appendChild(div);
+      saveCurrentTableToData();
+    }
+
+    function removeNewsRow(btn) {
+      btn.parentElement.remove();
+      saveCurrentTableToData();
     }
 
     function getNewsData() {
       const rows = document.querySelectorAll('.news-item-row');
       const newsList = [];
       rows.forEach(row => {
-        const date = row.querySelector('.input-news-date').value.trim();
-        const text = row.querySelector('.input-news-text').value.trim();
-        // 本文が入力されている行のみを有効なお知らせとして収集する
-        if (text !== '') {
+        const dateInput = row.querySelector('.input-news-date');
+        const textInput = row.querySelector('.input-news-text');
+        if (!dateInput || !textInput) return;
+        
+        const date = dateInput.value.trim();
+        const text = textInput.value.trim();
+        
+        // 本文または日付が入力されている場合は収集
+        if (text !== '' || date !== '') {
           newsList.push({ date, text });
         }
       });
@@ -218,14 +229,14 @@
         
         let ptCells = months.map(m => {
           const ptVal = (prod.pts && prod.pts[m] !== undefined) ? prod.pts[m] : 0;
-          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}"></td>`;
+          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}" onchange="saveCurrentTableToData()"></td>`;
         }).join('');
 
         tr.innerHTML = `
-          <td><input type="text" class="input-name" value="${prod.name || ''}"></td>
-          <td><input type="number" class="input-price" value="${prod.price || 0}"></td>
+          <td><input type="text" class="input-name" value="${prod.name || ''}" onchange="saveCurrentTableToData()"></td>
+          <td><input type="number" class="input-price" value="${prod.price || 0}" onchange="saveCurrentTableToData()"></td>
           ${ptCells}
-          <td><button class="btn btn-danger" onclick="deleteRow(this)">✕</button></td>
+          <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">✕</button></td>
         `;
         tbody.appendChild(tr);
       });
