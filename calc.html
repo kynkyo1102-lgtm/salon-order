@@ -18,7 +18,8 @@
     .plan-title { font-weight: bold; font-size: 1.05rem; margin-bottom: 6px; color: #155724; }
     .split-container { display: flex; gap: 10px; margin-top: 10px; }
     .split-col { flex: 1; background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-    .product-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #eee; }
+    .product-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border-bottom: 1px dashed #eee; transition: background 0.2s; }
+    .product-item.selected { background: #e8f5e9; font-weight: bold; }
     .product-item input { width: 70px; margin-bottom: 0; text-align: center; }
   </style>
 </head>
@@ -35,7 +36,7 @@
     <label>目標ポイント（例: 10000, 200000）</label>
     <input type="number" id="targetPt" value="10000" step="1000">
 
-    <button onclick="calculateBestCombos()">最適な組み合わせを提案</button>
+    <button onclick="calculateBestCombos()">3つの組み合わせを提案</button>
 
     <div id="comboResult" class="result-box" style="display:none;"></div>
   </div>
@@ -43,9 +44,9 @@
   <!-- 機能2: 左右均等バイナリー分配 -->
   <div class="card">
     <h2>2. 購入商品の左右バランス分配（複数購入対応）</h2>
-    <p style="font-size: 0.85rem; color: #666;">購入する個数を指定してください。左右のポイント差が最小になるよう振り分けます。</p>
+    <p style="font-size: 0.85rem; color: #666;">購入する個数を指定してください（1個以上で緑色にハイライトされます）。</p>
     
-    <div id="productQtyList" style="max-height: 250px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 12px; background: #fff;">
+    <div id="productQtyList" style="max-height: 280px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 12px; background: #fff; border-radius: 4px;">
       <!-- JSで動的生成 -->
     </div>
 
@@ -56,15 +57,22 @@
         <div class="split-col">
           <h3 style="margin-top:0; color:#0056b3;">左グループ (L)</h3>
           <ul id="leftList" style="padding-left:20px; font-size:0.9rem;"></ul>
-          <p>合計: <strong id="leftTotal">0</strong> PT</p>
+          <hr style="border:none; border-top:1px solid #eee;">
+          <p>PT合計: <strong id="leftTotalPt">0</strong> PT</p>
+          <p>金額合計: <strong id="leftTotalCost">0</strong> 円</p>
         </div>
         <div class="split-col">
           <h3 style="margin-top:0; color:#d9534f;">右グループ (R)</h3>
           <ul id="rightList" style="padding-left:20px; font-size:0.9rem;"></ul>
-          <p>合計: <strong id="rightTotal">0</strong> PT</p>
+          <hr style="border:none; border-top:1px solid #eee;">
+          <p>PT合計: <strong id="rightTotalPt">0</strong> PT</p>
+          <p>金額合計: <strong id="rightTotalCost">0</strong> 円</p>
         </div>
       </div>
-      <p style="margin-top:10px; font-size:1rem;">左右のPT差: <strong id="ptDiff" style="color:red;">0</strong> PT</p>
+      <div style="margin-top:12px; padding-top:10px; border-top:2px solid #ccc; font-size:1rem;">
+        左右のPT差: <strong id="ptDiff" style="color:red;">0</strong> PT<br>
+        左右の金額差: <strong id="costDiff" style="color:#333;">0</strong> 円
+      </div>
     </div>
   </div>
 
@@ -96,29 +104,39 @@
       container.innerHTML = '';
 
       configData.products.forEach((p, index) => {
-        // リペアセラムを除外
         if (p.name === 'リペアセラム') return;
 
         const pt = p.pts[month] || 0;
         const div = document.createElement('div');
         div.className = 'product-item';
+        div.id = `item-row-${index}`;
         div.innerHTML = `
           <span style="font-size:0.9rem;">
             <strong>${p.name}</strong><br>
             <small style="color:#666;">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
           </span>
-          <input type="number" class="prod-qty" data-index="${index}" min="0" value="0">
+          <input type="number" class="prod-qty" data-index="${index}" min="0" value="0" onchange="highlightSelected(${index})">
         `;
         container.appendChild(div);
       });
     }
 
-    // 機能1: 目標PT達成ロジック（ぴったり優先＋最安検索）
+    // 個数が1以上の行をハイライト表示
+    function highlightSelected(index) {
+      const row = document.getElementById(`item-row-${index}`);
+      const input = row.querySelector('.prod-qty');
+      if (parseInt(input.value) > 0) {
+        row.classList.add('selected');
+      } else {
+        row.classList.remove('selected');
+      }
+    }
+
+    // 機能1: 3つの組み合わせを出力
     function calculateBestCombos() {
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
 
-      // リペアセラムを除外した有効商品リストを作成
       const validProducts = configData.products
         .filter(p => p.name !== 'リペアセラム')
         .map(p => ({ name: p.name, price: p.price, pt: p.pts[month] || 0 }))
@@ -126,40 +144,72 @@
 
       if (validProducts.length === 0 || targetPt <= 0) return;
 
-      // 1. 動的計画法（DP）で「余り最小 且つ 金額最小」を計算
+      let plans = [];
+
+      // パターン1: 【最適】DPによる目標ぴったり＆最安プラン
       let bestPlan = findOptimalCombo(validProducts, targetPt);
+      bestPlan.title = "★【推薦】目標ぴったり＆最安プラン";
+      bestPlan.isBest = true;
+      plans.push(bestPlan);
 
-      let plans = [bestPlan];
-
-      // 参考1: 単一商品での切り上げ達成パターン
-      let singleBest = validProducts
-        .map(p => {
-          let count = Math.ceil(targetPt / p.pt);
-          return { name: p.name, items: [{ ...p, count }], totalPt: p.pt * count, totalCost: p.price * count };
-        })
-        .sort((a, b) => (a.totalPt - targetPt) - (b.totalPt - targetPt) || a.totalCost - b.totalCost)[0];
-
-      if (singleBest && singleBest.name !== bestPlan.items[0]?.name) {
-        plans.push({
-          title: "【参考1】単品・高効率まとめ買い",
-          items: singleBest.items,
-          totalPt: singleBest.totalPt,
-          totalCost: singleBest.totalCost
+      // パターン2: 主力商品中心
+      let mainProd = validProducts.find(p => p.name === 'OX-288') || validProducts[0];
+      let mainCount = Math.floor(targetPt / mainProd.pt);
+      let remPt = targetPt - (mainCount * mainProd.pt);
+      
+      let plan2Items = [];
+      if (mainCount > 0) {
+        plan2Items.push({ ...mainProd, count: mainCount });
+      }
+      if (remPt > 0) {
+        let subCombo = findOptimalCombo(validProducts, remPt);
+        subCombo.items.forEach(si => {
+          let existing = plan2Items.find(pi => pi.name === si.name);
+          if (existing) {
+            existing.count += si.count;
+          } else {
+            plan2Items.push(si);
+          }
         });
       }
+      let plan2TotalPt = plan2Items.reduce((sum, i) => sum + (i.pt * i.count), 0);
+      let plan2TotalCost = plan2Items.reduce((sum, i) => sum + (i.price * i.count), 0);
 
-      // 表示処理
+      plans.push({
+        title: "【参考1】定番・主力商品中心プラン",
+        items: plan2Items,
+        totalPt: plan2TotalPt,
+        totalCost: plan2TotalCost,
+        isBest: false
+      });
+
+      // パターン3: 単品まとめ買い
+      let singleCandidates = validProducts
+        .map(p => {
+          let count = Math.ceil(targetPt / p.pt);
+          return {
+            title: "【参考2】単品まとめ買いプラン",
+            items: [{ ...p, count }],
+            totalPt: p.pt * count,
+            totalCost: p.price * count,
+            isBest: false
+          };
+        })
+        .sort((a, b) => (a.totalPt - targetPt) - (b.totalPt - targetPt) || a.totalCost - b.totalCost);
+
+      let plan3 = singleCandidates.find(c => c.items[0].name !== plans[0].items[0]?.name) || singleCandidates[0];
+      plans.push(plan3);
+
       const resDiv = document.getElementById('comboResult');
       resDiv.style.display = 'block';
       let html = '';
 
-      plans.forEach((plan, idx) => {
-        const isBest = idx === 0;
+      plans.forEach((plan) => {
         html += `
-          <div class="plan-card ${isBest ? 'best' : ''}">
-            <div class="plan-title">${isBest ? '★【推薦】目標ぴったり＆最安プラン' : plan.title}</div>
+          <div class="plan-card ${plan.isBest ? 'best' : ''}">
+            <div class="plan-title">${plan.title}</div>
             <ul style="margin: 5px 0; padding-left: 20px;">
-              ${plan.items.map(i => `<li>${i.name} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT)</li>`).join('')}
+              ${plan.items.map(i => `<li>${i.name} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
             </ul>
             <div style="font-size:0.95rem; margin-top:8px;">
               合計ポイント: <strong>${plan.totalPt.toLocaleString()} PT</strong> 
@@ -173,7 +223,6 @@
       resDiv.innerHTML = html;
     }
 
-    // 目標PT以上の「PT最小・金額最小」を導くアルゴリズム
     function findOptimalCombo(products, target) {
       const maxPt = Math.max(...products.map(p => p.pt));
       const limit = target + maxPt;
@@ -212,14 +261,13 @@
       }
 
       return {
-        title: "【推薦】目標ぴったり＆最安プラン",
         items: Object.values(counts),
         totalPt: bestPt,
         totalCost: dp[bestPt]
       };
     }
 
-    // 機能2: 複数個数の左右バランス振り分け
+    // 機能2: 左右振り分け（金額計算付き）
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
       const inputs = document.querySelectorAll('.prod-qty');
@@ -233,7 +281,7 @@
           const p = configData.products[idx];
           const pt = p.pts[month] || 0;
           for (let i = 0; i < qty; i++) {
-            allUnitItems.push({ name: p.name, pt: pt });
+            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
           }
         }
       });
@@ -243,35 +291,46 @@
         return;
       }
 
+      // PT順に降順ソート
       allUnitItems.sort((a, b) => b.pt - a.pt);
 
       let left = [], right = [];
       let leftPt = 0, rightPt = 0;
+      let leftCost = 0, rightCost = 0;
 
       allUnitItems.forEach(item => {
         if (leftPt <= rightPt) {
           left.push(item);
           leftPt += item.pt;
+          leftCost += item.price;
         } else {
           right.push(item);
           rightPt += item.pt;
+          rightCost += item.price;
         }
       });
 
       const summarize = (list) => {
         let map = {};
         list.forEach(i => {
-          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt };
+          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
           map[i.name].count++;
         });
-        return Object.keys(map).map(k => `<li>${k} × ${map[k].count}個 (${(map[k].pt * map[k].count).toLocaleString()}PT)</li>`).join('');
+        return Object.keys(map).map(k => `<li>${k} × ${map[k].count}個 (${(map[k].pt * map[k].count).toLocaleString()}PT / ${(map[k].price * map[k].count).toLocaleString()}円)</li>`).join('');
       };
 
       document.getElementById('leftList').innerHTML = summarize(left);
       document.getElementById('rightList').innerHTML = summarize(right);
-      document.getElementById('leftTotal').textContent = leftPt.toLocaleString();
-      document.getElementById('rightTotal').textContent = rightPt.toLocaleString();
+      
+      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
+      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
+      
+      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
+      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
+
       document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      document.getElementById('costDiff').textContent = Math.abs(leftCost - rightCost).toLocaleString();
+
       document.getElementById('splitResult').style.display = 'block';
     }
 
