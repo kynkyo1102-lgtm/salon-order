@@ -77,22 +77,22 @@
 <body>
 
   <header>
-    <div class="header-logo">Salon Order</div>
+    <a href="index.html" class="header-logo">Place de Nina</a>
     <h1>サロン商品 発注サポートツール</h1>
   </header>
 
   <main>
     <!-- 機能1: 最適目標PT計算 -->
-    <div class="card-box">
+    <div class="card-box card-accent">
       <div class="section-title">1. 目標PTに対する最適組み合わせ計算</div>
       
       <div class="form-group">
-        <label>対象月度</label>
+        <label class="label-accent">対象月度</label>
         <select id="monthSelect"></select>
       </div>
 
       <div class="form-group">
-        <label>目標ポイント（例: 10000, 200000）</label>
+        <label class="label-accent">目標ポイント（例: 10000, 200000）</label>
         <input type="number" id="targetPt" value="10000" step="1000">
       </div>
 
@@ -102,7 +102,7 @@
     </div>
 
     <!-- 機能2: 左右均等バイナリー分配 -->
-    <div class="card-box">
+    <div class="card-box card-accent">
       <div class="section-title">2. 購入商品の左右バランス分配</div>
       <p class="usage-guide">購入する個数を指定してください（1個以上で背景がハイライトされます）。</p>
       
@@ -138,7 +138,7 @@
   </main>
 
   <footer>
-    &copy; Salon Order Support System
+    &copy; Place de Nina Order Support System
   </footer>
 
   <script>
