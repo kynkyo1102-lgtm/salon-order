@@ -10,28 +10,40 @@
   
   <link rel="stylesheet" href="style.css?v=2">
   <style>
-    /* 計算ツール用サブリンクカード */
+    /* 計算ツール用シックなブラウン調サブリンクカード */
     .calc-sub-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #fdfbf7;
-      border: 1px solid var(--border-color);
+      background-color: #f4eee6; /* 上品な浅いブラウン背景 */
+      border: 1px solid #d8c6b2; /* 温かみのあるブラウン枠線 */
+      border-left: 4px solid var(--accent-gold); /* アクセントのゴールド */
       border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 16px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
       text-decoration: none;
       color: var(--text-main);
-      transition: background-color 0.2s, border-color 0.2s;
+      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
     }
     .calc-sub-card:hover {
-      background-color: #f7f2e8;
+      background-color: #ebdcd0;
       border-color: var(--accent-gold);
     }
     .calc-sub-content {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+    }
+    .calc-sub-icon {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
     .calc-sub-title {
       font-size: 0.88rem;
@@ -41,10 +53,12 @@
     .calc-sub-desc {
       font-size: 0.75rem;
       color: var(--text-sub);
+      margin-top: 1px;
     }
     .calc-sub-arrow {
       font-size: 0.85rem;
       color: var(--accent-gold);
+      font-weight: bold;
     }
   </style>
 </head>
@@ -73,13 +87,13 @@
       <span style="font-size: 0.8rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
     </div>
 
-    <!-- 注文サポート計算ツール（上部に配置・主張を控えめに調整） -->
+    <!-- 注文サポート計算ツール（落ち着いたブラウン調のデザイン） -->
     <a href="calc.html" class="calc-sub-card">
       <div class="calc-sub-content">
-        <span>🧮</span>
+        <div class="calc-sub-icon">📊</div>
         <div>
           <div class="calc-sub-title">注文サポート計算ツール</div>
-          <div class="calc-sub-desc">購入PTの最適化や左右の分配計算はこちら</div>
+          <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
         </div>
       </div>
       <div class="calc-sub-arrow">▶</div>
