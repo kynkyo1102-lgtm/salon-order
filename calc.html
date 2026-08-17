@@ -3,23 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>サロン商品 発注サポートツール</title>
+  <title>注文サポート計算ツール</title>
+  
+  <!-- Google Fonts の読み込み (Place de Nina のロゴフォント) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 他ページと統一感を持たせた計算ツール用スタイル */
+    /* 計算ツール用調整スタイル */
     .calc-select, .calc-input {
       width: 100%;
       padding: 10px 12px;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      background-color: #fff;
+      border-radius: 8px;
+      background-color: #fcfcfc;
       box-sizing: border-box;
-      margin-top: 6px;
+      color: var(--text-main);
     }
     .calc-select:focus, .calc-input:focus {
       outline: none;
       border-color: var(--accent-gold);
+      background-color: #fff;
     }
     .product-list-box {
       max-height: 320px;
@@ -50,8 +57,8 @@
       padding: 6px;
       text-align: center;
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 0.9rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
     }
     .result-container {
       margin-top: 18px;
@@ -92,14 +99,14 @@
 <body>
 
   <header>
-  <a href="index.html" class="header-logo">Place de Nina</a>
-  <h1>注文サポート計算ツール</h1>
-</header>
+    <a href="index.html" class="header-logo">Place de Nina</a>
+    <h1>注文サポート計算ツール</h1>
+  </header>
 
   <main>
     <!-- 機能1: 最適目標PT計算 -->
     <div class="card-box">
-      <h2 class="section-title">1. 目標PTに対する最適組み合わせ計算</h2>
+      <div class="section-title">1. 目標PTに対する最適組み合わせ計算</div>
       
       <div class="form-group">
         <label class="label-accent">対象月度</label>
@@ -111,34 +118,34 @@
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
-      <button class="btn-copy" style="margin-top: 16px; width: 100%;" onclick="calculateBestCombos()">3つのパターンを提案</button>
+      <button class="btn-copy" style="margin-top: 16px;" onclick="calculateBestCombos()">3つのパターンを提案</button>
 
       <div id="comboResult" class="result-container" style="display:none;"></div>
     </div>
 
     <!-- 機能2: 左右均等バイナリー分配 -->
     <div class="card-box">
-      <h2 class="section-title">2. 購入商品の左右バランス分配</h2>
+      <div class="section-title">2. 購入商品の左右バランス分配</div>
       <p class="usage-guide" style="margin-bottom: 10px;">購入する個数を指定してください（1個以上でハイライトされます）。</p>
       
       <div id="productQtyList" class="product-list-box">
         <!-- JSで動的生成 -->
       </div>
 
-      <button class="btn-copy" style="width: 100%;" onclick="calculateBinarySplit()">左右均等に割り振り</button>
+      <button class="btn-copy" onclick="calculateBinarySplit()">左右均等に割り振り</button>
 
       <div id="splitResult" class="result-container" style="display:none;">
         <div class="split-container">
           <div class="split-col">
             <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px;">左グループ (L)</h3>
-            <ul id="leftList" style="padding-left:16px; font-size:0.82rem; margin:8px 0; color:var(--text-color);"></ul>
+            <ul id="leftList" style="padding-left:16px; font-size:0.82rem; margin:8px 0; color:var(--text-main);"></ul>
             <hr style="border:none; border-top:1px dashed var(--border-color); margin:8px 0;">
             <p style="font-size:0.82rem; margin:2px 0;">PT合計: <strong id="leftTotalPt">0</strong> PT</p>
             <p style="font-size:0.82rem; margin:2px 0;">金額合計: <strong id="leftTotalCost">0</strong> 円</p>
           </div>
           <div class="split-col">
             <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px;">右グループ (R)</h3>
-            <ul id="rightList" style="padding-left:16px; font-size:0.82rem; margin:8px 0; color:var(--text-color);"></ul>
+            <ul id="rightList" style="padding-left:16px; font-size:0.82rem; margin:8px 0; color:var(--text-main);"></ul>
             <hr style="border:none; border-top:1px dashed var(--border-color); margin:8px 0;">
             <p style="font-size:0.82rem; margin:2px 0;">PT合計: <strong id="rightTotalPt">0</strong> PT</p>
             <p style="font-size:0.82rem; margin:2px 0;">金額合計: <strong id="rightTotalCost">0</strong> 円</p>
