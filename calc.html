@@ -36,7 +36,7 @@
     <label>目標ポイント（例: 10000, 200000）</label>
     <input type="number" id="targetPt" value="10000" step="1000">
 
-    <button onclick="calculateBestCombos()">3つの組み合わせを提案</button>
+    <button onclick="calculateBestCombos()">3つのパターンを提案</button>
 
     <div id="comboResult" class="result-box" style="display:none;"></div>
   </div>
@@ -131,7 +131,7 @@
       }
     }
 
-    // 機能1: 必ず2種類以上の商品を使った組み合わせ提案
+    // 機能1: 組み合わせ提案
     function calculateBestCombos() {
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
@@ -144,8 +144,6 @@
       if (validProducts.length < 2 || targetPt <= 0) return;
 
       let plans = [];
-
-      // 全組み合わせパターン探索（2種類以上の商品を使用）
       let allCombos = generateMultiItemCombos(validProducts, targetPt);
 
       if (allCombos.length === 0) {
@@ -153,30 +151,30 @@
         return;
       }
 
-      // パターン1: 【最適】目標ぴったり＆最安プラン
+      // パターン1
       let bestPlan = allCombos[0];
       plans.push({
-        title: "★【推薦】目標ぴったり＆最安プラン（ミックス構成）",
+        title: "★【最優先】おすすめ組み合わせ",
         items: bestPlan.items,
         totalPt: bestPlan.totalPt,
         totalCost: bestPlan.totalCost,
         isBest: true
       });
 
-      // パターン2: 定番主力商品を含む構成
+      // パターン2
       let mainCombo = allCombos.find(c => c.items.some(i => i.name === 'OX-288' || i.name === 'ボアソン') && c !== bestPlan) || allCombos[1] || allCombos[0];
       plans.push({
-        title: "【参考1】主力・定番商品メインプラン",
+        title: "【パターンA】定番・主力商品ベース",
         items: mainCombo.items,
         totalPt: mainCombo.totalPt,
         totalCost: mainCombo.totalCost,
         isBest: false
       });
 
-      // パターン3: 品目数またはポイントの異なる構成
+      // パターン3
       let altCombo = allCombos.find(c => c !== bestPlan && c !== mainCombo) || allCombos[allCombos.length - 1];
       plans.push({
-        title: "【参考2】バリエーションプラン",
+        title: "【パターンB】別商品バリエーション",
         items: altCombo.items,
         totalPt: altCombo.totalPt,
         totalCost: altCombo.totalCost,
@@ -188,11 +186,14 @@
       let html = '';
 
       plans.forEach((plan) => {
+        // 同金額・同PTの置き換え可能商品をカッコでまとめる処理
+        let displayItems = formatItemsWithSamePrice(plan.items, validProducts);
+
         html += `
           <div class="plan-card ${plan.isBest ? 'best' : ''}">
             <div class="plan-title">${plan.title}</div>
             <ul style="margin: 5px 0; padding-left: 20px;">
-              ${plan.items.map(i => `<li>${i.name} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
+              ${displayItems.map(i => `<li>${i.displayName} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
             </ul>
             <div style="font-size:0.95rem; margin-top:8px;">
               合計ポイント: <strong>${plan.totalPt.toLocaleString()} PT</strong> 
@@ -206,16 +207,31 @@
       resDiv.innerHTML = html;
     }
 
-    // 2種類以上の商品が含まれる組み合わせのみを算出しソートする関数
+    // 同一PT・同一金額の商品をカッコで表記する処理
+    function formatItemsWithSamePrice(items, allValidProducts) {
+      return items.map(item => {
+        let sameSpecProducts = allValidProducts.filter(p => p.pt === item.pt && p.price === item.price && p.name !== item.name);
+        if (sameSpecProducts.length > 0) {
+          let altNames = sameSpecProducts.map(p => p.name).join(' / ');
+          return {
+            ...item,
+            displayName: `${item.name} （または ${altNames}）`
+          };
+        }
+        return {
+          ...item,
+          displayName: item.name
+        };
+      });
+    }
+
     function generateMultiItemCombos(products, target) {
       let results = [];
       const maxPt = Math.max(...products.map(p => p.pt));
       const limit = target + maxPt * 2;
 
-      // 探索用ヘルパー（再帰）
       function search(index, currentPt, currentCost, currentItems) {
         if (currentPt >= target) {
-          // 条件：商品種別（種類）が2種類以上
           if (currentItems.length >= 2) {
             results.push({
               items: JSON.parse(JSON.stringify(currentItems)),
@@ -228,7 +244,6 @@
 
         if (currentPt > limit || index >= products.length) return;
 
-        // 最大購入個数の目安
         let p = products[index];
         let maxCount = Math.ceil((limit - currentPt) / p.pt);
 
@@ -247,7 +262,6 @@
 
       search(0, 0, 0, []);
 
-      // 超過PT最小 ＞ 金額最小 の順でソート
       results.sort((a, b) => {
         let diffA = a.totalPt - target;
         let diffB = b.totalPt - target;
@@ -258,7 +272,7 @@
       return results;
     }
 
-    // 機能2: 左右振り分け
+    // 機能2: 左右分配
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
       const inputs = document.querySelectorAll('.prod-qty');
