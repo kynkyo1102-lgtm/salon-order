@@ -72,11 +72,8 @@
 
   <main>
 
-    <!-- お知らせ -->
-    <div class="news-box">
-      <span class="news-date">8/7</span>
-      <p class="news-text">【完売案内】ゼログラビティ リペアセラムは完売いたしました。</p>
-    </div>
+    <!-- お知らせ (month_config.json から動的に読み込み) -->
+    <div id="newsContainerArea"></div>
 
     <!-- 注文ツールセクション -->
     <div class="section-title">LINEご注文作成ツール</div>
@@ -158,6 +155,42 @@
     </div>
     &copy; PLACE DE NINA MINAMIKUMAMOTO
   </footer>
+
+  <script>
+    async function loadNews() {
+      try {
+        // キャッシュを回避するために ?v= を付与
+        const res = await fetch('./month_config.json?v=' + Date.now());
+        const data = await res.json();
+        
+        const container = document.getElementById('newsContainerArea');
+        if (!container) return;
+
+        let items = [];
+        if (Array.isArray(data.newsList) && data.newsList.length > 0) {
+          items = data.newsList;
+        } else if (data.newsDate || data.newsText) {
+          // 旧データの互換対応
+          items = [{ date: data.newsDate || '', text: data.newsText || '' }];
+        }
+
+        if (items.length > 0) {
+          container.innerHTML = items.map(item => `
+            <div class="news-box">
+              <span class="news-date">${item.date}</span>
+              <p class="news-text">${item.text}</p>
+            </div>
+          `).join('');
+        } else {
+          container.innerHTML = '';
+        }
+      } catch (e) {
+        console.error("お知らせの読み込みに失敗しました", e);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadNews);
+  </script>
 
 </body>
 </html>
