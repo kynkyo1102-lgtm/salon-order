@@ -131,7 +131,7 @@
       }
     }
 
-    // 機能1: 組み合わせ提案
+    // 高速・爆速計算ロジック
     function calculateBestCombos() {
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
@@ -143,50 +143,46 @@
 
       if (validProducts.length < 2 || targetPt <= 0) return;
 
-      let plans = [];
-      let allCombos = generateMultiItemCombos(validProducts, targetPt);
+      // 1. 全体でDP計算（高速）
+      let bestPlan = findOptimalMultiCombo(validProducts, targetPt);
 
-      if (allCombos.length === 0) {
-        alert("条件に合う組み合わせが見つかりませんでした。");
-        return;
-      }
+      // 2. 定番（OX-288 / ボアソン）を固定した高速プラン
+      let mainProd = validProducts.find(p => p.name === 'OX-288' || p.name === 'ボアソン') || validProducts[0];
+      let planA = createMainProdCombo(validProducts, mainProd, targetPt);
 
-      // パターン1
-      let bestPlan = allCombos[0];
-      plans.push({
-        title: "★【最優先】おすすめ組み合わせ",
-        items: bestPlan.items,
-        totalPt: bestPlan.totalPt,
-        totalCost: bestPlan.totalCost,
-        isBest: true
-      });
+      // 3. サブ商品メインプラン
+      let subProd = validProducts.find(p => p.name !== mainProd.name) || validProducts[1];
+      let planB = createMainProdCombo(validProducts, subProd, targetPt);
 
-      // パターン2
-      let mainCombo = allCombos.find(c => c.items.some(i => i.name === 'OX-288' || i.name === 'ボアソン') && c !== bestPlan) || allCombos[1] || allCombos[0];
-      plans.push({
-        title: "【パターンA】定番・主力商品ベース",
-        items: mainCombo.items,
-        totalPt: mainCombo.totalPt,
-        totalCost: mainCombo.totalCost,
-        isBest: false
-      });
-
-      // パターン3
-      let altCombo = allCombos.find(c => c !== bestPlan && c !== mainCombo) || allCombos[allCombos.length - 1];
-      plans.push({
-        title: "【パターンB】別商品バリエーション",
-        items: altCombo.items,
-        totalPt: altCombo.totalPt,
-        totalCost: altCombo.totalCost,
-        isBest: false
-      });
+      let plans = [
+        {
+          title: "★【最優先】おすすめ組み合わせ",
+          items: bestPlan.items,
+          totalPt: bestPlan.totalPt,
+          totalCost: bestPlan.totalCost,
+          isBest: true
+        },
+        {
+          title: "【パターンA】定番・主力商品ベース",
+          items: planA.items,
+          totalPt: planA.totalPt,
+          totalCost: planA.totalCost,
+          isBest: false
+        },
+        {
+          title: "【パターンB】別商品バリエーション",
+          items: planB.items,
+          totalPt: planB.totalPt,
+          totalCost: planB.totalCost,
+          isBest: false
+        }
+      ];
 
       const resDiv = document.getElementById('comboResult');
       resDiv.style.display = 'block';
       let html = '';
 
       plans.forEach((plan) => {
-        // 同金額・同PTの置き換え可能商品をカッコでまとめる処理
         let displayItems = formatItemsWithSamePrice(plan.items, validProducts);
 
         html += `
@@ -207,6 +203,88 @@
       resDiv.innerHTML = html;
     }
 
+    // 2種類以上の商品を組み合わせる高速DP計算
+    function findOptimalMultiCombo(products, target) {
+      const maxPt = Math.max(...products.map(p => p.pt));
+      const limit = target + maxPt;
+
+      let dp = new Array(limit + 1).fill(Infinity);
+      let parent = new Array(limit + 1).fill(null);
+      dp[0] = 0;
+
+      for (let i = 0; i < products.length; i++) {
+        const p = products[i];
+        for (let j = p.pt; j <= limit; j++) {
+          if (dp[j - p.pt] !== Infinity) {
+            if (dp[j - p.pt] + p.price < dp[j]) {
+              dp[j] = dp[j - p.pt] + p.price;
+              parent[j] = { prev: j - p.pt, prod: p };
+            }
+          }
+        }
+      }
+
+      for (let pt = target; pt <= limit; pt++) {
+        if (dp[pt] !== Infinity) {
+          let counts = {};
+          let curr = pt;
+          while (curr > 0 && parent[curr]) {
+            let pName = parent[curr].prod.name;
+            counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
+            counts[pName].count++;
+            curr = parent[curr].prev;
+          }
+          let items = Object.values(counts);
+          // 2種類以上の商品が含まれていればOK
+          if (items.length >= 2) {
+            return { items, totalPt: pt, totalCost: dp[pt] };
+          }
+        }
+      }
+
+      // 単一になってしまった場合は強引に2種類目を組み合わせる補正
+      let baseProd = products[0];
+      let subProd = products[1];
+      let count1 = Math.max(1, Math.floor((target - subProd.pt) / baseProd.pt));
+      let remPt = Math.max(0, target - (baseProd.pt * count1));
+      let count2 = Math.ceil(remPt / subProd.pt);
+
+      let items = [
+        { ...baseProd, count: count1 },
+        { ...subProd, count: count2 }
+      ];
+      let totalPt = (baseProd.pt * count1) + (subProd.pt * count2);
+      let totalCost = (baseProd.price * count1) + (subProd.price * count2);
+
+      return { items, totalPt, totalCost };
+    }
+
+    // 特定商品を軸にした高速組み合わせ生成
+    function createMainProdCombo(products, mainProd, target) {
+      let subProducts = products.filter(p => p.name !== mainProd.name);
+      let mainCount = Math.floor(target / mainProd.pt);
+      
+      if (mainCount === 0) mainCount = 1;
+      let remPt = target - (mainProd.pt * mainCount);
+
+      if (remPt <= 0) {
+        mainCount = Math.max(1, mainCount - 1);
+        remPt = target - (mainProd.pt * mainCount);
+      }
+
+      let subCombo = findOptimalMultiCombo(subProducts, remPt);
+      let items = [{ ...mainProd, count: mainCount }];
+
+      subCombo.items.forEach(si => {
+        items.push(si);
+      });
+
+      let totalPt = items.reduce((sum, i) => sum + (i.pt * i.count), 0);
+      let totalCost = items.reduce((sum, i) => sum + (i.price * i.count), 0);
+
+      return { items, totalPt, totalCost };
+    }
+
     // 同一PT・同一金額の商品をカッコで表記する処理
     function formatItemsWithSamePrice(items, allValidProducts) {
       return items.map(item => {
@@ -223,53 +301,6 @@
           displayName: item.name
         };
       });
-    }
-
-    function generateMultiItemCombos(products, target) {
-      let results = [];
-      const maxPt = Math.max(...products.map(p => p.pt));
-      const limit = target + maxPt * 2;
-
-      function search(index, currentPt, currentCost, currentItems) {
-        if (currentPt >= target) {
-          if (currentItems.length >= 2) {
-            results.push({
-              items: JSON.parse(JSON.stringify(currentItems)),
-              totalPt: currentPt,
-              totalCost: currentCost
-            });
-          }
-          return;
-        }
-
-        if (currentPt > limit || index >= products.length) return;
-
-        let p = products[index];
-        let maxCount = Math.ceil((limit - currentPt) / p.pt);
-
-        for (let cnt = 0; cnt <= maxCount; cnt++) {
-          if (cnt > 0) {
-            currentItems.push({ ...p, count: cnt });
-          }
-
-          search(index + 1, currentPt + (p.pt * cnt), currentCost + (p.price * cnt), currentItems);
-
-          if (cnt > 0) {
-            currentItems.pop();
-          }
-        }
-      }
-
-      search(0, 0, 0, []);
-
-      results.sort((a, b) => {
-        let diffA = a.totalPt - target;
-        let diffB = b.totalPt - target;
-        if (diffA !== diffB) return diffA - diffB;
-        return a.totalCost - b.totalCost;
-      });
-
-      return results;
     }
 
     // 機能2: 左右分配
