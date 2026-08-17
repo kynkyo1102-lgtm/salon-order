@@ -3,78 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>購入ポイント・バイナリー最適化計算ツール</title>
+  <title>サロン商品 発注サポートツール</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f4f6f8; color: #333; }
-    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.08); margin-bottom: 20px; }
-    h2 { font-size: 1.2rem; color: #111; margin-top: 0; border-bottom: 2px solid #28a745; padding-bottom: 8px; }
-    label { display: block; margin-bottom: 8px; font-weight: bold; }
-    input[type="number"], select { padding: 8px; width: 100%; box-sizing: border-box; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 4px; }
-    button { background: #28a745; color: white; border: none; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 4px; width: 100%; font-size: 1rem; }
-    button:hover { background: #218838; }
-    .result-box { background: #e9ecef; padding: 15px; border-radius: 6px; margin-top: 15px; }
-    .plan-card { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 12px; margin-bottom: 12px; }
-    .plan-card.best { border: 2px solid #28a745; background: #f0fff4; }
-    .plan-title { font-weight: bold; font-size: 1.05rem; margin-bottom: 6px; color: #155724; }
-    .split-container { display: flex; gap: 10px; margin-top: 10px; }
-    .split-col { flex: 1; background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-    .product-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border-bottom: 1px dashed #eee; transition: background 0.2s; }
-    .product-item.selected { background: #e8f5e9; font-weight: bold; }
-    .product-item input { width: 70px; margin-bottom: 0; text-align: center; }
+    /* 計算ツール用の補助スタイル */
+    .plan-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .plan-card.best {
+      border: 1.5px solid var(--accent-gold);
+      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    }
+    .plan-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: var(--wood-medium);
+    }
+    .split-container {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .split-col {
+      flex: 1;
+      background: #fffdf9;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    .product-list-box {
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      padding: 6px;
+      margin-bottom: 14px;
+      background: #fff;
+      border-radius: 8px;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px;
+      border-bottom: 1px dashed var(--border-color);
+      transition: background 0.2s;
+    }
+    .product-item:last-child {
+      border-bottom: none;
+    }
+    .product-item.selected {
+      background-color: rgba(200, 162, 97, 0.12);
+      font-weight: bold;
+    }
+    .product-item input {
+      width: 70px;
+      margin-bottom: 0;
+      text-align: center;
+    }
+    .result-box {
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>サロン商品 発注サポートツール</h1>
+  <header>
+    <div class="header-logo">Salon Order</div>
+    <h1>サロン商品 発注サポートツール</h1>
+  </header>
 
-  <!-- 機能1: 最適目標PT計算 -->
-  <div class="card">
-    <h2>1. 目標PTに対する最適組み合わせ計算</h2>
-    <label>対象月度</label>
-    <select id="monthSelect"></select>
+  <main>
+    <!-- 機能1: 最適目標PT計算 -->
+    <div class="card-box">
+      <div class="section-title">1. 目標PTに対する最適組み合わせ計算</div>
+      
+      <div class="form-group">
+        <label>対象月度</label>
+        <select id="monthSelect"></select>
+      </div>
 
-    <label>目標ポイント（例: 10000, 200000）</label>
-    <input type="number" id="targetPt" value="10000" step="1000">
+      <div class="form-group">
+        <label>目標ポイント（例: 10000, 200000）</label>
+        <input type="number" id="targetPt" value="10000" step="1000">
+      </div>
 
-    <button onclick="calculateBestCombos()">3つのパターンを提案</button>
+      <button class="btn-copy" onclick="calculateBestCombos()">3つのパターンを提案</button>
 
-    <div id="comboResult" class="result-box" style="display:none;"></div>
-  </div>
-
-  <!-- 機能2: 左右均等バイナリー分配 -->
-  <div class="card">
-    <h2>2. 購入商品の左右バランス分配（複数購入対応）</h2>
-    <p style="font-size: 0.85rem; color: #666;">購入する個数を指定してください（1個以上で緑色にハイライトされます）。</p>
-    
-    <div id="productQtyList" style="max-height: 280px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 12px; background: #fff; border-radius: 4px;">
-      <!-- JSで動的生成 -->
+      <div id="comboResult" class="result-box" style="display:none;"></div>
     </div>
 
-    <button onclick="calculateBinarySplit()">左右均等に割り振り</button>
-
-    <div id="splitResult" class="result-box" style="display:none;">
-      <div class="split-container">
-        <div class="split-col">
-          <h3 style="margin-top:0; color:#0056b3;">左グループ (L)</h3>
-          <ul id="leftList" style="padding-left:20px; font-size:0.9rem;"></ul>
-          <hr style="border:none; border-top:1px solid #eee;">
-          <p>PT合計: <strong id="leftTotalPt">0</strong> PT</p>
-          <p>金額合計: <strong id="leftTotalCost">0</strong> 円</p>
-        </div>
-        <div class="split-col">
-          <h3 style="margin-top:0; color:#d9534f;">右グループ (R)</h3>
-          <ul id="rightList" style="padding-left:20px; font-size:0.9rem;"></ul>
-          <hr style="border:none; border-top:1px solid #eee;">
-          <p>PT合計: <strong id="rightTotalPt">0</strong> PT</p>
-          <p>金額合計: <strong id="rightTotalCost">0</strong> 円</p>
-        </div>
+    <!-- 機能2: 左右均等バイナリー分配 -->
+    <div class="card-box">
+      <div class="section-title">2. 購入商品の左右バランス分配</div>
+      <p class="usage-guide">購入する個数を指定してください（1個以上で背景がハイライトされます）。</p>
+      
+      <div id="productQtyList" class="product-list-box">
+        <!-- JSで動的生成 -->
       </div>
-      <div style="margin-top:12px; padding-top:10px; border-top:2px solid #ccc; font-size:1rem;">
-        左右のPT差: <strong id="ptDiff" style="color:red;">0</strong> PT<br>
-        合計金額: <strong id="grandTotalCost" style="color:#111;">0</strong> 円
+
+      <button class="btn-copy" onclick="calculateBinarySplit()">左右均等に割り振り</button>
+
+      <div id="splitResult" class="result-box" style="display:none;">
+        <div class="split-container">
+          <div class="split-col">
+            <h3 style="margin-top:0; color:var(--wood-dark); font-size:0.9rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px;">左グループ (L)</h3>
+            <ul id="leftList" style="padding-left:18px; font-size:0.82rem; margin:8px 0;"></ul>
+            <hr style="border:none; border-top:1px dashed var(--border-color);">
+            <p style="font-size:0.82rem; margin:4px 0;">PT合計: <strong id="leftTotalPt">0</strong> PT</p>
+            <p style="font-size:0.82rem; margin:4px 0;">金額合計: <strong id="leftTotalCost">0</strong> 円</p>
+          </div>
+          <div class="split-col">
+            <h3 style="margin-top:0; color:var(--wood-dark); font-size:0.9rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px;">右グループ (R)</h3>
+            <ul id="rightList" style="padding-left:18px; font-size:0.82rem; margin:8px 0;"></ul>
+            <hr style="border:none; border-top:1px dashed var(--border-color);">
+            <p style="font-size:0.82rem; margin:4px 0;">PT合計: <strong id="rightTotalPt">0</strong> PT</p>
+            <p style="font-size:0.82rem; margin:4px 0;">金額合計: <strong id="rightTotalCost">0</strong> 円</p>
+          </div>
+        </div>
+        <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.9rem; text-align:center;">
+          左右のPT差: <strong id="ptDiff" style="color:#c94b4b;">0</strong> PT<br>
+          合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.05rem;">0</strong> 円
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+
+  <footer>
+    &copy; Salon Order Support System
+  </footer>
 
   <script>
     let configData = null;
@@ -111,9 +176,9 @@
         div.className = 'product-item';
         div.id = `item-row-${index}`;
         div.innerHTML = `
-          <span style="font-size:0.9rem;">
+          <span style="font-size:0.85rem;">
             <strong>${p.name}</strong><br>
-            <small style="color:#666;">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
+            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
           </span>
           <input type="number" class="prod-qty" data-index="${index}" min="0" value="0" onchange="highlightSelected(${index})">
         `;
@@ -185,13 +250,13 @@
         html += `
           <div class="plan-card ${plan.isBest ? 'best' : ''}">
             <div class="plan-title">${plan.title}</div>
-            <ul style="margin: 5px 0; padding-left: 20px;">
+            <ul style="margin: 6px 0; padding-left: 20px; font-size:0.85rem;">
               ${displayItems.map(i => `<li>${i.displayName} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
             </ul>
-            <div style="font-size:0.95rem; margin-top:8px;">
+            <div style="font-size:0.88rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
               合計ポイント: <strong>${plan.totalPt.toLocaleString()} PT</strong> 
-              <span style="color:#d9534f; font-size:0.85rem;">(超過: +${(plan.totalPt - targetPt).toLocaleString()} PT)</span><br>
-              合計金額: <strong>${plan.totalCost.toLocaleString()} 円</strong>
+              <span style="color:#c94b4b; font-size:0.8rem;">(超過: +${(plan.totalPt - targetPt).toLocaleString()} PT)</span><br>
+              合計金額: <strong style="color:var(--wood-dark);">${plan.totalCost.toLocaleString()} 円</strong>
             </div>
           </div>
         `;
@@ -295,7 +360,7 @@
       });
     }
 
-    // 機能2: 左右分配（合計金額表示に更新）
+    // 機能2: 左右分配
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
       const inputs = document.querySelectorAll('.prod-qty');
@@ -356,7 +421,6 @@
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
       document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
-      // 全体合計金額を計算してセット
       document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
 
       document.getElementById('splitResult').style.display = 'block';
