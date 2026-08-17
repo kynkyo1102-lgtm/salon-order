@@ -9,7 +9,7 @@
     h1, h2 { color: #333; }
     .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
     label { font-weight: bold; display: block; margin-bottom: 5px; }
-    input[type="text"], input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-sizing: border-box; }
+    input[type="text"], input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
     th { background-color: #f2f2f2; }
@@ -18,10 +18,11 @@
     .btn-danger { background: #f44336; }
     .flex { display: flex; gap: 10px; align-items: center; }
     
-    /* お知らせ用スタイル */
-    .news-item-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-    .news-item-date { width: 120px; flex-shrink: 0; }
-    .news-item-text { flex-grow: 1; }
+    /* お知らせ用スタイルの修正：入力欄がつぶれないように設定 */
+    .news-item-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; width: 100%; }
+    .news-item-date { width: 110px; flex-shrink: 0; }
+    .news-item-text { flex: 1; min-width: 0; width: 100%; }
+    .news-item-del { flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -35,14 +36,14 @@
       ※1〜10日は「先月度, 今月度」（例: 8月度, 9月度）、11日以降は「今月度」（例: 9月度）のようにカンマ区切りで入力してください。
     </p>
     <label>有効な月度 (カンマ区切り)</label>
-    <input type="text" id="activeMonthsInput" value="8月度" oninput="handleMonthChange()">
+    <input type="text" id="activeMonthsInput" value="8月度" style="width: 100%;" oninput="handleMonthChange()">
   </div>
 
   <!-- 2. お知らせ設定 (複数登録対応) -->
   <div class="card">
     <h2>2. トップページお知らせ設定 (複数可)</h2>
     <p style="font-size: 0.85rem; color: #666;">
-      ※日付と本文を入力してください。保存・ダウンロード時に新しい日付が自動で上にソートされます。
+      ※左側に日付（例: 8/17）、右側に本文を入力してください。保存・ダウンロード時に新しい日付が自動で上にソートされます。
     </p>
     <div id="newsContainer"></div>
     <button type="button" class="btn btn-secondary" onclick="addNewsRowUI()">＋ お知らせを追加</button>
@@ -186,7 +187,7 @@
       div.innerHTML = `
         <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/17)" value="${date}">
         <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}">
-        <button type="button" class="btn btn-danger" onclick="removeNewsRow(this)" style="padding: 6px 12px;">✕</button>
+        <button type="button" class="btn btn-danger news-item-del" onclick="removeNewsRow(this)" style="padding: 6px 12px;">✕</button>
       `;
       container.appendChild(div);
     }
@@ -256,12 +257,12 @@
         
         let ptCells = months.map(m => {
           const ptVal = (prod.pts && prod.pts[m] !== undefined) ? prod.pts[m] : 0;
-          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}"></td>`;
+          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}" style="width: 100%;"></td>`;
         }).join('');
 
         tr.innerHTML = `
-          <td><input type="text" class="input-name" value="${prod.name || ''}"></td>
-          <td><input type="number" class="input-price" value="${prod.price || 0}"></td>
+          <td><input type="text" class="input-name" value="${prod.name || ''}" style="width: 100%;"></td>
+          <td><input type="number" class="input-price" value="${prod.price || 0}" style="width: 100%;"></td>
           ${ptCells}
           <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">✕</button></td>
         `;
