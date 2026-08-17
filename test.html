@@ -10,7 +10,7 @@
   
   <link rel="stylesheet" href="style.css?v=2">
   <style>
-    /* 計算ツール用シックなブラウン調サブリンクカード */
+    /* 注文お助けメーカー用ブラウン調サブリンクカード */
     .calc-sub-card {
       display: flex;
       align-items: center;
@@ -20,7 +20,8 @@
       border-left: 4px solid var(--accent-gold); /* アクセントのゴールド */
       border-radius: 8px;
       padding: 12px 14px;
-      margin-bottom: 18px;
+      margin-top: 10px;
+      margin-bottom: 24px;
       text-decoration: none;
       color: var(--text-main);
       transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
@@ -87,18 +88,6 @@
       <span style="font-size: 0.8rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
     </div>
 
-    <!-- 注文サポート計算ツール（落ち着いたブラウン調のデザイン） -->
-    <a href="calc.html" class="calc-sub-card">
-      <div class="calc-sub-content">
-        <div class="calc-sub-icon">📊</div>
-        <div>
-          <div class="calc-sub-title">注文サポートツール</div>
-          <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
-        </div>
-      </div>
-      <div class="calc-sub-arrow">▶</div>
-    </a>
-
     <!-- メイン注文ツール -->
     <a href="single.html" class="menu-card">
       <div class="card-icon">
@@ -118,6 +107,18 @@
         <div class="card-title">注文書作成 画像保存用</div>
         <p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
       </div>
+    </a>
+
+    <!-- 注文お助けメーカー（注文ツールのすぐ下に配置） -->
+    <a href="calc.html" class="calc-sub-card">
+      <div class="calc-sub-content">
+        <div class="calc-sub-icon">📊</div>
+        <div>
+          <div class="calc-sub-title">注文お助けメーカー</div>
+          <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
+        </div>
+      </div>
+      <div class="calc-sub-arrow">▶</div>
     </a>
 
     <!-- 店舗情報・SNSリンク -->
