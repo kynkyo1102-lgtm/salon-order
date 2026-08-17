@@ -35,7 +35,7 @@
       ※1〜10日は「先月度, 今月度」（例: 8月度, 9月度）、11日以降は「今月度」（例: 9月度）のようにカンマ区切りで入力してください。
     </p>
     <label>有効な月度 (カンマ区切り)</label>
-    <input type="text" id="activeMonthsInput" value="8月度, 9月度" onchange="handleMonthChange()">
+    <input type="text" id="activeMonthsInput" value="8月度, 9月度" oninput="handleMonthChange()">
   </div>
 
   <!-- 2. お知らせ設定 (複数登録対応) -->
@@ -161,8 +161,8 @@
       const div = document.createElement('div');
       div.className = 'news-item-row';
       div.innerHTML = `
-        <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/7)" value="${date}" onchange="saveCurrentTableToData()">
-        <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}" onchange="saveCurrentTableToData()">
+        <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/7)" value="${date}" oninput="saveCurrentTableToData()">
+        <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}" oninput="saveCurrentTableToData()">
         <button type="button" class="btn btn-danger" onclick="removeNewsRow(this)" style="padding: 6px 12px;">✕</button>
       `;
       container.appendChild(div);
@@ -185,7 +185,6 @@
         const date = dateInput.value.trim();
         const text = textInput.value.trim();
         
-        // 本文または日付が入力されている場合は収集
         if (text !== '' || date !== '') {
           newsList.push({ date, text });
         }
@@ -196,7 +195,10 @@
     /* --- 商品・ポイント用処理 --- */
     function getMonths() {
       const input = document.getElementById('activeMonthsInput').value;
-      return input.split(',').map(m => m.trim()).filter(m => m.length > 0);
+      // 全角カンマ（、）も半角カンマ（,）として扱えるように正規化
+      const normalized = input.replace(/、/g, ',');
+      const months = normalized.split(',').map(m => m.trim()).filter(m => m.length > 0);
+      return months.length > 0 ? months : ["今月度"];
     }
 
     function handleMonthChange() {
@@ -222,19 +224,19 @@
     function renderTableBody() {
       const tbody = document.getElementById('productTableBody');
       tbody.innerHTML = '';
-      const months = masterData.activeMonths;
+      const months = masterData.activeMonths || ["今月度"];
 
       (masterData.products || []).forEach((prod) => {
         const tr = document.createElement('tr');
         
         let ptCells = months.map(m => {
           const ptVal = (prod.pts && prod.pts[m] !== undefined) ? prod.pts[m] : 0;
-          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}" onchange="saveCurrentTableToData()"></td>`;
+          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}" oninput="saveCurrentTableToData()"></td>`;
         }).join('');
 
         tr.innerHTML = `
-          <td><input type="text" class="input-name" value="${prod.name || ''}" onchange="saveCurrentTableToData()"></td>
-          <td><input type="number" class="input-price" value="${prod.price || 0}" onchange="saveCurrentTableToData()"></td>
+          <td><input type="text" class="input-name" value="${prod.name || ''}" oninput="saveCurrentTableToData()"></td>
+          <td><input type="number" class="input-price" value="${prod.price || 0}" oninput="saveCurrentTableToData()"></td>
           ${ptCells}
           <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">✕</button></td>
         `;
@@ -281,10 +283,11 @@
       });
 
       masterData.activeMonths = months;
-      masterData.products = updatedProducts;
+      if (updatedProducts.length > 0) {
+        masterData.products = updatedProducts;
+      }
       masterData.newsList = getNewsData();
 
-      // 下位互換用単体系プロパティ
       if (masterData.newsList.length > 0) {
         masterData.newsDate = masterData.newsList[0].date || "";
         masterData.newsText = masterData.newsList[0].text || "";
