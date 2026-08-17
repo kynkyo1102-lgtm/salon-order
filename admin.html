@@ -35,14 +35,14 @@
       ※1〜10日は「先月度, 今月度」（例: 8月度, 9月度）、11日以降は「今月度」（例: 9月度）のようにカンマ区切りで入力してください。
     </p>
     <label>有効な月度 (カンマ区切り)</label>
-    <input type="text" id="activeMonthsInput" value="8月度, 9月度" oninput="handleMonthChange()">
+    <input type="text" id="activeMonthsInput" value="8月度" oninput="handleMonthChange()">
   </div>
 
   <!-- 2. お知らせ設定 (複数登録対応) -->
   <div class="card">
     <h2>2. トップページお知らせ設定 (複数可)</h2>
     <p style="font-size: 0.85rem; color: #666;">
-      ※日付と本文を入力してください。不要な項目は右の「✕」で削除できます。すべて空にするとトップページで非表示になります。
+      ※日付と本文を入力してください。保存・ダウンロード時に新しい日付が自動で上にソートされます。
     </p>
     <div id="newsContainer"></div>
     <button type="button" class="btn btn-secondary" onclick="addNewsRowUI()">＋ お知らせを追加</button>
@@ -76,56 +76,13 @@
   </div>
 
   <script>
-    // デフォルトの商品データ構造
     let masterData = {
-      activeMonths: ["8月度", "9月度"],
+      activeMonths: ["8月度"],
       newsList: [
+        { date: "8/17", text: "【新機能】購入ポイントの最適化や左右分配ができる「注文計算アシスタント」を公開しました！" },
         { date: "8/7", text: "【完売案内】ゼログラビティ リペアセラムは完売いたしました。" }
       ],
-      products: [
-        { name: "OX-288", price: 13800, pts: { "8月度": 10000, "9月度": 10000 } },
-        { name: "OX-288(追加購入)", price: 13800, pts: { "8月度": 10000, "9月度": 10000 } },
-        { name: "OX-288 (ゼリータイプ)", price: 14200, pts: { "8月度": 10000, "9月度": 10000 } },
-        { name: "ボアソン", price: 10800, pts: { "8月度": 10000, "9月度": 10000 } },
-        { name: "ハイプロリーナ", price: 7200, pts: { "8月度": 6000, "9月度": 6000 } },
-        { name: "ゼウス 2026", price: 17800, pts: { "8月度": 13000, "9月度": 13000 } },
-        { name: "アルピニスト スラージュ", price: 4000, pts: { "8月度": 2800, "9月度": 2800 } },
-        { name: "O・M・C プロテイン", price: 6000, pts: { "8月度": 5000, "9月度": 5000 } },
-        { name: "サヴォン アンベリール (120g)", price: 5200, pts: { "8月度": 4300, "9月度": 4300 } },
-        { name: "サヴォン アンベリール (70g)", price: 3500, pts: { "8月度": 2900, "9月度": 2900 } },
-        { name: "ブランシュール (150g)", price: 12200, pts: { "8月度": 10500, "9月度": 10500 } },
-        { name: "ブランシュール (80g)", price: 6800, pts: { "8月度": 5800, "9月度": 5800 } },
-        { name: "デマキヤン", price: 4100, pts: { "8月度": 3400, "9月度": 3400 } },
-        { name: "赤化粧水", price: 3600, pts: { "8月度": 3000, "9月度": 3000 } },
-        { name: "赤美容液", price: 6400, pts: { "8月度": 5400, "9月度": 5400 } },
-        { name: "赤ジェル", price: 4800, pts: { "8月度": 4000, "9月度": 4000 } },
-        { name: "白化粧水", price: 3600, pts: { "8月度": 3000, "9月度": 3000 } },
-        { name: "白美容液", price: 6400, pts: { "8月度": 5400, "9月度": 5400 } },
-        { name: "白ジェル", price: 4800, pts: { "8月度": 4000, "9月度": 4000 } },
-        { name: "グルナードゥ", price: 32000, pts: { "8月度": 26000, "9月度": 26000 } },
-        { name: "リペアセラム", price: 14800, pts: { "8月度": 15000, "9月度": 15000 } },
-        { name: "リペアクリーム", price: 18700, pts: { "8月度": 15000, "9月度": 15000 } },
-        { name: "レボリューション", price: 17200, pts: { "8月度": 14500, "9月度": 14500 } },
-        { name: "グロウジェルクリーム", price: 9800, pts: { "8月度": 8000, "9月度": 8000 } },
-        { name: "ハンドモイスチャー", price: 2200, pts: { "8月度": 1800, "9月度": 1800 } },
-        { name: "リップセラム", price: 2000, pts: { "8月度": 1600, "9月度": 1600 } },
-        { name: "ボディミルク", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
-        { name: "ミュー ヴィサージュ", price: 3300, pts: { "8月度": 2600, "9月度": 2600 } },
-        { name: "ミューコール", price: 3300, pts: { "8月度": 2600, "9月度": 2600 } },
-        { name: "バイオミスト", price: 3700, pts: { "8月度": 3000, "9月度": 3000 } },
-        { name: "ボディソープ", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
-        { name: "シャンプー", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
-        { name: "トリートメント", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
-        { name: "ヘアマスク", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
-        { name: "スカルプトナー", price: 9200, pts: { "8月度": 7500, "9月度": 7500 } },
-        { name: "クレオ デンタルクリーン", price: 2200, pts: { "8月度": 1800, "9月度": 1800 } },
-        { name: "クレオ マウスウォッシュ", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
-        { name: "アロマオイル ローズ", price: 8700, pts: { "8月度": 7300, "9月度": 7300 } },
-        { name: "ゼウス オードゥ パルファン 2026", price: 21000, pts: { "8月度": 18000, "9月度": 18000 } },
-        { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pts: { "8月度": 8000, "9月度": 8000 } },
-        { name: "モン コパン", price: 3500, pts: { "8月度": 2800, "9月度": 2800 } },
-        { name: "モン コパン ジュレ", price: 3500, pts: { "8月度": 2800, "9月度": 2800 } }
-      ]
+      products: []
     };
 
     window.onload = () => {
@@ -138,16 +95,34 @@
       renderTableHeaders();
     }
 
+    /* --- 日付パース・ソート補助関数 --- */
+    function parseDateString(dateStr) {
+      if (!dateStr) return 0;
+      const m = dateStr.match(/(\d+)\/(\d+)/);
+      if (m) {
+        return parseInt(m[1], 10) * 100 + parseInt(m[2], 10);
+      }
+      return 0;
+    }
+
+    function sortNewsList(list) {
+      return list.sort((a, b) => parseDateString(b.date) - parseDateString(a.date));
+    }
+
     /* --- お知らせ用処理 --- */
     function renderNewsList() {
       const container = document.getElementById('newsContainer');
       container.innerHTML = '';
       
-      let list = masterData.newsList;
-      if (!list && (masterData.newsDate || masterData.newsText)) {
+      let list = masterData.newsList || [];
+      if (list.length === 0 && (masterData.newsDate || masterData.newsText)) {
         list = [{ date: masterData.newsDate || '', text: masterData.newsText || '' }];
       }
-      if (!list || list.length === 0) {
+
+      // 降順ソートを適用
+      list = sortNewsList(list);
+
+      if (list.length === 0) {
         list = [{ date: '', text: '' }];
       }
 
@@ -161,22 +136,20 @@
       const div = document.createElement('div');
       div.className = 'news-item-row';
       div.innerHTML = `
-        <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/7)" value="${date}" oninput="saveCurrentTableToData()">
-        <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}" oninput="saveCurrentTableToData()">
+        <input type="text" class="input-news-date news-item-date" placeholder="日付 (例: 8/17)" value="${date}">
+        <input type="text" class="input-news-text news-item-text" placeholder="お知らせ本文" value="${text}">
         <button type="button" class="btn btn-danger" onclick="removeNewsRow(this)" style="padding: 6px 12px;">✕</button>
       `;
       container.appendChild(div);
-      saveCurrentTableToData();
     }
 
     function removeNewsRow(btn) {
       btn.parentElement.remove();
-      saveCurrentTableToData();
     }
 
     function getNewsData() {
       const rows = document.querySelectorAll('.news-item-row');
-      const newsList = [];
+      let newsList = [];
       rows.forEach(row => {
         const dateInput = row.querySelector('.input-news-date');
         const textInput = row.querySelector('.input-news-text');
@@ -189,13 +162,14 @@
           newsList.push({ date, text });
         }
       });
-      return newsList;
+
+      // 新しい日付順（降順）に並び替え
+      return sortNewsList(newsList);
     }
 
     /* --- 商品・ポイント用処理 --- */
     function getMonths() {
       const input = document.getElementById('activeMonthsInput').value;
-      // 全角カンマ（、）も半角カンマ（,）として扱えるように正規化
       const normalized = input.replace(/、/g, ',');
       const months = normalized.split(',').map(m => m.trim()).filter(m => m.length > 0);
       return months.length > 0 ? months : ["今月度"];
@@ -231,12 +205,12 @@
         
         let ptCells = months.map(m => {
           const ptVal = (prod.pts && prod.pts[m] !== undefined) ? prod.pts[m] : 0;
-          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}" oninput="saveCurrentTableToData()"></td>`;
+          return `<td><input type="number" class="input-pt" data-month="${m}" value="${ptVal}"></td>`;
         }).join('');
 
         tr.innerHTML = `
-          <td><input type="text" class="input-name" value="${prod.name || ''}" oninput="saveCurrentTableToData()"></td>
-          <td><input type="number" class="input-price" value="${prod.price || 0}" oninput="saveCurrentTableToData()"></td>
+          <td><input type="text" class="input-name" value="${prod.name || ''}"></td>
+          <td><input type="number" class="input-price" value="${prod.price || 0}"></td>
           ${ptCells}
           <td><button type="button" class="btn btn-danger" onclick="deleteRow(this)">✕</button></td>
         `;
@@ -256,8 +230,6 @@
 
     function deleteRow(btnElement) {
       btnElement.closest('tr').remove();
-      saveCurrentTableToData();
-      renderTableBody();
     }
 
     function saveCurrentTableToData() {
@@ -288,17 +260,19 @@
       }
       masterData.newsList = getNewsData();
 
+      // 旧フォーマットとの後方互換用
       if (masterData.newsList.length > 0) {
         masterData.newsDate = masterData.newsList[0].date || "";
         masterData.newsText = masterData.newsList[0].text || "";
-      } else {
-        masterData.newsDate = "";
-        masterData.newsText = "";
       }
     }
 
     function exportJSON() {
       saveCurrentTableToData();
+      
+      // 画面を並び替え後の状態で最新化
+      renderNewsList();
+
       const jsonString = JSON.stringify(masterData, null, 2);
       const blob = new Blob([jsonString], { type: "application/json;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
@@ -323,7 +297,7 @@
           if (typeof parsed !== 'object' || parsed === null) throw new Error();
           masterData = parsed;
           renderAll();
-          alert("JSONファイルを正常に読み込みました。");
+          alert("JSONファイルを正常に読み込みました。お知らせも新しい日付順に整列されました。");
         } catch (err) {
           alert("JSONの読み込みに失敗しました。正しいフォーマットか確認してください。");
         }
