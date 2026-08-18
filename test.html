@@ -3,160 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>プラッス ドゥ ニナ 南熊本店</title>
+  <title>注文計算アシスタント - Place de Nina</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css">
   <style>
-    /* 注文計算アシスタント用ブラウン調サブリンクカード */
-    .calc-sub-card {
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .menu-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: block;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .menu-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(200, 162, 97, 0.15);
+      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    }
+    .menu-card-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--wood-dark);
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #f4eee6; /* 上品な浅いブラウン背景 */
-      border: 1px solid #d8c6b2; /* 温かみのあるブラウン枠線 */
-      border-left: 4px solid var(--accent-gold); /* アクセントのゴールド */
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      text-decoration: none;
-      color: var(--text-main);
-      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
     }
-    .calc-sub-card:hover {
-      background-color: #ebdcd0;
-      border-color: var(--accent-gold);
+    .menu-card-title::after {
+      content: "›";
+      font-size: 1.3rem;
+      color: var(--accent-gold);
     }
-    .calc-sub-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .calc-sub-icon {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-    .calc-sub-title {
-      font-size: 0.88rem;
-      font-weight: bold;
-      color: var(--wood-dark);
-    }
-    .calc-sub-desc {
-      font-size: 0.75rem;
+    .menu-card-desc {
+      font-size: 0.85rem;
       color: var(--text-sub);
-      margin-top: 1px;
+      margin: 0;
+      line-height: 1.5;
     }
-    .calc-sub-arrow {
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 10px;
       font-size: 0.85rem;
       color: var(--accent-gold);
-      font-weight: bold;
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="header-logo">Place de Nina</div>
-    <h1>プラッス ドゥ ニナ 南熊本店</h1>
+    <a href="index.html" class="header-logo">Place de Nina</a>
+    <h1>注文計算アシスタント</h1>
   </header>
 
   <main>
+    <a href="index.html" class="nav-link">&lt; ホームに戻る</a>
 
-    <!-- お知らせ -->
-    <div class="news-box">
-      <span class="news-date">8/7</span>
-      <p class="news-text">【完売案内】ゼログラビティ リペアセラムは完売いたしました。</p>
-    </div>
-
-    <!-- 注文ツールセクション -->
-    <div class="section-title">LINEご注文作成ツール</div>
-    
-    <div class="usage-guide">
-      <strong>💡 どちらのツールを使えばいい？</strong><br>
-      ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
-      ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
-      <span style="font-size: 0.8rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
-    </div>
-
-    <!-- メイン注文ツール -->
-    <a href="single.html" class="menu-card">
-      <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-      </div>
-      <div class="card-content">
-        <div class="card-title">LINEノート コピペ用</div>
-        <p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
-      </div>
-    </a>
-
-    <a href="bulk.html" class="menu-card">
-      <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-      </div>
-      <div class="card-content">
-        <div class="card-title">注文書作成 画像保存用</div>
-        <p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
-      </div>
-    </a>
-
-    <!-- 注文計算アシスタント（注文ツールのすぐ下に配置） -->
-    <a href="calc.html" class="calc-sub-card">
-      <div class="calc-sub-content">
-        <div class="calc-sub-icon">📊</div>
-        <div>
-          <div class="calc-sub-title">注文計算アシスタント</div>
-          <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
-        </div>
-      </div>
-      <div class="calc-sub-arrow">▶</div>
-    </a>
-
-    <!-- 店舗情報・SNSリンク -->
-    <div class="sub-info-area">
-      <div class="sub-info-title">INFORMATION & SNS</div>
+    <div class="card-box">
+      <div class="section-title">利用する機能を選択してください</div>
+      <p class="usage-guide">ご希望のサポートツールを選んでください。</p>
       
-      <div class="sub-grid">
-        <a href="https://line.me/ti/p/7iG8fg4ykI" target="_blank" rel="noopener noreferrer" class="sub-btn">
-          <svg class="icon-line" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"/></svg>
-          <span>公式LINE</span>
-        </a>
-        
-        <a href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" target="_blank" rel="noopener noreferrer" class="sub-btn">
-          <svg class="icon-insta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          <span>Instagram</span>
+      <div class="menu-container">
+        <!-- 1. 購入PT最適化ページへ -->
+        <a href="calc_pt.html" class="menu-card">
+          <div class="menu-card-title">1. 購入PTに対する最適組み合わせ計算</div>
+          <p class="menu-card-desc">目標ポイントに最も効率よく到達できる商品の組み合わせを自動計算します。商品の除外や必ず含める個数の指定も可能です。</p>
         </a>
 
-        <a href="info.html" class="sub-btn">
-          <span>📍</span> 店舗案内
-        </a>
-        
-        <a href="bank.html" class="sub-btn">
-          <span>💳</span> お支払いについて
-        </a>
-
-        <a href="faq.html" class="sub-btn">
-          <span>❓</span> よくある質問
+        <!-- 2. 左右バランス分配ページへ -->
+        <a href="calc_split.html" class="menu-card">
+          <div class="menu-card-title">2. 購入商品の左右バランス分配</div>
+          <p class="menu-card-desc">購入したい商品と個数を指定して、左右のグループ（L / R）にポイントが均等になるよう割り振ります。</p>
         </a>
       </div>
     </div>
-
   </main>
 
   <footer>
-    <div style="margin-bottom: 8px;">
-      <a href="privacy.html" style="color: var(--text-sub); text-decoration: underline; font-size: 0.7rem;">プライバシーポリシー</a>
-    </div>
-    &copy; PLACE DE NINA MINAMIKUMAMOTO
+    &copy; Place de Nina Order Support System
   </footer>
 
 </body>
