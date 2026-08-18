@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>左右バランス分配ツール - Place de Nina</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .calc-select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fcfcfc;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .calc-select:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+    .product-list-box {
+      max-height: 320px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 8px;
+      border-bottom: 1px dashed var(--border-color);
+      transition: background 0.2s;
+    }
+    .product-item:last-child {
+      border-bottom: none;
+    }
+    .product-item.selected {
+      background-color: rgba(200, 162, 97, 0.12);
+      font-weight: bold;
+    }
+    .product-item input {
+      width: 65px;
+      padding: 6px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.88rem;
+    }
+    .result-container {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .split-container {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .split-col {
+      flex: 1;
+      background: #fffdf9;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    .split-item-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .split-item-name {
+      font-weight: bold;
+      color: var(--wood-dark);
+      margin-bottom: 2px;
+    }
+    .split-item-sub {
+      color: var(--text-sub);
+      font-size: 0.78rem;
+    }
+    .total-box {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .total-pt-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #b87b2a;
+    }
+    .total-cost-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #2b6cb0;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="header-logo">Place de Nina</a>
+    <h1>左右バランス分配ツール</h1>
+  </header>
+
+  <main>
+    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
+    
+    <div class="card-box">
+      <div class="section-title">購入商品の左右バランス分配</div>
+      <p class="usage-guide" style="margin-bottom: 10px;">購入する商品と個数をお選びください。</p>
+      
+      <div class="form-group" style="margin-bottom: 12px;">
+        <label class="label-accent">対象月度</label>
+        <select id="monthSelect" class="calc-select"></select>
+      </div>
+
+      <div id="productQtyList" class="product-list-box">
+        <!-- JSで動的生成 -->
+      </div>
+
+      <button class="btn-copy" onclick="calculateBinarySplit()">左右均等に割り振り</button>
+
+      <div id="splitResult" class="result-container" style="display:none;">
+        <div class="split-container">
+          <div class="split-col">
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">左 (L)</h3>
+            <div id="leftList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="leftTotalPt">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+            </div>
+          </div>
+
+          <div class="split-col">
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">右 (R)</h3>
+            <div id="rightList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="rightTotalPt">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
+          左右のPT差: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT<br>
+          総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; Place de Nina Order Support System
+  </footer>
+
+  <script>
+    let configData = null;
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        renderProductQtyList();
+      } catch (e) {
+        alert('month_config.json の読み込みに失敗しました。');
+      }
+    }
+
+    function renderProductQtyList() {
+      const month = document.getElementById('monthSelect').value;
+      const container = document.getElementById('productQtyList');
+      container.innerHTML = '';
+
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+
+        const pt = p.pts[month] || 0;
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.id = `item-row-${index}`;
+        div.innerHTML = `
+          <span style="font-size:0.85rem;">
+            <strong>${p.name}</strong><br>
+            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
+          </span>
+          <input type="number" class="prod-qty" data-index="${index}" min="0" value="0" onchange="highlightSelected(${index})">
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function highlightSelected(index) {
+      const row = document.getElementById(`item-row-${index}`);
+      const input = row.querySelector('.prod-qty');
+      if (parseInt(input.value) > 0) {
+        row.classList.add('selected');
+      } else {
+        row.classList.remove('selected');
+      }
+    }
+
+    function calculateBinarySplit() {
+      const month = document.getElementById('monthSelect').value;
+      const inputs = document.querySelectorAll('.prod-qty');
+      
+      let allUnitItems = [];
+
+      inputs.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        if (qty > 0) {
+          const idx = input.getAttribute('data-index');
+          const p = configData.products[idx];
+          const pt = p.pts[month] || 0;
+          for (let i = 0; i < qty; i++) {
+            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
+          }
+        }
+      });
+
+      if (allUnitItems.length === 0) {
+        alert('商品を1つ以上（個数1以上）指定してください。');
+        return;
+      }
+
+      allUnitItems.sort((a, b) => b.pt - a.pt);
+
+      let left = [], right = [];
+      let leftPt = 0, rightPt = 0;
+      let leftCost = 0, rightCost = 0;
+
+      allUnitItems.forEach(item => {
+        if (leftPt <= rightPt) {
+          left.push(item);
+          leftPt += item.pt;
+          leftCost += item.price;
+        } else {
+          right.push(item);
+          rightPt += item.pt;
+          rightCost += item.price;
+        }
+      });
+
+      const summarizeToCards = (list) => {
+        let map = {};
+        list.forEach(i => {
+          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
+          map[i.name].count++;
+        });
+        
+        return Object.keys(map).map(k => `
+          <div class="split-item-card">
+            <div class="split-item-name">${k} × ${map[k].count}個</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()} PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+          </div>
+        `).join('');
+      };
+
+      document.getElementById('leftList').innerHTML = summarizeToCards(left);
+      document.getElementById('rightList').innerHTML = summarizeToCards(right);
+      
+      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
+      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
+      
+      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
+      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
+
+      document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
+
+      document.getElementById('splitResult').style.display = 'block';
+    }
+
+    document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
+    window.onload = loadConfig;
+  </script>
+</body>
+</html>
