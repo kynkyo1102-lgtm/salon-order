@@ -86,6 +86,18 @@
       margin-bottom: 8px;
       color: var(--wood-dark);
     }
+    /* 必須アイテムのハイライトスタイル */
+    .mandatory-item-badge {
+      display: inline-block;
+      background-color: rgba(184, 123, 42, 0.15);
+      color: #b87b2a;
+      font-size: 0.72rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
     .nav-link {
       display: inline-block;
       margin-bottom: 14px;
@@ -106,11 +118,14 @@
   </header>
 
   <main>
-    <a href="index.html" class="nav-link">&lt; メニューに戻る</a>
+    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
     
     <div class="card-box">
       <div class="section-title">購入ポイントに対する最適組み合わせ計算</div>
-      <p class="usage-guide" style="margin-bottom: 12px;">目標ポイントに最も効率よく到達できる商品の組み合わせパターンを計算します。除外したい商品や、必ず入れたい商品を指定できます。</p>
+      <p class="usage-guide" style="margin-bottom: 12px; line-height: 1.6;">
+        指定した目標ポイントに対して、最もコストパフォーマンスよく（金額を抑えて）到達できる商品の組み合わせパターンを自動で計算します。<br>
+        また、在庫の都合などで<strong>「除外したい商品」</strong>や、注文に絶対含めたい<strong>「必ず入れたい商品（必須個数）」</strong>を個別に指定して計算を行うことができます。
+      </p>
       
       <div class="form-group">
         <label class="label-accent">対象月度</label>
@@ -170,7 +185,7 @@
       if (!configData) return;
 
       configData.products.forEach((p, index) => {
-        if (p.name === 'リペアセラム') return; // デフォルト除外等
+        if (p.name === 'リペアセラム') return;
 
         const pt = p.pts[month] || 0;
         const div = document.createElement('div');
@@ -198,7 +213,6 @@
         return;
       }
 
-      // ユーザーの入力状態（除外・必須）を反映した商品リストを作成
       let baseProducts = [];
       let mandatoryFixedPt = 0;
       let mandatoryFixedCost = 0;
@@ -210,7 +224,6 @@
         const pt = p.pts[month] || 0;
         if (pt <= 0) return;
 
-        // DOMから該当インデックスの状態を取得
         const chk = document.querySelector(`.exclude-chk[data-index="${index}"]`);
         const qtyInput = document.querySelector(`.mandatory-qty[data-index="${index}"]`);
 
@@ -220,7 +233,8 @@
         if (mandatoryQty > 0) {
           mandatoryFixedPt += pt * mandatoryQty;
           mandatoryFixedCost += p.price * mandatoryQty;
-          mandatoryItemsList.push({ ...p, pt, count: mandatoryQty, displayName: p.name });
+          // isMandatory フラグを付与して識別できるようにする
+          mandatoryItemsList.push({ ...p, pt, count: mandatoryQty, displayName: p.name, isMandatory: true });
         }
 
         if (!isExcluded) {
@@ -228,10 +242,8 @@
         }
       });
 
-      // 残りの目指すべきポイント
       let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
 
-      // 最適化計算の実行
       let bestPlan = findOptimalMultiCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
       let planA = createMainProdCombo(baseProducts, targetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, true);
       let planB = createMainProdCombo(baseProducts, targetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, false);
@@ -267,15 +279,22 @@
       plans.forEach((plan) => {
         let displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
 
+        // 差分計算（目標との差）
+        let diffPt = plan.totalPt - targetPt;
+        let diffStr = diffPt === 0 ? "(±0)" : (diffPt > 0 ? `(+${diffPt.toLocaleString()})` : `(${diffPt.toLocaleString()})`);
+
         html += `
           <div class="plan-card ${plan.isBest ? 'best' : ''}">
             <div class="plan-title">${plan.title}</div>
             <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
-              ${displayItems.map(i => `<li>${i.displayName} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
+              ${displayItems.map(i => {
+                let badgeHtml = i.isMandatory ? `<span class="mandatory-item-badge">必須</span>` : '';
+                return `<li>${i.displayName} × ${i.count}個 ${badgeHtml} (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`;
+              }).join('')}
             </ul>
             <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
               合計ポイント: <strong style="color:#b87b2a;">${plan.totalPt.toLocaleString()} PT</strong> 
-              <span style="color:#c94b4b; font-size:0.78rem;">(目標まであと: ${Math.max(0, targetPt - plan.totalPt) === 0 ? '達成' : '+' + (plan.totalPt - targetPt).toLocaleString() + ' 超過'})</span><br>
+              <span style="color:var(--text-sub); font-size:0.78rem;">${diffStr}</span><br>
               合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
             </div>
           </div>
@@ -325,7 +344,6 @@
           }
           let dynamicItems = Object.values(counts);
           
-          // 必須アイテムとマージ
           let mergedMap = {};
           [...mandatoryItems, ...dynamicItems].forEach(item => {
             if (!mergedMap[item.name]) {
