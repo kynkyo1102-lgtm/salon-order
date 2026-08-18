@@ -122,11 +122,14 @@
     
     <div class="card-box">
       <div class="section-title">購入ポイントに対する最適組み合わせ計算</div>
-      <p class="usage-guide" style="margin-bottom: 12px; line-height: 1.6;">
-        指定した目標ポイントに対して、最もコストパフォーマンスよく（金額を抑えて）到達できる商品の組み合わせパターンを自動で計算します。<br>
-        また、在庫の都合などで<strong>「除外したい商品」</strong>や、注文に絶対含めたい<strong>「必ず入れたい商品（必須個数）」</strong>を個別に指定して計算を行うことができます。
-      </p>
       
+      <!-- 改善した説明文 -->
+      <p class="usage-guide" style="margin-bottom: 16px; line-height: 1.6;">
+        指定した目標ポイントに対して、<strong style="font-size: 1.05rem; color: var(--wood-dark);">最適な商品の組み合わせ</strong>を自動で計算します。<br><br>
+        <span style="display:inline-block; margin-bottom:4px;">・<strong style="font-size: 0.95rem;">対象月度・目標PTを入力</strong>（例：10,000PT など）</span><br>
+        <span style="display:inline-block; margin-bottom:4px;">・<strong style="font-size: 0.95rem;">商品ごとの条件設定</strong>（在庫がない商品は<strong style="color: var(--wood-dark);">「除外」</strong>、絶対に買いたい商品は<strong style="color: var(--wood-dark);">「必須個数」</strong>を指定可能）</span>
+      </p>
+
       <div class="form-group">
         <label class="label-accent">対象月度</label>
         <select id="monthSelect" class="calc-select" onchange="renderProductSettings()"></select>
@@ -145,7 +148,12 @@
         </div>
       </div>
 
-      <button class="btn-copy" style="margin-top: 12px;" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
+      <!-- ボタン風の案内ボックス -->
+      <div style="background: rgba(200, 162, 97, 0.08); border: 1px dashed var(--accent-gold); border-radius: 8px; padding: 12px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--wood-dark); text-align: center;">
+        設定したら、下の <span style="display: inline-block; background-color: var(--accent-gold); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">おすすめ購入パターンを計算</span> ボタンを押してください。
+      </div>
+
+      <button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
 
       <div id="comboResult" class="result-container" style="display:none;"></div>
     </div>
@@ -233,7 +241,6 @@
         if (mandatoryQty > 0) {
           mandatoryFixedPt += pt * mandatoryQty;
           mandatoryFixedCost += p.price * mandatoryQty;
-          // isMandatory フラグを付与して識別できるようにする
           mandatoryItemsList.push({ ...p, pt, count: mandatoryQty, displayName: p.name, isMandatory: true });
         }
 
@@ -279,7 +286,6 @@
       plans.forEach((plan) => {
         let displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
 
-        // 差分計算（目標との差）
         let diffPt = plan.totalPt - targetPt;
         let diffStr = diffPt === 0 ? "(±0)" : (diffPt > 0 ? `(+${diffPt.toLocaleString()})` : `(${diffPt.toLocaleString()})`);
 
