@@ -40,27 +40,36 @@
     }
     .product-item {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 6px;
+      padding: 10px 6px;
       border-bottom: 1px dashed var(--border-color);
       font-size: 0.85rem;
+      gap: 8px;
     }
     .product-item:last-child {
       border-bottom: none;
+    }
+    .product-info {
+      flex: 1;
+      min-width: 130px;
     }
     .product-controls {
       display: flex;
       gap: 10px;
       align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
     }
     .product-controls label {
       font-size: 0.78rem;
       color: var(--text-sub);
       cursor: pointer;
+      white-space: nowrap;
     }
     .product-controls input[type="number"] {
-      width: 50px;
+      width: 48px;
       padding: 4px;
       text-align: center;
       border: 1px solid var(--border-color);
@@ -201,7 +210,7 @@
         const div = document.createElement('div');
         div.className = 'product-item';
         div.innerHTML = `
-          <div>
+          <div class="product-info">
             <strong>${p.name}</strong><br>
             <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
           </div>
