@@ -9,8 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
+  <!-- 共通CSSの読み込み -->
   <link rel="stylesheet" href="style.css">
+  
   <style>
+    /* calc_pt.html 専用の固有スタイルのみをここに記載 */
     .calc-select, .calc-input {
       width: 100%;
       padding: 10px 12px;
@@ -86,11 +89,10 @@
       margin-bottom: 8px;
       color: var(--wood-dark);
     }
-    /* 必須アイテムのハイライトスタイル */
     .mandatory-item-badge {
       display: inline-block;
-      background-color: rgba(184, 123, 42, 0.15);
-      color: #b87b2a;
+      background-color: rgba(201, 75, 75, 0.12);
+      color: #c94b4b;
       font-size: 0.72rem;
       font-weight: bold;
       padding: 2px 6px;
@@ -123,11 +125,10 @@
     <div class="card-box">
       <div class="section-title">購入ポイントに対する最適組み合わせ計算</div>
       
-      <!-- 修正された説明文 -->
       <p class="usage-guide" style="margin-bottom: 16px; line-height: 1.6;">
         指定した目標ポイントに対して、<strong style="color: var(--accent-gold);">最適な商品の組み合わせ</strong>を自動で計算します。<br><br>
         <span style="display:inline-block; margin-bottom:4px;">・<strong style="font-size: 0.92rem;">対象月度・目標PTを入力</strong>（例：10,000PT など）</span><br>
-        <span style="display:inline-block; margin-bottom:4px;">・<strong style="font-size: 0.92rem;">商品ごとの条件設定</strong>（在庫がない商品は<strong style="color: var(--text-sub);">「除外」</strong>、絶対に買いたい商品は<strong style="color: #b87b2a;">「必須個数」</strong>を指定可能。<span style="font-size:0.8rem; color:var(--text-sub);">※必須個数を指定した商品は、その個数分が必ず注文に含まれます</span>）</span>
+        <span style="display:inline-block; margin-bottom:4px;">・<strong style="font-size: 0.92rem;">商品ごとの条件設定</strong>（在庫がない商品は<strong style="color: var(--text-sub);">「除外」</strong>、絶対に買いたい商品は<strong style="color: #c94b4b;">「必須個数」</strong>を指定可能。<span style="font-size:0.8rem; color:#c94b4b;">※除外にチェックを付け必須個数を指定した商品は、その個数の分が必ず注文に含まれます。</span>）</span>
       </p>
 
       <div class="form-group">
@@ -140,7 +141,6 @@
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
-      <!-- 条件指定エリア -->
       <div style="margin-top: 16px;">
         <label class="label-accent" style="margin-bottom: 6px; display:block;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
         <div id="productSettingsList" class="product-list-box">
@@ -148,7 +148,6 @@
         </div>
       </div>
 
-      <!-- ボタン風の案内ボックス -->
       <div style="background: rgba(200, 162, 97, 0.08); border: 1px dashed var(--accent-gold); border-radius: 8px; padding: 12px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--wood-dark); text-align: center;">
         設定したら、下の <span style="display: inline-block; background-color: var(--accent-gold); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">おすすめ購入パターンを計算</span> ボタンを押してください。
       </div>
@@ -299,7 +298,7 @@
               }).join('')}
             </ul>
             <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
-              合計ポイント: <strong style="color:#b87b2a;">${plan.totalPt.toLocaleString()} PT</strong> 
+              合計ポイント: <strong style="color:#c94b4b;">${plan.totalPt.toLocaleString()} PT</strong> 
               <span style="color:var(--text-sub); font-size:0.78rem;">${diffStr}</span><br>
               合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
             </div>
