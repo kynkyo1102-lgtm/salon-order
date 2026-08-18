@@ -3,133 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>注文サポートツール</title>
+  <title>注文計算アシスタント - Place de Nina</title>
   
-  <!-- Google Fonts の読み込み (Place de Nina のロゴフォント) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 計算ツール用調整スタイル */
-    .calc-select, .calc-input {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 0.88rem;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background-color: #fcfcfc;
-      box-sizing: border-box;
-      color: var(--text-main);
+    .menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
     }
-    .calc-select:focus, .calc-input:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background-color: #fff;
-    }
-    .product-list-box {
-      max-height: 320px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 8px;
-      margin-bottom: 16px;
+    .menu-card {
       background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: block;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .product-item {
+    .menu-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(200, 162, 97, 0.15);
+      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    }
+    .menu-card-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--wood-dark);
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 8px;
-      border-bottom: 1px dashed var(--border-color);
-      transition: background 0.2s;
     }
-    .product-item:last-child {
-      border-bottom: none;
+    .menu-card-title::after {
+      content: "›";
+      font-size: 1.3rem;
+      color: var(--accent-gold);
     }
-    .product-item.selected {
-      background-color: rgba(200, 162, 97, 0.12);
-      font-weight: bold;
-    }
-    .product-item input {
-      width: 65px;
-      padding: 6px;
-      text-align: center;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.88rem;
-    }
-    .result-container {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--border-color);
-    }
-    .plan-card {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .plan-card.best {
-      border: 1.5px solid var(--accent-gold);
-      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
-    }
-    .plan-title {
-      font-weight: bold;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-      color: var(--wood-dark);
-    }
-    .split-container {
-      display: flex;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    .split-col {
-      flex: 1;
-      background: #fffdf9;
-      padding: 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-    }
-
-    /* 分配結果リストの見やすさ改善カードスタイル */
-    .split-item-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 8px 10px;
-      margin-bottom: 6px;
-      font-size: 0.82rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-    .split-item-name {
-      font-weight: bold;
-      color: var(--wood-dark);
-      margin-bottom: 2px;
-    }
-    .split-item-sub {
+    .menu-card-desc {
+      font-size: 0.85rem;
       color: var(--text-sub);
-      font-size: 0.78rem;
+      margin: 0;
+      line-height: 1.5;
     }
-
-    /* 強調用合計スタイル */
-    .total-box {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border-color);
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      text-decoration: none;
     }
-    .total-pt-val {
-      font-size: 0.98rem;
-      font-weight: bold;
-      color: #b87b2a; /* ゴールド系ブラウン */
-    }
-    .total-cost-val {
-      font-size: 0.98rem;
-      font-weight: bold;
-      color: #2b6cb0; /* ディープブルー */
+    .nav-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -137,68 +70,28 @@
 
   <header>
     <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>注文サポートツール</h1>
+    <h1>注文計算アシスタント</h1>
   </header>
 
   <main>
-    <!-- 機能1: 購入PT計算 -->
+    <a href="index.html" class="nav-link">&lt; ホームに戻る</a>
+
     <div class="card-box">
-      <div class="section-title">1. 購入PTに対する最適組み合わせ計算</div>
-      <p class="usage-guide" style="margin-bottom: 12px;">指定したポイントに最も効率よく到達できる商品の組み合わせパターンを自動計算します。</p>
+      <div class="section-title">利用する機能を選択してください</div>
+      <p class="usage-guide">ご希望のサポートツールを選んでください。</p>
       
-      <div class="form-group">
-        <label class="label-accent">対象月度</label>
-        <select id="monthSelect" class="calc-select"></select>
-      </div>
+      <div class="menu-container">
+        <!-- 1. 購入PT最適化ページへ -->
+        <a href="calc_pt.html" class="menu-card">
+          <div class="menu-card-title">1. 購入PTに対する最適組み合わせ計算</div>
+          <p class="menu-card-desc">目標ポイントに最も効率よく到達できる商品の組み合わせを自動計算します。商品の除外や必ず含める個数の指定も可能です。</p>
+        </a>
 
-      <div class="form-group" style="margin-top: 12px;">
-        <label class="label-accent">購入ポイント（例: 10000, 200000）</label>
-        <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
-      </div>
-
-      <button class="btn-copy" style="margin-top: 16px;" onclick="calculateBestCombos()">おすすめ購入パターン</button>
-
-      <div id="comboResult" class="result-container" style="display:none;"></div>
-    </div>
-
-    <!-- 機能2: 左右バランス分配 -->
-    <div class="card-box">
-      <div class="section-title">2. 購入商品の左右バランス分配</div>
-      <p class="usage-guide" style="margin-bottom: 10px;">購入する商品と個数をお選びください。</p>
-      
-      <div id="productQtyList" class="product-list-box">
-        <!-- JSで動的生成 -->
-      </div>
-
-      <button class="btn-copy" onclick="calculateBinarySplit()">左右均等に割り振り</button>
-
-      <div id="splitResult" class="result-container" style="display:none;">
-        <div class="split-container">
-          <div class="split-col">
-            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">左 (L)</h3>
-            <div id="leftList"></div>
-            
-            <div class="total-box">
-              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="leftTotalPt">0</span> PT</p>
-              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
-            </div>
-          </div>
-
-          <div class="split-col">
-            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">右 (R)</h3>
-            <div id="rightList"></div>
-            
-            <div class="total-box">
-              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="rightTotalPt">0</span> PT</p>
-              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
-          左右のPT差: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT<br>
-          総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
-        </div>
+        <!-- 2. 左右バランス分配ページへ -->
+        <a href="calc_split.html" class="menu-card">
+          <div class="menu-card-title">2. 購入商品の左右バランス分配</div>
+          <p class="menu-card-desc">購入したい商品と個数を指定して、左右のグループ（L / R）にポイントが均等になるよう割り振ります。</p>
+        </a>
       </div>
     </div>
   </main>
@@ -207,300 +100,5 @@
     &copy; Place de Nina Order Support System
   </footer>
 
-  <script>
-    let configData = null;
-
-    async function loadConfig() {
-      try {
-        const res = await fetch('month_config.json');
-        configData = await res.json();
-        
-        const monthSelect = document.getElementById('monthSelect');
-        configData.activeMonths.forEach(m => {
-          const opt = document.createElement('option');
-          opt.value = m;
-          opt.textContent = m;
-          monthSelect.appendChild(opt);
-        });
-
-        renderProductQtyList();
-      } catch (e) {
-        alert('month_config.json の読み込みに失敗しました。');
-      }
-    }
-
-    function renderProductQtyList() {
-      const month = document.getElementById('monthSelect').value;
-      const container = document.getElementById('productQtyList');
-      container.innerHTML = '';
-
-      configData.products.forEach((p, index) => {
-        if (p.name === 'リペアセラム') return;
-
-        const pt = p.pts[month] || 0;
-        const div = document.createElement('div');
-        div.className = 'product-item';
-        div.id = `item-row-${index}`;
-        div.innerHTML = `
-          <span style="font-size:0.85rem;">
-            <strong>${p.name}</strong><br>
-            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
-          </span>
-          <input type="number" class="prod-qty" data-index="${index}" min="0" value="0" onchange="highlightSelected(${index})">
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    function highlightSelected(index) {
-      const row = document.getElementById(`item-row-${index}`);
-      const input = row.querySelector('.prod-qty');
-      if (parseInt(input.value) > 0) {
-        row.classList.add('selected');
-      } else {
-        row.classList.remove('selected');
-      }
-    }
-
-    // 機能1: 購入PT計算
-    function calculateBestCombos() {
-      const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
-      const month = document.getElementById('monthSelect').value;
-
-      const validProducts = configData.products
-        .filter(p => p.name !== 'リペアセラム')
-        .map(p => ({ name: p.name, price: p.price, pt: p.pts[month] || 0 }))
-        .filter(p => p.pt > 0);
-
-      if (validProducts.length < 2 || targetPt <= 0) return;
-
-      let bestPlan = findOptimalMultiCombo(validProducts, targetPt);
-
-      let mainProd = validProducts.find(p => p.name === 'OX-288' || p.name === 'ボアソン') || validProducts[0];
-      let planA = createMainProdCombo(validProducts, mainProd, targetPt);
-
-      let subProd = validProducts.find(p => p.name !== mainProd.name) || validProducts[1];
-      let planB = createMainProdCombo(validProducts, subProd, targetPt);
-
-      let plans = [
-        {
-          title: "★【最適】おすすめ組み合わせ",
-          items: bestPlan.items,
-          totalPt: bestPlan.totalPt,
-          totalCost: bestPlan.totalCost,
-          isBest: true
-        },
-        {
-          title: "【パターンA】定番・主力商品ベース",
-          items: planA.items,
-          totalPt: planA.totalPt,
-          totalCost: planA.totalCost,
-          isBest: false
-        },
-        {
-          title: "【パターンB】別商品バリエーション",
-          items: planB.items,
-          totalPt: planB.totalPt,
-          totalCost: planB.totalCost,
-          isBest: false
-        }
-      ];
-
-      const resDiv = document.getElementById('comboResult');
-      resDiv.style.display = 'block';
-      let html = '';
-
-      plans.forEach((plan) => {
-        let displayItems = formatItemsWithSamePrice(plan.items, validProducts);
-
-        html += `
-          <div class="plan-card ${plan.isBest ? 'best' : ''}">
-            <div class="plan-title">${plan.title}</div>
-            <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
-              ${displayItems.map(i => `<li>${i.displayName} × ${i.count}個 (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`).join('')}
-            </ul>
-            <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
-              合計ポイント: <strong style="color:#b87b2a;">${plan.totalPt.toLocaleString()} PT</strong> 
-              <span style="color:#c94b4b; font-size:0.78rem;">(超過: +${(plan.totalPt - targetPt).toLocaleString()} PT)</span><br>
-              合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
-            </div>
-          </div>
-        `;
-      });
-
-      resDiv.innerHTML = html;
-    }
-
-    function findOptimalMultiCombo(products, target) {
-      const maxPt = Math.max(...products.map(p => p.pt));
-      const limit = target + maxPt;
-
-      let dp = new Array(limit + 1).fill(Infinity);
-      let parent = new Array(limit + 1).fill(null);
-      dp[0] = 0;
-
-      for (let i = 0; i < products.length; i++) {
-        const p = products[i];
-        for (let j = p.pt; j <= limit; j++) {
-          if (dp[j - p.pt] !== Infinity) {
-            if (dp[j - p.pt] + p.price < dp[j]) {
-              dp[j] = dp[j - p.pt] + p.price;
-              parent[j] = { prev: j - p.pt, prod: p };
-            }
-          }
-        }
-      }
-
-      for (let pt = target; pt <= limit; pt++) {
-        if (dp[pt] !== Infinity) {
-          let counts = {};
-          let curr = pt;
-          while (curr > 0 && parent[curr]) {
-            let pName = parent[curr].prod.name;
-            counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
-            counts[pName].count++;
-            curr = parent[curr].prev;
-          }
-          let items = Object.values(counts);
-          if (items.length >= 2) {
-            return { items, totalPt: pt, totalCost: dp[pt] };
-          }
-        }
-      }
-
-      let baseProd = products[0];
-      let subProd = products[1];
-      let count1 = Math.max(1, Math.floor((target - subProd.pt) / baseProd.pt));
-      let remPt = Math.max(0, target - (baseProd.pt * count1));
-      let count2 = Math.ceil(remPt / subProd.pt);
-
-      let items = [
-        { ...baseProd, count: count1 },
-        { ...subProd, count: count2 }
-      ];
-      let totalPt = (baseProd.pt * count1) + (subProd.pt * count2);
-      let totalCost = (baseProd.price * count1) + (subProd.price * count2);
-
-      return { items, totalPt, totalCost };
-    }
-
-    function createMainProdCombo(products, mainProd, target) {
-      let subProducts = products.filter(p => p.name !== mainProd.name);
-      let mainCount = Math.floor(target / mainProd.pt);
-      
-      if (mainCount === 0) mainCount = 1;
-      let remPt = target - (mainProd.pt * mainCount);
-
-      if (remPt <= 0) {
-        mainCount = Math.max(1, mainCount - 1);
-        remPt = target - (mainProd.pt * mainCount);
-      }
-
-      let subCombo = findOptimalMultiCombo(subProducts, remPt);
-      let items = [{ ...mainProd, count: mainCount }];
-
-      subCombo.items.forEach(si => {
-        items.push(si);
-      });
-
-      let totalPt = items.reduce((sum, i) => sum + (i.pt * i.count), 0);
-      let totalCost = items.reduce((sum, i) => sum + (i.price * i.count), 0);
-
-      return { items, totalPt, totalCost };
-    }
-
-    function formatItemsWithSamePrice(items, allValidProducts) {
-      return items.map(item => {
-        let sameSpecProducts = allValidProducts.filter(p => p.pt === item.pt && p.price === item.price && p.name !== item.name);
-        if (sameSpecProducts.length > 0) {
-          let altNames = sameSpecProducts.map(p => p.name).join(' / ');
-          return {
-            ...item,
-            displayName: `${item.name} （または ${altNames}）`
-          };
-        }
-        return {
-          ...item,
-          displayName: item.name
-        };
-      });
-    }
-
-    // 機能2: 左右分配
-    function calculateBinarySplit() {
-      const month = document.getElementById('monthSelect').value;
-      const inputs = document.querySelectorAll('.prod-qty');
-      
-      let allUnitItems = [];
-
-      inputs.forEach(input => {
-        const qty = parseInt(input.value) || 0;
-        if (qty > 0) {
-          const idx = input.getAttribute('data-index');
-          const p = configData.products[idx];
-          const pt = p.pts[month] || 0;
-          for (let i = 0; i < qty; i++) {
-            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
-          }
-        }
-      });
-
-      if (allUnitItems.length === 0) {
-        alert('商品を1つ以上（個数1以上）指定してください。');
-        return;
-      }
-
-      allUnitItems.sort((a, b) => b.pt - a.pt);
-
-      let left = [], right = [];
-      let leftPt = 0, rightPt = 0;
-      let leftCost = 0, rightCost = 0;
-
-      allUnitItems.forEach(item => {
-        if (leftPt <= rightPt) {
-          left.push(item);
-          leftPt += item.pt;
-          leftCost += item.price;
-        } else {
-          right.push(item);
-          rightPt += item.pt;
-          rightCost += item.price;
-        }
-      });
-
-      // 見やすいカード型で商品を出力
-      const summarizeToCards = (list) => {
-        let map = {};
-        list.forEach(i => {
-          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
-          map[i.name].count++;
-        });
-        
-        return Object.keys(map).map(k => `
-          <div class="split-item-card">
-            <div class="split-item-name">${k} × ${map[k].count}個</div>
-            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()} PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
-          </div>
-        `).join('');
-      };
-
-      document.getElementById('leftList').innerHTML = summarizeToCards(left);
-      document.getElementById('rightList').innerHTML = summarizeToCards(right);
-      
-      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
-      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
-      
-      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
-      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
-
-      document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
-      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
-
-      document.getElementById('splitResult').style.display = 'block';
-    }
-
-    document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
-    window.onload = loadConfig;
-  </script>
 </body>
 </html>
