@@ -3,18 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>購入PT最適化ツール - Place de Nina</title>
+  <title>左右バランス分配ツール - Place de Nina</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <!-- 共通CSSの読み込み -->
   <link rel="stylesheet" href="style.css">
-  
   <style>
-    /* calc_pt.html 専用の固有スタイルのみをここに記載 */
-    .calc-select, .calc-input {
+    .calc-select {
       width: 100%;
       padding: 10px 12px;
       font-size: 0.88rem;
@@ -24,91 +21,99 @@
       box-sizing: border-box;
       color: var(--text-main);
     }
-    .calc-select:focus, .calc-input:focus {
+    .calc-select:focus {
       outline: none;
       border-color: var(--accent-gold);
       background-color: #fff;
     }
     .product-list-box {
-      max-height: 280px;
+      max-height: 320px;
       overflow-y: auto;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       background: #fff;
     }
     .product-item {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 6px;
+      padding: 10px 8px;
       border-bottom: 1px dashed var(--border-color);
-      font-size: 0.85rem;
-      gap: 8px;
+      transition: background 0.2s;
     }
     .product-item:last-child {
       border-bottom: none;
     }
-    .product-info {
-      flex: 1;
-      min-width: 130px;
+    .product-item.selected {
+      background-color: rgba(200, 162, 97, 0.12);
+      font-weight: bold;
     }
-    .product-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
-    .product-controls label {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .product-controls select.mandatory-qty-select {
-      width: 60px;
-      padding: 4px;
+    /* プルダウン用のスタイル（商品数選択用） */
+    .product-item select.prod-qty {
+      width: 75px;
+      padding: 6px;
       text-align: center;
       border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 0.82rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
       background-color: #fff;
+      color: var(--text-main);
+    }
+    .product-item select.prod-qty:focus {
+      outline: none;
+      border-color: var(--accent-gold);
     }
     .result-container {
       margin-top: 18px;
       padding-top: 14px;
       border-top: 1px dashed var(--border-color);
     }
-    .plan-card {
-      background: #fff;
+    .split-container {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .split-col {
+      flex: 1;
+      background: #fffdf9;
+      padding: 12px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 12px;
     }
-    .plan-card.best {
-      border: 1.5px solid var(--accent-gold);
-      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    .split-item-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .plan-title {
+    .split-item-name {
       font-weight: bold;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
       color: var(--wood-dark);
+      margin-bottom: 2px;
     }
-    .mandatory-item-badge {
-      display: inline-block;
-      background-color: rgba(201, 75, 75, 0.12);
-      color: #c94b4b;
-      font-size: 0.72rem;
+    .split-item-sub {
+      color: var(--text-sub);
+      font-size: 0.78rem;
+    }
+    .total-box {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .total-pt-val {
+      font-size: 0.98rem;
       font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-left: 6px;
-      vertical-align: middle;
+      color: #b87b2a;
+    }
+    .total-cost-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #2b6cb0;
     }
     .nav-link {
       display: inline-block;
@@ -120,93 +125,61 @@
     .nav-link:hover {
       text-decoration: underline;
     }
-    /* アコーディオン用スタイル */
-    .guide-toggle-btn {
-      width: 100%;
-      background: rgba(200, 162, 97, 0.12);
-      border: 1px solid var(--accent-gold);
-      color: var(--wood-medium);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: bold;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .guide-toggle-btn:hover {
-      background: rgba(200, 162, 97, 0.2);
-    }
-    .guide-content {
-      display: none;
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 14px;
-      margin-top: -10px;
-      margin-bottom: 16px;
-      font-size: 0.8rem;
-      line-height: 1.6;
-      color: var(--text-main);
-    }
   </style>
 </head>
 <body>
 
   <header>
     <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>購入PT最適化ツール</h1>
+    <h1>左右バランス分配ツール</h1>
   </header>
 
   <main>
     <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
     
     <div class="card-box">
-      <div class="section-title">購入ポイントに対する最適組み合わせ計算</div>
+      <div class="section-title">購入商品の左右バランス分配</div>
+      <p class="usage-guide" style="margin-bottom: 10px;">購入する商品と個数をお選びください。</p>
       
-      <!-- 開閉式ガイド -->
-      <button type="button" class="guide-toggle-btn" onclick="toggleGuide()">
-        <span>使い方・詳細な設定方法を見る</span>
-        <span id="guideArrow">▼</span>
-      </button>
-      <div id="guideContent" class="guide-content">
-        指定した目標ポイントに対して、最適な商品の組み合わせを自動で計算します。<br><br>
-        <strong>(1) 対象月度・目標PTを入力</strong><br>
-        <strong>(2) 商品ごとの条件設定</strong><br>
-        <div style="padding-left: 10px; margin-top: 4px;">
-          ・例① 商品を含めない場合：<strong>「除外」</strong>にチェック<br>
-          ・例② 商品を必ず含める場合：<strong>「必須個数」</strong>を指定<br>
-          ・例③ 商品を1個だけ含めたい場合：<strong>「除外」にチェックを入れ、かつ「必須個数」に「1」を入力</strong>
-        </div>
-      </div>
-
-      <div class="form-group">
+      <div class="form-group" style="margin-bottom: 12px;">
         <label class="label-accent">対象月度</label>
-        <select id="monthSelect" class="calc-select" onchange="renderProductSettings()"></select>
+        <select id="monthSelect" class="calc-select"></select>
       </div>
 
-      <div class="form-group" style="margin-top: 12px;">
-        <label class="label-accent">購入ポイント（例: 10000, 200000）</label>
-        <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
+      <div id="productQtyList" class="product-list-box">
+        <!-- JSで動的生成 -->
       </div>
 
-      <div style="margin-top: 16px;">
-        <label class="label-accent" style="margin-bottom: 6px; display:block;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
-        <div id="productSettingsList" class="product-list-box">
-          <!-- JSで動的生成 -->
+      <button class="btn-copy" onclick="calculateBinarySplit()">左右均等に割り振り</button>
+
+      <div id="splitResult" class="result-container" style="display:none;">
+        <div class="split-container">
+          <div class="split-col">
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">左 (L)</h3>
+            <div id="leftList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="leftTotalPt">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+            </div>
+          </div>
+
+          <div class="split-col">
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">右 (R)</h3>
+            <div id="rightList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">合計ポイント: <span class="total-pt-val" id="rightTotalPt">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
+          左右のPT差: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT<br>
+          総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
         </div>
       </div>
-
-      <div style="background: rgba(200, 162, 97, 0.08); border: 1px dashed var(--accent-gold); border-radius: 8px; padding: 12px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--wood-dark); text-align: center;">
-        設定したら、下の <span style="display: inline-block; background-color: var(--accent-gold); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">おすすめ購入パターンを計算</span> ボタンを押してください。
-      </div>
-
-      <button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
-
-      <div id="comboResult" class="result-container" style="display:none;"></div>
     </div>
   </main>
 
@@ -216,19 +189,6 @@
 
   <script>
     let configData = null;
-
-    // ガイドの開閉用関数
-    function toggleGuide() {
-      const content = document.getElementById('guideContent');
-      const arrow = document.getElementById('guideArrow');
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        arrow.textContent = '▼';
-      } else {
-        content.style.display = 'block';
-        arrow.textContent = '▲';
-      }
-    }
 
     async function loadConfig() {
       try {
@@ -243,252 +203,126 @@
           monthSelect.appendChild(opt);
         });
 
-        renderProductSettings();
+        renderProductQtyList();
       } catch (e) {
         alert('month_config.json の読み込みに失敗しました。');
       }
     }
 
-    function renderProductSettings() {
+    function renderProductQtyList() {
       const month = document.getElementById('monthSelect').value;
-      const container = document.getElementById('productSettingsList');
+      const container = document.getElementById('productQtyList');
       container.innerHTML = '';
-
-      if (!configData) return;
 
       configData.products.forEach((p, index) => {
         if (p.name === 'リペアセラム') return;
 
         const pt = p.pts[month] || 0;
-        
-        // プルダウンの選択肢（0〜30）を生成
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.id = `item-row-${index}`;
+
+        // 0から30までのプルダウン選択肢を動的生成
         let optionsHtml = '';
         for (let i = 0; i <= 30; i++) {
           optionsHtml += `<option value="${i}">${i}</option>`;
         }
 
-        const div = document.createElement('div');
-        div.className = 'product-item';
         div.innerHTML = `
-          <div class="product-info">
+          <span style="font-size:0.85rem;">
             <strong>${p.name}</strong><br>
             <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
-          </div>
-          <div class="product-controls">
-            <label><input type="checkbox" class="exclude-chk" data-index="${index}"> 除外</label>
-            <label>必須個数: 
-              <select class="mandatory-qty-select" data-index="${index}">
-                ${optionsHtml}
-              </select>
-            </label>
-          </div>
+          </span>
+          <select class="prod-qty" data-index="${index}" onchange="highlightSelected(${index})">
+            ${optionsHtml}
+          </select>
         `;
         container.appendChild(div);
       });
     }
 
-    function calculateBestCombos() {
-      const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
-      const month = document.getElementById('monthSelect').value;
+    function highlightSelected(index) {
+      const row = document.getElementById(`item-row-${index}`);
+      const select = row.querySelector('.prod-qty');
+      if (parseInt(select.value) > 0) {
+        row.classList.add('selected');
+      } else {
+        row.classList.remove('selected');
+      }
+    }
 
-      if (targetPt <= 0) {
-        alert('有効な目標ポイントを入力してください。');
+    function calculateBinarySplit() {
+      const month = document.getElementById('monthSelect').value;
+      const selects = document.querySelectorAll('.prod-qty');
+      
+      let allUnitItems = [];
+
+      selects.forEach(select => {
+        const qty = parseInt(select.value) || 0;
+        if (qty > 0) {
+          const idx = select.getAttribute('data-index');
+          const p = configData.products[idx];
+          const pt = p.pts[month] || 0;
+          for (let i = 0; i < qty; i++) {
+            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
+          }
+        }
+      });
+
+      if (allUnitItems.length === 0) {
+        alert('商品を1つ以上（個数1以上）指定してください。');
         return;
       }
 
-      let baseProducts = [];
-      let mandatoryFixedPt = 0;
-      let mandatoryFixedCost = 0;
-      let mandatoryItemsList = [];
+      allUnitItems.sort((a, b) => b.pt - a.pt);
 
-      configData.products.forEach((p, index) => {
-        if (p.name === 'リペアセラム') return;
+      let left = [], right = [];
+      let leftPt = 0, rightPt = 0;
+      let leftCost = 0, rightCost = 0;
 
-        const pt = p.pts[month] || 0;
-        if (pt <= 0) return;
-
-        const chk = document.querySelector(`.exclude-chk[data-index="${index}"]`);
-        const qtySelect = document.querySelector(`.mandatory-qty-select[data-index="${index}"]`);
-
-        const isExcluded = chk ? chk.checked : false;
-        const mandatoryQty = qtySelect ? parseInt(qtySelect.value) || 0 : 0;
-
-        if (mandatoryQty > 0) {
-          mandatoryFixedPt += pt * mandatoryQty;
-          mandatoryFixedCost += p.price * mandatoryQty;
-          mandatoryItemsList.push({ ...p, pt, count: mandatoryQty, displayName: p.name, isMandatory: true });
-        }
-
-        if (!isExcluded) {
-          baseProducts.push({ name: p.name, price: p.price, pt: pt });
-        }
-      });
-
-      let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
-
-      let bestPlan = findOptimalMultiCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
-      let planA = createMainProdCombo(baseProducts, targetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, true);
-      let planB = createMainProdCombo(baseProducts, targetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, false);
-
-      let plans = [
-        {
-          title: "★【最適】おすすめ組み合わせ",
-          items: bestPlan.items,
-          totalPt: bestPlan.totalPt,
-          totalCost: bestPlan.totalCost,
-          isBest: true
-        },
-        {
-          title: "【パターンA】主力商品ベース",
-          items: planA.items,
-          totalPt: planA.totalPt,
-          totalCost: planA.totalCost,
-          isBest: false
-        },
-        {
-          title: "【パターンB】別商品バリエーション",
-          items: planB.items,
-          totalPt: planB.totalPt,
-          totalCost: planB.totalCost,
-          isBest: false
-        }
-      ];
-
-      const resDiv = document.getElementById('comboResult');
-      resDiv.style.display = 'block';
-      let html = '';
-
-      plans.forEach((plan) => {
-        let displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
-
-        let diffPt = plan.totalPt - targetPt;
-        let diffStr = diffPt === 0 ? "(±0)" : (diffPt > 0 ? `(+${diffPt.toLocaleString()})` : `(${diffPt.toLocaleString()})`);
-
-        html += `
-          <div class="plan-card ${plan.isBest ? 'best' : ''}">
-            <div class="plan-title">${plan.title}</div>
-            <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
-              ${displayItems.map(i => {
-                let badgeHtml = i.isMandatory ? `<span class="mandatory-item-badge">必須</span>` : '';
-                return `<li>${i.displayName} × ${i.count}個 ${badgeHtml} (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`;
-              }).join('')}
-            </ul>
-            <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
-              合計ポイント: <strong style="color:#c94b4b;">${plan.totalPt.toLocaleString()} PT</strong> 
-              <span style="color:var(--text-sub); font-size:0.78rem;">${diffStr}</span><br>
-              合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
-            </div>
-          </div>
-        `;
-      });
-
-      resDiv.innerHTML = html;
-    }
-
-    function findOptimalMultiCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost) {
-      if (remainingTarget <= 0) {
-        return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
-      }
-
-      if (products.length === 0) {
-        return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
-      }
-
-      const maxPt = Math.max(...products.map(p => p.pt), 1000);
-      const limit = remainingTarget + maxPt;
-
-      let dp = new Array(limit + 1).fill(Infinity);
-      let parent = new Array(limit + 1).fill(null);
-      dp[0] = 0;
-
-      for (let i = 0; i < products.length; i++) {
-        const p = products[i];
-        for (let j = p.pt; j <= limit; j++) {
-          if (dp[j - p.pt] !== Infinity) {
-            if (dp[j - p.pt] + p.price < dp[j]) {
-              dp[j] = dp[j - p.pt] + p.price;
-              parent[j] = { prev: j - p.pt, prod: p };
-            }
-          }
-        }
-      }
-
-      for (let pt = remainingTarget; pt <= limit; pt++) {
-        if (dp[pt] !== Infinity) {
-          let counts = {};
-          let curr = pt;
-          while (curr > 0 && parent[curr]) {
-            let pName = parent[curr].prod.name;
-            counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
-            counts[pName].count++;
-            curr = parent[curr].prev;
-          }
-          let dynamicItems = Object.values(counts);
-          
-          let mergedMap = {};
-          [...mandatoryItems, ...dynamicItems].forEach(item => {
-            if (!mergedMap[item.name]) {
-              mergedMap[item.name] = { ...item, count: item.count };
-            } else {
-              mergedMap[item.name].count += item.count;
-            }
-          });
-
-          return { items: Object.values(mergedMap), totalPt: fixedPt + pt, totalCost: fixedCost + dp[pt] };
-        }
-      }
-
-      return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
-    }
-
-    function createMainProdCombo(products, target, mandatoryItems, fixedPt, fixedCost, useFirst) {
-      let remTarget = Math.max(0, target - fixedPt);
-      if (products.length === 0) return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
-
-      let mainProd = useFirst ? products[0] : (products[1] || products[0]);
-      let mainCount = Math.floor(remTarget / mainProd.pt);
-      if (mainCount === 0 && remTarget > 0) mainCount = 1;
-
-      let subProducts = products.filter(p => p.name !== mainProd.name);
-      let subRemTarget = Math.max(0, remTarget - (mainProd.pt * mainCount));
-
-      let subCombo = findOptimalMultiCombo(subProducts, subRemTarget, [], 0, 0);
-
-      let mergedMap = {};
-      let allItems = [...mandatoryItems, { ...mainProd, count: mainCount }, ...subCombo.items];
-      
-      allItems.forEach(item => {
-        if (!mergedMap[item.name]) {
-          mergedMap[item.name] = { ...item, count: item.count };
+      allUnitItems.forEach(item => {
+        if (leftPt <= rightPt) {
+          left.push(item);
+          leftPt += item.pt;
+          leftCost += item.price;
         } else {
-          mergedMap[item.name].count += item.count;
+          right.push(item);
+          rightPt += item.pt;
+          rightCost += item.price;
         }
       });
 
-      let items = Object.values(mergedMap);
-      let totalPt = items.reduce((sum, i) => sum + (i.pt * i.count), 0);
-      let totalCost = items.reduce((sum, i) => sum + (i.price * i.count), 0);
+      const summarizeToCards = (list) => {
+        let map = {};
+        list.forEach(i => {
+          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
+          map[i.name].count++;
+        });
+        
+        return Object.keys(map).map(k => `
+          <div class="split-item-card">
+            <div class="split-item-name">${k} × ${map[k].count}個</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()} PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+          </div>
+        `).join('');
+      };
 
-      return { items, totalPt, totalCost };
+      document.getElementById('leftList').innerHTML = summarizeToCards(left);
+      document.getElementById('rightList').innerHTML = summarizeToCards(right);
+      
+      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
+      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
+      
+      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
+      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
+
+      document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
+
+      document.getElementById('splitResult').style.display = 'block';
     }
 
-    function formatItemsWithSamePrice(items, allValidProducts) {
-      return items.map(item => {
-        let sameSpecProducts = allValidProducts.filter(p => p.pt === item.pt && p.price === item.price && p.name !== item.name);
-        if (sameSpecProducts.length > 0) {
-          let altNames = sameSpecProducts.map(p => p.name).join(' / ');
-          return {
-            ...item,
-            displayName: `${item.name} （または ${altNames}）`
-          };
-        }
-        return {
-          ...item,
-          displayName: item.name
-        };
-      });
-    }
-
+    document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
     window.onload = loadConfig;
   </script>
 </body>
