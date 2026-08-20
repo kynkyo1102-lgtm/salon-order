@@ -50,13 +50,20 @@
       background-color: rgba(200, 162, 97, 0.12);
       font-weight: bold;
     }
-    .product-item input {
-      width: 65px;
+    /* プルダウン用のスタイル（商品数選択用） */
+    .product-item select.prod-qty {
+      width: 75px;
       padding: 6px;
       text-align: center;
       border: 1px solid var(--border-color);
       border-radius: 6px;
       font-size: 0.88rem;
+      background-color: #fff;
+      color: var(--text-main);
+    }
+    .product-item select.prod-qty:focus {
+      outline: none;
+      border-color: var(--accent-gold);
     }
     .result-container {
       margin-top: 18px;
@@ -214,12 +221,21 @@
         const div = document.createElement('div');
         div.className = 'product-item';
         div.id = `item-row-${index}`;
+
+        // 0から30までのプルダウン選択肢を動的生成
+        let optionsHtml = '';
+        for (let i = 0; i <= 30; i++) {
+          optionsHtml += `<option value="${i}">${i}</option>`;
+        }
+
         div.innerHTML = `
           <span style="font-size:0.85rem;">
             <strong>${p.name}</strong><br>
             <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
           </span>
-          <input type="number" class="prod-qty" data-index="${index}" min="0" value="0" onchange="highlightSelected(${index})">
+          <select class="prod-qty" data-index="${index}" onchange="highlightSelected(${index})">
+            ${optionsHtml}
+          </select>
         `;
         container.appendChild(div);
       });
@@ -227,8 +243,8 @@
 
     function highlightSelected(index) {
       const row = document.getElementById(`item-row-${index}`);
-      const input = row.querySelector('.prod-qty');
-      if (parseInt(input.value) > 0) {
+      const select = row.querySelector('.prod-qty');
+      if (parseInt(select.value) > 0) {
         row.classList.add('selected');
       } else {
         row.classList.remove('selected');
@@ -237,14 +253,14 @@
 
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
-      const inputs = document.querySelectorAll('.prod-qty');
+      const selects = document.querySelectorAll('.prod-qty');
       
       let allUnitItems = [];
 
-      inputs.forEach(input => {
-        const qty = parseInt(input.value) || 0;
+      selects.forEach(select => {
+        const qty = parseInt(select.value) || 0;
         if (qty > 0) {
-          const idx = input.getAttribute('data-index');
+          const idx = select.getAttribute('data-index');
           const p = configData.products[idx];
           const pt = p.pts[month] || 0;
           for (let i = 0; i < qty; i++) {
