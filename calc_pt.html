@@ -324,11 +324,11 @@
       // 1. 最適プラン（目標PTに一番近く、最安）
       let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
       
-      // 2. パターンA（最適プランで一番多く使われた動的商品を1個除外して別ルートを探索）
-      let planA = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, bestPlan);
+      // 2. パターンA（最適プランで一番使われた動的商品を1つ除外）
+      let planA = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, [bestPlan]);
 
-      // 3. パターンB（さらに別ルートを探索）
-      let planB = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, planA, bestPlan);
+      // 3. パターンB（最適プラン ＋ パターンAで使われた主力商品を累積除外して探索）
+      let planB = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, [bestPlan, planA]);
 
       let plans = [
         {
@@ -386,10 +386,10 @@
     }
 
     // 目標PT以上で「最もオーバー分が少なく」「金額が最安」の構成を探す関数
-    function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdName = null) {
+    function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames = []) {
       let filteredProducts = products;
-      if (excludeProdName) {
-        filteredProducts = products.filter(p => p.name !== excludeProdName);
+      if (excludeProdNames && excludeProdNames.length > 0) {
+        filteredProducts = products.filter(p => !excludeProdNames.includes(p.name));
       }
 
       if (remainingTarget <= 0 || filteredProducts.length === 0) {
@@ -421,7 +421,7 @@
       for (let pt = remainingTarget; pt <= limit; pt++) {
         if (dp[pt] !== Infinity) {
           let overPt = pt - remainingTarget;
-          // 超過PTに10倍の強固なペナルティを課し、「目標に一番近い（オーバーが最小）」かつ「安さ」を優先
+          // 超過PTに100倍の強固なペナルティを課し、「目標に一番近い（オーバーが最小）」かつ「安さ」を優先
           let score = dp[pt] + (overPt * 100);
           if (score < minScore) {
             minScore = score;
@@ -456,28 +456,29 @@
       return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
     }
 
-    // 既存プランと重複しないバリエーションを作る代替関数
-    function findAlternativeCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, primaryPlan, secondaryPlan = null) {
-      // 既存プランで「必須以外（動的追加分）」の中で最も多く使われている商品を探す
-      let dynamicItems = primaryPlan.items.filter(i => !i.isMandatory);
-      if (dynamicItems.length === 0 && secondaryPlan) {
-        dynamicItems = secondaryPlan.items.filter(i => !i.isMandatory);
-      }
+    // 既存プランと重複しないバリエーションを作る代替関数（過去プランの主力商品を累積除外）
+    function findAlternativeCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, previousPlans) {
+      let excludeProdNames = [];
 
-      if (dynamicItems.length > 0) {
-        // 一番多く使われている商品を1つ選んで除外して再計算
-        dynamicItems.sort((a, b) => b.count - a.count);
-        let topProdName = dynamicItems[0].name;
-
-        let altPlan = findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, topProdName);
-        
-        // もし別プランが得られたらそれを返す
-        if (JSON.stringify(altPlan.items) !== JSON.stringify(primaryPlan.items)) {
-          return altPlan;
+      previousPlans.forEach(plan => {
+        let dynamicItems = plan.items.filter(i => !i.isMandatory);
+        if (dynamicItems.length > 0) {
+          dynamicItems.sort((a, b) => b.count - a.count);
+          let topProdName = dynamicItems[0].name;
+          if (!excludeProdNames.includes(topProdName)) {
+            excludeProdNames.push(topProdName);
+          }
         }
+      });
+
+      let altPlan = findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames);
+
+      // もし候補除外によって全く同じ結果や不整合が出た場合は元に戻す
+      if (altPlan.items.length === 0) {
+        return previousPlans[0];
       }
 
-      return primaryPlan;
+      return altPlan;
     }
 
     function formatItemsWithSamePrice(items, allValidProducts) {
