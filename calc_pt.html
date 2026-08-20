@@ -214,6 +214,10 @@
     &copy; Place de Nina Order Support System
   </footer>
 
+  <main>
+    <!-- 既存のHTML構造 -->
+  </main>
+
   <script>
     let configData = null;
 
@@ -325,10 +329,18 @@
 
       let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
 
-      // バリエーション豊かなおすすめパターンを3つ生成する
-      let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'cost');
-      let planA = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'variety1');
-      let planB = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'variety2');
+      // 3つの異なるアプローチでそれぞれ異なるプランを生成する
+      let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'cheapest');
+      let planA = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'highPtFirst');
+      let planB = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'smallPtFirst');
+
+      // 万が一すべて同じ組み合わせになった場合の重複回避処理
+      if (JSON.stringify(bestPlan.items) === JSON.stringify(planA.items)) {
+        planA = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, bestPlan);
+      }
+      if (JSON.stringify(bestPlan.items) === JSON.stringify(planB.items) || JSON.stringify(planA.items) === JSON.stringify(planB.items)) {
+        planB = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, planA);
+      }
 
       let plans = [
         {
@@ -339,14 +351,14 @@
           isBest: true
         },
         {
-          title: "【パターンA】別商品ミックス構成 1",
+          title: "【パターンA】高ポイント商品ベースの構成",
           items: planA.items,
           totalPt: planA.totalPt,
           totalCost: planA.totalCost,
           isBest: false
         },
         {
-          title: "【パターンB】別商品ミックス構成 2",
+          title: "【パターンB】小回り商品（別サイズ等）ミックス構成",
           items: planB.items,
           totalPt: planB.totalPt,
           totalCost: planB.totalCost,
@@ -385,7 +397,7 @@
       resDiv.innerHTML = html;
     }
 
-    // 賢く最適＆目標に一番近い組み合わせを探索する汎用関数
+    // 最適な組み合わせを探索する関数（モードにより優先度を変更）
     function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, mode) {
       if (remainingTarget <= 0) {
         return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
@@ -402,41 +414,42 @@
       let parent = new Array(limit + 1).fill(null);
       dp[0] = 0;
 
-      // モードによって商品の選択ウェイトや順番を微調整してバリエーションを出す
-      let shuffledProducts = [...products];
-      if (mode === 'variety1') {
-        shuffledProducts.sort((a, b) => (b.pt - a.pt)); // PTが大きい順を優先気味に
-      } else if (mode === 'variety2') {
-        shuffledProducts.sort((a, b) => (a.price - b.price)); // 金額が安い順を優先気味に
+      // モードに合わせて商品の並び順やコスト評価を少し変えることでバリエーションを生む
+      let sortedProducts = [...products];
+      if (mode === 'highPtFirst') {
+        sortedProducts.sort((a, b) => b.pt - a.pt); // PTが大きい商品を優先的・効率的に
+      } else if (mode === 'smallPtFirst') {
+        sortedProducts.sort((a, b) => a.pt - b.pt); // 小さい商品（5,800PTなど）を積極的に混ぜる
       }
 
-      for (let i = 0; i < shuffledProducts.length; i++) {
-        const p = shuffledProducts[i];
+      for (let i = 0; i < sortedProducts.length; i++) {
+        const p = sortedProducts[i];
         for (let j = p.pt; j <= limit; j++) {
           if (dp[j - p.pt] !== Infinity) {
             let costInc = p.price;
-            // バリエーションを出すために少しだけペナルティや好みを反映
-            if (mode === 'variety1' && i % 2 === 0) costInc += 50; 
-            if (mode === 'variety2' && p.pt < 5000) costInc -= 20;
+            
+            // バリエーションを出すための微小なバイアス
+            if (mode === 'highPtFirst') {
+              if (p.pt >= 10000) costInc -= 100; // 高単価・高PTをひいき
+            } else if (mode === 'smallPtFirst') {
+              if (p.pt < 8000) costInc -= 150; // 中・小サイズをひいきして混ぜる
+            }
 
-            if (dp[j - p.pt] + costInc < dp[j]) {
-              dp[j] = dp[j - p.pt] + p.price; // 実際の価格を加算
+            if (dp[j - p.pt] + costInc < dp[j] + (mode !== 'cheapest' ? 50 : 0)) {
+              dp[j] = dp[j - p.pt] + p.price; // 実際の価格を記録
               parent[j] = { prev: j - p.pt, prod: p };
             }
           }
         }
       }
 
-      // 目標PT以上の中で「一番目標PTに近く（オーバー分が最小）」、かつ「金額が安い」候補を探索
       let bestPt = -1;
       let minScore = Infinity;
 
       for (let pt = remainingTarget; pt <= limit; pt++) {
         if (dp[pt] !== Infinity) {
-          let overPt = pt - remainingTarget; // 目標からのオーバー分
-          // スコア計算：オーバー分が少ないほど、また金額が安いほど優秀とする評価関数
-          let score = dp[pt] + (overPt * 15); 
-          
+          let overPt = pt - remainingTarget;
+          let score = dp[pt] + (overPt * 20);
           if (score < minScore) {
             minScore = score;
             bestPt = pt;
@@ -468,6 +481,39 @@
       }
 
       return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
+    }
+
+    // 既に選ばれたプランとは違う別の組み合わせを強制的に探すフォールバック関数
+    function findAlternativeCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludePlan) {
+      // 特定の主要商品をあらかじめ1個強制的に混ぜた状態で最適化をかけることで別パターンを作る
+      for (let p of products) {
+        let forcedRem = remainingTarget - p.pt;
+        if (forcedRem < 0) forcedRem = 0;
+        
+        let subRes = findOptimalCombo(products, forcedRem, mandatoryItems, fixedPt + p.pt, fixedCost + p.price, 'cheapest');
+        
+        // 商品リストに強制入れた商品分をカウントアップ
+        let found = false;
+        subRes.items = subRes.items.map(item => {
+          if (item.name === p.name) {
+            found = true;
+            return { ...item, count: item.count + 1 };
+          }
+          return item;
+        });
+        if (!found && !p.isMandatory) {
+          subRes.items.push({ ...p, count: 1, displayName: p.name });
+        }
+
+        subRes.totalPt += p.pt;
+        subRes.totalCost += p.price;
+
+        // すでにベストのプランと違っていればこれを採用
+        if (JSON.stringify(subRes.items) !== JSON.stringify(excludePlan.items)) {
+          return subRes;
+        }
+      }
+      return excludePlan;
     }
 
     function formatItemsWithSamePrice(items, allValidProducts) {
