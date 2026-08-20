@@ -261,7 +261,6 @@
 
         const pt = p.pts[month] || 0;
         
-        // プルダウンの選択肢（0〜30）を生成
         let optionsHtml = '';
         for (let i = 0; i <= 30; i++) {
           optionsHtml += `<option value="${i}">${i}</option>`;
@@ -326,27 +325,28 @@
 
       let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
 
-      let bestPlan = findOptimalMultiCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
-      let planA = createMainProdCombo(baseProducts, targetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, true);
-      let planB = createMainProdCombo(baseProducts, targetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, false);
+      // バリエーション豊かなおすすめパターンを3つ生成する
+      let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'cost');
+      let planA = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'variety1');
+      let planB = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, 'variety2');
 
       let plans = [
         {
-          title: "★【最適】おすすめ組み合わせ",
+          title: "★【最適】もっとも金額が安い組み合わせ",
           items: bestPlan.items,
           totalPt: bestPlan.totalPt,
           totalCost: bestPlan.totalCost,
           isBest: true
         },
         {
-          title: "【パターンA】主力商品ベース",
+          title: "【パターンA】別商品ミックス構成 1",
           items: planA.items,
           totalPt: planA.totalPt,
           totalCost: planA.totalCost,
           isBest: false
         },
         {
-          title: "【パターンB】別商品バリエーション",
+          title: "【パターンB】別商品ミックス構成 2",
           items: planB.items,
           totalPt: planB.totalPt,
           totalCost: planB.totalCost,
@@ -385,7 +385,8 @@
       resDiv.innerHTML = html;
     }
 
-    function findOptimalMultiCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost) {
+    // 賢く最適＆目標に一番近い組み合わせを探索する汎用関数
+    function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, mode) {
       if (remainingTarget <= 0) {
         return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
       }
@@ -401,75 +402,72 @@
       let parent = new Array(limit + 1).fill(null);
       dp[0] = 0;
 
-      for (let i = 0; i < products.length; i++) {
-        const p = products[i];
+      // モードによって商品の選択ウェイトや順番を微調整してバリエーションを出す
+      let shuffledProducts = [...products];
+      if (mode === 'variety1') {
+        shuffledProducts.sort((a, b) => (b.pt - a.pt)); // PTが大きい順を優先気味に
+      } else if (mode === 'variety2') {
+        shuffledProducts.sort((a, b) => (a.price - b.price)); // 金額が安い順を優先気味に
+      }
+
+      for (let i = 0; i < shuffledProducts.length; i++) {
+        const p = shuffledProducts[i];
         for (let j = p.pt; j <= limit; j++) {
           if (dp[j - p.pt] !== Infinity) {
-            if (dp[j - p.pt] + p.price < dp[j]) {
-              dp[j] = dp[j - p.pt] + p.price;
+            let costInc = p.price;
+            // バリエーションを出すために少しだけペナルティや好みを反映
+            if (mode === 'variety1' && i % 2 === 0) costInc += 50; 
+            if (mode === 'variety2' && p.pt < 5000) costInc -= 20;
+
+            if (dp[j - p.pt] + costInc < dp[j]) {
+              dp[j] = dp[j - p.pt] + p.price; // 実際の価格を加算
               parent[j] = { prev: j - p.pt, prod: p };
             }
           }
         }
       }
 
+      // 目標PT以上の中で「一番目標PTに近く（オーバー分が最小）」、かつ「金額が安い」候補を探索
+      let bestPt = -1;
+      let minScore = Infinity;
+
       for (let pt = remainingTarget; pt <= limit; pt++) {
         if (dp[pt] !== Infinity) {
-          let counts = {};
-          let curr = pt;
-          while (curr > 0 && parent[curr]) {
-            let pName = parent[curr].prod.name;
-            counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
-            counts[pName].count++;
-            curr = parent[curr].prev;
-          }
-          let dynamicItems = Object.values(counts);
+          let overPt = pt - remainingTarget; // 目標からのオーバー分
+          // スコア計算：オーバー分が少ないほど、また金額が安いほど優秀とする評価関数
+          let score = dp[pt] + (overPt * 15); 
           
-          let mergedMap = {};
-          [...mandatoryItems, ...dynamicItems].forEach(item => {
-            if (!mergedMap[item.name]) {
-              mergedMap[item.name] = { ...item, count: item.count };
-            } else {
-              mergedMap[item.name].count += item.count;
-            }
-          });
-
-          return { items: Object.values(mergedMap), totalPt: fixedPt + pt, totalCost: fixedCost + dp[pt] };
+          if (score < minScore) {
+            minScore = score;
+            bestPt = pt;
+          }
         }
       }
 
-      return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
-    }
-
-    function createMainProdCombo(products, target, mandatoryItems, fixedPt, fixedCost, useFirst) {
-      let remTarget = Math.max(0, target - fixedPt);
-      if (products.length === 0) return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
-
-      let mainProd = useFirst ? products[0] : (products[1] || products[0]);
-      let mainCount = Math.floor(remTarget / mainProd.pt);
-      if (mainCount === 0 && remTarget > 0) mainCount = 1;
-
-      let subProducts = products.filter(p => p.name !== mainProd.name);
-      let subRemTarget = Math.max(0, remTarget - (mainProd.pt * mainCount));
-
-      let subCombo = findOptimalMultiCombo(subProducts, subRemTarget, [], 0, 0);
-
-      let mergedMap = {};
-      let allItems = [...mandatoryItems, { ...mainProd, count: mainCount }, ...subCombo.items];
-      
-      allItems.forEach(item => {
-        if (!mergedMap[item.name]) {
-          mergedMap[item.name] = { ...item, count: item.count };
-        } else {
-          mergedMap[item.name].count += item.count;
+      if (bestPt !== -1) {
+        let counts = {};
+        let curr = bestPt;
+        while (curr > 0 && parent[curr]) {
+          let pName = parent[curr].prod.name;
+          counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
+          counts[pName].count++;
+          curr = parent[curr].prev;
         }
-      });
+        let dynamicItems = Object.values(counts);
+        
+        let mergedMap = {};
+        [...mandatoryItems, ...dynamicItems].forEach(item => {
+          if (!mergedMap[item.name]) {
+            mergedMap[item.name] = { ...item, count: item.count };
+          } else {
+            mergedMap[item.name].count += item.count;
+          }
+        });
 
-      let items = Object.values(mergedMap);
-      let totalPt = items.reduce((sum, i) => sum + (i.pt * i.count), 0);
-      let totalCost = items.reduce((sum, i) => sum + (i.price * i.count), 0);
+        return { items: Object.values(mergedMap), totalPt: fixedPt + bestPt, totalCost: fixedCost + dp[bestPt] };
+      }
 
-      return { items, totalPt, totalCost };
+      return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
     }
 
     function formatItemsWithSamePrice(items, allValidProducts) {
