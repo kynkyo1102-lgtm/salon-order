@@ -8,6 +8,46 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=3">
+  <style>
+    /* 会員事前登録の折り畳み用スタイル */
+    .member-details {
+      border: none;
+      background: transparent;
+    }
+    .member-summary {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--wood-medium);
+      cursor: pointer;
+      list-style: none; /* デフォルトの矢印を綺麗にするため */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 2px 0;
+    }
+    .member-summary::-webkit-details-marker {
+      display: none; /* Safari用 */
+    }
+    .member-summary::after {
+      content: "＋ 登録・編集を開く";
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      background: rgba(200, 162, 97, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gold);
+      font-weight: 500;
+    }
+    details[open] .member-summary::after {
+      content: "− 閉じる";
+    }
+    .member-content-body {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+    }
+  </style>
 </head>
 <body>
 
@@ -20,19 +60,24 @@
   
   <main>
 
-    <!-- 1. 会員リポジトリ登録エリア -->
+    <!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
     <div class="info-card card-accent">
-      <div class="section-title">1. よく使う会員番号の事前登録</div>
-      
-      <div class="usage-guide">
-        <strong>💡 事前登録しておくと便利です！</strong><br>
-        ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
-        ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
-        <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
-      </div>
+      <details class="member-details">
+        <summary class="member-summary">
+          <span>1. よく使う会員番号の事前登録</span>
+        </summary>
+        <div class="member-content-body">
+          <div class="usage-guide">
+            <strong>💡 事前登録しておくと便利です！</strong><br>
+            ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
+            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
+            <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+          </div>
 
-      <div id="member_register_container"></div>
-      <button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
+          <div id="member_register_container"></div>
+          <button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
+        </div>
+      </details>
     </div>
 
     <!-- 2. お届け先情報 -->
@@ -704,7 +749,7 @@ function copyToClipboard() {
     navigator.clipboard.writeText(result.text).then(() => {
         alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
     }).catch(err => {
-        alert("コピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
+        alert("コピーに失敗しました。画面下の体操「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
     });
 }
 </script>
