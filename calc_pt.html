@@ -150,6 +150,21 @@
       line-height: 1.6;
       color: var(--text-main);
     }
+    /* リセットボタン用のスタイル */
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: #f0f0f0;
+      color: var(--text-main);
+    }
   </style>
 </head>
 <body>
@@ -191,7 +206,10 @@
       </div>
 
       <div style="margin-top: 16px;">
-        <label class="label-accent" style="margin-bottom: 6px; display:block;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label class="label-accent" style="margin-bottom: 0;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
+          <button type="button" class="btn-reset" onclick="resetProductSettings()">🔄 条件設定をリセット</button>
+        </div>
         <div id="productSettingsList" class="product-list-box">
           <!-- JSで動的生成 -->
         </div>
@@ -280,6 +298,25 @@
         `;
         container.appendChild(div);
       });
+    }
+
+    // 条件設定のリセット関数
+    function resetProductSettings() {
+      // 目標PTを初期値に戻す
+      document.getElementById('targetPt').value = 10000;
+
+      // 除外チェックをすべて解除
+      const checkboxes = document.querySelectorAll('.exclude-chk');
+      checkboxes.forEach(chk => chk.checked = false);
+
+      // 必須個数をすべて 0 にセット
+      const selects = document.querySelectorAll('.mandatory-qty-select');
+      selects.forEach(sel => sel.value = '0');
+
+      // 計算結果を非表示にする
+      const resDiv = document.getElementById('comboResult');
+      resDiv.style.display = 'none';
+      resDiv.innerHTML = '';
     }
 
     function calculateBestCombos() {
