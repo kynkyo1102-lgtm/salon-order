@@ -125,6 +125,21 @@
     .nav-link:hover {
       text-decoration: underline;
     }
+    /* リセットボタン用のスタイル */
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: #f0f0f0;
+      color: var(--text-main);
+    }
   </style>
 </head>
 <body>
@@ -138,7 +153,10 @@
     <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
     
     <div class="card-box">
-      <div class="section-title">購入商品の左右バランス分配</div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div class="section-title" style="margin-bottom: 0;">購入商品の左右バランス分配</div>
+        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 選択をリセット</button>
+      </div>
       <p class="usage-guide" style="margin-bottom: 10px;">購入する商品と個数をお選びください。</p>
       
       <div class="form-group" style="margin-bottom: 12px;">
@@ -249,6 +267,19 @@
       } else {
         row.classList.remove('selected');
       }
+    }
+
+    // 選択リセット処理
+    function resetSplitSelection() {
+      const selects = document.querySelectorAll('.prod-qty');
+      selects.forEach(select => {
+        select.value = '0';
+        const idx = select.getAttribute('data-index');
+        highlightSelected(idx);
+      });
+
+      const resDiv = document.getElementById('splitResult');
+      resDiv.style.display = 'none';
     }
 
     function calculateBinarySplit() {
