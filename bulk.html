@@ -36,9 +36,47 @@
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
         
+        <!-- 会員番号・氏名 事前登録エリア（折りたたみ） -->
+        <details class="card-box" style="margin-bottom: 16px; background-color: #fcfaf5; border-color: var(--accent-gold);">
+          <summary style="font-weight: bold; color: var(--wood-dark); cursor: pointer; padding: 4px 0;">
+            ⚙️ 会員情報の事前登録・保存（複数人登録対応）
+          </summary>
+          <div style="margin-top: 10px; font-size: 0.8rem; color: var(--text-sub);">
+            よく使う「会員番号」と「氏名」をあらかじめ登録しておくと、下の選択項目からワンタップで呼び出せます。
+          </div>
+          
+          <div class="form-group" style="margin-top: 10px;">
+            <label>登録する会員番号</label>
+            <div class="flex-row">
+              <input type="text" id="regMemberIdMain" placeholder="例: 12345" style="flex: 1;">
+              <span>-</span>
+              <select id="regMemberIdSub" style="width: 85px;"></select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regFullName">登録する氏名</label>
+            <input type="text" id="regFullName" placeholder="例: 山田 太郎">
+          </div>
+
+          <button type="button" onclick="savePreMemberInfo()" class="btn-action" style="background-color: var(--wood-dark); color: #fff; margin-top: 8px;">
+            💾 この会員情報を保存する
+          </button>
+
+          <!-- 登録済み一覧の表示エリア -->
+          <div id="registeredMembersList" style="margin-top: 12px; font-size: 0.8rem;"></div>
+        </details>
+
         <!-- 基本情報エリア -->
         <div class="section-title">👤 ご注文者様基本情報</div>
         <div class="card-box">
+          <div class="form-group">
+            <label for="presetMemberSelect">保存済み会員から選択</label>
+            <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
+              <option value="">-- 登録リストから選択 --</option>
+            </select>
+          </div>
+
           <div class="form-group">
             <label for="month">発注月度 *</label>
             <select id="month" name="month" required>
@@ -199,6 +237,8 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       initMemberSubSelect();
+      initRegMemberSubSelect();
+      renderPresetMemberList();
 
       // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
       try {
@@ -245,6 +285,7 @@
 
     function initMemberSubSelect() {
       const memberIdSub = document.getElementById('memberIdSub');
+      if (!memberIdSub) return;
       memberIdSub.innerHTML = '';
       for (let i = 0; i <= 20; i++) {
         const opt = document.createElement('option');
@@ -252,6 +293,103 @@
         opt.value = val;
         opt.textContent = val;
         memberIdSub.appendChild(opt);
+      }
+    }
+
+    // 事前登録用のサフィックス初期化
+    function initRegMemberSubSelect() {
+      const regSub = document.getElementById('regMemberIdSub');
+      if (!regSub) return;
+      regSub.innerHTML = '';
+      for (let i = 0; i <= 20; i++) {
+        const opt = document.createElement('option');
+        const val = String(i).padStart(2, '0');
+        opt.value = val;
+        opt.textContent = val;
+        regSub.appendChild(opt);
+      }
+    }
+
+    // 会員情報の保存
+    function savePreMemberInfo() {
+      const mainId = document.getElementById('regMemberIdMain').value.trim();
+      const subId = document.getElementById('regMemberIdSub').value;
+      const name = document.getElementById('regFullName').value.trim();
+
+      if (!mainId || !name) {
+        alert("会員番号と氏名の両方を入力してください。");
+        return;
+      }
+
+      const fullId = `${mainId}-${subId}`;
+      let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      
+      const existIdx = list.findIndex(m => m.id === fullId);
+      if (existIdx >= 0) {
+        list[existIdx].name = name;
+      } else {
+        list.push({ id: fullId, mainId, subId, name });
+      }
+
+      localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
+      alert(`「${name} (${fullId})」様を登録しました。`);
+
+      document.getElementById('regMemberIdMain').value = '';
+      document.getElementById('regFullName').value = '';
+      renderPresetMemberList();
+    }
+
+    // 登録済みリストの描画 ＆ プルダウン更新
+    function renderPresetMemberList() {
+      const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      
+      const listContainer = document.getElementById('registeredMembersList');
+      if (listContainer) {
+        if (list.length === 0) {
+          listContainer.innerHTML = '<div style="color:var(--text-sub);">※登録されている会員情報はありません。</div>';
+        } else {
+          let html = '<div style="font-weight:bold; margin-bottom:4px;">【登録済み会員一覧】</div>';
+          list.forEach((m, idx) => {
+            html += `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding: 4px 0; border-bottom: 1px dashed var(--border-color);">
+                <span><strong>${m.name}</strong> (${m.id})</span>
+                <button type="button" onclick="deletePresetMember(${idx})" style="color:#c94b4b; border:none; background:none; cursor:pointer; font-size:0.75rem;">削除</button>
+              </div>
+            `;
+          });
+          listContainer.innerHTML = html;
+        }
+      }
+
+      const select = document.getElementById('presetMemberSelect');
+      if (select) {
+        select.innerHTML = '<option value="">-- 登録リストから選択 --</option>';
+        list.forEach((m, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = `${m.name} (${m.id})`;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    // 登録情報の削除
+    function deletePresetMember(index) {
+      let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      list.splice(index, 1);
+      localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
+      renderPresetMemberList();
+    }
+
+    // フォームへの自動入力反映
+    function applyPresetMember(index) {
+      if (index === "") return;
+      const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      const target = list[index];
+      if (target) {
+        document.getElementById('memberIdMain').value = target.mainId;
+        document.getElementById('memberIdSub').value = target.subId;
+        document.getElementById('fullName').value = target.name;
       }
     }
 
@@ -438,6 +576,7 @@
       document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
       document.getElementById('ninaPoint').value = "";
+      document.getElementById('presetMemberSelect').value = "";
       updateCalc();
 
       renderOrderList();
