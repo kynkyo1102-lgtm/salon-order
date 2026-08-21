@@ -8,16 +8,144 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=2">
+  <!-- 先ほど調整した外部CSSを読み込み -->
+  <link rel="stylesheet" href="style.css?v=3">
+
   <style>
-    /* 注文計算アシスタント用ブラウン調サブリンクカード */
+    /* ==========================================
+       1. お知らせエリア（ページ固有のアコーディオン表示）
+    ========================================== */
+    #newsContainerArea {
+      margin-bottom: 20px;
+    }
+
+    .news-accordion {
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .news-summary {
+      padding: 10px 14px;
+      font-weight: bold;
+      font-size: 0.82rem;
+      color: var(--wood-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      background-color: #f7f3ed;
+      transition: background-color 0.2s;
+    }
+
+    .news-summary:hover {
+      background-color: #f0e8de;
+    }
+
+    .news-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .news-toggle-icon {
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      transition: transform 0.2s ease;
+    }
+
+    .news-accordion[open] .news-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .news-content-body {
+      padding: 12px 14px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.82rem;
+    }
+
+    /* ==========================================
+       2. 使い方ガイド（折りたたみ）
+    ========================================== */
+    .usage-guide-accordion {
+      background-color: #fbf9f5;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      overflow: hidden;
+    }
+
+    .usage-guide-summary {
+      padding: 10px 12px;
+      font-weight: bold;
+      color: var(--wood-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .usage-guide-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .usage-guide-content {
+      padding: 10px 12px 12px 12px;
+      border-top: 1px dashed var(--border-color);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================
+       3. メイン注文ツール（フィーチャーカード）
+    ========================================== */
+    .hero-order-section {
+      margin-bottom: 24px;
+    }
+
+    .menu-card.featured-card {
+      width: 100%;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
+      border: 1.5px solid var(--border-color);
+      border-left: 5px solid var(--accent-gold);
+      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .menu-card.featured-card .card-icon {
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--accent-gold);
+    }
+
+    .menu-card.featured-card .card-title {
+      font-size: 1.05rem;
+      color: var(--wood-dark);
+    }
+
+    .menu-card.featured-card .card-desc {
+      font-size: 0.8rem;
+      margin-top: 3px;
+    }
+
+    .menu-card.featured-card:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
+      border-color: var(--accent-gold);
+      box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
+    }
+
+    /* 注文計算アシスタント */
     .calc-sub-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #f4eee6; /* 上品な浅いブラウン背景 */
-      border: 1px solid #d8c6b2; /* 温かみのあるブラウン枠線 */
-      border-left: 4px solid var(--accent-gold); /* アクセントのゴールド */
+      background-color: #f4eee6;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-gold);
       border-radius: 8px;
       padding: 12px 14px;
       margin-top: 10px;
@@ -25,16 +153,21 @@
       text-decoration: none;
       color: var(--text-main);
       transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+      width: 100%;
+      box-sizing: border-box;
     }
+
     .calc-sub-card:hover {
       background-color: #ebdcd0;
       border-color: var(--accent-gold);
     }
+
     .calc-sub-content {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .calc-sub-icon {
       font-size: 1.1rem;
       display: flex;
@@ -46,16 +179,19 @@
       border-radius: 50%;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
+
     .calc-sub-title {
       font-size: 0.88rem;
       font-weight: bold;
       color: var(--wood-dark);
     }
+
     .calc-sub-desc {
       font-size: 0.75rem;
       color: var(--text-sub);
       margin-top: 1px;
     }
+
     .calc-sub-arrow {
       font-size: 0.85rem;
       color: var(--accent-gold);
@@ -66,57 +202,66 @@
 <body>
 
   <header>
-    <div class="header-logo">Place de Nina</div>
+    <a href="index.html" class="header-logo">Place de Nina</a>
     <h1>プラッス ドゥ ニナ 南熊本店</h1>
   </header>
 
   <main>
 
-    <!-- お知らせ (month_config.json から動的に読み込み) -->
+    <!-- お知らせセクション（JavaScriptで自動挿入） -->
     <div id="newsContainerArea"></div>
 
-    <!-- 注文ツールセクション -->
-    <div class="section-title">LINEご注文作成ツール</div>
-    
-    <div class="usage-guide">
-      <strong>💡 どちらのツールを使えばいい？</strong><br>
-      ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
-      ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
-      <span style="font-size: 0.8rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
-    </div>
-
-    <!-- メイン注文ツール -->
-    <a href="single.html" class="menu-card">
-      <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-      </div>
-      <div class="card-content">
-        <div class="card-title">LINEノート コピペ用</div>
-        <p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
-      </div>
-    </a>
-
-    <a href="bulk.html" class="menu-card">
-      <div class="card-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-      </div>
-      <div class="card-content">
-        <div class="card-title">注文書作成 画像保存用</div>
-        <p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
-      </div>
-    </a>
-
-    <!-- 注文計算アシスタント（注文ツールのすぐ下に配置） -->
-    <a href="calc.html" class="calc-sub-card">
-      <div class="calc-sub-content">
-        <div class="calc-sub-icon">📊</div>
-        <div>
-          <div class="calc-sub-title">注文計算アシスタント</div>
-          <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
+    <!-- メイン：注文ツールセクション -->
+    <div class="hero-order-section">
+      <div class="section-title">LINEご注文作成ツール</div>
+      
+      <!-- どちらのツールを使えばいい？（折りたたみ） -->
+      <details class="usage-guide-accordion">
+        <summary class="usage-guide-summary">
+          <span>💡 どちらのツールを使えばいい？</span>
+          <span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
+        </summary>
+        <div class="usage-guide-content">
+          ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
+          ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
+          <span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
         </div>
-      </div>
-      <div class="calc-sub-arrow">▶</div>
-    </a>
+      </details>
+
+      <!-- メイン注文ツール 1 -->
+      <a href="single.html" class="menu-card featured-card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">LINEノート コピペ用</div>
+          <p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
+        </div>
+      </a>
+
+      <!-- メイン注文ツール 2 -->
+      <a href="bulk.html" class="menu-card featured-card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">注文書作成 画像保存用</div>
+          <p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
+        </div>
+      </a>
+
+      <!-- 注文計算アシスタント -->
+      <a href="calc.html" class="calc-sub-card">
+        <div class="calc-sub-content">
+          <div class="calc-sub-icon">📊</div>
+          <div>
+            <div class="calc-sub-title">注文計算アシスタント</div>
+            <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
+          </div>
+        </div>
+        <div class="calc-sub-arrow">▶</div>
+      </a>
+    </div>
 
     <!-- 店舗情報・SNSリンク -->
     <div class="sub-info-area">
@@ -159,7 +304,6 @@
   <script>
     async function loadNews() {
       try {
-        // キャッシュを回避するために ?v= を付与
         const res = await fetch('./month_config.json?v=' + Date.now());
         const data = await res.json();
         
@@ -170,17 +314,42 @@
         if (Array.isArray(data.newsList) && data.newsList.length > 0) {
           items = data.newsList;
         } else if (data.newsDate || data.newsText) {
-          // 旧データの互換対応
           items = [{ date: data.newsDate || '', text: data.newsText || '' }];
         }
 
         if (items.length > 0) {
-          container.innerHTML = items.map(item => `
+          const latest = items[0];
+          // 最新お知らせ（style.cssの.news-boxを適用）
+          let html = `
             <div class="news-box">
-              <span class="news-date">${item.date}</span>
-              <p class="news-text">${item.text}</p>
+              <span class="news-date">${latest.date}</span>
+              <p class="news-text">${latest.text}</p>
             </div>
-          `).join('');
+          `;
+
+          // 過去のお知らせ（アコーディオン内）
+          if (items.length > 1) {
+            const pastItemsHtml = items.slice(1).map(item => `
+              <div class="news-box" style="margin-bottom: 10px;">
+                <span class="news-date">${item.date}</span>
+                <p class="news-text">${item.text}</p>
+              </div>
+            `).join('');
+
+            html += `
+              <details class="news-accordion">
+                <summary class="news-summary">
+                  <span>📢 過去のお知らせ一覧</span>
+                  <span class="news-toggle-icon">▶</span>
+                </summary>
+                <div class="news-content-body">
+                  ${pastItemsHtml}
+                </div>
+              </details>
+            `;
+          }
+
+          container.innerHTML = html;
         } else {
           container.innerHTML = '';
         }
