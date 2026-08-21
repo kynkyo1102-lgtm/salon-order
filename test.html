@@ -11,44 +11,70 @@
   <link rel="stylesheet" href="style.css?v=2">
   <style>
     /* ==========================================
-       ★ 注文ツールの強調デザイン（新規追加・変更）
+       ★ 注文ツールボタン自体の目立たせデザイン
     ========================================== */
     .hero-order-section {
       margin-bottom: 24px;
-      /* ゴールドのアクセントフレーム */
-      border: 2px solid var(--accent-gold, #c5a059); 
+    }
+
+    /* 2つのメイン注文ツールボタン */
+    .menu-card.featured-card {
+      /* 視線を集める上品なグラデーションとベース色 */
+      background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
+      border: 1.5px solid #d8c6b2;
+      border-left: 5px solid var(--accent-gold, #c5a059);
       border-radius: 12px;
-      padding: 20px;
-      /* ほのかなグラデーション背景 */
-      background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
-      /* 立体感を出す影 */
-      box-shadow: 0 6px 18px rgba(197, 160, 89, 0.15); 
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      
+      /* 立体感を出す少し強めのシャドウ */
+      box-shadow: 0 4px 14px rgba(197, 160, 89, 0.18), 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
     }
 
-    /* セクションタイトルを目立たせる */
-    .hero-order-section .section-title {
+    /* アイコン部分の目立たせ */
+    .menu-card.featured-card .card-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      background-color: #ffffff;
+      border: 1px solid #ebdcd0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-gold, #c5a059);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    }
+
+    /* タイトルと説明文 */
+    .menu-card.featured-card .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--wood-dark, #4a3b32);
-      border-bottom: 2px solid var(--accent-gold);
-      display: inline-block;
-      padding-bottom: 4px;
-      margin-bottom: 16px;
     }
 
-    /* 注文ツールカードの強化（ホバー効果） */
-    .menu-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .menu-card.featured-card .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-sub, #666);
+      margin-top: 3px;
     }
 
-    .menu-card:hover {
-      /* ホバー時に少し浮き上がらせる */
+    /* ホバー（タップ）時の動き */
+    .menu-card.featured-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-      border-color: var(--accent-gold);
+      background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
+      border-color: var(--accent-gold, #c5a059);
+      box-shadow: 0 8px 20px rgba(197, 160, 89, 0.28);
     }
 
 
     /* ==========================================
-       （以下は元のデザインを維持）
+       その他のスタイル（既存通り）
     ========================================== */
     /* 注文計算アシスタント用ブラウン調サブリンクカード */
     .calc-sub-card {
@@ -164,7 +190,7 @@
 
   <main>
 
-    <!-- ★ メイン：注文ツールセクション（色付け・目立たせ強化） -->
+    <!-- メイン：注文ツールセクション -->
     <div class="hero-order-section">
       <div class="section-title">LINEご注文作成ツール</div>
       
@@ -175,10 +201,10 @@
         <span style="font-size: 0.8rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
       </div>
 
-      <!-- メイン注文ツール 1 -->
-      <a href="single.html" class="menu-card">
+      <!-- ★ メイン注文ツール 1 (featured-card クラスを付与) -->
+      <a href="single.html" class="menu-card featured-card">
         <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
         </div>
         <div class="card-content">
           <div class="card-title">LINEノート コピペ用</div>
@@ -186,10 +212,10 @@
         </div>
       </a>
 
-      <!-- メイン注文ツール 2 -->
-      <a href="bulk.html" class="menu-card">
+      <!-- ★ メイン注文ツール 2 (featured-card クラスを付与) -->
+      <a href="bulk.html" class="menu-card featured-card">
         <div class="card-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
         </div>
         <div class="card-content">
           <div class="card-title">注文書作成 画像保存用</div>
@@ -267,7 +293,6 @@
           items = [{ date: data.newsDate || '', text: data.newsText || '' }];
         }
 
-        // お知らせデータがある場合のみ折りたたみ枠を生成
         if (items.length > 0) {
           const newsItemsHtml = items.map(item => `
             <div class="news-box" style="margin-bottom: 10px;">
