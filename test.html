@@ -11,23 +11,116 @@
   <link rel="stylesheet" href="style.css?v=2">
   <style>
     /* ==========================================
-       ★ 注文ツールボタン自体の目立たせデザイン
+       1. お知らせエリア（最上部・最新1件＋折りたたみ）
+    ========================================== */
+    #newsContainerArea {
+      margin-bottom: 20px;
+    }
+
+    .news-latest-box {
+      background-color: #fcfbfa;
+      border: 1px solid #e8e2d9;
+      border-left: 4px solid var(--accent-gold, #c5a059);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+
+    .news-accordion {
+      background-color: #fcfbfa;
+      border: 1px solid #e8e2d9;
+      border-radius: 8px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .news-summary {
+      padding: 10px 14px;
+      font-weight: bold;
+      font-size: 0.82rem;
+      color: var(--wood-dark, #4a3b32);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      background-color: #f7f3ed;
+      transition: background-color 0.2s;
+    }
+
+    .news-summary:hover {
+      background-color: #f0e8de;
+    }
+
+    .news-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .news-toggle-icon {
+      font-size: 0.75rem;
+      color: var(--accent-gold, #c5a059);
+      transition: transform 0.2s ease;
+    }
+
+    .news-accordion[open] .news-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .news-content-body {
+      padding: 12px 14px;
+      border-top: 1px dashed #e8e2d9;
+    }
+
+    /* ==========================================
+       2. どちらのツールを使えばいい？（折りたたみ）
+    ========================================== */
+    .usage-guide-accordion {
+      background-color: #fbf9f5;
+      border: 1px solid #eee6dc;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      overflow: hidden;
+    }
+
+    .usage-guide-summary {
+      padding: 10px 12px;
+      font-weight: bold;
+      color: var(--wood-dark, #4a3b32);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .usage-guide-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .usage-guide-content {
+      padding: 10px 12px 12px 12px;
+      border-top: 1px dashed #e8dfd5;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================
+       3. メイン注文ツールボタン（幅統一・幅いっぱい表示）
     ========================================== */
     .hero-order-section {
       margin-bottom: 24px;
     }
 
-    /* 2つのメイン注文ツールボタン */
     .menu-card.featured-card {
-      /* 視線を集める上品なグラデーションとベース色 */
+      width: 100%; /* スマホでも幅を完全に統一 */
+      box-sizing: border-box; /* パディングを含めた幅計算 */
       background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
       border: 1.5px solid #d8c6b2;
       border-left: 5px solid var(--accent-gold, #c5a059);
       border-radius: 12px;
       padding: 16px 18px;
       margin-bottom: 14px;
-      
-      /* 立体感を出す少し強めのシャドウ */
       box-shadow: 0 4px 14px rgba(197, 160, 89, 0.18), 0 2px 6px rgba(0, 0, 0, 0.04);
       transition: all 0.25s ease;
       display: flex;
@@ -36,7 +129,6 @@
       text-decoration: none;
     }
 
-    /* アイコン部分の目立たせ */
     .menu-card.featured-card .card-icon {
       width: 44px;
       height: 44px;
@@ -51,7 +143,6 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
 
-    /* タイトルと説明文 */
     .menu-card.featured-card .card-title {
       font-size: 1.05rem;
       font-weight: 700;
@@ -64,7 +155,6 @@
       margin-top: 3px;
     }
 
-    /* ホバー（タップ）時の動き */
     .menu-card.featured-card:hover {
       transform: translateY(-3px);
       background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
@@ -72,11 +162,7 @@
       box-shadow: 0 8px 20px rgba(197, 160, 89, 0.28);
     }
 
-
-    /* ==========================================
-       その他のスタイル（既存通り）
-    ========================================== */
-    /* 注文計算アシスタント用ブラウン調サブリンクカード */
+    /* 注文計算アシスタント */
     .calc-sub-card {
       display: flex;
       align-items: center;
@@ -91,6 +177,8 @@
       text-decoration: none;
       color: var(--text-main);
       transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+      width: 100%;
+      box-sizing: border-box;
     }
     .calc-sub-card:hover {
       background-color: #ebdcd0;
@@ -127,58 +215,6 @@
       color: var(--accent-gold);
       font-weight: bold;
     }
-
-    /* 折りたたみ式お知らせのデザイン */
-    .news-accordion {
-      background-color: #fcfbfa;
-      border: 1px solid #e8e2d9;
-      border-radius: 8px;
-      margin-bottom: 28px;
-      overflow: hidden;
-    }
-
-    .news-summary {
-      padding: 12px 16px;
-      font-weight: bold;
-      font-size: 0.88rem;
-      color: var(--wood-dark, #4a3b32);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-      background-color: #f7f3ed;
-      transition: background-color 0.2s;
-    }
-
-    .news-summary:hover {
-      background-color: #f0e8de;
-    }
-
-    .news-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .news-summary-title {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .news-toggle-icon {
-      font-size: 0.75rem;
-      color: var(--accent-gold, #c5a059);
-      transition: transform 0.2s ease;
-    }
-
-    .news-accordion[open] .news-toggle-icon {
-      transform: rotate(90deg);
-    }
-
-    .news-content-body {
-      padding: 12px 16px;
-      border-top: 1px dashed #e8e2d9;
-    }
   </style>
 </head>
 <body>
@@ -190,18 +226,27 @@
 
   <main>
 
-    <!-- メイン：注文ツールセクション -->
+    <!-- ★ 1. お知らせセクション（最上部に配置） -->
+    <div id="newsContainerArea"></div>
+
+    <!-- 2. メイン：注文ツールセクション -->
     <div class="hero-order-section">
       <div class="section-title">LINEご注文作成ツール</div>
       
-      <div class="usage-guide">
-        <strong>💡 どちらのツールを使えばいい？</strong><br>
-        ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
-        ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
-        <span style="font-size: 0.8rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
-      </div>
+      <!-- どちらのツールを使えばいい？（折りたたみ化） -->
+      <details class="usage-guide-accordion">
+        <summary class="usage-guide-summary">
+          <span>💡 どちらのツールを使えばいい？</span>
+          <span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
+        </summary>
+        <div class="usage-guide-content">
+          ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
+          ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
+          <span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
+        </div>
+      </details>
 
-      <!-- ★ メイン注文ツール 1 (featured-card クラスを付与) -->
+      <!-- メイン注文ツール 1 -->
       <a href="single.html" class="menu-card featured-card">
         <div class="card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
@@ -212,7 +257,7 @@
         </div>
       </a>
 
-      <!-- ★ メイン注文ツール 2 (featured-card クラスを付与) -->
+      <!-- メイン注文ツール 2 -->
       <a href="bulk.html" class="menu-card featured-card">
         <div class="card-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
@@ -235,9 +280,6 @@
         <div class="calc-sub-arrow">▶</div>
       </a>
     </div>
-
-    <!-- 折りたたみ式お知らせセクション（JavaScriptで動的に中身を生成） -->
-    <div id="newsContainerArea"></div>
 
     <!-- 店舗情報・SNSリンク -->
     <div class="sub-info-area">
@@ -294,24 +336,38 @@
         }
 
         if (items.length > 0) {
-          const newsItemsHtml = items.map(item => `
-            <div class="news-box" style="margin-bottom: 10px;">
-              <span class="news-date">${item.date}</span>
-              <p class="news-text">${item.text}</p>
+          // 1件目（最新）を表示
+          const latest = items[0];
+          let html = `
+            <div class="news-latest-box">
+              <span class="news-date">${latest.date}</span>
+              <p class="news-text">${latest.text}</p>
             </div>
-          `).join('');
-
-          container.innerHTML = `
-            <details class="news-accordion">
-              <summary class="news-summary">
-                <span class="news-summary-title">📢 お知らせ一覧</span>
-                <span class="news-toggle-icon">▶</span>
-              </summary>
-              <div class="news-content-body">
-                ${newsItemsHtml}
-              </div>
-            </details>
           `;
+
+          // 2件目以降がある場合、折りたたみ形式で追加
+          if (items.length > 1) {
+            const pastItemsHtml = items.slice(1).map(item => `
+              <div class="news-box" style="margin-bottom: 10px;">
+                <span class="news-date">${item.date}</span>
+                <p class="news-text">${item.text}</p>
+              </div>
+            `).join('');
+
+            html += `
+              <details class="news-accordion">
+                <summary class="news-summary">
+                  <span>📢 過去のお知らせ一覧</span>
+                  <span class="news-toggle-icon">▶</span>
+                </summary>
+                <div class="news-content-body">
+                  ${pastItemsHtml}
+                </div>
+              </details>
+            `;
+          }
+
+          container.innerHTML = html;
         } else {
           container.innerHTML = '';
         }
