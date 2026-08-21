@@ -8,27 +8,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=2">
+  <!-- 先ほど調整した外部CSSを読み込み -->
+  <link rel="stylesheet" href="style.css?v=3">
+
   <style>
     /* ==========================================
-       1. お知らせエリア（最上部・最新1件＋折りたたみ）
+       1. お知らせエリア（ページ固有のアコーディオン表示）
     ========================================== */
     #newsContainerArea {
       margin-bottom: 20px;
     }
 
-    .news-latest-box {
-      background-color: #fcfbfa;
-      border: 1px solid #e8e2d9;
-      border-left: 4px solid var(--accent-gold, #c5a059);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 8px;
-    }
-
     .news-accordion {
-      background-color: #fcfbfa;
-      border: 1px solid #e8e2d9;
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       margin-top: 8px;
       overflow: hidden;
@@ -38,7 +31,7 @@
       padding: 10px 14px;
       font-weight: bold;
       font-size: 0.82rem;
-      color: var(--wood-dark, #4a3b32);
+      color: var(--wood-dark);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -58,7 +51,7 @@
 
     .news-toggle-icon {
       font-size: 0.75rem;
-      color: var(--accent-gold, #c5a059);
+      color: var(--accent-gold);
       transition: transform 0.2s ease;
     }
 
@@ -68,15 +61,16 @@
 
     .news-content-body {
       padding: 12px 14px;
-      border-top: 1px dashed #e8e2d9;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.82rem;
     }
 
     /* ==========================================
-       2. どちらのツールを使えばいい？（折りたたみ）
+       2. 使い方ガイド（折りたたみ）
     ========================================== */
     .usage-guide-accordion {
       background-color: #fbf9f5;
-      border: 1px solid #eee6dc;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       margin-bottom: 16px;
       font-size: 0.85rem;
@@ -86,7 +80,7 @@
     .usage-guide-summary {
       padding: 10px 12px;
       font-weight: bold;
-      color: var(--wood-dark, #4a3b32);
+      color: var(--wood-dark);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -100,66 +94,48 @@
 
     .usage-guide-content {
       padding: 10px 12px 12px 12px;
-      border-top: 1px dashed #e8dfd5;
+      border-top: 1px dashed var(--border-color);
       color: var(--text-main);
       line-height: 1.6;
     }
 
     /* ==========================================
-       3. メイン注文ツールボタン（幅統一・幅いっぱい表示）
+       3. メイン注文ツール（フィーチャーカード）
     ========================================== */
     .hero-order-section {
       margin-bottom: 24px;
     }
 
     .menu-card.featured-card {
-      width: 100%; /* スマホでも幅を完全に統一 */
-      box-sizing: border-box; /* パディングを含めた幅計算 */
+      width: 100%;
+      box-sizing: border-box;
       background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
-      border: 1.5px solid #d8c6b2;
-      border-left: 5px solid var(--accent-gold, #c5a059);
-      border-radius: 12px;
-      padding: 16px 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 14px rgba(197, 160, 89, 0.18), 0 2px 6px rgba(0, 0, 0, 0.04);
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
+      border: 1.5px solid var(--border-color);
+      border-left: 5px solid var(--accent-gold);
+      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
     }
 
     .menu-card.featured-card .card-icon {
-      width: 44px;
-      height: 44px;
-      min-width: 44px;
       background-color: #ffffff;
-      border: 1px solid #ebdcd0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-gold, #c5a059);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      border: 1px solid var(--border-color);
+      color: var(--accent-gold);
     }
 
     .menu-card.featured-card .card-title {
       font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--wood-dark, #4a3b32);
+      color: var(--wood-dark);
     }
 
     .menu-card.featured-card .card-desc {
       font-size: 0.8rem;
-      color: var(--text-sub, #666);
       margin-top: 3px;
     }
 
     .menu-card.featured-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
-      border-color: var(--accent-gold, #c5a059);
-      box-shadow: 0 8px 20px rgba(197, 160, 89, 0.28);
+      border-color: var(--accent-gold);
+      box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
     }
 
     /* 注文計算アシスタント */
@@ -168,7 +144,7 @@
       align-items: center;
       justify-content: space-between;
       background-color: #f4eee6;
-      border: 1px solid #d8c6b2;
+      border: 1px solid var(--border-color);
       border-left: 4px solid var(--accent-gold);
       border-radius: 8px;
       padding: 12px 14px;
@@ -180,15 +156,18 @@
       width: 100%;
       box-sizing: border-box;
     }
+
     .calc-sub-card:hover {
       background-color: #ebdcd0;
       border-color: var(--accent-gold);
     }
+
     .calc-sub-content {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+
     .calc-sub-icon {
       font-size: 1.1rem;
       display: flex;
@@ -200,16 +179,19 @@
       border-radius: 50%;
       box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
+
     .calc-sub-title {
       font-size: 0.88rem;
       font-weight: bold;
       color: var(--wood-dark);
     }
+
     .calc-sub-desc {
       font-size: 0.75rem;
       color: var(--text-sub);
       margin-top: 1px;
     }
+
     .calc-sub-arrow {
       font-size: 0.85rem;
       color: var(--accent-gold);
@@ -220,20 +202,20 @@
 <body>
 
   <header>
-    <div class="header-logo">Place de Nina</div>
+    <a href="index.html" class="header-logo">Place de Nina</a>
     <h1>プラッス ドゥ ニナ 南熊本店</h1>
   </header>
 
   <main>
 
-    <!-- ★ 1. お知らせセクション（最上部に配置） -->
+    <!-- お知らせセクション（JavaScriptで自動挿入） -->
     <div id="newsContainerArea"></div>
 
-    <!-- 2. メイン：注文ツールセクション -->
+    <!-- メイン：注文ツールセクション -->
     <div class="hero-order-section">
       <div class="section-title">LINEご注文作成ツール</div>
       
-      <!-- どちらのツールを使えばいい？（折りたたみ化） -->
+      <!-- どちらのツールを使えばいい？（折りたたみ） -->
       <details class="usage-guide-accordion">
         <summary class="usage-guide-summary">
           <span>💡 どちらのツールを使えばいい？</span>
@@ -336,16 +318,16 @@
         }
 
         if (items.length > 0) {
-          // 1件目（最新）を表示
           const latest = items[0];
+          // 最新お知らせ（style.cssの.news-boxを適用）
           let html = `
-            <div class="news-latest-box">
+            <div class="news-box">
               <span class="news-date">${latest.date}</span>
               <p class="news-text">${latest.text}</p>
             </div>
           `;
 
-          // 2件目以降がある場合、折りたたみ形式で追加
+          // 過去のお知らせ（アコーディオン内）
           if (items.length > 1) {
             const pastItemsHtml = items.slice(1).map(item => `
               <div class="news-box" style="margin-bottom: 10px;">
