@@ -11,41 +11,45 @@
   <link rel="stylesheet" href="style.css?v=2">
   <style>
     /* ==========================================
-       1. メイン注文ツールの強調デザイン
+       ★ 注文ツールの強調デザイン（新規追加・変更）
     ========================================== */
     .hero-order-section {
       margin-bottom: 24px;
+      /* ゴールドのアクセントフレーム */
+      border: 2px solid var(--accent-gold, #c5a059); 
+      border-radius: 12px;
+      padding: 20px;
+      /* ほのかなグラデーション背景 */
+      background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
+      /* 立体感を出す影 */
+      box-shadow: 0 6px 18px rgba(197, 160, 89, 0.15); 
     }
 
-    /* 注文ツールカードの強化 */
+    /* セクションタイトルを目立たせる */
+    .hero-order-section .section-title {
+      color: var(--wood-dark, #4a3b32);
+      border-bottom: 2px solid var(--accent-gold);
+      display: inline-block;
+      padding-bottom: 4px;
+      margin-bottom: 16px;
+    }
+
+    /* 注文ツールカードの強化（ホバー効果） */
     .menu-card {
-      background: linear-gradient(135deg, #ffffff 0%, #fdfbf7 100%);
-      border: 1.5px solid #e2d3c1;
-      border-left: 5px solid var(--accent-gold);
-      border-radius: 10px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      transition: all 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .menu-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      /* ホバー時に少し浮き上がらせる */
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
       border-color: var(--accent-gold);
     }
 
-    .menu-card .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--wood-dark, #4a3b32);
-    }
 
-    .menu-card .card-desc {
-      font-size: 0.82rem;
-      margin-top: 4px;
-    }
-
+    /* ==========================================
+       （以下は元のデザインを維持）
+    ========================================== */
     /* 注文計算アシスタント用ブラウン調サブリンクカード */
     .calc-sub-card {
       display: flex;
@@ -98,9 +102,7 @@
       font-weight: bold;
     }
 
-    /* ==========================================
-       2. 折りたたみ式お知らせのデザイン
-    ========================================== */
+    /* 折りたたみ式お知らせのデザイン */
     .news-accordion {
       background-color: #fcfbfa;
       border: 1px solid #e8e2d9;
@@ -128,7 +130,7 @@
     }
 
     .news-summary::-webkit-details-marker {
-      display: none; /* デフォルトの矢印を非表示 */
+      display: none;
     }
 
     .news-summary-title {
@@ -143,7 +145,6 @@
       transition: transform 0.2s ease;
     }
 
-    /* 開いたときに矢印を回転 */
     .news-accordion[open] .news-toggle-icon {
       transform: rotate(90deg);
     }
@@ -163,7 +164,7 @@
 
   <main>
 
-    <!-- ★ メイン：注文ツールセクションを上部に配置 -->
+    <!-- ★ メイン：注文ツールセクション（色付け・目立たせ強化） -->
     <div class="hero-order-section">
       <div class="section-title">LINEご注文作成ツール</div>
       
@@ -209,7 +210,7 @@
       </a>
     </div>
 
-    <!-- ★ 折りたたみ式お知らせセクション（JavaScriptで動的に中身を生成） -->
+    <!-- 折りたたみ式お知らせセクション（JavaScriptで動的に中身を生成） -->
     <div id="newsContainerArea"></div>
 
     <!-- 店舗情報・SNSリンク -->
