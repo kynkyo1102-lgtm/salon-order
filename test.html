@@ -21,26 +21,79 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* 出力カード内の左右2列レイアウト（固定） */
-    .receipt-info-grid {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 12px;
-      font-size: 0.8rem;
-    }
-    .receipt-info-block {
-      flex: 1;
-      background-color: #FAF8F5;
-      padding: 8px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color, #E8E2D5);
-      box-sizing: border-box;
-    }
     /* 読み取り専用フィールドのスタイル */
     input[readonly] {
       background-color: #f2f2f2 !important;
       color: #666 !important;
       cursor: not-allowed;
+    }
+
+    /* 手書きスケッチに基づく画像出力カードレイアウト */
+    .receipt-box.sketch-style {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: "Noto Sans JP", sans-serif;
+      color: #333;
+    }
+
+    .sketch-header {
+      border-bottom: 2px solid #333;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .sketch-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .sketch-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .sketch-meta {
+      text-align: right;
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    .sketch-meta .badge {
+      border: 1px solid #666;
+      border-radius: 12px;
+      padding: 2px 8px;
+      display: inline-block;
+      margin-bottom: 3px;
+      font-weight: bold;
+    }
+
+    .sketch-member-row {
+      display: flex;
+      gap: 20px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      padding: 6px 0;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .sketch-info-section {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      color: #444;
+    }
+
+    .sketch-ship-box {
+      margin-top: 6px;
+      padding: 6px 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -110,13 +163,13 @@
             </select>
           </div>
 
-          <!-- ③ 購入会員番号（手入力不可） -->
+          <!-- ③ 購入会員番号（下2桁プルダウン・手入力不可） -->
           <div class="form-group">
             <label>購入会員番号 *</label>
             <div class="flex-row">
               <input type="text" id="memberIdMain" placeholder="※上記で選択してください" style="flex: 1;" readonly required>
               <span>-</span>
-              <input type="text" id="memberIdSub" style="width: 85px; text-align: center;" placeholder="00" readonly required>
+              <select id="memberIdSub" style="width: 85px;" disabled required></select>
             </div>
           </div>
 
@@ -254,9 +307,7 @@
   </main>
 
   <script>
-    // default-master.js で読み込んだ DEFAULT_MASTER を初期値としてセット
     let currentMaster = DEFAULT_MASTER;
-
     let allOrders = [];
     let currentSubtotal = 0;
     let currentGrandTotal = 0;
@@ -264,10 +315,10 @@
     let currentItemsData = [];
 
     window.addEventListener('DOMContentLoaded', async () => {
-      initRegMemberSubSelect();
+      initSubSelectOptions('regMemberIdSub');
+      initSubSelectOptions('memberIdSub');
       renderPresetMemberList();
 
-      // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
       try {
         const response = await fetch('./month_config.json?cache=' + new Date().getTime());
         if (response.ok) {
@@ -276,7 +327,6 @@
           localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
         }
       } catch (e) {
-        // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
         const savedConfig = localStorage.getItem('salonOrderMasterConfig');
         if (savedConfig) {
           try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
@@ -285,7 +335,6 @@
 
       renderUIFromMaster();
 
-      // ユーザー情報復元
       const savedUser = localStorage.getItem('salonOrderUserInfo');
       if (savedUser) {
         try {
@@ -310,21 +359,20 @@
       }
     });
 
-    // 事前登録用のサフィックス初期化
-    function initRegMemberSubSelect() {
-      const regSub = document.getElementById('regMemberIdSub');
-      if (!regSub) return;
-      regSub.innerHTML = '';
+    // 00〜20のプルダウン生成ヘルパー
+    function initSubSelectOptions(selectId) {
+      const sel = document.getElementById(selectId);
+      if (!sel) return;
+      sel.innerHTML = '';
       for (let i = 0; i <= 20; i++) {
         const opt = document.createElement('option');
         const val = String(i).padStart(2, '0');
         opt.value = val;
         opt.textContent = val;
-        regSub.appendChild(opt);
+        sel.appendChild(opt);
       }
     }
 
-    // 会員情報の保存
     function savePreMemberInfo() {
       const mainId = document.getElementById('regMemberIdMain').value.trim();
       const subId = document.getElementById('regMemberIdSub').value;
@@ -353,7 +401,6 @@
       renderPresetMemberList();
     }
 
-    // 登録済みリストの描画 ＆ プルダウン更新
     function renderPresetMemberList() {
       const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
       
@@ -387,23 +434,20 @@
       }
     }
 
-    // 登録情報の削除
     function deletePresetMember(index) {
       let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
       list.splice(index, 1);
       localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
       renderPresetMemberList();
-      // もし削除したものが現在選択中であればクリア
       document.getElementById('memberIdMain').value = '';
-      document.getElementById('memberIdSub').value = '';
+      document.getElementById('memberIdSub').value = '00';
       document.getElementById('fullName').value = '';
     }
 
-    // フォームへの自動入力反映
     function applyPresetMember(index) {
       if (index === "") {
         document.getElementById('memberIdMain').value = '';
-        document.getElementById('memberIdSub').value = '';
+        document.getElementById('memberIdSub').value = '00';
         document.getElementById('fullName').value = '';
         return;
       }
@@ -417,7 +461,6 @@
     }
 
     function renderUIFromMaster() {
-      // 月度プルダウン描画
       const monthSelect = document.getElementById('month');
       const currentVal = monthSelect.value;
       monthSelect.innerHTML = '<option value="">選択してください</option>';
@@ -433,7 +476,6 @@
         monthSelect.value = currentMaster.activeMonths[0];
       }
 
-      // 商品テーブル描画
       const tbody = document.getElementById('productTableBody');
       tbody.innerHTML = '';
 
@@ -595,7 +637,7 @@
 
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
       document.getElementById('memberIdMain').value = "";
-      document.getElementById('memberIdSub').value = "";
+      document.getElementById('memberIdSub').value = "00";
       document.getElementById('fullName').value = "";
       document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
@@ -641,6 +683,7 @@
       renderOrderList();
     }
 
+    // スケッチ通りのレイアウトでカードをレンダリングする関数
     function generateAllReceipts() {
       if (allOrders.length === 0) return;
 
@@ -648,11 +691,9 @@
       wrapper.innerHTML = "";
 
       const now = new Date();
-      const dateStr = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
+      const dateStr = now.getFullYear() + "/" + String(now.getMonth()+1).padStart(2, '0') + "/" + String(now.getDate()).padStart(2, '0') + " " + String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0');
 
       allOrders.forEach((ord, index) => {
-        const orderId = ord.orderId;
-        
         let totalQty = 0;
         let itemRows = "";
         ord.items.forEach(item => {
@@ -667,60 +708,31 @@
           `;
         });
 
-        let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
+        let extraDetails = "";
         if (ord.receiptName) {
-          paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
+          extraDetails += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
         }
-        if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
-          if (ord.eservicePw) {
-            paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
-          }
+        if (ord.eservicePw) {
+          extraDetails += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
         }
-        if (ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) {
-          paymentInfoBlock += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
+        if (ord.ninaPoint > 0) {
+          extraDetails += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
         }
 
         let addressBlock = "";
         if (ord.shipName || ord.address || ord.zip || ord.phone) {
           addressBlock = `
-            <div class="receipt-info-block">
-              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
+            <div class="sketch-ship-box">
+              <div><strong>[お届け先情報]</strong></div>
               <div>${ord.shipName ? "お名前: " + ord.shipName : "お名前: " + ord.fullName}</div>
-              <div>${ord.zip ? "〒" + ord.zip : ""}</div>
-              <div>${ord.address ? "住所: " + ord.address : ""}</div>
+              <div>${ord.zip ? "〒" + ord.zip : ""} ${ord.address || ""}</div>
               <div>${ord.phone ? "TEL: " + ord.phone : ""}</div>
             </div>
           `;
         } else {
           addressBlock = `
-            <div class="receipt-info-block">
-              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
-              <div style="color: var(--text-sub);">指定なし（サロン受取）</div>
-            </div>
-          `;
-        }
-
-        let totalBlock = "";
-        if (ord.ninaPoint > 0) {
-          totalBlock = `
-            <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
-              <span>小計金額:</span>
-              <span>¥${ord.subtotalPrice.toLocaleString()}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
-              <span>ニナポイント値引き:</span>
-              <span>-¥${ord.ninaPoint.toLocaleString()}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-              <span>お支払い合計金額:</span>
-              <span style="color: #c94b4b; font-size: 1rem;">¥${ord.totalPrice.toLocaleString()}</span>
-            </div>
-          `;
-        } else {
-          totalBlock = `
-            <div style="display: flex; justify-content: space-between; font-weight: bold;">
-              <span>合計金額:</span>
-              <span style="color: #c94b4b;">¥${ord.totalPrice.toLocaleString()}</span>
+            <div class="sketch-ship-box">
+              <div><strong>[お届け先情報]</strong> サロン受取</div>
             </div>
           `;
         }
@@ -728,44 +740,48 @@
         const cardWrapper = document.createElement('div');
         cardWrapper.className = "card-wrapper";
         cardWrapper.innerHTML = `
-          <div id="card-target-${index}" class="receipt-box target-card">
-            <div class="receipt-header">
-              <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">南熊本サロン専用商品購入注文書</h3>
-              <div class="order-id-badge">発注ID: ${orderId}</div>
-              <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
+          <div id="card-target-${index}" class="receipt-box sketch-style target-card">
+            <div class="sketch-header">
+              <div class="sketch-title-row">
+                <div class="sketch-title">【${ord.month}】南熊本サロン</div>
+                <div class="sketch-meta">
+                  <div class="badge">ID: ${ord.orderId}</div>
+                  <div>作成日時: ${dateStr}</div>
+                </div>
+              </div>
             </div>
 
-            <!-- 左：発注情報 / 右：お届け先情報 の2列並び -->
-            <div class="receipt-info-grid">
-              <div class="receipt-info-block">
-                <div>発注月度: <strong>${ord.month}</strong></div>
-                <div>購入会員番号: <strong>${ord.memberId}</strong></div>
-                <div>氏名: <strong>${ord.fullName}</strong></div>
-                ${paymentInfoBlock}
-              </div>
+            <div class="sketch-member-row">
+              <div>ID: <span>${ord.memberId}</span></div>
+              <div>氏名: <span>${ord.fullName}</span></div>
+            </div>
+
+            <div class="sketch-info-section">
+              <div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>
+              ${extraDetails}
               ${addressBlock}
             </div>
 
-            <table class="product-table" style="margin-bottom: 15px;">
+            <table class="product-table" style="margin-bottom: 12px;">
               <thead>
                 <tr>
                   <th>商品名</th>
-                  <th style="width: 35px; text-align: center;">数量</th>
-                  <th style="width: 70px; text-align: right;">小計(税込)</th>
-                  <th style="width: 55px; text-align: right;">ポイント</th>
+                  <th style="width: 45px; text-align: center;">数量</th>
+                  <th style="width: 75px; text-align: right;">小計</th>
+                  <th style="width: 60px; text-align: right;">ポイント</th>
                 </tr>
               </thead>
               <tbody>${itemRows}</tbody>
             </table>
-            <div style="border-top: 2px dashed var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
-              <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
-                <span>合計数量:</span>
-                <span>${totalQty} 点</span>
+
+            <div style="border-top: 2px dashed #ccc; padding-top: 8px; font-size: 0.88rem;">
+              <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                <span>合計数量: ${totalQty} 点</span>
+                <span>お支払額: <span style="color: #c94b4b; font-size: 1.05rem;">¥${ord.totalPrice.toLocaleString()}</span></span>
               </div>
-              ${totalBlock}
-              <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-                <span>獲得ポイント:</span>
-                <span style="color: var(--wood-medium);">${ord.totalPt.toLocaleString()}pt</span>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; margin-top: 4px;">
+                <span>獲得Pt: ${ord.totalPt.toLocaleString()}pt</span>
+                ${ord.ninaPoint > 0 ? `<span>(定価: ¥${ord.subtotalPrice.toLocaleString()} - Pt割: ¥${ord.ninaPoint.toLocaleString()})</span>` : ''}
               </div>
             </div>
           </div>
@@ -775,108 +791,6 @@
         `;
         wrapper.appendChild(cardWrapper);
       });
-
-      const summaryItems = {};
-      let totalAllSubtotal = 0;
-      let totalAllNinaPoint = 0;
-      let totalAllPayPrice = 0;
-      let totalAllPt = 0;
-      let grandTotalQty = 0;
-
-      allOrders.forEach(ord => {
-        totalAllSubtotal += ord.subtotalPrice;
-        totalAllNinaPoint += ord.ninaPoint;
-        totalAllPayPrice += ord.totalPrice;
-        totalAllPt += ord.totalPt;
-
-        ord.items.forEach(item => {
-          grandTotalQty += item.quantity;
-          if (!summaryItems[item.product]) {
-            summaryItems[item.product] = { quantity: 0, price: 0, pt: 0 };
-          }
-          summaryItems[item.product].quantity += item.quantity;
-          summaryItems[item.product].price += item.price;
-          summaryItems[item.product].pt += (item.pt || 0);
-        });
-      });
-
-      let summaryRows = "";
-      for (let prod in summaryItems) {
-        summaryRows += `
-          <tr>
-            <td><strong>${prod}</strong></td>
-            <td style="text-align: center;">${summaryItems[prod].quantity}</td>
-            <td style="text-align: right;">¥${summaryItems[prod].price.toLocaleString()}</td>
-            <td style="text-align: right; color: var(--wood-medium);">${summaryItems[prod].pt ? summaryItems[prod].pt.toLocaleString() + 'pt' : '-'}</td>
-          </tr>
-        `;
-      }
-
-      let summaryTotalBlock = "";
-      if (totalAllNinaPoint > 0) {
-        summaryTotalBlock = `
-          <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
-            <span>全商品 定価総額:</span>
-            <span>¥${totalAllSubtotal.toLocaleString()}</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
-            <span>ニナポイント利用総額:</span>
-            <span>-¥${totalAllNinaPoint.toLocaleString()}</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-            <span>全合算 実際の支払総合計:</span>
-            <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
-          </div>
-        `;
-      } else {
-        summaryTotalBlock = `
-          <div style="display: flex; justify-content: space-between; font-weight: bold;">
-            <span>全合算 総合計金額:</span>
-            <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
-          </div>
-        `;
-      }
-
-      const summaryWrapper = document.createElement('div');
-      summaryWrapper.className = "card-wrapper";
-      summaryWrapper.innerHTML = `
-        <div id="card-target-summary" class="receipt-box target-card">
-          <div class="receipt-header">
-            <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">【全体合算】注文集計まとめ</h3>
-            <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
-          </div>
-          <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
-            <strong>対象会員一覧:</strong><br>
-            ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
-          </div>
-          <table class="product-table" style="margin-bottom: 15px;">
-            <thead>
-              <tr>
-                <th>商品名（全体合計）</th>
-                <th style="width: 45px; text-align: center;">総数量</th>
-                <th style="width: 75px; text-align: right;">総合計(税込)</th>
-                <th style="width: 60px; text-align: right;">総ポイント</th>
-              </tr>
-            </thead>
-            <tbody>${summaryRows}</tbody>
-          </table>
-          <div style="border-top: 2px solid var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
-              <span>全合算 総数量:</span>
-              <span>${grandTotalQty} 点</span>
-            </div>
-            ${summaryTotalBlock}
-            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-              <span>全合算 総獲得ポイント:</span>
-              <span style="color: var(--wood-medium);">${totalAllPt.toLocaleString()}pt</span>
-            </div>
-          </div>
-        </div>
-        <button type="button" class="btn-card-download" style="background-color: var(--wood-dark); color: var(--gold-light);" onclick="downloadSingleCard('card-target-summary')">
-          📊 「全体まとめ」を画像保存
-        </button>
-      `;
-      wrapper.appendChild(summaryWrapper);
 
       document.getElementById('formSection').style.display = "none";
       document.querySelector('.footer-bar').style.display = "none";
