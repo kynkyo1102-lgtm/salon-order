@@ -3,363 +3,974 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>プラッス ドゥ ニナ 南熊本店</title>
+  <title>南熊本サロン専用商品購入注文書</title>
+  
+  <!-- フォント・ライブラリ群 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <!-- 先ほど調整した外部CSSを読み込み -->
-  <link rel="stylesheet" href="style.css?v=3">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+
+  <!-- デフォルトマスタデータの読み込み -->
+  <script src="default-master.js"></script>
+
+  <!-- 外部スタイルシートの読み込み -->
+  <link rel="stylesheet" href="style.css">
 
   <style>
-    /* ==========================================
-       1. お知らせエリア（ページ固有のアコーディオン表示）
-    ========================================== */
-    #newsContainerArea {
-      margin-bottom: 20px;
-    }
-
-    .news-accordion {
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .news-summary {
-      padding: 10px 14px;
-      font-weight: bold;
-      font-size: 0.82rem;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-      background-color: #f7f3ed;
-      transition: background-color 0.2s;
-    }
-
-    .news-summary:hover {
-      background-color: #f0e8de;
-    }
-
-    .news-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .news-toggle-icon {
-      font-size: 0.75rem;
-      color: var(--accent-gold);
-      transition: transform 0.2s ease;
-    }
-
-    .news-accordion[open] .news-toggle-icon {
-      transform: rotate(90deg);
-    }
-
-    .news-content-body {
-      padding: 12px 14px;
-      border-top: 1px dashed var(--border-color);
-      font-size: 0.82rem;
-    }
-
-    /* ==========================================
-       2. 使い方ガイド（折りたたみ）
-    ========================================== */
-    .usage-guide-accordion {
-      background-color: #fbf9f5;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-      overflow: hidden;
-    }
-
-    .usage-guide-summary {
-      padding: 10px 12px;
-      font-weight: bold;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-    }
-
-    .usage-guide-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .usage-guide-content {
-      padding: 10px 12px 12px 12px;
-      border-top: 1px dashed var(--border-color);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    /* ==========================================
-       3. メイン注文ツール（フィーチャーカード）
-    ========================================== */
-    .hero-order-section {
-      margin-bottom: 24px;
-    }
-
-    .menu-card.featured-card {
-      width: 100%;
-      box-sizing: border-box;
-      background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
-      border: 1.5px solid var(--border-color);
-      border-left: 5px solid var(--accent-gold);
-      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-
-    .menu-card.featured-card .card-icon {
-      background-color: #ffffff;
-      border: 1px solid var(--border-color);
-      color: var(--accent-gold);
-    }
-
-    .menu-card.featured-card .card-title {
-      font-size: 1.05rem;
-      color: var(--wood-dark);
-    }
-
-    .menu-card.featured-card .card-desc {
-      font-size: 0.8rem;
-      margin-top: 3px;
-    }
-
-    .menu-card.featured-card:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
-      border-color: var(--accent-gold);
-      box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
-    }
-
-    /* 注文計算アシスタント */
-    .calc-sub-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #f4eee6;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent-gold);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      text-decoration: none;
-      color: var(--text-main);
-      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .calc-sub-card:hover {
-      background-color: #ebdcd0;
-      border-color: var(--accent-gold);
-    }
-
-    .calc-sub-content {
-      display: flex;
-      align-items: center;
+    /* 出力カード内のレイアウトスタイル調整 */
+    .receipt-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
     }
-
-    .calc-sub-icon {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-
-    .calc-sub-title {
-      font-size: 0.88rem;
-      font-weight: bold;
-      color: var(--wood-dark);
-    }
-
-    .calc-sub-desc {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin-top: 1px;
-    }
-
-    .calc-sub-arrow {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      font-weight: bold;
+    .receipt-info-block {
+      background-color: #FAF8F5;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color, #E8E2D5);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>プラッス ドゥ ニナ 南熊本店</h1>
+    <a href="https://kynkyo1102-lgtm.github.io/salon-order/" class="header-logo">Place de Nina</a>
+    <h1>南熊本サロン専用商品購入注文書</h1>
+    <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="header-guide-link">
+      📖 詳しい操作手順・使い方を見る
+    </a>
   </header>
 
   <main>
+    <!-- 入力フォーム画面 -->
+    <div id="formSection">
+      <form id="orderForm" class="h-adr">
+        <span class="p-country-name" style="display:none;">Japan</span>
+        
+        <!-- 会員番号 事前登録エリア（折りたたみ） -->
+        <details class="card-box" style="margin-bottom: 16px; background-color: #fcfaf5; border-color: var(--accent-gold);">
+          <summary style="font-size: 0.82rem; font-weight: normal; color: var(--wood-dark); cursor: pointer; padding: 4px 0;">
+            ⚙️ 会員番号の事前登録・保存（複数人登録対応）
+          </summary>
+          <div style="margin-top: 8px; font-size: 0.78rem; color: var(--text-sub);">
+            よく使う「会員番号」と「氏名」をあらかじめ登録しておくと、下の選択項目からワンタップで呼び出せます。
+          </div>
+          
+          <div class="form-group" style="margin-top: 10px;">
+            <label>登録する会員番号</label>
+            <div class="flex-row">
+              <input type="text" id="regMemberIdMain" placeholder="例: 12345" style="flex: 1;">
+              <span>-</span>
+              <select id="regMemberIdSub" style="width: 85px;"></select>
+            </div>
+          </div>
 
-    <!-- お知らせセクション（JavaScriptで自動挿入） -->
-    <div id="newsContainerArea"></div>
+          <div class="form-group">
+            <label for="regFullName">登録する氏名</label>
+            <input type="text" id="regFullName" placeholder="例: 山田 太郎">
+          </div>
 
-    <!-- メイン：注文ツールセクション -->
-    <div class="hero-order-section">
-      <div class="section-title">LINEご注文作成ツール</div>
-      
-      <!-- どちらのツールを使えばいい？（折りたたみ） -->
-      <details class="usage-guide-accordion">
-        <summary class="usage-guide-summary">
-          <span>💡 どちらのツールを使えばいい？</span>
-          <span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
-        </summary>
-        <div class="usage-guide-content">
-          ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
-          ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
-          <span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
-        </div>
-      </details>
+          <button type="button" onclick="savePreMemberInfo()" class="btn-action" style="background-color: var(--wood-dark); color: #fff; margin-top: 8px;">
+            💾 この会員情報を保存する
+          </button>
 
-      <!-- メイン注文ツール 1 -->
-      <a href="single.html" class="menu-card featured-card">
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">LINEノート コピペ用</div>
-          <p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
-        </div>
-      </a>
+          <!-- 登録済み一覧の表示エリア -->
+          <div id="registeredMembersList" style="margin-top: 12px; font-size: 0.8rem;"></div>
+        </details>
 
-      <!-- メイン注文ツール 2 -->
-      <a href="bulk.html" class="menu-card featured-card">
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">注文書作成 画像保存用</div>
-          <p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
-        </div>
-      </a>
+        <!-- 基本情報エリア -->
+        <div class="section-title">👤 ご注文者様基本情報</div>
+        <div class="card-box">
+          <div class="form-group">
+            <label for="presetMemberSelect">保存済み会員から選択</label>
+            <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
+              <option value="">-- 登録リストから選択 --</option>
+            </select>
+          </div>
 
-      <!-- 注文計算アシスタント -->
-      <a href="calc.html" class="calc-sub-card">
-        <div class="calc-sub-content">
-          <div class="calc-sub-icon">📊</div>
-          <div>
-            <div class="calc-sub-title">注文計算アシスタント</div>
-            <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
+          <div class="form-group">
+            <label for="month">発注月度 *</label>
+            <select id="month" name="month" required>
+              <option value="">選択してください</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>購入会員番号 *</label>
+            <div class="flex-row">
+              <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
+              <span>-</span>
+              <select id="memberIdSub" style="width: 85px;"></select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullName">氏名 *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="例: 山田 太郎" required>
           </div>
         </div>
-        <div class="calc-sub-arrow">▶</div>
-      </a>
+
+        <!-- お支払い方法エリア -->
+        <div class="section-title">💳 お支払い方法</div>
+        <div class="card-box">
+          <div class="form-group">
+            <label for="paymentMethod">お支払い方法を選択 *</label>
+            <select id="paymentMethod" required onchange="togglePaymentFields()">
+              <option value="現金">現金</option>
+              <option value="ニナファームカード">ニナファームカード</option>
+              <option value="クレジットカード">クレジットカード</option>
+              <option value="PayPay">PayPay</option>
+            </select>
+          </div>
+
+          <!-- 領収書の宛名（※必要な場合のみ） -->
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="receiptName">領収書の宛名 <span style="font-weight: normal; font-size: 0.72rem; color: var(--text-sub);">(※必要な場合のみ)</span></label>
+            <input type="text" id="receiptName" placeholder="例: 株式会社〇〇、〇〇様">
+          </div>
+
+          <div id="paymentExtraFields" style="display: none; background-color: #fcfaf5; padding: 12px; border-radius: 8px; border: 1px solid var(--accent-gold); margin-top: 10px;">
+            <div id="eservicePwGroup" class="form-group">
+              <label for="eservicePw">E-Service PW</label>
+              <input type="password" id="eservicePw" placeholder="パスワードを入力">
+            </div>
+
+            <div id="ninaPointGroup" class="form-group" style="display: none;">
+              <label for="ninaPoint">ニナポイント利用（※利用する場合のみ）</label>
+              <input type="number" id="ninaPoint" placeholder="例: 1000" min="0" oninput="updateCalc()">
+              <small style="color: var(--text-sub); font-size: 0.72rem;">※1pt ＝ 1円としてお値引きされます</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- お届け先エリア -->
+        <div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
+        <div class="card-box">
+          <div class="form-group">
+            <label for="shipName">お届け先お名前</label>
+            <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）">
+          </div>
+
+          <div class="form-group">
+            <label for="zip">郵便番号（ハイフンなし7桁）</label>
+            <input type="text" id="zip" class="p-postal-code" maxlength="7" placeholder="例: 8600000">
+          </div>
+
+          <div class="form-group">
+            <label for="address">住所</label>
+            <input type="text" id="address" class="p-region p-locality p-street-address p-extended-address" placeholder="自動入力されます">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">電話番号</label>
+            <input type="tel" id="phone" placeholder="例: 09012345678">
+          </div>
+
+          <div style="text-align: right; margin-top: 8px;">
+            <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: var(--text-sub); text-decoration: underline; font-size: 0.72rem; cursor: pointer;">
+              端末に保存された住所等を削除
+            </button>
+          </div>
+        </div>
+
+        <!-- 商品一覧テーブル -->
+        <div class="section-title">🛍️ 注文商品選択</div>
+        <div style="margin-bottom: 6px; font-size: 0.78rem; color: var(--text-sub);">ご希望商品の数量を選択してください</div>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th style="width: 65px;">価格(税込)</th>
+              <th style="width: 55px;">獲得Pt</th>
+              <th class="qty-col">数量</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody"></tbody>
+        </table>
+
+        <!-- 追加済み注文リスト（確認用） -->
+        <div id="orderListContainer" class="card-box" style="margin-top: 20px; display: none; border-color: var(--accent-gold); background-color: #fcfaf5;">
+          <div style="font-weight: bold; font-size: 0.88rem; color: var(--wood-dark); border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 8px;">
+            📋 追加済みの注文（<span id="orderCount">0</span>件）
+          </div>
+          <div id="addedOrdersList" style="font-size: 0.8rem; margin-bottom: 12px;"></div>
+          <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf">
+            🏁 注文書の一括作成画面へ
+          </button>
+        </div>
+
+        <!-- 下部固定フッター -->
+        <div class="footer-bar">
+          <div class="footer-content">
+            <div class="footer-totals">
+              <div>お支払額: <span id="displayPrice" style="font-size: 1.05rem; color: #c94b4b; font-weight:bold;">¥0</span></div>
+              <div style="font-size: 0.72rem; color: var(--text-sub);">
+                (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" style="color: var(--wood-medium); font-weight: bold;">0pt</span>)
+              </div>
+            </div>
+            <button type="button" onclick="addOrderToList()" class="btn-add">
+              ＋ この注文を追加
+            </button>
+          </div>
+        </div>
+
+      </form>
     </div>
 
-    <!-- 店舗情報・SNSリンク -->
-    <div class="sub-info-area">
-      <div class="sub-info-title">INFORMATION & SNS</div>
+    <!-- 完成画面 -->
+    <div id="completeSection" style="display: none;">
       
-      <div class="sub-grid">
-        <a href="https://line.me/ti/p/7iG8fg4ykI" target="_blank" rel="noopener noreferrer" class="sub-btn">
-          <svg class="icon-line" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"/></svg>
-          <span>公式LINE</span>
-        </a>
-        
-        <a href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" target="_blank" rel="noopener noreferrer" class="sub-btn">
-          <svg class="icon-insta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          <span>Instagram</span>
-        </a>
-
-        <a href="info.html" class="sub-btn">
-          <span>📍</span> 店舗案内
-        </a>
-        
-        <a href="bank.html" class="sub-btn">
-          <span>💳</span> お支払いについて
-        </a>
-
-        <a href="faq.html" class="sub-btn">
-          <span>❓</span> よくある質問
-        </a>
+      <div class="guide-box">
+        📱 各カード下のボタンをタップすると、注文書を画像として保存できます。
       </div>
-    </div>
 
+      <!-- 注文書カードが動的に生成されるコンテナ -->
+      <div id="receiptsWrapper"></div>
+
+      <!-- 下部ボタンエリア -->
+      <div style="margin-top: 15px;">
+        <button onclick="downloadAllPDF()" class="btn-action btn-pdf">📄 全枚数をまとめて1つのPDFで保存</button>
+        <button onclick="location.reload()" class="btn-action btn-reload">🔄 最初の入力に戻る</button>
+      </div>
+
+    </div>
   </main>
 
-  <footer>
-    <div style="margin-bottom: 8px;">
-      <a href="privacy.html" style="color: var(--text-sub); text-decoration: underline; font-size: 0.7rem;">プライバシーポリシー</a>
-    </div>
-    &copy; PLACE DE NINA MINAMIKUMAMOTO
-  </footer>
-
   <script>
-    async function loadNews() {
+    // default-master.js で読み込んだ DEFAULT_MASTER を初期値としてセット
+    let currentMaster = DEFAULT_MASTER;
+
+    let allOrders = [];
+    let currentSubtotal = 0;
+    let currentGrandTotal = 0;
+    let currentGrandPt = 0;
+    let currentItemsData = [];
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      initMemberSubSelect();
+      initRegMemberSubSelect();
+      renderPresetMemberList();
+
+      // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
       try {
-        const res = await fetch('./month_config.json?v=' + Date.now());
-        const data = await res.json();
-        
-        const container = document.getElementById('newsContainerArea');
-        if (!container) return;
-
-        let items = [];
-        if (Array.isArray(data.newsList) && data.newsList.length > 0) {
-          items = data.newsList;
-        } else if (data.newsDate || data.newsText) {
-          items = [{ date: data.newsDate || '', text: data.newsText || '' }];
-        }
-
-        if (items.length > 0) {
-          const latest = items[0];
-          // 最新お知らせ（style.cssの.news-boxを適用）
-          let html = `
-            <div class="news-box">
-              <span class="news-date">${latest.date}</span>
-              <p class="news-text">${latest.text}</p>
-            </div>
-          `;
-
-          // 過去のお知らせ（アコーディオン内）
-          if (items.length > 1) {
-            const pastItemsHtml = items.slice(1).map(item => `
-              <div class="news-box" style="margin-bottom: 10px;">
-                <span class="news-date">${item.date}</span>
-                <p class="news-text">${item.text}</p>
-              </div>
-            `).join('');
-
-            html += `
-              <details class="news-accordion">
-                <summary class="news-summary">
-                  <span>📢 過去のお知らせ一覧</span>
-                  <span class="news-toggle-icon">▶</span>
-                </summary>
-                <div class="news-content-body">
-                  ${pastItemsHtml}
-                </div>
-              </details>
-            `;
-          }
-
-          container.innerHTML = html;
-        } else {
-          container.innerHTML = '';
+        const response = await fetch('./month_config.json?cache=' + new Date().getTime());
+        if (response.ok) {
+          const remoteConfig = await response.json();
+          currentMaster = remoteConfig;
+          localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
         }
       } catch (e) {
-        console.error("お知らせの読み込みに失敗しました", e);
+        // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
+        const savedConfig = localStorage.getItem('salonOrderMasterConfig');
+        if (savedConfig) {
+          try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
+        }
+      }
+
+      renderUIFromMaster();
+
+      // ユーザー情報復元
+      const savedUser = localStorage.getItem('salonOrderUserInfo');
+      if (savedUser) {
+        try {
+          const user = JSON.parse(savedUser);
+          if (user.month && currentMaster.activeMonths.includes(user.month)) {
+            document.getElementById('month').value = user.month;
+          }
+          if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
+          if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
+          if (user.fullName) document.getElementById('fullName').value = user.fullName;
+          if (user.paymentMethod) {
+            document.getElementById('paymentMethod').value = user.paymentMethod;
+            togglePaymentFields();
+          }
+          if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
+          if (user.shipName) document.getElementById('shipName').value = user.shipName;
+          if (user.zip) document.getElementById('zip').value = user.zip;
+          if (user.address) document.getElementById('address').value = user.address;
+          if (user.phone) document.getElementById('phone').value = user.phone;
+          updateCalc();
+        } catch (e) {}
+      }
+    });
+
+    function initMemberSubSelect() {
+      const memberIdSub = document.getElementById('memberIdSub');
+      if (!memberIdSub) return;
+      memberIdSub.innerHTML = '';
+      for (let i = 0; i <= 20; i++) {
+        const opt = document.createElement('option');
+        const val = String(i).padStart(2, '0');
+        opt.value = val;
+        opt.textContent = val;
+        memberIdSub.appendChild(opt);
       }
     }
 
-    window.addEventListener('DOMContentLoaded', loadNews);
-  </script>
+    // 事前登録用のサフィックス初期化
+    function initRegMemberSubSelect() {
+      const regSub = document.getElementById('regMemberIdSub');
+      if (!regSub) return;
+      regSub.innerHTML = '';
+      for (let i = 0; i <= 20; i++) {
+        const opt = document.createElement('option');
+        const val = String(i).padStart(2, '0');
+        opt.value = val;
+        opt.textContent = val;
+        regSub.appendChild(opt);
+      }
+    }
 
+    // 会員情報の保存
+    function savePreMemberInfo() {
+      const mainId = document.getElementById('regMemberIdMain').value.trim();
+      const subId = document.getElementById('regMemberIdSub').value;
+      const name = document.getElementById('regFullName').value.trim();
+
+      if (!mainId || !name) {
+        alert("会員番号と氏名の両方を入力してください。");
+        return;
+      }
+
+      const fullId = `${mainId}-${subId}`;
+      let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      
+      const existIdx = list.findIndex(m => m.id === fullId);
+      if (existIdx >= 0) {
+        list[existIdx].name = name;
+      } else {
+        list.push({ id: fullId, mainId, subId, name });
+      }
+
+      localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
+      alert(`「${name} (${fullId})」様を登録しました。`);
+
+      document.getElementById('regMemberIdMain').value = '';
+      document.getElementById('regFullName').value = '';
+      renderPresetMemberList();
+    }
+
+    // 登録済みリストの描画 ＆ プルダウン更新
+    function renderPresetMemberList() {
+      const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      
+      const listContainer = document.getElementById('registeredMembersList');
+      if (listContainer) {
+        if (list.length === 0) {
+          listContainer.innerHTML = '<div style="color:var(--text-sub);">※登録されている会員情報はありません。</div>';
+        } else {
+          let html = '<div style="font-weight:bold; margin-bottom:4px;">【登録済み会員一覧】</div>';
+          list.forEach((m, idx) => {
+            html += `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding: 4px 0; border-bottom: 1px dashed var(--border-color);">
+                <span><strong>${m.name}</strong> (${m.id})</span>
+                <button type="button" onclick="deletePresetMember(${idx})" style="color:#c94b4b; border:none; background:none; cursor:pointer; font-size:0.75rem;">削除</button>
+              </div>
+            `;
+          });
+          listContainer.innerHTML = html;
+        }
+      }
+
+      const select = document.getElementById('presetMemberSelect');
+      if (select) {
+        select.innerHTML = '<option value="">-- 登録リストから選択 --</option>';
+        list.forEach((m, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = `${m.name} (${m.id})`;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    // 登録情報の削除
+    function deletePresetMember(index) {
+      let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      list.splice(index, 1);
+      localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
+      renderPresetMemberList();
+    }
+
+    // フォームへの自動入力反映
+    function applyPresetMember(index) {
+      if (index === "") return;
+      const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      const target = list[index];
+      if (target) {
+        document.getElementById('memberIdMain').value = target.mainId;
+        document.getElementById('memberIdSub').value = target.subId;
+        document.getElementById('fullName').value = target.name;
+      }
+    }
+
+    function renderUIFromMaster() {
+      // 月度プルダウン描画
+      const monthSelect = document.getElementById('month');
+      const currentVal = monthSelect.value;
+      monthSelect.innerHTML = '<option value="">選択してください</option>';
+      currentMaster.activeMonths.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m;
+        monthSelect.appendChild(opt);
+      });
+      if (currentMaster.activeMonths.includes(currentVal)) {
+        monthSelect.value = currentVal;
+      } else if (currentMaster.activeMonths.length > 0) {
+        monthSelect.value = currentMaster.activeMonths[0];
+      }
+
+      // 商品テーブル描画
+      const tbody = document.getElementById('productTableBody');
+      tbody.innerHTML = '';
+
+      currentMaster.products.forEach((prod, index) => {
+        const tr = document.createElement('tr');
+        let qtyOptions = '<option value="0">0</option>';
+        for (let i = 1; i <= 20; i++) {
+          qtyOptions += `<option value="${i}">${i}</option>`;
+        }
+
+        tr.innerHTML = `
+          <td><strong>${prod.name}</strong></td>
+          <td style="color: var(--text-sub); text-align: right;">¥${prod.price.toLocaleString()}</td>
+          <td class="pt-col" id="pt-cell-${index}">-</td>
+          <td class="qty-col">
+            <select class="qty-select" data-index="${index}">
+              ${qtyOptions}
+            </select>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
+      document.getElementById('month').addEventListener('change', updateCalc);
+
+      updateCalc();
+    }
+
+    function togglePaymentFields() {
+      const method = document.getElementById('paymentMethod').value;
+      const extraContainer = document.getElementById('paymentExtraFields');
+      const pwGroup = document.getElementById('eservicePwGroup');
+      const ptGroup = document.getElementById('ninaPointGroup');
+
+      if (method === 'ニナファームカード') {
+        extraContainer.style.display = 'block';
+        pwGroup.style.display = 'block';
+        ptGroup.style.display = 'block';
+      } else if (method === 'クレジットカード') {
+        extraContainer.style.display = 'block';
+        pwGroup.style.display = 'block';
+        ptGroup.style.display = 'none';
+        document.getElementById('ninaPoint').value = '';
+      } else {
+        extraContainer.style.display = 'none';
+        pwGroup.style.display = 'none';
+        ptGroup.style.display = 'none';
+        document.getElementById('eservicePw').value = '';
+        document.getElementById('ninaPoint').value = '';
+      }
+      updateCalc();
+    }
+
+    function updateCalc() {
+      const month = document.getElementById('month').value;
+      const selects = document.querySelectorAll('.qty-select');
+      
+      currentSubtotal = 0;
+      currentGrandPt = 0;
+      currentItemsData = [];
+
+      currentMaster.products.forEach((prod, index) => {
+        const cell = document.getElementById(`pt-cell-${index}`);
+        if (cell) {
+          if (month && prod.pts && prod.pts[month] !== undefined) {
+            cell.textContent = prod.pts[month].toLocaleString() + "pt";
+          } else {
+            cell.textContent = "-";
+          }
+        }
+      });
+
+      selects.forEach(sel => {
+        const qty = parseInt(sel.value) || 0;
+        if (qty > 0) {
+          const index = sel.getAttribute('data-index');
+          const prod = currentMaster.products[index];
+          const itemPrice = prod.price * qty;
+          let itemPt = (month && prod.pts && prod.pts[month]) ? prod.pts[month] * qty : 0;
+
+          currentSubtotal += itemPrice;
+          currentGrandPt += itemPt;
+
+          currentItemsData.push({
+            product: prod.name,
+            quantity: qty,
+            price: itemPrice,
+            pt: itemPt
+          });
+        }
+      });
+
+      const method = document.getElementById('paymentMethod').value;
+      let usedPt = 0;
+      if (method === 'ニナファームカード') {
+        usedPt = parseInt(document.getElementById('ninaPoint').value) || 0;
+      }
+
+      currentGrandTotal = Math.max(0, currentSubtotal - usedPt);
+
+      document.getElementById('displaySubtotal').textContent = "¥" + currentSubtotal.toLocaleString();
+      document.getElementById('displayPrice').textContent = "¥" + currentGrandTotal.toLocaleString();
+      document.getElementById('displayPt').textContent = currentGrandPt.toLocaleString() + "pt";
+    }
+
+    function addOrderToList() {
+      if (currentItemsData.length === 0) {
+        alert("数量が選択されている商品がありません。1点以上選択してください。");
+        return;
+      }
+
+      const month = document.getElementById('month').value;
+      const memberIdMain = document.getElementById('memberIdMain').value.trim();
+      const memberIdSub = document.getElementById('memberIdSub').value;
+      const fullName = document.getElementById('fullName').value.trim();
+
+      if (!month || !memberIdMain || !fullName) {
+        alert("発注月度、会員番号、氏名は必須項目です。");
+        return;
+      }
+
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      const receiptName = document.getElementById('receiptName').value.trim();
+      const eservicePw = document.getElementById('eservicePw').value.trim();
+      const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
+
+      const shipName = document.getElementById('shipName').value.trim();
+      const zip = document.getElementById('zip').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      localStorage.setItem('salonOrderUserInfo', JSON.stringify({
+        month, memberIdMain, memberIdSub, fullName, paymentMethod, receiptName, shipName, zip, address, phone
+      }));
+
+      const today = new Date();
+      const yy = String(today.getFullYear()).slice(-2);
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const generatedOrderId = `${yy}${mm}${dd}-${randomStr}`;
+
+      allOrders.push({
+        orderId: generatedOrderId,
+        month,
+        memberId: memberIdMain + "-" + memberIdSub,
+        fullName,
+        paymentMethod,
+        receiptName,
+        eservicePw: (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? eservicePw : '',
+        ninaPoint: paymentMethod === 'ニナファームカード' ? ninaPoint : 0,
+        shipName, zip, address, phone,
+        items: [...currentItemsData],
+        subtotalPrice: currentSubtotal,
+        totalPrice: currentGrandTotal,
+        totalPt: currentGrandPt
+      });
+
+      document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
+      document.getElementById('memberIdMain').value = "";
+      document.getElementById('fullName').value = "";
+      document.getElementById('receiptName').value = "";
+      document.getElementById('eservicePw').value = "";
+      document.getElementById('ninaPoint').value = "";
+      document.getElementById('presetMemberSelect').value = "";
+      updateCalc();
+
+      renderOrderList();
+      alert(`「${fullName}」様の注文を追加しました！（現在 ${allOrders.length} 件）`);
+    }
+
+    function renderOrderList() {
+      const container = document.getElementById('orderListContainer');
+      const listDiv = document.getElementById('addedOrdersList');
+      
+      if (allOrders.length === 0) {
+        container.style.display = "none";
+        return;
+      }
+
+      container.style.display = "block";
+      document.getElementById('orderCount').textContent = allOrders.length;
+
+      let html = "";
+      allOrders.forEach((ord, i) => {
+        let ptNote = ord.ninaPoint > 0 ? ` (ポイント利用 -¥${ord.ninaPoint.toLocaleString()})` : '';
+        let receiptNote = ord.receiptName ? ` / 領収書: ${ord.receiptName}` : '';
+        html += `
+          <div style="border-bottom: 1px dashed var(--border-color); padding: 8px 0; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:var(--text-sub);">[ID: ${ord.orderId}]</small> - <span style="color:var(--wood-medium); font-weight:bold;">${ord.paymentMethod}</span>${receiptNote}<br>
+              <small style="color: var(--text-sub);">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
+            </div>
+            <button type="button" onclick="removeOrder(${i})" style="color: #c94b4b; border: none; background: none; cursor: pointer; font-size: 0.75rem; font-weight: bold;">削除</button>
+          </div>
+        `;
+      });
+      listDiv.innerHTML = html;
+    }
+
+    function removeOrder(index) {
+      allOrders.splice(index, 1);
+      renderOrderList();
+    }
+
+    function generateAllReceipts() {
+      if (allOrders.length === 0) return;
+
+      const wrapper = document.getElementById('receiptsWrapper');
+      wrapper.innerHTML = "";
+
+      const now = new Date();
+      const dateStr = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
+
+      allOrders.forEach((ord, index) => {
+        const orderId = ord.orderId;
+        
+        let totalQty = 0;
+        let itemRows = "";
+        ord.items.forEach(item => {
+          totalQty += item.quantity;
+          itemRows += `
+            <tr>
+              <td><strong>${item.product}</strong></td>
+              <td style="text-align: center;">${item.quantity}</td>
+              <td style="text-align: right;">¥${item.price.toLocaleString()}</td>
+              <td style="text-align: right; color: var(--wood-medium);">${item.pt ? item.pt.toLocaleString() + 'pt' : '-'}</td>
+            </tr>
+          `;
+        });
+
+        let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
+        if (ord.receiptName) {
+          paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
+        }
+        if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
+          if (ord.eservicePw) {
+            paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
+          }
+        }
+        if (ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) {
+          paymentInfoBlock += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
+        }
+
+        let addressBlock = "";
+        if (ord.shipName || ord.address || ord.zip || ord.phone) {
+          addressBlock = `
+            <div class="receipt-info-block">
+              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
+              <div>${ord.shipName ? "お名前: " + ord.shipName : "お名前: " + ord.fullName}</div>
+              <div>${ord.zip ? "〒" + ord.zip : ""}</div>
+              <div>${ord.address ? "住所: " + ord.address : ""}</div>
+              <div>${ord.phone ? "TEL: " + ord.phone : ""}</div>
+            </div>
+          `;
+        }
+
+        let totalBlock = "";
+        if (ord.ninaPoint > 0) {
+          totalBlock = `
+            <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
+              <span>小計金額:</span>
+              <span>¥${ord.subtotalPrice.toLocaleString()}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
+              <span>ニナポイント値引き:</span>
+              <span>-¥${ord.ninaPoint.toLocaleString()}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+              <span>お支払い合計金額:</span>
+              <span style="color: #c94b4b; font-size: 1rem;">¥${ord.totalPrice.toLocaleString()}</span>
+            </div>
+          `;
+        } else {
+          totalBlock = `
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+              <span>合計金額:</span>
+              <span style="color: #c94b4b;">¥${ord.totalPrice.toLocaleString()}</span>
+            </div>
+          `;
+        }
+
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = "card-wrapper";
+        cardWrapper.innerHTML = `
+          <div id="card-target-${index}" class="receipt-box target-card">
+            <div class="receipt-header">
+              <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">南熊本サロン専用商品購入注文書</h3>
+              <div class="order-id-badge">発注ID: ${orderId}</div>
+              <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
+            </div>
+
+            <!-- 横並びレイアウトエリア -->
+            <div class="receipt-info-grid">
+              <div class="receipt-info-block">
+                <div>発注月度: <strong>${ord.month}</strong></div>
+                <div>購入会員番号: <strong>${ord.memberId}</strong></div>
+                <div>氏名: <strong>${ord.fullName}</strong></div>
+                ${paymentInfoBlock}
+              </div>
+              ${addressBlock}
+            </div>
+
+            <table class="product-table" style="margin-bottom: 15px;">
+              <thead>
+                <tr>
+                  <th>商品名</th>
+                  <th style="width: 35px; text-align: center;">数量</th>
+                  <th style="width: 70px; text-align: right;">小計(税込)</th>
+                  <th style="width: 55px; text-align: right;">ポイント</th>
+                </tr>
+              </thead>
+              <tbody>${itemRows}</tbody>
+            </table>
+            <div style="border-top: 2px dashed var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
+              <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
+                <span>合計数量:</span>
+                <span>${totalQty} 点</span>
+              </div>
+              ${totalBlock}
+              <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+                <span>獲得ポイント:</span>
+                <span style="color: var(--wood-medium);">${ord.totalPt.toLocaleString()}pt</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-${index}')">
+            📷 この注文書（${ord.fullName}様分）を画像保存
+          </button>
+        `;
+        wrapper.appendChild(cardWrapper);
+      });
+
+      const summaryItems = {};
+      let totalAllSubtotal = 0;
+      let totalAllNinaPoint = 0;
+      let totalAllPayPrice = 0;
+      let totalAllPt = 0;
+      let grandTotalQty = 0;
+
+      allOrders.forEach(ord => {
+        totalAllSubtotal += ord.subtotalPrice;
+        totalAllNinaPoint += ord.ninaPoint;
+        totalAllPayPrice += ord.totalPrice;
+        totalAllPt += ord.totalPt;
+
+        ord.items.forEach(item => {
+          grandTotalQty += item.quantity;
+          if (!summaryItems[item.product]) {
+            summaryItems[item.product] = { quantity: 0, price: 0, pt: 0 };
+          }
+          summaryItems[item.product].quantity += item.quantity;
+          summaryItems[item.product].price += item.price;
+          summaryItems[item.product].pt += (item.pt || 0);
+        });
+      });
+
+      let summaryRows = "";
+      for (let prod in summaryItems) {
+        summaryRows += `
+          <tr>
+            <td><strong>${prod}</strong></td>
+            <td style="text-align: center;">${summaryItems[prod].quantity}</td>
+            <td style="text-align: right;">¥${summaryItems[prod].price.toLocaleString()}</td>
+            <td style="text-align: right; color: var(--wood-medium);">${summaryItems[prod].pt ? summaryItems[prod].pt.toLocaleString() + 'pt' : '-'}</td>
+          </tr>
+        `;
+      }
+
+      let summaryTotalBlock = "";
+      if (totalAllNinaPoint > 0) {
+        summaryTotalBlock = `
+          <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
+            <span>全商品 定価総額:</span>
+            <span>¥${totalAllSubtotal.toLocaleString()}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
+            <span>ニナポイント利用総額:</span>
+            <span>-¥${totalAllNinaPoint.toLocaleString()}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+            <span>全合算 実際の支払総合計:</span>
+            <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
+          </div>
+        `;
+      } else {
+        summaryTotalBlock = `
+          <div style="display: flex; justify-content: space-between; font-weight: bold;">
+            <span>全合算 総合計金額:</span>
+            <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
+          </div>
+        `;
+      }
+
+      const summaryWrapper = document.createElement('div');
+      summaryWrapper.className = "card-wrapper";
+      summaryWrapper.innerHTML = `
+        <div id="card-target-summary" class="receipt-box target-card">
+          <div class="receipt-header">
+            <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">【全体合算】注文集計まとめ</h3>
+            <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
+          </div>
+          <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+            <strong>対象会員一覧:</strong><br>
+            ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
+          </div>
+          <table class="product-table" style="margin-bottom: 15px;">
+            <thead>
+              <tr>
+                <th>商品名（全体合計）</th>
+                <th style="width: 45px; text-align: center;">総数量</th>
+                <th style="width: 75px; text-align: right;">総合計(税込)</th>
+                <th style="width: 60px; text-align: right;">総ポイント</th>
+              </tr>
+            </thead>
+            <tbody>${summaryRows}</tbody>
+          </table>
+          <div style="border-top: 2px solid var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
+              <span>全合算 総数量:</span>
+              <span>${grandTotalQty} 点</span>
+            </div>
+            ${summaryTotalBlock}
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
+              <span>全合算 総獲得ポイント:</span>
+              <span style="color: var(--wood-medium);">${totalAllPt.toLocaleString()}pt</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn-card-download" style="background-color: var(--wood-dark); color: var(--gold-light);" onclick="downloadSingleCard('card-target-summary')">
+          📊 「全体まとめ」を画像保存
+        </button>
+      `;
+      wrapper.appendChild(summaryWrapper);
+
+      document.getElementById('formSection').style.display = "none";
+      document.querySelector('.footer-bar').style.display = "none";
+      document.getElementById('completeSection').style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+    async function downloadSingleCard(elementId) {
+      const targetElement = document.getElementById(elementId);
+      if (!targetElement) return;
+
+      const btn = (typeof event !== 'undefined' && event) ? event.currentTarget : null;
+      const originalText = btn ? btn.textContent : '';
+      if (btn) {
+        btn.textContent = "⌛ 画像を生成中...";
+        btn.disabled = true;
+      }
+
+      try {
+        const canvas = await html2canvas(targetElement, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
+
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+        const isLine = /Line/i.test(ua);
+        const isAndroid = /Android/i.test(ua);
+
+        if (isMobile) {
+          const modal = document.createElement('div');
+          modal.className = 'image-modal-overlay';
+          
+          let lineWarningText = "";
+          if (isAndroid && isLine) {
+            lineWarningText = `
+              <div class="android-warning-box">
+                ⚠️ <strong>LINEなどのアプリ内で開いている場合</strong><br>
+                長押し保存が動作しないことがあります。<br>
+                画面右上の「⋮」や「Share」から<strong>『他のブラウザで開く（Chrome等）』</strong>をお試しください。
+              </div>
+            `;
+          }
+
+          modal.innerHTML = `
+            <div class="image-modal-instruction">
+              📱 画像が生成されました！<br>
+              下の画像を<span style="color: var(--gold-light); font-size: 1.1em;">「長押し」</span>して<br>
+              【画像を保存】または【"写真"に追加】してください
+              ${lineWarningText}
+            </div>
+            <img src="${imgData}" class="image-modal-content" alt="注文書画像">
+            <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
+          `;
+          document.body.appendChild(modal);
+        } else {
+          const link = document.createElement('a');
+          link.href = imgData;
+          const now = new Date();
+          const timeStr = now.getFullYear() + String(now.getMonth()+1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + "_" + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+          link.download = `注文書_${timeStr}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } catch (e) {
+        alert("画像の生成に失敗しました: " + e.message);
+      } finally {
+        if (btn) {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }
+      }
+    }
+
+    async function downloadAllPDF() {
+      const cards = document.querySelectorAll('.target-card');
+      const { jsPDF } = window.jspdf;
+      let pdf = null;
+
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const canvas = await html2canvas(card, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
+
+        if (i === 0) {
+          pdf = new jsPDF('p', 'mm', 'a4');
+        } else {
+          pdf.addPage();
+        }
+
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth() - 20;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        
+        pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
+      }
+
+      if (pdf) {
+        pdf.save("注文書_まとめ一括.pdf");
+      }
+    }
+
+    function clearSavedInfo() {
+      if (confirm("端末に保存されている住所等の情報を削除しますか？")) {
+        localStorage.removeItem('salonOrderUserInfo');
+        alert("削除しました。");
+        location.reload();
+      }
+    }
+  </script>
 </body>
 </html>
