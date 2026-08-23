@@ -47,10 +47,10 @@
           
           <div class="form-group" style="margin-top: 10px;">
             <label style="font-size: 0.8rem;">登録する会員番号</label>
-            <div class="flex-row">
+            <div class="flex-row" style="align-items: center;">
               <input type="text" id="regMemberIdMain" placeholder="例: 12345" style="flex: 1;">
-              <span>-</span>
-              <select id="regMemberIdSub" style="width: 85px;"></select>
+              <span style="margin: 0 6px;">-</span>
+              <span style="font-weight: bold; color: var(--wood-dark); padding: 0 4px;">00</span>
             </div>
           </div>
 
@@ -231,7 +231,6 @@
   </main>
 
   <script>
-    // default-master.js で読み込んだ DEFAULT_MASTER を初期値としてセット
     let currentMaster = DEFAULT_MASTER;
 
     let allOrders = [];
@@ -242,10 +241,8 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       initMemberSubSelect();
-      initRegMemberSubSelect();
       renderPresetMemberList();
 
-      // ① サーバー上の最新 month_config.json を自動バックグラウンド取得
       try {
         const response = await fetch('./month_config.json?cache=' + new Date().getTime());
         if (response.ok) {
@@ -254,7 +251,6 @@
           localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
         }
       } catch (e) {
-        // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
         const savedConfig = localStorage.getItem('salonOrderMasterConfig');
         if (savedConfig) {
           try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
@@ -263,7 +259,6 @@
 
       renderUIFromMaster();
 
-      // ユーザー情報復元
       const savedUser = localStorage.getItem('salonOrderUserInfo');
       if (savedUser) {
         try {
@@ -301,24 +296,10 @@
       }
     }
 
-    // 事前登録用のサフィックス初期化
-    function initRegMemberSubSelect() {
-      const regSub = document.getElementById('regMemberIdSub');
-      if (!regSub) return;
-      regSub.innerHTML = '';
-      for (let i = 0; i <= 20; i++) {
-        const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0');
-        opt.value = val;
-        opt.textContent = val;
-        regSub.appendChild(opt);
-      }
-    }
-
-    // 会員情報の保存
+    // 会員情報の保存（下2桁は "00" 固定）
     function savePreMemberInfo() {
       const mainId = document.getElementById('regMemberIdMain').value.trim();
-      const subId = document.getElementById('regMemberIdSub').value;
+      const subId = "00";
       const name = document.getElementById('regFullName').value.trim();
 
       if (!mainId || !name) {
@@ -344,7 +325,6 @@
       renderPresetMemberList();
     }
 
-    // 登録済みリストの描画 ＆ プルダウン更新
     function renderPresetMemberList() {
       const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
       
@@ -378,7 +358,6 @@
       }
     }
 
-    // 登録情報の削除
     function deletePresetMember(index) {
       let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
       list.splice(index, 1);
@@ -386,7 +365,6 @@
       renderPresetMemberList();
     }
 
-    // フォームへの自動入力反映
     function applyPresetMember(index) {
       if (index === "") return;
       const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
@@ -399,7 +377,6 @@
     }
 
     function renderUIFromMaster() {
-      // 月度プルダウン描画
       const monthSelect = document.getElementById('month');
       const currentVal = monthSelect.value;
       monthSelect.innerHTML = '<option value="">選択してください</option>';
@@ -415,7 +392,6 @@
         monthSelect.value = currentMaster.activeMonths[0];
       }
 
-      // 商品テーブル描画
       const tbody = document.getElementById('productTableBody');
       tbody.innerHTML = '';
 
@@ -622,6 +598,7 @@
       renderOrderList();
     }
 
+    // 生成画像のレイアウトを2列ベース＆カードデザインに最適化
     function generateAllReceipts() {
       if (allOrders.length === 0) return;
 
@@ -648,28 +625,28 @@
           `;
         });
 
-        let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
+        let paymentExtra = "";
         if (ord.receiptName) {
-          paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
+          paymentExtra += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
         }
-        if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
-          if (ord.eservicePw) {
-            paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
-          }
+        if ((ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') && ord.eservicePw) {
+          paymentExtra += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
         }
         if (ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) {
-          paymentInfoBlock += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
+          paymentExtra += `<div>Pt利用: <strong>${ord.ninaPoint.toLocaleString()} pt</strong></div>`;
         }
 
         let addressBlock = "";
         if (ord.shipName || ord.address || ord.zip || ord.phone) {
           addressBlock = `
-            <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
-              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
-              <div>${ord.shipName ? "お名前: " + ord.shipName : "お名前: " + ord.fullName}</div>
-              <div>${ord.zip ? "〒" + ord.zip : ""}</div>
-              <div>${ord.address ? "住所: " + ord.address : ""}</div>
-              <div>${ord.phone ? "TEL: " + ord.phone : ""}</div>
+            <div style="margin-top: 10px; padding: 10px 12px; background-color: #fcfaf5; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;">
+              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 4px; font-size: 0.82rem;">【お届け先情報】</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px 16px;">
+                <div>お名前: <strong>${ord.shipName ? ord.shipName : ord.fullName}</strong></div>
+                ${ord.zip ? `<div>〒${ord.zip}</div>` : ""}
+                ${ord.phone ? `<div>TEL: ${ord.phone}</div>` : ""}
+              </div>
+              ${ord.address ? `<div style="margin-top: 2px;">住所: ${ord.address}</div>` : ""}
             </div>
           `;
         }
@@ -708,14 +685,19 @@
               <div class="order-id-badge">発注ID: ${orderId}</div>
               <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
             </div>
-            <div class="receipt-info">
+            
+            <!-- 2列均等レイアウトに改善 -->
+            <div class="receipt-info" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin-bottom: 12px; font-size: 0.82rem;">
               <div>発注月度: <strong>${ord.month}</strong></div>
+              <div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>
               <div>購入会員番号: <strong>${ord.memberId}</strong></div>
               <div>氏名: <strong>${ord.fullName}</strong></div>
-              ${paymentInfoBlock}
-              ${addressBlock}
+              ${paymentExtra ? `<div style="grid-column: span 2;">${paymentExtra}</div>` : ""}
             </div>
-            <table class="product-table" style="margin-bottom: 15px;">
+
+            ${addressBlock}
+
+            <table class="product-table" style="margin-top: 12px; margin-bottom: 15px;">
               <thead>
                 <tr>
                   <th>商品名</th>
