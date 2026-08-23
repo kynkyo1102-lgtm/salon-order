@@ -162,7 +162,7 @@
 
           <div style="text-align: right; margin-top: 8px;">
             <button type="button" onclick="clearSavedInfo()" style="background: none; border: none; color: var(--text-sub); text-decoration: underline; font-size: 0.72rem; cursor: pointer;">
-              端末に保存された住所等を削除
+              端末に保存された情報を削除
             </button>
           </div>
         </div>
@@ -259,6 +259,7 @@
 
       renderUIFromMaster();
 
+      // ローカルストレージからの読み込み（PWも復元）
       const savedUser = localStorage.getItem('salonOrderUserInfo');
       if (savedUser) {
         try {
@@ -273,6 +274,7 @@
             document.getElementById('paymentMethod').value = user.paymentMethod;
             togglePaymentFields();
           }
+          if (user.eservicePw) document.getElementById('eservicePw').value = user.eservicePw;
           if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
           if (user.shipName) document.getElementById('shipName').value = user.shipName;
           if (user.zip) document.getElementById('zip').value = user.zip;
@@ -296,7 +298,6 @@
       }
     }
 
-    // 会員情報の保存（下2桁は "00" 固定）
     function savePreMemberInfo() {
       const mainId = document.getElementById('regMemberIdMain').value.trim();
       const subId = "00";
@@ -524,8 +525,9 @@
       const address = document.getElementById('address').value.trim();
       const phone = document.getElementById('phone').value.trim();
 
+      // ローカルストレージにPWも保存
       localStorage.setItem('salonOrderUserInfo', JSON.stringify({
-        month, memberIdMain, memberIdSub, fullName, paymentMethod, receiptName, shipName, zip, address, phone
+        month, memberIdMain, memberIdSub, fullName, paymentMethod, eservicePw, receiptName, shipName, zip, address, phone
       }));
 
       const today = new Date();
@@ -555,7 +557,6 @@
       document.getElementById('memberIdMain').value = "";
       document.getElementById('fullName').value = "";
       document.getElementById('receiptName').value = "";
-      document.getElementById('eservicePw').value = "";
       document.getElementById('ninaPoint').value = "";
       document.getElementById('presetMemberSelect').value = "";
       updateCalc();
@@ -598,7 +599,7 @@
       renderOrderList();
     }
 
-    // 生成画像のレイアウト（縦揃え＆可読性重視に刷新）
+    // 生成画像のレイアウト（初期設定のレイアウトそのまま）
     function generateAllReceipts() {
       if (allOrders.length === 0) return;
 
@@ -625,18 +626,13 @@
           `;
         });
 
-        // お届け先情報（視線が散らない縦ライン構成）
         let addressBlock = "";
         if (ord.shipName || ord.address || ord.zip || ord.phone) {
           addressBlock = `
-            <div style="margin-bottom: 12px; padding: 10px 12px; background-color: #fcfaf5; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.82rem;">
-              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 6px; font-size: 0.85rem;">【お届け先情報】</div>
-              <div style="line-height: 1.6;">
-                <div><strong>お名前：</strong> ${ord.shipName ? ord.shipName : ord.fullName} 様</div>
-                ${ord.zip ? `<div><strong>〒：</strong> ${ord.zip}</div>` : ""}
-                ${ord.address ? `<div><strong>住所：</strong> ${ord.address}</div>` : ""}
-                ${ord.phone ? `<div><strong>TEL：</strong> ${ord.phone}</div>` : ""}
-              </div>
+            <div class="address-block" style="margin-bottom: 12px; padding: 8px 10px; background-color: #fcfaf5; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.8rem;">
+              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 4px;">【お届け先情報】</div>
+              <div>お名前: ${ord.shipName ? ord.shipName : ord.fullName} 様 &nbsp;&nbsp; 〒${ord.zip} &nbsp;&nbsp; TEL: ${ord.phone}</div>
+              <div>住所: ${ord.address}</div>
             </div>
           `;
         }
@@ -675,45 +671,16 @@
               <div class="order-id-badge">発注ID: ${orderId}</div>
               <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
             </div>
-            
-            <!-- ご注文者基本情報（すっきり整理された表スタイル） -->
-            <div style="background-color: #faf8f5; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 0.85rem;">
-              <div style="display: flex; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 6px;">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">発注月度</span>
-                <span style="font-weight: bold; color: var(--wood-dark);">${ord.month}</span>
-              </div>
-              <div style="display: flex; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 6px;">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">購入会員番号</span>
-                <span style="font-weight: bold;">${ord.memberId}</span>
-              </div>
-              <div style="display: flex; border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 6px;">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">氏名</span>
-                <span style="font-weight: bold;">${ord.fullName} 様</span>
-              </div>
-              <div style="display: flex; ${ord.receiptName || ord.eservicePw || ord.ninaPoint > 0 ? 'border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 6px;' : ''}">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">お支払い方法</span>
-                <span style="font-weight: bold; color: var(--wood-medium);">${ord.paymentMethod}</span>
-              </div>
-              ${ord.receiptName ? `
-              <div style="display: flex; ${(ord.eservicePw || ord.ninaPoint > 0) ? 'border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 6px;' : ''}">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">領収書宛名</span>
-                <span>${ord.receiptName}</span>
-              </div>` : ''}
-              ${((ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') && ord.eservicePw) ? `
-              <div style="display: flex; ${ord.ninaPoint > 0 ? 'border-bottom: 1px dashed var(--border-color); padding-bottom: 6px; margin-bottom: 6px;' : ''}">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">E-Service PW</span>
-                <span>${ord.eservicePw}</span>
-              </div>` : ''}
-              ${(ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) ? `
-              <div style="display: flex;">
-                <span style="color: var(--text-sub); width: 110px; flex-shrink: 0;">ポイント利用</span>
-                <span style="color: #c94b4b; font-weight: bold;">${ord.ninaPoint.toLocaleString()} pt</span>
-              </div>` : ''}
+            <div class="receipt-info-grid">
+              <div>発注月度: <strong>${ord.month}</strong></div>
+              <div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>
+              <div>購入会員番号: <strong>${ord.memberId}</strong></div>
+              <div>氏名: <strong>${ord.fullName} 様</strong></div>
+              ${ord.receiptName ? `<div style="grid-column: span 2;">領収書宛名: <strong>${ord.receiptName}</strong></div>` : ''}
+              ${((ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') && ord.eservicePw) ? `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>` : ''}
+              ${(ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) ? `<div>Pt利用: <strong>${ord.ninaPoint.toLocaleString()} pt</strong></div>` : ''}
             </div>
-
             ${addressBlock}
-
-            <!-- 商品一覧テーブル -->
             <table class="product-table" style="margin-bottom: 15px;">
               <thead>
                 <tr>
@@ -725,8 +692,6 @@
               </thead>
               <tbody>${itemRows}</tbody>
             </table>
-
-            <!-- 合計金額エリア -->
             <div style="border-top: 2px dashed var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
               <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
                 <span>合計数量:</span>
@@ -949,7 +914,7 @@
     }
 
     function clearSavedInfo() {
-      if (confirm("端末に保存されている住所等の情報を削除しますか？")) {
+      if (confirm("端末に保存されている情報を削除しますか？")) {
         localStorage.removeItem('salonOrderUserInfo');
         alert("削除しました。");
         location.reload();
