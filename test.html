@@ -599,7 +599,6 @@
       renderOrderList();
     }
 
-    // 生成画像のレイアウト（初期設定のレイアウトそのまま）
     function generateAllReceipts() {
       if (allOrders.length === 0) return;
 
@@ -671,7 +670,8 @@
               <div class="order-id-badge">発注ID: ${orderId}</div>
               <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
             </div>
-            <div class="receipt-info-grid">
+            <!-- お届け先情報と同じ font-size: 0.8rem に統一 -->
+            <div class="receipt-info-grid" style="font-size: 0.8rem; margin-bottom: 12px; padding: 8px 10px; background-color: #fcfaf5; border-radius: 6px; border: 1px solid var(--border-color); grid-gap: 4px 10px;">
               <div>発注月度: <strong>${ord.month}</strong></div>
               <div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>
               <div>購入会員番号: <strong>${ord.memberId}</strong></div>
@@ -780,7 +780,7 @@
             <h3 style="margin: 0; font-size: 1.1rem; color: var(--wood-dark);">【全体合算】注文集計まとめ</h3>
             <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
           </div>
-          <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+          <div style="font-size: 0.8rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
             <strong>対象会員一覧:</strong><br>
             ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
           </div>
