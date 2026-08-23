@@ -71,14 +71,13 @@
       font-weight: bold;
     }
 
+    /* IDと氏名のサイズを通常サイズ（0.9rem）に変更 */
     .sketch-member-row {
       display: flex;
       gap: 20px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-      padding: 6px 0;
-      border-bottom: 1px dashed #ccc;
+      font-size: 0.9rem;
+      font-weight: normal;
+      margin-bottom: 8px;
     }
 
     .sketch-info-section {
@@ -88,12 +87,12 @@
       color: #444;
     }
 
+    /* 枠線を削除したお届け先情報スタイル */
     .sketch-ship-box {
       margin-top: 6px;
-      padding: 6px 10px;
-      background-color: #f9f9f9;
-      border: 1px solid #eee;
-      border-radius: 4px;
+      padding: 4px 0;
+      background-color: transparent;
+      border: none;
     }
   </style>
 </head>
@@ -163,13 +162,13 @@
             </select>
           </div>
 
-          <!-- ③ 購入会員番号（下2桁プルダウン・手入力不可） -->
+          <!-- ③ 購入会員番号（下2桁プルダウン操作可能に修正） -->
           <div class="form-group">
             <label>購入会員番号 *</label>
             <div class="flex-row">
               <input type="text" id="memberIdMain" placeholder="※上記で選択してください" style="flex: 1;" readonly required>
               <span>-</span>
-              <select id="memberIdSub" style="width: 85px;" disabled required></select>
+              <select id="memberIdSub" style="width: 85px;" required></select>
             </div>
           </div>
 
@@ -683,7 +682,6 @@
       renderOrderList();
     }
 
-    // スケッチ通りのレイアウトでカードをレンダリングする関数
     function generateAllReceipts() {
       if (allOrders.length === 0) return;
 
@@ -723,7 +721,7 @@
         if (ord.shipName || ord.address || ord.zip || ord.phone) {
           addressBlock = `
             <div class="sketch-ship-box">
-              <div><strong>[お届け先情報]</strong></div>
+              <div>[お届け先情報]</div>
               <div>${ord.shipName ? "お名前: " + ord.shipName : "お名前: " + ord.fullName}</div>
               <div>${ord.zip ? "〒" + ord.zip : ""} ${ord.address || ""}</div>
               <div>${ord.phone ? "TEL: " + ord.phone : ""}</div>
@@ -732,7 +730,7 @@
         } else {
           addressBlock = `
             <div class="sketch-ship-box">
-              <div><strong>[お届け先情報]</strong> サロン受取</div>
+              <div>[お届け先情報] サロン受取</div>
             </div>
           `;
         }
@@ -752,12 +750,12 @@
             </div>
 
             <div class="sketch-member-row">
-              <div>ID: <span>${ord.memberId}</span></div>
-              <div>氏名: <span>${ord.fullName}</span></div>
+              <div>ID : <span>${ord.memberId}</span></div>
+              <div style="margin-left: 20px;">氏名 : <span>${ord.fullName}</span></div>
             </div>
 
             <div class="sketch-info-section">
-              <div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>
+              <div>お支払い方法 : <strong>${ord.paymentMethod}</strong></div>
               ${extraDetails}
               ${addressBlock}
             </div>
