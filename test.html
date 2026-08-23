@@ -21,19 +21,26 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* 出力カード内のレイアウトスタイル調整 */
+    /* 出力カード内の左右2列レイアウト（固定） */
     .receipt-info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+      display: flex;
+      gap: 10px;
       margin-bottom: 12px;
       font-size: 0.8rem;
     }
     .receipt-info-block {
+      flex: 1;
       background-color: #FAF8F5;
       padding: 8px 10px;
       border-radius: 6px;
       border: 1px solid var(--border-color, #E8E2D5);
+      box-sizing: border-box;
+    }
+    /* 読み取り専用フィールドのスタイル */
+    input[readonly] {
+      background-color: #f2f2f2 !important;
+      color: #666 !important;
+      cursor: not-allowed;
     }
   </style>
 </head>
@@ -87,13 +94,7 @@
         <!-- 基本情報エリア -->
         <div class="section-title">👤 ご注文者様基本情報</div>
         <div class="card-box">
-          <div class="form-group">
-            <label for="presetMemberSelect">保存済み会員から選択</label>
-            <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
-              <option value="">-- 登録リストから選択 --</option>
-            </select>
-          </div>
-
+          <!-- ① 発注月度 -->
           <div class="form-group">
             <label for="month">発注月度 *</label>
             <select id="month" name="month" required>
@@ -101,18 +102,28 @@
             </select>
           </div>
 
+          <!-- ② 保存済み会員から選択 -->
+          <div class="form-group">
+            <label for="presetMemberSelect">保存済み会員から選択 *</label>
+            <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
+              <option value="">-- 登録リストから選択してください --</option>
+            </select>
+          </div>
+
+          <!-- ③ 購入会員番号（手入力不可） -->
           <div class="form-group">
             <label>購入会員番号 *</label>
             <div class="flex-row">
-              <input type="text" id="memberIdMain" placeholder="例: 12345" style="flex: 1;" required>
+              <input type="text" id="memberIdMain" placeholder="※上記で選択してください" style="flex: 1;" readonly required>
               <span>-</span>
-              <select id="memberIdSub" style="width: 85px;"></select>
+              <input type="text" id="memberIdSub" style="width: 85px; text-align: center;" placeholder="00" readonly required>
             </div>
           </div>
 
+          <!-- ④ 氏名（手入力不可） -->
           <div class="form-group">
             <label for="fullName">氏名 *</label>
-            <input type="text" id="fullName" name="fullName" placeholder="例: 山田 太郎" required>
+            <input type="text" id="fullName" name="fullName" placeholder="※上記で選択してください" readonly required>
           </div>
         </div>
 
@@ -253,7 +264,6 @@
     let currentItemsData = [];
 
     window.addEventListener('DOMContentLoaded', async () => {
-      initMemberSubSelect();
       initRegMemberSubSelect();
       renderPresetMemberList();
 
@@ -299,19 +309,6 @@
         } catch (e) {}
       }
     });
-
-    function initMemberSubSelect() {
-      const memberIdSub = document.getElementById('memberIdSub');
-      if (!memberIdSub) return;
-      memberIdSub.innerHTML = '';
-      for (let i = 0; i <= 20; i++) {
-        const opt = document.createElement('option');
-        const val = String(i).padStart(2, '0');
-        opt.value = val;
-        opt.textContent = val;
-        memberIdSub.appendChild(opt);
-      }
-    }
 
     // 事前登録用のサフィックス初期化
     function initRegMemberSubSelect() {
@@ -380,7 +377,7 @@
 
       const select = document.getElementById('presetMemberSelect');
       if (select) {
-        select.innerHTML = '<option value="">-- 登録リストから選択 --</option>';
+        select.innerHTML = '<option value="">-- 登録リストから選択してください --</option>';
         list.forEach((m, idx) => {
           const opt = document.createElement('option');
           opt.value = idx;
@@ -396,11 +393,20 @@
       list.splice(index, 1);
       localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
       renderPresetMemberList();
+      // もし削除したものが現在選択中であればクリア
+      document.getElementById('memberIdMain').value = '';
+      document.getElementById('memberIdSub').value = '';
+      document.getElementById('fullName').value = '';
     }
 
     // フォームへの自動入力反映
     function applyPresetMember(index) {
-      if (index === "") return;
+      if (index === "") {
+        document.getElementById('memberIdMain').value = '';
+        document.getElementById('memberIdSub').value = '';
+        document.getElementById('fullName').value = '';
+        return;
+      }
       const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
       const target = list[index];
       if (target) {
@@ -546,7 +552,7 @@
       const fullName = document.getElementById('fullName').value.trim();
 
       if (!month || !memberIdMain || !fullName) {
-        alert("発注月度、会員番号、氏名は必須項目です。");
+        alert("発注月度の選択と、保存済み会員の選択は必須項目です。");
         return;
       }
 
@@ -589,6 +595,7 @@
 
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
       document.getElementById('memberIdMain').value = "";
+      document.getElementById('memberIdSub').value = "";
       document.getElementById('fullName').value = "";
       document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
@@ -684,6 +691,13 @@
               <div>${ord.phone ? "TEL: " + ord.phone : ""}</div>
             </div>
           `;
+        } else {
+          addressBlock = `
+            <div class="receipt-info-block">
+              <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
+              <div style="color: var(--text-sub);">指定なし（サロン受取）</div>
+            </div>
+          `;
         }
 
         let totalBlock = "";
@@ -721,7 +735,7 @@
               <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
             </div>
 
-            <!-- 横並びレイアウトエリア -->
+            <!-- 左：発注情報 / 右：お届け先情報 の2列並び -->
             <div class="receipt-info-grid">
               <div class="receipt-info-block">
                 <div>発注月度: <strong>${ord.month}</strong></div>
