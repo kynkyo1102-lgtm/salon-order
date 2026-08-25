@@ -121,15 +121,16 @@ main {
 
 /* NEWバッジ */
 .news-badge {
-  display: inline-block;
-  background-color: #e74c3c;
-  color: #ffffff;
-  font-size: 0.65rem;
-  font-weight: bold;
-  padding: 1px 6px;
-  border-radius: 4px;
-  margin-right: 6px;
-  vertical-align: middle;
+  background-color: #e53935 !important; /* 鮮やかな赤 */
+  color: #ffffff !important;           /* 白文字 */
+  font-size: 0.68rem !important;
+  font-weight: bold !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  margin-right: 6px !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+  vertical-align: middle !important;
 }
 
 .news-text {
