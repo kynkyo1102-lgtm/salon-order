@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- 先ほど調整した外部CSSを読み込み -->
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 
   <style>
     /* ==========================================
@@ -319,15 +319,17 @@
 
         if (items.length > 0) {
           const latest = items[0];
-          // 最新お知らせ（style.cssの.news-boxを適用）
+          // 最新お知らせ（NEWバッジを追加）
           let html = `
             <div class="news-box">
-              <span class="news-date">${latest.date}</span>
+              <span class="news-date">
+                <span class="news-badge">NEW</span>${latest.date}
+              </span>
               <p class="news-text">${latest.text}</p>
             </div>
           `;
 
-          // 過去のお知らせ（アコーディオン内）
+          // 過去のお知らせ（アコーディオン内・バッジなし）
           if (items.length > 1) {
             const pastItemsHtml = items.slice(1).map(item => `
               <div class="news-box" style="margin-bottom: 10px;">
