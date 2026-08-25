@@ -119,6 +119,19 @@ main {
   white-space: nowrap;
 }
 
+/* NEWバッジ */
+.news-badge {
+  display: inline-block;
+  background-color: #e74c3c;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 .news-text {
   font-size: 0.82rem;
   color: var(--text-main);
