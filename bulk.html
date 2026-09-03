@@ -70,8 +70,8 @@
           <div id="registeredMembersList" class="registered-list-area"></div>
         </details>
 
-        <!-- 基本情報エリア -->
-        <div class="section-title">👤 ご注文者様基本情報</div>
+        <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
+        <div id="topOfForm" class="section-title">👤 ご注文者様基本情報</div>
         <div class="card-box">
           <div class="form-group">
             <label for="presetMemberSelect">保存済み会員から選択</label>
@@ -186,6 +186,12 @@
             📋 追加済みの注文（<span id="orderCount">0</span>件）
           </div>
           <div id="addedOrdersList" class="added-orders-list" style="font-size: 0.82rem; margin-bottom: 14px;"></div>
+          
+          <!-- 1番上に戻るボタンを追加 -->
+          <button type="button" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" class="btn-action" style="background-color: #ffffff; color: var(--wood-dark); border: 1.5px solid var(--wood-dark); margin-bottom: 8px;">
+            ＋ さらに別の注文を追加する（上に戻る）
+          </button>
+          
           <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf">
             🏁 注文書の一括作成画面へ
           </button>
