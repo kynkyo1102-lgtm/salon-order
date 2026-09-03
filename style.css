@@ -1118,3 +1118,67 @@ footer {
   line-height: 1.6;
   color: var(--text-main);
 }
+
+/* ==========================================
+   追加コンポーネント・機能補助スタイル
+========================================== */
+
+/* 折返し・テーブル崩れ防止 */
+.product-table td, 
+.product-table th {
+  word-break: break-word;
+}
+
+/* 折りたたみ（details/summary）スタイル */
+details.card-box summary {
+  outline: none;
+  transition: color 0.2s ease;
+}
+
+details.card-box summary:hover {
+  color: var(--wood-medium);
+}
+
+details[open] summary {
+  margin-bottom: 8px;
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 8px;
+}
+
+/* アラート・警告メッセージボックス */
+.warning-box,
+.line-warning-box {
+  margin: 10px auto;
+  max-width: 90%;
+  padding: 8px 12px;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* 外部連携（LINE送信）アクションボタン */
+.btn-line-action {
+  display: block;
+  width: 80%;
+  max-width: 280px;
+  margin: 12px auto;
+  padding: 10px;
+  background-color: #06C755;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-line-action:active {
+  transform: translateY(1px);
+  opacity: 0.9;
+}
