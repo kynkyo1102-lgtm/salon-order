@@ -159,8 +159,8 @@
           </div>
 
           <div class="text-right margin-top-8">
-            <button type="button" onclick="clearSavedInfo()" class="btn-clear-info">
-              端末に保存された住所等を削除
+            <button type="button" onclick="clearSavedInfo()" class="btn-clear-info" style="background: none; border: none; color: #888; text-decoration: underline; font-size: 0.72rem; cursor: pointer; padding: 2px 4px;">
+              端末保存情報の削除
             </button>
           </div>
         </div>
@@ -181,11 +181,11 @@
         </table>
 
         <!-- 追加済み注文リスト（確認用） -->
-        <div id="orderListContainer" class="card-box order-list-box display-none">
-          <div class="order-list-header">
+        <div id="orderListContainer" class="card-box order-list-box display-none" style="margin-top: 20px; background-color: #f7f4ed; border: 1.5px solid var(--accent-gold); border-radius: 10px; padding: 14px;">
+          <div class="order-list-header" style="font-weight: bold; font-size: 0.9rem; color: var(--wood-dark); border-bottom: 1px dashed var(--accent-gold); padding-bottom: 8px; margin-bottom: 10px;">
             📋 追加済みの注文（<span id="orderCount">0</span>件）
           </div>
-          <div id="addedOrdersList" class="added-orders-list"></div>
+          <div id="addedOrdersList" class="added-orders-list" style="font-size: 0.82rem; margin-bottom: 14px;"></div>
           <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf">
             🏁 注文書の一括作成画面へ
           </button>
