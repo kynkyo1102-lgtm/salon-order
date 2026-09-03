@@ -19,7 +19,7 @@
       font-weight: 700;
       color: var(--wood-medium);
       cursor: pointer;
-      list-style: none; /* デフォルトの矢印を綺麗にするため */
+      list-style: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -27,7 +27,7 @@
       padding: 2px 0;
     }
     .member-summary::-webkit-details-marker {
-      display: none; /* Safari用 */
+      display: none;
     }
     .member-summary::after {
       content: "＋ 登録・編集を開く";
@@ -169,7 +169,7 @@
     <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
     <div style="display: flex; gap: 6px;">
       <button class="btn-copy" onclick="copyToClipboard()">コピー</button>
-      <button class="btn-copy" onclick="openLINE()" style="background-color: #06C755; color: white;">💬 LINE送信</button>
+      <button class="btn-copy" onclick="openLINE()" style="background-color: #06C755; color: white;">💬 LINE起動</button>
     </div>
   </div>
 
@@ -250,7 +250,6 @@ function checkZipCode() {
 }
 
 window.onload = async function() {
-    // 1. 最新の month_config.json を自動バックグラウンド取得
     try {
         const response = await fetch('./month_config.json?cache=' + new Date().getTime());
         if (response.ok) {
@@ -265,10 +264,8 @@ window.onload = async function() {
         }
     }
 
-    // 2. 月度プルダウンの描画
     renderMonthOptions();
 
-    // 3. 保存データの復元
     if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
     if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
     if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
@@ -762,8 +759,15 @@ function openLINE() {
         alert("注文内容が入力されていません。");
         return;
     }
-    const lineUrl = `https://line.me/R/share?text=${encodeURIComponent(result.text)}`;
-    window.location.href = lineUrl;
+
+    navigator.clipboard.writeText(result.text).then(() => {
+        alert("注文テキストをコピーしました！\nLINEが開いたら、対象トークの「ノート」を開いて貼り付けて投稿してください。");
+        window.location.href = "https://line.me/R/";
+    }).catch(err => {
+        alert("LINEが開きます。送信先選択画面で「ノート」を選んでください。");
+        const lineUrl = `https://line.me/R/share?text=${encodeURIComponent(result.text)}`;
+        window.location.href = lineUrl;
+    });
 }
 </script>
 </body>
