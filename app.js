@@ -692,8 +692,10 @@ async function downloadSingleCard(elementId) {
       modal.innerHTML = `
         <div class="image-modal-instruction" style="text-align: center; margin-bottom: 12px; line-height: 1.6;">
           📱 <strong>注文書画像が作成されました！</strong><br>
-          <div style="font-size: 0.85rem; margin-top: 4px;">
-            下の画像を<span style="color: var(--gold-light); font-size: 1.05em; font-weight: bold;">「長押し」</span>して保存してください
+          <div style="font-size: 0.85rem; margin-top: 6px; background-color: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 6px;">
+            <strong>【保存・送信手順】</strong><br>
+            ① 下の画像を<span style="color: var(--gold-light); font-size: 1.05em; font-weight: bold;">「長押し」</span>して端末に保存<br>
+            ② LINEを開き<strong>「ニナファーム南熊本サロン」</strong>宛てに画像を送信してください
           </div>
         </div>
         
@@ -703,7 +705,7 @@ async function downloadSingleCard(elementId) {
         <!-- 画像直下の注意書き -->
         ${lineWarningText}
 
-        <button type="button" class="image-modal-close" style="margin-top: 12px;" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
+        <button type="button" class="image-modal-close" style="margin-top: 14px;" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
       `;
       document.body.appendChild(modal);
     } else {
