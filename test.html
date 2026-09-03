@@ -19,6 +19,13 @@
 
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* テーブルの横スクロール＆折返し崩れ防止の補助CSS */
+    .product-table td, .product-table th {
+      word-break: break-word;
+    }
+  </style>
 </head>
 <body>
 
@@ -239,6 +246,24 @@
     let currentGrandPt = 0;
     let currentItemsData = [];
 
+    // localStorageの安全な取得/設定用ヘルパー
+    function safeGetStorage(key, defaultVal) {
+      try {
+        const val = localStorage.getItem(key);
+        return val ? JSON.parse(val) : defaultVal;
+      } catch (e) {
+        return defaultVal;
+      }
+    }
+
+    function safeSetStorage(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (e) {
+        console.warn("Storage access restricted:", e);
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', async () => {
       initMemberSubSelect();
       initRegMemberSubSelect();
@@ -250,40 +275,35 @@
         if (response.ok) {
           const remoteConfig = await response.json();
           currentMaster = remoteConfig;
-          localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
+          safeSetStorage('salonOrderMasterConfig', currentMaster);
         }
       } catch (e) {
         // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
-        const savedConfig = localStorage.getItem('salonOrderMasterConfig');
-        if (savedConfig) {
-          try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
-        }
+        const savedConfig = safeGetStorage('salonOrderMasterConfig', null);
+        if (savedConfig) currentMaster = savedConfig;
       }
 
       renderUIFromMaster();
 
       // ユーザー情報復元
-      const savedUser = localStorage.getItem('salonOrderUserInfo');
-      if (savedUser) {
-        try {
-          const user = JSON.parse(savedUser);
-          if (user.month && currentMaster.activeMonths.includes(user.month)) {
-            document.getElementById('month').value = user.month;
-          }
-          if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
-          if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
-          if (user.fullName) document.getElementById('fullName').value = user.fullName;
-          if (user.paymentMethod) {
-            document.getElementById('paymentMethod').value = user.paymentMethod;
-            togglePaymentFields();
-          }
-          if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
-          if (user.shipName) document.getElementById('shipName').value = user.shipName;
-          if (user.zip) document.getElementById('zip').value = user.zip;
-          if (user.address) document.getElementById('address').value = user.address;
-          if (user.phone) document.getElementById('phone').value = user.phone;
-          updateCalc();
-        } catch (e) {}
+      const user = safeGetStorage('salonOrderUserInfo', null);
+      if (user) {
+        if (user.month && currentMaster.activeMonths.includes(user.month)) {
+          document.getElementById('month').value = user.month;
+        }
+        if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
+        if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
+        if (user.fullName) document.getElementById('fullName').value = user.fullName;
+        if (user.paymentMethod) {
+          document.getElementById('paymentMethod').value = user.paymentMethod;
+          togglePaymentFields();
+        }
+        if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
+        if (user.shipName) document.getElementById('shipName').value = user.shipName;
+        if (user.zip) document.getElementById('zip').value = user.zip;
+        if (user.address) document.getElementById('address').value = user.address;
+        if (user.phone) document.getElementById('phone').value = user.phone;
+        updateCalc();
       }
     });
 
@@ -326,7 +346,7 @@
       }
 
       const fullId = `${mainId}-${subId}`;
-      let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      let list = safeGetStorage('salonOrderPresetMembers', []);
       
       const existIdx = list.findIndex(m => m.id === fullId);
       if (existIdx >= 0) {
@@ -335,7 +355,7 @@
         list.push({ id: fullId, mainId, subId, name });
       }
 
-      localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
+      safeSetStorage('salonOrderPresetMembers', list);
       alert(`「${name} (${fullId})」様を登録しました。`);
 
       document.getElementById('regMemberIdMain').value = '';
@@ -345,7 +365,7 @@
 
     // 登録済みリストの描画 ＆ プルダウン更新
     function renderPresetMemberList() {
-      const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      const list = safeGetStorage('salonOrderPresetMembers', []);
       
       const listContainer = document.getElementById('registeredMembersList');
       if (listContainer) {
@@ -379,16 +399,16 @@
 
     // 登録情報の削除
     function deletePresetMember(index) {
-      let list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      let list = safeGetStorage('salonOrderPresetMembers', []);
       list.splice(index, 1);
-      localStorage.setItem('salonOrderPresetMembers', JSON.stringify(list));
+      safeSetStorage('salonOrderPresetMembers', list);
       renderPresetMemberList();
     }
 
     // フォームへの自動入力反映
     function applyPresetMember(index) {
       if (index === "") return;
-      const list = JSON.parse(localStorage.getItem('salonOrderPresetMembers') || '[]');
+      const list = safeGetStorage('salonOrderPresetMembers', []);
       const target = list[index];
       if (target) {
         document.getElementById('memberIdMain').value = target.mainId;
@@ -547,9 +567,9 @@
       const address = document.getElementById('address').value.trim();
       const phone = document.getElementById('phone').value.trim();
 
-      localStorage.setItem('salonOrderUserInfo', JSON.stringify({
+      safeSetStorage('salonOrderUserInfo', {
         month, memberIdMain, memberIdSub, fullName, paymentMethod, receiptName, shipName, zip, address, phone
-      }));
+      });
 
       const today = new Date();
       const yy = String(today.getFullYear()).slice(-2);
@@ -574,9 +594,12 @@
         totalPt: currentGrandPt
       });
 
+      // フォームの入力項目を完全に初期化（次の方の入力準備）
       document.querySelectorAll('.qty-select').forEach(sel => sel.value = "0");
       document.getElementById('memberIdMain').value = "";
       document.getElementById('fullName').value = "";
+      document.getElementById('paymentMethod').value = "現金";
+      togglePaymentFields(); // 支払い入力エリアを非表示・リセット
       document.getElementById('receiptName').value = "";
       document.getElementById('eservicePw').value = "";
       document.getElementById('ninaPoint').value = "";
@@ -864,6 +887,11 @@
       window.scrollTo(0, 0);
     }
 
+    function closeModal(modalElement) {
+      document.body.style.overflow = ''; // 背景固定解除
+      modalElement.remove();
+    }
+
     async function downloadSingleCard(elementId) {
       const targetElement = document.getElementById(elementId);
       if (!targetElement) return;
@@ -882,19 +910,20 @@
         const ua = navigator.userAgent || navigator.vendor || window.opera;
         const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
         const isLine = /Line/i.test(ua);
-        const isAndroid = /Android/i.test(ua);
 
         if (isMobile) {
+          document.body.style.overflow = 'hidden'; // 背景固定
+
           const modal = document.createElement('div');
           modal.className = 'image-modal-overlay';
           
-          // Android / LINEアプリ内ブラウザ用の注意書き（画像直下に配置）
+          // iOS/Android問わずLINEアプリ内ブラウザ全般向けの注意書き
           let lineWarningText = "";
-          if (isAndroid && isLine) {
+          if (isLine) {
             lineWarningText = `
               <div class="android-warning-box" style="margin: 10px auto; max-width: 90%; padding: 8px 12px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 6px; font-size: 0.78rem; text-align: left; line-height: 1.4;">
                 ⚠️ <strong>LINEなどのアプリ内ブラウザでお使いの場合</strong><br>
-                長押し保存が動かない場合があります。その場合は右上のメニュー「⋮」等から<strong>『他のブラウザ（Chrome/Safari）で開く』</strong>をお試しください。
+                画像の長押し保存が動かない場合があります。その場合は右上のメニュー「⋮」または「Share」ボタンから<strong>『他のブラウザ（Safari/Chrome）で開く』</strong>をお試しください。
               </div>
             `;
           }
@@ -914,12 +943,12 @@
             <!-- 画像直下の注意書き -->
             ${lineWarningText}
 
-            <!-- LINEアプリ起動ボタン -->
+            <!-- LINEアプリ起動ボタン（ID: kumamoto5527 宛て） -->
             <a href="https://line.me/R/ti/p/~kumamoto5527" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 12px auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
               💬 LINEを開いて送信する
             </a>
 
-            <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
+            <button type="button" class="image-modal-close" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
           `;
           document.body.appendChild(modal);
         } else {
@@ -972,7 +1001,9 @@
 
     function clearSavedInfo() {
       if (confirm("端末に保存されている住所等の情報を削除しますか？")) {
-        localStorage.removeItem('salonOrderUserInfo');
+        try {
+          localStorage.removeItem('salonOrderUserInfo');
+        } catch (e) {}
         alert("削除しました。");
         location.reload();
       }
