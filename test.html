@@ -888,29 +888,34 @@
           const modal = document.createElement('div');
           modal.className = 'image-modal-overlay';
           
+          // Android / LINEアプリ内ブラウザ用の注意書き（画像直下に配置）
           let lineWarningText = "";
           if (isAndroid && isLine) {
             lineWarningText = `
-              <div class="android-warning-box" style="margin-top: 10px; margin-bottom: 12px; padding: 8px; background-color: #fff3cd; color: #856404; border-radius: 4px; font-size: 0.78rem; text-align: left;">
+              <div class="android-warning-box" style="margin: 10px auto; max-width: 90%; padding: 8px 12px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 6px; font-size: 0.78rem; text-align: left; line-height: 1.4;">
                 ⚠️ <strong>LINEなどのアプリ内ブラウザでお使いの場合</strong><br>
-                長押し保存が動かない場合があります。<br>
-                右上のメニュー「⋮」等から<strong>『他のブラウザ（Chrome/Safari）で開く』</strong>をお試しください。
+                長押し保存が動かない場合があります。その場合は右上のメニュー「⋮」等から<strong>『他のブラウザ（Chrome/Safari）で開く』</strong>をお試しください。
               </div>
             `;
           }
 
           modal.innerHTML = `
-            <div class="image-modal-instruction" style="text-align: center; margin-bottom: 12px; line-height: 1.5;">
+            <div class="image-modal-instruction" style="text-align: center; margin-bottom: 12px; line-height: 1.6;">
               📱 <strong>注文書画像が作成されました！</strong><br>
-              下の画像を<span style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">「長押し」</span>して保存してください。
+              <div style="font-size: 0.85rem; margin-top: 4px;">
+                <strong>【手順①】</strong> 下の画像を<span style="color: var(--gold-light); font-size: 1.05em; font-weight: bold;">「長押し」</span>して保存<br>
+                <strong>【手順②】</strong> 緑のボタンからLINEを開いて画像を送信
+              </div>
             </div>
             
+            <!-- 画像表示エリア -->
             <img src="${imgData}" class="image-modal-content" alt="注文書画像">
 
+            <!-- 画像直下の注意書き -->
             ${lineWarningText}
 
-            <!-- LINEアプリ起動ボタン（ID: kumamoto5527 宛て） -->
-            <a href="https://line.me/R/ti/p/~kumamoto5527" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 8px auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <!-- LINEアプリ起動ボタン -->
+            <a href="https://line.me/R/ti/p/~kumamoto5527" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 12px auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
               💬 LINEを開いて送信する
             </a>
 
