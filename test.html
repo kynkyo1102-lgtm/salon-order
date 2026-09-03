@@ -786,14 +786,14 @@ function openLINE() {
 
     // 1. 注文テキストをクリップボードにコピー
     navigator.clipboard.writeText(result.text).then(() => {
-        // 2. ユーザーへ案内
-        alert("注文テキストをコピーしました！\nLINEが開いたら、トーク画面で貼り付けて送信してください。");
-        // 3. kumamoto5527のアカウント画面を開く
-        window.location.href = "https://line.me/R/ti/p/kumamoto5527";
+        // 2. 案内メッセージを表示
+        alert("注文テキストをコピーしました！\nLINEが開いたら、送信先アカウントのトーク画面に貼り付けて送信してください。");
+        // 3. LINEアプリのみを起動
+        window.location.href = "https://line.me/R/";
     }).catch(err => {
-        // フォールバック
+        // コピー失敗時のフォールバック
         alert("LINEが開きます。トーク画面でテキストを貼り付けて送信してください。");
-        window.location.href = "https://line.me/R/ti/p/kumamoto5527";
+        window.location.href = "https://line.me/R/";
     });
 }
 </script>
