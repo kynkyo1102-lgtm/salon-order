@@ -47,6 +47,29 @@
       padding-top: 12px;
       border-top: 1px dashed var(--border-color);
     }
+
+    /* 下部フッターボタンの縦並びスタイル */
+    .footer-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .footer-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .footer-btn-group button {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -164,17 +187,18 @@
 
   </main>
 
-  <!-- 固定下部バー（コピー＋LINE送信ボタン配置） -->
+  <!-- 固定下部バー（縦並びレイアウト） -->
   <div class="footer-bar">
-    <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
-    <div style="display: flex; gap: 6px;">
-      <button class="btn-copy" onclick="copyToClipboard()">コピー</button>
-      <button class="btn-copy" onclick="openLINE()" style="background-color: #06C755; color: white;">💬 LINE起動</button>
+    <div class="footer-bar-container">
+      <div class="total-preview" id="total_summary_text" style="text-align: center;">合計 0点 0円 (0pt)</div>
+      <div class="footer-btn-group">
+        <button class="btn-copy" onclick="copyToClipboard()" style="background-color: #666; color: white;">📋 テキストをコピーのみ</button>
+        <button class="btn-copy" onclick="openLINE()" style="background-color: #06C755; color: white;">💬 テキストをコピーしてLINEを開く</button>
+      </div>
     </div>
   </div>
 
 <script>
-// デフォルトマスター設定（JSONロード失敗時のバックアップ）
 let currentMaster = {
   activeMonths: ["8月度"],
   products: [
@@ -747,7 +771,7 @@ function updatePreview() {
 function copyToClipboard() {
     const result = generateText();
     navigator.clipboard.writeText(result.text).then(() => {
-        alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
+        alert("LINE用の注文テキストをコピーしました！");
     }).catch(err => {
         alert("コピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
     });
@@ -761,12 +785,11 @@ function openLINE() {
     }
 
     navigator.clipboard.writeText(result.text).then(() => {
-        alert("注文テキストをコピーしました！\nLINEが開いたら、対象トークの「ノート」を開いて貼り付けて投稿してください。");
-        window.location.href = "https://line.me/R/";
+        alert("注文テキストをコピーしました！\nLINEが開いたら、トーク画面で貼り付けて送信してください。");
+        window.location.href = "https://line.me/R/ti/p/kumamon5527";
     }).catch(err => {
-        alert("LINEが開きます。送信先選択画面で「ノート」を選んでください。");
-        const lineUrl = `https://line.me/R/share?text=${encodeURIComponent(result.text)}`;
-        window.location.href = lineUrl;
+        alert("LINEが開きます。トーク画面でテキストを貼り付けて送信してください。");
+        window.location.href = "https://line.me/R/ti/p/kumamon5527";
     });
 }
 </script>
