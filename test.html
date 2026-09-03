@@ -786,14 +786,14 @@ function openLINE() {
 
     // 1. 注文テキストをクリップボードにコピー
     navigator.clipboard.writeText(result.text).then(() => {
-        // 2. 案内メッセージを表示
-        alert("注文テキストをコピーしました！\nLINEが開いたら、送信先アカウントのトーク画面に貼り付けて送信してください。");
-        // 3. LINEアプリのみを起動
-        window.location.href = "https://line.me/R/";
+        // 2. ユーザーへ案内
+        alert("注文テキストをコピーしました！\nLINEが開いたら、送信先のトーク画面に貼り付けて送信してください。");
+        // 3. LINEアプリを起動（エラー回避用URLスキーム）
+        window.location.href = "line://";
     }).catch(err => {
-        // コピー失敗時のフォールバック
+        // 万が一コピー機能がブロックされた場合のフォールバック
         alert("LINEが開きます。トーク画面でテキストを貼り付けて送信してください。");
-        window.location.href = "https://line.me/R/";
+        window.location.href = "line://";
     });
 }
 </script>
