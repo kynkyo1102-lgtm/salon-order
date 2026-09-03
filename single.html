@@ -747,7 +747,7 @@ function updatePreview() {
 function copyToClipboard() {
     const result = generateText();
     navigator.clipboard.writeText(result.text).then(() => {
-        alert("LINE用の注文テキストをコピーしました！LINEノートにそのまま貼り付けてください。");
+        alert("LINE用の注文テキストをコピーしました！「ニナファーム南熊本サロン」のLINEノートに貼り付けてください。");
     }).catch(err => {
         alert("コピーに失敗しました。画面下の体操「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
     });
