@@ -788,12 +788,12 @@ function openLINE() {
     navigator.clipboard.writeText(result.text).then(() => {
         // 2. ユーザーへ案内
         alert("注文テキストをコピーしました！\nLINEが開いたら、送信先のトーク画面に貼り付けて送信してください。");
-        // 3. LINEアプリを起動（エラー回避用URLスキーム）
-        window.location.href = "line://";
+        // 3. LINEのトーク一覧画面を開く（最も安定した公式URLスキーム）
+        window.location.href = "https://line.me/R/nv/chat";
     }).catch(err => {
-        // 万が一コピー機能がブロックされた場合のフォールバック
+        // フォールバック
         alert("LINEが開きます。トーク画面でテキストを貼り付けて送信してください。");
-        window.location.href = "line://";
+        window.location.href = "https://line.me/R/nv/chat";
     });
 }
 </script>
