@@ -69,6 +69,10 @@
       border-radius: 8px;
       cursor: pointer;
       border: none;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+    .footer-btn-group button:active {
+      opacity: 0.85;
     }
   </style>
 </head>
@@ -187,12 +191,12 @@
 
   </main>
 
-  <!-- 固定下部バー（1ボタン配置） -->
+  <!-- 固定下部バー（茶色ボタン配置） -->
   <div class="footer-bar">
     <div class="footer-bar-container">
       <div class="total-preview" id="total_summary_text" style="text-align: center;">合計 0点 0円 (0pt)</div>
       <div class="footer-btn-group">
-        <button class="btn-copy" onclick="copyTextOnly()" style="background-color: #06C755; color: white;">📋 注文内容をコピーする</button>
+        <button class="btn-copy" onclick="copyTextOnly()" style="background-color: var(--wood-dark, #5c3a21); color: #ffffff;">📋 注文内容をコピーする</button>
       </div>
     </div>
   </div>
