@@ -48,7 +48,7 @@
       border-top: 1px dashed var(--border-color);
     }
 
-    /* 下部フッターボタンの縦並びスタイル */
+    /* 下部フッターボタンのスタイル */
     .footer-bar-container {
       display: flex;
       flex-direction: column;
@@ -176,7 +176,7 @@
     <!-- 6. 生成された注文テキスト -->
     <div class="info-card">
       <div class="section-title">6. 生成された注文テキスト</div>
-      <p class="sub-note">※万が一「LINEで送信」で直接アプリが開かない場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+      <p class="sub-note">※下部のボタンでコピーがうまくいかない場合は、以下の枠内を選択して手動でコピーしてください。</p>
       <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
     </div>
 
@@ -187,13 +187,12 @@
 
   </main>
 
-  <!-- 固定下部バー（縦並びレイアウト） -->
+  <!-- 固定下部バー（1ボタン配置） -->
   <div class="footer-bar">
     <div class="footer-bar-container">
       <div class="total-preview" id="total_summary_text" style="text-align: center;">合計 0点 0円 (0pt)</div>
       <div class="footer-btn-group">
-        <button class="btn-copy" onclick="copyToClipboard()" style="background-color: #666; color: white;">📋 テキストをコピーのみ</button>
-        <button class="btn-copy" onclick="openLINE()" style="background-color: #06C755; color: white;">💬 テキストをコピーしてLINEを開く</button>
+        <button class="btn-copy" onclick="copyTextOnly()" style="background-color: #06C755; color: white;">📋 注文内容をコピーする</button>
       </div>
     </div>
   </div>
@@ -768,32 +767,17 @@ function updatePreview() {
     }
 }
 
-function copyToClipboard() {
-    const result = generateText();
-    navigator.clipboard.writeText(result.text).then(() => {
-        alert("LINE用の注文テキストをコピーしました！");
-    }).catch(err => {
-        alert("コピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
-    });
-}
-
-function openLINE() {
+function copyTextOnly() {
     const result = generateText();
     if (!result.text.trim()) {
         alert("注文内容が入力されていません。");
         return;
     }
 
-    // 1. 注文テキストをクリップボードにコピー
     navigator.clipboard.writeText(result.text).then(() => {
-        // 2. ユーザーへ案内
-        alert("注文テキストをコピーしました！\nLINEが開いたら、送信先のトーク画面に貼り付けて送信してください。");
-        // 3. LINEのトーク一覧画面を開く（最も安定した公式URLスキーム）
-        window.location.href = "https://line.me/R/nv/chat";
+        alert("テキストをコピーしました！\n『ニナファーム南熊本サロン』のアカウントのノートへ投稿してください。");
     }).catch(err => {
-        // フォールバック
-        alert("LINEが開きます。トーク画面でテキストを貼り付けて送信してください。");
-        window.location.href = "https://line.me/R/nv/chat";
+        alert("テキストのコピーに失敗しました。画面下の「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
     });
 }
 </script>
