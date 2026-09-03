@@ -704,10 +704,10 @@ async function downloadSingleCard(elementId) {
         <!-- 画像直下の注意書き -->
         ${lineWarningText}
 
-        <!-- LINEアプリ起動ボタン（ID: kumamoto5527 宛て） -->
-        <a href="https://line.me/R/ti/p/~kumamoto5527" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 12px auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-          💬 LINEを開いて送信する
-        </a>
+        <!-- LINEアプリ起動ボタン -->
+<a href="https://line.me/R/" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 12px auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+  💬 LINEを開く
+</a>
 
         <button type="button" class="image-modal-close" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
       `;
