@@ -212,22 +212,9 @@
       </form>
     </div>
 
-    <!-- 完成画面（※一括作成ボタンを押した後にのみ表示される画面） -->
+    <!-- 完成画面（JavaScriptで生成処理を行う際に使用する動的領域） -->
     <div id="completeSection" class="display-none">
-      
-      <div class="guide-box">
-        📱 各カード下のボタンをタップすると、注文書を画像として保存できます。
-      </div>
-
-      <!-- 注文書カードが動的に生成されるコンテナ -->
       <div id="receiptsWrapper"></div>
-
-      <!-- 下部ボタンエリア -->
-      <div class="margin-top-15">
-        <button onclick="downloadAllPDF()" class="btn-action btn-pdf">📄 全枚数をまとめて1つのPDFで保存</button>
-        <button onclick="location.reload()" class="btn-action btn-reload">🔄 最初の入力に戻る</button>
-      </div>
-
     </div>
   </main>
 
