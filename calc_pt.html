@@ -80,6 +80,7 @@
       margin-top: 18px;
       padding-top: 14px;
       border-top: 1px dashed var(--border-color);
+      scroll-margin-top: 20px; /* スクロール位置の余白調整 */
     }
     .plan-card {
       background: #fff;
@@ -420,6 +421,9 @@
       });
 
       resDiv.innerHTML = html;
+
+      // 結果が表示された後、結果エリアへスムーズに自動スクロール
+      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // 目標PT以上で「最もオーバー分が少なく」「金額が最安」の構成を探す関数
