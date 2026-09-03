@@ -69,6 +69,7 @@
       margin-top: 18px;
       padding-top: 14px;
       border-top: 1px dashed var(--border-color);
+      scroll-margin-top: 20px; /* スクロール位置の余白調整 */
     }
     .split-container {
       display: flex;
@@ -350,7 +351,11 @@
       document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
       document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
 
-      document.getElementById('splitResult').style.display = 'block';
+      const resDiv = document.getElementById('splitResult');
+      resDiv.style.display = 'block';
+
+      // 計算結果エリアへスムーズに自動スクロール
+      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
