@@ -192,7 +192,11 @@
         <div class="footer-bar">
           <div class="footer-content">
             <div class="footer-totals">
-              <div>お支払額: <span id="displayPrice" style="font-size: 1.05rem; color: #c94b4b; font-weight:bold;">¥0</span></div>
+              <div>
+                お支払額: <span id="displayPrice" style="font-size: 1.05rem; color: #c94b4b; font-weight:bold;">¥0</span>
+                <!-- タップすると追加済みリストにスクロールする件数バッジ -->
+                <span id="footerOrderBadge" onclick="document.getElementById('orderListContainer').scrollIntoView({behavior:'smooth'})" style="display:none; margin-left:6px; background:var(--accent-gold); color:var(--wood-dark); font-size:0.7rem; padding:2px 6px; border-radius:10px; font-weight:bold; cursor:pointer;"></span>
+              </div>
               <div style="font-size: 0.72rem; color: var(--text-sub);">
                 (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" style="color: var(--wood-medium); font-weight: bold;">0pt</span>)
               </div>
@@ -580,20 +584,32 @@
       updateCalc();
 
       renderOrderList();
-      alert(`「${fullName}」様の注文を追加しました！（現在 ${allOrders.length} 件）`);
+
+      // 追加済みリストの位置へスムーズに自動スクロール
+      const container = document.getElementById('orderListContainer');
+      if (container) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function renderOrderList() {
       const container = document.getElementById('orderListContainer');
       const listDiv = document.getElementById('addedOrdersList');
+      const badge = document.getElementById('footerOrderBadge');
       
       if (allOrders.length === 0) {
         container.style.display = "none";
+        if (badge) badge.style.display = "none";
         return;
       }
 
       container.style.display = "block";
       document.getElementById('orderCount').textContent = allOrders.length;
+
+      if (badge) {
+        badge.style.display = "inline-block";
+        badge.textContent = `📋 追加済み: ${allOrders.length}件`;
+      }
 
       let html = "";
       allOrders.forEach((ord, i) => {
@@ -875,7 +891,7 @@
           let lineWarningText = "";
           if (isAndroid && isLine) {
             lineWarningText = `
-              <div class="android-warning-box" style="margin-top: 10px; padding: 8px; background-color: #fff3cd; color: #856404; border-radius: 4px; font-size: 0.78rem;">
+              <div class="android-warning-box" style="margin-top: 10px; margin-bottom: 12px; padding: 8px; background-color: #fff3cd; color: #856404; border-radius: 4px; font-size: 0.78rem; text-align: left;">
                 ⚠️ <strong>LINEなどのアプリ内ブラウザでお使いの場合</strong><br>
                 長押し保存が動かない場合があります。<br>
                 右上のメニュー「⋮」等から<strong>『他のブラウザ（Chrome/Safari）で開く』</strong>をお試しください。
@@ -886,17 +902,18 @@
           modal.innerHTML = `
             <div class="image-modal-instruction" style="text-align: center; margin-bottom: 12px; line-height: 1.5;">
               📱 <strong>注文書画像が作成されました！</strong><br>
-              1. 下の画像を<span style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">「長押し」</span>して保存<br>
-              2. <span style="color: #06C755; font-size: 1.1em; font-weight: bold;">LINEで送信</span>してください 💬
-              ${lineWarningText}
+              下の画像を<span style="color: var(--gold-light); font-size: 1.1em; font-weight: bold;">「長押し」</span>して保存してください。
             </div>
             
+            <img src="${imgData}" class="image-modal-content" alt="注文書画像">
+
+            ${lineWarningText}
+
             <!-- LINEアプリ起動ボタン（ID: kumamoto5527 宛て） -->
-            <a href="https://line.me/R/ti/p/~kumamoto5527" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 0 auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <a href="https://line.me/R/ti/p/~kumamoto5527" target="_blank" rel="noopener noreferrer" style="display: block; width: 80%; max-width: 280px; margin: 8px auto 12px auto; padding: 10px; background-color: #06C755; color: #ffffff; text-align: center; font-weight: bold; font-size: 0.9rem; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
               💬 LINEを開いて送信する
             </a>
 
-            <img src="${imgData}" class="image-modal-content" alt="注文書画像">
             <button type="button" class="image-modal-close" onclick="this.parentElement.remove()">✕ 閉じる</button>
           `;
           document.body.appendChild(modal);
