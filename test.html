@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>左右バランス分配ツール - Place de Nina</title>
+  <title>ポイント振り分けメーカー - Place de Nina</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -212,7 +212,7 @@
 
   <header>
     <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>左右バランス分配ツール</h1>
+    <h1>ポイント振り分けメーカー</h1>
   </header>
 
   <main>
@@ -220,23 +220,23 @@
     
     <div class="card-box">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div class="section-title" style="margin-bottom: 0;">購入商品の左右バランス分配</div>
+        <div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
         <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 選択をリセット</button>
       </div>
       
       <!-- モード切り替えタブ -->
       <div class="mode-tabs">
-        <button class="tab-btn active" onclick="switchMode('auto')">① 自動均等分配</button>
-        <button class="tab-btn" onclick="switchMode('target')">② 目標PT指定</button>
-        <button class="tab-btn" onclick="switchMode('current')">③ 保有PT考慮</button>
+        <button class="tab-btn active" onclick="switchMode('auto')">① かんたん均等</button>
+        <button class="tab-btn" onclick="switchMode('target')">② 目標PTカスタム</button>
+        <button class="tab-btn" onclick="switchMode('current')">③ 保有PT合算</button>
       </div>
 
-      <!-- ① 自動均等分配の説明パネル -->
+      <!-- ① かんたん均等の説明パネル -->
       <div id="panel-auto" class="mode-panel active">
         <p class="usage-guide" style="margin:0;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
       </div>
 
-      <!-- ② 目標PT指定の入力パネル -->
+      <!-- ② 目標PTカスタムの入力パネル -->
       <div id="panel-target" class="mode-panel">
         <p class="usage-guide" style="margin-top:0; margin-bottom:8px;">左または右に寄せたい目標ポイントを指定してください。</p>
         <div style="display: flex; gap: 10px;">
@@ -252,9 +252,9 @@
         <small style="color:#888; font-size:0.72rem; display:block; margin-top:4px;">※片方のみの入力でも可（そちらの目標に最も近づくよう計算します）。</small>
       </div>
 
-      <!-- ③ 保有PT考慮の入力パネル -->
+      <!-- ③ 保有PT合算の入力パネル -->
       <div id="panel-current" class="mode-panel">
-        <p class="usage-guide" style="margin-top:0; margin-bottom:4px;">現在計上されているポイント含めて、左右差が一番少ない配置をします。</p>
+        <p class="usage-guide" style="margin-top:0; margin-bottom:4px;">現在保有しているポイントも含めて、左右差が一番少なくなるよう配置します。</p>
         <p class="usage-guide" style="margin-top:0; margin-bottom:8px; color:var(--text-sub);">現在のポイントを入力してください</p>
         <div style="display: flex; gap: 10px;">
           <div style="flex: 1;">
@@ -277,7 +277,7 @@
         <!-- JSで動的生成 -->
       </div>
 
-      <button class="btn-copy" onclick="calculateBinarySplit()">分配計算を実行</button>
+      <button class="btn-copy" onclick="calculateBinarySplit()">振り分け計算を実行</button>
 
       <div id="splitResult" class="result-container" style="display:none;">
         <div class="split-container">
@@ -293,7 +293,7 @@
                 目標差分: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
               </p>
 
-              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">既存PT: <span id="leftCurrentPtVal">0</span> PT</p>
+              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有PT: <span id="leftCurrentPtVal">0</span> PT</p>
               <p id="leftFinalPtRow" style="font-size:0.82rem; margin:3px 0; font-weight:bold; color:#2d3748; display:none;">最終合計: <span id="leftFinalPtVal">0</span> PT</p>
               <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
 
@@ -317,7 +317,7 @@
                 目標差分: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
               </p>
 
-              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">既存PT: <span id="rightCurrentPtVal">0</span> PT</p>
+              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有PT: <span id="rightCurrentPtVal">0</span> PT</p>
               <p id="rightFinalPtRow" style="font-size:0.82rem; margin:3px 0; font-weight:bold; color:#2d3748; display:none;">最終合計: <span id="rightFinalPtVal">0</span> PT</p>
               <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
 
@@ -612,7 +612,7 @@
       document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
-      // モード③ (保有PT考慮) の表示
+      // モード③ (保有PT合算) の表示
       const showCurrent = (currentMode === 'current');
       document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
       document.getElementById('leftFinalPtRow').style.display = showCurrent ? 'block' : 'none';
@@ -632,7 +632,7 @@
         document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
       }
 
-      // 最下部PT差の表示/非表示（目標PT指定モード時は非表示）
+      // 最下部PT差の表示/非表示（目標PTカスタムモード時は非表示）
       const ptDiffRow = document.getElementById('ptDiffRow');
       if (currentMode === 'target') {
         ptDiffRow.style.display = 'none';
@@ -640,7 +640,7 @@
         ptDiffRow.style.display = 'block';
       }
 
-      // モード② (目標PT指定) の差分 ＆ 不足時おすすめ表示
+      // モード② (目標PTカスタム) の差分 ＆ 不足時おすすめ表示
       const isTargetMode = (currentMode === 'target');
       document.getElementById('leftTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
       document.getElementById('rightTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
