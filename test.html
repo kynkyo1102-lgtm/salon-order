@@ -244,7 +244,8 @@
 
       <!-- ③ 保有PT考慮の入力パネル -->
       <div id="panel-current" class="mode-panel">
-        <p class="usage-guide" style="margin-top:0; margin-bottom:8px;">現在会員が保持している左右のポイントを入力してください。</p>
+        <p class="usage-guide" style="margin-top:0; margin-bottom:4px;">現在計上されているポイント含めて、左右差が一番少ない配置をします。</p>
+        <p class="usage-guide" style="margin-top:0; margin-bottom:8px; color:var(--text-sub);">現在のポイントを入力してください</p>
         <div style="display: flex; gap: 10px;">
           <div style="flex: 1;">
             <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
@@ -320,8 +321,12 @@
         </div>
 
         <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
-          <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT<br>
-          総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
+          <div id="ptDiffRow">
+            <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT
+          </div>
+          <div>
+            総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
+          </div>
         </div>
       </div>
     </div>
@@ -462,7 +467,7 @@
       return bestIndices;
     }
 
-    // ★ 修正：不足PTに最も近く、かつ金額を抑えられる「複数個買い」のおすすめ検索処理
+    // 不足PTに最も近く、かつ金額を抑えられる「複数個買い」のおすすめ検索処理
     function findSuggestedProduct(shortagePt, month) {
       if (shortagePt <= 0) return null;
 
@@ -615,6 +620,14 @@
       } else {
         document.getElementById('diffLabel').textContent = '今回PT差';
         document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      }
+
+      // 最下部PT差の表示/非表示（目標PT指定モード時は非表示）
+      const ptDiffRow = document.getElementById('ptDiffRow');
+      if (currentMode === 'target') {
+        ptDiffRow.style.display = 'none';
+      } else {
+        ptDiffRow.style.display = 'block';
       }
 
       // モード② (目標PT指定) の差分 ＆ 不足時おすすめ表示
