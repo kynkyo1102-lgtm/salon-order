@@ -11,6 +11,16 @@
   
   <link rel="stylesheet" href="style.css">
   <style>
+    /* 数値入力（input[type=number]）の矢印（スピンボタン）を非表示にする */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield; /* Firefox用 */
+    }
+
     .calc-select {
       width: 100%;
       padding: 10px 12px;
