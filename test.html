@@ -47,7 +47,7 @@
       color: var(--text-main);
     }
     .product-list-box {
-      max-height: 320px;
+      max-height: 280px;
       overflow-y: auto;
       border: 1px solid var(--border-color);
       border-radius: 8px;
@@ -59,7 +59,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 8px;
+      padding: 8px;
       border-bottom: 1px dashed var(--border-color);
       transition: background 0.2s;
     }
@@ -71,12 +71,12 @@
       font-weight: bold;
     }
     .product-item select.prod-qty {
-      width: 75px;
-      padding: 6px;
+      width: 70px;
+      padding: 4px;
       text-align: center;
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       background-color: #fff;
       color: var(--text-main);
     }
@@ -84,19 +84,19 @@
     /* モード切り替えタブのスタイル */
     .mode-tabs {
       display: flex;
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 4px;
+      margin-bottom: 12px;
       border-bottom: 2px solid var(--border-color);
     }
     .tab-btn {
       flex: 1;
-      padding: 10px 4px;
-      font-size: 0.8rem;
+      padding: 8px 2px;
+      font-size: 0.78rem;
       font-weight: bold;
       background: #f5f5f5;
       border: 1px solid var(--border-color);
       border-bottom: none;
-      border-radius: 8px 8px 0 0;
+      border-radius: 6px 6px 0 0;
       cursor: pointer;
       color: var(--text-sub);
       transition: all 0.2s;
@@ -110,9 +110,9 @@
     .mode-panel {
       display: none;
       background: #faf8f5;
-      padding: 12px;
+      padding: 10px;
       border-radius: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       border: 1px solid var(--border-color);
     }
     .mode-panel.active {
@@ -120,20 +120,23 @@
     }
     
     .result-container {
-      margin-top: 18px;
-      padding-top: 14px;
+      margin-top: 14px;
+      padding-top: 10px;
       border-top: 1px dashed var(--border-color);
       scroll-margin-top: 20px;
     }
+    
+    /* 左右配置コンテナ（スマホでも横並びを維持・最適化） */
     .split-container {
       display: flex;
-      gap: 12px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 8px;
     }
     .split-col {
       flex: 1;
+      min-width: 0; /* 横あふれ防止 */
       background: #fffdf9;
-      padding: 12px;
+      padding: 8px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
     }
@@ -141,23 +144,26 @@
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      padding: 8px 10px;
+      padding: 6px 8px;
       margin-bottom: 6px;
-      font-size: 0.82rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      font-size: 0.78rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
     .split-item-name {
       font-weight: bold;
       color: var(--wood-dark);
       margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .split-item-sub {
       color: var(--text-sub);
-      font-size: 0.78rem;
+      font-size: 0.72rem;
     }
     .total-box {
-      margin-top: 8px;
-      padding-top: 8px;
+      margin-top: 6px;
+      padding-top: 6px;
       border-top: 1px dashed var(--border-color);
     }
     .total-pt-val {
@@ -165,7 +171,7 @@
       color: #b87b2a;
     }
     .total-cost-val {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
       font-weight: bold;
       color: #2b6cb0;
     }
@@ -175,17 +181,18 @@
       background-color: #fff8e6;
       border: 1px solid #f6e05e;
       border-radius: 6px;
-      padding: 5px 8px;
-      margin: 6px 0;
-      font-size: 0.88rem;
+      padding: 4px 6px;
+      margin: 4px 0;
+      font-size: 0.82rem;
       font-weight: bold;
       color: #2d3748;
+      text-align: center;
     }
     
     .nav-link {
       display: inline-block;
-      margin-bottom: 14px;
-      font-size: 0.85rem;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
       color: var(--accent-gold);
       text-decoration: none;
     }
@@ -196,9 +203,9 @@
       background: none;
       border: 1px solid var(--border-color);
       color: var(--text-sub);
-      padding: 3px 8px;
+      padding: 3px 6px;
       border-radius: 4px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       cursor: pointer;
       transition: background-color 0.2s, color 0.2s;
     }
@@ -209,14 +216,38 @@
     
     /* おすすめ提案のスタイル */
     .suggest-box {
-      margin-top: 8px;
-      padding: 8px;
+      margin-top: 6px;
+      padding: 6px;
       background: #fffdf0;
       border: 1px solid #f6e05e;
       border-radius: 6px;
-      font-size: 0.76rem;
+      font-size: 0.72rem;
       color: #744210;
-      line-height: 1.4;
+      line-height: 1.3;
+    }
+
+    /* 📱 スマホ表示用レイアウトの最適化 */
+    @media (max-width: 600px) {
+      .product-list-box {
+        max-height: 200px; /* 商品リストをコンパクトにしてスクロール量を削減 */
+      }
+      .tab-btn {
+        font-size: 0.72rem;
+        padding: 6px 1px;
+      }
+      .split-col {
+        padding: 6px 4px;
+      }
+      .total-box p {
+        font-size: 0.76rem !important;
+      }
+      .final-sum-box {
+        font-size: 0.78rem;
+        padding: 3px 4px;
+      }
+      .final-sum-box span {
+        font-size: 0.88rem !important;
+      }
     }
   </style>
 </head>
@@ -233,55 +264,53 @@
     <div class="card-box">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
-        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 選択をリセット</button>
+        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 リセット</button>
       </div>
       
       <!-- モード切り替えタブ -->
       <div class="mode-tabs">
         <button class="tab-btn active" onclick="switchMode('auto')">① かんたん均等</button>
-        <button class="tab-btn" onclick="switchMode('target')">② 目標PTカスタム</button>
+        <button class="tab-btn" onclick="switchMode('target')">② 目標PT</button>
         <button class="tab-btn" onclick="switchMode('current')">③ 保有PT合算</button>
       </div>
 
       <!-- ① かんたん均等の説明パネル -->
       <div id="panel-auto" class="mode-panel active">
-        <p class="usage-guide" style="margin:0;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
+        <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
       </div>
 
       <!-- ② 目標PTカスタムの入力パネル -->
       <div id="panel-target" class="mode-panel">
-        <p class="usage-guide" style="margin-top:0; margin-bottom:8px;">左または右に寄せたい目標ポイントを指定してください。</p>
-        <div style="display: flex; gap: 10px;">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">指定の目標ポイントに近づくよう振り分けます。</p>
+        <div style="display: flex; gap: 8px;">
           <div style="flex: 1;">
-            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
             <input type="number" id="targetLeftPt" class="input-pt" placeholder="例: 10000" min="0">
           </div>
           <div style="flex: 1;">
-            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
             <input type="number" id="targetRightPt" class="input-pt" placeholder="例: 5000" min="0">
           </div>
         </div>
-        <small style="color:#888; font-size:0.72rem; display:block; margin-top:4px;">※片方のみの入力でも可（そちらの目標に最も近づくよう計算します）。</small>
       </div>
 
       <!-- ③ 保有PT合算の入力パネル -->
       <div id="panel-current" class="mode-panel">
-        <p class="usage-guide" style="margin-top:0; margin-bottom:4px;">現在保有しているポイントも含めて、左右差が一番少なくなるよう配置します。</p>
-        <p class="usage-guide" style="margin-top:0; margin-bottom:8px; color:var(--text-sub);">現在のポイントを入力してください</p>
-        <div style="display: flex; gap: 10px;">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">保有PTも含めて左右差が一番少なくなるよう配置します。</p>
+        <div style="display: flex; gap: 8px;">
           <div style="flex: 1;">
-            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
             <input type="number" id="currentLeftPt" class="input-pt" value="0" min="0">
           </div>
           <div style="flex: 1;">
-            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
             <input type="number" id="currentRightPt" class="input-pt" value="0" min="0">
           </div>
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 12px;">
-        <label class="label-accent">対象月度</label>
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label class="label-accent" style="font-size:0.8rem;">対象月度</label>
         <select id="monthSelect" class="calc-select"></select>
       </div>
 
@@ -289,73 +318,69 @@
         <!-- JSで動的生成 -->
       </div>
 
-      <button class="btn-copy" onclick="calculateBinarySplit()">振り分け計算を実行</button>
+      <button class="btn-copy" onclick="calculateBinarySplit()">計算を実行する</button>
 
       <div id="splitResult" class="result-container" style="display:none;">
         <div class="split-container">
           <div class="split-col">
-            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">左 (L)</h3>
+            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
             <div id="leftList"></div>
             
             <div class="total-box">
-              <p style="font-size:0.82rem; margin:3px 0;">今回PT: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-weight:bold; color:var(--text-sub);">＋</span></p>
+              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
               
-              <!-- 目標PTモード時の差分表示 -->
-              <p id="leftTargetDiffRow" style="font-size:0.82rem; margin:3px 0; display:none;">
-                目標差分: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
+              <p id="leftTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
+                目標差: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
               </p>
 
-              <p id="leftCurrentPtRow" style="font-size:0.82rem; margin:3px 0; color:var(--text-sub); display:none;">保有PT: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
+              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
               
               <div id="leftFinalPtRow" class="final-sum-box" style="display:none;">
-                ＝ 合計: <span id="leftFinalPtVal" style="color:#b87b2a; font-size:1.02rem;">0</span> PT
+                ＝ <span id="leftFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
               </div>
 
-              <p style="font-size:0.82rem; margin:5px 0 3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
 
-              <!-- 不足時のおすすめ追加提案 -->
               <div id="leftSuggestBox" class="suggest-box" style="display:none;">
-                💡 <strong>不足カバーのおすすめ追加:</strong><br>
+                💡 <strong>おすすめ追加:</strong><br>
                 <span id="leftSuggestItem"></span>
               </div>
             </div>
           </div>
 
           <div class="split-col">
-            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">右 (R)</h3>
+            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">右 (R)</h3>
             <div id="rightList"></div>
             
             <div class="total-box">
-              <p style="font-size:0.82rem; margin:3px 0;">今回PT: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-weight:bold; color:var(--text-sub);">＋</span></p>
+              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
               
-              <!-- 目標PTモード時の差分表示 -->
-              <p id="rightTargetDiffRow" style="font-size:0.82rem; margin:3px 0; display:none;">
-                目標差分: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
+              <p id="rightTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
+                目標差: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
               </p>
 
-              <p id="rightCurrentPtRow" style="font-size:0.82rem; margin:3px 0; color:var(--text-sub); display:none;">保有PT: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
+              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
               
               <div id="rightFinalPtRow" class="final-sum-box" style="display:none;">
-                ＝ 合計: <span id="rightFinalPtVal" style="color:#b87b2a; font-size:1.02rem;">0</span> PT
+                ＝ <span id="rightFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
               </div>
 
-              <p style="font-size:0.82rem; margin:5px 0 3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
 
-              <!-- 不足時のおすすめ追加提案 -->
               <div id="rightSuggestBox" class="suggest-box" style="display:none;">
-                💡 <strong>不足カバーのおすすめ追加:</strong><br>
+                💡 <strong>おすすめ追加:</strong><br>
                 <span id="rightSuggestItem"></span>
               </div>
             </div>
           </div>
         </div>
 
-        <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
+        <div style="margin-top:10px; padding-top:8px; border-top:1.5px solid var(--accent-gold); font-size:0.82rem; text-align:center;">
           <div id="ptDiffRow">
-            <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT
+            <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.9rem;">0</strong> PT
           </div>
           <div>
-            総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
+            総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1rem;">0</strong> 円
           </div>
         </div>
       </div>
@@ -427,7 +452,7 @@
         }
 
         div.innerHTML = `
-          <span style="font-size:0.85rem;">
+          <span style="font-size:0.82rem;">
             <strong>${p.name}</strong><br>
             <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
           </span>
@@ -465,7 +490,6 @@
       document.getElementById('splitResult').style.display = 'none';
     }
 
-    // 厳密な組み合わせ最適化（動的計画法 / DP）
     function findOptimalSubset(items, targetPt) {
       let dp = new Map();
       dp.set(0, []);
@@ -497,7 +521,6 @@
       return bestIndices;
     }
 
-    // 不足PTに最も近く、かつ金額を抑えられる「複数個買い」のおすすめ検索処理
     function findSuggestedProduct(shortagePt, month) {
       if (shortagePt <= 0) return null;
 
@@ -510,13 +533,11 @@
         const pt = p.pts[month] || 0;
         if (pt <= 0) return;
 
-        // 1個〜5個の組み合わせを判定
         for (let qty = 1; qty <= 5; qty++) {
           const totalPt = pt * qty;
           const totalPrice = p.price * qty;
           const diff = Math.abs(totalPt - shortagePt);
 
-          // 差（PTの近さ）が小さい、または差が同じなら価格が安い方を採用
           if (diff < minDiff || (diff === minDiff && totalPrice < minPrice)) {
             minDiff = diff;
             minPrice = totalPrice;
@@ -561,7 +582,6 @@
       let curLeftPt = 0;
       let curRightPt = 0;
 
-      // モード別ターゲット計算
       if (currentMode === 'auto') {
         targetLeftPt = totalPurchasePt / 2;
       } else if (currentMode === 'target') {
@@ -607,7 +627,6 @@
         }
       });
 
-      // リスト描画処理
       const summarizeToCards = (list) => {
         let map = {};
         list.forEach(i => {
@@ -617,8 +636,8 @@
         
         return Object.keys(map).map(k => `
           <div class="split-item-card">
-            <div class="split-item-name">${k} × ${map[k].count}個</div>
-            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()} PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+            <div class="split-item-name">${k} × ${map[k].count}</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()}PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
           </div>
         `).join('');
       };
@@ -632,7 +651,6 @@
       document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
-      // モード③ (保有PT合算) の表示制御
       const showCurrent = (currentMode === 'current');
       document.getElementById('leftPlusSign').style.display = showCurrent ? 'inline' : 'none';
       document.getElementById('rightPlusSign').style.display = showCurrent ? 'inline' : 'none';
@@ -654,7 +672,6 @@
         document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
       }
 
-      // 最下部PT差の表示/非表示（目標PTカスタムモード時は非表示）
       const ptDiffRow = document.getElementById('ptDiffRow');
       if (currentMode === 'target') {
         ptDiffRow.style.display = 'none';
@@ -662,7 +679,6 @@
         ptDiffRow.style.display = 'block';
       }
 
-      // モード② (目標PTカスタム) の差分 ＆ 不足時おすすめ表示
       const isTargetMode = (currentMode === 'target');
       document.getElementById('leftTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
       document.getElementById('rightTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
@@ -671,12 +687,11 @@
         const rawTL = parseFloat(document.getElementById('targetLeftPt').value);
         const rawTR = parseFloat(document.getElementById('targetRightPt').value);
 
-        // 左の計算
         if (!isNaN(rawTL)) {
           const diffL = leftPt - rawTL;
           const diffElL = document.getElementById('leftTargetDiffVal');
           if (diffL < 0) {
-            diffElL.style.color = '#c94b4b'; // マイナスは赤文字
+            diffElL.style.color = '#c94b4b';
             diffElL.textContent = `${diffL.toLocaleString()} PT`;
             
             const sug = findSuggestedProduct(Math.abs(diffL), month);
@@ -686,7 +701,7 @@
               document.getElementById('leftSuggestBox').style.display = 'block';
             }
           } else {
-            diffElL.style.color = '#2b6cb0'; // プラスは青文字
+            diffElL.style.color = '#2b6cb0';
             diffElL.textContent = `+${diffL.toLocaleString()} PT`;
             document.getElementById('leftSuggestBox').style.display = 'none';
           }
@@ -695,7 +710,6 @@
           document.getElementById('leftSuggestBox').style.display = 'none';
         }
 
-        // 右の計算
         if (!isNaN(rawTR)) {
           const diffR = rightPt - rawTR;
           const diffElR = document.getElementById('rightTargetDiffVal');
