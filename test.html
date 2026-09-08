@@ -184,6 +184,18 @@
       background-color: #f0f0f0;
       color: var(--text-main);
     }
+    
+    /* おすすめ提案のスタイル */
+    .suggest-box {
+      margin-top: 8px;
+      padding: 8px;
+      background: #fffdf0;
+      border: 1px solid #f6e05e;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      color: #744210;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -264,9 +276,21 @@
             
             <div class="total-box">
               <p style="font-size:0.82rem; margin:3px 0;">今回PT: <span class="total-pt-val" id="leftTotalPt">0</span> PT</p>
+              
+              <!-- 目標PTモード時の差分表示 -->
+              <p id="leftTargetDiffRow" style="font-size:0.82rem; margin:3px 0; display:none;">
+                目標差分: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
+              </p>
+
               <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">既存PT: <span id="leftCurrentPtVal">0</span> PT</p>
               <p id="leftFinalPtRow" style="font-size:0.82rem; margin:3px 0; font-weight:bold; color:#2d3748; display:none;">最終合計: <span id="leftFinalPtVal">0</span> PT</p>
               <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+
+              <!-- 不足時のおすすめ追加提案 -->
+              <div id="leftSuggestBox" class="suggest-box" style="display:none;">
+                💡 <strong>不足カバーのおすすめ追加:</strong><br>
+                <span id="leftSuggestItem"></span>
+              </div>
             </div>
           </div>
 
@@ -276,9 +300,21 @@
             
             <div class="total-box">
               <p style="font-size:0.82rem; margin:3px 0;">今回PT: <span class="total-pt-val" id="rightTotalPt">0</span> PT</p>
+              
+              <!-- 目標PTモード時の差分表示 -->
+              <p id="rightTargetDiffRow" style="font-size:0.82rem; margin:3px 0; display:none;">
+                目標差分: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
+              </p>
+
               <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">既存PT: <span id="rightCurrentPtVal">0</span> PT</p>
               <p id="rightFinalPtRow" style="font-size:0.82rem; margin:3px 0; font-weight:bold; color:#2d3748; display:none;">最終合計: <span id="rightFinalPtVal">0</span> PT</p>
               <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+
+              <!-- 不足時のおすすめ追加提案 -->
+              <div id="rightSuggestBox" class="suggest-box" style="display:none;">
+                💡 <strong>不足カバーのおすすめ追加:</strong><br>
+                <span id="rightSuggestItem"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -315,7 +351,6 @@
       document.getElementById('panel-target').classList.toggle('active', mode === 'target');
       document.getElementById('panel-current').classList.toggle('active', mode === 'current');
 
-      // 結果表示を隠す
       document.getElementById('splitResult').style.display = 'none';
     }
 
@@ -396,7 +431,6 @@
     }
 
     // 厳密な組み合わせ最適化（動的計画法 / DP）
-    // itemsの中から「目標PT (targetPt)」に最も合計が近い組み合わせ（左に入れる商品）を厳密に求める
     function findOptimalSubset(items, targetPt) {
       let dp = new Map();
       dp.set(0, []);
@@ -414,7 +448,6 @@
         dp = nextDp;
       }
 
-      let bestSum = -1;
       let minDiff = Infinity;
       let bestIndices = [];
 
@@ -422,12 +455,33 @@
         const diff = Math.abs(sum - targetPt);
         if (diff < minDiff) {
           minDiff = diff;
-          bestSum = sum;
           bestIndices = indices;
         }
       }
 
       return bestIndices;
+    }
+
+    // 不足PTに一番近いポイントを持つ商品を検索する処理
+    function findSuggestedProduct(shortagePt, month) {
+      if (shortagePt <= 0) return null;
+
+      let bestProduct = null;
+      let minDiff = Infinity;
+
+      configData.products.forEach(p => {
+        if (p.name === 'リペアセラム') return;
+        const pt = p.pts[month] || 0;
+        if (pt <= 0) return;
+
+        const diff = Math.abs(pt - shortagePt);
+        if (diff < minDiff) {
+          minDiff = diff;
+          bestProduct = { name: p.name, pt: pt, price: p.price };
+        }
+      });
+
+      return bestProduct;
     }
 
     function calculateBinarySplit() {
@@ -458,7 +512,7 @@
       let curLeftPt = 0;
       let curRightPt = 0;
 
-      // モードに応じた左側の「目標PT」の計算
+      // モード別ターゲット計算
       if (currentMode === 'auto') {
         targetLeftPt = totalPurchasePt / 2;
       } else if (currentMode === 'target') {
@@ -466,7 +520,6 @@
         const tR = parseFloat(document.getElementById('targetRightPt').value);
 
         if (!isNaN(tL) && !isNaN(tR)) {
-          // 両方入力されている場合、全体の比率から左目標を算出
           const targetTotal = tL + tR;
           targetLeftPt = targetTotal > 0 ? totalPurchasePt * (tL / targetTotal) : totalPurchasePt / 2;
         } else if (!isNaN(tL)) {
@@ -481,15 +534,11 @@
         curLeftPt = parseFloat(document.getElementById('currentLeftPt').value) || 0;
         curRightPt = parseFloat(document.getElementById('currentRightPt').value) || 0;
         
-        // （既存左 + 今回左） = （既存右 + 今回右） になるように今回左の目標値を算出
-        // 既存左 + 今回左 = (全PT + 既存左 + 既存右) / 2
-        // 今回左 = (全PT + 既存右 - 既存左) / 2
         targetLeftPt = (totalPurchasePt + curRightPt - curLeftPt) / 2;
         if (targetLeftPt < 0) targetLeftPt = 0;
         if (targetLeftPt > totalPurchasePt) targetLeftPt = totalPurchasePt;
       }
 
-      // 最適な左側商品のインデックスを取得
       const leftIndices = findOptimalSubset(allUnitItems, targetLeftPt);
       const leftSet = new Set(leftIndices);
 
@@ -509,7 +558,7 @@
         }
       });
 
-      // 表示処理
+      // リスト描画処理
       const summarizeToCards = (list) => {
         let map = {};
         list.forEach(i => {
@@ -534,7 +583,7 @@
       document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
-      // モード③（保有PT考慮）の場合の追加表示
+      // モード③ (保有PT考慮) の表示
       const showCurrent = (currentMode === 'current');
       document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
       document.getElementById('leftFinalPtRow').style.display = showCurrent ? 'block' : 'none';
@@ -552,6 +601,65 @@
       } else {
         document.getElementById('diffLabel').textContent = '今回PT差';
         document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      }
+
+      // モード② (目標PT指定) の差分 ＆ 不足時おすすめ表示
+      const isTargetMode = (currentMode === 'target');
+      document.getElementById('leftTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
+      document.getElementById('rightTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
+
+      if (isTargetMode) {
+        const rawTL = parseFloat(document.getElementById('targetLeftPt').value);
+        const rawTR = parseFloat(document.getElementById('targetRightPt').value);
+
+        // 左の計算
+        if (!isNaN(rawTL)) {
+          const diffL = leftPt - rawTL;
+          const diffElL = document.getElementById('leftTargetDiffVal');
+          if (diffL < 0) {
+            diffElL.style.color = '#c94b4b'; // マイナスは赤文字
+            diffElL.textContent = `${diffL.toLocaleString()} PT`;
+            
+            const sug = findSuggestedProduct(Math.abs(diffL), month);
+            if (sug) {
+              document.getElementById('leftSuggestItem').innerHTML = `<strong>${sug.name}</strong><br>${sug.pt.toLocaleString()} PT / ${sug.price.toLocaleString()}円`;
+              document.getElementById('leftSuggestBox').style.display = 'block';
+            }
+          } else {
+            diffElL.style.color = '#2b6cb0'; // プラスは青文字
+            diffElL.textContent = `+${diffL.toLocaleString()} PT`;
+            document.getElementById('leftSuggestBox').style.display = 'none';
+          }
+        } else {
+          document.getElementById('leftTargetDiffRow').style.display = 'none';
+          document.getElementById('leftSuggestBox').style.display = 'none';
+        }
+
+        // 右の計算
+        if (!isNaN(rawTR)) {
+          const diffR = rightPt - rawTR;
+          const diffElR = document.getElementById('rightTargetDiffVal');
+          if (diffR < 0) {
+            diffElR.style.color = '#c94b4b';
+            diffElR.textContent = `${diffR.toLocaleString()} PT`;
+
+            const sug = findSuggestedProduct(Math.abs(diffR), month);
+            if (sug) {
+              document.getElementById('rightSuggestItem').innerHTML = `<strong>${sug.name}</strong><br>${sug.pt.toLocaleString()} PT / ${sug.price.toLocaleString()}円`;
+              document.getElementById('rightSuggestBox').style.display = 'block';
+            }
+          } else {
+            diffElR.style.color = '#2b6cb0';
+            diffElR.textContent = `+${diffR.toLocaleString()} PT`;
+            document.getElementById('rightSuggestBox').style.display = 'none';
+          }
+        } else {
+          document.getElementById('rightTargetDiffRow').style.display = 'none';
+          document.getElementById('rightSuggestBox').style.display = 'none';
+        }
+      } else {
+        document.getElementById('leftSuggestBox').style.display = 'none';
+        document.getElementById('rightSuggestBox').style.display = 'none';
       }
 
       document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
