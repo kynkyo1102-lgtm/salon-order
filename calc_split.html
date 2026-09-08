@@ -80,6 +80,44 @@
       background-color: #fff;
       color: var(--text-main);
     }
+
+    /* モード概要ガイド（新規追加） */
+    .mode-guide-box {
+      background: #fdfbf7;
+      border: 1px solid #e8dfd1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 0.76rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    .mode-guide-title {
+      font-weight: bold;
+      color: var(--wood-dark, #5c4033);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+    }
+    .mode-guide-list {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .mode-guide-list li {
+      margin-bottom: 3px;
+    }
+    .mode-guide-list li:last-child {
+      margin-bottom: 0;
+    }
+    .mode-badge {
+      display: inline-block;
+      font-weight: bold;
+      color: #b87b2a;
+      margin-right: 2px;
+    }
     
     /* モード切り替えタブのスタイル */
     .mode-tabs {
@@ -126,7 +164,7 @@
       scroll-margin-top: 20px;
     }
     
-    /* 左右配置コンテナ（スマホでも横並びを維持・最適化） */
+    /* 左右配置コンテナ */
     .split-container {
       display: flex;
       gap: 8px;
@@ -134,7 +172,7 @@
     }
     .split-col {
       flex: 1;
-      min-width: 0; /* 横あふれ防止 */
+      min-width: 0;
       background: #fffdf9;
       padding: 8px;
       border: 1px solid var(--border-color);
@@ -176,7 +214,6 @@
       color: #2b6cb0;
     }
     
-    /* ③保有PT合算用のハイライト表示スタイル */
     .final-sum-box {
       background-color: #fff8e6;
       border: 1px solid #f6e05e;
@@ -214,7 +251,6 @@
       color: var(--text-main);
     }
     
-    /* おすすめ提案のスタイル */
     .suggest-box {
       margin-top: 6px;
       padding: 6px;
@@ -229,7 +265,7 @@
     /* 📱 スマホ表示用レイアウトの最適化 */
     @media (max-width: 600px) {
       .product-list-box {
-        max-height: 200px; /* 商品リストをコンパクトにしてスクロール量を削減 */
+        max-height: 200px;
       }
       .tab-btn {
         font-size: 0.72rem;
@@ -248,6 +284,10 @@
       .final-sum-box span {
         font-size: 0.88rem !important;
       }
+      .mode-guide-box {
+        padding: 8px 10px;
+        font-size: 0.73rem;
+      }
     }
   </style>
 </head>
@@ -265,6 +305,16 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
         <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 リセット</button>
+      </div>
+
+      <!-- モード選び方ガイド（新規追加） -->
+      <div class="mode-guide-box">
+        <div class="mode-guide-title">💡 どのモードを選べばいい？</div>
+        <ul class="mode-guide-list">
+          <li><span class="mode-badge">① かんたん均等</span>：今回の購入分を左右半々に分けたいとき</li>
+          <li><span class="mode-badge">② 目標PT</span>：左右に狙いたいポイント数（目標）があるとき</li>
+          <li><span class="mode-badge">③ 保有PT合算</span>：手持ちのPTと足して左右差を無くしたいとき</li>
+        </ul>
       </div>
       
       <!-- モード切り替えタブ -->
