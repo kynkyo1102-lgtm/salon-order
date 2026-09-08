@@ -3,199 +3,186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>プラッス ドゥ ニナ 南熊本店</title>
+  <title>左右バランス分配ツール - Place de Nina</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <!-- 外部CSSの読み込み -->
-  <link rel="stylesheet" href="style.css?v=4">
-
+  <link rel="stylesheet" href="style.css">
   <style>
-    /* ==========================================
-       1. お知らせエリア（ページ固有のアコーディオン表示）
-    ========================================== */
-    #newsContainerArea {
-      margin-bottom: 20px;
-    }
-
-    .news-accordion {
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .news-summary {
-      padding: 10px 14px;
-      font-weight: bold;
-      font-size: 0.82rem;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-      background-color: #f7f3ed;
-      transition: background-color 0.2s;
-    }
-
-    .news-summary:hover {
-      background-color: #f0e8de;
-    }
-
-    .news-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .news-toggle-icon {
-      font-size: 0.75rem;
-      color: var(--accent-gold);
-      transition: transform 0.2s ease;
-    }
-
-    .news-accordion[open] .news-toggle-icon {
-      transform: rotate(90deg);
-    }
-
-    .news-content-body {
-      padding: 12px 14px;
-      border-top: 1px dashed var(--border-color);
-      font-size: 0.82rem;
-    }
-
-    /* ==========================================
-       2. 使い方ガイド（折りたたみ）
-    ========================================== */
-    .usage-guide-accordion {
-      background-color: #fbf9f5;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-      overflow: hidden;
-    }
-
-    .usage-guide-summary {
+    .calc-select {
+      width: 100%;
       padding: 10px 12px;
-      font-weight: bold;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-    }
-
-    .usage-guide-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .usage-guide-content {
-      padding: 10px 12px 12px 12px;
-      border-top: 1px dashed var(--border-color);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    /* ==========================================
-       3. メイン注文ツール（フィーチャーカード）
-    ========================================== */
-    .hero-order-section {
-      margin-bottom: 24px;
-    }
-
-    .menu-card.featured-card {
-      width: 100%;
-      box-sizing: border-box;
-      background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
-      border: 1.5px solid var(--border-color);
-      border-left: 5px solid var(--accent-gold);
-      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-
-    .menu-card.featured-card .card-icon {
-      background-color: #ffffff;
-      border: 1px solid var(--border-color);
-      color: var(--accent-gold);
-    }
-
-    .menu-card.featured-card .card-title {
-      font-size: 1.05rem;
-      color: var(--wood-dark);
-    }
-
-    .menu-card.featured-card .card-desc {
-      font-size: 0.8rem;
-      margin-top: 3px;
-    }
-
-    .menu-card.featured-card:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
-      border-color: var(--accent-gold);
-      box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
-    }
-
-    /* 注文計算アシスタント */
-    .calc-sub-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #f4eee6;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent-gold);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      text-decoration: none;
-      color: var(--text-main);
-      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .calc-sub-card:hover {
-      background-color: #ebdcd0;
-      border-color: var(--accent-gold);
-    }
-
-    .calc-sub-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .calc-sub-icon {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-
-    .calc-sub-title {
       font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fcfcfc;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .calc-select:focus, .input-pt:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+    .input-pt {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: #fff;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .product-list-box {
+      max-height: 320px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 8px;
+      border-bottom: 1px dashed var(--border-color);
+      transition: background 0.2s;
+    }
+    .product-item:last-child {
+      border-bottom: none;
+    }
+    .product-item.selected {
+      background-color: rgba(200, 162, 97, 0.12);
+      font-weight: bold;
+    }
+    .product-item select.prod-qty {
+      width: 75px;
+      padding: 6px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      background-color: #fff;
+      color: var(--text-main);
+    }
+    
+    /* モード切り替えタブのスタイル */
+    .mode-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: #f5f5f5;
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .tab-btn.active {
+      background: var(--accent-gold, #c8a261);
+      color: #fff;
+      border-color: var(--accent-gold, #c8a261);
+    }
+    .mode-panel {
+      display: none;
+      background: #faf8f5;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border-color);
+    }
+    .mode-panel.active {
+      display: block;
+    }
+    
+    .result-container {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+      scroll-margin-top: 20px;
+    }
+    .split-container {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .split-col {
+      flex: 1;
+      background: #fffdf9;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    .split-item-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .split-item-name {
       font-weight: bold;
       color: var(--wood-dark);
+      margin-bottom: 2px;
     }
-
-    .calc-sub-desc {
-      font-size: 0.75rem;
+    .split-item-sub {
       color: var(--text-sub);
-      margin-top: 1px;
+      font-size: 0.78rem;
     }
-
-    .calc-sub-arrow {
+    .total-box {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .total-pt-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #b87b2a;
+    }
+    .total-cost-val {
+      font-size: 0.98rem;
+      font-weight: bold;
+      color: #2b6cb0;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 14px;
       font-size: 0.85rem;
       color: var(--accent-gold);
-      font-weight: bold;
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: #f0f0f0;
+      color: var(--text-main);
     }
   </style>
 </head>
@@ -203,170 +190,379 @@
 
   <header>
     <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>プラッス ドゥ ニナ 南熊本店</h1>
+    <h1>左右バランス分配ツール</h1>
   </header>
 
   <main>
-
-    <!-- お知らせセクション（JavaScriptで自動挿入） -->
-    <div id="newsContainerArea"></div>
-
-    <!-- メイン：注文ツールセクション -->
-    <div class="hero-order-section">
-      <div class="section-title">LINEご注文作成ツール</div>
+    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
+    
+    <div class="card-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div class="section-title" style="margin-bottom: 0;">購入商品の左右バランス分配</div>
+        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 選択をリセット</button>
+      </div>
       
-      <!-- 注意書き -->
-      <p style="font-size: 0.78rem; color: #c94b4b; margin: -4px 0 12px 0; line-height: 1.4; font-weight: bold;">
-        ※こちらは直接サロンへ送信されるものではなく、注文テキストを作成できるツールになります。ご注文の際はツールで作成したテキストまたは画像をサロンLINEへご送信ください。
-      </p>
+      <!-- モード切り替えタブ -->
+      <div class="mode-tabs">
+        <button class="tab-btn active" onclick="switchMode('auto')">① 自動均等分配</button>
+        <button class="tab-btn" onclick="switchMode('target')">② 目標PT指定</button>
+        <button class="tab-btn" onclick="switchMode('current')">③ 保有PT考慮</button>
+      </div>
 
-      <!-- どちらのツールを使えばいい？（折りたたみ） -->
-      <details class="usage-guide-accordion">
-        <summary class="usage-guide-summary">
-          <span>💡 どちらのツールを使えばいい？</span>
-          <span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
-        </summary>
-        <div class="usage-guide-content">
-          ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
-          ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
-          <span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
-        </div>
-      </details>
+      <!-- ① 自動均等分配の説明パネル -->
+      <div id="panel-auto" class="mode-panel active">
+        <p class="usage-guide" style="margin:0;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
+      </div>
 
-      <!-- メイン注文ツール 1 -->
-      <a href="single.html" class="menu-card featured-card">
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">LINEノート コピペ用</div>
-          <p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
-        </div>
-      </a>
-
-      <!-- メイン注文ツール 2 -->
-      <a href="bulk.html" class="menu-card featured-card">
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">注文書作成 画像保存用</div>
-          <p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
-        </div>
-      </a>
-
-      <!-- 注文計算アシスタント -->
-      <a href="calc.html" class="calc-sub-card">
-        <div class="calc-sub-content">
-          <div class="calc-sub-icon">📊</div>
-          <div>
-            <div class="calc-sub-title">注文計算アシスタント</div>
-            <div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
+      <!-- ② 目標PT指定の入力パネル -->
+      <div id="panel-target" class="mode-panel">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:8px;">左または右に寄せたい目標ポイントを指定してください。</p>
+        <div style="display: flex; gap: 10px;">
+          <div style="flex: 1;">
+            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
+            <input type="number" id="targetLeftPt" class="input-pt" placeholder="例: 10000" min="0">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
+            <input type="number" id="targetRightPt" class="input-pt" placeholder="例: 5000" min="0">
           </div>
         </div>
-        <div class="calc-sub-arrow">▶</div>
-      </a>
-    </div>
+        <small style="color:#888; font-size:0.72rem; display:block; margin-top:4px;">※片方のみの入力でも可（そちらの目標に最も近づくよう計算します）。</small>
+      </div>
 
-    <!-- 店舗情報・SNSリンク -->
-    <div class="sub-info-area">
-      <div class="sub-info-title">INFORMATION & SNS</div>
-      
-      <div class="sub-grid">
-        <a href="https://line.me/ti/p/7iG8fg4ykI" target="_blank" rel="noopener noreferrer" class="sub-btn">
-          <svg class="icon-line" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"/></svg>
-          <span>公式LINE</span>
-        </a>
-        
-        <a href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" target="_blank" rel="noopener noreferrer" class="sub-btn">
-          <svg class="icon-insta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          <span>Instagram</span>
-        </a>
+      <!-- ③ 保有PT考慮の入力パネル -->
+      <div id="panel-current" class="mode-panel">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:8px;">現在会員が保持している左右のポイントを入力してください。</p>
+        <div style="display: flex; gap: 10px;">
+          <div style="flex: 1;">
+            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
+            <input type="number" id="currentLeftPt" class="input-pt" value="0" min="0">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size:0.78rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
+            <input type="number" id="currentRightPt" class="input-pt" value="0" min="0">
+          </div>
+        </div>
+      </div>
 
-        <a href="info.html" class="sub-btn">
-          <span>📍</span> 店舗案内
-        </a>
-        
-        <a href="bank.html" class="sub-btn">
-          <span>💳</span> お支払いについて
-        </a>
+      <div class="form-group" style="margin-bottom: 12px;">
+        <label class="label-accent">対象月度</label>
+        <select id="monthSelect" class="calc-select"></select>
+      </div>
 
-        <a href="faq.html" class="sub-btn">
-          <span>❓</span> よくある質問
-        </a>
+      <div id="productQtyList" class="product-list-box">
+        <!-- JSで動的生成 -->
+      </div>
+
+      <button class="btn-copy" onclick="calculateBinarySplit()">分配計算を実行</button>
+
+      <div id="splitResult" class="result-container" style="display:none;">
+        <div class="split-container">
+          <div class="split-col">
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">左 (L)</h3>
+            <div id="leftList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">今回PT: <span class="total-pt-val" id="leftTotalPt">0</span> PT</p>
+              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">既存PT: <span id="leftCurrentPtVal">0</span> PT</p>
+              <p id="leftFinalPtRow" style="font-size:0.82rem; margin:3px 0; font-weight:bold; color:#2d3748; display:none;">最終合計: <span id="leftFinalPtVal">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+            </div>
+          </div>
+
+          <div class="split-col">
+            <h3 style="margin:0 0 8px 0; color:var(--wood-dark); font-size:0.88rem; border-bottom:2px solid var(--accent-gold); padding-bottom:4px; text-align:center;">右 (R)</h3>
+            <div id="rightList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.82rem; margin:3px 0;">今回PT: <span class="total-pt-val" id="rightTotalPt">0</span> PT</p>
+              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">既存PT: <span id="rightCurrentPtVal">0</span> PT</p>
+              <p id="rightFinalPtRow" style="font-size:0.82rem; margin:3px 0; font-weight:bold; color:#2d3748; display:none;">最終合計: <span id="rightFinalPtVal">0</span> PT</p>
+              <p style="font-size:0.82rem; margin:3px 0;">合計金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; padding-top:10px; border-top:1.5px solid var(--accent-gold); font-size:0.88rem; text-align:center;">
+          <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.95rem;">0</strong> PT<br>
+          総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1.1rem;">0</strong> 円
+        </div>
       </div>
     </div>
-
   </main>
 
   <footer>
-    <div style="margin-bottom: 8px;">
-      <a href="privacy.html" style="color: var(--text-sub); text-decoration: underline; font-size: 0.7rem;">プライバシーポリシー</a>
-    </div>
-    &copy; PLACE DE NINA MINAMIKUMAMOTO
+    &copy; Place de Nina Order Support System
   </footer>
 
   <script>
-    async function loadNews() {
-      try {
-        const res = await fetch('./month_config.json?v=' + Date.now());
-        const data = await res.json();
-        
-        const container = document.getElementById('newsContainerArea');
-        if (!container) return;
+    let configData = null;
+    let currentMode = 'auto'; // 'auto', 'target', 'current'
 
-        let items = [];
-        if (Array.isArray(data.newsList) && data.newsList.length > 0) {
-          items = data.newsList;
-        } else if (data.newsDate || data.newsText) {
-          items = [{ date: data.newsDate || '', text: data.newsText || '' }];
-        }
-
-        if (items.length > 0) {
-          const latest = items[0];
-          // 最新お知らせ（NEWバッジを追加）
-          let html = `
-            <div class="news-box">
-              <span class="news-date">
-                <span class="news-badge">NEW</span>${latest.date}
-              </span>
-              <p class="news-text">${latest.text}</p>
-            </div>
-          `;
-
-          // 過去のお知らせ（アコーディオン内・バッジなし）
-          if (items.length > 1) {
-            const pastItemsHtml = items.slice(1).map(item => `
-              <div class="news-box" style="margin-bottom: 10px;">
-                <span class="news-date">${item.date}</span>
-                <p class="news-text">${item.text}</p>
-              </div>
-            `).join('');
-
-            html += `
-              <details class="news-accordion">
-                <summary class="news-summary">
-                  <span>📢 過去のお知らせ一覧</span>
-                  <span class="news-toggle-icon">▶</span>
-                </summary>
-                <div class="news-content-body">
-                  ${pastItemsHtml}
-                </div>
-              </details>
-            `;
-          }
-
-          container.innerHTML = html;
+    function switchMode(mode) {
+      currentMode = mode;
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach((tab, idx) => {
+        const modeNames = ['auto', 'target', 'current'];
+        if (modeNames[idx] === mode) {
+          tab.classList.add('active');
         } else {
-          container.innerHTML = '';
+          tab.classList.remove('active');
         }
+      });
+
+      document.getElementById('panel-auto').classList.toggle('active', mode === 'auto');
+      document.getElementById('panel-target').classList.toggle('active', mode === 'target');
+      document.getElementById('panel-current').classList.toggle('active', mode === 'current');
+
+      // 結果表示を隠す
+      document.getElementById('splitResult').style.display = 'none';
+    }
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        renderProductQtyList();
       } catch (e) {
-        console.error("お知らせの読み込みに失敗しました", e);
+        alert('month_config.json の読み込みに失敗しました。');
       }
     }
 
-    window.addEventListener('DOMContentLoaded', loadNews);
-  </script>
+    function renderProductQtyList() {
+      const month = document.getElementById('monthSelect').value;
+      const container = document.getElementById('productQtyList');
+      container.innerHTML = '';
 
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+
+        const pt = p.pts[month] || 0;
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.id = `item-row-${index}`;
+
+        let optionsHtml = '';
+        for (let i = 0; i <= 30; i++) {
+          optionsHtml += `<option value="${i}">${i}</option>`;
+        }
+
+        div.innerHTML = `
+          <span style="font-size:0.85rem;">
+            <strong>${p.name}</strong><br>
+            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
+          </span>
+          <select class="prod-qty" data-index="${index}" onchange="highlightSelected(${index})">
+            ${optionsHtml}
+          </select>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function highlightSelected(index) {
+      const row = document.getElementById(`item-row-${index}`);
+      const select = row.querySelector('.prod-qty');
+      if (parseInt(select.value) > 0) {
+        row.classList.add('selected');
+      } else {
+        row.classList.remove('selected');
+      }
+    }
+
+    function resetSplitSelection() {
+      const selects = document.querySelectorAll('.prod-qty');
+      selects.forEach(select => {
+        select.value = '0';
+        const idx = select.getAttribute('data-index');
+        highlightSelected(idx);
+      });
+
+      document.getElementById('targetLeftPt').value = '';
+      document.getElementById('targetRightPt').value = '';
+      document.getElementById('currentLeftPt').value = '0';
+      document.getElementById('currentRightPt').value = '0';
+
+      document.getElementById('splitResult').style.display = 'none';
+    }
+
+    // 厳密な組み合わせ最適化（動的計画法 / DP）
+    // itemsの中から「目標PT (targetPt)」に最も合計が近い組み合わせ（左に入れる商品）を厳密に求める
+    function findOptimalSubset(items, targetPt) {
+      let dp = new Map();
+      dp.set(0, []);
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const nextDp = new Map(dp);
+
+        for (let [sum, path] of dp.entries()) {
+          const newSum = sum + item.pt;
+          if (!nextDp.has(newSum)) {
+            nextDp.set(newSum, [...path, i]);
+          }
+        }
+        dp = nextDp;
+      }
+
+      let bestSum = -1;
+      let minDiff = Infinity;
+      let bestIndices = [];
+
+      for (let [sum, indices] of dp.entries()) {
+        const diff = Math.abs(sum - targetPt);
+        if (diff < minDiff) {
+          minDiff = diff;
+          bestSum = sum;
+          bestIndices = indices;
+        }
+      }
+
+      return bestIndices;
+    }
+
+    function calculateBinarySplit() {
+      const month = document.getElementById('monthSelect').value;
+      const selects = document.querySelectorAll('.prod-qty');
+      
+      let allUnitItems = [];
+
+      selects.forEach(select => {
+        const qty = parseInt(select.value) || 0;
+        if (qty > 0) {
+          const idx = select.getAttribute('data-index');
+          const p = configData.products[idx];
+          const pt = p.pts[month] || 0;
+          for (let i = 0; i < qty; i++) {
+            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
+          }
+        }
+      });
+
+      if (allUnitItems.length === 0) {
+        alert('商品を1つ以上（個数1以上）指定してください。');
+        return;
+      }
+
+      const totalPurchasePt = allUnitItems.reduce((acc, cur) => acc + cur.pt, 0);
+      let targetLeftPt = 0;
+      let curLeftPt = 0;
+      let curRightPt = 0;
+
+      // モードに応じた左側の「目標PT」の計算
+      if (currentMode === 'auto') {
+        targetLeftPt = totalPurchasePt / 2;
+      } else if (currentMode === 'target') {
+        const tL = parseFloat(document.getElementById('targetLeftPt').value);
+        const tR = parseFloat(document.getElementById('targetRightPt').value);
+
+        if (!isNaN(tL) && !isNaN(tR)) {
+          // 両方入力されている場合、全体の比率から左目標を算出
+          const targetTotal = tL + tR;
+          targetLeftPt = targetTotal > 0 ? totalPurchasePt * (tL / targetTotal) : totalPurchasePt / 2;
+        } else if (!isNaN(tL)) {
+          targetLeftPt = tL;
+        } else if (!isNaN(tR)) {
+          targetLeftPt = totalPurchasePt - tR;
+        } else {
+          alert('目標PT（左または右）を入力してください。');
+          return;
+        }
+      } else if (currentMode === 'current') {
+        curLeftPt = parseFloat(document.getElementById('currentLeftPt').value) || 0;
+        curRightPt = parseFloat(document.getElementById('currentRightPt').value) || 0;
+        
+        // （既存左 + 今回左） = （既存右 + 今回右） になるように今回左の目標値を算出
+        // 既存左 + 今回左 = (全PT + 既存左 + 既存右) / 2
+        // 今回左 = (全PT + 既存右 - 既存左) / 2
+        targetLeftPt = (totalPurchasePt + curRightPt - curLeftPt) / 2;
+        if (targetLeftPt < 0) targetLeftPt = 0;
+        if (targetLeftPt > totalPurchasePt) targetLeftPt = totalPurchasePt;
+      }
+
+      // 最適な左側商品のインデックスを取得
+      const leftIndices = findOptimalSubset(allUnitItems, targetLeftPt);
+      const leftSet = new Set(leftIndices);
+
+      let left = [], right = [];
+      let leftPt = 0, rightPt = 0;
+      let leftCost = 0, rightCost = 0;
+
+      allUnitItems.forEach((item, index) => {
+        if (leftSet.has(index)) {
+          left.push(item);
+          leftPt += item.pt;
+          leftCost += item.price;
+        } else {
+          right.push(item);
+          rightPt += item.pt;
+          rightCost += item.price;
+        }
+      });
+
+      // 表示処理
+      const summarizeToCards = (list) => {
+        let map = {};
+        list.forEach(i => {
+          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
+          map[i.name].count++;
+        });
+        
+        return Object.keys(map).map(k => `
+          <div class="split-item-card">
+            <div class="split-item-name">${k} × ${map[k].count}個</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()} PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+          </div>
+        `).join('');
+      };
+
+      document.getElementById('leftList').innerHTML = summarizeToCards(left);
+      document.getElementById('rightList').innerHTML = summarizeToCards(right);
+      
+      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
+      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
+      
+      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
+      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
+
+      // モード③（保有PT考慮）の場合の追加表示
+      const showCurrent = (currentMode === 'current');
+      document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('leftFinalPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('rightCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('rightFinalPtRow').style.display = showCurrent ? 'block' : 'none';
+
+      if (showCurrent) {
+        document.getElementById('leftCurrentPtVal').textContent = curLeftPt.toLocaleString();
+        document.getElementById('leftFinalPtVal').textContent = (curLeftPt + leftPt).toLocaleString();
+        document.getElementById('rightCurrentPtVal').textContent = curRightPt.toLocaleString();
+        document.getElementById('rightFinalPtVal').textContent = (curRightPt + rightPt).toLocaleString();
+
+        document.getElementById('diffLabel').textContent = '最終合計PT差';
+        document.getElementById('ptDiff').textContent = Math.abs((curLeftPt + leftPt) - (curRightPt + rightPt)).toLocaleString();
+      } else {
+        document.getElementById('diffLabel').textContent = '今回PT差';
+        document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      }
+
+      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
+
+      const resDiv = document.getElementById('splitResult');
+      resDiv.style.display = 'block';
+      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
+    window.onload = loadConfig;
+  </script>
 </body>
 </html>
