@@ -54,6 +54,7 @@
       font-size: 0.85rem;
       box-sizing: border-box;
       background-color: #fcfbfa;
+      color: #333333;
     }
     .auth-btn-group {
       display: flex;
@@ -303,8 +304,8 @@
           <input type="email" id="authEmail" class="auth-input" placeholder="メールアドレス">
           <input type="password" id="authPassword" class="auth-input" placeholder="パスワード（6文字以上）">
           <div class="auth-btn-group">
-           <button type="button" class="auth-btn-main" onclick="handleLogin()">ログイン</button>
-　　　　　　<button type="button" class="auth-btn-sub" onclick="handleSignUp()">新規登録</button> 
+            <button type="button" class="auth-btn-main" onclick="handleLogin()">ログイン</button>
+            <button type="button" class="auth-btn-sub" onclick="handleSignUp()">新規登録</button>
           </div>
         </div>
       </div>
@@ -316,7 +317,7 @@
             <span style="font-size: 0.75rem; color: var(--text-sub);">ログイン中のアカウント</span>
             <div id="userEmailDisplay" style="font-size: 0.88rem; font-weight: bold; color: var(--wood-dark);"></div>
           </div>
-          <button onclick="handleLogout()" style="padding: 6px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.78rem; font-weight: bold; color: var(--wood-dark);">ログアウト</button>
+          <button type="button" onclick="handleLogout()" style="padding: 6px 12px; background: #ffffff; border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.78rem; font-weight: bold; color: var(--wood-dark);">ログアウト</button>
         </div>
       </div>
     </div>
@@ -423,22 +424,26 @@
     // Supabase 初期化
     const SUPABASE_URL = 'https://foeyyrbftaiscxijgvjv.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_7IVQaL-0ptbvQ_DSmK9BTQ_fEajO01E';
-    const supabase = window.supabase.createClient('https://foeyyrbftaiscxijgvjv.supabase.co','sb_publishable_7IVQaL-0ptbvQ_DSmK9BTQ_fEajO01E' );
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // 認証状態の確認・UI更新
     async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
-      const loggedOutDiv = document.getElementById('authLoggedOut');
-      const loggedInDiv = document.getElementById('authLoggedIn');
-      const emailDisplay = document.getElementById('userEmailDisplay');
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        const loggedOutDiv = document.getElementById('authLoggedOut');
+        const loggedInDiv = document.getElementById('authLoggedIn');
+        const emailDisplay = document.getElementById('userEmailDisplay');
 
-      if (user) {
-        loggedOutDiv.style.display = 'none';
-        loggedInDiv.style.display = 'block';
-        emailDisplay.textContent = user.email;
-      } else {
-        loggedOutDiv.style.display = 'block';
-        loggedInDiv.style.display = 'none';
+        if (user) {
+          loggedOutDiv.style.display = 'none';
+          loggedInDiv.style.display = 'block';
+          emailDisplay.textContent = user.email;
+        } else {
+          loggedOutDiv.style.display = 'block';
+          loggedInDiv.style.display = 'none';
+        }
+      } catch (e) {
+        console.error("認証チェックエラー:", e);
       }
     }
 
