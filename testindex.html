@@ -363,7 +363,7 @@
       }
     }
 
-    // 新規登録処理
+    // 新規登録処理（エラー詳細表示版）
     async function handleSignUp() {
       const email = document.getElementById('authEmail').value.trim();
       const password = document.getElementById('authPassword').value.trim();
@@ -384,7 +384,8 @@
 
       const { data, error } = await supabaseClient.auth.signUp({ email, password });
       if (error) {
-        alert('登録に失敗しました: ' + error.message);
+        // ← ここを error.message を詳しく表示するように変更
+        alert('登録エラー: ' + error.message);
       } else {
         alert('アカウントを作成しました！');
         checkAuth();
