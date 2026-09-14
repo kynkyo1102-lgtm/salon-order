@@ -34,23 +34,23 @@
   </header>
 
   <main>
-    <!-- 入力フォーム画面 -->
-    <div id="formSection">
-      <form id="orderForm" class="h-adr">
-        <span class="p-country-name" style="display:none;">Japan</span>
-   
-    <!-- ▼ このログイン状態表示エリアをHTML側に追加する -->
+    <!-- 👤 ログイン状態表示エリア（ここに安全に追加） -->
     <div id="loginStatusBanner" style="display: none; background: #f7f3eb; border: 1px solid var(--accent-gold); padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 15px; color: var(--wood-dark); justify-content: space-between; align-items: center;">
       <span>👤 ログイン中: <strong id="loginUserEmail">--</strong></span>
       <button type="button" onclick="logoutFromSupabase()" style="background: none; border: none; color: #c94b4b; cursor: pointer; font-size: 0.75rem; text-decoration: underline;">ログアウト</button>
     </div>
-    <!-- ▲ ここまで -->
+
+    <!-- 入力フォーム画面 -->
+    <div id="formSection">
+      <form id="orderForm" class="h-adr">
+        <span class="p-country-name" style="display:none;">Japan</span>
         
         <!-- 会員番号・氏名 事前登録エリア（折りたたみ） -->
         <details class="card-box card-box-preset">
           <summary class="summary-preset">
             ⚙️ 会員情報の事前登録・保存（複数人登録対応）
           </summary>
+
           <div class="preset-subtext">
             よく使う「会員番号」と「氏名」をあらかじめ登録しておくと、下の選択項目からワンタップで呼び出せます。
           </div>
