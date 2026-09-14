@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=3">
+  <!-- Supabase JS ライブラリ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     /* 会員事前登録の折り畳み用スタイル */
     details.member-details {
@@ -73,7 +75,7 @@
           <div class="usage-guide">
             <strong>💡 事前登録しておくと便利です！</strong><br>
             ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
-            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
+            ・入力した情報は<strong>クラウド（Supabase）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
             <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
           </div>
 
@@ -174,6 +176,21 @@
   </div>
 
 <script>
+// Supabaseの初期化（変数名のバッティングを防ぐため supabaseClient にしています）
+const SUPABASE_URL = 'https://foeyyrbftaiscxijgvjv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_7IVQaL-0ptbvQ_DSmK9BTQ_fEajO01E';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// 端末固有の固定IDを取得
+function getDeviceId() {
+    let devId = localStorage.getItem('salon_device_id');
+    if (!devId) {
+        devId = 'dev_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
+        localStorage.setItem('salon_device_id', devId);
+    }
+    return devId;
+}
+
 // デフォルトマスター設定（JSONロード失敗時のバックアップ）
 let currentMaster = {
   activeMonths: ["8月度"],
@@ -249,8 +266,9 @@ function checkZipCode() {
     }
 }
 
+// 画面展開時に Supabase からデータ復元
 window.onload = async function() {
-    // 1. 最新の month_config.json を自動バックグラウンド取得
+    // 1. 最新の month_config.json 取得
     try {
         const response = await fetch('./month_config.json?cache=' + new Date().getTime());
         if (response.ok) {
@@ -265,30 +283,44 @@ window.onload = async function() {
         }
     }
 
-    // 2. 月度プルダウンの描画
+    // 2. 月度プルダウン描画
     renderMonthOptions();
 
-    // 3. 保存データの復元
-    if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
-    if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
-    if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
-    if(localStorage.getItem('ship_tel')) document.getElementById('ship_tel').value = localStorage.getItem('ship_tel');
-    if(localStorage.getItem('ship_note')) document.getElementById('ship_note').value = localStorage.getItem('ship_note');
-    if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
-    if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
-    if(localStorage.getItem('nina_point')) document.getElementById('nina_point').value = localStorage.getItem('nina_point');
-    if(localStorage.getItem('receipt_name')) document.getElementById('receipt_name').value = localStorage.getItem('receipt_name');
-    
-    togglePwField();
+    // 3. Supabaseからデータ復元
+    const deviceId = getDeviceId();
+    try {
+        const { data, error } = await supabaseClient
+            .from('user_profiles')
+            .select('*')
+            .eq('id', deviceId)
+            .single();
 
-    const savedMembers = localStorage.getItem('registered_members');
-    if (savedMembers) {
-        registeredMembers = JSON.parse(savedMembers);
-        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
-    } else {
+        if (data && data.ship_info) {
+            const info = data.ship_info;
+            if(info.zip) document.getElementById('ship_zip').value = info.zip;
+            if(info.name) document.getElementById('ship_name').value = info.name;
+            if(info.address) document.getElementById('ship_address').value = info.address;
+            if(info.tel) document.getElementById('ship_tel').value = info.tel;
+            if(info.note) document.getElementById('ship_note').value = info.note;
+            if(info.payment) document.getElementById('payment_method').value = info.payment;
+            if(info.nina_point) document.getElementById('nina_point').value = info.nina_point;
+            if(info.receipt_name) document.getElementById('receipt_name').value = info.receipt_name;
+        }
+
+        const container = document.getElementById('member_register_container');
+        container.innerHTML = '';
+        if (data && data.registered_members && data.registered_members.length > 0) {
+            registeredMembers = data.registered_members;
+            registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
+        } else {
+            addMemberRegisterRow('', '');
+        }
+    } catch (err) {
+        console.error("Supabaseからの読み込み失敗:", err);
         addMemberRegisterRow('', '');
     }
 
+    togglePwField();
     addPositionBox();
 };
 
@@ -311,16 +343,29 @@ function renderMonthOptions() {
     }
 }
 
-function saveBasicInfo() {
-    localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
-    localStorage.setItem('ship_name', document.getElementById('ship_name').value);
-    localStorage.setItem('ship_address', document.getElementById('ship_address').value);
-    localStorage.setItem('ship_tel', document.getElementById('ship_tel').value);
-    localStorage.setItem('ship_note', document.getElementById('ship_note').value);
-    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
-    localStorage.setItem('pw_code', document.getElementById('pw_code').value);
-    localStorage.setItem('nina_point', document.getElementById('nina_point').value);
-    localStorage.setItem('receipt_name', document.getElementById('receipt_name').value);
+// Supabaseへデータを保存
+async function saveBasicInfo() {
+    const deviceId = getDeviceId();
+    const shipInfo = {
+        zip: document.getElementById('ship_zip').value,
+        name: document.getElementById('ship_name').value,
+        address: document.getElementById('ship_address').value,
+        tel: document.getElementById('ship_tel').value,
+        note: document.getElementById('ship_note').value,
+        payment: document.getElementById('payment_method').value,
+        nina_point: document.getElementById('nina_point').value,
+        receipt_name: document.getElementById('receipt_name').value
+    };
+
+    try {
+        await supabaseClient.from('user_profiles').upsert({
+            id: deviceId,
+            ship_info: shipInfo,
+            registered_members: registeredMembers
+        });
+    } catch (err) {
+        console.error("Supabaseへの保存失敗:", err);
+    }
 }
 
 function togglePwField() {
@@ -374,7 +419,9 @@ function saveMembers() {
             registeredMembers.push({ code, name });
         }
     });
-    localStorage.setItem('registered_members', JSON.stringify(registeredMembers));
+    
+    // Supabaseへ保存
+    saveBasicInfo();
     
     document.querySelectorAll('.pos-select').forEach(select => {
         const currentVal = select.value;
