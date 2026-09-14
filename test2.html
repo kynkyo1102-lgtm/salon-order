@@ -20,6 +20,15 @@
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
 
+  <!-- Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Supabaseのクライアント初期化（URLとAnonキーはご自身のものを指定してください）
+    const SUPABASE_URL = 'https://foeyyrbftaiscxijgvjv.supabase.co'; // 実際のURL
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // 実際のAnonキー
+    window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+  
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="app.js" defer></script>
 </head>
