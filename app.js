@@ -39,17 +39,16 @@ window.addEventListener('DOMContentLoaded', async () => {
       safeSetStorage('salonOrderMasterConfig', currentMaster);
     }
   } catch (e) {
-    // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
     const savedConfig = safeGetStorage('salonOrderMasterConfig', null);
     if (savedConfig) currentMaster = savedConfig;
   }
 
   renderUIFromMaster();
 
-  // ③ クラウド（Supabase）からユーザー情報を復元する処理
+  // ② クラウド（Supabase）からユーザー情報を復元する処理（シングル側と同様に拡充）
   await loadUserDataFromCloud();
 
-  // ローカルストレージからのユーザー情報復元（クラウドにない場合のフォワード互換や補助）
+  // ③ ローカルストレージからのユーザー情報復元（クラウドにない場合のフォワード互換や補助）
   const user = safeGetStorage('salonOrderUserInfo', null);
   if (user) {
     if (user.month && currentMaster.activeMonths.includes(user.month)) {
@@ -71,10 +70,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// Supabase（user_profilesテーブル）から保存された住所・連絡先情報を読み込む関数
+// Supabase（user_profilesテーブル）から保存された会員情報・住所・連絡先情報を読み込む関数
 async function loadUserDataFromCloud() {
   try {
-    // Supabaseクライアントと認証済みユーザーの存在確認
     if (typeof window.supabaseClient === 'undefined' || !window.supabaseClient) return;
     const { data: { user } } = await window.supabaseClient.auth.getUser();
     if (!user) return;
@@ -86,10 +84,18 @@ async function loadUserDataFromCloud() {
       .maybeSingle();
 
     if (data && !error) {
+      // 会員番号（ハイフン前後で分かれている場合や、まとまっている場合のスキーマに合わせて適宜調整）
+      if (data.member_id_main) document.getElementById('memberIdMain').value = data.member_id_main;
+      if (data.member_id_sub) document.getElementById('memberIdSub').value = data.member_id_sub;
+      if (data.full_name) document.getElementById('fullName').value = data.full_name;
+      
+      // 住所・連絡先
       if (data.postal_code) document.getElementById('zip').value = data.postal_code;
       if (data.address_name) document.getElementById('shipName').value = data.address_name;
       if (data.address) document.getElementById('address').value = data.address;
       if (data.phone) document.getElementById('phone').value = data.phone;
+      
+      updateCalc();
     }
   } catch (e) {
     console.warn("Could not load user data from cloud:", e);
