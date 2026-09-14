@@ -39,11 +39,12 @@
       <form id="orderForm" class="h-adr">
         <span class="p-country-name" style="display:none;">Japan</span>
    
-    <!-- ログイン状態表示エリア -->
-    <div id="loginStatusBanner" style="display: none; background: #f7f3eb; border: 1px solid var(--accent-gold); padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 15px; color: var(--wood-dark); display: flex; justify-content: space-between; align-items: center;">
+    <!-- ▼ このログイン状態表示エリアをHTML側に追加する -->
+    <div id="loginStatusBanner" style="display: none; background: #f7f3eb; border: 1px solid var(--accent-gold); padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; margin-bottom: 15px; color: var(--wood-dark); justify-content: space-between; align-items: center;">
       <span>👤 ログイン中: <strong id="loginUserEmail">--</strong></span>
       <button type="button" onclick="logoutFromSupabase()" style="background: none; border: none; color: #c94b4b; cursor: pointer; font-size: 0.75rem; text-decoration: underline;">ログアウト</button>
-    </div>     
+    </div>
+    <!-- ▲ ここまで -->
         
         <!-- 会員番号・氏名 事前登録エリア（折りたたみ） -->
         <details class="card-box card-box-preset">
