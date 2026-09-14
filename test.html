@@ -176,7 +176,7 @@
   </div>
 
 <script>
-// Supabaseの初期化（変数名のバッティングを防ぐため supabaseClient にしています）
+// Supabaseの初期化
 const SUPABASE_URL = 'https://foeyyrbftaiscxijgvjv.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_7IVQaL-0ptbvQ_DSmK9BTQ_fEajO01E';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -191,7 +191,7 @@ function getDeviceId() {
     return devId;
 }
 
-// デフォルトマスター設定（JSONロード失敗時のバックアップ）
+// デフォルトマスター設定
 let currentMaster = {
   activeMonths: ["8月度"],
   products: [
@@ -244,7 +244,9 @@ let positionCount = 0;
 let registeredMembers = [];
 
 function checkZipCode() {
-    const zipInput = document.getElementById('ship_zip').value;
+    let zipInput = document.getElementById('ship_zip').value;
+    // 全角数字を半角に変換し、ハイフンなどの記号を削除
+    zipInput = zipInput.replace(/[０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
     const cleanZip = zipInput.replace(/[━ー*]/g, '').replace(/-/g, '').trim();
 
     if (cleanZip.length === 7) {
@@ -266,7 +268,7 @@ function checkZipCode() {
     }
 }
 
-// 画面展開時に Supabase からデータ復元
+// 画面展開時に Supabase および ローカルストレージからデータ復元
 window.onload = async function() {
     // 1. 最新の month_config.json 取得
     try {
@@ -286,7 +288,20 @@ window.onload = async function() {
     // 2. 月度プルダウン描画
     renderMonthOptions();
 
-    // 3. Supabaseからデータ復元
+    // 3. ローカルストレージからの仮復元（オフライン・初回高速表示対策）
+    const cachedShip = localStorage.getItem('salon_cached_ship');
+    if (cachedShip) {
+        try { restoreShipInfo(JSON.parse(cachedShip)); } catch(e){}
+    }
+    const cachedMembers = localStorage.getItem('salon_cached_members');
+    if (cachedMembers) {
+        try {
+            registeredMembers = JSON.parse(cachedMembers);
+            renderMemberRows();
+        } catch(e){}
+    }
+
+    // 4. Supabaseから最新データを取得・更新
     const deviceId = getDeviceId();
     try {
         const { data, error } = await supabaseClient
@@ -295,34 +310,46 @@ window.onload = async function() {
             .eq('id', deviceId)
             .single();
 
-        if (data && data.ship_info) {
-            const info = data.ship_info;
-            if(info.zip) document.getElementById('ship_zip').value = info.zip;
-            if(info.name) document.getElementById('ship_name').value = info.name;
-            if(info.address) document.getElementById('ship_address').value = info.address;
-            if(info.tel) document.getElementById('ship_tel').value = info.tel;
-            if(info.note) document.getElementById('ship_note').value = info.note;
-            if(info.payment) document.getElementById('payment_method').value = info.payment;
-            if(info.nina_point) document.getElementById('nina_point').value = info.nina_point;
-            if(info.receipt_name) document.getElementById('receipt_name').value = info.receipt_name;
-        }
+        if (data) {
+            if (data.ship_info) {
+                restoreShipInfo(data.ship_info);
+                localStorage.setItem('salon_cached_ship', JSON.stringify(data.ship_info));
+            }
 
-        const container = document.getElementById('member_register_container');
-        container.innerHTML = '';
-        if (data && data.registered_members && data.registered_members.length > 0) {
-            registeredMembers = data.registered_members;
-            registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
-        } else {
-            addMemberRegisterRow('', '');
+            if (data.registered_members) {
+                registeredMembers = data.registered_members;
+                localStorage.setItem('salon_cached_members', JSON.stringify(registeredMembers));
+                renderMemberRows();
+            }
         }
     } catch (err) {
-        console.error("Supabaseからの読み込み失敗:", err);
+        console.error("Supabaseからの読み込み失敗（ローカルデータを使用します）:", err);
+    }
+
+    if (registeredMembers.length === 0) {
         addMemberRegisterRow('', '');
     }
 
     togglePwField();
     addPositionBox();
 };
+
+function restoreShipInfo(info) {
+    if(info.zip) document.getElementById('ship_zip').value = info.zip;
+    if(info.name) document.getElementById('ship_name').value = info.name;
+    if(info.address) document.getElementById('ship_address').value = info.address;
+    if(info.tel) document.getElementById('ship_tel').value = info.tel;
+    if(info.note) document.getElementById('ship_note').value = info.note;
+    if(info.payment) document.getElementById('payment_method').value = info.payment;
+    if(info.nina_point) document.getElementById('nina_point').value = info.nina_point;
+    if(info.receipt_name) document.getElementById('receipt_name').value = info.receipt_name;
+}
+
+function renderMemberRows() {
+    const container = document.getElementById('member_register_container');
+    container.innerHTML = '';
+    registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
+}
 
 function renderMonthOptions() {
     const monthSelect = document.getElementById('target_month');
@@ -343,7 +370,7 @@ function renderMonthOptions() {
     }
 }
 
-// Supabaseへデータを保存
+// Supabaseおよびローカルストレージへデータを保存
 async function saveBasicInfo() {
     const deviceId = getDeviceId();
     const shipInfo = {
@@ -356,6 +383,10 @@ async function saveBasicInfo() {
         nina_point: document.getElementById('nina_point').value,
         receipt_name: document.getElementById('receipt_name').value
     };
+
+    // キャッシュ保存
+    localStorage.setItem('salon_cached_ship', JSON.stringify(shipInfo));
+    localStorage.setItem('salon_cached_members', JSON.stringify(registeredMembers));
 
     try {
         await supabaseClient.from('user_profiles').upsert({
@@ -420,7 +451,6 @@ function saveMembers() {
         }
     });
     
-    // Supabaseへ保存
     saveBasicInfo();
     
     document.querySelectorAll('.pos-select').forEach(select => {
@@ -440,6 +470,7 @@ function refreshMemberOptions(selectElement) {
     selectElement.innerHTML = options;
 }
 
+// 会員選択時の処理（readonly属性を適正に制御するよう修正）
 function onSelectMember(posId) {
     const select = document.getElementById(`pos_select_${posId}`);
     const codeInput = document.getElementById(`pos_code_${posId}`);
@@ -459,16 +490,16 @@ function onSelectMember(posId) {
     } else if (selectedVal !== "") {
         manualBox.style.display = 'none';
         const member = registeredMembers[selectedVal];
-        codeInput.value = member.code;
-        nameInput.value = member.name;
-        codeInput.setAttribute('readonly', true);
-        nameInput.setAttribute('readonly', true);
+        codeInput.value = member ? member.code : '';
+        nameInput.value = member ? member.name : '';
+        codeInput.setAttribute('readonly', 'readonly');
+        nameInput.setAttribute('readonly', 'readonly');
     } else {
         manualBox.style.display = 'none';
         codeInput.value = '';
         nameInput.value = '';
-        codeInput.setAttribute('readonly', true);
-        nameInput.setAttribute('readonly', true);
+        codeInput.removeAttribute('readonly');
+        nameInput.removeAttribute('readonly');
         codeInput.placeholder = "上枠で選択してください";
         nameInput.placeholder = "上枠で選択してください";
     }
