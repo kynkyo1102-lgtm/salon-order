@@ -4,141 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>プラッス ドゥ ニナ 南熊本店 - デバッグ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <!-- Supabase JSライブラリの読み込み -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
-    body { font-family: 'Noto Sans JP', sans-serif; background: #fdfbf7; padding: 20px; color: #333; }
-    .auth-card { background: #ffffff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; max-width: 400px; margin: 40px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .auth-title { font-weight: bold; font-size: 1rem; color: #5a4a42; margin-bottom: 10px; }
-    .auth-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-    .auth-btn-group { display: flex; gap: 10px; }
-    button { flex: 1; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-    #loginBtn { background-color: #5a4a42; color: #fff; border: none; }
-    #signupBtn { background-color: #fff; color: #5a4a42; border: 1px solid #5a4a42; }
+    body { font-family: sans-serif; padding: 20px; background: #fdfbf7; }
+    .card { background: #fff; border: 1px solid #ddd; padding: 20px; max-width: 400px; margin: 40px auto; border-radius: 8px; }
+    input { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; margin-top: 5px; font-weight: bold; cursor: pointer; }
   </style>
 </head>
 <body>
 
-  <div class="auth-card">
-    <div id="authLoggedOut">
-      <div class="auth-title">🔐 メンバーログイン / 会員登録 (デバッグ版)</div>
-      <div class="auth-form">
-        <input type="email" id="authEmail" class="auth-input" placeholder="メールアドレス">
-        <input type="password" id="authPassword" class="auth-input" placeholder="パスワード（6文字以上）">
-        <div class="auth-btn-group">
-          <button type="button" id="loginBtn">ログイン</button>
-          <button type="button" id="signupBtn">新規登録</button>
-        </div>
-      </div>
-    </div>
-    <div id="authLoggedIn" style="display: none;">
-      <div class="auth-title">👤 ログイン中</div>
-      <div id="userEmailDisplay" style="margin-bottom: 10px;"></div>
-      <button type="button" id="logoutBtn" style="width: 100%;">ログアウト</button>
-    </div>
+  <div class="card">
+    <h3>動作テスト用画面</h3>
+    <input type="email" id="mail" placeholder="メールアドレス" value="kyn.kyo1102@gmail.com">
+    <input type="password" id="pass" placeholder="パスワード（6文字以上）">
+    
+    <!-- JavaScriptの関数を直接叩く最も確実な方法 -->
+    <button type="button" onclick="testSignUp()" style="background: #5a4a42; color: #fff;">新規登録テスト</button>
   </div>
 
   <script>
-    // 即時実行でSupabaseが正しく読み込めているかチェック
-    let supabase = null;
+    // Supabase初期化
+    const SUPABASE_URL = 'https://foeyyrbftaiscxijgvjv.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_7IVQaL-0ptbvQ_DSmK9BTQ_fEajO01E';
+    
+    let sb = null;
     try {
-      const SUPABASE_URL = 'https://foeyyrbftaiscxijgvjv.supabase.co';
-      const SUPABASE_KEY = 'sb_publishable_7IVQaL-0ptbvQ_DSmK9BTQ_fEajO01E';
-      
-      if (window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        console.log("Supabase 正常初期化");
-      } else {
-        alert("エラー: Supabaseライブラリが読み込まれていません。");
-      }
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      console.log("Supabaseクライアント生成OK");
     } catch (e) {
       alert("初期化エラー: " + e.message);
     }
 
-    // DOMの読み込みが完了してからイベントを登録する
-    document.addEventListener('DOMContentLoaded', () => {
-      const loginBtn = document.getElementById('loginBtn');
-      const signupBtn = document.getElementById('signupBtn');
-      const logoutBtn = document.getElementById('logoutBtn');
+    async function testSignUp() {
+      // 1. ボタンが押されたら絶対に一番最初にここを通る
+      alert('「新規登録テスト」ボタンがクリックされました！');
 
-      // 新規登録ボタンのクリックイベント
-      if (signupBtn) {
-        signupBtn.addEventListener('click', async () => {
-          const email = document.getElementById('authEmail').value.trim();
-          const password = document.getElementById('authPassword').value.trim();
+      const email = document.getElementById('mail').value.trim();
+      const password = document.getElementById('pass').value.trim();
 
-          if (!email || !password) {
-            alert('メールアドレスとパスワードを入力してください。');
-            return;
-          }
-          if (password.length < 6) {
-            alert('パスワードは6文字以上で入力してください。');
-            return;
-          }
-
-          if (!supabase) {
-            alert('Supabaseが初期化されていません。');
-            return;
-          }
-
-          try {
-            const { data, error } = await supabase.auth.signUp({ email, password });
-            if (error) {
-              alert('登録エラー: ' + error.message);
-            } else {
-              alert('新規登録リクエストを送信しました！メールをご確認ください。');
-            }
-          } catch (err) {
-            alert('通信エラー: ' + err.message);
-          }
-        });
+      if (!email || !password) {
+        alert('メールまたはパスワードが空です');
+        return;
       }
 
-      // ログインボタンのクリックイベント
-      if (loginBtn) {
-        loginBtn.addEventListener('click', async () => {
-          const email = document.getElementById('authEmail').value.trim();
-          const password = document.getElementById('authPassword').value.trim();
-
-          if (!email || !password) {
-            alert('メールアドレスとパスワードを入力してください。');
-            return;
-          }
-
-          if (!supabase) {
-            alert('Supabaseが初期化されていません。');
-            return;
-          }
-
-          try {
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-              alert('ログインエラー: ' + error.message);
-            } else {
-              alert('ログインしました！');
-              location.reload();
-            }
-          } catch (err) {
-            alert('通信エラー: ' + err.message);
-          }
-        });
+      if (!sb) {
+        alert('Supabaseが準備できていません');
+        return;
       }
 
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
-          if (supabase) {
-            await supabase.auth.signOut();
-            alert('ログアウトしました。');
-            location.reload();
-          }
-        });
+      alert('Supabaseへ通信を開始します...');
+
+      try {
+        const { data, error } = await sb.auth.signUp({ email, password });
+        if (error) {
+          alert('Supabaseエラー: ' + error.message);
+        } else {
+          alert('通信成功！登録データが返されました');
+          console.log(data);
+        }
+      } catch (err) {
+        alert('JavaScript例外エラー: ' + err.message);
       }
-    });
+    }
   </script>
+
 </body>
 </html>
