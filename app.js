@@ -77,6 +77,14 @@ async function loadUserDataFromCloud() {
     const { data: { user } } = await window.supabaseClient.auth.getUser();
     if (!user) return;
 
+    // ★ここでログイン中のメールアドレスをバナーに反映して表示する
+    const banner = document.getElementById('loginStatusBanner');
+    const emailSpan = document.getElementById('loginUserEmail');
+    if (banner && emailSpan && user.email) {
+      emailSpan.textContent = user.email;
+      banner.style.display = 'flex';
+    }
+
     const { data, error } = await window.supabaseClient
       .from('user_profiles')
       .select('*')
@@ -99,6 +107,15 @@ async function loadUserDataFromCloud() {
     }
   } catch (e) {
     console.warn("Could not load user data from cloud:", e);
+  }
+}
+
+// ログアウト用関数（まだ無ければ追加）
+async function logoutFromSupabase() {
+  if (typeof window.supabaseClient !== 'undefined' && window.supabaseClient) {
+    await window.supabaseClient.auth.signOut();
+    alert("ログアウトしました。");
+    location.reload();
   }
 }
 
