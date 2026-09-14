@@ -46,7 +46,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   renderUIFromMaster();
 
-  // ユーザー情報復元
+  // ③ クラウド（Supabase）からユーザー情報を復元する処理
+  await loadUserDataFromCloud();
+
+  // ローカルストレージからのユーザー情報復元（クラウドにない場合のフォワード互換や補助）
   const user = safeGetStorage('salonOrderUserInfo', null);
   if (user) {
     if (user.month && currentMaster.activeMonths.includes(user.month)) {
@@ -67,6 +70,31 @@ window.addEventListener('DOMContentLoaded', async () => {
     updateCalc();
   }
 });
+
+// Supabase（user_profilesテーブル）から保存された住所・連絡先情報を読み込む関数
+async function loadUserDataFromCloud() {
+  try {
+    // Supabaseクライアントと認証済みユーザーの存在確認
+    if (typeof window.supabaseClient === 'undefined' || !window.supabaseClient) return;
+    const { data: { user } } = await window.supabaseClient.auth.getUser();
+    if (!user) return;
+
+    const { data, error } = await window.supabaseClient
+      .from('user_profiles')
+      .select('*')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (data && !error) {
+      if (data.postal_code) document.getElementById('zip').value = data.postal_code;
+      if (data.address_name) document.getElementById('shipName').value = data.address_name;
+      if (data.address) document.getElementById('address').value = data.address;
+      if (data.phone) document.getElementById('phone').value = data.phone;
+    }
+  } catch (e) {
+    console.warn("Could not load user data from cloud:", e);
+  }
+}
 
 function initMemberSubSelect() {
   const memberIdSub = document.getElementById('memberIdSub');
@@ -678,7 +706,6 @@ async function downloadSingleCard(elementId) {
       const modal = document.createElement('div');
       modal.className = 'image-modal-overlay';
       
-      // iOS/Android問わずLINEアプリ内ブラウザ全般向けの注意書き
       let lineWarningText = "";
       if (isLine) {
         lineWarningText = `
@@ -699,12 +726,8 @@ async function downloadSingleCard(elementId) {
           </div>
         </div>
         
-        <!-- 画像表示エリア -->
         <img src="${imgData}" class="image-modal-content" alt="注文書画像">
-
-        <!-- 画像直下の注意書き -->
         ${lineWarningText}
-
         <button type="button" class="image-modal-close" style="margin-top: 14px;" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
       `;
       document.body.appendChild(modal);
