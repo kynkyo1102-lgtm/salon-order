@@ -385,7 +385,7 @@
       }
   }
 
-  // 基本情報の保存（クラウド＆ローカル両対応）
+// 基本情報の保存（クラウド＆ローカル両対応）
   function saveBasicInfo() {
       // ローカルに即時保存
       localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
@@ -398,11 +398,11 @@
       localStorage.setItem('nina_point', document.getElementById('nina_point').value);
       localStorage.setItem('receipt_name', document.getElementById('receipt_name').value);
 
-      // ログイン中ならSupabaseにも自動保存（連続入力による負荷を防ぐため0.8秒待ってから送信）
+      // ログイン中ならSupabaseにも自動保存
       if (currentUser && supabaseClient) {
           clearTimeout(saveTimer);
           saveTimer = setTimeout(async () => {
-              await supabaseClient.from('user_profiles').upsert({
+              const { error } = await supabaseClient.from('user_profiles').upsert({
                   user_id: currentUser.id,
                   postal_code: document.getElementById('ship_zip').value,
                   address_name: document.getElementById('ship_name').value,
@@ -410,7 +410,11 @@
                   phone: document.getElementById('ship_tel').value,
                   memo: document.getElementById('ship_note').value,
                   updated_at: new Date()
-              });
+              }, { onConflict: 'user_id' }); // user_id が重複した場合は上書きする設定を明示
+
+              if (error) {
+                  console.error("住所のクラウド保存エラー:", error.message);
+              }
           }, 800);
       }
   }
