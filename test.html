@@ -305,7 +305,7 @@
       addPositionBox();
   };
 
-  // クラウド（Supabase）からのデータ読み込み
+// クラウド（Supabase）からのデータ読み込み
   async function loadUserDataFromCloud() {
       if (!currentUser || !supabaseClient) return;
 
@@ -343,6 +343,9 @@
       } else {
           addMemberRegisterRow('', '');
       }
+      
+      // 読み込んだ後にプレビューを更新
+      updatePreview();
   }
 
   // ローカルストレージ（バックアップ用）
