@@ -644,14 +644,29 @@ function restoreAllFromText() {
         const zipMatch = text.match(/〒([0-9-]+)/);
         if (zipMatch) document.getElementById('ship_zip').value = zipMatch[1].trim();
         
-        const shipNameMatch = text.match(/〒[0-9-]+\s*\n([^\n]+)\s*様/);
-        if (shipNameMatch) document.getElementById('ship_name').value = shipNameMatch[1].trim();
-        
         const telMatch = text.match(/TEL:\s*([^\n]+)/);
         if (telMatch) document.getElementById('ship_tel').value = telMatch[1].trim();
-        
-        const addrMatch = text.match(/〒[0-9-]+\s*\n[^\n]+\s*様\s*\n([^\n]+)/);
-        if (addrMatch) document.getElementById('ship_address').value = addrMatch[1].trim();
+
+        // 住所と宛名の抽出（行単位で分解して安全に取得）
+        const shipBlockMatch = text.match(/\(送付先\)([\s\S]*)/);
+        if (shipBlockMatch) {
+            const lines = shipBlockMatch[1].trim().split('\n');
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith('★') && trimmed.endsWith('★')) return;
+                if (trimmed.startsWith('〒')) return;
+                if (trimmed.startsWith('TEL:')) return;
+                
+                if (trimmed.includes('様')) {
+                    // 「〇〇 様」の形式から宛名を抽出
+                    const namePart = trimmed.replace(/様$/, '').trim();
+                    if (namePart) document.getElementById('ship_name').value = namePart;
+                } else if (trimmed) {
+                    // それ以外は住所行とみなす
+                    document.getElementById('ship_address').value = trimmed;
+                }
+            });
+        }
 
         // 4. ポジションブロックの解析と復元
         document.getElementById('positions_container').innerHTML = '';
