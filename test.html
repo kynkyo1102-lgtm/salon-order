@@ -519,7 +519,6 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
     const newSelect = document.getElementById(`pos_select_${positionCount}`);
     refreshMemberOptions(newSelect);
 
-    // ポジション選択の初期値反映
     const numSel = document.getElementById(`pos_num_select_${positionCount}`);
     const standardSuffixes = ["00","01","02","03","04","05","06","07","08","09","10"];
     if (standardSuffixes.includes(initialSuffix)) {
@@ -530,8 +529,6 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
         document.getElementById(`pos_custom_num_${positionCount}`).value = initialSuffix;
     }
 
-    // 商品行の初期化
-    const list = document.getElementById(`items_list_${positionCount}`);
     if (initialItems && initialItems.length > 0) {
         initialItems.forEach(item => {
             addItemRowWithData(positionCount, item.prodIndex, item.qty);
@@ -594,124 +591,130 @@ function addItemRowWithData(posId, prodIndexVal, qtyVal) {
     list.appendChild(row);
 }
 
-// 📦 コピーされた全体テキストから一括復元するパーサー
+// 📦 コピーされた全体テキストから一括復元するパーサー（修正版）
 function restoreAllFromText() {
-    const text = document.getElementById('import_text_input').value;
-    if (!text.trim()) {
-        alert("復元するテキストを貼り付けてください。");
-        return;
-    }
-
-    // 1. 月度の復元
-    const monthMatch = text.match(/🇫🇷\s*([^注文分]+)注文分/);
-    if (monthMatch && monthMatch[1]) {
-        const monthSel = document.getElementById('target_month');
-        for (let opt of monthSel.options) {
-            if (opt.value === monthMatch[1].trim()) {
-                monthSel.value = opt.value;
-                onMonthChange();
-                break;
-            }
-        }
-    }
-
-    // 2. 決済方法の復元
-    if (text.includes("ニナファームカード決済")) {
-        document.getElementById('payment_method').value = "ニナファームカード";
-        const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
-        if (pwMatch) document.getElementById('pw_code').value = pwMatch[1].trim();
-        const ptMatch = text.match(/使用するポイントNiNA:\s*([^\n]+)/);
-        if (ptMatch) document.getElementById('nina_point').value = ptMatch[1].trim();
-    } else if (text.includes("クレジットカード決済")) {
-        document.getElementById('payment_method').value = "クレジットカード";
-        const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
-        if (pwMatch) document.getElementById('pw_code').value = pwMatch[1].trim();
-    } else if (text.includes("PayPay決済")) {
-        document.getElementById('payment_method').value = "PayPay";
-    } else if (text.includes("現金決済")) {
-        document.getElementById('payment_method').value = "現金";
-    }
-    togglePwField();
-
-    // 領収書
-    const receiptMatch = text.match(/🧾 領収書：([^\n]+)/);
-    if (receiptMatch) {
-        document.getElementById('receipt_name').value = receiptMatch[1].trim();
-    }
-
-    // 3. 送付先の復元
-    const shipBlockMatch = text.match/\(送付先\)([\s\S]*)$/;
-    // ざっくり抽出
-    const noteMatch = text.match(/★([^*]+)★/);
-    if (noteMatch) document.getElementById('ship_note').value = noteMatch[1].trim();
-    const zipMatch = text.match(/〒([0-9-]+)/);
-    if (zipMatch) document.getElementById('ship_zip').value = zipMatch[1].trim();
-    const shipNameMatch = text.match(/〒[0-9-]+\n([^\n]+) 様/);
-    if (shipNameMatch) document.getElementById('ship_name').value = shipNameMatch[1].trim();
-    const telMatch = text.match(/TEL:\s*([^\n]+)/);
-    if (telMatch) document.getElementById('ship_tel').value = telMatch[1].trim();
-    const addrLines = text.match(/〒[0-9-]+\n[^\n]+ 様\n([^\n]+)/);
-    if (addrLines) document.getElementById('ship_address').value = addrLines[1].trim();
-
-    // 4. ポジションブロックの解析と復元
-    // 既存のポジションボックスを全クリア
-    document.getElementById('positions_container').innerHTML = '';
-    positionCount = 0;
-
-    // "🔹" で分割してポジションブロックを抽出
-    const posBlocks = text.split('🔹').slice(1);
-    posBlocks.forEach(block => {
-        // 例: "1234567-01 山田太郎" や "1234567 山田太郎"
-        const lines = block.trim().split('\n');
-        const headerLine = lines[0] || '';
-        
-        let code = '';
-        let suffix = '00';
-        let name = '';
-
-        // 会員番号・枝番・名前の抽出パース
-        const codeSuffixMatch = headerLine.match(/^([0-9]+)-([0-9A-Za-z]+)\s+(.+)$/);
-        const codeOnlyMatch = headerLine.match(/^([0-9]+)\s+(.+)$/);
-        if (codeSuffixMatch) {
-            code = codeSuffixMatch[1];
-            suffix = codeSuffixMatch[2];
-            name = codeSuffixMatch[3].trim();
-        } else if (codeOnlyMatch) {
-            code = codeOnlyMatch[1];
-            suffix = '00';
-            name = codeOnlyMatch[2].trim();
+    try {
+        const text = document.getElementById('import_text_input').value;
+        if (!text.trim()) {
+            alert("復元するテキストを貼り付けてください。");
+            return;
         }
 
-        // 商品行の抽出（「計  X点」やセパレータ前まで）
-        let initialItems = [];
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (line.startsWith('計 ') || line.startsWith('−−−') || !line) continue;
-            
-            // 例: "OX-288 2個 27,600円(20,000pt)"
-            const itemMatch = line.match(/^(.+?)\s+(\d+)個\s+/);
-            if (itemMatch) {
-                const prodName = itemMatch[1].trim();
-                const qtyVal = parseInt(itemMatch[2], 10);
-                
-                // currentMasterから一致するインデックスを探す
-                const prodIdx = currentMaster.products.findIndex(p => p.name === prodName);
-                if (prodIdx !== -1) {
-                    initialItems.push({ prodIndex: prodIdx, qty: qtyVal });
+        // 1. 月度の復元
+        const monthMatch = text.match(/🇫🇷\s*([^\n注文分]+)注文分/);
+        if (monthMatch && monthMatch[1]) {
+            const monthSel = document.getElementById('target_month');
+            for (let opt of monthSel.options) {
+                if (opt.value === monthMatch[1].trim()) {
+                    monthSel.value = opt.value;
+                    onMonthChange();
+                    break;
                 }
             }
         }
 
-        addPositionBox(code, suffix, name, initialItems);
-    });
+        // 2. 決済方法の復元
+        if (text.includes("ニナファームカード決済")) {
+            document.getElementById('payment_method').value = "ニナファームカード";
+            const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
+            if (pwMatch) document.getElementById('pw_code').value = pwMatch[1].trim();
+            const ptMatch = text.match(/使用するポイントNiNA:\s*([^\n]+)/);
+            if (ptMatch) document.getElementById('nina_point').value = ptMatch[1].trim();
+        } else if (text.includes("クレジットカード決済")) {
+            document.getElementById('payment_method').value = "クレジットカード";
+            const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
+            if (pwMatch) document.getElementById('pw_code').value = pwMatch[1].trim();
+        } else if (text.includes("PayPay決済")) {
+            document.getElementById('payment_method').value = "PayPay";
+        } else if (text.includes("現金決済")) {
+            document.getElementById('payment_method').value = "現金";
+        }
+        togglePwField();
 
-    if (positionCount === 0) {
-        addPositionBox();
+        // 領収書
+        const receiptMatch = text.match(/🧾 領収書：([^\n]+)/);
+        if (receiptMatch) {
+            document.getElementById('receipt_name').value = receiptMatch[1].trim();
+        }
+
+        // 3. 送付先の復元（安全にマッチ）
+        const noteMatch = text.match(/★([^*]+)★/);
+        if (noteMatch) document.getElementById('ship_note').value = noteMatch[1].trim();
+        
+        const zipMatch = text.match(/〒([0-9-]+)/);
+        if (zipMatch) document.getElementById('ship_zip').value = zipMatch[1].trim();
+        
+        const shipNameMatch = text.match(/〒[0-9-]+\s*\n([^\n]+)\s*様/);
+        if (shipNameMatch) document.getElementById('ship_name').value = shipNameMatch[1].trim();
+        
+        const telMatch = text.match(/TEL:\s*([^\n]+)/);
+        if (telMatch) document.getElementById('ship_tel').value = telMatch[1].trim();
+        
+        const addrMatch = text.match(/〒[0-9-]+\s*\n[^\n]+\s*様\s*\n([^\n]+)/);
+        if (addrMatch) document.getElementById('ship_address').value = addrMatch[1].trim();
+
+        // 4. ポジションブロックの解析と復元
+        document.getElementById('positions_container').innerHTML = '';
+        positionCount = 0;
+
+        const posBlocks = text.split('🔹').slice(1);
+        if (posBlocks.length === 0) {
+            alert("「🔹」で区切られたポジションデータが見つかりませんでした。文面を確認してください。");
+            return;
+        }
+
+        posBlocks.forEach(block => {
+            const lines = block.trim().split('\n');
+            const headerLine = lines[0] || '';
+            
+            let code = '';
+            let suffix = '00';
+            let name = '';
+
+            const codeSuffixMatch = headerLine.match(/^([0-9]+)-([0-9A-Za-z]+)\s+(.+)$/);
+            const codeOnlyMatch = headerLine.match(/^([0-9]+)\s+(.+)$/);
+            if (codeSuffixMatch) {
+                code = codeSuffixMatch[1];
+                suffix = codeSuffixMatch[2];
+                name = codeSuffixMatch[3].trim();
+            } else if (codeOnlyMatch) {
+                code = codeOnlyMatch[1];
+                suffix = '00';
+                name = codeOnlyMatch[2].trim();
+            }
+
+            let initialItems = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('計 ') || line.startsWith('−−−') || !line) continue;
+                
+                // 例: "OX-288 2個 27,600円(20,000pt)"
+                const itemMatch = line.match(/^(.+?)\s+(\d+)個\s+/);
+                if (itemMatch) {
+                    const prodName = itemMatch[1].trim();
+                    const qtyVal = parseInt(itemMatch[2], 10);
+                    
+                    const prodIdx = currentMaster.products.findIndex(p => p.name === prodName);
+                    if (prodIdx !== -1) {
+                        initialItems.push({ prodIndex: prodIdx, qty: qtyVal });
+                    }
+                }
+            }
+
+            addPositionBox(code, suffix, name, initialItems);
+        });
+
+        if (positionCount === 0) {
+            addPositionBox();
+        }
+
+        saveBasicInfo();
+        updatePreview();
+        alert("テキストから入力を復元しました！");
+    } catch (e) {
+        console.error("復元エラー:", e);
+        alert("復元処理中にエラーが発生しました: " + e.message);
     }
-
-    saveBasicInfo();
-    updatePreview();
-    alert("テキストから入力を復元しました！");
 }
 
 function calculateAll() {
