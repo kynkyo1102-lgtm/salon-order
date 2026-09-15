@@ -1219,3 +1219,43 @@ details.card-box-preset[open] summary.summary-preset::before {
   margin-bottom: 12px;
   line-height: 1.45;
 }
+
+/* 0番専用の控えめ・小さめスタイル */
+    details.tiny-restore-box {
+      border: 1px dashed var(--border-color);
+      background: #fdfdfc;
+      border-radius: 8px;
+      padding: 0;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .tiny-restore-summary {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #888;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 8px 14px;
+      user-select: none;
+    }
+    .tiny-restore-summary::-webkit-details-marker {
+      display: none;
+    }
+    .tiny-restore-summary::after {
+      content: "＋ 復元メニューを開く";
+      font-size: 0.72rem;
+      color: #aaa;
+      font-weight: 400;
+    }
+    details.tiny-restore-box[open] .tiny-restore-summary::after {
+      content: "− 閉じる";
+    }
+    .tiny-restore-body {
+      padding: 0 14px 12px 14px;
+      border-top: 1px dashed var(--border-color);
+      background: #faf8f5;
+    }
