@@ -45,27 +45,15 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
   renderUIFromMaster();
-
-  // ユーザー情報復元
-  const user = safeGetStorage('salonOrderUserInfo', null);
-  if (user) {
-    if (user.month && currentMaster.activeMonths.includes(user.month)) {
-      document.getElementById('month').value = user.month;
+  
+  // デフォルトで最初の月度をセット（必要な場合）
+  if (currentMaster.activeMonths && currentMaster.activeMonths.length > 0) {
+    const monthSelect = document.getElementById('month');
+    if (monthSelect && !monthSelect.value) {
+      monthSelect.value = currentMaster.activeMonths[0];
     }
-    if (user.memberIdMain) document.getElementById('memberIdMain').value = user.memberIdMain;
-    if (user.memberIdSub) document.getElementById('memberIdSub').value = user.memberIdSub;
-    if (user.fullName) document.getElementById('fullName').value = user.fullName;
-    if (user.paymentMethod) {
-      document.getElementById('paymentMethod').value = user.paymentMethod;
-      togglePaymentFields();
-    }
-    if (user.receiptName) document.getElementById('receiptName').value = user.receiptName;
-    if (user.shipName) document.getElementById('shipName').value = user.shipName;
-    if (user.zip) document.getElementById('zip').value = user.zip;
-    if (user.address) document.getElementById('address').value = user.address;
-    if (user.phone) document.getElementById('phone').value = user.phone;
-    updateCalc();
   }
+  updateCalc();
 });
 
 function initMemberSubSelect() {
@@ -328,9 +316,7 @@ function addOrderToList() {
   const address = document.getElementById('address').value.trim();
   const phone = document.getElementById('phone').value.trim();
 
-  safeSetStorage('salonOrderUserInfo', {
-    month, memberIdMain, memberIdSub, fullName, paymentMethod, receiptName, shipName, zip, address, phone
-  });
+  // ★個人情報（salonOrderUserInfo）のローカルストレージ保存処理を削除
 
   const today = new Date();
   const yy = String(today.getFullYear()).slice(-2);
@@ -365,6 +351,10 @@ function addOrderToList() {
   document.getElementById('eservicePw').value = "";
   document.getElementById('ninaPoint').value = "";
   document.getElementById('presetMemberSelect').value = "";
+  document.getElementById('shipName').value = "";
+  document.getElementById('zip').value = "";
+  document.getElementById('address').value = "";
+  document.getElementById('phone').value = "";
   updateCalc();
 
   renderOrderList();
@@ -609,7 +599,7 @@ function generateAllReceipts() {
         <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">【全体合算】注文集計まとめ</h3>
         <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
       </div>
-      <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+      <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1.0px solid var(--border-color);">
         <strong>対象会員一覧:</strong><br>
         ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
       </div>
@@ -624,7 +614,7 @@ function generateAllReceipts() {
         </thead>
         <tbody>${summaryRows}</tbody>
       </table>
-      <div style="border-top: 2px solid var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
+      <div style="border-top: 2.0px solid var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
         <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
           <span>全合算 総数量:</span>
           <span>${grandTotalQty} 点</span>
@@ -678,13 +668,12 @@ async function downloadSingleCard(elementId) {
       const modal = document.createElement('div');
       modal.className = 'image-modal-overlay';
       
-      // iOS/Android問わずLINEアプリ内ブラウザ全般向けの注意書き
       let lineWarningText = "";
       if (isLine) {
         lineWarningText = `
-          <div class="android-warning-box" style="margin: 10px auto; max-width: 90%; padding: 8px 12px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 6px; font-size: 0.78rem; text-align: left; line-height: 1.4;">
+          <div class="android-warning-box" style="margin: 10px auto; max-width: 90%; padding: 8px 12px; background-color: #fff3cd; color: #856404; border: 1.0px solid #ffeeba; border-radius: 6px; font-size: 0.78rem; text-align: left; line-height: 1.4;">
             ⚠️ <strong>LINEなどのアプリ内ブラウザでお使いの場合</strong><br>
-            画像の長押し保存が動かない場合があります。その場合は右上のメニュー「⋮」または「Share」ボタンから<strong>『他のブラウザ（Safari/Chrome）で開く』</strong>をお試しください。
+            画像の長押し保存が動かない場合があります。その場合は右上的なメニュー「⋮」または「Share」ボタンから<strong>『他のブラウザ（Safari/Chrome）で開く』</strong>をお試しください。
           </div>
         `;
       }
@@ -699,10 +688,7 @@ async function downloadSingleCard(elementId) {
           </div>
         </div>
         
-        <!-- 画像表示エリア -->
         <img src="${imgData}" class="image-modal-content" alt="注文書画像">
-
-        <!-- 画像直下の注意書き -->
         ${lineWarningText}
 
         <button type="button" class="image-modal-close" style="margin-top: 14px;" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
@@ -757,11 +743,10 @@ async function downloadAllPDF() {
 }
 
 function clearSavedInfo() {
-  if (confirm("端末に保存されている住所等の情報を削除しますか？")) {
+  if (confirm("端末に保存されている情報を削除しますか？")) {
     try {
       localStorage.removeItem('salonOrderUserInfo');
     } catch (e) {}
     alert("削除しました。");
-    location.reload();
   }
 }
