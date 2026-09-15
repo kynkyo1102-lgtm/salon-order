@@ -2,13 +2,82 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>サロン専用注文書作成ツール - Place de Nina</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=3">
   <style>
+    /* スマホ崩れ防止・共通調整 */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    .info-card, .tiny-restore-box {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* 0. 注文のやり直し（復元）ツール 拡張スタイル */
+    details.tiny-restore-box {
+      background: var(--card-bg, #fff);
+      border: 1px solid var(--border-color, #ddd);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .tiny-restore-summary {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--wood-medium, #5c4033);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 14px 16px;
+      user-select: none;
+      background: rgba(200, 162, 97, 0.08);
+    }
+    .tiny-restore-summary::-webkit-details-marker {
+      display: none;
+    }
+    .tiny-restore-summary::after {
+      content: "＋ 開く";
+      font-size: 0.78rem;
+      color: var(--accent-gold, #c8a261);
+      background: rgba(200, 162, 97, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gold, #c8a261);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    details[open] .tiny-restore-summary::after {
+      content: "− 閉じる";
+    }
+    .tiny-restore-body {
+      padding: 16px;
+      border-top: 1px dashed var(--border-color, #ddd);
+    }
+    #import_text_input {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
     /* 折り畳み共通スタイル（会員事前登録 ＆ 復元ツール用） */
     details.info-card {
       padding: 0;
@@ -39,6 +108,7 @@
       border-radius: 6px;
       border: 1px solid var(--accent-gold);
       font-weight: 500;
+      white-space: nowrap;
     }
     details[open] .foldable-summary::after {
       content: "− 閉じる";
@@ -53,6 +123,17 @@
       padding-top: 12px;
       border-top: 1px dashed var(--border-color);
     }
+
+    /* モバイル向けフォーム・テーブル調整補強 */
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .item-row {
+        flex-wrap: wrap;
+      }
+    }
   </style>
 </head>
 <body>
@@ -66,14 +147,15 @@
   
   <main>
 
-    <!-- 0. 注文のやり直し（復元）ツール（小ぶり・控えめ） -->
+    <!-- 0. 注文のやり直し（復元）ツール（大きめに変更） -->
     <details class="tiny-restore-box">
       <summary class="tiny-restore-summary">
         <span>🔄 0. 注文のやり直し（テキストから復元）</span>
       </summary>
       <div class="tiny-restore-body">
-        <textarea id="import_text_input" rows="2" placeholder="ここにLINEからコピーした注文文面を貼り付け" style="width: 100%; margin-top: 8px; font-size: 0.75rem; padding: 6px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;"></textarea>
-        <button type="button" class="sub-btn mt-6" style="padding: 4px 10px; font-size: 0.72rem;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
+        <p class="sub-note" style="margin-top:0; margin-bottom: 8px;">LINEからコピーした注文文面全体を貼り付けて復元できます。</p>
+        <textarea id="import_text_input" rows="6" placeholder="ここにLINEからコピーした注文文面を貼り付け"></textarea>
+        <button type="button" class="sub-btn mt-8" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
       </div>
     </details>
 
