@@ -148,7 +148,7 @@
   
   <main>
 
-    <!-- 控えめな復元補助ツール（最上部・ナンバリング外し） -->
+    <!-- 控えめな復元補助ツール（最上部・注意書き付き） -->
     <details class="tiny-restore-box">
       <summary class="tiny-restore-summary">
         <span>📥 以前の注文内容を復元する（テキスト貼付）</span>
@@ -156,6 +156,7 @@
       <div class="tiny-restore-body">
         <p class="sub-note" style="margin-top:0; margin-bottom: 8px;">LINEからコピーした注文文面全体を貼り付けて復元できます。</p>
         <textarea id="import_text_input" rows="6" placeholder="ここにLINEからコピーした注文文面を貼り付け"></textarea>
+        <p class="restore-note">※ポイント換算は現在の処理月度のマスタ値で再計算されます。</p>
         <button type="button" class="sub-btn mt-8" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
       </div>
     </details>
