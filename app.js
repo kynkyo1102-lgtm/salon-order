@@ -210,30 +210,31 @@ function renderUIFromMaster() {
   document.querySelectorAll('.qty-select').forEach(sel => sel.addEventListener('change', updateCalc));
   document.getElementById('month').addEventListener('change', updateCalc);
 
+  togglePaymentFields();
   updateCalc();
 }
 
 function togglePaymentFields() {
   const method = document.getElementById('paymentMethod').value;
-  const extraContainer = document.getElementById('paymentExtraFields');
   const pwGroup = document.getElementById('eservicePwGroup');
   const ptGroup = document.getElementById('ninaPointGroup');
+  const pwInput = document.getElementById('eservicePw');
+  const ptInput = document.getElementById('ninaPoint');
 
-  if (method === 'ニナファームカード') {
-    extraContainer.style.display = 'block';
-    pwGroup.style.display = 'block';
-    ptGroup.style.display = 'block';
-  } else if (method === 'クレジットカード') {
-    extraContainer.style.display = 'block';
-    pwGroup.style.display = 'block';
-    ptGroup.style.display = 'none';
-    document.getElementById('ninaPoint').value = '';
-  } else {
-    extraContainer.style.display = 'none';
+  if (!pwGroup || !ptGroup) return;
+
+  if (method === '現金' || method === 'PayPay') {
     pwGroup.style.display = 'none';
     ptGroup.style.display = 'none';
-    document.getElementById('eservicePw').value = '';
-    document.getElementById('ninaPoint').value = '';
+    if (pwInput) pwInput.value = '';
+    if (ptInput) ptInput.value = '';
+  } else if (method === 'クレジットカード') {
+    pwGroup.style.display = 'block';
+    ptGroup.style.display = 'none';
+    if (ptInput) ptInput.value = '';
+  } else if (method === 'ニナファームカード') {
+    pwGroup.style.display = 'block';
+    ptGroup.style.display = 'block';
   }
   updateCalc();
 }
@@ -316,8 +317,6 @@ function addOrderToList() {
   const address = document.getElementById('address').value.trim();
   const phone = document.getElementById('phone').value.trim();
 
-  // ★個人情報（salonOrderUserInfo）のローカルストレージ保存処理を削除
-
   const today = new Date();
   const yy = String(today.getFullYear()).slice(-2);
   const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -348,8 +347,6 @@ function addOrderToList() {
   document.getElementById('paymentMethod').value = "現金";
   togglePaymentFields(); // 支払い入力エリアを非表示・リセット
   document.getElementById('receiptName').value = "";
-  document.getElementById('eservicePw').value = "";
-  document.getElementById('ninaPoint').value = "";
   document.getElementById('presetMemberSelect').value = "";
   document.getElementById('shipName').value = "";
   document.getElementById('zip').value = "";
