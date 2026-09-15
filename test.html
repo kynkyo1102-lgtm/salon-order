@@ -9,12 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=3">
   <style>
-    /* 会員事前登録の折り畳み用スタイル */
-    .member-details {
-      border: none;
-      background: transparent;
+    /* 折り畳み共通スタイル（会員事前登録 ＆ 復元ツール用） */
+    details.info-card {
+      padding: 0;
+      overflow: hidden;
     }
-    .member-summary {
+    .foldable-summary {
       font-size: 0.88rem;
       font-weight: 700;
       color: var(--wood-medium);
@@ -24,13 +24,14 @@
       align-items: center;
       justify-content: space-between;
       outline: none;
-      padding: 2px 0;
+      padding: 16px 20px;
+      user-select: none;
     }
-    .member-summary::-webkit-details-marker {
+    .foldable-summary::-webkit-details-marker {
       display: none;
     }
-    .member-summary::after {
-      content: "＋ 登録・編集を開く";
+    .foldable-summary::after {
+      content: "＋ 開く";
       font-size: 0.78rem;
       color: var(--accent-gold);
       background: rgba(200, 162, 97, 0.12);
@@ -39,8 +40,13 @@
       border: 1px solid var(--accent-gold);
       font-weight: 500;
     }
-    details[open] .member-summary::after {
+    details[open] .foldable-summary::after {
       content: "− 閉じる";
+    }
+    .foldable-body {
+      padding: 0 20px 16px 20px;
+      border-top: 1px dashed var(--border-color);
+      margin-top: 4px;
     }
     .member-content-body {
       margin-top: 14px;
@@ -60,11 +66,23 @@
   
   <main>
 
+    <!-- 0. 注文のやり直し（復元）ツール（独立・折り畳み式） -->
+    <details class="info-card card-accent" style="background: #faf8f5;">
+      <summary class="foldable-summary">
+        <span>🔄 0. 注文のやり直し（コピー文面からの全状態復元）</span>
+      </summary>
+      <div class="foldable-body" style="padding-top: 14px;">
+        <p class="sub-note" style="margin-top: 4px;">ミスに気づいた際、LINEからコピーした注文文面を貼り付けて「復元実行」を押すと入力状態が戻ります。</p>
+        <textarea id="import_text_input" rows="3" placeholder="ここにLINEからコピーした注文文面（🇫🇷9月度注文分…）を貼り付け" style="width: 100%; margin-top: 6px; font-size: 0.78rem; padding: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
+        <button type="button" class="sub-btn mt-6" style="padding: 6px 14px; font-size: 0.78rem; background: var(--accent-gold); color: #fff;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
+      </div>
+    </details>
+
     <!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
     <div class="info-card card-accent">
       <details class="member-details">
-        <summary class="member-summary">
-          <span>1. よく使う会員番号の事前登録</span>
+        <summary class="foldable-summary member-summary" style="padding: 0;">
+          <span style="font-size: 0.88rem; font-weight: 700; color: var(--wood-medium);">1. よく使う会員番号の事前登録</span>
         </summary>
         <div class="member-content-body">
           <div class="usage-guide">
@@ -151,17 +169,9 @@
       <button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
 
-    <!-- 6. 生成された注文テキスト ＆ 逆パース復元 -->
+    <!-- 6. 生成された注文テキスト -->
     <div class="info-card">
       <div class="section-title">6. 生成された注文テキスト</div>
-      
-      <!-- テキスト全体から復元するボックス -->
-      <div class="bulk-paste-box mb-12" style="background: #faf8f5; border: 1px dashed var(--accent-gold); padding: 10px; border-radius: 8px;">
-        <label style="font-size: 0.8rem; color: var(--wood-medium); font-weight: 700;">🔄 ミス気づき時用：コピーした注文文面から全状態を復元</label>
-        <textarea id="import_text_input" rows="4" placeholder="ここにLINEからコピーした注文文面（🇫🇷9月度注文分…）を貼り付けて「復元実行」を押してください" style="width: 100%; margin-top: 6px; font-size: 0.78rem; padding: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
-        <button type="button" class="sub-btn mt-6" style="padding: 5px 12px; font-size: 0.78rem; background: var(--accent-gold); color: #fff;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
-      </div>
-
       <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
       <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
     </div>
@@ -591,7 +601,7 @@ function addItemRowWithData(posId, prodIndexVal, qtyVal) {
     list.appendChild(row);
 }
 
-// 📦 コピーされた全体テキストから一括復元するパーサー（修正版）
+// 📦 コピーされた全体テキストから一括復元するパーサー
 function restoreAllFromText() {
     try {
         const text = document.getElementById('import_text_input').value;
@@ -637,7 +647,7 @@ function restoreAllFromText() {
             document.getElementById('receipt_name').value = receiptMatch[1].trim();
         }
 
-        // 3. 送付先の復元（安全にマッチ）
+        // 3. 送付先の復元
         const noteMatch = text.match(/★([^*]+)★/);
         if (noteMatch) document.getElementById('ship_note').value = noteMatch[1].trim();
         
@@ -647,7 +657,7 @@ function restoreAllFromText() {
         const telMatch = text.match(/TEL:\s*([^\n]+)/);
         if (telMatch) document.getElementById('ship_tel').value = telMatch[1].trim();
 
-        // 住所と宛名の抽出（行単位で分解して安全に取得）
+        // 住所と宛名の抽出
         const shipBlockMatch = text.match(/\(送付先\)([\s\S]*)/);
         if (shipBlockMatch) {
             const lines = shipBlockMatch[1].trim().split('\n');
@@ -658,11 +668,9 @@ function restoreAllFromText() {
                 if (trimmed.startsWith('TEL:')) return;
                 
                 if (trimmed.includes('様')) {
-                    // 「〇〇 様」の形式から宛名を抽出
                     const namePart = trimmed.replace(/様$/, '').trim();
                     if (namePart) document.getElementById('ship_name').value = namePart;
                 } else if (trimmed) {
-                    // それ以外は住所行とみなす
                     document.getElementById('ship_address').value = trimmed;
                 }
             });
@@ -703,7 +711,6 @@ function restoreAllFromText() {
                 const line = lines[i].trim();
                 if (line.startsWith('計 ') || line.startsWith('−−−') || !line) continue;
                 
-                // 例: "OX-288 2個 27,600円(20,000pt)"
                 const itemMatch = line.match(/^(.+?)\s+(\d+)個\s+/);
                 if (itemMatch) {
                     const prodName = itemMatch[1].trim();
