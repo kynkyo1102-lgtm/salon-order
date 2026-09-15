@@ -66,15 +66,14 @@
   
   <main>
 
-    <!-- 0. 注文のやり直し（復元）ツール（独立・折り畳み式） -->
-    <details class="info-card card-accent" style="background: #faf8f5;">
-      <summary class="foldable-summary">
-        <span>🔄 0. 注文のやり直し（コピー文面からの全状態復元）</span>
+    <!-- 0. 注文のやり直し（復元）ツール（小ぶり・控えめ） -->
+    <details class="tiny-restore-box">
+      <summary class="tiny-restore-summary">
+        <span>🔄 0. 注文のやり直し（テキストから復元）</span>
       </summary>
-      <div class="foldable-body" style="padding-top: 14px;">
-        <p class="sub-note" style="margin-top: 4px;">ミスに気づいた際、LINEからコピーした注文文面を貼り付けて「復元実行」を押すと入力状態が戻ります。</p>
-        <textarea id="import_text_input" rows="3" placeholder="ここにLINEからコピーした注文文面（🇫🇷9月度注文分…）を貼り付け" style="width: 100%; margin-top: 6px; font-size: 0.78rem; padding: 6px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
-        <button type="button" class="sub-btn mt-6" style="padding: 6px 14px; font-size: 0.78rem; background: var(--accent-gold); color: #fff;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
+      <div class="tiny-restore-body">
+        <textarea id="import_text_input" rows="2" placeholder="ここにLINEからコピーした注文文面を貼り付け" style="width: 100%; margin-top: 8px; font-size: 0.75rem; padding: 6px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;"></textarea>
+        <button type="button" class="sub-btn mt-6" style="padding: 4px 10px; font-size: 0.72rem;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
       </div>
     </details>
 
