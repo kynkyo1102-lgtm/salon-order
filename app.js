@@ -39,16 +39,14 @@ window.addEventListener('DOMContentLoaded', async () => {
       safeSetStorage('salonOrderMasterConfig', currentMaster);
     }
   } catch (e) {
+    // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
     const savedConfig = safeGetStorage('salonOrderMasterConfig', null);
     if (savedConfig) currentMaster = savedConfig;
   }
 
   renderUIFromMaster();
 
-  // ② クラウド（Supabase）からユーザー情報を復元する処理（シングル側と同様に拡充）
-  await loadUserDataFromCloud();
-
-  // ③ ローカルストレージからのユーザー情報復元（クラウドにない場合のフォワード互換や補助）
+  // ユーザー情報復元
   const user = safeGetStorage('salonOrderUserInfo', null);
   if (user) {
     if (user.month && currentMaster.activeMonths.includes(user.month)) {
@@ -69,55 +67,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     updateCalc();
   }
 });
-
-// Supabase（user_profilesテーブル）から保存された会員情報・住所・連絡先情報を読み込む関数
-async function loadUserDataFromCloud() {
-  try {
-    if (typeof window.supabaseClient === 'undefined' || !window.supabaseClient) return;
-    const { data: { user } } = await window.supabaseClient.auth.getUser();
-    if (!user) return;
-
-    // ★ここでログイン中のメールアドレスをバナーに反映して表示する
-    const banner = document.getElementById('loginStatusBanner');
-    const emailSpan = document.getElementById('loginUserEmail');
-    if (banner && emailSpan && user.email) {
-      emailSpan.textContent = user.email;
-      banner.style.display = 'flex';
-    }
-
-    const { data, error } = await window.supabaseClient
-      .from('user_profiles')
-      .select('*')
-      .eq('user_id', user.id)
-      .maybeSingle();
-
-    if (data && !error) {
-      // 会員番号（ハイフン前後で分かれている場合や、まとまっている場合のスキーマに合わせて適宜調整）
-      if (data.member_id_main) document.getElementById('memberIdMain').value = data.member_id_main;
-      if (data.member_id_sub) document.getElementById('memberIdSub').value = data.member_id_sub;
-      if (data.full_name) document.getElementById('fullName').value = data.full_name;
-      
-      // 住所・連絡先
-      if (data.postal_code) document.getElementById('zip').value = data.postal_code;
-      if (data.address_name) document.getElementById('shipName').value = data.address_name;
-      if (data.address) document.getElementById('address').value = data.address;
-      if (data.phone) document.getElementById('phone').value = data.phone;
-      
-      updateCalc();
-    }
-  } catch (e) {
-    console.warn("Could not load user data from cloud:", e);
-  }
-}
-
-// ログアウト用関数（まだ無ければ追加）
-async function logoutFromSupabase() {
-  if (typeof window.supabaseClient !== 'undefined' && window.supabaseClient) {
-    await window.supabaseClient.auth.signOut();
-    alert("ログアウトしました。");
-    location.reload();
-  }
-}
 
 function initMemberSubSelect() {
   const memberIdSub = document.getElementById('memberIdSub');
@@ -729,6 +678,7 @@ async function downloadSingleCard(elementId) {
       const modal = document.createElement('div');
       modal.className = 'image-modal-overlay';
       
+      // iOS/Android問わずLINEアプリ内ブラウザ全般向けの注意書き
       let lineWarningText = "";
       if (isLine) {
         lineWarningText = `
@@ -749,8 +699,12 @@ async function downloadSingleCard(elementId) {
           </div>
         </div>
         
+        <!-- 画像表示エリア -->
         <img src="${imgData}" class="image-modal-content" alt="注文書画像">
+
+        <!-- 画像直下の注意書き -->
         ${lineWarningText}
+
         <button type="button" class="image-modal-close" style="margin-top: 14px;" onclick="closeModal(this.parentElement)">✕ 閉じる</button>
       `;
       document.body.appendChild(modal);
