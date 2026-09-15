@@ -123,7 +123,7 @@
           </div>
 
           <div id="paymentExtraFields" class="payment-extra-box">
-            <div id="eservicePwGroup" class="form-group">
+            <div id="eservicePwGroup" class="form-group display-none">
               <label for="eservicePw">E-Service PW</label>
               <input type="text" id="eservicePw" placeholder="パスワードを入力">
             </div>
@@ -144,7 +144,8 @@
         <div class="card-box">
           <div class="form-group">
             <label for="shipName">お届け先お名前</label>
-            <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）">
+            <!-- inputの変更を検知してローカルストレージに保存するよう実装 -->
+            <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）" oninput="saveShipNameStorage(this.value)">
           </div>
 
           <div class="form-group">
@@ -160,12 +161,6 @@
           <div class="form-group">
             <label for="phone">電話番号</label>
             <input type="tel" id="phone" placeholder="例: 09012345678">
-          </div>
-
-          <div class="text-right margin-top-8">
-            <button type="button" onclick="clearSavedInfo()" class="btn-clear-info" style="background: none; border: none; color: #888; text-decoration: underline; font-size: 0.72rem; cursor: pointer; padding: 2px 4px;">
-              端末保存情報の削除
-            </button>
           </div>
         </div>
 
@@ -228,5 +223,55 @@
     </div>
   </main>
 
+  <script>
+    // 支払い方法の表示制御
+    function togglePaymentFields() {
+      const method = document.getElementById('paymentMethod')?.value;
+      const pwGroup = document.getElementById('eservicePwGroup');
+      const pointGroup = document.getElementById('ninaPointGroup');
+      const pwInput = document.getElementById('eservicePw');
+      const pointInput = document.getElementById('ninaPoint');
+
+      if (!pwGroup || !pointGroup) return;
+
+      if (method === '現金' || method === 'PayPay') {
+        pwGroup.style.display = 'none';
+        pointGroup.style.display = 'none';
+        if (pwInput) pwInput.value = '';
+        if (pointInput) pointInput.value = '';
+      } else if (method === 'クレジットカード') {
+        pwGroup.style.display = 'block';
+        pointGroup.style.display = 'none';
+        if (pointInput) pointInput.value = '';
+      } else if (method === 'ニナファームカード') {
+        pwGroup.style.display = 'block';
+        pointGroup.style.display = 'block';
+      }
+
+      if (typeof updateCalc === 'function') {
+        updateCalc();
+      }
+    }
+
+    // お届け先お名前のローカルストレージ保存用関数
+    const SHIP_NAME_KEY = 'salon_order_shipName';
+
+    function saveShipNameStorage(val) {
+      localStorage.setItem(SHIP_NAME_KEY, val);
+    }
+
+    function loadShipNameStorage() {
+      const saved = localStorage.getItem(SHIP_NAME_KEY);
+      const shipInput = document.getElementById('shipName');
+      if (saved && shipInput) {
+        shipInput.value = saved;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      togglePaymentFields();
+      loadShipNameStorage();
+    });
+  </script>
 </body>
 </html>
