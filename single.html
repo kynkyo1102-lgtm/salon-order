@@ -83,10 +83,11 @@
     <!-- 2. お届け先情報 -->
     <div class="info-card">
       <div class="section-title">2. お届け先情報</div>
+      <p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
       <div class="form-row">
         <div class="form-group fg-zip">
           <label>郵便番号</label>
-          <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); saveBasicInfo(); updatePreview();">
+          <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); updatePreview();">
         </div>
         <div class="form-group">
           <label>お届け先氏名（宛名）</label>
@@ -95,15 +96,15 @@
       </div>
       <div class="form-group">
         <label>ご住所</label>
-        <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="saveBasicInfo(); updatePreview();">
+        <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="updatePreview();">
       </div>
       <div class="form-group">
         <label>電話番号</label>
-        <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="saveBasicInfo(); updatePreview();">
+        <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="updatePreview();">
       </div>
       <div class="form-group">
         <label>備考</label>
-        <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="saveBasicInfo(); updatePreview();">
+        <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="updatePreview();">
       </div>
     </div>
 
@@ -112,7 +113,7 @@
       <div class="section-title">3. 決済方法</div>
       <div class="form-group">
         <label>決済方法の選択</label>
-        <select id="payment_method" onchange="togglePwField(); saveBasicInfo(); updatePreview();">
+        <select id="payment_method" onchange="togglePwField(); updatePreview();">
           <option value="現金">現金</option>
           <option value="ニナファームカード">ニナファームカード</option>
           <option value="クレジットカード">クレジットカード</option>
@@ -122,11 +123,11 @@
       <div class="hidden-pw" id="pw_container">
         <div class="form-group" id="group_pw_code">
           <label>E-ServiceログインPW</label>
-          <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="saveBasicInfo(); updatePreview();">
+          <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="updatePreview();">
         </div>
         <div class="form-group" id="group_nina_point">
           <label>使用するポイントNiNA</label>
-          <input type="text" id="nina_point" placeholder="例：1000pt" oninput="saveBasicInfo(); updatePreview();">
+          <input type="text" id="nina_point" placeholder="例：1000pt" oninput="updatePreview();">
         </div>
       </div>
       <div class="form-group mt-10">
@@ -171,7 +172,6 @@
   </div>
 
 <script>
-// デフォルトマスター設定（JSONロード失敗時のバックアップ）
 let currentMaster = {
   activeMonths: ["8月度"],
   products: [
@@ -235,8 +235,6 @@ function checkZipCode() {
                     const res = data.results[0];
                     const fullAddress = res.address1 + res.address2 + res.address3;
                     document.getElementById('ship_address').value = fullAddress;
-                    
-                    saveBasicInfo();
                     updatePreview();
                 }
             })
@@ -247,7 +245,6 @@ function checkZipCode() {
 }
 
 window.onload = async function() {
-    // 1. 最新の month_config.json を自動バックグラウンド取得
     try {
         const response = await fetch('./month_config.json?cache=' + new Date().getTime());
         if (response.ok) {
@@ -262,18 +259,11 @@ window.onload = async function() {
         }
     }
 
-    // 2. 月度プルダウンの描画
     renderMonthOptions();
 
-    // 3. 保存データの復元
-    if(localStorage.getItem('ship_zip')) document.getElementById('ship_zip').value = localStorage.getItem('ship_zip');
+    // 宛名と領収書宛名のみ復元
     if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
-    if(localStorage.getItem('ship_address')) document.getElementById('ship_address').value = localStorage.getItem('ship_address');
-    if(localStorage.getItem('ship_tel')) document.getElementById('ship_tel').value = localStorage.getItem('ship_tel');
-    if(localStorage.getItem('ship_note')) document.getElementById('ship_note').value = localStorage.getItem('ship_note');
     if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
-    if(localStorage.getItem('pw_code')) document.getElementById('pw_code').value = localStorage.getItem('pw_code');
-    if(localStorage.getItem('nina_point')) document.getElementById('nina_point').value = localStorage.getItem('nina_point');
     if(localStorage.getItem('receipt_name')) document.getElementById('receipt_name').value = localStorage.getItem('receipt_name');
     
     togglePwField();
@@ -309,14 +299,8 @@ function renderMonthOptions() {
 }
 
 function saveBasicInfo() {
-    localStorage.setItem('ship_zip', document.getElementById('ship_zip').value);
     localStorage.setItem('ship_name', document.getElementById('ship_name').value);
-    localStorage.setItem('ship_address', document.getElementById('ship_address').value);
-    localStorage.setItem('ship_tel', document.getElementById('ship_tel').value);
-    localStorage.setItem('ship_note', document.getElementById('ship_note').value);
     localStorage.setItem('payment_method', document.getElementById('payment_method').value);
-    localStorage.setItem('pw_code', document.getElementById('pw_code').value);
-    localStorage.setItem('nina_point', document.getElementById('nina_point').value);
     localStorage.setItem('receipt_name', document.getElementById('receipt_name').value);
 }
 
@@ -749,7 +733,7 @@ function copyToClipboard() {
     navigator.clipboard.writeText(result.text).then(() => {
         alert("LINE用の注文テキストをコピーしました！「ニナファーム南熊本サロン」のLINEノートに貼り付けてください。");
     }).catch(err => {
-        alert("コピーに失敗しました。画面下の体操「6. 生成された注文テキスト」枠内の文章を手動で選択してコピーしてください。");
+        alert("コピーに失敗しました。画面下の枠内の文章を手動で選択してコピーしてください。");
     });
 }
 </script>
