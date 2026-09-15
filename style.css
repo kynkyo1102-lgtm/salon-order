@@ -1182,3 +1182,40 @@ details[open] summary {
   transform: translateY(1px);
   opacity: 0.9;
 }
+
+/* ==========================================
+   会員登録カード用 summary & subtext 統一スタイル
+========================================== */
+details.card-box-preset summary.summary-preset {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  cursor: pointer;
+  list-style: none;
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+}
+
+details.card-box-preset summary.summary-preset::-webkit-details-marker {
+  display: none;
+}
+
+details.card-box-preset summary.summary-preset::before {
+  content: "▼ ";
+  font-size: 0.72rem;
+  color: var(--accent-gold);
+  margin-right: 6px;
+}
+
+details.card-box-preset[open] summary.summary-preset::before {
+  content: "▲ ";
+}
+
+.preset-subtext {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  margin-top: 6px;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
