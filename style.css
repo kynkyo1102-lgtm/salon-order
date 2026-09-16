@@ -1356,3 +1356,20 @@ details[open] .foldable-summary::after {
     flex-wrap: wrap;
   }
 }
+
+/* 会員番号とポジションの横並び調整 */
+.pos-code-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+.fg-code {
+  flex: 1; /* 会員番号を広めにとる */
+}
+.fg-num {
+  width: 90px; /* ポジション選択はコンパクトに固定 */
+  flex-shrink: 0;
+}
+.fg-name {
+  flex: 1;
+}
