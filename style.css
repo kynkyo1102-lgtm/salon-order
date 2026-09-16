@@ -1405,3 +1405,12 @@ details[open] .foldable-summary::after {
 .fg-name {
   flex: 1;
 }
+
+/* 数量カラムのプルダウンだけ横幅100%を解除してコンパクトにする */
+.product-table td.qty-col select {
+  width: auto;       /* 自動調整にする、または 44px などの固定値に設定 */
+  max-width: 100%;
+  padding: 4px 2px;  /* 内部の余白を詰める */
+  font-size: 0.8rem;
+  text-align: center;
+}
