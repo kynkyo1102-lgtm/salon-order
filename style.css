@@ -301,27 +301,46 @@ textarea#output_text {
   text-align: center;
 }
 
-/* 価格・獲得Ptの列を強制的に1行で収める（折り返し禁止） */
+/* 1列目（商品名）：残りすべてのスペースを有効活用 */
+.product-table th:first-child,
+.product-table td:first-child {
+  /* 幅を指定せず、残りのスペースをすべて使う */
+}
+
+/* 2列目：価格(税込)（折り返し禁止・右揃え） */
 .product-table th.width-65,
-.product-table td:nth-child(2),
+.product-table td:nth-child(2) {
+  width: 72px; /* 少しだけ幅を確保 */
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 3列目：獲得Pt（折り返し禁止・右揃え） */
 .product-table th.width-55,
 .product-table td:nth-child(3),
 .product-table td.pt-col {
+  width: 55px;
   white-space: nowrap;
   text-align: right;
-  font-variant-numeric: tabular-nums; /* 数字の幅を揃えてキレイに見せる */
-}
-
-.product-table td.qty-col {
-  width: 65px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.product-table td.pt-col {
-  width: 65px;
   color: var(--wood-medium);
   font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 4列目（数量）：プルダウンをコンパクトに制限 */
+.product-table td.qty-col {
+  width: 52px; /* 最小限の幅にする */
+  text-align: center;
+  white-space: nowrap;
+  padding: 8px 2px; /* 左右の余白を詰める */
+}
+
+.product-table td.qty-col select {
+  width: 100%;
+  padding: 4px 2px;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 /* メニューカード */
