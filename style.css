@@ -1414,3 +1414,17 @@ details[open] .foldable-summary::after {
   font-size: 0.8rem;
   text-align: center;
 }
+
+.product-table td.qty-col {
+  width: 50px;
+  text-align: center;
+  padding: 6px 2px;
+}
+
+.product-table td.qty-col select {
+  width: 100%;
+  box-sizing: border-box; /* パディングを含めて幅を計算させる */
+  padding: 4px 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
