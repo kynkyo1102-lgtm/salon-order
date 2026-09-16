@@ -283,12 +283,14 @@ textarea#output_text {
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--border-color);
+  table-layout: fixed; /* 列幅を固定して崩れを防ぐ */
 }
 
 .product-table th, .product-table td {
   border-bottom: 1px solid var(--border-color);
   padding: 8px 6px;
   text-align: left;
+  word-break: break-word;
 }
 
 .product-table th {
@@ -299,14 +301,25 @@ textarea#output_text {
   text-align: center;
 }
 
+/* 価格・獲得Ptの列を強制的に1行で収める（折り返し禁止） */
+.product-table th.width-65,
+.product-table td:nth-child(2),
+.product-table th.width-55,
+.product-table td:nth-child(3),
+.product-table td.pt-col {
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums; /* 数字の幅を揃えてキレイに見せる */
+}
+
 .product-table td.qty-col {
   width: 65px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .product-table td.pt-col {
   width: 65px;
-  text-align: right;
   color: var(--wood-medium);
   font-weight: bold;
 }
