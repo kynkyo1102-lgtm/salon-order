@@ -184,16 +184,14 @@
     <!-- 2. お届け先情報 -->
     <div class="info-card">
       <div class="section-title">2. お届け先情報</div>
-      <p class="sub-note">※以前にご注文された方は宛名のみのご構いません。(備考がある場合はご入力ください。)</p>
+      <p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
       <div class="form-group">
         <label>お届け先氏名（宛名）</label>
         <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
       </div>
-      <div class="form-row">
-        <div class="form-group fg-zip">
-          <label>郵便番号</label>
-          <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); updatePreview();">
-        </div>
+      <div class="form-group fg-zip">
+        <label>郵便番号</label>
+        <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); updatePreview();">
       </div>
       <div class="form-group">
         <label>ご住所</label>
