@@ -565,12 +565,13 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
             <span class="manual-input-text">📝 未登録の会員情報を下に入力してください</span>
         </div>
         
-        <div class="form-row mt-8">
-            <div class="form-group fg-code">
+        <!-- ▼ 会員番号とポジションを横並びにするブロック ▼ -->
+        <div class="pos-code-row mt-8">
+            <div class="form-group fg-code" style="margin-bottom:0;">
                 <label>会員番号</label>
                 <input type="text" id="pos_code_${positionCount}" value="${initialCode}" placeholder="例：1234567" oninput="updatePreview()">
             </div>
-            <div class="form-group fg-num">
+            <div class="form-group fg-num" style="margin-bottom:0;">
                 <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
@@ -587,16 +588,19 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
                     <option value="custom">その他</option>
                 </select>
             </div>
-            <div class="form-group fg-name">
-                <label>会員名</label>
-                <input type="text" id="pos_name_${positionCount}" value="${initialName}" placeholder="例：山田太郎" oninput="updatePreview()">
-            </div>
         </div>
 
-        <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
+        <!-- その他を選択したときに出るカスタム入力 -->
+        <div class="custom-pos-container mt-8" id="custom_pos_container_${positionCount}" style="display:none;">
             <label>その他のポジション（手入力）</label>
             <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：11" oninput="updatePreview()">
         </div>
+
+        <div class="form-group mt-10">
+            <label>会員名</label>
+            <input type="text" id="pos_name_${positionCount}" value="${initialName}" placeholder="例：山田太郎" oninput="updatePreview()">
+        </div>
+        <!-- ▲ ここまで ▲ -->
 
         <div class="form-group mt-10">
             <label>購入商品</label>
@@ -607,6 +611,7 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
     `;
     container.appendChild(box);
     
+    // 以下、既存の初期化処理続き...
     const newSelect = document.getElementById(`pos_select_${positionCount}`);
     refreshMemberOptions(newSelect);
 
