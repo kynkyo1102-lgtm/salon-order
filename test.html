@@ -8,140 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
-  <style>
-    /* スマホ崩れ防止・共通調整 */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      overflow-x: hidden;
-      width: 100%;
-    }
-    .info-card, .tiny-restore-box {
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    /* 控えめな復元補助ツール（トーンダウン＆点線） */
-    details.tiny-restore-box {
-      background: #faf8f5;
-      border: 1px dashed var(--accent-gold, #c8a261);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0.92;
-    }
-    .tiny-restore-summary {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #8c7355;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      outline: none;
-      padding: 12px 16px;
-      user-select: none;
-      background: rgba(200, 162, 97, 0.05);
-    }
-    .tiny-restore-summary::-webkit-details-marker {
-      display: none;
-    }
-    .tiny-restore-summary::after {
-      content: "＋ 開く";
-      font-size: 0.75rem;
-      color: #8c7355;
-      background: rgba(140, 115, 85, 0.1);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-    details[open] .tiny-restore-summary::after {
-      content: "− 閉じる";
-    }
-    .tiny-restore-body {
-      padding: 14px 16px;
-      border-top: 1px dashed rgba(200, 162, 97, 0.3);
-      background: #fff;
-    }
-    #import_text_input {
-      width: 100%;
-      font-size: 0.85rem;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      line-height: 1.5;
-      resize: vertical;
-    }
-
-    /* 折り畳み共通スタイル（会員事前登録用） */
-    details.info-card {
-      padding: 0;
-      overflow: hidden;
-    }
-    .foldable-summary {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--wood-medium);
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      outline: none;
-      padding: 16px 20px;
-      user-select: none;
-    }
-    .foldable-summary::-webkit-details-marker {
-      display: none;
-    }
-    .foldable-summary::after {
-      content: "＋ 開く";
-      font-size: 0.78rem;
-      color: var(--accent-gold);
-      background: rgba(200, 162, 97, 0.12);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--accent-gold);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    details[open] .foldable-summary::after {
-      content: "− 閉じる";
-    }
-    .foldable-body {
-      padding: 0 20px 16px 20px;
-      border-top: 1px dashed var(--border-color);
-      margin-top: 4px;
-    }
-    .member-content-body {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border-color);
-    }
-
-    /* モバイル向けフォーム・テーブル調整補強 */
-    @media (max-width: 600px) {
-      .form-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-      .item-row {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
 </head>
 <body>
 
   <header>
     <div class="header-logo">
-      <a href="index.html" style="color: inherit; text-decoration: none;">Place de Nina</a>
+      <a href="index.html" class="header-logo-link">Place de Nina</a>
     </div>
     <h1>LINEご注文作成ツール</h1>
   </header>
@@ -185,15 +57,13 @@
     <div class="info-card">
       <div class="section-title">2. お届け先情報</div>
       <p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
-      <div class="form-row">
-        <div class="form-group fg-zip">
-          <label>郵便番号</label>
-          <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); updatePreview();">
-        </div>
-        <div class="form-group">
-          <label>お届け先氏名（宛名）</label>
-          <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
-        </div>
+      <div class="form-group">
+        <label>お届け先氏名（宛名）</label>
+        <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+      <div class="form-group fg-zip">
+        <label>郵便番号</label>
+        <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); updatePreview();">
       </div>
       <div class="form-group">
         <label>ご住所</label>
@@ -567,12 +437,13 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
             <span class="manual-input-text">📝 未登録の会員情報を下に入力してください</span>
         </div>
         
-        <div class="form-row mt-8">
-            <div class="form-group fg-code">
+        <!-- ▼ 会員番号とポジションを横並びにするブロック ▼ -->
+        <div class="pos-code-row mt-8">
+            <div class="form-group fg-code" style="margin-bottom:0;">
                 <label>会員番号</label>
                 <input type="text" id="pos_code_${positionCount}" value="${initialCode}" placeholder="例：1234567" oninput="updatePreview()">
             </div>
-            <div class="form-group fg-num">
+            <div class="form-group fg-num" style="margin-bottom:0;">
                 <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
@@ -589,16 +460,19 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
                     <option value="custom">その他</option>
                 </select>
             </div>
-            <div class="form-group fg-name">
-                <label>会員名</label>
-                <input type="text" id="pos_name_${positionCount}" value="${initialName}" placeholder="例：山田太郎" oninput="updatePreview()">
-            </div>
         </div>
 
-        <div class="custom-pos-container" id="custom_pos_container_${positionCount}">
+        <!-- その他を選択したときに出るカスタム入力 -->
+        <div class="custom-pos-container mt-8" id="custom_pos_container_${positionCount}" style="display:none;">
             <label>その他のポジション（手入力）</label>
             <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：11" oninput="updatePreview()">
         </div>
+
+        <div class="form-group mt-10">
+            <label>会員名</label>
+            <input type="text" id="pos_name_${positionCount}" value="${initialName}" placeholder="例：山田太郎" oninput="updatePreview()">
+        </div>
+        <!-- ▲ ここまで ▲ -->
 
         <div class="form-group mt-10">
             <label>購入商品</label>
@@ -693,7 +567,6 @@ function restoreAllFromText() {
             return;
         }
 
-        // 1. 月度の復元
         const monthMatch = text.match(/🇫🇷\s*([^\n注文分]+)注文分/);
         if (monthMatch && monthMatch[1]) {
             const monthSel = document.getElementById('target_month');
@@ -706,7 +579,6 @@ function restoreAllFromText() {
             }
         }
 
-        // 2. 決済方法の復元
         if (text.includes("ニナファームカード決済")) {
             document.getElementById('payment_method').value = "ニナファームカード";
             const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
@@ -724,13 +596,11 @@ function restoreAllFromText() {
         }
         togglePwField();
 
-        // 領収書
         const receiptMatch = text.match(/🧾 領収書：([^\n]+)/);
         if (receiptMatch) {
             document.getElementById('receipt_name').value = receiptMatch[1].trim();
         }
 
-        // 3. 送付先の復元
         const noteMatch = text.match(/★([^*]+)★/);
         if (noteMatch) document.getElementById('ship_note').value = noteMatch[1].trim();
         
@@ -740,7 +610,6 @@ function restoreAllFromText() {
         const telMatch = text.match(/TEL:\s*([^\n]+)/);
         if (telMatch) document.getElementById('ship_tel').value = telMatch[1].trim();
 
-        // 住所と宛名の抽出
         const shipBlockMatch = text.match(/\(送付先\)([\s\S]*)/);
         if (shipBlockMatch) {
             const lines = shipBlockMatch[1].trim().split('\n');
@@ -759,7 +628,6 @@ function restoreAllFromText() {
             });
         }
 
-        // 4. ポジションブロックの解析と復元
         document.getElementById('positions_container').innerHTML = '';
         positionCount = 0;
 
