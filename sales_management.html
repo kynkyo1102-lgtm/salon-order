@@ -2,12 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <!-- スマホで見やすくする設定 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>サロン注文管理アプリ</title>
-  <!-- デザインを綺麗にするTailwind CSSを読み込み -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Supabaseのプログラムを読み込み -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 p-4 font-sans">
@@ -61,10 +58,9 @@
   </div>
 
   <script>
-    // ▼▼ ここをあなたのSupabase情報に書き換えてください ▼▼
-    const SUPABASE_URL = 'あなたのSUPABASE_URL';
-    const SUPABASE_ANON_KEY = 'あなたのSUPABASE_ANON_KEY';
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    // Supabaseの設定情報
+    const SUPABASE_URL = 'https://rukbcklehpbnkksecmng.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_HOZYGWTx-EunPVG_mnFvlw_EA3PZWP_';
 
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -86,7 +82,7 @@
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const { error } = await supabase.auth.signUp({ email, password });
-      if (error) alert(error.message); else alert("登録メールを確認してください（※設定によってはそのままログインできます）");
+      if (error) alert(error.message); else alert("登録処理を行いました。ログインをお試しください。");
       checkUser();
     }
     
@@ -124,17 +120,15 @@
         alert("エラーが発生しました: " + error.message);
       } else {
         alert("登録しました！");
-        // フォームを空にする
         document.getElementById('customer').value = '';
         document.getElementById('line_num').value = '';
         document.getElementById('amount').value = '';
-        fetchOrders(); // 一覧を更新
+        fetchOrders();
       }
     }
 
     // 未払いデータの取得と自動計算
     async function fetchOrders() {
-      // 「振込」かつ「未払い」のデータだけを取得
       const { data, error } = await supabase
         .from('orders')
         .select('*')
@@ -169,7 +163,7 @@
       if(!confirm("支払済にしますか？")) return;
       const { error } = await supabase.from('orders').update({ status: '支払済' }).eq('id', id);
       if (error) alert(error.message);
-      fetchOrders(); // 一覧を更新
+      fetchOrders();
     }
 
     // アプリ起動時にログインチェック
