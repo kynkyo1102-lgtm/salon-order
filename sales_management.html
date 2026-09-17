@@ -4,168 +4,268 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>サロン注文管理アプリ</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 最新の Supabase JS SDK (v2.48.0以上) を読み込み -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.0/dist/umd/supabase.js"></script>
+  <style>
+    body { font-family: sans-serif; background-color: #f8f9fa; padding: 20px; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    h1, h2 { color: #d63384; text-align: center; }
+    .form-group { margin-bottom: 12px; }
+    label { font-weight: bold; display: block; margin-bottom: 4px; }
+    input, select, button { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+    button.btn-primary { background-color: #e64980; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    button.btn-primary:hover { background-color: #d63384; }
+    button.btn-danger { background-color: #fa5252; color: white; border: none; padding: 4px 8px; width: auto; cursor: pointer; border-radius: 4px; }
+    .filter-section { background: #fff0f6; padding: 15px; border-radius: 6px; margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-section div { flex: 1; min-width: 150px; }
+    .total-box { font-size: 1.2em; font-weight: bold; color: #e64980; margin: 15px 0; text-align: right; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+    th, td { border: 1px solid #dee2e6; padding: 8px; text-align: center; }
+    th { background-color: #f1f3f5; }
+    .status-paid { background-color: #e6fcf5; color: #0ca678; font-weight: bold; }
+    .status-unpaid { background-color: #fff5f5; color: #f03e3e; font-weight: bold; }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800 p-4 font-sans">
+<body>
 
-  <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-md">
-    <h1 class="text-2xl font-bold mb-4 text-center text-pink-600">サロン注文管理</h1>
+<div class="container">
+  <h1>サロン注文管理</h1>
 
-    <!-- ログイン画面 -->
-    <div id="login-section" class="space-y-4">
-      <p class="text-sm text-gray-500 mb-4">メールアドレスとパスワードでログイン・登録してください。</p>
-      <input type="email" id="email" placeholder="メールアドレス" class="w-full p-3 border rounded-lg">
-      <input type="password" id="password" placeholder="パスワード" class="w-full p-3 border rounded-lg">
-      <button onclick="signIn()" class="w-full bg-pink-500 text-white p-3 rounded-lg font-bold mt-2">ログイン</button>
+  <!-- 注文登録フォーム -->
+  <h2>＋ 新しい注文を登録</h2>
+  <form id="orderForm">
+    <div class="form-group">
+      <label>月度</label>
+      <select id="targetMonth" required>
+        <!-- 1〜12月度 -->
+        <script>
+          for (let i = 1; i <= 12; i++) {
+            document.write(`<option value="${i}">${i}月度</option>`);
+          }
+        </script>
+      </select>
     </div>
+    <div class="form-group">
+      <label>お客さま名</label>
+      <input type="text" id="customerName" placeholder="山田 太郎" required>
+    </div>
+    <div class="form-group">
+      <label>LINEノート番号</label>
+      <input type="text" id="lineNoteNo" placeholder="No.123">
+    </div>
+    <div class="form-group">
+      <label>金額 (円)</label>
+      <input type="number" id="amount" placeholder="5000" required>
+    </div>
+    <div class="form-group">
+      <label>支払い状態</label>
+      <select id="paymentStatus">
+        <option value="未払い">未払い</option>
+        <option value="支払い済み">支払い済み</option>
+      </select>
+    </div>
+    <button type="submit" class="btn-primary">登録する</button>
+  </form>
 
-    <!-- メイン画面 -->
-    <div id="main-section" class="hidden space-y-6">
-      <button onclick="signOut()" class="text-sm text-gray-400 underline float-right">ログアウト</button>
-      
-      <!-- 入力フォーム -->
-      <div class="bg-pink-50 p-4 rounded-lg border border-pink-100 mt-8">
-        <h2 class="font-bold mb-3 text-pink-700">＋ 新しい注文を登録</h2>
-        <input type="text" id="customer" placeholder="お客さま名" class="w-full p-2 mb-2 border rounded">
-        <input type="text" id="line_num" placeholder="LINEノート番号" class="w-full p-2 mb-2 border rounded">
-        <input type="number" id="amount" placeholder="金額 (円)" class="w-full p-2 mb-2 border rounded">
-        
-        <select id="payment" class="w-full p-2 mb-2 border rounded bg-white">
-          <option value="振込">振込</option>
-          <option value="クレカ">クレジットカード</option>
-          <option value="PayPay">PayPay</option>
-        </select>
+  <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
 
-        <select id="status" class="w-full p-2 mb-4 border rounded bg-white">
-          <option value="未払い">未払い</option>
-          <option value="支払済">支払済</option>
-        </select>
-
-        <button onclick="addOrder()" class="w-full bg-pink-500 text-white p-3 rounded-lg font-bold shadow">登録する</button>
-      </div>
-
-      <!-- 未払い（振込）の自動計算・一覧 -->
-      <div>
-        <h2 class="font-bold text-lg mb-2 border-b pb-1">振込の未払い一覧</h2>
-        <p class="text-xl font-bold text-red-500 mb-3">未払い合計: <span id="total-amount">0</span> 円</p>
-        <div id="order-list" class="space-y-3"></div>
-      </div>
+  <!-- 絞り込み・検索エリア -->
+  <h2>注文一覧・検索</h2>
+  <div class="filter-section">
+    <div>
+      <label>表示月度絞り込み</label>
+      <select id="filterMonth">
+        <option value="all">すべて表示</option>
+        <script>
+          for (let i = 1; i <= 12; i++) {
+            document.write(`<option value="${i}">${i}月度</option>`);
+          }
+        </script>
+      </select>
+    </div>
+    <div>
+      <label>お客さま名検索 (④)</label>
+      <input type="text" id="searchCustomer" placeholder="名前を入力...">
+    </div>
+    <div>
+      <label>ステータス絞り込み</label>
+      <select id="filterStatus">
+        <option value="all">すべて</option>
+        <option value="未払い">未払いのみ</option>
+        <option value="支払い済み">支払い済みのみ</option>
+      </select>
     </div>
   </div>
 
-  <script>
-    const SUPABASE_URL = 'https://rukbcklehpbnkksecmng.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_HOZYGWTx-EunPVG_mnFvlw_EA3PZWP_';
+  <!-- 未払い合計金額 (⑤) -->
+  <div class="total-box">
+    選択中の未払い合計: <span id="unpaidTotal">0</span> 円
+  </div>
 
-    // クライアント初期化
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  <!-- 一括操作 -->
+  <div style="text-align: right; margin-bottom: 10px;">
+    <button id="clearPaidBtn" class="btn-danger">支払い済みを完全削除 (③)</button>
+  </div>
 
-    async function checkUser() {
-      const { data: { user } } = await supabaseClient.auth.getUser();
-      if (user) {
-        document.getElementById('login-section').classList.add('hidden');
-        document.getElementById('main-section').classList.remove('hidden');
-        fetchOrders();
-      } else {
-        document.getElementById('login-section').classList.remove('hidden');
-        document.getElementById('main-section').classList.add('hidden');
+  <!-- 一覧テーブル -->
+  <table>
+    <thead>
+      <tr>
+        <th>月度</th>
+        <th>お客さま名</th>
+        <th>LINEノート</th>
+        <th>金額</th>
+        <th>ステータス</th>
+        <th>振込日 (①)</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="orderTableBody">
+      <!-- JSで動的生成 -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  // ローカルストレージからデータ取得（初期化）
+  let orders = JSON.parse(localStorage.getItem('salon_orders')) || [];
+
+  const orderForm = document.getElementById('orderForm');
+  const orderTableBody = document.getElementById('orderTableBody');
+  const filterMonth = document.getElementById('filterMonth');
+  const searchCustomer = document.getElementById('searchCustomer');
+  const filterStatus = document.getElementById('filterStatus');
+  const unpaidTotal = document.getElementById('unpaidTotal');
+  const clearPaidBtn = document.getElementById('clearPaidBtn');
+
+  // 新規注文の登録
+  orderForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const isPaid = document.getElementById('paymentStatus').value === '支払い済み';
+    const newOrder = {
+      id: Date.now(),
+      month: document.getElementById('targetMonth').value,
+      customerName: document.getElementById('customerName').value.trim(),
+      lineNoteNo: document.getElementById('lineNoteNo').value.trim(),
+      amount: Number(document.getElementById('amount').value),
+      status: document.getElementById('paymentStatus').value,
+      paidDate: isPaid ? getTodayString() : '-'
+    };
+
+    orders.push(newOrder);
+    saveAndRender();
+    orderForm.reset();
+  });
+
+  // 日付文字列取得 (YYYY/MM/DD)
+  function getTodayString() {
+    const today = new Date();
+    return `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}`;
+  }
+
+  // ステータス切り替え（① 未払い ⇔ 支払い済み）
+  function toggleStatus(id) {
+    orders = orders.map(order => {
+      if (order.id === id) {
+        const nextStatus = order.status === '未払い' ? '支払い済み' : '未払い';
+        return {
+          ...order,
+          status: nextStatus,
+          paidDate: nextStatus === '支払い済み' ? getTodayString() : '-'
+        };
       }
+      return order;
+    });
+    saveAndRender();
+  }
+
+  // 個別削除 (③)
+  function deleteOrder(id) {
+    if (confirm('この注文データを完全に削除しますか？')) {
+      orders = orders.filter(order => order.id !== id);
+      saveAndRender();
     }
+  }
 
-    async function signUp() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      if (!email || !password) return alert("メールアドレスとパスワードを入力してください");
+  // 支払い済みを一括完全削除 (③)
+  clearPaidBtn.addEventListener('click', () => {
+    const month = filterMonth.value;
+    const msg = month === 'all' 
+      ? 'すべての「支払い済み」注文を完全削除しますか？' 
+      : `${month}月度の「支払い済み」注文を完全削除しますか？`;
 
-      const { data, error } = await supabaseClient.auth.signUp({ email, password });
-      if (error) {
-        alert("登録エラー: " + error.message);
-      } else {
-        alert("登録に成功しました！");
-        checkUser();
-      }
-    }
-    
-    async function signIn() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-      if (error) {
-        alert("ログイン失敗: " + error.message);
-      } else {
-        checkUser();
-      }
-    }
-
-    async function signOut() {
-      await supabaseClient.auth.signOut();
-      checkUser();
-    }
-
-    async function addOrder() {
-      const customer_name = document.getElementById('customer').value;
-      const line_note_number = document.getElementById('line_num').value;
-      const amount = document.getElementById('amount').value;
-      const payment_method = document.getElementById('payment').value;
-      const status = document.getElementById('status').value;
-
-      if (!customer_name || !amount) return alert("名前と金額は入力してください");
-
-      const { error } = await supabaseClient.from('orders').insert([
-        { customer_name, line_note_number, amount: parseInt(amount), payment_method, status }
-      ]);
-
-      if (error) {
-        alert("エラーが発生しました: " + error.message);
-      } else {
-        alert("登録しました！");
-        document.getElementById('customer').value = '';
-        document.getElementById('line_num').value = '';
-        document.getElementById('amount').value = '';
-        fetchOrders();
-      }
-    }
-
-    async function fetchOrders() {
-      const { data, error } = await supabaseClient
-        .from('orders')
-        .select('*')
-        .eq('payment_method', '振込')
-        .eq('status', '未払い')
-        .order('created_at', { ascending: false });
-
-      if (error) return console.error(error);
-
-      const listDiv = document.getElementById('order-list');
-      listDiv.innerHTML = '';
-      let total = 0;
-
-      data.forEach(order => {
-        total += order.amount;
-        listDiv.innerHTML += `
-          <div class="bg-white p-3 rounded shadow-sm border border-gray-200 flex justify-between items-center">
-            <div>
-              <p class="font-bold">${order.customer_name} <span class="text-xs text-gray-400">#${order.line_note_number || '-'}</span></p>
-              <p class="text-pink-600 font-bold">¥${order.amount.toLocaleString()}</p>
-            </div>
-            <button onclick="markAsPaid('${order.id}')" class="text-sm bg-green-500 text-white px-3 py-1 rounded">支払済にする</button>
-          </div>
-        `;
+    if (confirm(msg)) {
+      orders = orders.filter(order => {
+        const matchMonth = (month === 'all' || order.month === month);
+        return !(matchMonth && order.status === '支払い済み');
       });
-
-      document.getElementById('total-amount').innerText = total.toLocaleString();
+      saveAndRender();
     }
+  });
 
-    async function markAsPaid(id) {
-      if(!confirm("支払済にしますか？")) return;
-      const { error } = await supabaseClient.from('orders').update({ status: '支払済' }).eq('id', id);
-      if (error) alert(error.message);
-      fetchOrders();
-    }
+  // 絞り込み＆テーブル描画 (①, ②, ④, ⑤)
+  function render() {
+    const selectedMonth = filterMonth.value;
+    const keyword = searchCustomer.value.toLowerCase().trim();
+    const selectedStatus = filterStatus.value;
 
-    checkUser();
-  </script>
+    orderTableBody.innerHTML = '';
+    let currentUnpaidTotal = 0;
+
+    orders.forEach(order => {
+      // フィルター条件判定
+      const matchMonth = (selectedMonth === 'all' || order.month === selectedMonth);
+      const matchName = order.customerName.toLowerCase().includes(keyword);
+      const matchStatus = (selectedStatus === 'all' || order.status === selectedStatus);
+
+      if (matchMonth && matchName && matchStatus) {
+        // 未払い合計の計算 (⑤)
+        if (order.status === '未払い') {
+          currentUnpaidTotal += order.amount;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${order.month}月度</td>
+          <td>${escapeHtml(order.customerName)}</td>
+          <td>${escapeHtml(order.lineNoteNo)}</td>
+          <td>${order.amount.toLocaleString()} 円</td>
+          <td class="${order.status === '支払い済み' ? 'status-paid' : 'status-unpaid'}">
+            ${order.status}
+          </td>
+          <td>${order.paidDate}</td>
+          <td>
+            <button onclick="toggleStatus(${order.id})" style="padding: 2px 6px; cursor: pointer;">
+              ${order.status === '未払い' ? '支払い済みにする' : '未払いに戻す'}
+            </button>
+            <button onclick="deleteOrder(${order.id})" class="btn-danger">削除</button>
+          </td>
+        `;
+        orderTableBody.appendChild(tr);
+      }
+    });
+
+    // 合計金額の更新
+    unpaidTotal.textContent = currentUnpaidTotal.toLocaleString();
+  }
+
+  // データ保存 & 再描画
+  function saveAndRender() {
+    localStorage.setItem('salon_orders', JSON.stringify(orders));
+    render();
+  }
+
+  // HTMLエスケープ処理
+  function escapeHtml(str) {
+    return str ? str.replace(/[&<>"']/g, match => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[match])) : '';
+  }
+
+  // 検索・絞り込みイベントリスナー
+  filterMonth.addEventListener('change', render);
+  searchCustomer.addEventListener('input', render);
+  filterStatus.addEventListener('change', render);
+
+  // 初回描画
+  render();
+</script>
+
 </body>
 </html>
