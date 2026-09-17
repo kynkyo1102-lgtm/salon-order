@@ -215,7 +215,7 @@
     // 丸数字変換補助
     function formatOrderNo(numStr) {
       if (!numStr) return '';
-      const circleNums = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩','⑪','⑫','⑬','⑭','⑮','⑯','⑰','⑱','⑲','⑯'];
+      const circleNums = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩','⑪','⑫','⑬','⑭','⑮','⑯','⑰','⑱','⑲','⑳'];
       const num = parseInt(numStr);
       if (!isNaN(num) && num >= 1 && num <= 20) {
         return circleNums[num - 1];
@@ -225,7 +225,7 @@
 
     // データの取得・検索・集計
     async function fetchOrders() {
-      let query = supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
+      let query = supabaseClient.from('orders').select('*');
 
       // 月度絞り込み
       const selectedMonth = document.getElementById('filter-month').value;
@@ -244,9 +244,16 @@
 
       // 名前による検索
       const searchName = document.getElementById('search-name').value.trim().toLowerCase();
-      const filteredData = data.filter(order => 
+      let filteredData = data.filter(order => 
         order.customer_name.toLowerCase().includes(searchName)
       );
+
+      // 注文番号（LINEノート番号）の昇順（若い順）でソート
+      filteredData.sort((a, b) => {
+        const numA = parseInt(a.line_note_number) || 99999;
+        const numB = parseInt(b.line_note_number) || 99999;
+        return numA - numB;
+      });
 
       const listDiv = document.getElementById('order-list');
       listDiv.innerHTML = '';
@@ -280,8 +287,8 @@
                 <span class="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded font-bold mr-1">${order.target_month || 1}月度</span>
                 <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${order.payment_method}</span>
                 <p class="font-bold text-lg mt-1">${order.customer_name}</p>
-                <p class="text-pink-600 font-bold text-lg mt-0.5">
-                  <span class="inline-block bg-pink-600 text-white text-xs px-1.5 py-0.5 rounded-full mr-1 align-middle">${formattedNo || '注文'}</span>
+                <p class="text-pink-600 font-bold text-lg mt-1 flex items-center">
+                  <span class="inline-flex items-center justify-center bg-gray-800 text-white text-sm font-extrabold px-2 py-0.5 rounded-md mr-2 shadow-sm">${formattedNo || 'なし'}</span>
                   ¥${order.amount.toLocaleString()}
                 </p>
                 <p class="text-xs text-gray-400 mt-1">登録/振込日: ${dateStr}</p>
