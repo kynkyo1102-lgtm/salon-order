@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>サロン注文管理アプリ</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 最新の Supabase JS SDK (v2.48.0以上) を読み込み -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.0/dist/umd/supabase.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 p-4 font-sans">
 
@@ -21,7 +22,7 @@
       <button onclick="signIn()" class="w-full bg-pink-500 text-white p-3 rounded-lg font-bold mt-2">ログイン</button>
     </div>
 
-    <!-- メイン画面（ログイン後に表示） -->
+    <!-- メイン画面 -->
     <div id="main-section" class="hidden space-y-6">
       <button onclick="signOut()" class="text-sm text-gray-400 underline float-right">ログアウト</button>
       
@@ -50,23 +51,20 @@
       <div>
         <h2 class="font-bold text-lg mb-2 border-b pb-1">振込の未払い一覧</h2>
         <p class="text-xl font-bold text-red-500 mb-3">未払い合計: <span id="total-amount">0</span> 円</p>
-        <div id="order-list" class="space-y-3">
-          <!-- ここにデータが自動で入ります -->
-        </div>
+        <div id="order-list" class="space-y-3"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // Supabaseの設定情報
     const SUPABASE_URL = 'https://rukbcklehpbnkksecmng.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_HOZYGWTx-EunPVG_mnFvlw_EA3PZWP_';
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // クライアント初期化
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // 画面の切り替え
     async function checkUser() {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await supabaseClient.auth.getUser();
       if (user) {
         document.getElementById('login-section').classList.add('hidden');
         document.getElementById('main-section').classList.remove('hidden');
@@ -77,29 +75,36 @@
       }
     }
 
-    // ログイン・登録・ログアウト処理
     async function signUp() {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const { error } = await supabase.auth.signUp({ email, password });
-      if (error) alert(error.message); else alert("登録処理を行いました。ログインをお試しください。");
-      checkUser();
+      if (!email || !password) return alert("メールアドレスとパスワードを入力してください");
+
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
+      if (error) {
+        alert("登録エラー: " + error.message);
+      } else {
+        alert("登録に成功しました！");
+        checkUser();
+      }
     }
     
     async function signIn() {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) alert("ログイン失敗: " + error.message);
-      checkUser();
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) {
+        alert("ログイン失敗: " + error.message);
+      } else {
+        checkUser();
+      }
     }
 
     async function signOut() {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       checkUser();
     }
 
-    // データの登録
     async function addOrder() {
       const customer_name = document.getElementById('customer').value;
       const line_note_number = document.getElementById('line_num').value;
@@ -107,12 +112,9 @@
       const payment_method = document.getElementById('payment').value;
       const status = document.getElementById('status').value;
 
-      if (!customer_name || !amount) {
-        alert("名前と金額は入力してください");
-        return;
-      }
+      if (!customer_name || !amount) return alert("名前と金額は入力してください");
 
-      const { error } = await supabase.from('orders').insert([
+      const { error } = await supabaseClient.from('orders').insert([
         { customer_name, line_note_number, amount: parseInt(amount), payment_method, status }
       ]);
 
@@ -127,9 +129,8 @@
       }
     }
 
-    // 未払いデータの取得と自動計算
     async function fetchOrders() {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('orders')
         .select('*')
         .eq('payment_method', '振込')
@@ -158,15 +159,13 @@
       document.getElementById('total-amount').innerText = total.toLocaleString();
     }
 
-    // 支払済への変更
     async function markAsPaid(id) {
       if(!confirm("支払済にしますか？")) return;
-      const { error } = await supabase.from('orders').update({ status: '支払済' }).eq('id', id);
+      const { error } = await supabaseClient.from('orders').update({ status: '支払済' }).eq('id', id);
       if (error) alert(error.message);
       fetchOrders();
     }
 
-    // アプリ起動時にログインチェック
     checkUser();
   </script>
 </body>
