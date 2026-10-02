@@ -203,7 +203,7 @@
       display: block;
     }
 
-    /* 番号付きステップ（折りたたみ機能付き） */
+    /* 番号付きステップ */
     .step-list {
       list-style: none;
     }
@@ -221,8 +221,6 @@
       background: #f8fafc;
       display: flex;
       align-items: center;
-      cursor: pointer;
-      user-select: none;
     }
 
     .step-num {
@@ -247,12 +245,6 @@
       flex: 1;
     }
 
-    .step-toggle-icon {
-      font-size: 0.8rem;
-      color: #64748b;
-      transition: transform 0.2s;
-    }
-
     .step-body {
       padding: 15px;
       font-size: 0.88rem;
@@ -262,18 +254,11 @@
       line-height: 1.6;
     }
 
-    /* コピペ用テキストエリア */
-    .copy-box {
-      background: #f1f5f9;
-      border: 1px dashed var(--primary);
-      border-radius: 6px;
-      padding: 12px;
-      margin: 10px 0;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      color: #334155;
-      white-space: pre-wrap;
-      word-break: break-all;
+    .step-sub-list {
+      margin-top: 6px;
+      margin-left: 20px;
+      font-size: 0.85rem;
+      color: #475569;
     }
 
     /* 公式WEB登録ボタン */
@@ -304,13 +289,23 @@
       padding: 12px 15px;
       font-size: 0.85rem;
       color: #595959;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .info-box-title {
       font-weight: bold;
       color: #d48806;
       margin-bottom: 4px;
+    }
+
+    .bank-box {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: #334155;
     }
 
     /* フッター */
@@ -337,7 +332,7 @@
   <header>
     <div class="header-container">
       <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
-      <a href="https://sslgw.jns-asp.jp/685/Magic31Scripts/MGrqispi.dll?APPNAME=ninapharm&PRGNAME=signup_start" target="_blank" class="btn-login">🔐 公式E-Service</a>
+      <a href="https://www.e-ninapharm.jp/" target="_blank" class="btn-login">🔐 公式E-Service</a>
     </div>
   </header>
 
@@ -350,42 +345,46 @@
       <h1 class="page-title">🤝 新しい方の登録案内・手続き手順</h1>
     </div>
 
-    <!-- 1. WEB登録と郵送登録の違い（最初に設置） -->
+    <!-- 1. WEB登録と郵送登録の違い -->
     <div class="section-card">
       <div class="section-card-title">⚖️ 登録方法の比較（WEB vs 郵送）</div>
       <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">
-        状況に合わせて最適な案内方法をお選びください。基本的には即時発行される**WEB登録**を推奨しています。
+        状況に合わせて最適な案内方法をお選びください。どちらの手続きも<b>会員登録料は無料</b>です。
       </p>
 
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th style="width:25%;">項目</th>
-              <th style="width:37.5%;">💻 WEB登録（推奨）</th>
-              <th style="width:37.5%;">📮 郵送（概要書面）登録</th>
+              <th style="width:22%;">項目</th>
+              <th style="width:39%;">💻 WEB登録（推奨）</th>
+              <th style="width:39%;">📮 郵送（概要書面）登録</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>手続き完了</th>
-              <td><b>即時〜当日完了</b></td>
-              <td>到着後 3〜5営業日</td>
+              <th>会員登録料</th>
+              <td><b>無料</b></td>
+              <td><b>無料</b></td>
             </tr>
             <tr>
-              <th>概要書面の確認</th>
-              <td>画面上でWeb閲覧・同意</td>
-              <td>紙の概要書面を直接手渡し</td>
+              <th>初回お支払い</th>
+              <td>クレジットカード決済</td>
+              <td><b>指定口座へ事前振込</b><br><span style="font-size:0.75rem; color:#64748b;">（申請書に振込明細コピー添付）</span></td>
             </tr>
             <tr>
-              <th>決済方法</th>
-              <td>クレジットカード</td>
-              <td>口座振替 / クレジットカード</td>
+              <th>登録完了までの目安</th>
+              <td><b>審査後、順次処理</b><br><span style="font-size:0.75rem; color:#64748b;">（書類配送の手間がなくスピーディー）</span></td>
+              <td><b>郵送到着＋審査後、順次処理</b><br><span style="font-size:0.75rem; color:#64748b;">（郵送日数がかかるためWebより時間を要します）</span></td>
+            </tr>
+            <tr>
+              <th>審査について</th>
+              <td colspan="2" style="text-align:center; background:#fff;"><b>どちらの方法もニナファームジャポン本社にて審査・登録処理が行われます</b><br><span style="font-size:0.75rem; color:#64748b;">（※即時発行・即時完了ではありません）</span></td>
             </tr>
             <tr>
               <th>こんな方に</th>
-              <td>スピーディーに登録を済ませたい方・遠方の方</td>
-              <td>対面で書面を見ながら落ち着いて確認したい方</td>
+              <td>クレジットカードをお持ちで、スマホから早く手続きしたい方</td>
+              <td>口座振替希望の方・法人登録の方・書面で対面確認したい方</td>
             </tr>
           </tbody>
         </table>
@@ -424,55 +423,108 @@
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">1</span>
-              <span class="step-title-text">紹介用URLまたは登録ページの準備</span>
+              <span class="step-title-text">必要事項・添付物の事前準備</span>
             </div>
             <div class="step-body">
-              公式E-Serviceにログイン後、【WEB登録リンク作成】からご自身の紹介用URLを生成・取得します。<br>
-              公式の会員登録スタート画面へ直接案内する場合は、以下の標準リンクをご利用いただけます。
-              <a href="https://sslgw.jns-asp.jp/685/Magic31Scripts/MGrqispi.dll?APPNAME=ninapharm&PRGNAME=signup_start" target="_blank" class="btn-official-link">🔗 ニナファームジャポン WEB登録受付ページ</a>
+              手続き前に以下の準備をしていただきます。
+              <ul class="step-sub-list">
+                <li>概要書面（紹介者から事前受け取り）</li>
+                <li>決済用のクレジットカード</li>
+                <li>銀行またはゆうちょ銀行の口座情報</li>
+                <li>25歳未満の方：本人確認書類の写真データ</li>
+                <li>外国籍の方：在留カードまたは特別永住者証明書の写真データ</li>
+              </ul>
+              <div class="info-box">
+                ※受信設定：<code>signup@santeage.com</code> からのメールが届くよう受信許可設定を行ってください。<br>
+                ※法人登録はWEB不可です。郵送での登録を行ってください。
+              </div>
             </div>
           </li>
 
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">2</span>
-              <span class="step-title-text">お相手へ案内メッセージの送信</span>
+              <span class="step-title-text">WEB登録受付ページへアクセス</span>
             </div>
             <div class="step-body">
-              以下のテンプレートをコピーし、ご自身の「紹介者ID」および「紹介用URL」を書き換えてLINEなどで送信します。
-              
-              <div class="copy-box">【ニナファームジャポン 会員登録のご案内】
-
-お世話になっております。
-会員登録の手続きにつきまして、以下のWEB受付ページより進めていただけます。
-
-▼WEB登録受付ページ
-[ここにあなたの紹介URL、または上記公式リンクを貼る]
-
-※お手続きの際、紹介者情報欄には以下をご指定ください。
-・紹介者ID：[あなたの会員ID]
-
-ご不明な点がございましたら、いつでもお気軽にお申し付けください。</div>
+              以下の公式受付ページへアクセスします。
+              <a href="https://sslgw.jns-asp.jp/685/Magic31Scripts/MGrqispi.dll?APPNAME=ninapharm&PRGNAME=signup_start" target="_blank" class="btn-official-link">🔗 ニナファームジャポン WEB登録受付ページ</a>
             </div>
           </li>
 
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">3</span>
-              <span class="step-title-text">お相手による概要書面の確認・入力</span>
+              <span class="step-title-text">「オンラインで会員登録される方はこちら」を選択</span>
             </div>
             <div class="step-body">
-              お相手が画面上で「概要書面」を確認・同意のうえ、お名前・ご住所・初回購入商品・クレジットカード情報等を入力します。
+              画面上の「オンラインで会員登録される方はこちら」をクリックします。
             </div>
           </li>
 
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">4</span>
-              <span class="step-title-text">登録完了と組織図の確認</span>
+              <span class="step-title-text">メールアドレスの送信</span>
             </div>
             <div class="step-body">
-              手続き完了後、お相手宛てに「登録完了メール（会員ID記載）」が送付されます。ご自身のE-Service組織図に反映されているかをご確認ください。
+              ご自身のメールアドレスを入力し、「送信する」をクリックします。
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-header">
+              <span class="step-num">5</span>
+              <span class="step-title-text">受信メールのURLから登録画面へ入力</span>
+            </div>
+            <div class="step-body">
+              返信メール内のURLへアクセスし、画面の指示に従い各項目を入力します。
+              <ol class="step-sub-list" style="list-style-type: decimal;">
+                <li>規約等の同意</li>
+                <li>概要書面番号・会員番号入力</li>
+                <li>紹介者・上位者入力</li>
+                <li>氏名など個人情報の入力</li>
+                <li>初回登録ポジションの選択</li>
+                <li>追加商品選択（希望の場合）</li>
+                <li>定期購入の確認</li>
+                <li>クレジットカード決済処理</li>
+              </ol>
+              <div class="info-box">
+                <div class="info-box-title">⚠️ 入力時の必須確認事項</div>
+                <b>紹介者氏名とその会員番号</b>、および<b>上位者（指定する場合）氏名とその会員番号</b>を間違いなく確認・入力してください。
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-header">
+              <span class="step-num">6</span>
+              <span class="step-title-text">受付完了（必要書類の提出）</span>
+            </div>
+            <div class="step-body">
+              受付完了メールが届きます。<br>
+              ※25歳未満または外国籍の方は、必要書類（写真データ）を添付して送信します。
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-header">
+              <span class="step-num">7</span>
+              <span class="step-title-text">本社での審査・登録処理</span>
+            </div>
+            <div class="step-body">
+              ニナファームジャポンにて申請内容を審査のうえ、登録処理を行います。（※審査の結果、登録がお断りされる場合があります）
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-header">
+              <span class="step-num">8</span>
+              <span class="step-title-text">商品・契約書面の到着・活動開始</span>
+            </div>
+            <div class="step-body">
+              登録処理完了後、1週間以内にご住所へ商品および契約書面が届きます。別送にて会員証が届き次第、提示してビジネス活動が可能です。<br>
+              <span style="font-size:0.8rem; color:#64748b;">※商品受領日より20日間のクーリング・オフ期間が適用されます。</span>
             </div>
           </li>
 
@@ -486,40 +538,72 @@
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">1</span>
-              <span class="step-title-text">概要書面（紙）の事前交付</span>
+              <span class="step-title-text">概要書面の受け取り・説明確認</span>
             </div>
             <div class="step-body">
-              必ず**未開封の最新概要書面セット**を手元に用意し、お相手に事前にお渡し（またはご送付）の上、内容をご確認いただきます。
+              紹介者より「会員登録申請書」添付の概要書面を受け取り、内容の説明を受けます。必ずお客様控（5枚目・黄色）と概要書面を受け取り十分にご確認ください。
             </div>
           </li>
 
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">2</span>
-              <span class="step-title-text">会員登録申請書の記入・捺印</span>
+              <span class="step-title-text">申請書の記入・捺印</span>
             </div>
             <div class="step-body">
-              申請書の「ご本人様記入欄」にお相手の氏名・住所・口座情報等を記入・捺印いただき、「紹介者記入欄」にご自身の会員IDと氏名を正確に記入します。
+              「ニナファームジャポン会員登録申請書 兼 初回商品注文書 兼 定期購入申込書」に必要事項を記入・捺印します。（記載漏れ・印鑑漏れにご注意ください）
             </div>
           </li>
 
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">3</span>
-              <span class="step-title-text">会社宛てへ投函（郵送）</span>
+              <span class="step-title-text">商品代金のお振込み（事前決済）</span>
             </div>
             <div class="step-body">
-              記入漏れ・捺印漏れがないことを双方で確認し、同封の返信用封筒にてニナファームジャポン事務局へ送付します。
+              商品代金・配送手数料の合計金額（例: サンテアージュ OX-288 1点の場合 17,800円税込）を以下の指定口座へ振り込みます。（※振込手数料はお客さま負担）
+              <div class="bank-box">
+                <b>【振込先情報】</b><br>
+                ・三井住友銀行 銀座支店 普通 7608513<br>
+                ・ゆうちょ銀行 00190-9-261488（電信のみ）<br>
+                口座名義：株式会社ニナファームジャポン
+              </div>
             </div>
           </li>
 
           <li class="step-item">
             <div class="step-header">
               <span class="step-num">4</span>
-              <span class="step-title-text">事務局での処理と会員IDの発行</span>
+              <span class="step-title-text">振込明細書のコピー添付と申請書の郵送</span>
             </div>
             <div class="step-body">
-              会社に書面が到着後、3〜5営業日程度で登録完了となります。お相手のご自宅へ会員証および初回商品が発送されます。
+              記入・捺印した申請書に<b>「振込明細書のコピー」を添付</b>し、ニナファームジャポン宛に郵送します。
+              <div class="info-box">
+                ※法人登録：登記事項証明書（コピー可）＋本人確認書類<br>
+                ※25歳未満：本人確認書類（コピー可）<br>
+                ※外国籍：在留カードまたは特別永住者証明書（コピー可）を同封
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-header">
+              <span class="step-num">5</span>
+              <span class="step-title-text">本社での審査・登録処理</span>
+            </div>
+            <div class="step-body">
+              ニナファームジャポンにて到着した書類・振込確認のうえ審査・登録処理を行います。（承認されなかった場合は返金されます）
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-header">
+              <span class="step-num">6</span>
+              <span class="step-title-text">商品受領・会員証到着・活動開始</span>
+            </div>
+            <div class="step-body">
+              登録完了後、1週間以内にご住所へ商品・契約書面が届きます。別送で「会員証」が届きましたらビジネス活動が可能です。<br>
+              <span style="font-size:0.8rem; color:#64748b;">※商品受領日より20日間のクーリング・オフ期間が適用されます。</span>
             </div>
           </li>
 
@@ -538,22 +622,22 @@
       <div class="table-container">
         <table>
           <tr>
-            <th style="width:30%;">初回購入費用</th>
-            <td><b>約17,800円</b>（税込・送料込）<br><span style="font-size:0.78rem; color:#666;">※初回登録料＋指定購入商品代金</span></td>
+            <th style="width:30%;">会員登録料</th>
+            <td><b>0円（無料）</b></td>
+          </tr>
+          <tr>
+            <th>初回購入費用</th>
+            <td><b>約17,800円</b>（税込・送料込）<br><span style="font-size:0.78rem; color:#666;">※サンテアージュ OX-288 1点登録の場合の商品代金＋送料</span></td>
           </tr>
           <tr>
             <th>2ヶ月目以降（月額）</th>
             <td><b>14,800円</b>（税込・送料込）<br><span style="font-size:0.78rem; color:#666;">※毎月の定期お届け（オートシップ）をご利用の場合</span></td>
           </tr>
-          <tr>
-            <th>利用可能決済</th>
-            <td>クレジットカード（VISA / Master / JCB等） / 口座振替</td>
-          </tr>
         </table>
       </div>
 
       <div class="info-box">
-        <div class="info-box-title">💡 クレジットカード決済の注意点</div>
+        <div class="info-box-title">💡 クレジットカード決済の注意点（WEB登録）</div>
         デビットカードやプリペイド式カードは、月額引き落とし時にエラーとなる場合があるため、通常のクレジットカードのご利用をおすすめしてください。
       </div>
     </div>
