@@ -11,8 +11,6 @@
       --bg-color: #f4f6f8;
       --text-color: #333333;
       --card-bg: #ffffff;
-      --accent: #e53e3e;
-      --accent-bg: #fff5f5;
     }
     
     * {
@@ -29,7 +27,6 @@
       padding-bottom: 40px;
     }
 
-    /* ヘッダー */
     header {
       background-color: #ffffff;
       border-bottom: 1px solid #e1e6eb;
@@ -69,14 +66,12 @@
       background-color: var(--primary-dark);
     }
 
-    /* メインコンテナ */
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 20px 15px;
     }
 
-    /* ヒーローエリア */
     .hero {
       text-align: center;
       padding: 25px 15px;
@@ -104,119 +99,6 @@
       color: #666;
     }
 
-    /* 🛠️ チェックツールエリア */
-    .tool-box {
-      background: #ffffff;
-      border: 2px solid var(--primary);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,128,96,0.08);
-    }
-
-    .tool-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      border-bottom: 1px dashed #e1e6eb;
-      padding-bottom: 10px;
-    }
-
-    .tool-badge {
-      background: var(--primary);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: bold;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
-    .tool-title {
-      font-size: 1.15rem;
-      font-weight: bold;
-      color: var(--primary-dark);
-    }
-
-    .checker-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .check-item {
-      background: #f9fafb;
-      padding: 12px 15px;
-      border-radius: 8px;
-      border: 1px solid #e1e6eb;
-    }
-
-    .check-label {
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .radio-group {
-      display: flex;
-      gap: 20px;
-    }
-
-    .radio-group label {
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .btn-calc {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 5px;
-    }
-
-    .btn-calc:hover {
-      background: var(--primary-dark);
-    }
-
-    /* 判定結果の表示 */
-    .result-box {
-      margin-top: 15px;
-      padding: 15px;
-      border-radius: 8px;
-      display: none; /* 初期は非表示 */
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .result-success {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #166534;
-    }
-
-    .result-warning {
-      background: var(--accent-bg);
-      border: 1px solid #fecaca;
-      color: #991b1b;
-    }
-
-    .result-title {
-      font-weight: bold;
-      font-size: 1.05rem;
-      margin-bottom: 5px;
-    }
-
-    /* お悩みナビカード */
     .section-title {
       font-size: 1.1rem;
       margin-bottom: 15px;
@@ -248,15 +130,22 @@
       border-color: var(--primary);
     }
 
+    /* ツール用カードの強調表示 */
+    .card-tool {
+      border: 2px solid var(--primary);
+      background: #f0fdf4;
+    }
+
     .card-badge {
       display: inline-block;
-      background: #f0fdf4;
+      background: #ffffff;
       color: var(--primary);
       font-size: 0.75rem;
       font-weight: bold;
       padding: 3px 8px;
       border-radius: 4px;
       margin-bottom: 8px;
+      border: 1px solid var(--primary);
     }
 
     .card-title {
@@ -295,7 +184,6 @@
       justify-content: flex-end;
     }
 
-    /* フッター */
     footer {
       text-align: center;
       margin-top: 40px;
@@ -342,48 +230,22 @@
       <p class="hero-desc">ご自身の手続きや、直紹介者様へスムーズに案内・説明するための情報を分かりやすくまとめています。</p>
     </div>
 
-    <!-- 🛠️ コミッション取得条件チェッカー（ツール） -->
-    <div class="tool-box">
-      <div class="tool-header">
-        <span class="tool-badge">セルフチェック</span>
-        <div class="tool-title">⚡️ 今月のコミッション（ボーナス）取得権利チェッカー</div>
-      </div>
-      <div class="checker-form">
-        
-        <div class="check-item">
-          <label class="check-label">1. あなたの会員資格は有効（登録済み・退会・クーリングオフ中でない）ですか？</label>
-          <div class="radio-group">
-            <label><input type="radio" name="q1" value="yes" checked> はい</label>
-            <label><input type="radio" name="q1" value="no"> いいえ</label>
-          </div>
-        </div>
-
-        <div class="check-item">
-          <label class="check-label">2. 今月、ご自身のIDで10,000pt以上（定期購入1本分など）の購入実績がありますか？</label>
-          <div class="radio-group">
-            <label><input type="radio" name="q2" value="yes" checked> はい</label>
-            <label><input type="radio" name="q2" value="no"> いいえ / まだ</label>
-          </div>
-        </div>
-
-        <div class="check-item">
-          <label class="check-label">3. 今月「アクティブ（当月購入または新規登録）」な直紹介メンバーは何人いますか？</label>
-          <div class="radio-group">
-            <label><input type="radio" name="q3" value="2" checked> 2名以上</label>
-            <label><input type="radio" name="q3" value="1"> 1名</label>
-            <label><input type="radio" name="q3" value="0"> 0名</label>
-          </div>
-        </div>
-
-        <button type="button" class="btn-calc" onclick="checkStatus()">権利状態を判定する</button>
-      </div>
-
-      <!-- 判定結果エリア -->
-      <div id="resultBox" class="result-box"></div>
+    <!-- インタラクティブツール -->
+    <h2 class="section-title">セルフ診断ツール</h2>
+    <div class="nav-cards" style="margin-bottom: 30px;">
+      <a href="./checker.html" class="card card-tool">
+        <span class="card-badge">🛠️ インタラクティブ診断</span>
+        <div class="card-title">⚡️️ 今月のコミッション（ボーナス）取得権利チェッカー</div>
+        <ul class="card-list">
+          <li>質問に「はい/いいえ」で答えるだけ！</li>
+          <li>今月のボーナス受取権利（3% / 10%）を自動判定</li>
+          <li>権利漏れを防ぐための注意事項をチェック</li>
+        </ul>
+        <div class="card-btn">診断ツールを試す ➔</div>
+      </a>
     </div>
 
-
-    <!-- お悩みナビゲーション（A〜E） -->
+    <!-- お悩みナビゲーション -->
     <h2 class="section-title">知りたい項目を選んでください</h2>
     
     <div class="nav-cards">
@@ -463,41 +325,6 @@
       正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
     </p>
   </footer>
-
-  <!-- 判定スクリプト -->
-  <script>
-    function checkStatus() {
-      const q1 = document.querySelector('input[name="q1"]:checked').value;
-      const q2 = document.querySelector('input[name="q2"]:checked').value;
-      const q3 = document.querySelector('input[name="q3"]:checked').value;
-
-      const resultBox = document.getElementById('resultBox');
-      resultBox.style.display = 'block';
-
-      if (q1 === 'no') {
-        resultBox.className = 'result-box result-warning';
-        resultBox.innerHTML = '<div class="result-title">⚠️ 会員資格が無効です</div>会員登録が完了していないか、退会・クーリングオフ期間中の可能性があります。まずは【C. 各種手続き】または【E. FAQ】をご確認ください。';
-        return;
-      }
-
-      if (q2 === 'no') {
-        resultBox.className = 'result-box result-warning';
-        resultBox.innerHTML = '<div class="result-title">⚠️ 今月の購入実績（10,000pt）がありません</div>当月内にご自身のIDで10,000pt以上を購入していない場合、すべてのコミッション受取権利が発生しません。クレカ決済エラーなどで出荷が止まっていないか確認し、当月末までに再注文を行ってください。';
-        return;
-      }
-
-      if (q3 === '2') {
-        resultBox.className = 'result-box result-success';
-        resultBox.innerHTML = '<div class="result-title">🎉 条件クリア！【還元率 10%】</div>自身のアクティブ条件を満たしており、直紹介アクティブが2名以上います。ベーシックコミッションを<b>最大10%</b>で受け取れる最高の権利状態です！';
-      } else if (q3 === '1') {
-        resultBox.className = 'result-box result-success';
-        resultBox.innerHTML = '<div class="result-title">✅ 条件クリア！【還元率 3%】</div>自身のアクティブ条件を満たしています。直紹介アクティブが1名のため、ベーシックコミッションは<b>3%還元</b>となります。もう1名増やすと10%にアップします！';
-      } else {
-        resultBox.className = 'result-box result-warning';
-        resultBox.innerHTML = '<div class="result-title">⚠️ 直紹介アクティブが 0名 です</div>ご自身の維持条件はクリアしていますが、直紹介のアクティブメンバーがいないため、バイナリー等のグループコミッションが発生しません（ファーストスタートボーナスを除く）。';
-      }
-    }
-  </script>
 
 </body>
 </html>
