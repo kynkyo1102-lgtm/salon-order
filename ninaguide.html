@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ニナファームジャポン メンバーズWebガイド</title>
+  <style>
+    /* 全体スタイルの設定 */
+    :root {
+      --primary: #008060;
+      --primary-dark: #005c45;
+      --bg-color: #f4f6f8;
+      --text-color: #333333;
+      --card-bg: #ffffff;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* ヘッダー */
+    header {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e1e6eb;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .header-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+    }
+
+    .btn-login {
+      background-color: var(--primary);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .btn-login:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* メインコンテナ */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 15px;
+    }
+
+    /* ヒーローエリア */
+    .hero {
+      text-align: center;
+      padding: 25px 15px;
+      background: #ffffff;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .hero-subtitle {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .hero-title {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: #1a1a1a;
+    }
+
+    .hero-desc {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* お悩み別ナビゲーションカード */
+    .section-title {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      padding-left: 10px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .nav-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border: 1px solid #e1e6eb;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: var(--primary);
+    }
+
+    .card-badge {
+      display: inline-block;
+      background: #f0fdf4;
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .card-list {
+      list-style: none;
+      font-size: 0.88rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .card-list li {
+      margin-bottom: 4px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .card-list li::before {
+      content: "・";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    .card-btn {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px 15px;
+      font-size: 0.8rem;
+      color: #888;
+      border-top: 1px solid #e1e6eb;
+    }
+
+    .footer-links {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: #555;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .disclaimer {
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <div class="logo">ニナファームジャポン メンバーズガイド</div>
+      <a href="https://www.e-ninapharm.jp/" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <!-- ヒーローエリア -->
+    <div class="hero">
+      <div class="hero-subtitle">これだけ抑えれば迷わない！</div>
+      <h1 class="hero-title">メンバー手続き・各種変更・案内ガイド</h1>
+      <p class="hero-desc">ご自身の手続きや、直紹介者様へスムーズに案内・説明するための情報を分かりやすくまとめています。</p>
+    </div>
+
+    <!-- お悩みナビゲーション -->
+    <h2 class="section-title">知りたい項目を選んでください</h2>
+    
+    <div class="nav-cards">
+
+      <!-- カード A -->
+      <a href="./guide-a.html" class="card">
+        <span class="card-badge">こんなとき：知人を新しく紹介・登録案内したい</span>
+        <div class="card-title">🤝 A. 新しい方（直紹介）を登録・案内したい</div>
+        <ul class="card-list">
+          <li>登録用リンク（URL）の発行手順</li>
+          <li>相手に伝える「初回費用（17,800円）」と月額</li>
+          <li>WEB登録と郵送登録の違い・注意点</li>
+        </ul>
+        <div class="card-btn">案内ガイドを見る ➔</div>
+      </a>
+
+      <!-- カード B -->
+      <a href="./guide-b.html" class="card">
+        <span class="card-badge">こんなとき：ボーナス維持やアクティブ条件を知りたい</span>
+        <div class="card-title">🔑 B. 毎月の「権利維持」と「損をしない条件」</div>
+        <ul class="card-list">
+          <li>毎月いくらかかる？（14,800円の維持費）</li>
+          <li>ボーナス取得に必要な「アクティブ紹介者」とは？</li>
+          <li>カードエラーで権利が消える？リカバリー方法</li>
+        </ul>
+        <div class="card-btn">権利維持条件を見る ➔</div>
+      </a>
+
+      <!-- カード C -->
+      <a href="./guide-c.html" class="card">
+        <span class="card-badge">こんなとき：カード変更や休止・退会をしたい</span>
+        <div class="card-title">💳 C. 自分自身の各種手続き・定期購入の変更</div>
+        <ul class="card-list">
+          <li>クレジットカード・引き落とし口座の変更手順</li>
+          <li>最重要！「毎月10日」の締め日ルール</li>
+          <li>クーリングオフ・退会手続き・再登録制限</li>
+        </ul>
+        <div class="card-btn">各種手続きを見る ➔</div>
+      </a>
+
+      <!-- カード D -->
+      <a href="./guide-d.html" class="card">
+        <span class="card-badge">こんなとき：報酬体系や還元率を把握したい</span>
+        <div class="card-title">💰 D. ボーナス・コミッションの仕組み</div>
+        <ul class="card-list">
+          <li>1人紹介したらもらえる「ファーストスタート（3,000円）」</li>
+          <li>バイナリー還元率「3%」と「10%」の違いと条件</li>
+          <li>リーダー向け「メガマッチ（100%）」の獲得条件</li>
+        </ul>
+        <div class="card-btn">ボーナス詳細を見る ➔</div>
+      </a>
+
+      <!-- カード E -->
+      <a href="./guide-e.html" class="card">
+        <span class="card-badge">こんなとき：トラブルやエラーをすぐに解決したい</span>
+        <div class="card-title">❓ E. トラブル・困ったときのFAQ</div>
+        <ul class="card-list">
+          <li>直紹介者のカード決済が失敗していたら？</li>
+          <li>今月のボーナスが振込されていない理由</li>
+          <li>ニナファームジャポン サポート窓口一覧</li>
+        </ul>
+        <div class="card-btn">よくある質問を見る ➔</div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://www.e-ninapharm.jp/" target="_blank">E-Service ログイン</a> | 
+      <a href="https://www.ninapharm.co.jp/" target="_blank">公式サイト</a>
+    </div>
+    <p class="disclaimer">
+      ※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>
+      正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
+    </p>
+  </footer>
+
+</body>
+</html>
