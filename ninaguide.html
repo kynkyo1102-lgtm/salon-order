@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ニナファームジャポン メンバーズWebガイド</title>
   <style>
+    /* 画像の配色（ロイヤルブルー × ライムグリーン）に合わせて調整 */
     :root {
-      --primary: #008060;
-      --primary-dark: #005c45;
-      --bg-color: #f4f6f8;
+      --primary: #1b4ea8;       /* メインのロイヤルブルー */
+      --primary-dark: #123778;  /* ダークブルー */
+      --accent: #d4e114;        /* アクセントのライムグリーン */
+      --accent-dark: #b1bd05;   /* 濃いライムグリーン */
+      --bg-color: #f0f4f9;      /* 薄いブルーグレーの背景 */
       --text-color: #333333;
       --card-bg: #ffffff;
     }
@@ -27,14 +30,15 @@
       padding-bottom: 40px;
     }
 
+    /* ヘッダー */
     header {
-      background-color: #ffffff;
-      border-bottom: 1px solid #e1e6eb;
+      background-color: var(--primary);
+      border-bottom: 4px solid var(--accent);
       padding: 15px 20px;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
     .header-container {
@@ -48,135 +52,154 @@
     .logo {
       font-weight: bold;
       font-size: 1.1rem;
-      color: var(--primary-dark);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-login {
-      background-color: var(--primary);
-      color: #fff;
-      padding: 8px 16px;
+      background-color: var(--accent);
+      color: #1a1a1a;
+      padding: 8px 18px;
       border-radius: 20px;
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: bold;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
     }
 
     .btn-login:hover {
-      background-color: var(--primary-dark);
+      background-color: var(--accent-dark);
     }
 
+    /* メインコンテナ */
     .container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 20px 15px;
+      padding: 25px 15px;
     }
 
+    /* ヒーローエリア */
     .hero {
       text-align: center;
-      padding: 25px 15px;
+      padding: 30px 20px;
       background: #ffffff;
       border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 30px;
+      border-top: 5px solid var(--primary);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .hero-subtitle {
       color: var(--primary);
       font-size: 0.9rem;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
     }
 
     .hero-title {
-      font-size: 1.5rem;
+      font-size: 1.55rem;
       margin-bottom: 12px;
       color: #1a1a1a;
+      word-break: keep-all;
     }
 
     .hero-desc {
       font-size: 0.9rem;
-      color: #666;
+      color: #555;
     }
 
+    /* セクションタイトル */
     .section-title {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       margin-bottom: 15px;
-      padding-left: 10px;
-      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+      border-left: 5px solid var(--primary);
+      color: var(--primary-dark);
+      font-weight: bold;
     }
 
     .nav-cards {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 16px;
     }
 
+    /* カードデザイン */
     .card {
       background: var(--card-bg);
       border-radius: 12px;
-      padding: 20px;
+      padding: 22px;
       text-decoration: none;
       color: inherit;
       display: block;
-      border: 1px solid #e1e6eb;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #dbe3ee;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+      position: relative;
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(27,78,168,0.12);
       border-color: var(--primary);
     }
 
-    /* ツール用カードの強調表示 */
+    /* ツール強調カード */
     .card-tool {
       border: 2px solid var(--primary);
-      background: #f0fdf4;
+      background: #f4f7fc;
     }
 
     .card-badge {
       display: inline-block;
-      background: #ffffff;
+      background: #eef3fb;
       color: var(--primary);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: bold;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 4px;
-      margin-bottom: 8px;
-      border: 1px solid var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .card-tool .card-badge {
+      background: var(--primary);
+      color: #ffffff;
     }
 
     .card-title {
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: bold;
-      color: #1a1a1a;
-      margin-bottom: 8px;
+      color: #111;
+      margin-bottom: 10px;
     }
 
     .card-list {
       list-style: none;
       font-size: 0.88rem;
-      color: #555;
+      color: #444;
       margin-bottom: 15px;
     }
 
     .card-list li {
-      margin-bottom: 4px;
+      margin-bottom: 5px;
       position: relative;
-      padding-left: 15px;
+      padding-left: 16px;
     }
 
     .card-list li::before {
-      content: "・";
+      content: "▶";
       position: absolute;
       left: 0;
+      font-size: 0.65rem;
+      top: 3px;
       color: var(--primary);
     }
 
     .card-btn {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: bold;
       color: var(--primary);
       display: flex;
@@ -184,13 +207,14 @@
       justify-content: flex-end;
     }
 
+    /* フッター */
     footer {
+      background-color: var(--primary-dark);
+      color: #ffffff;
       text-align: center;
-      margin-top: 40px;
-      padding: 20px 15px;
-      font-size: 0.8rem;
-      color: #888;
-      border-top: 1px solid #e1e6eb;
+      margin-top: 50px;
+      padding: 30px 15px 20px;
+      border-top: 6px solid var(--accent);
     }
 
     .footer-links {
@@ -198,15 +222,30 @@
     }
 
     .footer-links a {
-      color: #555;
+      color: #ffffff;
       margin: 0 10px;
       text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+      color: var(--accent);
     }
 
     .disclaimer {
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
-      line-height: 1.4;
+      line-height: 1.5;
+      font-size: 0.78rem;
+      color: #d0dceb;
+    }
+
+    .copyright {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: bold;
     }
   </style>
 </head>
@@ -215,8 +254,10 @@
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <div class="logo">ニナファームジャポン メンバーズガイド</div>
-      <a href="https://www.e-ninapharm.jp/" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
+      <div class="logo">
+        NINAPHARM JAPON メンバーズガイド
+      </div>
+      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
     </div>
   </header>
 
@@ -230,12 +271,12 @@
       <p class="hero-desc">ご自身の手続きや、直紹介者様へスムーズに案内・説明するための情報を分かりやすくまとめています。</p>
     </div>
 
-    <!-- インタラクティブツール -->
+    <!-- セルフ診断ツール誘導 -->
     <h2 class="section-title">セルフ診断ツール</h2>
-    <div class="nav-cards" style="margin-bottom: 30px;">
+    <div class="nav-cards" style="margin-bottom: 35px;">
       <a href="./checker.html" class="card card-tool">
         <span class="card-badge">🛠️ インタラクティブ診断</span>
-        <div class="card-title">⚡️️ 今月のコミッション（ボーナス）取得権利チェッカー</div>
+        <div class="card-title">⚡ 今月のコミッション（ボーナス）取得権利チェッカー</div>
         <ul class="card-list">
           <li>質問に「はい/いいえ」で答えるだけ！</li>
           <li>今月のボーナス受取権利（3% / 10%）を自動判定</li>
@@ -317,13 +358,16 @@
   <!-- フッター -->
   <footer>
     <div class="footer-links">
-      <a href="https://www.e-ninapharm.jp/" target="_blank">E-Service ログイン</a> | 
+      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank">E-Service ログイン</a> | 
       <a href="https://www.ninapharm.co.jp/" target="_blank">公式サイト</a>
     </div>
     <p class="disclaimer">
       ※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>
       正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
     </p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
   </footer>
 
 </body>
