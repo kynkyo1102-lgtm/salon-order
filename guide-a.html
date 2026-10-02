@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A. 新しい方（直紹介）を登録・案内したい - メンバーズWebガイド</title>
+  <style>
+    :root {
+      --primary: #1b4ea8;       /* ロイヤルブルー */
+      --primary-dark: #123778;  /* ダークブルー */
+      --accent: #d4e114;        /* ライムグリーン */
+      --accent-dark: #b1bd05;
+      --bg-color: #f0f4f9;
+      --text-color: #333333;
+      --card-bg: #ffffff;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* ヘッダー */
+    header {
+      background-color: var(--primary);
+      border-bottom: 4px solid var(--accent);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .btn-login {
+      background-color: var(--accent);
+      color: #1a1a1a;
+      padding: 6px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    /* メインコンテナ */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 25px 15px;
+    }
+
+    .page-header {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px 20px;
+      margin-bottom: 25px;
+      border-left: 6px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .page-category {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .page-title {
+      font-size: 1.4rem;
+      color: #1a1a1a;
+    }
+
+    /* セクションコンテンツ */
+    .section-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+      border: 1px solid #dbe3ee;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .section-card-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      border-bottom: 2px solid #eef3fb;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 番号付きステップ */
+    .step-list {
+      list-style: none;
+      counter-reset: step-counter;
+    }
+
+    .step-item {
+      position: relative;
+      padding-left: 45px;
+      margin-bottom: 20px;
+    }
+
+    .step-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-item::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .step-title {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color: #1a1a1a;
+    }
+
+    .step-desc {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* コピペ用テキストエリア */
+    .copy-box {
+      background: #f4f7fc;
+      border: 1px dashed var(--primary);
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #333;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* 比較表 */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #dbe3ee;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f4f9;
+      color: var(--primary-dark);
+      font-weight: bold;
+      width: 30%;
+    }
+
+    /* 注記ボックス */
+    .info-box {
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 0.85rem;
+      color: #595959;
+      margin-top: 15px;
+    }
+
+    .info-box-title {
+      font-weight: bold;
+      color: #d48806;
+      margin-bottom: 5px;
+    }
+
+    /* フッター */
+    footer {
+      background-color: var(--primary-dark);
+      color: #ffffff;
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px 15px 15px;
+      border-top: 6px solid var(--accent);
+      font-size: 0.78rem;
+    }
+
+    .copyright {
+      margin-top: 15px;
+      color: var(--accent);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
+      <a href="https://www.e-ninapharm.jp/" target="_blank" class="btn-login">🔐 E-Service</a>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <!-- ページタイトル -->
+    <div class="page-header">
+      <div class="page-category">GUIDE A</div>
+      <h1 class="page-title">🤝 新しい方（直紹介）を登録・案内したい</h1>
+    </div>
+
+    <!-- 1. 登録案内の基本フロー -->
+    <div class="section-card">
+      <div class="section-card-title">📌 登録案内のステップ（WEB登録）</div>
+      
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="step-title">E-Serviceで自分の「紹介用URL」を発行・コピー</div>
+          <div class="step-desc">
+            公式E-Serviceへログイン後、【会員登録案内】または【WEB登録リンク作成】ページからご自身の紹介用URLを生成・コピーします。
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-title">登録するお相手へ案内テキストを送る</div>
+          <div class="step-desc">
+            以下のテンプレートをコピーし、ご自身の紹介URLと会員IDを書き換えてLINE等で送信してください。
+          </div>
+          
+          <div class="copy-box">【ニナファームジャポン 会員登録のご案内】
+
+お世話になっております！
+以下の専用リンクより、会員登録手続きを行っていただけます。
+
+▼WEB登録用URL
+[ここにあなたの紹介URLを貼る]
+
+※手続き時に「紹介者ID」の入力欄がある場合は、以下をご入力ください。
+紹介者ID：[あなたの会員ID]
+
+ご不明な点やクレジット決済のエラー等がありましたら、お気軽にご連絡ください！</div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-title">お相手が入力・決済を完了する</div>
+          <div class="step-desc">
+            お相手が画面の指示に従い、個人情報・配送先・クレジットカード情報などを入力して登録を完了します。
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-title">登録完了の確認</div>
+          <div class="step-desc">
+            登録完了後、お相手宛てに「登録完了メール」が届きます。また、ご自身のE-Service上の組織図（ツリー）に正しく反映されているかご確認ください。
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- 2. 初回費用の目安 -->
+    <div class="section-card">
+      <div class="section-card-title">💰 お相手に伝える初回費用と月額</div>
+      <p style="font-size:0.88rem; color:#555; margin-bottom:12px;">
+        登録時に必要となる費用の内訳です。トラブル防止のため、あらかじめ明確に伝えておきましょう。
+      </p>
+
+      <div class="table-container">
+        <table>
+          <tr>
+            <th>初回購入費用</th>
+            <td><b>約17,800円</b>（税込・送料込）<br><span style="font-size:0.8rem; color:#666;">※初回登録料＋商品代金（サンテアージュOX-228等1本）</span></td>
+          </tr>
+          <tr>
+            <th>2ヶ月目以降（月額）</th>
+            <td><b>14,800円</b>（税込・送料込）<br><span style="font-size:0.8rem; color:#666;">※毎月1本の定期購入（オートシップ）を継続する場合</span></td>
+          </tr>
+          <tr>
+            <th>支払い方法</th>
+            <td>クレジットカード（推奨） / 口座振替</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box-title">💡 ポイント</div>
+        デビットカードやプリペイドカードは、毎月の自動引き落とし時にエラーになりやすいため、<b>通常のクレジットカード（VISA / Master / JCB等）</b>での登録を推奨してください。
+      </div>
+    </div>
+
+    <!-- 3. WEB登録 vs 郵送登録 -->
+    <div class="section-card">
+      <div class="section-card-title">📄 WEB登録と郵送（概要書面）登録の違い</div>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th>WEB登録（推奨）</th>
+              <th>書面（郵送）登録</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>反映スピード</th>
+              <td><b>即時〜当日</b></td>
+              <td>郵送到着後 3〜5営業日</td>
+            </tr>
+            <tr>
+              <th>概要書面の確認</th>
+              <td>画面上でWeb閲覧・同意</td>
+              <td>紙の概要書面を直接手渡し</td>
+            </tr>
+            <tr>
+              <th>メリット</th>
+              <td>スマホで完結し、すぐにIDが発行される</td>
+              <td>対面でゆっくり説明しながら記入できる</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
