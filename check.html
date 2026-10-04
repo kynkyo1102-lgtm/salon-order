@@ -201,21 +201,25 @@
     <!-- 判定結果表示エリア -->
     <div id="result-card" class="result-card">
       
-      <!-- 1. 基本条件判定（ベーシックコミッション） -->
-      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【基本条件】ベーシックコミッションボーナス</h3>
+      <!-- 1. コミッション発生判定 -->
+      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【判定1】コミッション発生有無</h3>
       <div id="basic-status" class="result-status"></div>
-      <ul id="basic-details" class="result-list" style="margin-bottom: 20px;"></ul>
 
       <hr style="border: none; border-top: 1px dashed #cbd5e1; margin: 20px 0;">
 
       <!-- 2. タイトル昇格条件判定 -->
-      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【タイトル昇格条件】判定結果</h3>
+      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【判定2】タイトル昇格</h3>
       <div id="title-status" class="result-status"></div>
-      <ul id="title-details" class="result-list"></ul>
+
+      <hr style="border: none; border-top: 1px dashed #cbd5e1; margin: 20px 0;">
+
+      <!-- 3. アクティブボーナス判定 -->
+      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【判定3】アクティブボーナス</h3>
+      <ul id="active-bonus-details" class="result-list"></ul>
 
     </div>
 
-    <!-- 参考：添付画像に基づくタイトル昇格条件一覧表 -->
+    <!-- 参考：昇格条件一覧表 -->
     <div class="section-card" style="margin-top: 24px;">
       <div class="section-card-title">📊 タイトル昇格条件・ブランチ一覧</div>
       <div class="table-container">
@@ -297,103 +301,116 @@
   </footer>
 
   <script>
-    // 添付画像の昇格条件データ
-    const TITLE_RANKS = [
-      { name: 'カリナンロワイヤルダイヤモンド', pt: 60000000, active: 4, isCullinan: true },
-      { name: 'ロワイヤルダイヤモンド', pt: 60000000, active: 4 },
-      { name: 'ダイヤモンド', pt: 30000000, active: 4 },
-      { name: 'プラチナ', pt: 12000000, active: 4 },
-      { name: 'ゴールド', pt: 6000000, active: 4 },
-      { name: 'エメラルド', pt: 3000000, active: 2 },
-      { name: 'サファイヤ', pt: 1000000, active: 2 },
-      { name: 'ラピス', pt: 500000, active: 2 },
-      { name: 'クリスタル', pt: 200000, active: 2 }
-    ];
-
     function checkConditions() {
       // 入力値の取得
-      const isMemberValid = document.getElementById('chk-member-status').checked;
-      const selfPt = Number(document.getElementById('ipt-self-pt').value) || 0;
-      const activeNum = Number(document.getElementById('ipt-active-num').value) || 0;
-      const groupPt = Number(document.getElementById('ipt-group-pt').value) || 0;
-      const isMynumberSubmitted = document.getElementById('chk-mynumber').checked;
-
-      // ----------------------------------------------------
-      // 1. 基本条件判定（ベーシックコミッション）
-      // ----------------------------------------------------
-      const c1 = isMemberValid;
-      const c2 = selfPt >= 10000;
-      const c3 = activeNum >= 2;
-      const c4 = groupPt >= 30000;
-
-      const basicPassed = c1 && c2 && c3 && c4;
+      const isMember = document.getElementById('chk-member-status').checked;
+      const activeReferrals = Number(document.getElementById('ipt-active-num').value) || 0;
+      const weakLegPoints = Number(document.getElementById('ipt-group-pt').value) || 0;
+      const hasMyNumber = document.getElementById('chk-mynumber').checked;
 
       const basicStatusEl = document.getElementById('basic-status');
-      const basicDetailsEl = document.getElementById('basic-details');
+      const titleStatusEl = document.getElementById('title-status');
+      const activeBonusDetailsEl = document.getElementById('active-bonus-details');
 
-      if (basicPassed) {
-        basicStatusEl.className = 'result-status status-ok';
-        basicStatusEl.innerText = '⭕ ベーシックコミッションボーナス 取得条件達成！';
-      } else {
+      // ----------------------------------------------------
+      // 1. 会員資格が無効の場合
+      // ----------------------------------------------------
+      if (!isMember) {
         basicStatusEl.className = 'result-status status-ng';
-        basicStatusEl.innerText = '❌ ベーシックコミッションボーナス 未達成';
+        basicStatusEl.innerText = '❌ コミッション発生なし（会員資格が無効）';
+
+        titleStatusEl.className = 'result-status status-ng';
+        titleStatusEl.innerText = 'タイトル：なし';
+
+        activeBonusDetailsEl.innerHTML = `
+          <li class="result-item"><span class="badge-check text-danger">✗</span> 5アクティブボーナス：対象外（会員資格無効）</li>
+          <li class="result-item"><span class="badge-check text-danger">✗</span> 10アクティブボーナス：対象外（会員資格無効）</li>
+        `;
+
+        document.getElementById('result-card').classList.add('active');
+        return;
       }
 
-      basicDetailsEl.innerHTML = `
-        <li class="result-item">
-          <span class="badge-check ${c1 ? 'text-success' : 'text-danger'}">${c1 ? '✓' : '✗'}</span>
-          <span>会員資格が有効：${c1 ? 'OK' : '有効にしてください'}</span>
-        </li>
-        <li class="result-item">
-          <span class="badge-check ${c2 ? 'text-success' : 'text-danger'}">${c2 ? '✓' : '✗'}</span>
-          <span>自己購入10,000P以上：${selfPt.toLocaleString()} P (${c2 ? 'OK' : '不足'})</span>
-        </li>
-        <li class="result-item">
-          <span class="badge-check ${c3 ? 'text-success' : 'text-danger'}">${c3 ? '✓' : '✗'}</span>
-          <span>アクティブ紹介者2人以上：${activeNum} 人 (${c3 ? 'OK' : '不足'})</span>
-        </li>
-        <li class="result-item">
-          <span class="badge-check ${c4 ? 'text-success' : 'text-danger'}">${c4 ? '✓' : '✗'}</span>
-          <span>左右グループ売上（少ない方）30,000P以上：${groupPt.toLocaleString()} P (${c4 ? 'OK' : '不足'})</span>
-        </li>
-      `;
+      // ----------------------------------------------------
+      // 2. コミッション発生判定
+      // (アクティブ紹介者1人以上 & 少ない方の売上3万P以上)
+      // ----------------------------------------------------
+      const isCommissionEligible = (activeReferrals >= 1) && (weakLegPoints >= 30000);
+      if (isCommissionEligible) {
+        basicStatusEl.className = 'result-status status-ok';
+        basicStatusEl.innerText = '⭕ コミッション発生あり';
+      } else {
+        basicStatusEl.className = 'result-status status-ng';
+        basicStatusEl.innerText = '❌ コミッション発生なし（条件未達成）';
+      }
 
       // ----------------------------------------------------
-      // 2. タイトル昇格条件判定
+      // 3. タイトル判定
       // ----------------------------------------------------
-      const titleStatusEl = document.getElementById('title-status');
-      const titleDetailsEl = document.getElementById('title-details');
+      let calculatedTitle = 'メンバー';
+      if (weakLegPoints >= 60000000 && activeReferrals >= 4) {
+        calculatedTitle = 'ロワイヤルダイヤモンド';
+      } else if (weakLegPoints >= 30000000 && activeReferrals >= 4) {
+        calculatedTitle = 'ダイヤモンド';
+      } else if (weakLegPoints >= 12000000 && activeReferrals >= 4) {
+        calculatedTitle = 'プラチナ';
+      } else if (weakLegPoints >= 6000000 && activeReferrals >= 4) {
+        calculatedTitle = 'ゴールド';
+      } else if (weakLegPoints >= 3000000 && activeReferrals >= 2) {
+        calculatedTitle = 'エメラルド';
+      } else if (weakLegPoints >= 1000000 && activeReferrals >= 2) {
+        calculatedTitle = 'サファイヤ';
+      } else if (weakLegPoints >= 500000 && activeReferrals >= 2) {
+        calculatedTitle = 'ラピス';
+      } else if (weakLegPoints >= 200000 && activeReferrals >= 2) {
+        calculatedTitle = 'クリスタル';
+      }
 
-      // 達成可能な最高タイトルを判定 (カリナンは連続6ヶ月達成の特記事項があるため除外判定)
-      let achievedTitle = null;
-      for (const rank of TITLE_RANKS) {
-        if (!rank.isCullinan && groupPt >= rank.pt && activeNum >= rank.active) {
-          achievedTitle = rank.name;
-          break;
+      // マイナンバー未提出の場合の制御
+      if (!hasMyNumber && calculatedTitle !== 'メンバー') {
+        titleStatusEl.className = 'result-status status-ng';
+        titleStatusEl.innerText = '⚠️ メンバー（※マイナンバー未提出のため昇格・ボーナス保留）';
+      } else {
+        titleStatusEl.className = calculatedTitle !== 'メンバー' ? 'result-status status-ok' : 'result-status status-ng';
+        titleStatusEl.innerText = `🏆 【${calculatedTitle}】`;
+      }
+
+      // ----------------------------------------------------
+      // 4. アクティブボーナス判定
+      // ----------------------------------------------------
+      // 5アクティブボーナス：5人以上 & タイトル昇格者は対象外（メンバーのみ）
+      let active5Status = '未達成';
+      let active5Ok = false;
+      if (activeReferrals >= 5) {
+        if (calculatedTitle === 'メンバー') {
+          active5Status = '達成';
+          active5Ok = true;
+        } else {
+          active5Status = '対象外（タイトル昇格者のため）';
         }
       }
 
-      const titlePassed = achievedTitle !== null && isMynumberSubmitted;
-
-      if (titlePassed) {
-        titleStatusEl.className = 'result-status status-ok';
-        titleStatusEl.innerText = `🏆 【${achievedTitle}】 昇格条件達成！`;
-      } else if (achievedTitle !== null && !isMynumberSubmitted) {
-        titleStatusEl.className = 'result-status status-ng';
-        titleStatusEl.innerText = `⚠️ 【${achievedTitle}】 の売上・アクティブ条件は達成（個人番号未提出）`;
-      } else {
-        titleStatusEl.className = 'result-status status-ng';
-        titleStatusEl.innerText = '❌ タイトル昇格条件 未達成';
+      // 10アクティブボーナス：10人以上 & サファイア以下対象
+      const sapphireAndBelow = ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'];
+      let active10Status = '未達成';
+      let active10Ok = false;
+      if (activeReferrals >= 10) {
+        if (sapphireAndBelow.includes(calculatedTitle)) {
+          active10Status = '達成';
+          active10Ok = true;
+        } else {
+          active10Status = '対象外（サファイア超過のため）';
+        }
       }
 
-      titleDetailsEl.innerHTML = `
+      activeBonusDetailsEl.innerHTML = `
         <li class="result-item">
-          <span class="badge-check ${achievedTitle ? 'text-success' : 'text-danger'}">${achievedTitle ? '✓' : '✗'}</span>
-          <span>売上P・アクティブ数判定：${achievedTitle ? achievedTitle + ' レベル達成' : 'クリスタル未満'}</span>
+          <span class="badge-check ${active5Ok ? 'text-success' : 'text-danger'}">${active5Ok ? '✓' : '✗'}</span>
+          <span>5アクティブボーナス：<strong>${active5Status}</strong></span>
         </li>
         <li class="result-item">
-          <span class="badge-check ${isMynumberSubmitted ? 'text-success' : 'text-danger'}">${isMynumberSubmitted ? '✓' : '✗'}</span>
-          <span>個人番号（マイナンバー）提出：${isMynumberSubmitted ? '提出済み' : '未提出（昇格には提出が必要です）'}</span>
+          <span class="badge-check ${active10Ok ? 'text-success' : 'text-danger'}">${active10Ok ? '✓' : '✗'}</span>
+          <span>10アクティブボーナス：<strong>${active10Status}</strong></span>
         </li>
       `;
 
