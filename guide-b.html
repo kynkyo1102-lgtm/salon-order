@@ -305,6 +305,32 @@
       background: #ffffff;
     }
 
+    .payment-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .payment-list li {
+      line-height: 1.5;
+    }
+
+    .payment-label {
+      font-weight: bold;
+      color: var(--primary-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .payment-detail {
+      color: #334155;
+      padding-left: 4px;
+      display: block;
+    }
+
     /* ボックス */
     .info-box {
       background: #fffbe6;
@@ -338,6 +364,16 @@
       font-weight: bold;
       color: #c53030;
       margin-bottom: 4px;
+    }
+
+    /* マニュアル参照注記 */
+    .manual-ref {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-align: right;
+      margin-top: 12px;
+      padding-top: 6px;
+      border-top: 1px dashed #f1f5f9;
     }
 
     /* フッター */
@@ -420,6 +456,8 @@
         💡 <b>まとめ配送でお得に（同梱サービス）</b><br>
         定期購入と追加商品を同梱し、1回の注文代金が<b>￥30,000（税込）以上</b>になると<b>配送手数料（￥1,000）が無料</b>になります。
       </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
     <!-- 2. お届けスケジュール -->
@@ -473,6 +511,8 @@
         <div class="info-box-title">💡 発送日（お届けスケジュール）の変更方法</div>
         発送日を変更する場合は、E-Serviceにログイン後、メニューの<b>【定期購入情報へ】</b>より変更可能です。
       </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
     <!-- 3. お支払い方法 -->
@@ -489,10 +529,19 @@
             <span class="step-toggle-icon">▼</span>
           </summary>
           <div class="step-body">
-            <ul>
-              <li><b>引き落とし日</b>：毎月 <b>27日</b>（27日に引き落とされた代金が<b>翌月発送分</b>となります）。</li>
-              <li><b>振替開始までの間</b>：手続きが完了するまでは<b>代金引換（代引き）</b>での発送となります。</li>
-              <li><b>代引き手数料</b>：<b>￥350</b>（税込）が会員負担となります（1点合計 <b>￥15,150</b>）。</li>
+            <ul class="payment-list">
+              <li>
+                <span class="payment-label">・引き落とし日</span>
+                <span class="payment-detail">毎月 <b>27日</b>（27日に引き落とされた代金が<b>翌月発送分</b>となります）</span>
+              </li>
+              <li>
+                <span class="payment-label">・振替開始までの間</span>
+                <span class="payment-detail">手続きが完了するまでは<b>代金引換（代引き）</b>での発送となります</span>
+              </li>
+              <li>
+                <span class="payment-label">・代引き手数料</span>
+                <span class="payment-detail"><b>￥350</b>（税込）が会員負担となります（1点合計 <b>￥15,150</b>）</span>
+              </li>
             </ul>
             <div class="alert-box">
               <div class="alert-box-title">⚠️ 口座振替開始月の重なりに注意</div>
@@ -509,19 +558,30 @@
             <span class="step-toggle-icon">▼</span>
           </summary>
           <div class="step-body">
-            <ul>
-              <li><b>決済日</b>：毎月 <b>1日</b> に当月分のカード決済処理が行われます。</li>
-              <li><b>利用可能なカード</b>：VISA, Mastercard, JCB, AMERICAN EXPRESS, Diners Club</li>
-              <li><b>カード情報の変更</b>：E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です。</li>
+            <ul class="payment-list">
+              <li>
+                <span class="payment-label">・決済日</span>
+                <span class="payment-detail">毎月 <b>1日</b> に当月分のカード決済処理が行われます</span>
+              </li>
+              <li>
+                <span class="payment-label">・利用可能なカード</span>
+                <span class="payment-detail">VISA, Mastercard, JCB, AMERICAN EXPRESS, Diners Club</span>
+              </li>
+              <li>
+                <span class="payment-label">・カード情報の変更</span>
+                <span class="payment-detail">E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です</span>
+              </li>
             </ul>
             <div class="alert-box">
-              <div class="alert-box-title">⚠️️ 有効期限切れ・決済エラーにご注意</div>
+              <div class="alert-box-title">⚠ 有効期限切れ・決済エラーにご注意</div>
               カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
             </div>
           </div>
         </details>
 
       </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
     <!-- 4. 締め日について -->
@@ -548,6 +608,8 @@
         <div class="alert-box-title">⚠️ 10日を過ぎた場合</div>
         10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。10日を過ぎての申請は翌々月からの反映となりますので十分ご注意ください。
       </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
     <!-- 5. 定期購入の停止 -->
@@ -572,6 +634,8 @@
         ・必ず<b>停止したい月の前月10日まで</b>に手続きを完了させてください。<br>
         ・定期購入を停止すると、各種ボーナス受給権利や連続購入特典（6Months）のカウントがリセットされますのでご注意ください。
       </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
     <!-- 6. 愛用者特典（6Months・NINA） -->
@@ -586,6 +650,8 @@
         定期購入にてサンテアージュ OX-288を<b>連続して6ヶ月間</b>購入すること（初回購入分もカウント対象）。<br>
         ※途中で停止・決済不能となった場合はカウントがリセット（0に戻る）されますのでご注意ください。
       </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
   </div>
