@@ -7,142 +7,470 @@
   <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
   
+
   <style>
-    .check-form {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* =========================================================
+       ボーナスチェックページ専用CSS
+       common.css は変更していません。
+       ========================================================= */
+
+    .bonus-page {
+      --bonus-orange: #f59e0b;
+      --bonus-orange-dark: #d97706;
+      --bonus-green: #22c55e;
+      --bonus-green-bg: #ecfdf3;
+      --bonus-blue-bg: #eff6ff;
+      --bonus-yellow-bg: #fff9df;
+      --bonus-ink: #334155;
+      --bonus-muted: #64748b;
+      --bonus-line: #e2e8f0;
     }
 
-    .form-group {
-      margin-bottom: 18px;
+    /* ===== ヒーロー ===== */
+    .bonus-hero {
+      position: relative;
+      overflow: hidden;
+      margin: 4px 0 24px;
+      padding: 28px 22px 25px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #fff9df 0%, #ffffff 58%, #f1f7ff 100%);
+      border: 2px solid #f2dda0;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, .10);
     }
 
-    .form-group:last-child {
-      margin-bottom: 0;
+    .bonus-hero::before,
+    .bonus-hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
     }
 
-    .form-label {
-      display: block;
-      font-weight: bold;
-      font-size: 0.9rem;
-      color: #1e293b;
+    .bonus-hero::before {
+      width: 120px;
+      height: 120px;
+      right: -38px;
+      top: -45px;
+      background: rgba(244, 114, 182, .12);
+    }
+
+    .bonus-hero::after {
+      width: 85px;
+      height: 85px;
+      left: -32px;
+      bottom: -38px;
+      background: rgba(59, 130, 246, .10);
+    }
+
+    .bonus-kicker {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
       margin-bottom: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #f0d27a;
+      color: #a66b00;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .04em;
     }
 
-    .form-control {
+    .bonus-hero h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      color: #1e293b;
+      font-size: clamp(1.55rem, 5vw, 2.1rem);
+      line-height: 1.4;
+    }
+
+    .bonus-hero h1 span {
+      color: #e58b00;
+    }
+
+    .bonus-hero p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--bonus-muted);
+      font-size: .92rem;
+      line-height: 1.75;
+    }
+
+    /* ===== 入力フォーム ===== */
+    .bonus-check-form {
+      background: #fff;
+      border: 1px solid var(--bonus-line);
+      border-radius: 20px;
+      padding: 21px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, .06);
+    }
+
+    .bonus-form-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 13px 14px;
+      border-radius: 13px;
+      background: #f8fafc;
+    }
+
+    .bonus-form-intro-icon {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .bonus-form-intro strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--bonus-ink);
+    }
+
+    .bonus-form-intro span {
+      color: var(--bonus-muted);
+      font-size: .82rem;
+    }
+
+    .bonus-form-group {
+      margin-bottom: 17px;
+    }
+
+    .bonus-form-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--bonus-ink);
+      font-weight: 800;
+      font-size: .9rem;
+    }
+
+    .bonus-form-hint {
+      display: block;
+      margin-top: 5px;
+      color: var(--bonus-muted);
+      font-size: .76rem;
+    }
+
+    .bonus-form-control {
       width: 100%;
-      padding: 10px 12px;
+      padding: 12px 13px;
       border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font-size: 0.95rem;
+      border-radius: 10px;
+      font-size: 1rem;
       box-sizing: border-box;
+      background: #fff;
+      transition: .18s ease;
     }
 
-    .form-control:focus {
+    .bonus-form-control:focus {
       outline: none;
-      border-color: var(--primary, #1b4ea8);
-      box-shadow: 0 0 0 3px rgba(27, 78, 168, 0.1);
+      border-color: var(--bonus-orange);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, .13);
     }
 
-    .checkbox-label {
+    .bonus-check-row {
       display: flex;
       align-items: center;
       gap: 10px;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 0.92rem;
-      color: #334155;
+      padding: 11px 12px;
+      border-radius: 11px;
+      background: #fafafa;
+      border: 1px solid #edf0f3;
     }
 
-    .checkbox-label input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--primary, #1b4ea8);
+    .bonus-check-row input {
+      width: 19px;
+      height: 19px;
+      accent-color: var(--bonus-green);
+      flex: 0 0 auto;
     }
 
-    .btn-submit {
+    .bonus-check-row span {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--bonus-ink);
+    }
+
+    .bonus-submit {
+      position: relative;
       width: 100%;
-      background: var(--primary, #1b4ea8);
-      color: #ffffff;
       border: none;
-      border-radius: 8px;
-      padding: 14px;
+      border-radius: 13px !important;
+      padding: 15px 18px;
+      background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+      color: #fff;
       font-size: 1rem;
-      font-weight: bold;
+      font-weight: 900;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      box-shadow: 0 7px 16px rgba(249, 115, 22, .20);
+      transition: transform .15s ease, box-shadow .15s ease;
     }
 
-    .btn-submit:hover {
-      background: #143b80;
+    .bonus-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(249, 115, 22, .28);
     }
 
-    /* 判定結果エリア */
-    .result-card {
-      display: none;
-      background: #f8fafc;
-      border: 2px solid #cbd5e1;
-      border-radius: 12px;
+    .bonus-submit:active {
+      transform: translateY(1px);
+    }
+
+    /* ===== 結果カード ===== */
+    .bonus-result {
+      position: relative;
+      overflow: hidden;
+      background: #fff !important;
+      border: 2px solid #e5e7eb !important;
+      border-radius: 22px !important;
       padding: 20px;
-      margin-top: 24px;
+      margin-top: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, .08) !important;
     }
 
-    .result-card.active {
+    .bonus-result.active {
       display: block;
+      animation: bonusAppear .35s ease both;
     }
 
-    .result-status {
-      font-size: 1.1rem;
-      font-weight: bold;
-      padding: 10px 14px;
-      border-radius: 6px;
-      margin-bottom: 16px;
+    @keyframes bonusAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .bonus-result-head {
+      margin-bottom: 18px;
       text-align: center;
     }
 
-    .status-ok {
-      background: #dcfce7;
-      color: #166534;
+    .bonus-result-head .small {
+      display: block;
+      margin-bottom: 3px;
+      color: #94a3b8;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .bonus-result-head h2 {
+      margin: 0;
+      color: var(--bonus-ink);
+      font-size: 1.45rem;
+    }
+
+    .bonus-result-block {
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 13px;
+    }
+
+    .bonus-result-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .bonus-result-block.commission {
+      background: var(--bonus-green-bg);
       border: 1px solid #bbf7d0;
     }
 
-    .status-ng {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
+    .bonus-result-block.title {
+      background: linear-gradient(135deg, var(--bonus-yellow-bg), #fff);
+      border: 1px solid #f1d477;
     }
 
-    .result-list {
+    .bonus-result-block.activebonus {
+      background: var(--bonus-blue-bg);
+      border: 1px solid #bfdbfe;
+    }
+
+    .bonus-result-label {
+      margin-bottom: 8px;
+      color: var(--bonus-muted);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .bonus-result-status {
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.06rem;
+      font-weight: 900;
+    }
+
+    .bonus-result-status.status-ok {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .bonus-result-status.status-ng {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* ===== タイトル達成 ===== */
+    .bonus-title-achievement {
+      padding: 15px;
+      text-align: center;
+      background: #fff;
+      border-radius: 15px;
+      border: 1px solid #f0d37c;
+    }
+
+    .bonus-title-crown {
+      font-size: 2.35rem;
+      line-height: 1;
+    }
+
+    .bonus-title-label {
+      margin-top: 6px;
+      color: #c47a00;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .bonus-title-name {
+      margin-top: 2px;
+      color: #1e293b;
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+
+    /* ===== アクティブボーナス ===== */
+    .bonus-result-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
 
-    .result-item {
+    .bonus-result-item {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      font-size: 0.88rem;
+      gap: 9px;
+      padding: 9px 0;
+      color: var(--bonus-ink);
+      font-size: .88rem;
       line-height: 1.5;
-      margin-bottom: 8px;
-      color: #334155;
+      border-bottom: 1px dashed #dbeafe;
     }
 
-    .result-item:last-child {
-      margin-bottom: 0;
+    .bonus-result-item:last-child {
+      border-bottom: none;
     }
 
-    .badge-check {
-      font-weight: bold;
-      min-width: 24px;
+    .bonus-result-icon {
+      width: 25px;
+      height: 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 25px;
+      border-radius: 50%;
+      font-weight: 900;
     }
 
-    .text-success { color: #16a34a; }
-    .text-danger { color: #dc2626; }
+    .bonus-result-icon.ok {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .bonus-result-icon.ng {
+      background: #f1f5f9;
+      color: #94a3b8;
+    }
+
+    /* ===== お祝い演出 ===== */
+    .bonus-result.celebrate {
+      border-color: #f2c94c !important;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, .14) !important;
+    }
+
+    .bonus-confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .bonus-confetti i {
+      position: absolute;
+      top: -12px;
+      width: 7px;
+      height: 12px;
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .bonus-result.celebrate .bonus-confetti i {
+      animation: bonusFall 1.5s ease-in forwards;
+    }
+
+    .bonus-confetti i:nth-child(1) { left: 8%;  background:#f59e0b; animation-delay:.02s; }
+    .bonus-confetti i:nth-child(2) { left: 18%; background:#60a5fa; animation-delay:.12s; }
+    .bonus-confetti i:nth-child(3) { left: 31%; background:#f472b6; animation-delay:.05s; }
+    .bonus-confetti i:nth-child(4) { left: 45%; background:#22c55e; animation-delay:.18s; }
+    .bonus-confetti i:nth-child(5) { left: 59%; background:#8b5cf6; animation-delay:.08s; }
+    .bonus-confetti i:nth-child(6) { left: 72%; background:#f97316; animation-delay:.20s; }
+    .bonus-confetti i:nth-child(7) { left: 84%; background:#06b6d4; animation-delay:.10s; }
+    .bonus-confetti i:nth-child(8) { left: 93%; background:#ec4899; animation-delay:.16s; }
+
+    @keyframes bonusFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(230px) rotate(300deg);
+        opacity: 0;
+      }
+    }
+
+    /* ===== 昇格条件一覧 ===== */
+    .bonus-reference {
+      margin-top: 24px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid var(--bonus-line);
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, .05);
+    }
+
+    .bonus-reference-title {
+      margin-bottom: 7px;
+      color: var(--bonus-ink);
+      font-weight: 900;
+    }
+
+    .bonus-reference-note {
+      margin: 0 0 13px;
+      color: var(--bonus-muted);
+      font-size: .8rem;
+    }
+
+    @media (max-width: 600px) {
+      .bonus-hero {
+        padding: 23px 17px;
+      }
+
+      .bonus-check-form,
+      .bonus-result,
+      .bonus-reference {
+        padding: 17px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -156,72 +484,127 @@
   </header>
 
   <!-- メインコンテンツ -->
-  <div class="container">
+  <div class="container bonus-page">
 
-    <div class="page-header">
-      <div class="page-category">CHECK TOOL</div>
-      <h1 class="page-title">✅ ボーナス取得・昇格条件チェック</h1>
+    <div class="bonus-hero">
+      <span class="bonus-kicker">✨ CHECK TOOL</span>
+      <h1>いまのあなた、<span>どこまで来た？</span></h1>
+      <p>
+        数字を入れるだけで、コミッションやタイトルの達成状況をチェックできます。<br>
+        「あと少し！」も「達成した！」も、ここで確認しよう。
+      </p>
     </div>
 
     <!-- 入力フォーム -->
-    <div class="check-form">
-      
-      <div class="form-group">
-        <label class="checkbox-label">
+    <div class="bonus-check-form">
+
+      <div class="bonus-form-intro">
+        <div class="bonus-form-intro-icon">📝</div>
+        <div>
+          <strong>まずは現在の数字を入れてみよう</strong>
+          <span>わかるところから入力でOK。チェックすると結果が出ます。</span>
+        </div>
+      </div>
+
+      <div class="bonus-form-group">
+        <label class="bonus-check-row">
           <input type="checkbox" id="chk-member-status">
-          会員資格が有効である（E-Serviceの【組織図】で確認）
+          <span>会員資格は有効になっている</span>
         </label>
+        <small class="bonus-form-hint">E-Serviceの【組織図】で確認できます。</small>
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="ipt-self-pt">① ポジションでの自己購入ポイント (P)</label>
-        <input type="number" id="ipt-self-pt" class="form-control" placeholder="例: 10000" min="0" step="1000">
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-self-pt">
+          ① ポジションでの自己購入ポイント（P）
+        </label>
+        <input type="number"
+               id="ipt-self-pt"
+               class="bonus-form-control"
+               placeholder="例：10,000"
+               min="0"
+               step="1000">
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="ipt-active-num">② アクティブ紹介者数 (人)</label>
-        <input type="number" id="ipt-active-num" class="form-control" placeholder="例: 2" min="0">
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-active-num">
+          ② アクティブ紹介者数（人）
+        </label>
+        <input type="number"
+               id="ipt-active-num"
+               class="bonus-form-control"
+               placeholder="例：2"
+               min="0">
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="ipt-group-pt">③ 左右グループ売上Pの少ない方 (P)</label>
-        <input type="number" id="ipt-group-pt" class="form-control" placeholder="例: 200000" min="0" step="10000">
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-group-pt">
+          ③ 左右グループ売上Pの少ない方（P）
+        </label>
+        <input type="number"
+               id="ipt-group-pt"
+               class="bonus-form-control"
+               placeholder="例：200,000"
+               min="0"
+               step="10000">
+        <small class="bonus-form-hint">
+          左右のうち、ポイントが少ない側の数字を入力。
+        </small>
       </div>
 
-      <div class="form-group">
-        <label class="checkbox-label">
+      <div class="bonus-form-group">
+        <label class="bonus-check-row">
           <input type="checkbox" id="chk-mynumber">
-          個人番号（マイナンバー）の提出が完了している
+          <span>個人番号（マイナンバー）の提出が完了している</span>
         </label>
       </div>
 
-      <button type="button" class="btn-submit" onclick="checkConditions()">条件判定を実行する</button>
+      <button type="button"
+              class="bonus-submit"
+              onclick="checkConditions()">
+        🚀 いまの達成状況をチェック！
+      </button>
     </div>
 
-    <!-- 判定結果表示エリア -->
-    <div id="result-card" class="result-card">
-      
-      <!-- 1. コミッション発生判定 -->
-      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【判定1】コミッション発生有無</h3>
-      <div id="basic-status" class="result-status"></div>
+    <!-- 判定結果 -->
+    <div id="result-card" class="bonus-result">
 
-      <hr style="border: none; border-top: 1px dashed #cbd5e1; margin: 20px 0;">
+      <div class="bonus-confetti" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i>
+      </div>
 
-      <!-- 2. タイトル昇格条件判定 -->
-      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【判定2】タイトル昇格</h3>
-      <div id="title-status" class="result-status"></div>
+      <div class="bonus-result-head">
+        <span class="small">YOUR RESULT</span>
+        <h2>チェック結果 🎉</h2>
+      </div>
 
-      <hr style="border: none; border-top: 1px dashed #cbd5e1; margin: 20px 0;">
+      <!-- コミッション -->
+      <div class="bonus-result-block commission">
+        <div class="bonus-result-label">💰 コミッション</div>
+        <div id="basic-status" class="bonus-result-status"></div>
+      </div>
 
-      <!-- 3. アクティブボーナス判定 -->
-      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【判定3】アクティブボーナス</h3>
-      <ul id="active-bonus-details" class="result-list"></ul>
+      <!-- タイトル -->
+      <div class="bonus-result-block title">
+        <div class="bonus-result-label">🏆 タイトル</div>
+        <div id="title-status"></div>
+      </div>
+
+      <!-- アクティブボーナス -->
+      <div class="bonus-result-block activebonus">
+        <div class="bonus-result-label">⚡ アクティブボーナス</div>
+        <ul id="active-bonus-details" class="bonus-result-list"></ul>
+      </div>
 
     </div>
 
     <!-- 参考：昇格条件一覧表 -->
-    <div class="section-card" style="margin-top: 24px;">
-      <div class="section-card-title">📊 タイトル昇格条件・ブランチ一覧</div>
+    <div class="bonus-reference" style="margin-top: 24px;">
+      <div class="bonus-reference-title">📊 タイトル昇格条件をざっくり確認</div>
+      <p class="bonus-reference-note">
+        「次はどこを目指せばいい？」というときの目安として見てください。
+      </p>
       <div class="table-container">
         <table>
           <thead>
@@ -301,7 +684,7 @@
   </footer>
 
   <script>
-    function checkConditions() {
+function checkConditions() {
       // 入力値の取得
       const isMember = document.getElementById('chk-member-status').checked;
       const activeReferrals = Number(document.getElementById('ipt-active-num').value) || 0;
@@ -316,15 +699,15 @@
       // 1. 会員資格が無効の場合
       // ----------------------------------------------------
       if (!isMember) {
-        basicStatusEl.className = 'result-status status-ng';
+        basicStatusEl.className = 'bonus-result-status status-ng';
         basicStatusEl.innerText = '❌ コミッション発生なし（会員資格が無効）';
 
-        titleStatusEl.className = 'result-status status-ng';
+        titleStatusEl.className = 'bonus-result-status status-ng';
         titleStatusEl.innerText = 'タイトル：なし';
 
         activeBonusDetailsEl.innerHTML = `
-          <li class="result-item"><span class="badge-check text-danger">✗</span> 5アクティブボーナス：対象外（会員資格無効）</li>
-          <li class="result-item"><span class="badge-check text-danger">✗</span> 10アクティブボーナス：対象外（会員資格無効）</li>
+          <li class="bonus-result-item"><span class="bonus-result-icon ng">✗</span> 5アクティブボーナス：対象外（会員資格無効）</li>
+          <li class="bonus-result-item"><span class="bonus-result-icon ng">✗</span> 10アクティブボーナス：対象外（会員資格無効）</li>
         `;
 
         document.getElementById('result-card').classList.add('active');
@@ -337,11 +720,11 @@
       // ----------------------------------------------------
       const isCommissionEligible = (activeReferrals >= 1) && (weakLegPoints >= 30000);
       if (isCommissionEligible) {
-        basicStatusEl.className = 'result-status status-ok';
-        basicStatusEl.innerText = '⭕ コミッション発生あり';
+        basicStatusEl.className = 'bonus-result-status status-ok';
+        basicStatusEl.innerText = '🎉 コミッション、発生！';
       } else {
-        basicStatusEl.className = 'result-status status-ng';
-        basicStatusEl.innerText = '❌ コミッション発生なし（条件未達成）';
+        basicStatusEl.className = 'bonus-result-status status-ng';
+        basicStatusEl.innerText = '🌱 あと少し！コミッション条件を確認しよう';
       }
 
       // ----------------------------------------------------
@@ -368,18 +751,18 @@
 
       // マイナンバー未提出の場合の制御
       if (!hasMyNumber && calculatedTitle !== 'メンバー') {
-        titleStatusEl.className = 'result-status status-ng';
+        titleStatusEl.className = 'bonus-result-status status-ng';
         titleStatusEl.innerText = '⚠️ メンバー（※マイナンバー未提出のため昇格・ボーナス保留）';
       } else {
-        titleStatusEl.className = calculatedTitle !== 'メンバー' ? 'result-status status-ok' : 'result-status status-ng';
-        titleStatusEl.innerText = `🏆 【${calculatedTitle}】`;
+        titleStatusEl.className = calculatedTitle !== 'メンバー' ? 'bonus-result-status status-ok' : 'bonus-result-status status-ng';
+        titleStatusEl.innerHTML = `<div class="bonus-title-achievement"><div class="bonus-title-crown">🏆</div><div class="bonus-title-label">タイトル達成！</div><div class="bonus-title-name">${calculatedTitle}</div></div>`;
       }
 
       // ----------------------------------------------------
       // 4. アクティブボーナス判定
       // ----------------------------------------------------
       // 5アクティブボーナス：5人以上 & タイトル昇格者は対象外（メンバーのみ）
-      let active5Status = '未達成';
+      let active5Status = 'まだ条件前';
       let active5Ok = false;
       if (activeReferrals >= 5) {
         if (calculatedTitle === 'メンバー') {
@@ -392,7 +775,7 @@
 
       // 10アクティブボーナス：10人以上 & サファイア以下対象
       const sapphireAndBelow = ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'];
-      let active10Status = '未達成';
+      let active10Status = 'まだ条件前';
       let active10Ok = false;
       if (activeReferrals >= 10) {
         if (sapphireAndBelow.includes(calculatedTitle)) {
@@ -404,18 +787,23 @@
       }
 
       activeBonusDetailsEl.innerHTML = `
-        <li class="result-item">
-          <span class="badge-check ${active5Ok ? 'text-success' : 'text-danger'}">${active5Ok ? '✓' : '✗'}</span>
+        <li class="bonus-result-item">
+          <span class="bonus-result-icon ${active5Ok ? 'ok' : 'ng'}">${active5Ok ? '✓' : '–'}</span>
           <span>5アクティブボーナス：<strong>${active5Status}</strong></span>
         </li>
-        <li class="result-item">
-          <span class="badge-check ${active10Ok ? 'text-success' : 'text-danger'}">${active10Ok ? '✓' : '✗'}</span>
+        <li class="bonus-result-item">
+          <span class="bonus-result-icon ${active10Ok ? 'ok' : 'ng'}">${active10Ok ? '✓' : '–'}</span>
           <span>10アクティブボーナス：<strong>${active10Status}</strong></span>
         </li>
       `;
 
       // 結果カードを表示
       document.getElementById('result-card').classList.add('active');
+
+      // 達成時だけお祝い演出（判定ロジックには影響しない）
+      if (isCommissionEligible || calculatedTitle !== 'メンバー') {
+        document.getElementById('result-card').classList.add('celebrate');
+      }
     }
   </script>
 
