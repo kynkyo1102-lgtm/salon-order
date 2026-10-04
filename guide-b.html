@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>B. 毎月の「権利維持」と「損をしない条件」 - メンバーズWebガイド</title>
+  <title>定期購入について - メンバーズWebガイド</title>
   <style>
     :root {
       --primary: #1b4ea8;       /* ロイヤルブルー */
@@ -20,6 +20,10 @@
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
       -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
     }
     
     body {
@@ -100,10 +104,62 @@
     }
 
     .page-title {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       color: #1a1a1a;
       line-height: 1.4;
       font-weight: bold;
+    }
+
+    /* 目次ナビゲーション */
+    .toc-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 18px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .toc-title {
+      font-size: 0.92rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toc-item a {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .toc-item a:active {
+      background: #e2e8f0;
+    }
+
+    .toc-item a::after {
+      content: "↓";
+      margin-left: auto;
+      color: #94a3b8;
+      font-size: 0.8rem;
     }
 
     /* Card Layout */
@@ -114,6 +170,7 @@
       margin-bottom: 18px;
       border: 1px solid #e2e8f0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      scroll-margin-top: 70px;
     }
 
     .section-card-title {
@@ -280,22 +337,6 @@
       margin-bottom: 4px;
     }
 
-    .bank-box {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-top: 10px;
-      font-size: 0.82rem;
-      color: #334155;
-      line-height: 1.6;
-    }
-
-    .text-danger {
-      color: #dc2626;
-      font-weight: bold;
-    }
-
     .btn-action {
       display: block;
       width: 100%;
@@ -346,14 +387,27 @@
     <!-- ページタイトル -->
     <div class="page-header">
       <div class="page-category">GUIDE B</div>
-      <h1 class="page-title">🔑 毎月の「権利維持」と「損をしない条件」</h1>
+      <h1 class="page-title">📦 定期購入について</h1>
     </div>
 
-    <!-- 1. 毎月いくらかかる？（維持費の構成） -->
-    <div class="section-card">
-      <div class="section-card-title">💵 毎月の維持費（費用構成）</div>
+    <!-- 目次ナビゲーション -->
+    <nav class="toc-card">
+      <div class="toc-title">📌 目次（タップで移動）</div>
+      <ul class="toc-list">
+        <li class="toc-item"><a href="#section-cost">毎月の商品購入（費用構成）</a></li>
+        <li class="toc-item"><a href="#section-schedule">お届けスケジュール＆発送日変更</a></li>
+        <li class="toc-item"><a href="#section-payment">お支払い方法別の注意点</a></li>
+        <li class="toc-item"><a href="#section-deadline">毎月10日の締め日ルール</a></li>
+        <li class="toc-item"><a href="#section-stop">定期購入の停止（お休み・解約）</a></li>
+        <li class="toc-item"><a href="#section-bonus">6ヶ月連続購入特典（6Months）</a></li>
+      </ul>
+    </nav>
+
+    <!-- 1. 毎月の商品購入 -->
+    <div id="section-cost" class="section-card">
+      <div class="section-card-title">💵 毎月の商品購入</div>
       <p class="section-desc">
-        ニナファームジャポンでの定期購入（OX-288 1個/月）による基本維持費用は以下の通りです。
+        OX‐288を定期購入する場合の費用は以下の通りです。
       </p>
 
       <div class="table-container">
@@ -375,12 +429,12 @@
 
       <div class="info-box">
         💡 <b>まとめ配送でお得に（同梱サービス）</b><br>
-        定期購入と追加商品を同梱し、1回の注文代金が<b>￥30,000（税込）以上</b>になると<b>配送手数料（￥1,000）が無料</b>になります。（発送月の前月末日までに要申請）
+        定期購入と追加商品を同梱し、1回の注文代金が<b>￥30,000（税込）以上</b>になると<b>配送手数料（￥1,000）が無料</b>になります。
       </div>
     </div>
 
-    <!-- 2. 定期購入のお届けスケジュール -->
-    <div class="section-card">
+    <!-- 2. 登録日とお届け日スケジュール -->
+    <div id="section-schedule" class="section-card">
       <div class="section-card-title">📅 登録日とお届け日スケジュール</div>
       <p class="section-desc">
         ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。
@@ -425,10 +479,15 @@
       <p style="font-size: 0.76rem; color: #64748b; margin-top: 8px;">
         ※手続き日の翌日以降に順次発送されます。1月・5月の大型連休時は出荷日が10日前後になる場合があります。
       </p>
+
+      <div class="info-box">
+        <div class="info-box-title">💡 発送日（お届けスケジュール）の変更方法</div>
+        発送日を変更する場合は、E-Serviceにログイン後、メニューの<b>【定期購入情報へ】</b>より簡単に変更手続きが行えます。
+      </div>
     </div>
 
     <!-- 3. お支払い方法ごとのルール -->
-    <div class="section-card">
+    <div id="section-payment" class="section-card">
       <div class="section-card-title">💳 お支払い方法別の注意点</div>
       
       <div class="step-list">
@@ -464,10 +523,11 @@
             <ul>
               <li><b>決済日</b>：毎月 <b>1日</b> に当月分のカード決済処理が行われます。</li>
               <li><b>利用可能なカード</b>：VISA, Mastercard, JCB, AMERICAN EXPRESS, Diners Club</li>
-              <li><b>カード情報の変更</b>：E-Serviceまたは専用電話（03-6832-1776）からいつでも変更可能です。</li>
+              <li><b>カード情報の変更</b>：E-Serviceまたは専用電話から変更可能です。</li>
             </ul>
-            <div class="info-box">
-              カードの有効期限切れにご注意ください。有効期限が切れると1日の自動決済がエラーとなります。
+            <div class="alert-box">
+              <div class="alert-box-title">⚠️ 有効期限切れ・決済エラーにご注意</div>
+              カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかにE-Serviceより変更手続きを行ってください。
             </div>
           </div>
         </details>
@@ -475,36 +535,8 @@
       </div>
     </div>
 
-    <!-- 4. カードエラー・振替不能で権利が消える？リカバリー方法 -->
-    <div class="section-card">
-      <div class="section-card-title">🚨 決済不能（エラー）時のリカバリー方法</div>
-      <p class="section-desc">
-        口座残高不足やカードエラーで定期決済ができなかった場合、商品の出荷が停止されます。以下の手順で当月内に挽回してください。
-      </p>
-
-      <div class="alert-box">
-        <div class="alert-box-title">⚡ 18日までに商品が届かない場合</div>
-        18日までに定期商品が届かない場合は、決済エラーの可能性があります。口座振替（前月27日）またはカード決済（当月1日）が成功しているかご確認ください。
-      </div>
-
-      <div style="margin-top:14px;">
-        <p style="font-size:0.86rem; font-weight:bold; margin-bottom:6px;">【リカバリー（救済）手続き手順】</p>
-        <p style="font-size:0.84rem; color:#475569; line-height:1.6;">
-          当月末日までに指定の<b>「商品購入注文書」</b>を記入のうえ、以下口座へお振込み・送信してください。
-        </p>
-
-        <div class="bank-box">
-          <b>【振込先情報】</b><br>
-          金額：<b>￥14,800</b>（商品代￥13,800 ＋ 送料￥1,000）<br>
-          ・三井住友銀行 銀座支店 普通 7608513<br>
-          ・ゆうちょ銀行 00190-9-261488（電信のみ）<br>
-          口座名義：株式会社ニナファームジャポン
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. 毎月10日の締め日ルール（定期購入の変更・停止） -->
-    <div class="section-card">
+    <!-- 4. 毎月10日の締め日ルール -->
+    <div id="section-deadline" class="section-card">
       <div class="section-card-title">⏰ 最重要！「毎月10日」締め日ルール</div>
       <p class="section-desc">
         定期購入の内容変更・停止・再開には厳格な締め日ルールが定められています。
@@ -529,8 +561,32 @@
       </div>
     </div>
 
+    <!-- 5. 定期購入の停止（お休み・解約）について -->
+    <div id="section-stop" class="section-card">
+      <div class="section-card-title">🛑 定期購入の停止（お休み・解約）について</div>
+      <p class="section-desc">
+        定期購入を一時停止（お休み）または解約したい場合は、以下の手順で申請を行ってください。
+      </p>
+
+      <div class="step-list">
+        <div class="step-item" style="padding:14px; background:#fff;">
+          <p style="font-weight:bold; font-size:0.9rem; color:var(--primary-dark); margin-bottom:6px;">【手続き方法】</p>
+          <ul style="padding-left:18px; font-size:0.85rem; color:#334155; line-height:1.6;">
+            <li><b>E-Serviceでの手続き</b>：ログイン後、【定期購入情報】メニューより停止手続きが可能です。</li>
+            <li><b>書面での手続き</b>：専用の「定期購入解約・停止申請書」をカスタマーサービスへ郵送またはFAXで送付してください。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <div class="alert-box-title">⚠️ 停止に関する注意点</div>
+        ・必ず<b>停止したい月の前月10日まで</b>に手続きを完了させてください。<br>
+        ・定期購入を停止すると、各種ボーナス受給権利や連続購入特典（6Months）のカウントがリセットされますのでご注意ください。
+      </div>
+    </div>
+
     <!-- 6. 愛用者特典（6Months・NINA） -->
-    <div class="section-card">
+    <div id="section-bonus" class="section-card">
       <div class="section-card-title">🎁 6ヶ月連続購入特典（6Months・NINA）</div>
       <p class="section-desc">
         定期購入でサンテアージュ OX-288を継続購入いただくと、6ヶ月ごとに<b>ニナファームオリジナルグッズ</b>がプレゼントされます！
@@ -539,7 +595,7 @@
       <div class="info-box">
         <b>【達成条件】</b><br>
         定期購入にてサンテアージュ OX-288を<b>連続して6ヶ月間</b>購入すること（初回購入分もカウント対象）。<br>
-        ※決済不能等で途中で途切れた場合はカウントがリセット（0に戻る）されますのでご注意ください。
+        ※途中で停止・決済不能となった場合はカウントがリセット（0に戻る）されますのでご注意ください。
       </div>
     </div>
 
