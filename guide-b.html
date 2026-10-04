@@ -349,21 +349,50 @@
       margin-bottom: 4px;
     }
 
+    /* 折り畳み式注意書きボックス */
     .alert-box {
       background: #fff5f5;
       border: 1px solid #feb2b2;
       border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 0.83rem;
-      color: #9b2c2c;
       margin-top: 12px;
-      line-height: 1.6;
+      overflow: hidden;
     }
 
-    .alert-box-title {
+    .alert-box summary {
+      padding: 10px 14px;
+      font-size: 0.83rem;
       font-weight: bold;
       color: #c53030;
-      margin-bottom: 4px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .alert-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .alert-box summary::after {
+      content: "▼";
+      font-size: 0.7rem;
+      color: #9b2c2c;
+      transition: transform 0.2s;
+      margin-left: 8px;
+    }
+
+    .alert-box[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .alert-box-content {
+      padding: 10px 14px 12px 14px;
+      border-top: 1px dashed #feb2b2;
+      font-size: 0.82rem;
+      color: #9b2c2c;
+      line-height: 1.6;
     }
 
     /* マニュアル参照注記 */
@@ -543,10 +572,14 @@
                 <span class="payment-detail"><b>￥350</b>（税込）が会員負担となります（1点合計 <b>￥15,150</b>）</span>
               </li>
             </ul>
-            <div class="alert-box">
-              <div class="alert-box-title">⚠️ 口座振替開始月の重なりに注意</div>
-              口座振替が始まる月は、その月の「代金引換」と翌月分の「口座振替（27日）」のお支払いが重なる場合があります。引き落とし口座の残高にご注意ください。
-            </div>
+
+            <!-- 折り畳み注意書き -->
+            <details class="alert-box">
+              <summary>⚠️️ 口座振替開始月の重なりに注意</summary>
+              <div class="alert-box-content">
+                口座振替が始まる月は、その月の「代金引換」と翌月分の「口座振替（27日）」のお支払いが重なる場合があります。引き落とし口座の残高にご注意ください。
+              </div>
+            </details>
           </div>
         </details>
 
@@ -572,10 +605,14 @@
                 <span class="payment-detail">E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です</span>
               </li>
             </ul>
-            <div class="alert-box">
-              <div class="alert-box-title">⚠ 有効期限切れ・決済エラーにご注意</div>
-              カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
-            </div>
+
+            <!-- 折り畳み注意書き -->
+            <details class="alert-box">
+              <summary>⚠️ 有効期限切れ・決済エラーにご注意</summary>
+              <div class="alert-box-content">
+                カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
+              </div>
+            </details>
           </div>
         </details>
 
@@ -604,10 +641,13 @@
         </table>
       </div>
 
-      <div class="alert-box">
-        <div class="alert-box-title">⚠️ 10日を過ぎた場合</div>
-        10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。10日を過ぎての申請は翌々月からの反映となりますので十分ご注意ください。
-      </div>
+      <!-- 折り畳み注意書き -->
+      <details class="alert-box">
+        <summary>⚠️ 10日を過ぎた場合</summary>
+        <div class="alert-box-content">
+          10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。10日を過ぎての申請は翌々月からの反映となりますので十分ご注意ください。
+        </div>
+      </details>
 
       <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
@@ -629,11 +669,14 @@
         </div>
       </div>
 
-      <div class="alert-box">
-        <div class="alert-box-title">⚠️ 停止に関する注意点</div>
-        ・必ず<b>停止したい月の前月10日まで</b>に手続きを完了させてください。<br>
-        ・定期購入を停止すると、各種ボーナス受給権利や連続購入特典（6Months）のカウントがリセットされますのでご注意ください。
-      </div>
+      <!-- 折り畳み注意書き -->
+      <details class="alert-box">
+        <summary>⚠️ 停止に関する注意点</summary>
+        <div class="alert-box-content">
+          ・必ず<b>停止したい月の前月10日まで</b>に手続きを完了させてください。<br>
+          ・定期購入を停止すると、各種ボーナス受給権利や連続購入特典（6Months）のカウントがリセットされますのでご注意ください。
+        </div>
+      </details>
 
       <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
