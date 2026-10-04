@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
+  <!-- 共通スタイルシート -->
+  <link rel="stylesheet" href="common.css">
+  
+  <style>
+    .check-form {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary, #1b4ea8);
+      box-shadow: 0 0 0 3px rgba(27, 78, 168, 0.1);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.92rem;
+      color: #334155;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary, #1b4ea8);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary, #1b4ea8);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: #143b80;
+    }
+
+    /* 判定結果エリア */
+    .result-card {
+      display: none;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    .result-card.active {
+      display: block;
+    }
+
+    .result-status {
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .status-ok {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status-ng {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .result-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+
+    .result-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .badge-check {
+      font-weight: bold;
+      min-width: 24px;
+    }
+
+    .text-success { color: #16a34a; }
+    .text-danger { color: #dc2626; }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <a href="./guide-c.html" class="back-link">← ガイドCへ戻る</a>
+      <a href="./index.html" class="back-link">トップへ</a>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-category">CHECK TOOL</div>
+      <h1 class="page-title">✅ ボーナス取得・昇格条件チェック</h1>
+    </div>
+
+    <!-- 入力フォーム -->
+    <div class="check-form">
+      
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="chk-member-status">
+          会員資格が有効である（E-Serviceの【組織図】で確認）
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="ipt-self-pt">① ポジションでの自己購入ポイント (P)</label>
+        <input type="number" id="ipt-self-pt" class="form-control" placeholder="例: 10000" min="0" step="1000">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="ipt-active-num">② アクティブ紹介者数 (人)</label>
+        <input type="number" id="ipt-active-num" class="form-control" placeholder="例: 2" min="0">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="ipt-group-pt">③ 左右グループ売上Pの少ない方 (P)</label>
+        <input type="number" id="ipt-group-pt" class="form-control" placeholder="例: 200000" min="0" step="10000">
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="chk-mynumber">
+          個人番号（マイナンバー）の提出が完了している
+        </label>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="checkConditions()">条件判定を実行する</button>
+    </div>
+
+    <!-- 判定結果表示エリア -->
+    <div id="result-card" class="result-card">
+      
+      <!-- 1. 基本条件判定（ベーシックコミッション） -->
+      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【基本条件】ベーシックコミッションボーナス</h3>
+      <div id="basic-status" class="result-status"></div>
+      <ul id="basic-details" class="result-list" style="margin-bottom: 20px;"></ul>
+
+      <hr style="border: none; border-top: 1px dashed #cbd5e1; margin: 20px 0;">
+
+      <!-- 2. タイトル昇格条件判定 -->
+      <h3 style="font-size: 1rem; margin-top: 0; margin-bottom: 12px; color: #1e293b;">【タイトル昇格条件】判定結果</h3>
+      <div id="title-status" class="result-status"></div>
+      <ul id="title-details" class="result-list"></ul>
+
+    </div>
+
+    <!-- 参考：添付画像に基づくタイトル昇格条件一覧表 -->
+    <div class="section-card" style="margin-top: 24px;">
+      <div class="section-card-title">📊 タイトル昇格条件・ブランチ一覧</div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>タイトル</th>
+              <th>昇格条件<br><span style="font-size:0.75em; font-weight:normal;">(少ない方のグループ売上P)</span></th>
+              <th>必要アクティブ<br>紹介者数</th>
+              <th>ブランチ<br><span style="font-size:0.75em; font-weight:normal;">(累計)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>クリスタル</th>
+              <td>20万P〜</td>
+              <td>2人</td>
+              <td>5か所</td>
+            </tr>
+            <tr>
+              <th>ラピス</th>
+              <td>50万P〜</td>
+              <td>2人</td>
+              <td>7か所</td>
+            </tr>
+            <tr>
+              <th>サファイヤ</th>
+              <td>100万P〜</td>
+              <td>2人</td>
+              <td>10か所</td>
+            </tr>
+            <tr>
+              <th>エメラルド</th>
+              <td>300万P〜</td>
+              <td>2人</td>
+              <td>15か所</td>
+            </tr>
+            <tr>
+              <th>ゴールド</th>
+              <td>600万P〜</td>
+              <td>4人</td>
+              <td>20か所</td>
+            </tr>
+            <tr>
+              <th>プラチナ</th>
+              <td>1,200万P〜</td>
+              <td>4人</td>
+              <td>30か所</td>
+            </tr>
+            <tr>
+              <th>ダイヤモンド</th>
+              <td>3,000万P〜</td>
+              <td>4人</td>
+              <td>40か所</td>
+            </tr>
+            <tr>
+              <th>ロワイヤルダイヤモンド</th>
+              <td>6,000万P〜</td>
+              <td>4人</td>
+              <td>40か所</td>
+            </tr>
+            <tr>
+              <th>カリナンロワイヤルダイヤモンド</th>
+              <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
+              <td>4人</td>
+              <td>40か所</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>
+    // 添付画像の昇格条件データ
+    const TITLE_RANKS = [
+      { name: 'カリナンロワイヤルダイヤモンド', pt: 60000000, active: 4, isCullinan: true },
+      { name: 'ロワイヤルダイヤモンド', pt: 60000000, active: 4 },
+      { name: 'ダイヤモンド', pt: 30000000, active: 4 },
+      { name: 'プラチナ', pt: 12000000, active: 4 },
+      { name: 'ゴールド', pt: 6000000, active: 4 },
+      { name: 'エメラルド', pt: 3000000, active: 2 },
+      { name: 'サファイヤ', pt: 1000000, active: 2 },
+      { name: 'ラピス', pt: 500000, active: 2 },
+      { name: 'クリスタル', pt: 200000, active: 2 }
+    ];
+
+    function checkConditions() {
+      // 入力値の取得
+      const isMemberValid = document.getElementById('chk-member-status').checked;
+      const selfPt = Number(document.getElementById('ipt-self-pt').value) || 0;
+      const activeNum = Number(document.getElementById('ipt-active-num').value) || 0;
+      const groupPt = Number(document.getElementById('ipt-group-pt').value) || 0;
+      const isMynumberSubmitted = document.getElementById('chk-mynumber').checked;
+
+      // ----------------------------------------------------
+      // 1. 基本条件判定（ベーシックコミッション）
+      // ----------------------------------------------------
+      const c1 = isMemberValid;
+      const c2 = selfPt >= 10000;
+      const c3 = activeNum >= 2;
+      const c4 = groupPt >= 30000;
+
+      const basicPassed = c1 && c2 && c3 && c4;
+
+      const basicStatusEl = document.getElementById('basic-status');
+      const basicDetailsEl = document.getElementById('basic-details');
+
+      if (basicPassed) {
+        basicStatusEl.className = 'result-status status-ok';
+        basicStatusEl.innerText = '⭕ ベーシックコミッションボーナス 取得条件達成！';
+      } else {
+        basicStatusEl.className = 'result-status status-ng';
+        basicStatusEl.innerText = '❌ ベーシックコミッションボーナス 未達成';
+      }
+
+      basicDetailsEl.innerHTML = `
+        <li class="result-item">
+          <span class="badge-check ${c1 ? 'text-success' : 'text-danger'}">${c1 ? '✓' : '✗'}</span>
+          <span>会員資格が有効：${c1 ? 'OK' : '有効にしてください'}</span>
+        </li>
+        <li class="result-item">
+          <span class="badge-check ${c2 ? 'text-success' : 'text-danger'}">${c2 ? '✓' : '✗'}</span>
+          <span>自己購入10,000P以上：${selfPt.toLocaleString()} P (${c2 ? 'OK' : '不足'})</span>
+        </li>
+        <li class="result-item">
+          <span class="badge-check ${c3 ? 'text-success' : 'text-danger'}">${c3 ? '✓' : '✗'}</span>
+          <span>アクティブ紹介者2人以上：${activeNum} 人 (${c3 ? 'OK' : '不足'})</span>
+        </li>
+        <li class="result-item">
+          <span class="badge-check ${c4 ? 'text-success' : 'text-danger'}">${c4 ? '✓' : '✗'}</span>
+          <span>左右グループ売上（少ない方）30,000P以上：${groupPt.toLocaleString()} P (${c4 ? 'OK' : '不足'})</span>
+        </li>
+      `;
+
+      // ----------------------------------------------------
+      // 2. タイトル昇格条件判定
+      // ----------------------------------------------------
+      const titleStatusEl = document.getElementById('title-status');
+      const titleDetailsEl = document.getElementById('title-details');
+
+      // 達成可能な最高タイトルを判定 (カリナンは連続6ヶ月達成の特記事項があるため除外判定)
+      let achievedTitle = null;
+      for (const rank of TITLE_RANKS) {
+        if (!rank.isCullinan && groupPt >= rank.pt && activeNum >= rank.active) {
+          achievedTitle = rank.name;
+          break;
+        }
+      }
+
+      const titlePassed = achievedTitle !== null && isMynumberSubmitted;
+
+      if (titlePassed) {
+        titleStatusEl.className = 'result-status status-ok';
+        titleStatusEl.innerText = `🏆 【${achievedTitle}】 昇格条件達成！`;
+      } else if (achievedTitle !== null && !isMynumberSubmitted) {
+        titleStatusEl.className = 'result-status status-ng';
+        titleStatusEl.innerText = `⚠️ 【${achievedTitle}】 の売上・アクティブ条件は達成（個人番号未提出）`;
+      } else {
+        titleStatusEl.className = 'result-status status-ng';
+        titleStatusEl.innerText = '❌ タイトル昇格条件 未達成';
+      }
+
+      titleDetailsEl.innerHTML = `
+        <li class="result-item">
+          <span class="badge-check ${achievedTitle ? 'text-success' : 'text-danger'}">${achievedTitle ? '✓' : '✗'}</span>
+          <span>売上P・アクティブ数判定：${achievedTitle ? achievedTitle + ' レベル達成' : 'クリスタル未満'}</span>
+        </li>
+        <li class="result-item">
+          <span class="badge-check ${isMynumberSubmitted ? 'text-success' : 'text-danger'}">${isMynumberSubmitted ? '✓' : '✗'}</span>
+          <span>個人番号（マイナンバー）提出：${isMynumberSubmitted ? '提出済み' : '未提出（昇格には提出が必要です）'}</span>
+        </li>
+      `;
+
+      // 結果カードを表示
+      document.getElementById('result-card').classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
