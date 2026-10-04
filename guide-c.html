@@ -4,129 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>C. ボーナス取得・権利維持ガイド - メンバーズWebガイド</title>
+  <!-- 共通スタイルシート -->
+  <link rel="stylesheet" href="common.css">
+  
+  <!-- 当ページ固有のスタイル -->
   <style>
-    :root {
-      --primary: #1b4ea8;       /* ロイヤルブルー */
-      --primary-dark: #123778;  /* ダークブルー */
-      --accent: #d4e114;        /* ライムグリーン */
-      --bg-color: #f4f6f9;
-      --text-color: #2c3e50;
-      --card-bg: #ffffff;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.7;
-      padding-bottom: 50px;
-      word-break: break-all;
-      overflow-wrap: anywhere;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    /* ヘッダー */
-    header {
-      background-color: var(--primary);
-      border-bottom: 3px solid var(--accent);
-      padding: 14px 16px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .header-container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .back-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-
-    .back-link:hover {
-      opacity: 0.8;
-    }
-
-    .btn-login {
-      background-color: var(--accent);
-      color: #1a1a1a;
-      padding: 7px 14px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: bold;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: transform 0.1s, box-shadow 0.2s;
-    }
-
-    .btn-login:active {
-      transform: scale(0.98);
-    }
-
-    /* メインコンテナ */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 18px 14px;
-    }
-
-    .page-header {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 18px 16px;
-      margin-bottom: 18px;
-      border-left: 6px solid var(--primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      border-top: 1px solid var(--border-color);
-      border-right: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .page-category {
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: var(--primary);
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-    }
-
-    .page-title {
-      font-size: 1.25rem;
-      color: #1a1a1a;
-      line-height: 1.4;
-      font-weight: bold;
-    }
-
-    /* 目次 (INDEX) スタイル - guide-b.htmlに準拠 */
+    /* INDEX (目次) カード */
     .index-card {
       background: #ffffff;
       border-radius: 12px;
@@ -188,76 +71,7 @@
       font-size: 0.8rem;
     }
 
-    /* セクションカード */
-    .section-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 18px 16px;
-      margin-bottom: 18px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-      scroll-margin-top: 70px;
-    }
-
-    .section-title {
-      font-size: 1.05rem;
-      font-weight: bold;
-      color: var(--primary-dark);
-      border-bottom: 2px solid #edf2f7;
-      padding-bottom: 10px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-desc {
-      font-size: 0.85rem;
-      color: #4a5568;
-      margin-bottom: 14px;
-      line-height: 1.6;
-    }
-
-    /* テーブル */
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-top: 10px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83rem;
-      background: #ffffff;
-    }
-
-    th, td {
-      border: 1px solid #edf2f7;
-      padding: 10px 8px;
-      text-align: left;
-      vertical-align: middle;
-      line-height: 1.5;
-    }
-
-    th {
-      background-color: #f7fafc;
-      color: var(--primary-dark);
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .table-subtext {
-      font-size: 0.72rem;
-      color: #718096;
-      display: block;
-      margin-top: 2px;
-    }
-
+    /* サブリスト */
     .sub-list {
       margin-top: 8px;
       margin-left: 20px;
@@ -269,18 +83,7 @@
       margin-bottom: 4px;
     }
 
-    /* インフォボックス / 警告ボックス */
-    .info-box {
-      background: #fffbe6;
-      border: 1px solid #ffe58f;
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 0.82rem;
-      color: #595959;
-      margin-top: 12px;
-      line-height: 1.6;
-    }
-
+    /* 警告ボックス */
     .warning-box {
       background-color: #fef2f2;
       border: 1px solid #fecaca;
@@ -292,7 +95,7 @@
       line-height: 1.6;
     }
 
-    /* タブ切り替え（ラジオボタンUI） */
+    /* トラブル対応切替（タブ型ラジオボタンUI） */
     .selector-group {
       display: flex;
       gap: 10px;
@@ -342,25 +145,6 @@
 
     .flow-panel.active {
       display: block;
-    }
-
-    /* フッター */
-    footer {
-      background-color: var(--primary-dark);
-      color: #ffffff;
-      text-align: center;
-      margin-top: 35px;
-      padding: 24px 16px;
-      border-top: 4px solid var(--accent);
-      font-size: 0.78rem;
-      line-height: 1.6;
-    }
-
-    .copyright {
-      margin-top: 12px;
-      color: var(--accent);
-      font-weight: bold;
-      font-size: 0.74rem;
     }
   </style>
 </head>
@@ -420,7 +204,7 @@
 
     <!-- 1. 基本となるアクティブ条件 -->
     <div id="sec-1" class="section-card">
-      <div class="section-title">💡 1. ボーナス取得の基本条件</div>
+      <div class="section-card-title">💡 1. ボーナス取得の基本条件</div>
       <p class="section-desc">
         ボーナスを受け取るためには、該当月度の会員資格が有効であり、以下の条件を満たしている必要があります。
       </p>
@@ -460,7 +244,7 @@
 
     <!-- 2. 9種類のボーナスプラン概要 -->
     <div id="sec-2" class="section-card">
-      <div class="section-title">📊 2. 9種類のボーナスプラン概要</div>
+      <div class="section-card-title">📊 2. 9種類のボーナスプラン概要</div>
       <p class="section-desc">ニナファームジャポンでは、実績やビジネス目標に応じた9種類のボーナスが用意されています。</p>
 
       <div class="table-container">
@@ -515,7 +299,7 @@
 
     <!-- 3. タイトル昇格条件とブランチ -->
     <div id="sec-3" class="section-card">
-      <div class="section-title">🏆 3. タイトル昇格条件とブランチ</div>
+      <div class="section-card-title">🏆 3. タイトル昇格条件とブランチ</div>
       <p class="section-desc">
         昇格には「少ない側のグループ売上P」「必要アクティブ紹介者数」「育成メガ系列数（プラチナ以上）」の条件を満たす必要があります。
       </p>
@@ -588,8 +372,8 @@
       </div>
 
       <div class="info-box">
-        <b>📌 マイナンバー手続きについて：</b><br>
-        クリスタル以上に昇格した場合、昇格月度の翌々月10日までに手続きが必要です（初昇格月は未提出でも昇格可。翌月以降未提出の場合は上位ボーナスの取得・昇格が制限されます）。
+        <b>📌 手続きに関する注意点：</b><br>
+        クリスタル以上に昇格した場合、昇格月度の翌々月10日までに必要な各種提出手続きが必要です（初昇格月は未提出でも昇格可。翌月以降未提出の場合は上位ボーナスの取得・昇格が制限されます）。
       </div>
 
       <div style="margin-top: 16px;">
@@ -603,7 +387,7 @@
 
     <!-- 4. 注意点・支払仕様・トラブル対応 -->
     <div id="sec-4" class="section-card">
-      <div class="section-title">⚠️ 4. 権利喪失を防ぐための注意点・支払仕様</div>
+      <div class="section-card-title">⚠️ 4. 権利喪失を防ぐための注意点・支払仕様</div>
       <p class="section-desc">
         締切日時や振込仕様を確認し、決済エラー等による権利失効に注意してください。
       </p>
