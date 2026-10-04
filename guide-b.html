@@ -90,7 +90,7 @@
       background: #ffffff;
       border-radius: 12px;
       padding: 18px 16px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       border-left: 6px solid var(--primary);
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
@@ -110,56 +110,59 @@
       font-weight: bold;
     }
 
-    /* 目次ナビゲーション */
+    /* 控えめな目次デザイン */
     .toc-card {
       background: #ffffff;
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 10px;
+      padding: 12px 14px;
       margin-bottom: 18px;
-      border: 1px solid #cbd5e1;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      border: 1px solid #e2e8f0;
     }
 
     .toc-title {
-      font-size: 0.92rem;
+      font-size: 0.8rem;
       font-weight: bold;
-      color: var(--primary-dark);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: #64748b;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
     }
 
     .toc-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
     }
 
     .toc-item a {
       display: flex;
       align-items: center;
-      padding: 8px 12px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      color: var(--primary);
+      padding: 6px 8px;
+      border-radius: 6px;
+      color: #334155;
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      transition: background-color 0.2s;
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: background-color 0.15s;
     }
 
     .toc-item a:active {
-      background: #e2e8f0;
+      background-color: #f1f5f9;
+    }
+
+    .toc-num {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 0.78rem;
+      margin-right: 8px;
+      width: 18px;
     }
 
     .toc-item a::after {
       content: "↓";
       margin-left: auto;
-      color: #94a3b8;
-      font-size: 0.8rem;
+      color: #cbd5e1;
+      font-size: 0.75rem;
     }
 
     /* Card Layout */
@@ -337,20 +340,6 @@
       margin-bottom: 4px;
     }
 
-    .btn-action {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background-color: var(--primary);
-      color: #ffffff;
-      padding: 12px 16px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.88rem;
-      margin-top: 10px;
-    }
-
     /* フッター */
     footer {
       background-color: var(--primary-dark);
@@ -390,16 +379,16 @@
       <h1 class="page-title">📦 定期購入について</h1>
     </div>
 
-    <!-- 目次ナビゲーション -->
+    <!-- 控えめな目次 -->
     <nav class="toc-card">
-      <div class="toc-title">📌 目次（タップで移動）</div>
+      <div class="toc-title">INDEX</div>
       <ul class="toc-list">
-        <li class="toc-item"><a href="#section-cost">毎月の商品購入（費用構成）</a></li>
-        <li class="toc-item"><a href="#section-schedule">お届けスケジュール＆発送日変更</a></li>
-        <li class="toc-item"><a href="#section-payment">お支払い方法別の注意点</a></li>
-        <li class="toc-item"><a href="#section-deadline">毎月10日の締め日ルール</a></li>
-        <li class="toc-item"><a href="#section-stop">定期購入の停止（お休み・解約）</a></li>
-        <li class="toc-item"><a href="#section-bonus">6ヶ月連続購入特典（6Months）</a></li>
+        <li class="toc-item"><a href="#section-cost"><span class="toc-num">01</span>毎月の商品購入</a></li>
+        <li class="toc-item"><a href="#section-schedule"><span class="toc-num">02</span>お届けスケジュール</a></li>
+        <li class="toc-item"><a href="#section-payment"><span class="toc-num">03</span>お支払い方法</a></li>
+        <li class="toc-item"><a href="#section-deadline"><span class="toc-num">04</span>締め日について</a></li>
+        <li class="toc-item"><a href="#section-stop"><span class="toc-num">05</span>定期購入の停止</a></li>
+        <li class="toc-item"><a href="#section-bonus"><span class="toc-num">06</span>6ヶ月連続購入特典（6Months）</a></li>
       </ul>
     </nav>
 
@@ -433,9 +422,9 @@
       </div>
     </div>
 
-    <!-- 2. 登録日とお届け日スケジュール -->
+    <!-- 2. お届けスケジュール -->
     <div id="section-schedule" class="section-card">
-      <div class="section-card-title">📅 登録日とお届け日スケジュール</div>
+      <div class="section-card-title">📅 お届けスケジュール</div>
       <p class="section-desc">
         ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。
       </p>
@@ -482,13 +471,13 @@
 
       <div class="info-box">
         <div class="info-box-title">💡 発送日（お届けスケジュール）の変更方法</div>
-        発送日を変更する場合は、E-Serviceにログイン後、メニューの<b>【定期購入情報へ】</b>より簡単に変更手続きが行えます。
+        発送日を変更する場合は、E-Serviceにログイン後、メニューの<b>【定期購入情報へ】</b>より変更可能です。
       </div>
     </div>
 
-    <!-- 3. お支払い方法ごとのルール -->
+    <!-- 3. お支払い方法 -->
     <div id="section-payment" class="section-card">
-      <div class="section-card-title">💳 お支払い方法別の注意点</div>
+      <div class="section-card-title">💳 お支払い方法</div>
       
       <div class="step-list">
         
@@ -523,11 +512,11 @@
             <ul>
               <li><b>決済日</b>：毎月 <b>1日</b> に当月分のカード決済処理が行われます。</li>
               <li><b>利用可能なカード</b>：VISA, Mastercard, JCB, AMERICAN EXPRESS, Diners Club</li>
-              <li><b>カード情報の変更</b>：E-Serviceまたは専用電話から変更可能です。</li>
+              <li><b>カード情報の変更</b>：E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です。</li>
             </ul>
             <div class="alert-box">
-              <div class="alert-box-title">⚠️ 有効期限切れ・決済エラーにご注意</div>
-              カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかにE-Serviceより変更手続きを行ってください。
+              <div class="alert-box-title">⚠️️ 有効期限切れ・決済エラーにご注意</div>
+              カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
             </div>
           </div>
         </details>
@@ -535,9 +524,9 @@
       </div>
     </div>
 
-    <!-- 4. 毎月10日の締め日ルール -->
+    <!-- 4. 締め日について -->
     <div id="section-deadline" class="section-card">
-      <div class="section-card-title">⏰ 最重要！「毎月10日」締め日ルール</div>
+      <div class="section-card-title">⏰ 締め日について</div>
       <p class="section-desc">
         定期購入の内容変更・停止・再開には厳格な締め日ルールが定められています。
       </p>
@@ -561,9 +550,9 @@
       </div>
     </div>
 
-    <!-- 5. 定期購入の停止（お休み・解約）について -->
+    <!-- 5. 定期購入の停止 -->
     <div id="section-stop" class="section-card">
-      <div class="section-card-title">🛑 定期購入の停止（お休み・解約）について</div>
+      <div class="section-card-title">🛑 定期購入の停止</div>
       <p class="section-desc">
         定期購入を一時停止（お休み）または解約したい場合は、以下の手順で申請を行ってください。
       </p>
