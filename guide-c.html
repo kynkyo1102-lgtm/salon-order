@@ -2,249 +2,407 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ニナファームジャポン ボーナスプランガイド</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>C. ボーナス取得・権利維持ガイド - メンバーズWebガイド</title>
   <style>
-    :root {
-      --primary-color: #004b8d;
-      --secondary-color: #f4f6f9;
-      --text-color: #333333;
-      --border-color: #dddddd;
-      --accent-color: #e60012;
-    }
-
-    body {
-      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-      line-height: 1.6;
-      color: var(--text-color);
-      background-color: #f9f9f9;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .container {
-      max-width: 900px;
+    body {
+      background-color: #f4f6f9;
+      color: #333333;
+      line-height: 1.6;
+      padding-bottom: 40px;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      -webkit-text-size-adjust: 100%;
+    }
+    
+    /* ヘッダー */
+    header {
+      background-color: #00449e;
+      color: white;
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .header-container {
+      max-width: 600px;
       margin: 0 auto;
-      background: #ffffff;
-      padding: 30px 40px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-
-    h1 {
-      font-size: 24px;
-      color: var(--primary-color);
-      border-bottom: 3px solid var(--primary-color);
-      padding-bottom: 8px;
-      margin-top: 0;
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    .section {
-      margin-bottom: 25px;
-    }
-
-    .section-title {
-      font-size: 18px;
-      color: #ffffff;
-      background-color: var(--primary-color);
-      padding: 6px 12px;
-      border-radius: 4px;
-      margin-bottom: 12px;
+    .back-link {
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
       display: flex;
       align-items: center;
     }
-
-    .section-title span {
-      background-color: #ffffff;
-      color: var(--primary-color);
+    .btn-login {
+      background-color: #ffcc00;
+      color: #333;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.8rem;
       font-weight: bold;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: inline-flex;
+      white-space: nowrap;
+    }
+
+    /* メインコンテナ */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .page-title {
+      font-size: 1.2rem;
+      color: #00449e;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #00449e;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      margin-right: 10px;
-      font-size: 14px;
+      gap: 8px;
     }
 
-    ul {
-      margin: 0;
-      padding-left: 20px;
+    /* セクションカード */
+    .section-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid #e1e4e8;
     }
 
-    li {
-      margin-bottom: 6px;
-    }
-
-    .formula {
-      background-color: var(--secondary-color);
-      border-left: 4px solid var(--primary-color);
-      padding: 8px 12px;
+    .section-title {
+      font-size: 1rem;
       font-weight: bold;
-      margin: 8px 0;
+      color: #00449e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
+    .section-desc {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    /* テーブル */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 8px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 14px;
+      font-size: 0.85rem;
     }
-
     th, td {
-      border: 1px solid var(--border-color);
-      padding: 8px 10px;
+      border: 1px solid #e1e4e8;
+      padding: 10px 8px;
       text-align: left;
     }
-
     th {
-      background-color: var(--secondary-color);
-      color: var(--primary-color);
+      background-color: #f0f4f9;
+      color: #00449e;
       font-weight: bold;
+      white-space: nowrap;
+    }
+    .table-subtext {
+      font-size: 0.75rem;
+      color: #666;
+      display: block;
     }
 
-    .highlight {
+    /* アコーディオンリスト（details / summary） */
+    .accordion-item {
+      border: 1px solid #e1e4e8;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .accordion-item summary {
+      padding: 12px;
+      background-color: #f8f9fa;
       font-weight: bold;
-      color: var(--accent-color);
+      font-size: 0.88rem;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+    }
+    .accordion-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .accordion-item summary::after {
+      content: "▼";
+      font-size: 0.75rem;
+      color: #00449e;
+      transition: transform 0.2s;
+    }
+    .accordion-item[open] summary::after {
+      transform: rotate(180deg);
+    }
+    .accordion-content {
+      padding: 12px;
+      font-size: 0.85rem;
+      border-top: 1px solid #e1e4e8;
+      background: #fff;
+      line-height: 1.6;
     }
 
-    @media print {
-      body {
-        background-color: #ffffff;
-        padding: 0;
-      }
-      .container {
-        box-shadow: none;
-        padding: 0;
-        max-width: 100%;
-      }
+    .sub-list {
+      margin-top: 8px;
+      margin-left: 18px;
+      font-size: 0.83rem;
+    }
+    .sub-list li {
+      margin-bottom: 4px;
+    }
+
+    /* インフォボックス / 警告ボックス */
+    .info-box {
+      background-color: #eef5ff;
+      border-left: 4px solid #00449e;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      color: #003366;
+      margin-top: 10px;
+      border-radius: 0 6px 6px 0;
+    }
+    .warning-box {
+      background-color: #fff0f0;
+      border-left: 4px solid #d9534f;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      color: #a94442;
+      margin-top: 10px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* タブ切り替え（ラジオボタン風） */
+    .selector-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .selector-option {
+      flex: 1;
+    }
+    .selector-option input[type="radio"] {
+      display: none;
+    }
+    .selector-label {
+      display: block;
+      padding: 10px 6px;
+      background: #f0f4f9;
+      border: 2px solid #e1e4e8;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.82rem;
+      color: #555;
+    }
+    .selector-option input[type="radio"]:checked + .selector-label {
+      background: #fff;
+      border-color: #00449e;
+      color: #00449e;
+    }
+
+    .flow-panel {
+      display: none;
+    }
+    .flow-panel.active {
+      display: block;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      padding: 16px;
+      font-size: 0.75rem;
+      color: #666;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>ニナファームジャポン ボーナスプランガイド</h1>
-
-  <!-- 1. 基本ポイント -->
-  <div class="section">
-    <div class="section-title"><span>1</span> 基本となるポイント制度</div>
-    <div class="formula">
-      ボーナス計算式：ポイント (P) × 分配率 (%) ＝ ボーナス金額 (円)
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">E-Service ログイン</a>
     </div>
-    <ul>
-      <li><strong>商品ポイント例（サンテアージュ OX-288）：</strong>
-        <ul>
-          <li>初回購入：7,000P</li>
-          <li>定期購入：10,000P</li>
-          <li>追加購入：6,000P</li>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <!-- ページタイトル -->
+    <h1 class="page-title">🎁 C. ボーナス取得・権利維持ガイド</h1>
+
+    <!-- 1. 基本となるアクティブ条件 -->
+    <div class="section-card">
+      <div class="section-title">💡 1. ボーナス受け取りの基本条件（アクティブ条件）</div>
+      <p class="section-desc">
+        ニナファームジャポンで各種ボーナス（コミッション）を受け取るためには、毎月以下の<b>2つのアクティブ条件</b>を満たしている必要があります。
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:35%;">条件項目</th>
+              <th>詳細要件</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>① ご自身の購入</th>
+              <td>当月、ご自身で<b>1万pt（約13,800円相当）以上</b>の商品を購入していること。</td>
+            </tr>
+            <tr>
+              <th>② 直紹介者の購入</th>
+              <td>直紹介した会員のうち、当月<b>1万pt以上購入している方が2名以上</b>いること。<br><span class="table-subtext">※左右の系列それぞれに1名以上アクティブがいる必要があります。</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <b>💡 ポイント：</b>定期購入（定期便）を設定しておくことで、ご自身のアクティブ条件（①）を毎月自動でクリアできます。
+      </div>
+    </div>
+
+    <!-- 2. ボーナス毎の取得条件 -->
+    <div class="section-card">
+    <div class="section-title">📊 2. 各ボーナスの仕組みと取得要件</div>
+    <p class="section-desc">タップすると各ボーナスの詳細が表示されます。</p>
+
+    <!-- タッチ型アコーディオン -->
+    <details class="accordion-item">
+      <summary>① ファーストボーナス（直紹介手当）</summary>
+      <div class="accordion-content">
+        直接紹介した新会員が初回登録（商品購入）を行った際に支払われる単発のボーナスです。
+        <ul class="sub-list">
+          <li><b>1点登録の場合：</b> 2,000円</li>
+          <li><b>3点登録の場合：</b> 6,000円</li>
         </ul>
-      </li>
-      <li><strong>自己購入ポイントの扱い：</strong>自己購入10,000Pまでは上位者のポイントとなり、10,000Pを超えた分から自身のグループ売上（少ない側）に加算されます。</li>
-    </ul>
+      </div>
+    </details>
+
+    <details class="accordion-item">
+      <summary>② チームエクスパンドボーナス（メインボーナス）</summary>
+      <div class="accordion-content">
+        ご自身の組織（左右のチーム）の購入ポイントに応じて計算されるメインの継続ボーナスです。
+        <ul class="sub-list">
+          <li><b>計算単位：</b> 左右の小さい方のチームのpt数に応じて算出</li>
+          <li><b>取得要件：</b> 基本アクティブ条件（ご自身1万pt＋左右直紹介アクティブ各1名）の達成が必要</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="accordion-item">
+      <summary>③ プレジデンシャルボーナス（タイトル手当）</summary>
+      <div class="accordion-content">
+        一定以上のタイトル（リーダーシップランク）を達成・維持することで、会社の全体売上プールから割り当てられる特別手当です。
+        <div class="info-box">
+          詳細な還元率や達成数値は、最新の公式概要書面をご確認ください。
+        </div>
+      </div>
+    </details>
+
   </div>
 
-  <!-- 2. 締め日・支給条件・支払ルール -->
-  <div class="section">
-    <div class="section-title"><span>2</span> 締め日・支給条件・支払ルール</div>
-    <ul>
-      <li><strong>実績計算期間：</strong>当月1日〜末日</li>
-      <li><strong>受給必須条件：</strong>会員資格が有効であり、当月10,000P以上の購入実績があること</li>
-      <li><strong>振込・支払：</strong>
-        <ul>
-          <li><strong>振込日：</strong>翌月25日（土日祝の場合は翌営業日）</li>
-          <li><strong>手数料等：</strong>振込手数料 700円（税込）を相殺 / 合計3,000円未満は翌月繰越</li>
-        </ul>
-      </li>
-      <li><strong>規定・上限（キャップ）：</strong>
-        <ul>
-          <li><strong>還元率キャップ：</strong>総売上Pの最大55%（超えた場合は対象ボーナスを比例調整）</li>
-          <li><strong>税務手続き：</strong>月額12万円超で源泉徴収（10.21%）。適格請求書発行事業者番号の届出がない場合は消費税相当額を控除</li>
-        </ul>
-      </li>
-    </ul>
+  <!-- 3. 注意点・リカバリー（カードエラー等） -->
+  <div class="section-card">
+    <div class="section-title">⚠️ 3. 権利喪失を防ぐための注意点</div>
+    <p class="section-desc">
+      クレジットカードの有効期限切れや限度額オーバーにより定期決済がエラーになると、アクティブ権利が失効する場合があります。
+    </p>
+
+    <div class="selector-group">
+      <div class="selector-option">
+        <input type="radio" id="tab-card" name="trouble-type" checked onchange="switchTrouble()">
+        <label for="tab-card" class="selector-label">💳 カード決済エラー</label>
+      </div>
+      <div class="selector-option">
+        <input type="radio" id="tab-bank" name="trouble-type" onchange="switchTrouble()">
+        <label for="tab-bank" class="selector-label">🏦 口座振替エラー</label>
+      </div>
+    </div>
+
+    <!-- カードエラー時の対応 -->
+    <div id="panel-card" class="flow-panel active">
+      <div class="warning-box">
+        <b>【クレジットカードエラー時の対処法】</b><br>
+        月末までに公式E-Serviceにログインし、カード情報の更新またはスポット購入で決済を完了させてください。
+      </div>
+      <ul class="sub-list" style="margin-top: 10px;">
+        <li>1. E-Serviceにログイン</li>
+        <li>2. 「会員情報変更」からカード情報を更新</li>
+        <li>3. 当月分の再決済処理を実施</li>
+      </ul>
+    </div>
+
+    <!-- 口座振替エラー時の対応 -->
+    <div id="panel-bank" class="flow-panel">
+      <div class="warning-box">
+        <b>【口座振替残高不足時の対処法】</b><br>
+        引き落としが出来なかった場合は、当月中に本社指定口座への銀行振込によるリカバリーが必要です。
+      </div>
+      <ul class="sub-list" style="margin-top: 10px;">
+        <li>※振込先詳細は会社からの通知メール、またはカスタマーサポートにご確認ください。</li>
+      </ul>
+    </div>
+
   </div>
 
-  <!-- 3. 全9種類のボーナス体系 -->
-  <div class="section">
-    <div class="section-title"><span>3</span> 全9種類のボーナス体系</div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 22%;">区分</th>
-          <th style="width: 28%;">ボーナス名</th>
-          <th style="width: 50%;">取得条件・概要</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td rowspan="3"><strong>新規・継続</strong></td>
-          <td>① ファーストスタート</td>
-          <td>新規会員紹介1人につき <span class="highlight">3,000円</span></td>
-        </tr>
-        <tr>
-          <td>② 5アクティブ</td>
-          <td>アクティブ紹介者5人で1口。総売上Pの1%を分配</td>
-        </tr>
-        <tr>
-          <td>③ 10アクティブ</td>
-          <td>アクティブ紹介者10人で1口。総売上Pの1%を分配（サファイヤまで）</td>
-        </tr>
-        <tr>
-          <td><strong>グループ実績</strong></td>
-          <td>④ ベーシックコミッション</td>
-          <td>左右のグループ売上のうち少ない方の <span class="highlight">最大10%</span>（対象: 3万P〜2,500万P）</td>
-        </tr>
-        <tr>
-          <td rowspan="2"><strong>育成サポート</strong></td>
-          <td>⑤ メガマッチ</td>
-          <td>直紹介者が獲得したベーシックコミッションの <span class="highlight">100%</span>（クリスタル以上）</td>
-        </tr>
-        <tr>
-          <td>⑥ ダブルメガマッチ</td>
-          <td>二次紹介者が獲得したベーシックコミッションの <span class="highlight">10%</span></td>
-        </tr>
-        <tr>
-          <td><strong>タイトル</strong></td>
-          <td>⑦ リーダーシップ</td>
-          <td>エメラルド以上対象。実績に応じた倍率と分配率で算出</td>
-        </tr>
-        <tr>
-          <td rowspan="2"><strong>決算ボーナス</strong></td>
-          <td>⑧ アニュアルマネジメントフィー (AMF)</td>
-          <td>ロワイヤルダイヤモンド対象の決算ボーナス（年2回）</td>
-        </tr>
-        <tr>
-          <td>⑨ カリナン AMF</td>
-          <td>カリナンロワイヤルダイヤモンド（6ヶ月連続達成）対象の決算ボーナス（年2回）</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 4. 組織配置とブランチ制度 -->
-  <div class="section">
-    <div class="section-title"><span>4</span> 組織配置とブランチ制度</div>
-    <ul>
-      <li><strong>配置ルール：</strong>
-        <ul>
-          <li><strong>自動配置：</strong>申請受付順等に基づき、左右グループの人数が少ない側に「左優先」で配置</li>
-          <li><strong>上位者指定配置：</strong>指定上位者の直下（またはその傘下の少ない側・左優先）に配置</li>
-        </ul>
-      </li>
-      <li><strong>タイトル昇格とマイナンバー：</strong>
-        <ul>
-          <li>少ない側のグループ売上P（クリスタル: 20万P〜、ダイヤモンド: 3,000万P〜等）と必要アクティブ数で判定</li>
-          <li><strong>マイナンバー届出：</strong>クリスタル以上への昇格・ボーナス受け取りには個人番号（マイナンバー）の提出が必要です</li>
-        </ul>
-      </li>
-      <li><strong>ブランチ（分身ポジション）：</strong>本店の獲得タイトルに応じて、自グループ内に独立した自身のポジション（ブランチ）を開設可能</li>
-    </ul>
-  </div>
 </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>※当サイトは会員有志による手続き・仕組みの解説用ガイドであり、公式の概要書面を正とします。</p>
+    <p style="margin-top: 6px;">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</p>
+  </footer>
+
+  <!-- 動的切り替え用スクリプト -->
+  <script>
+    function switchTrouble() {
+      const isCard = document.getElementById('tab-card').checked;
+      const panelCard = document.getElementById('panel-card');
+      const panelBank = document.getElementById('panel-bank');
+
+      if (isCard) {
+        panelCard.classList.add('active');
+        panelBank.classList.remove('active');
+      } else {
+        panelBank.classList.add('active');
+        panelCard.classList.remove('active');
+      }
+    }
+  </script>
 
 </body>
 </html>
