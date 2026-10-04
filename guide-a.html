@@ -9,9 +9,8 @@
       --primary: #1b4ea8;       /* ロイヤルブルー */
       --primary-dark: #123778;  /* ダークブルー */
       --accent: #d4e114;        /* ライムグリーン */
-      --accent-dark: #b1bd05;
-      --bg-color: #f0f4f9;
-      --text-color: #333333;
+      --bg-color: #f4f6f9;
+      --text-color: #2c3e50;
       --card-bg: #ffffff;
     }
     
@@ -26,21 +25,22 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
-      line-height: 1.6;
-      padding-bottom: 40px;
+      line-height: 1.7;
+      padding-bottom: 50px;
       word-break: break-all;
       overflow-wrap: anywhere;
+      -webkit-text-size-adjust: 100%;
     }
 
     /* ヘッダー */
     header {
       background-color: var(--primary);
       border-bottom: 3px solid var(--accent);
-      padding: 12px 15px;
+      padding: 14px 16px;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 
     .header-container {
@@ -49,13 +49,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .back-link {
       color: #ffffff;
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -66,10 +66,10 @@
     .btn-login {
       background-color: var(--accent);
       color: #1a1a1a;
-      padding: 6px 12px;
+      padding: 7px 14px;
       border-radius: 20px;
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: bold;
       white-space: nowrap;
       flex-shrink: 0;
@@ -79,86 +79,106 @@
     .container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 15px 12px;
+      padding: 18px 14px;
     }
 
     .page-header {
       background: #ffffff;
-      border-radius: 10px;
-      padding: 16px 15px;
-      margin-bottom: 15px;
-      border-left: 5px solid var(--primary);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      border-left: 6px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
     .page-category {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: bold;
       color: var(--primary);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      letter-spacing: 0.05em;
     }
 
     .page-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: #1a1a1a;
-      line-height: 1.35;
+      line-height: 1.4;
+      font-weight: bold;
     }
 
     /* Card Layout */
     .section-card {
       background: #ffffff;
-      border-radius: 10px;
-      padding: 16px 14px;
-      margin-bottom: 15px;
-      border: 1px solid #dbe3ee;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      border-radius: 12px;
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
     .section-card-title {
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       font-weight: bold;
       color: var(--primary-dark);
-      border-bottom: 2px solid #eef3fb;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
-    /* 比較表（スマホ最適化） */
+    .section-desc {
+      font-size: 0.85rem;
+      color: #4a5568;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    /* 比較表（スマホ最適化・窮屈感の解消） */
     .table-container {
       width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      margin-top: 8px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       table-layout: fixed;
+      background: #fff;
     }
 
     th, td {
-      border: 1px solid #dbe3ee;
-      padding: 8px 8px;
+      border: 1px solid #edf2f7;
+      padding: 10px 8px;
       text-align: left;
       vertical-align: middle;
+      line-height: 1.5;
     }
 
     th {
-      background-color: #f0f4f9;
+      background-color: #f7fafc;
       color: var(--primary-dark);
       font-weight: bold;
+    }
+
+    .table-subtext {
+      font-size: 0.72rem;
+      color: #718096;
+      display: block;
+      margin-top: 2px;
     }
 
     /* 登録方法切り替え（タブ型ラジオボタンUI） */
     .selector-group {
       display: flex;
-      gap: 8px;
-      margin-bottom: 15px;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
     .selector-option {
@@ -178,32 +198,32 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 10px 6px;
+      padding: 12px 8px;
       background: #f8fafc;
       border: 2px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 10px;
       text-align: center;
       cursor: pointer;
       font-weight: bold;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: #475569;
       transition: all 0.2s ease;
-      min-height: 54px;
+      min-height: 60px;
     }
 
     .selector-option input[type="radio"]:checked + .selector-label {
-      background: #eef2ff;
+      background: #ebf8ff;
       border-color: var(--primary);
       color: var(--primary-dark);
-      box-shadow: 0 0 0 1px var(--primary);
+      box-shadow: 0 2px 6px rgba(27,78,168,0.15);
     }
 
     .selector-label span {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: normal;
       color: #64748b;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     /* 手順パネル表示切り替え */
@@ -215,28 +235,32 @@
       display: block;
     }
 
-    /* 折りたたみ（details / summary）アコーディオン風デザイン */
+    /* ステップリスト */
     .step-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .step-item {
       border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
       background: #ffffff;
     }
 
-    .step-item summary {
-      padding: 12px 12px;
+    /* 折りたたみ用 header / summary */
+    .step-item summary, .step-header-static {
+      padding: 14px 14px;
       background: #f8fafc;
-      cursor: pointer;
-      list-style: none;
       display: flex;
       align-items: center;
       user-select: none;
+    }
+
+    .step-item summary {
+      cursor: pointer;
+      list-style: none;
       transition: background-color 0.2s;
     }
 
@@ -253,28 +277,28 @@
       color: #fff;
       font-weight: bold;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      margin-right: 10px;
+      font-size: 0.85rem;
+      margin-right: 12px;
       flex-shrink: 0;
     }
 
     .step-title-text {
       font-weight: bold;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: #1e293b;
       flex: 1;
-      line-height: 1.35;
+      line-height: 1.4;
     }
 
     .step-toggle-icon {
       font-size: 0.75rem;
       color: #64748b;
-      margin-left: 6px;
+      margin-left: 8px;
       transition: transform 0.2s ease;
       flex-shrink: 0;
     }
@@ -283,20 +307,41 @@
       transform: rotate(180deg);
     }
 
-    .step-body {
-      padding: 12px;
-      font-size: 0.84rem;
-      color: #334155;
-      border-top: 1px solid #e2e8f0;
+    /* 常時開いているステップ用スタイル（ステップ②） */
+    .step-item-static {
+      border: 2px solid #4a90e2;
+      border-radius: 10px;
+      overflow: hidden;
       background: #ffffff;
-      line-height: 1.55;
+      box-shadow: 0 2px 6px rgba(74,144,226,0.12);
+    }
+
+    .step-header-static {
+      background: #edf2f7;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .step-body {
+      padding: 14px;
+      font-size: 0.86rem;
+      color: #334155;
+      line-height: 1.65;
+      background: #ffffff;
+    }
+
+    .step-item[open] .step-body {
+      border-top: 1px solid #e2e8f0;
     }
 
     .step-sub-list {
-      margin-top: 6px;
-      margin-left: 18px;
-      font-size: 0.82rem;
+      margin-top: 8px;
+      margin-left: 20px;
+      font-size: 0.84rem;
       color: #475569;
+    }
+
+    .step-sub-list li {
+      margin-bottom: 4px;
     }
 
     /* 赤文字（クーリング・オフ等） */
@@ -312,12 +357,13 @@
       text-align: center;
       background-color: var(--primary);
       color: #ffffff;
-      padding: 11px 15px;
-      border-radius: 6px;
+      padding: 13px 16px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 0.88rem;
-      margin: 10px 0 4px;
+      font-size: 0.92rem;
+      margin-top: 10px;
+      box-shadow: 0 2px 6px rgba(27,78,168,0.2);
       transition: background 0.2s;
     }
 
@@ -329,27 +375,29 @@
     .info-box {
       background: #fffbe6;
       border: 1px solid #ffe58f;
-      border-radius: 6px;
-      padding: 10px 12px;
-      font-size: 0.8rem;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
       color: #595959;
-      margin-top: 10px;
+      margin-top: 12px;
+      line-height: 1.6;
     }
 
     .info-box-title {
       font-weight: bold;
       color: #d48806;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .bank-box {
       background: #f8fafc;
       border: 1px dashed #cbd5e1;
-      border-radius: 6px;
-      padding: 8px 10px;
-      margin-top: 8px;
-      font-size: 0.8rem;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 0.82rem;
       color: #334155;
+      line-height: 1.6;
     }
 
     /* フッター */
@@ -357,17 +405,18 @@
       background-color: var(--primary-dark);
       color: #ffffff;
       text-align: center;
-      margin-top: 30px;
-      padding: 20px 12px;
+      margin-top: 35px;
+      padding: 24px 16px;
       border-top: 4px solid var(--accent);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
+      line-height: 1.6;
     }
 
     .copyright {
-      margin-top: 10px;
+      margin-top: 12px;
       color: var(--accent);
       font-weight: bold;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
     }
   </style>
 </head>
@@ -377,7 +426,7 @@
   <header>
     <div class="header-container">
       <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
-      <a href="https://sslgw.jns-asp.jp/685/Magic31Scripts/MGrqispi.dll?APPNAME=ninapharm&PRGNAME=signup_start" target="_blank" class="btn-login">🔐 公式E-Service</a>
+      <a href="url?id=1" target="_blank" class="btn-login">🔐 公式E-Service</a>
     </div>
   </header>
 
@@ -393,7 +442,7 @@
     <!-- 1. WEB登録と郵送登録の違い -->
     <div class="section-card">
       <div class="section-card-title">⚖️ 登録方法の比較（WEB or 郵送）</div>
-      <p style="font-size:0.8rem; color:#64748b; margin-bottom:10px;">
+      <p class="section-desc">
         状況に合わせて最適な案内方法をお選びください。どちらの手続きも<b>会員登録料は無料</b>です。
       </p>
 
@@ -415,12 +464,12 @@
             <tr>
               <th>初回決済</th>
               <td>カード決済</td>
-              <td><b>事前振込</b><br><span style="font-size:0.7rem; color:#64748b;">（明細コピー添付）</span></td>
+              <td><b>事前振込</b><span class="table-subtext">（明細コピー添付）</span></td>
             </tr>
             <tr>
               <th>完了目安</th>
-              <td><b>審査後、順次処理</b><br><span style="font-size:0.7rem; color:#64748b;">（スピーディー）</span></td>
-              <td><b>郵送後、順次処理</b><br><span style="font-size:0.7rem; color:#64748b;">（日数がかかります）</span></td>
+              <td><b>審査後、順次処理</b><span class="table-subtext">（スピーディー）</span></td>
+              <td><b>郵送後、順次処理</b><span class="table-subtext">（日数がかかります）</span></td>
             </tr>
             <tr>
               <th>審査について</th>
@@ -439,7 +488,7 @@
     <!-- 2. 登録方法の選択 -->
     <div class="section-card">
       <div class="section-card-title">📋 登録手順の案内（方法を選択）</div>
-      <p style="font-size:0.82rem; color:#475569; margin-bottom:12px;">
+      <p class="section-desc">
         登録方法を選択し、各ステップをタップして手順をご確認ください。
       </p>
 
@@ -461,10 +510,11 @@
         </div>
       </div>
 
-      <!-- パネル1: WEB登録の流れ（折りたたみ式） -->
+      <!-- パネル1: WEB登録の流れ -->
       <div id="panel-web" class="flow-panel active">
         <div class="step-list">
 
+          <!-- ステップ1（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">1</span>
@@ -487,18 +537,19 @@
             </div>
           </details>
 
-          <details class="step-item">
-            <summary>
+          <!-- ステップ2（★折りたたみなし常時オープン） -->
+          <div class="step-item-static">
+            <div class="step-header-static">
               <span class="step-num">2</span>
               <span class="step-title-text">WEB登録受付ページへアクセス</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
+            </div>
             <div class="step-body">
               以下の公式受付ページへアクセスします。
-              <a href="https://sslgw.jns-asp.jp/685/Magic31Scripts/MGrqispi.dll?APPNAME=ninapharm&PRGNAME=signup_start" target="_blank" class="btn-official-link">🔗 ニナファームジャポン WEB登録受付ページ</a>
+              <a href="url?id=1" target="_blank" class="btn-official-link">🔗 ニナファームジャポン WEB登録受付ページ</a>
             </div>
-          </details>
+          </div>
 
+          <!-- ステップ3（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">3</span>
@@ -510,6 +561,7 @@
             </div>
           </details>
 
+          <!-- ステップ4（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">4</span>
@@ -521,6 +573,7 @@
             </div>
           </details>
 
+          <!-- ステップ5（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">5</span>
@@ -546,6 +599,7 @@
             </div>
           </details>
 
+          <!-- ステップ6（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">6</span>
@@ -558,6 +612,7 @@
             </div>
           </details>
 
+          <!-- ステップ7（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">7</span>
@@ -569,6 +624,7 @@
             </div>
           </details>
 
+          <!-- ステップ8（折りたたみ） -->
           <details class="step-item">
             <summary>
               <span class="step-num">8</span>
@@ -678,20 +734,20 @@
       <div class="table-container">
         <table>
           <tr>
-            <th style="width:32%;">会員登録料</th>
+            <th style="width:34%;">会員登録料</th>
             <td><b>0円（無料）</b></td>
           </tr>
           <tr>
-            <th>初回購入費用<br><span style="font-size:0.7rem; font-weight:normal; color:#666;">（1点登録）</span></th>
-            <td><b>商品代金 ￥16,800<br>＋ 配送手数料 ￥1,000</b><br><span style="font-size:0.75rem; color:#666;">（合計 ￥17,800 / OX-288 1個）</span></td>
+            <th>初回購入費用<span class="table-subtext">（1点登録）</span></th>
+            <td><b>商品代金 ￥16,800<br>＋ 配送手数料 ￥1,000</b><span class="table-subtext">（合計 ￥17,800 / OX-288 1個）</span></td>
           </tr>
           <tr>
-            <th>初回購入費用<br><span style="font-size:0.7rem; font-weight:normal; color:#666;">（3点登録）</span></th>
-            <td><b>商品代金 ￥50,400<br>＋ 配送手数料 ￥1,000</b><br><span style="font-size:0.75rem; color:#666;">（合計 ￥51,400 / OX-288 3個）</span></td>
+            <th>初回購入費用<span class="table-subtext">（3点登録）</span></th>
+            <td><b>商品代金 ￥50,400<br>＋ 配送手数料 ￥1,000</b><span class="table-subtext">（合計 ￥51,400 / OX-288 3個）</span></td>
           </tr>
           <tr>
-            <th>2ヶ月目以降<br><span style="font-size:0.7rem; font-weight:normal; color:#666;">（追加・定期）</span></th>
-            <td><b>￥13,800 / 1個あたり</b><br><span style="font-size:0.75rem; color:#666;">（会員価格・送料別）</span></td>
+            <th>2ヶ月目以降<span class="table-subtext">（追加・定期）</span></th>
+            <td><b>￥13,800 / OX-288 1個あたり</b><span class="table-subtext">（会員価格・送料別）</span></td>
           </tr>
         </table>
       </div>
