@@ -2,190 +2,703 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>C. ボーナス取得・権利維持ガイド - メンバーズWebガイド</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background-color: #f8fafc;
-      color: #334155;
-    }
-    .header-bg {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    }
-
-    /* INDEX（目次）スタイルの調整（控えめな設定） */
-    .index-title {
-      font-size: 0.85rem;      /* 小さめのサイズ */
-      font-weight: 500;        /* 控えめな太さ */
-      color: #6b7280;          /* 落ち着いたグレー */
-      letter-spacing: 0.05em;
+    :root {
+      --primary: #1b4ea8;       /* ロイヤルブルー */
+      --primary-dark: #123778;  /* ダークブルー */
+      --accent: #d4e114;        /* ライムグリーン */
+      --bg-color: #f4f6f9;
+      --text-color: #2c3e50;
+      --card-bg: #ffffff;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
     }
     
-    .index-list-item {
-      font-size: 0.9rem;       /* 文字サイズを調整 */
-      font-weight: 400;        /* 細めのフォントウェイト */
-      color: #374151;          /* ダークグレー */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
     }
 
-    .index-list-item:hover {
-      background-color: #f1f5f9;
-      color: #2563eb;
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.7;
+      padding-bottom: 50px;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* ヘッダー */
+    header {
+      background-color: var(--primary);
+      border-bottom: 3px solid var(--accent);
+      padding: 14px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.8;
+    }
+
+    .btn-login {
+      background-color: var(--accent);
+      color: #1a1a1a;
+      padding: 7px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: bold;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+
+    .btn-login:active {
+      transform: scale(0.98);
+    }
+
+    /* メインコンテナ */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 18px 14px;
+    }
+
+    .page-header {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      border-left: 6px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .page-category {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .page-title {
+      font-size: 1.25rem;
+      color: #1a1a1a;
+      line-height: 1.4;
+      font-weight: bold;
+    }
+
+    /* 目次 (INDEX) スタイル - guide-b.htmlに準拠 */
+    .index-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px 18px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .index-header {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #8a99ad;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .index-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .index-list li {
+      border-bottom: 1px dotted #e2e8f0;
+    }
+
+    .index-list li:last-child {
+      border-bottom: none;
+    }
+
+    .index-list a {
+      display: flex;
+      align-items: center;
+      padding: 12px 4px;
+      text-decoration: none;
+      color: #2d3748;
+      font-weight: bold;
+      font-size: 0.92rem;
+      transition: color 0.2s, background-color 0.2s;
+    }
+
+    .index-list a:hover {
+      color: var(--primary);
+    }
+
+    .index-num {
+      color: var(--primary);
+      font-weight: 800;
+      margin-right: 12px;
+      font-size: 0.95rem;
+      min-width: 24px;
+    }
+
+    .index-arrow {
+      margin-left: auto;
+      color: #cbd5e1;
+      font-size: 0.8rem;
+    }
+
+    /* セクションカード */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 18px 16px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      scroll-margin-top: 70px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: #4a5568;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    /* テーブル */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+      background: #ffffff;
+    }
+
+    th, td {
+      border: 1px solid #edf2f7;
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+
+    th {
+      background-color: #f7fafc;
+      color: var(--primary-dark);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .table-subtext {
+      font-size: 0.72rem;
+      color: #718096;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .sub-list {
+      margin-top: 8px;
+      margin-left: 20px;
+      font-size: 0.84rem;
+      color: #475569;
+    }
+
+    .sub-list li {
+      margin-bottom: 4px;
+    }
+
+    /* インフォボックス / 警告ボックス */
+    .info-box {
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #595959;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #991b1b;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* タブ切り替え（ラジオボタンUI） */
+    .selector-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .selector-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .selector-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .selector-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 8px;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.88rem;
+      color: #475569;
+      transition: all 0.2s ease;
+      min-height: 54px;
+    }
+
+    .selector-option input[type="radio"]:checked + .selector-label {
+      background: #ebf8ff;
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      box-shadow: 0 2px 6px rgba(27, 78, 168, 0.15);
+    }
+
+    .flow-panel {
+      display: none;
+    }
+
+    .flow-panel.active {
+      display: block;
+    }
+
+    /* フッター */
+    footer {
+      background-color: var(--primary-dark);
+      color: #ffffff;
+      text-align: center;
+      margin-top: 35px;
+      padding: 24px 16px;
+      border-top: 4px solid var(--accent);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .copyright {
+      margin-top: 12px;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 0.74rem;
     }
   </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex flex-col">
+<body>
 
   <!-- ヘッダー -->
-  <header class="header-bg text-white shadow-md sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="index.html" class="flex items-center text-sm font-medium hover:text-blue-200 transition-colors">
-        <i class="fas fa-arrow-left mr-2"></i> トップガイドへ戻る
-      </a>
-      <a href="https://e-service.santeage.com/login" target="_blank" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 px-3 py-1.5 rounded-full font-bold text-xs flex items-center shadow-sm transition-all">
-        <i class="fas fa-sign-in-alt mr-1"></i> E-Service ログイン
-      </a>
+  <header>
+    <div class="header-container">
+      <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
+      <a href="https://github.com/kynkyo1102-lgtm/salon-order6" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
     </div>
   </header>
 
-  <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6">
+  <!-- メインコンテンツ -->
+  <div class="container">
 
-    <!-- INDEX (目次エリア) -->
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 mb-8">
-      <div class="index-title uppercase mb-3 flex items-center">
-        <span>INDEX</span>
-      </div>
-      <div class="space-y-1">
-        <a href="#sec1" class="index-list-item flex items-center justify-between p-2.5 rounded-lg transition-colors">
-          <span class="flex items-center">
-            <span class="font-bold text-blue-600 mr-3 text-sm">01</span>
-            ボーナス取得の基本条件
-          </span>
-          <i class="fas fa-chevron-right text-xs text-slate-300"></i>
-        </a>
-        <a href="#sec2" class="index-list-item flex items-center justify-between p-2.5 rounded-lg transition-colors">
-          <span class="flex items-center">
-            <span class="font-bold text-blue-600 mr-3 text-sm">02</span>
-            9種類のボーナスプラン概要
-          </span>
-          <i class="fas fa-chevron-right text-xs text-slate-300"></i>
-        </a>
-        <a href="#sec3" class="index-list-item flex items-center justify-between p-2.5 rounded-lg transition-colors">
-          <span class="flex items-center">
-            <span class="font-bold text-blue-600 mr-3 text-sm">03</span>
-            タイトル昇格条件とブランチ
-          </span>
-          <i class="fas fa-chevron-right text-xs text-slate-300"></i>
-        </a>
-        <a href="#sec4" class="index-list-item flex items-center justify-between p-2.5 rounded-lg transition-colors">
-          <span class="flex items-center">
-            <span class="font-bold text-blue-600 mr-3 text-sm">04</span>
-            権利喪失を防ぐための注意点・支払仕様
-          </span>
-          <i class="fas fa-chevron-right text-xs text-slate-300"></i>
-        </a>
-      </div>
+    <!-- ページタイトル -->
+    <div class="page-header">
+      <div class="page-category">GUIDE C</div>
+      <h1 class="page-title">🎁 ボーナス取得・権利維持ガイド</h1>
     </div>
 
-    <!-- セクション 1 -->
-    <section id="sec1" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
-      <h2 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-3 mb-4 flex items-center">
-        <span class="mr-2">💡</span> 1. ボーナス取得の基本条件
-      </h2>
-      <p class="text-sm text-slate-600 leading-relaxed mb-4">
+    <!-- 目次 (INDEX) -->
+    <div class="index-card">
+      <div class="index-header">INDEX</div>
+      <ul class="index-list">
+        <li>
+          <a href="#sec-1">
+            <span class="index-num">01</span>
+            <span>ボーナス取得の基本条件</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sec-2">
+            <span class="index-num">02</span>
+            <span>9種類のボーナスプラン概要</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sec-3">
+            <span class="index-num">03</span>
+            <span>タイトル昇格条件とブランチ</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sec-4">
+            <span class="index-num">04</span>
+            <span>権利喪失を防ぐための注意点・支払仕様</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 1. 基本となるアクティブ条件 -->
+    <div id="sec-1" class="section-card">
+      <div class="section-title">💡 1. ボーナス取得の基本条件</div>
+      <p class="section-desc">
         ボーナスを受け取るためには、該当月度の会員資格が有効であり、以下の条件を満たしている必要があります。
       </p>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm border-collapse">
+      <div class="table-container">
+        <table>
           <thead>
-            <tr class="bg-slate-100 text-slate-700">
-              <th class="p-3 border border-slate-200 font-semibold w-1/3">条件項目</th>
-              <th class="p-3 border border-slate-200 font-semibold">詳細要件</th>
+            <tr>
+              <th style="width:30%;">条件項目</th>
+              <th>詳細要件</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-200 text-slate-600">
+          <tbody>
             <tr>
-              <td class="p-3 border border-slate-200 font-medium bg-slate-50">① 自己購入実績</td>
-              <td class="p-3 border border-slate-200">
-                各配置（本店・支店・ブランチ等）にて、当月にサンテアージュ OX-288（会員価格13,800円/税込）等の購入により<strong class="text-slate-800">10,000ポイント（P）以上</strong>の実績が必要です。
-              </td>
+              <th>① 自己購入実績</th>
+              <td>各配置（本店・支店・ブランチ等）にて、当月にサンテアージュ OX-288（会員価格13,800円/税込）等の購入により<b>10,000ポイント（P）以上</b>の実績が必要です。</td>
             </tr>
             <tr>
-              <td class="p-3 border border-slate-200 font-medium bg-slate-50">② アクティブ直紹介実績</td>
-              <td class="p-3 border border-slate-200">
+              <th>② アクティブ紹介者</th>
+              <td>
                 以下のいずれかに該当する紹介者が存在すること：
-                <ul class="list-disc list-inside mt-1 space-y-1 text-xs text-slate-500">
+                <ul class="sub-list" style="margin-top:4px;">
                   <li>当月に新規登録した直接紹介会員</li>
-                  <li>当月に定期購入・追加購入を行い10,000P以上を獲得している直接紹介会員</li>
+                  <li>当月に10,000P以上の購入実績がある直接紹介会員</li>
+                  <li>当月に10,000P以上の購入実績がある自身の支店・ブランチポジション</li>
                 </ul>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </section>
 
-    <!-- セクション 2 -->
-    <section id="sec2" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
-      <h2 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-3 mb-4 flex items-center">
-        <span class="mr-2">💎</span> 2. 9種類のボーナスプラン概要
-      </h2>
-      <p class="text-sm text-slate-600 leading-relaxed mb-4">
-        組織の成長状況や個人の実績に応じて支給される多様なボーナス体系が用意されています。
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-        <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
-          <div class="font-bold text-blue-900 mb-1">1. デイリーボーナス</div>
-          <div class="text-xs text-slate-600">日々の組織ボリュームに応じて発生する還元インセンティブ。</div>
-        </div>
-        <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
-          <div class="font-bold text-blue-900 mb-1">2. ウィークリーボーナス</div>
-          <div class="text-xs text-slate-600">週単位で締め切られ、成果に応じて還元される成果報酬。</div>
-        </div>
-        <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
-          <div class="font-bold text-blue-900 mb-1">3. マンスリーボーナス</div>
-          <div class="text-xs text-slate-600">月間の達成度合いや保持タイトルに応じて計算・支給。</div>
-        </div>
-        <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
-          <div class="font-bold text-blue-900 mb-1">4. タイトル昇格ボーナス</div>
-          <div class="text-xs text-slate-600">指定の昇格条件を達成した際に一括または分割で付与。</div>
-        </div>
+      <div class="info-box">
+        <b>💡 ポイント：</b>定期購入を設定しておくことで、ご自身のアクティブ条件（①）を毎月自動でクリアできます。
       </div>
-    </section>
+    </div>
 
-    <!-- セクション 3 -->
-    <section id="sec3" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
-      <h2 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-3 mb-4 flex items-center">
-        <span class="mr-2">🏆</span> 3. タイトル昇格条件とブランチ
-      </h2>
-      <p class="text-sm text-slate-600 leading-relaxed">
-        各タイトルへの昇格には、自己購入実績に加え、配下組織全体でのポイント（P）総数および系列（ブランチ）の配置要件を満たす必要があります。
+    <!-- 2. 9種類のボーナスプラン概要 -->
+    <div id="sec-2" class="section-card">
+      <div class="section-title">📊 2. 9種類のボーナスプラン概要</div>
+      <p class="section-desc">ニナファームジャポンでは、実績やビジネス目標に応じた9種類のボーナスが用意されています。</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40%;">ボーナス名称</th>
+              <th>概要・特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>① ファーストスタートボーナス</th>
+              <td>新規会員を紹介するごとに<b>3,000円</b>を取得。</td>
+            </tr>
+            <tr>
+              <th>② 5アクティブボーナス</th>
+              <td>アクティブ紹介者5人（1口）で総売上Pの1%を達成口数で分配（最大1口、メンバー対象）。</td>
+            </tr>
+            <tr>
+              <th>③ 10アクティブボーナス</th>
+              <td>アクティブ紹介者10人（1口）で総売上Pの1%を達成口数で分配（サファイヤまで対象）。</td>
+            </tr>
+            <tr>
+              <th>④ ベーシックコミッションボーナス</th>
+              <td>左右グループのうち売上Pが少ない方の実績に応じ最大10%（対象範囲: 3万P〜2,500万P）を取得。</td>
+            </tr>
+            <tr>
+              <th>⑤ メガマッチボーナス</th>
+              <td>直接紹介者が取得したベーシックコミッションボーナスの<b>100%</b>を取得（クリスタル以上）。</td>
+            </tr>
+            <tr>
+              <th>⑥ ダブルメガマッチボーナス</th>
+              <td>二次紹介者（直紹介者が紹介した会員）が取得したベーシックコミッションボーナスの<b>10%</b>を取得（クリスタル以上）。</td>
+            </tr>
+            <tr>
+              <th>⑦ リーダーシップボーナス</th>
+              <td>エメラルド以上のタイトルを獲得し、グループを大きく成長させた場合に取得。</td>
+            </tr>
+            <tr>
+              <th>⑧ アニュアルマネジメントフィー (AMF)</th>
+              <td>ロワイヤルダイヤモンドが取得できる年2回（9月・3月）の決算ボーナス。</td>
+            </tr>
+            <tr>
+              <th>⑨ カリナンアニュアルマネジメントフィー</th>
+              <td>カリナンロワイヤルダイヤモンド（6ヶ月連続達成）が取得できる年2回の決算ボーナス。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. タイトル昇格条件とブランチ -->
+    <div id="sec-3" class="section-card">
+      <div class="section-title">🏆 3. タイトル昇格条件とブランチ</div>
+      <p class="section-desc">
+        昇格には「少ない側のグループ売上P」「必要アクティブ紹介者数」「育成メガ系列数（プラチナ以上）」の条件を満たす必要があります。
       </p>
-    </section>
 
-    <!-- セクション 4 -->
-    <section id="sec4" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
-      <h2 class="text-lg font-bold text-slate-800 border-b border-slate-100 pb-3 mb-4 flex items-center">
-        <span class="mr-2">⚠️</span> 4. 権利喪失を防ぐための注意点・支払仕様
-      </h2>
-      <div class="bg-amber-50 border-l-4 border-amber-400 p-4 text-sm text-amber-900 rounded-r-lg">
-        <p class="font-bold mb-1">決済不能・定期購入スキップに関するご注意</p>
-        <p class="text-xs leading-relaxed">
-          カードエラーや残高不足等により決済が未完了となった場合、当月のボーナス受給資格を失う場合があります。毎月の決済状況は E-Service 内のマイページより定期的にご確認ください。
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>タイトル</th>
+              <th>売上P（少ない側）</th>
+              <th>アクティブ数</th>
+              <th>条件・育成メガ系列</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>クリスタル</th>
+              <td>20万P〜</td>
+              <td>2人</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>ラピス</th>
+              <td>50万P〜</td>
+              <td>2人</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>サファイヤ</th>
+              <td>100万P〜</td>
+              <td>2人</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>エメラルド</th>
+              <td>300万P〜</td>
+              <td>2人</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>ゴールド</th>
+              <td>600万P〜</td>
+              <td>4人</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>プラチナ</th>
+              <td>1,200万P〜</td>
+              <td>4人</td>
+              <td>エメラルド以上×2系列</td>
+            </tr>
+            <tr>
+              <th>ダイヤモンド</th>
+              <td>3,000万P〜</td>
+              <td>4人</td>
+              <td>ゴールド以上×3系列</td>
+            </tr>
+            <tr>
+              <th>ロワイヤルダイヤモンド</th>
+              <td>6,000万P〜</td>
+              <td>4人</td>
+              <td>プラチナ以上×3系列</td>
+            </tr>
+            <tr>
+              <th>カリナンロワイヤル</th>
+              <td colspan="3">6ヶ月連続ロワイヤルダイヤモンド達成</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <b>📌 マイナンバー手続きについて：</b><br>
+        クリスタル以上に昇格した場合、昇格月度の翌々月10日までに手続きが必要です（初昇格月は未提出でも昇格可。翌月以降未提出の場合は上位ボーナスの取得・昇格が制限されます）。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <p class="section-desc" style="margin-bottom: 6px;"><b>■ ブランチの活用</b></p>
+        <p style="font-size: 0.85rem; color: #4a5568; line-height: 1.6;">
+          本店の獲得タイトルに応じて、自身の分身となる独立ポジション「ブランチ」をグループ内に配置できます（例: クリスタルで5か所、ロワイヤルダイヤモンドで40か所）。<br>
+          ※ブランチの維持・昇格にも、ブランチ単独での10,000P以上の購入とアクティブ条件達成が必要です。
         </p>
       </div>
-    </section>
+    </div>
 
-  </main>
+    <!-- 4. 注意点・支払仕様・トラブル対応 -->
+    <div id="sec-4" class="section-card">
+      <div class="section-title">⚠️ 4. 権利喪失を防ぐための注意点・支払仕様</div>
+      <p class="section-desc">
+        締切日時や振込仕様を確認し、決済エラー等による権利失効に注意してください。
+      </p>
 
-  <footer class="bg-slate-800 text-slate-400 text-xs py-6 text-center mt-auto">
-    <p>© Ninapharm Japon Members Web Guide. All rights reserved.</p>
+      <div class="table-container">
+        <table>
+          <tbody>
+            <tr>
+              <th style="width:30%;">新規登録締切</th>
+              <td>月末までに書類提出・Web入力・入金完了（翌月5日書類完備、翌月10日不審点問合せ締切）。</td>
+            </tr>
+            <tr>
+              <th>追加購入締切</th>
+              <td>実績月度の末日までに注文書到着・完備・入金。</td>
+            </tr>
+            <tr>
+              <th>ボーナス振込</th>
+              <td><b>翌月25日</b>（休業日の場合は翌営業日）。振込手数料700円（税込）相殺。3,000円未満は翌月繰越。</td>
+            </tr>
+            <tr>
+              <th>キャップ調整</th>
+              <td>還元上限は各月総売上Pの55%。超えた場合は対象ボーナスに比例調整が適用されます。</td>
+            </tr>
+            <tr>
+              <th>インボイス制度</th>
+              <td>適格請求書発行事業者番号の届出がない場合、ボーナスから消費税相当額が控除されます。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 決済エラー時タブ切り替え -->
+      <div class="selector-group" style="margin-top: 18px;">
+        <div class="selector-option">
+          <input type="radio" id="tab-card" name="trouble-type" checked onchange="switchTrouble()">
+          <label for="tab-card" class="selector-label">💳 カード決済エラー</label>
+        </div>
+        <div class="selector-option">
+          <input type="radio" id="tab-bank" name="trouble-type" onchange="switchTrouble()">
+          <label for="tab-bank" class="selector-label">🏦 口座振替エラー</label>
+        </div>
+      </div>
+
+      <!-- カードエラー時の対応 -->
+      <div id="panel-card" class="flow-panel active">
+        <div class="warning-box">
+          <b>【クレジットカードエラー時の対処法】</b><br>
+          月末までに公式E-Serviceにログインし、カード情報の更新またはスポット購入で決済を完了させてください。
+        </div>
+        <ul class="sub-list" style="margin-top: 10px;">
+          <li>1. E-Serviceにログイン</li>
+          <li>2. 「会員情報変更」からカード情報を更新</li>
+          <li>3. 当月分の再決済処理を実施</li>
+        </ul>
+      </div>
+
+      <!-- 口座振替エラー時の対応 -->
+      <div id="panel-bank" class="flow-panel">
+        <div class="warning-box">
+          <b>【口座振替残高不足時の対処法】</b><br>
+          引き落としが出来なかった場合は、当月中に本社指定口座への銀行振込によるリカバリーが必要です。
+        </div>
+        <ul class="sub-list" style="margin-top: 10px;">
+          <li>※振込先詳細は会社からの通知メール、またはカスタマーサポートにご確認ください。</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>※当サイトは会員有志による手続き・仕組みの解説用ガイドであり、公式の概要書面を正とします。</p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
   </footer>
+
+  <!-- 動的切り替え用スクリプト -->
+  <script>
+    function switchTrouble() {
+      const isCard = document.getElementById('tab-card').checked;
+      const panelCard = document.getElementById('panel-card');
+      const panelBank = document.getElementById('panel-bank');
+
+      if (isCard) {
+        panelCard.classList.add('active');
+        panelBank.classList.remove('active');
+      } else {
+        panelBank.classList.add('active');
+        panelCard.classList.remove('active');
+      }
+    }
+  </script>
 
 </body>
 </html>
