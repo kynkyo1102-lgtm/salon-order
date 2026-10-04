@@ -126,53 +126,66 @@
       font-weight: bold;
     }
 
-    /* 目次（TOC） */
-    .toc-container {
+    /* 目次 (INDEX) スタイル - guide-b.htmlに準拠 */
+    .index-card {
       background: #ffffff;
-      border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 16px;
+      padding: 20px 18px;
       margin-bottom: 20px;
+      border: 1px solid var(--border-color);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
 
-    .toc-title {
-      font-size: 0.92rem;
+    .index-header {
+      font-size: 0.82rem;
       font-weight: bold;
-      color: var(--primary-dark);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: #8a99ad;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
     }
 
-    .toc-list {
+    .index-list {
       list-style: none;
       padding: 0;
       margin: 0;
     }
 
-    .toc-list li {
-      margin-bottom: 8px;
+    .index-list li {
+      border-bottom: 1px dotted #e2e8f0;
     }
 
-    .toc-list li:last-child {
-      margin-bottom: 0;
+    .index-list li:last-child {
+      border-bottom: none;
     }
 
-    .toc-list a {
-      color: #334155;
-      text-decoration: none;
-      font-size: 0.85rem;
+    .index-list a {
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
+      padding: 12px 4px;
+      text-decoration: none;
+      color: #2d3748;
+      font-weight: bold;
+      font-size: 0.92rem;
+      transition: color 0.2s, background-color 0.2s;
     }
 
-    .toc-list a:hover {
+    .index-list a:hover {
       color: var(--primary);
-      text-decoration: underline;
+    }
+
+    .index-num {
+      color: var(--primary);
+      font-weight: 800;
+      margin-right: 12px;
+      font-size: 0.95rem;
+      min-width: 24px;
+    }
+
+    .index-arrow {
+      margin-left: auto;
+      color: #cbd5e1;
+      font-size: 0.8rem;
     }
 
     /* セクションカード */
@@ -370,14 +383,38 @@
       <h1 class="page-title">🎁 ボーナス取得・権利維持ガイド</h1>
     </div>
 
-    <!-- 目次（TOC） -->
-    <div class="toc-container">
-      <div class="toc-title">📌 目次</div>
-      <ul class="toc-list">
-        <li><a href="#sec-1">💡 1. ボーナス取得の基本条件</a></li>
-        <li><a href="#sec-2">📊 2. 9種類のボーナスプラン概要</a></li>
-        <li><a href="#sec-3">🏆 3. タイトル昇格条件とブランチ</a></li>
-        <li><a href="#sec-4">⚠️ 4. 権利喪失を防ぐための注意点・支払仕様</a></li>
+    <!-- 目次 (INDEX) -->
+    <div class="index-card">
+      <div class="index-header">INDEX</div>
+      <ul class="index-list">
+        <li>
+          <a href="#sec-1">
+            <span class="index-num">01</span>
+            <span>ボーナス取得の基本条件</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sec-2">
+            <span class="index-num">02</span>
+            <span>9種類のボーナスプラン概要</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sec-3">
+            <span class="index-num">03</span>
+            <span>タイトル昇格条件とブランチ</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
+        <li>
+          <a href="#sec-4">
+            <span class="index-num">04</span>
+            <span>権利喪失を防ぐための注意点・支払仕様</span>
+            <span class="index-arrow">❯</span>
+          </a>
+        </li>
       </ul>
     </div>
 
