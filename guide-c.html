@@ -5,244 +5,351 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>C. ボーナス取得・権利維持ガイド - メンバーズWebガイド</title>
   <style>
+    :root {
+      --primary: #0f172a;       /* ディープネイビー */
+      --primary-light: #1e293b;
+      --accent: #d97706;        /* ウォームゴールド / マスタード */
+      --accent-light: #fef3c7;
+      --bg-color: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+    }
+    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
+    
     body {
-      background-color: #f4f6f9;
-      color: #333333;
-      line-height: 1.6;
-      padding-bottom: 40px;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding-bottom: 60px;
       word-break: break-all;
       overflow-wrap: anywhere;
       -webkit-text-size-adjust: 100%;
     }
-    
+
     /* ヘッダー */
     header {
-      background-color: #00449e;
-      color: white;
-      padding: 12px 16px;
+      background-color: var(--primary);
+      border-bottom: 3px solid var(--accent);
+      padding: 14px 16px;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
     }
+
     .header-container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
+
     .back-link {
-      color: white;
+      color: #ffffff;
       text-decoration: none;
       font-size: 0.85rem;
-      font-weight: bold;
+      font-weight: 600;
       display: flex;
       align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: opacity 0.2s;
     }
+
+    .back-link:hover {
+      opacity: 0.8;
+    }
+
     .btn-login {
-      background-color: #ffcc00;
-      color: #333;
-      padding: 6px 12px;
+      background: linear-gradient(135deg, #f59e0b, var(--accent));
+      color: #ffffff;
+      padding: 8px 16px;
       border-radius: 20px;
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: bold;
       white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+
+    .btn-login:active {
+      transform: scale(0.98);
     }
 
     /* メインコンテナ */
     .container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 20px 16px;
+    }
+
+    .page-header {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px 18px;
+      margin-bottom: 20px;
+      border-left: 6px solid var(--accent);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .page-category {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+      text-transform: uppercase;
     }
 
     .page-title {
-      font-size: 1.2rem;
-      color: #00449e;
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #00449e;
+      font-size: 1.3rem;
+      color: var(--primary);
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    /* セクションカード */
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px 18px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .section-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 2px solid var(--bg-color);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    /* セクションカード */
-    .section-card {
-      background: white;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      border: 1px solid #e1e4e8;
-    }
-
-    .section-title {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #00449e;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
     .section-desc {
-      font-size: 0.85rem;
-      color: #666;
-      margin-bottom: 12px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.65;
     }
 
     /* テーブル */
     .table-container {
       width: 100%;
       overflow-x: auto;
-      margin-top: 8px;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
+      table-layout: fixed;
+      background: #ffffff;
     }
+
     th, td {
-      border: 1px solid #e1e4e8;
-      padding: 10px 8px;
+      border: 1px solid var(--border-color);
+      padding: 12px 10px;
       text-align: left;
+      vertical-align: middle;
+      line-height: 1.5;
     }
+
     th {
-      background-color: #f0f4f9;
-      color: #00449e;
-      font-weight: bold;
-      white-space: nowrap;
+      background-color: #f1f5f9;
+      color: var(--primary);
+      font-weight: 700;
     }
+
     .table-subtext {
-      font-size: 0.75rem;
-      color: #666;
+      font-size: 0.73rem;
+      color: var(--text-muted);
       display: block;
+      margin-top: 2px;
     }
 
     /* アコーディオンリスト（details / summary） */
     .accordion-item {
-      border: 1px solid #e1e4e8;
-      border-radius: 8px;
-      margin-bottom: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 12px;
       overflow: hidden;
-      background: #fff;
+      background: #ffffff;
+      transition: border-color 0.2s;
     }
+
+    .accordion-item[open] {
+      border-color: #cbd5e1;
+    }
+
     .accordion-item summary {
-      padding: 12px;
-      background-color: #f8f9fa;
-      font-weight: bold;
-      font-size: 0.88rem;
-      color: #333;
+      padding: 14px 16px;
+      background-color: #f8fafc;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary);
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       list-style: none;
+      user-select: none;
+      transition: background-color 0.2s;
     }
+
     .accordion-item summary::-webkit-details-marker {
       display: none;
     }
+
     .accordion-item summary::after {
       content: "▼";
       font-size: 0.75rem;
-      color: #00449e;
-      transition: transform 0.2s;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+      margin-left: 8px;
+      flex-shrink: 0;
     }
+
     .accordion-item[open] summary::after {
       transform: rotate(180deg);
     }
+
     .accordion-content {
-      padding: 12px;
-      font-size: 0.85rem;
-      border-top: 1px solid #e1e4e8;
-      background: #fff;
-      line-height: 1.6;
+      padding: 16px;
+      font-size: 0.86rem;
+      border-top: 1px solid var(--border-color);
+      background: #ffffff;
+      line-height: 1.65;
+      color: var(--text-main);
     }
 
     .sub-list {
-      margin-top: 8px;
-      margin-left: 18px;
-      font-size: 0.83rem;
+      margin-top: 10px;
+      margin-left: 20px;
+      font-size: 0.84rem;
+      color: #334155;
     }
+
     .sub-list li {
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     /* インフォボックス / 警告ボックス */
     .info-box {
-      background-color: #eef5ff;
-      border-left: 4px solid #00449e;
-      padding: 10px 12px;
+      background: var(--accent-light);
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 12px 14px;
       font-size: 0.82rem;
-      color: #003366;
-      margin-top: 10px;
-      border-radius: 0 6px 6px 0;
-    }
-    .warning-box {
-      background-color: #fff0f0;
-      border-left: 4px solid #d9534f;
-      padding: 10px 12px;
-      font-size: 0.82rem;
-      color: #a94442;
-      margin-top: 10px;
-      border-radius: 0 6px 6px 0;
+      color: #78350f;
+      margin-top: 12px;
+      line-height: 1.6;
     }
 
-    /* タブ切り替え（ラジオボタン風） */
+    .warning-box {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #991b1b;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* タブ切り替え（ラジオボタンUI） */
     .selector-group {
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 12px;
+      margin-bottom: 20px;
     }
+
     .selector-option {
       flex: 1;
+      position: relative;
     }
+
     .selector-option input[type="radio"] {
-      display: none;
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
     }
+
     .selector-label {
-      display: block;
-      padding: 10px 6px;
-      background: #f0f4f9;
-      border: 2px solid #e1e4e8;
-      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 10px;
+      background: #f1f5f9;
+      border: 2px solid transparent;
+      border-radius: 12px;
       text-align: center;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 0.82rem;
-      color: #555;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      min-height: 54px;
     }
+
     .selector-option input[type="radio"]:checked + .selector-label {
-      background: #fff;
-      border-color: #00449e;
-      color: #00449e;
+      background: #ffffff;
+      border-color: var(--accent);
+      color: var(--primary);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
     }
 
     .flow-panel {
       display: none;
     }
+
     .flow-panel.active {
       display: block;
     }
 
     /* フッター */
     footer {
+      background-color: var(--primary);
+      color: #ffffff;
       text-align: center;
-      margin-top: 24px;
-      padding: 16px;
-      font-size: 0.75rem;
-      color: #666;
+      margin-top: 40px;
+      padding: 28px 16px;
+      border-top: 4px solid var(--accent);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .copyright {
+      margin-top: 12px;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.74rem;
     }
   </style>
 </head>
@@ -252,7 +359,7 @@
   <header>
     <div class="header-container">
       <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
-      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">E-Service ログイン</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
     </div>
   </header>
 
@@ -260,7 +367,10 @@
   <div class="container">
 
     <!-- ページタイトル -->
-    <h1 class="page-title">🎁 C. ボーナス取得・権利維持ガイド</h1>
+    <div class="page-header">
+      <div class="page-category">GUIDE C</div>
+      <h1 class="page-title">🎁 ボーナス取得・権利維持ガイド</h1>
+    </div>
 
     <!-- 1. 基本となるアクティブ条件 -->
     <div class="section-card">
@@ -297,94 +407,96 @@
 
     <!-- 2. ボーナス毎の取得条件 -->
     <div class="section-card">
-    <div class="section-title">📊 2. 各ボーナスの仕組みと取得要件</div>
-    <p class="section-desc">タップすると各ボーナスの詳細が表示されます。</p>
+      <div class="section-title">📊 2. 各ボーナスの仕組みと取得要件</div>
+      <p class="section-desc">タップすると各ボーナスの詳細が表示されます。</p>
 
-    <!-- タッチ型アコーディオン -->
-    <details class="accordion-item">
-      <summary>① ファーストボーナス（直紹介手当）</summary>
-      <div class="accordion-content">
-        直接紹介した新会員が初回登録（商品購入）を行った際に支払われる単発のボーナスです。
-        <ul class="sub-list">
-          <li><b>1点登録の場合：</b> 2,000円</li>
-          <li><b>3点登録の場合：</b> 6,000円</li>
-        </ul>
-      </div>
-    </details>
+      <!-- タッチ型アコーディオン -->
+      <details class="accordion-item">
+        <summary>① ファーストボーナス（直紹介手当）</summary>
+        <div class="accordion-content">
+          直接紹介した新会員が初回登録（商品購入）を行った際に支払われる単発のボーナスです。
+          <ul class="sub-list">
+            <li><b>1点登録の場合：</b> 2,000円</li>
+            <li><b>3点登録の場合：</b> 6,000円</li>
+          </ul>
+        </div>
+      </details>
 
-    <details class="accordion-item">
-      <summary>② チームエクスパンドボーナス（メインボーナス）</summary>
-      <div class="accordion-content">
-        ご自身の組織（左右のチーム）の購入ポイントに応じて計算されるメインの継続ボーナスです。
-        <ul class="sub-list">
-          <li><b>計算単位：</b> 左右の小さい方のチームのpt数に応じて算出</li>
-          <li><b>取得要件：</b> 基本アクティブ条件（ご自身1万pt＋左右直紹介アクティブ各1名）の達成が必要</li>
-        </ul>
-      </div>
-    </details>
+      <details class="accordion-item">
+        <summary>② チームエクスパンドボーナス（メインボーナス）</summary>
+        <div class="accordion-content">
+          ご自身の組織（左右のチーム）の購入ポイントに応じて計算されるメインの継続ボーナスです。
+          <ul class="sub-list">
+            <li><b>計算単位：</b> 左右の小さい方のチームのpt数に応じて算出</li>
+            <li><b>取得要件：</b> 基本アクティブ条件（ご自身1万pt＋左右直紹介アクティブ各1名）の達成が必要</li>
+          </ul>
+        </div>
+      </details>
 
-    <details class="accordion-item">
-      <summary>③ プレジデンシャルボーナス（タイトル手当）</summary>
-      <div class="accordion-content">
-        一定以上のタイトル（リーダーシップランク）を達成・維持することで、会社の全体売上プールから割り当てられる特別手当です。
-        <div class="info-box">
-          詳細な還元率や達成数値は、最新の公式概要書面をご確認ください。
+      <details class="accordion-item">
+        <summary>③ プレジデンシャルボーナス（タイトル手当）</summary>
+        <div class="accordion-content">
+          一定以上のタイトル（リーダーシップランク）を達成・維持することで、会社の全体売上プールから割り当てられる特別手当です。
+          <div class="info-box">
+            詳細な還元率や達成数値は、最新の公式概要書面をご確認ください。
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- 3. 注意点・リカバリー（カードエラー等） -->
+    <div class="section-card">
+      <div class="section-title">⚠️ 3. 権利喪失を防ぐための注意点</div>
+      <p class="section-desc">
+        クレジットカードの有効期限切れや限度額オーバーにより定期決済がエラーになると、アクティブ権利が失効する場合があります。
+      </p>
+
+      <div class="selector-group">
+        <div class="selector-option">
+          <input type="radio" id="tab-card" name="trouble-type" checked onchange="switchTrouble()">
+          <label for="tab-card" class="selector-label">💳 カード決済エラー</label>
+        </div>
+        <div class="selector-option">
+          <input type="radio" id="tab-bank" name="trouble-type" onchange="switchTrouble()">
+          <label for="tab-bank" class="selector-label">🏦 口座振替エラー</label>
         </div>
       </div>
-    </details>
 
-  </div>
-
-  <!-- 3. 注意点・リカバリー（カードエラー等） -->
-  <div class="section-card">
-    <div class="section-title">⚠️ 3. 権利喪失を防ぐための注意点</div>
-    <p class="section-desc">
-      クレジットカードの有効期限切れや限度額オーバーにより定期決済がエラーになると、アクティブ権利が失効する場合があります。
-    </p>
-
-    <div class="selector-group">
-      <div class="selector-option">
-        <input type="radio" id="tab-card" name="trouble-type" checked onchange="switchTrouble()">
-        <label for="tab-card" class="selector-label">💳 カード決済エラー</label>
+      <!-- カードエラー時の対応 -->
+      <div id="panel-card" class="flow-panel active">
+        <div class="warning-box">
+          <b>【クレジットカードエラー時の対処法】</b><br>
+          月末までに公式E-Serviceにログインし、カード情報の更新またはスポット購入で決済を完了させてください。
+        </div>
+        <ul class="sub-list" style="margin-top: 10px;">
+          <li>1. E-Serviceにログイン</li>
+          <li>2. 「会員情報変更」からカード情報を更新</li>
+          <li>3. 当月分の再決済処理を実施</li>
+        </ul>
       </div>
-      <div class="selector-option">
-        <input type="radio" id="tab-bank" name="trouble-type" onchange="switchTrouble()">
-        <label for="tab-bank" class="selector-label">🏦 口座振替エラー</label>
-      </div>
-    </div>
 
-    <!-- カードエラー時の対応 -->
-    <div id="panel-card" class="flow-panel active">
-      <div class="warning-box">
-        <b>【クレジットカードエラー時の対処法】</b><br>
-        月末までに公式E-Serviceにログインし、カード情報の更新またはスポット購入で決済を完了させてください。
+      <!-- 口座振替エラー時の対応 -->
+      <div id="panel-bank" class="flow-panel">
+        <div class="warning-box">
+          <b>【口座振替残高不足時の対処法】</b><br>
+          引き落としが出来なかった場合は、当月中に本社指定口座への銀行振込によるリカバリーが必要です。
+        </div>
+        <ul class="sub-list" style="margin-top: 10px;">
+          <li>※振込先詳細は会社からの通知メール、またはカスタマーサポートにご確認ください。</li>
+        </ul>
       </div>
-      <ul class="sub-list" style="margin-top: 10px;">
-        <li>1. E-Serviceにログイン</li>
-        <li>2. 「会員情報変更」からカード情報を更新</li>
-        <li>3. 当月分の再決済処理を実施</li>
-      </ul>
-    </div>
 
-    <!-- 口座振替エラー時の対応 -->
-    <div id="panel-bank" class="flow-panel">
-      <div class="warning-box">
-        <b>【口座振替残高不足時の対処法】</b><br>
-        引き落としが出来なかった場合は、当月中に本社指定口座への銀行振込によるリカバリーが必要です。
-      </div>
-      <ul class="sub-list" style="margin-top: 10px;">
-        <li>※振込先詳細は会社からの通知メール、またはカスタマーサポートにご確認ください。</li>
-      </ul>
     </div>
 
   </div>
-
-</div>
 
   <!-- フッター -->
   <footer>
     <p>※当サイトは会員有志による手続き・仕組みの解説用ガイドであり、公式の概要書面を正とします。</p>
-    <p style="margin-top: 6px;">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
   </footer>
 
   <!-- 動的切り替え用スクリプト -->
