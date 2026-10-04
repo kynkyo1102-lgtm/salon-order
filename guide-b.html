@@ -4,307 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>定期購入について - メンバーズWebガイド</title>
+  
+  <!-- 共通デザインCSSの読み込み -->
+  <link rel="stylesheet" href="common.css">
+
+  <!-- このページ固有のCSSがある場合のみここに記述（なければ省略可） -->
   <style>
-    :root {
-      --primary: #1b4ea8;       /* ロイヤルブルー */
-      --primary-dark: #123778;  /* ダークブルー */
-      --accent: #d4e114;        /* ライムグリーン */
-      --bg-color: #f4f6f9;
-      --text-color: #2c3e50;
-      --card-bg: #ffffff;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.7;
-      padding-bottom: 50px;
-      word-break: break-all;
-      overflow-wrap: anywhere;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    /* ヘッダー */
-    header {
-      background-color: var(--primary);
-      border-bottom: 3px solid var(--accent);
-      padding: 14px 16px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    .header-container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .back-link {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .btn-login {
-      background-color: var(--accent);
-      color: #1a1a1a;
-      padding: 7px 14px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: bold;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* メインコンテナ */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 18px 14px;
-    }
-
-    .page-header {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 18px 16px;
-      margin-bottom: 14px;
-      border-left: 6px solid var(--primary);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .page-category {
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: var(--primary);
-      margin-bottom: 4px;
-      letter-spacing: 0.05em;
-    }
-
-    .page-title {
-      font-size: 1.35rem;
-      color: #1a1a1a;
-      line-height: 1.4;
-      font-weight: bold;
-    }
-
-    /* 控えめな目次デザイン */
-    .toc-card {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 18px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .toc-title {
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: #64748b;
-      margin-bottom: 8px;
-      letter-spacing: 0.05em;
-    }
-
-    .toc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .toc-item a {
-      display: flex;
-      align-items: center;
-      padding: 6px 8px;
-      border-radius: 6px;
-      color: #334155;
-      text-decoration: none;
-      font-size: 0.84rem;
-      font-weight: 500;
-      transition: background-color 0.15s;
-    }
-
-    .toc-item a:active {
-      background-color: #f1f5f9;
-    }
-
-    .toc-num {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 0.78rem;
-      margin-right: 8px;
-      width: 18px;
-    }
-
-    .toc-item a::after {
-      content: "↓";
-      margin-left: auto;
-      color: #cbd5e1;
-      font-size: 0.75rem;
-    }
-
-    /* Card Layout */
-    .section-card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 18px 16px;
-      margin-bottom: 18px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      scroll-margin-top: 70px;
-    }
-
-    .section-card-title {
-      font-size: 1.05rem;
-      font-weight: bold;
-      color: var(--primary-dark);
-      border-bottom: 2px solid #edf2f7;
-      padding-bottom: 10px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .section-desc {
-      font-size: 0.85rem;
-      color: #4a5568;
-      margin-bottom: 14px;
-      line-height: 1.6;
-    }
-
-    /* テーブルスタイル */
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83rem;
-      table-layout: fixed;
-      background: #fff;
-    }
-
-    th, td {
-      border: 1px solid #edf2f7;
-      padding: 10px 8px;
-      text-align: left;
-      vertical-align: middle;
-      line-height: 1.5;
-    }
-
-    th {
-      background-color: #f7fafc;
-      color: var(--primary-dark);
-      font-weight: bold;
-    }
-
-    .table-subtext {
-      font-size: 0.72rem;
-      color: #718096;
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* ステップ・リスト */
-    .step-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .step-item {
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #ffffff;
-    }
-
-    .step-item summary {
-      padding: 14px;
-      background: #f8fafc;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-    }
-
-    .step-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .step-num {
-      background: var(--primary);
-      color: #fff;
-      font-weight: bold;
-      border-radius: 50%;
-      width: 26px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      margin-right: 12px;
-      flex-shrink: 0;
-    }
-
-    .step-title-text {
-      font-weight: bold;
-      font-size: 0.9rem;
-      color: #1e293b;
-      flex: 1;
-      line-height: 1.4;
-    }
-
-    .step-toggle-icon {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-left: 8px;
-      transition: transform 0.2s;
-    }
-
-    .step-item[open] .step-toggle-icon {
-      transform: rotate(180deg);
-    }
-
-    .step-body {
-      padding: 14px;
-      font-size: 0.86rem;
-      color: #334155;
-      line-height: 1.65;
-      border-top: 1px solid #e2e8f0;
-      background: #ffffff;
-    }
-
     .payment-list {
       list-style: none;
       padding: 0;
@@ -330,99 +35,6 @@
       padding-left: 4px;
       display: block;
     }
-
-    /* ボックス */
-    .info-box {
-      background: #fffbe6;
-      border: 1px solid #ffe58f;
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 0.82rem;
-      color: #595959;
-      margin-top: 12px;
-      line-height: 1.6;
-    }
-
-    .info-box-title {
-      font-weight: bold;
-      color: #d48806;
-      margin-bottom: 4px;
-    }
-
-    /* 折り畳み式注意書きボックス */
-    .alert-box {
-      background: #fff5f5;
-      border: 1px solid #feb2b2;
-      border-radius: 8px;
-      margin-top: 12px;
-      overflow: hidden;
-    }
-
-    .alert-box summary {
-      padding: 10px 14px;
-      font-size: 0.83rem;
-      font-weight: bold;
-      color: #c53030;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-    }
-
-    .alert-box summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .alert-box summary::after {
-      content: "▼";
-      font-size: 0.7rem;
-      color: #9b2c2c;
-      transition: transform 0.2s;
-      margin-left: 8px;
-    }
-
-    .alert-box[open] summary::after {
-      transform: rotate(180deg);
-    }
-
-    .alert-box-content {
-      padding: 10px 14px 12px 14px;
-      border-top: 1px dashed #feb2b2;
-      font-size: 0.82rem;
-      color: #9b2c2c;
-      line-height: 1.6;
-    }
-
-    /* マニュアル参照注記 */
-    .manual-ref {
-      font-size: 0.72rem;
-      color: #94a3b8;
-      text-align: right;
-      margin-top: 12px;
-      padding-top: 6px;
-      border-top: 1px dashed #f1f5f9;
-    }
-
-    /* フッター */
-    footer {
-      background-color: var(--primary-dark);
-      color: #ffffff;
-      text-align: center;
-      margin-top: 35px;
-      padding: 24px 16px;
-      border-top: 4px solid var(--accent);
-      font-size: 0.78rem;
-      line-height: 1.6;
-    }
-
-    .copyright {
-      margin-top: 12px;
-      color: var(--accent);
-      font-weight: bold;
-      font-size: 0.74rem;
-    }
   </style>
 </head>
 <body>
@@ -444,7 +56,7 @@
       <h1 class="page-title">📦 定期購入について</h1>
     </div>
 
-    <!-- 控えめな目次 -->
+    <!-- 目次 -->
     <nav class="toc-card">
       <div class="toc-title">INDEX</div>
       <ul class="toc-list">
@@ -460,9 +72,7 @@
     <!-- 1. 毎月の商品購入 -->
     <div id="section-cost" class="section-card">
       <div class="section-card-title">💵 毎月の商品購入</div>
-      <p class="section-desc">
-        OX‐288を定期購入する場合の費用は以下の通りです。
-      </p>
+      <p class="section-desc">OX‐288を定期購入する場合の費用は以下の通りです。</p>
 
       <div class="table-container">
         <table>
@@ -492,9 +102,7 @@
     <!-- 2. お届けスケジュール -->
     <div id="section-schedule" class="section-card">
       <div class="section-card-title">📅 お届けスケジュール</div>
-      <p class="section-desc">
-        ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。
-      </p>
+      <p class="section-desc">ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。</p>
 
       <div class="table-container">
         <table>
@@ -549,7 +157,6 @@
       <div class="section-card-title">💳 お支払い方法</div>
       
       <div class="step-list">
-        
         <!-- 口座振替 -->
         <details class="step-item" open>
           <summary>
@@ -573,9 +180,8 @@
               </li>
             </ul>
 
-            <!-- 折り畳み注意書き -->
             <details class="alert-box">
-              <summary>⚠️️ 口座振替開始月の重なりに注意</summary>
+              <summary>⚠ 口座振替開始月の重なりに注意</summary>
               <div class="alert-box-content">
                 口座振替が始まる月は、その月の「代金引換」と翌月分の「口座振替（27日）」のお支払いが重なる場合があります。引き落とし口座の残高にご注意ください。
               </div>
@@ -606,7 +212,6 @@
               </li>
             </ul>
 
-            <!-- 折り畳み注意書き -->
             <details class="alert-box">
               <summary>⚠️ 有効期限切れ・決済エラーにご注意</summary>
               <div class="alert-box-content">
@@ -615,7 +220,6 @@
             </details>
           </div>
         </details>
-
       </div>
 
       <div class="manual-ref">メンバーズマニュアル1P参照</div>
@@ -624,9 +228,7 @@
     <!-- 4. 締め日について -->
     <div id="section-deadline" class="section-card">
       <div class="section-card-title">⏰ 締め日について</div>
-      <p class="section-desc">
-        定期購入の内容変更・停止・再開には厳格な締め日ルールが定められています。
-      </p>
+      <p class="section-desc">定期購入の内容変更・停止・再開には厳格な締め日ルールが定められています。</p>
 
       <div class="table-container">
         <table>
@@ -641,7 +243,6 @@
         </table>
       </div>
 
-      <!-- 折り畳み注意書き -->
       <details class="alert-box">
         <summary>⚠️ 10日を過ぎた場合</summary>
         <div class="alert-box-content">
@@ -655,9 +256,7 @@
     <!-- 5. 定期購入の停止 -->
     <div id="section-stop" class="section-card">
       <div class="section-card-title">🛑 定期購入の停止</div>
-      <p class="section-desc">
-        定期購入を一時停止（お休み）または解約したい場合は、以下の手順で申請を行ってください。
-      </p>
+      <p class="section-desc">定期購入を一時停止（お休み）または解約したい場合は、以下の手順で申請を行ってください。</p>
 
       <div class="step-list">
         <div class="step-item" style="padding:14px; background:#fff;">
@@ -669,7 +268,6 @@
         </div>
       </div>
 
-      <!-- 折り畳み注意書き -->
       <details class="alert-box">
         <summary>⚠️ 停止に関する注意点</summary>
         <div class="alert-box-content">
@@ -681,12 +279,10 @@
       <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
-    <!-- 6. 愛用者特典（6Months・NINA） -->
+    <!-- 6. 愛用者特典 -->
     <div id="section-bonus" class="section-card">
       <div class="section-card-title">🎁 6ヶ月連続購入特典（6Months・NINA）</div>
-      <p class="section-desc">
-        定期購入でサンテアージュ OX-288を継続購入いただくと、6ヶ月ごとに<b>ニナファームオリジナルグッズ</b>がプレゼントされます！
-      </p>
+      <p class="section-desc">定期購入でサンテアージュ OX-288を継続購入いただくと、6ヶ月ごとに<b>ニナファームオリジナルグッズ</b>がプレゼントされます！</p>
 
       <div class="info-box">
         <b>【達成条件】</b><br>
