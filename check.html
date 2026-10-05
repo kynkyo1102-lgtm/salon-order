@@ -320,6 +320,13 @@
       border: 1px solid #e2e8f0;
     }
 
+    .bonus-result-note {
+      margin-top: 8px;
+      font-size: .82rem;
+      color: #d97706;
+      font-weight: bold;
+    }
+
     /* ===== タイトル達成 ===== */
     .bonus-title-achievement {
       padding: 15px;
@@ -507,6 +514,9 @@
       </div>
 
       <div class="bonus-form-group">
+        <label class="bonus-form-label">
+          ① 会員資格の確認
+        </label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-member-status">
           <span>会員資格は有効になっている</span>
@@ -516,7 +526,7 @@
 
       <div class="bonus-form-group">
         <label class="bonus-form-label" for="ipt-self-pt">
-          ① ポジションでの自己購入ポイント（P）
+          ② ポジションでの自己購入ポイント（P）
         </label>
         <input type="number"
                id="ipt-self-pt"
@@ -528,7 +538,7 @@
 
       <div class="bonus-form-group">
         <label class="bonus-form-label" for="ipt-active-num">
-          ② アクティブ紹介者数（人）
+          ③ アクティブ紹介者数（人）
         </label>
         <input type="number"
                id="ipt-active-num"
@@ -539,7 +549,7 @@
 
       <div class="bonus-form-group">
         <label class="bonus-form-label" for="ipt-group-pt">
-          ③ 左右グループ売上Pの少ない方（P）
+          ④ 左右グループ売上Pの少ない方（P）
         </label>
         <input type="number"
                id="ipt-group-pt"
@@ -553,6 +563,9 @@
       </div>
 
       <div class="bonus-form-group">
+        <label class="bonus-form-label">
+          ⑤ 個人番号（マイナンバー）提出
+        </label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-mynumber">
           <span>個人番号（マイナンバー）の提出が完了している</span>
@@ -612,7 +625,6 @@
               <th>タイトル</th>
               <th>昇格条件<br><span style="font-size:0.75em; font-weight:normal;">(少ない方のグループ売上P)</span></th>
               <th>必要アクティブ<br>紹介者数</th>
-              <th>ブランチ<br><span style="font-size:0.75em; font-weight:normal;">(累計)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -620,55 +632,46 @@
               <th>クリスタル</th>
               <td>20万P〜</td>
               <td>2人</td>
-              <td>5か所</td>
             </tr>
             <tr>
               <th>ラピス</th>
               <td>50万P〜</td>
               <td>2人</td>
-              <td>7か所</td>
             </tr>
             <tr>
               <th>サファイヤ</th>
               <td>100万P〜</td>
               <td>2人</td>
-              <td>10か所</td>
             </tr>
             <tr>
               <th>エメラルド</th>
               <td>300万P〜</td>
               <td>2人</td>
-              <td>15か所</td>
             </tr>
             <tr>
               <th>ゴールド</th>
               <td>600万P〜</td>
               <td>4人</td>
-              <td>20か所</td>
             </tr>
             <tr>
               <th>プラチナ</th>
               <td>1,200万P〜</td>
               <td>4人</td>
-              <td>30か所</td>
             </tr>
             <tr>
               <th>ダイヤモンド</th>
               <td>3,000万P〜</td>
               <td>4人</td>
-              <td>40か所</td>
             </tr>
             <tr>
               <th>ロワイヤルダイヤモンド</th>
               <td>6,000万P〜</td>
               <td>4人</td>
-              <td>40か所</td>
             </tr>
             <tr>
               <th>カリナンロワイヤルダイヤモンド</th>
               <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
               <td>4人</td>
-              <td>40か所</td>
             </tr>
           </tbody>
         </table>
@@ -716,12 +719,15 @@ function checkConditions() {
 
       // ----------------------------------------------------
       // 2. コミッション発生判定
-      // (アクティブ紹介者1人以上 & 少ない方の売上3万P以上)
       // ----------------------------------------------------
       const isCommissionEligible = (activeReferrals >= 1) && (weakLegPoints >= 30000);
       if (isCommissionEligible) {
         basicStatusEl.className = 'bonus-result-status status-ok';
-        basicStatusEl.innerText = '🎉 コミッション、発生！';
+        let commissionText = '🎉 コミッション、発生！';
+        if (activeReferrals === 1) {
+          commissionText += '<div class="bonus-result-note">※ベーシックコミッションの分配率は3％になります</div>';
+        }
+        basicStatusEl.innerHTML = commissionText;
       } else {
         basicStatusEl.className = 'bonus-result-status status-ng';
         basicStatusEl.innerText = '🌱 あと少し！コミッション条件を確認しよう';
@@ -729,24 +735,32 @@ function checkConditions() {
 
       // ----------------------------------------------------
       // 3. タイトル判定
+      // (タイトルはアクティブ紹介者2人以上が必要)
       // ----------------------------------------------------
       let calculatedTitle = 'メンバー';
-      if (weakLegPoints >= 60000000 && activeReferrals >= 4) {
-        calculatedTitle = 'ロワイヤルダイヤモンド';
-      } else if (weakLegPoints >= 30000000 && activeReferrals >= 4) {
-        calculatedTitle = 'ダイヤモンド';
-      } else if (weakLegPoints >= 12000000 && activeReferrals >= 4) {
-        calculatedTitle = 'プラチナ';
-      } else if (weakLegPoints >= 6000000 && activeReferrals >= 4) {
-        calculatedTitle = 'ゴールド';
-      } else if (weakLegPoints >= 3000000 && activeReferrals >= 2) {
-        calculatedTitle = 'エメラルド';
-      } else if (weakLegPoints >= 1000000 && activeReferrals >= 2) {
-        calculatedTitle = 'サファイヤ';
-      } else if (weakLegPoints >= 500000 && activeReferrals >= 2) {
-        calculatedTitle = 'ラピス';
-      } else if (weakLegPoints >= 200000 && activeReferrals >= 2) {
-        calculatedTitle = 'クリスタル';
+      let titleNote = '';
+
+      if (activeReferrals >= 2) {
+        if (weakLegPoints >= 60000000 && activeReferrals >= 4) {
+          calculatedTitle = 'ロワイヤルダイヤモンド';
+          titleNote = '※プラチナ以上の直紹介系列が3系列必要です。';
+        } else if (weakLegPoints >= 30000000 && activeReferrals >= 4) {
+          calculatedTitle = 'ダイヤモンド';
+          titleNote = '※ゴールド以上の直紹介系列が3系列必要です。';
+        } else if (weakLegPoints >= 12000000 && activeReferrals >= 4) {
+          calculatedTitle = 'プラチナ';
+          titleNote = '※エメラルド以上の直紹介系列が2系列必要です。';
+        } else if (weakLegPoints >= 6000000 && activeReferrals >= 4) {
+          calculatedTitle = 'ゴールド';
+        } else if (weakLegPoints >= 3000000) {
+          calculatedTitle = 'エメラルド';
+        } else if (weakLegPoints >= 1000000) {
+          calculatedTitle = 'サファイヤ';
+        } else if (weakLegPoints >= 500000) {
+          calculatedTitle = 'ラピス';
+        } else if (weakLegPoints >= 200000) {
+          calculatedTitle = 'クリスタル';
+        }
       }
 
       // マイナンバー未提出の場合の制御
@@ -755,7 +769,12 @@ function checkConditions() {
         titleStatusEl.innerText = '⚠️ メンバー（※マイナンバー未提出のため昇格・ボーナス保留）';
       } else {
         titleStatusEl.className = calculatedTitle !== 'メンバー' ? 'bonus-result-status status-ok' : 'bonus-result-status status-ng';
-        titleStatusEl.innerHTML = `<div class="bonus-title-achievement"><div class="bonus-title-crown">🏆</div><div class="bonus-title-label">タイトル達成！</div><div class="bonus-title-name">${calculatedTitle}</div></div>`;
+        let titleHtml = `<div class="bonus-title-achievement"><div class="bonus-title-crown">🏆</div><div class="bonus-title-label">タイトル達成！</div><div class="bonus-title-name">${calculatedTitle}</div>`;
+        if (titleNote) {
+          titleHtml += `<div class="bonus-result-note" style="margin-top:6px;">${titleNote}</div>`;
+        }
+        titleHtml += `</div>`;
+        titleStatusEl.innerHTML = titleHtml;
       }
 
       // ----------------------------------------------------
