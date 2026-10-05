@@ -1,16 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
+
   <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
-  
 
   <style>
     /* =========================================================
        ボーナスチェックページ専用CSS
+       common.css は変更していません。
        ========================================================= */
 
     .bonus-page {
@@ -23,16 +25,89 @@
       --bonus-ink: #334155;
       --bonus-muted: #64748b;
       --bonus-line: #e2e8f0;
+
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    /* ===== ヒーロー ===== */
+    /* =========================================================
+       ヘッダー
+       ========================================================= */
+
+    .bonus-header {
+      width: 100%;
+      background: #1b4ea8;
+      border-bottom: 4px solid #d4e114;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    }
+
+    .bonus-header-inner {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      min-height: 58px;
+      padding: 8px 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .bonus-header-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 40px;
+      padding: 8px 12px;
+
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 800;
+
+      white-space: nowrap;
+      transition: .18s ease;
+    }
+
+    .bonus-header-back {
+      color: #fff;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .25);
+    }
+
+    .bonus-header-back:hover {
+      background: rgba(255, 255, 255, .2);
+    }
+
+    .bonus-header-login {
+      color: #1a1a1a;
+      background: #d4e114;
+      border: 1px solid #d4e114;
+    }
+
+    .bonus-header-login:hover {
+      background: #b1bd05;
+    }
+
+    /* =========================================================
+       ヒーロー
+       ========================================================= */
+
     .bonus-hero {
       position: relative;
       overflow: hidden;
       margin: 4px 0 24px;
       padding: 28px 22px 25px;
       border-radius: 22px;
-      background: linear-gradient(135deg, #fff9df 0%, #ffffff 58%, #f1f7ff 100%);
+      background: linear-gradient(
+        135deg,
+        #fff9df 0%,
+        #ffffff 58%,
+        #f1f7ff 100%
+      );
       border: 2px solid #f2dda0;
       box-shadow: 0 8px 24px rgba(245, 158, 11, .10);
     }
@@ -81,7 +156,7 @@
       z-index: 1;
       margin: 0 0 10px;
       color: #1e293b;
-      font-size: clamp(1.4rem, 5vw, 2.1rem);
+      font-size: clamp(1.55rem, 5vw, 2.1rem);
       line-height: 1.4;
     }
 
@@ -98,7 +173,10 @@
       line-height: 1.75;
     }
 
-    /* ===== 入力フォーム ===== */
+    /* =========================================================
+       入力フォーム
+       ========================================================= */
+
     .bonus-check-form {
       background: #fff;
       border: 1px solid var(--bonus-line);
@@ -121,6 +199,7 @@
     .bonus-form-intro-icon {
       font-size: 1.35rem;
       line-height: 1;
+      flex: 0 0 auto;
     }
 
     .bonus-form-intro strong {
@@ -135,7 +214,7 @@
     }
 
     .bonus-form-group {
-      margin-bottom: 18px;
+      margin-bottom: 17px;
     }
 
     .bonus-form-label {
@@ -151,10 +230,12 @@
       margin-top: 5px;
       color: var(--bonus-muted);
       font-size: .76rem;
+      line-height: 1.5;
     }
 
     .bonus-form-control {
       width: 100%;
+      min-height: 48px;
       padding: 12px 13px;
       border: 1px solid #cbd5e1;
       border-radius: 10px;
@@ -166,35 +247,57 @@
       appearance: none;
     }
 
-    /* select要素用の矢印表示 */
-    select.bonus-form-control {
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2064748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px;
-      padding-right: 36px;
-    }
-
     .bonus-form-control:focus {
       outline: none;
       border-color: var(--bonus-orange);
       box-shadow: 0 0 0 4px rgba(245, 158, 11, .13);
     }
 
+    /* セレクトボックス */
+    .bonus-select-wrap {
+      position: relative;
+    }
+
+    .bonus-select-wrap::after {
+      content: "▼";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: .7rem;
+      pointer-events: none;
+    }
+
+    .bonus-select {
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    /* 数字入力 */
+    .bonus-number-input {
+      text-align: right;
+    }
+
+    /* =========================================================
+       チェックボタン
+       ========================================================= */
+
     .bonus-submit {
       position: relative;
       width: 100%;
+      min-height: 54px;
       border: none;
       border-radius: 13px !important;
-      padding: 16px 18px;
+      padding: 15px 18px;
       background: linear-gradient(135deg, #f59e0b, #f97316) !important;
       color: #fff;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 7px 16px rgba(249, 115, 22, .20);
       transition: transform .15s ease, box-shadow .15s ease;
-      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .bonus-submit:hover {
@@ -206,9 +309,11 @@
       transform: translateY(1px);
     }
 
-    /* ===== 結果カード ===== */
+    /* =========================================================
+       結果カード
+       ========================================================= */
+
     .bonus-result {
-      display: none; /* 初期状態は非表示 */
       position: relative;
       overflow: hidden;
       background: #fff !important;
@@ -218,7 +323,9 @@
       margin-top: 22px;
       margin-bottom: 25px;
       box-shadow: 0 8px 26px rgba(15, 23, 42, .08) !important;
-      scroll-margin-top: 20px; /* スクロール位置の微調整用 */
+
+      /* 初期状態では非表示 */
+      display: none;
     }
 
     .bonus-result.active {
@@ -231,6 +338,7 @@
         opacity: 0;
         transform: translateY(10px) scale(.985);
       }
+
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -316,7 +424,10 @@
       font-weight: bold;
     }
 
-    /* ===== タイトル達成 ===== */
+    /* =========================================================
+       タイトル達成
+       ========================================================= */
+
     .bonus-title-achievement {
       padding: 15px;
       text-align: center;
@@ -344,7 +455,10 @@
       font-weight: 900;
     }
 
-    /* ===== アクティブボーナス ===== */
+    /* =========================================================
+       アクティブボーナス
+       ========================================================= */
+
     .bonus-result-list {
       list-style: none;
       padding: 0;
@@ -387,7 +501,10 @@
       color: #94a3b8;
     }
 
-    /* ===== お祝い演出 ===== */
+    /* =========================================================
+       お祝い演出
+       ========================================================= */
+
     .bonus-result.celebrate {
       border-color: #f2c94c !important;
       box-shadow: 0 10px 30px rgba(245, 158, 11, .14) !important;
@@ -414,27 +531,70 @@
       animation: bonusFall 1.5s ease-in forwards;
     }
 
-    .bonus-confetti i:nth-child(1) { left: 8%;  background:#f59e0b; animation-delay:.02s; }
-    .bonus-confetti i:nth-child(2) { left: 18%; background:#60a5fa; animation-delay:.12s; }
-    .bonus-confetti i:nth-child(3) { left: 31%; background:#f472b6; animation-delay:.05s; }
-    .bonus-confetti i:nth-child(4) { left: 45%; background:#22c55e; animation-delay:.18s; }
-    .bonus-confetti i:nth-child(5) { left: 59%; background:#8b5cf6; animation-delay:.08s; }
-    .bonus-confetti i:nth-child(6) { left: 72%; background:#f97316; animation-delay:.20s; }
-    .bonus-confetti i:nth-child(7) { left: 84%; background:#06b6d4; animation-delay:.10s; }
-    .bonus-confetti i:nth-child(8) { left: 93%; background:#ec4899; animation-delay:.16s; }
+    .bonus-confetti i:nth-child(1) {
+      left: 8%;
+      background: #f59e0b;
+      animation-delay: .02s;
+    }
+
+    .bonus-confetti i:nth-child(2) {
+      left: 18%;
+      background: #60a5fa;
+      animation-delay: .12s;
+    }
+
+    .bonus-confetti i:nth-child(3) {
+      left: 31%;
+      background: #f472b6;
+      animation-delay: .05s;
+    }
+
+    .bonus-confetti i:nth-child(4) {
+      left: 45%;
+      background: #22c55e;
+      animation-delay: .18s;
+    }
+
+    .bonus-confetti i:nth-child(5) {
+      left: 59%;
+      background: #8b5cf6;
+      animation-delay: .08s;
+    }
+
+    .bonus-confetti i:nth-child(6) {
+      left: 72%;
+      background: #f97316;
+      animation-delay: .20s;
+    }
+
+    .bonus-confetti i:nth-child(7) {
+      left: 84%;
+      background: #06b6d4;
+      animation-delay: .10s;
+    }
+
+    .bonus-confetti i:nth-child(8) {
+      left: 93%;
+      background: #ec4899;
+      animation-delay: .16s;
+    }
 
     @keyframes bonusFall {
       0% {
         transform: translateY(0) rotate(0deg);
         opacity: 1;
       }
+
       100% {
         transform: translateY(230px) rotate(300deg);
         opacity: 0;
       }
     }
 
-    /* ===== 昇格条件一覧（テーブル横スクロール対応） ===== */
+    /* =========================================================
+       昇格条件一覧
+       ========================================================= */
+
     .bonus-reference {
       margin-top: 24px;
       padding: 20px;
@@ -454,401 +614,1099 @@
       margin: 0 0 13px;
       color: var(--bonus-muted);
       font-size: .8rem;
+      line-height: 1.5;
     }
+
+    /* =========================================================
+       スマホ用テーブル
+       ========================================================= */
 
     .table-container {
       width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
+      border-radius: 10px;
     }
 
     .table-container table {
       width: 100%;
+      min-width: 560px;
       border-collapse: collapse;
-      min-width: 320px;
     }
 
-    /* ===== スマホ（レスポンシブ）最適化 ===== */
+    .table-container th,
+    .table-container td {
+      padding: 9px 8px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+      font-size: .82rem;
+    }
+
+    .table-container th {
+      background: #f8fafc;
+      color: #334155;
+      font-weight: 800;
+    }
+
+    /* =========================================================
+       フッター
+       ========================================================= */
+
+    .bonus-footer {
+      width: 100%;
+      margin-top: 40px;
+      padding: 22px 15px;
+      text-align: center;
+      background: #123778;
+      border-top: 5px solid #d4e114;
+    }
+
+    .bonus-footer .copyright {
+      margin: 0;
+      color: #d4e114;
+      font-size: .72rem;
+      font-weight: bold;
+    }
+
+    /* =========================================================
+       スマホ最適化
+       ========================================================= */
+
     @media (max-width: 600px) {
+
+      body {
+        padding-bottom: 20px;
+      }
+
+      .bonus-header-inner {
+        min-height: 54px;
+        padding: 7px 10px;
+        gap: 7px;
+      }
+
+      .bonus-header-link {
+        min-height: 38px;
+        padding: 7px 9px;
+        font-size: .72rem;
+      }
+
       .bonus-hero {
-        padding: 20px 15px;
-        border-radius: 16px;
+        margin: 2px 0 18px;
+        padding: 22px 16px 20px;
+        border-radius: 18px;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.45rem;
+      }
+
+      .bonus-hero p {
+        font-size: .84rem;
+        line-height: 1.7;
       }
 
       .bonus-check-form,
       .bonus-result,
       .bonus-reference {
-        padding: 15px;
-        border-radius: 16px !important;
+        padding: 16px;
+        border-radius: 17px;
+      }
+
+      .bonus-form-intro {
+        padding: 12px;
+      }
+
+      .bonus-form-intro span {
+        font-size: .78rem;
+      }
+
+      .bonus-form-group {
+        margin-bottom: 15px;
+      }
+
+      .bonus-form-label {
+        font-size: .88rem;
       }
 
       .bonus-form-control {
-        font-size: 16px; /* iOS等のズーム防止用サイズ */
-        padding: 11px 12px;
+        min-height: 50px;
+        font-size: 16px;
       }
 
       .bonus-submit {
-        padding: 14px 16px;
-        font-size: 1rem;
+        min-height: 56px;
+        font-size: .98rem;
+      }
+
+      .bonus-result-head h2 {
+        font-size: 1.3rem;
       }
 
       .bonus-result-status {
-        font-size: 0.98rem;
-        padding: 10px;
+        font-size: .95rem;
+      }
+
+      .bonus-result-item {
+        font-size: .82rem;
+      }
+
+      .bonus-title-name {
+        font-size: 1.25rem;
+      }
+
+      .bonus-reference {
+        margin-top: 18px;
+      }
+    }
+
+    @media (max-width: 360px) {
+
+      .bonus-header-link {
+        padding: 6px 7px;
+        font-size: .68rem;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.3rem;
+      }
+
+      .bonus-check-form,
+      .bonus-result,
+      .bonus-reference {
+        padding: 13px;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ヘッダー -->
-  <header>
-    <div class="header-container">
-      <a href="./guide-c.html" class="back-link">← ガイドCへ戻る</a>
-      <a href="./index.html" class="back-link">トップへ</a>
+  <!-- =======================================================
+       ヘッダー
+       ======================================================== -->
+
+  <header class="bonus-header">
+    <div class="bonus-header-inner">
+
+      <!-- 左：トップガイドへ戻る -->
+      <a href="./index.html" class="bonus-header-link bonus-header-back">
+        ← トップガイドへ戻る
+      </a>
+
+      <!-- 右：E-Service -->
+      <a
+        href="https://www.ninapharm.co.jp/e-service/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bonus-header-link bonus-header-login"
+      >
+        E-Service ログイン
+      </a>
+
     </div>
   </header>
 
-  <!-- メインコンテンツ -->
+
+  <!-- =======================================================
+       メインコンテンツ
+       ======================================================== -->
+
   <div class="container bonus-page">
 
+    <!-- ヒーロー -->
     <div class="bonus-hero">
+
       <span class="bonus-kicker">✨ CHECK TOOL</span>
-      <h1>いまのあなた、<span>どこまで来た？</span></h1>
+
+      <h1>
+        いまのあなた、
+        <span>どこまで来た？</span>
+      </h1>
+
       <p>
-        数字を入れるだけで、コミッションやタイトルの達成状況をチェックできます。<br>
+        現在の状況を入力するだけで、コミッションやタイトルの達成状況をチェックできます。<br>
         「あと少し！」も「達成した！」も、ここで確認しよう。
       </p>
+
     </div>
 
-    <!-- 入力フォーム (完全入力型へ統一) -->
+
+    <!-- =====================================================
+         入力フォーム
+         ====================================================== -->
+
     <div class="bonus-check-form">
 
       <div class="bonus-form-intro">
+
         <div class="bonus-form-intro-icon">📝</div>
+
         <div>
-          <strong>まずは現在の状況・数字を入れてみよう</strong>
-          <span>全ての項目に入力・選択してチェックボタンを押してください。</span>
+          <strong>現在の状況を入力してください</strong>
+          <span>
+            5項目すべて入力してから「チェック！」を押してください。
+          </span>
         </div>
+
       </div>
 
+
+      <!-- ① 会員資格 -->
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="sel-member-status">
-          ① 会員資格の状況
+
+        <label class="bonus-form-label" for="chk-member-status">
+          ① 会員資格
         </label>
-        <select id="sel-member-status" class="bonus-form-control">
-          <option value="1">有効</option>
-          <option value="0">無効</option>
-        </select>
-        <small class="bonus-form-hint">E-Serviceの【組織図】で確認できます。</small>
+
+        <div class="bonus-select-wrap">
+
+          <select
+            id="chk-member-status"
+            class="bonus-form-control bonus-select"
+          >
+            <option value="">選択してください</option>
+            <option value="valid">有効</option>
+            <option value="invalid">無効</option>
+          </select>
+
+        </div>
+
+        <small class="bonus-form-hint">
+          E-Serviceの【組織図】などで現在の会員資格を確認してください。
+        </small>
+
       </div>
 
+
+      <!-- ② 自己購入P -->
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-self-pt">
+
+        <label
+          class="bonus-form-label"
+          for="ipt-self-pt"
+        >
           ② ポジションでの自己購入ポイント（P）
         </label>
-        <input type="number"
-               id="ipt-self-pt"
-               class="bonus-form-control"
-               placeholder="例：10000"
-               min="0"
-               step="1000"
-               inputmode="numeric">
+
+        <input
+          type="number"
+          id="ipt-self-pt"
+          class="bonus-form-control bonus-number-input"
+          placeholder="例：10,000"
+          min="0"
+          step="1"
+          inputmode="numeric"
+        >
+
       </div>
 
+
+      <!-- ③ アクティブ紹介者数 -->
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-active-num">
+
+        <label
+          class="bonus-form-label"
+          for="ipt-active-num"
+        >
           ③ アクティブ紹介者数（人）
         </label>
-        <input type="number"
-               id="ipt-active-num"
-               class="bonus-form-control"
-               placeholder="例：2"
-               min="0"
-               inputmode="numeric">
+
+        <input
+          type="number"
+          id="ipt-active-num"
+          class="bonus-form-control bonus-number-input"
+          placeholder="例：2"
+          min="0"
+          step="1"
+          inputmode="numeric"
+        >
+
       </div>
 
+
+      <!-- ④ グループ売上 -->
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-group-pt">
+
+        <label
+          class="bonus-form-label"
+          for="ipt-group-pt"
+        >
           ④ 左右グループ売上Pの少ない方（P）
         </label>
-        <input type="number"
-               id="ipt-group-pt"
-               class="bonus-form-control"
-               placeholder="例：200000"
-               min="0"
-               step="10000"
-               inputmode="numeric">
+
+        <input
+          type="number"
+          id="ipt-group-pt"
+          class="bonus-form-control bonus-number-input"
+          placeholder="例：200,000"
+          min="0"
+          step="1"
+          inputmode="numeric"
+        >
+
         <small class="bonus-form-hint">
-          左右のうち、ポイントが少ない側の数字を入力。
+          左右のうち、ポイントが少ない側の数字を入力してください。
         </small>
+
       </div>
 
+
+      <!-- ⑤ マイナンバー -->
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="sel-mynumber">
-          ⑤ 個人番号（マイナンバー）提出状況
+
+        <label
+          class="bonus-form-label"
+          for="chk-mynumber"
+        >
+          ⑤ 個人番号（マイナンバー）提出
         </label>
-        <select id="sel-mynumber" class="bonus-form-control">
-          <option value="1">提出済み</option>
-          <option value="0">未提出</option>
-        </select>
+
+        <div class="bonus-select-wrap">
+
+          <select
+            id="chk-mynumber"
+            class="bonus-form-control bonus-select"
+          >
+            <option value="">選択してください</option>
+            <option value="submitted">提出済み</option>
+            <option value="not-submitted">未提出</option>
+          </select>
+
+        </div>
+
       </div>
 
-      <button type="button"
-              class="bonus-submit"
-              onclick="checkConditions()">
+
+      <!-- チェックボタン -->
+      <button
+        type="button"
+        class="bonus-submit"
+        onclick="checkConditions()"
+      >
         🚀 いまの達成状況をチェック！
       </button>
+
     </div>
 
-    <!-- 判定結果 -->
+
+    <!-- =====================================================
+         判定結果
+         ====================================================== -->
+
     <div id="result-card" class="bonus-result">
 
-      <div class="bonus-confetti" aria-hidden="true">
-        <i></i><i></i><i></i><i></i>
-        <i></i><i></i><i></i><i></i>
+      <!-- お祝い演出 -->
+      <div
+        class="bonus-confetti"
+        aria-hidden="true"
+      >
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
       </div>
 
+
       <div class="bonus-result-head">
-        <span class="small">YOUR RESULT</span>
-        <h2>チェック結果 🎉</h2>
+
+        <span class="small">
+          YOUR RESULT
+        </span>
+
+        <h2>
+          チェック結果 🎉
+        </h2>
+
       </div>
+
 
       <!-- コミッション -->
       <div class="bonus-result-block commission">
-        <div class="bonus-result-label">💰 コミッション</div>
-        <div id="basic-status" class="bonus-result-status"></div>
+
+        <div class="bonus-result-label">
+          💰 コミッション
+        </div>
+
+        <div
+          id="basic-status"
+          class="bonus-result-status"
+        ></div>
+
       </div>
+
 
       <!-- タイトル -->
       <div class="bonus-result-block title">
-        <div class="bonus-result-label">🏆 タイトル</div>
+
+        <div class="bonus-result-label">
+          🏆 タイトル
+        </div>
+
         <div id="title-status"></div>
+
       </div>
+
 
       <!-- アクティブボーナス -->
       <div class="bonus-result-block activebonus">
-        <div class="bonus-result-label">⚡ アクティブボーナス</div>
-        <ul id="active-bonus-details" class="bonus-result-list"></ul>
+
+        <div class="bonus-result-label">
+          ⚡ アクティブボーナス
+        </div>
+
+        <ul
+          id="active-bonus-details"
+          class="bonus-result-list"
+        ></ul>
+
       </div>
 
     </div>
 
-    <!-- 参考：昇格条件一覧表 -->
-    <div class="bonus-reference">
-      <div class="bonus-reference-title">📊 タイトル昇格条件をざっくり確認</div>
+
+    <!-- =====================================================
+         タイトル昇格条件一覧
+         ====================================================== -->
+
+    <div
+      class="bonus-reference"
+      style="margin-top: 24px;"
+    >
+
+      <div class="bonus-reference-title">
+        📊 タイトル昇格条件をざっくり確認
+      </div>
+
       <p class="bonus-reference-note">
         「次はどこを目指せばいい？」というときの目安として見てください。
       </p>
+
+
       <div class="table-container">
+
         <table>
+
           <thead>
+
             <tr>
-              <th>タイトル</th>
-              <th>昇格条件<br><span style="font-size:0.75em; font-weight:normal;">(少ない方のグループ売上P)</span></th>
-              <th>必要アクティブ<br>紹介者数</th>
+
+              <th>
+                タイトル
+              </th>
+
+              <th>
+                昇格条件<br>
+                <span style="font-size:0.75em; font-weight:normal;">
+                  (少ない方のグループ売上P)
+                </span>
+              </th>
+
+              <th>
+                必要アクティブ<br>
+                紹介者数
+              </th>
+
             </tr>
+
           </thead>
+
+
           <tbody>
+
             <tr>
               <th>クリスタル</th>
               <td>20万P〜</td>
               <td>2人</td>
             </tr>
+
             <tr>
               <th>ラピス</th>
               <td>50万P〜</td>
               <td>2人</td>
             </tr>
+
             <tr>
               <th>サファイヤ</th>
               <td>100万P〜</td>
               <td>2人</td>
             </tr>
+
             <tr>
               <th>エメラルド</th>
               <td>300万P〜</td>
               <td>2人</td>
             </tr>
+
             <tr>
               <th>ゴールド</th>
               <td>600万P〜</td>
               <td>4人</td>
             </tr>
+
             <tr>
               <th>プラチナ</th>
               <td>1,200万P〜</td>
               <td>4人</td>
             </tr>
+
             <tr>
               <th>ダイヤモンド</th>
               <td>3,000万P〜</td>
               <td>4人</td>
             </tr>
+
             <tr>
               <th>ロワイヤルダイヤモンド</th>
               <td>6,000万P〜</td>
               <td>4人</td>
             </tr>
+
             <tr>
               <th>カリナンロワイヤルダイヤモンド</th>
-              <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
+              <td>
+                連続6つの月度ロワイヤルダイヤモンドを達成
+              </td>
               <td>4人</td>
             </tr>
+
           </tbody>
+
         </table>
+
       </div>
+
     </div>
 
   </div>
 
-  <footer>
+
+  <!-- =======================================================
+       フッター
+       ======================================================== -->
+
+  <footer class="bonus-footer">
+
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
+
   </footer>
 
+
+  <!-- =======================================================
+       JavaScript
+       ======================================================== -->
+
   <script>
-function checkConditions() {
-      // 入力値の取得（すべて選択肢・入力フィールドから取得）
-      const isMember = document.getElementById('sel-member-status').value === '1';
-      const activeReferrals = Number(document.getElementById('ipt-active-num').value) || 0;
-      const weakLegPoints = Number(document.getElementById('ipt-group-pt').value) || 0;
-      const hasMyNumber = document.getElementById('sel-mynumber').value === '1';
 
-      const resultCardEl = document.getElementById('result-card');
-      const basicStatusEl = document.getElementById('basic-status');
-      const titleStatusEl = document.getElementById('title-status');
-      const activeBonusDetailsEl = document.getElementById('active-bonus-details');
+    function checkConditions() {
 
-      // ----------------------------------------------------
-      // 1. 会員資格が無効の場合
-      // ----------------------------------------------------
-      if (!isMember) {
-        basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '❌ コミッション発生なし（会員資格が無効）';
+      /* =====================================================
+         入力値の取得
+         ====================================================== */
 
-        titleStatusEl.className = 'bonus-result-status status-ng';
-        titleStatusEl.innerText = 'タイトル：なし';
+      const memberStatus =
+        document.getElementById('chk-member-status').value;
 
-        activeBonusDetailsEl.innerHTML = `
-          <li class="bonus-result-item"><span class="bonus-result-icon ng">✗</span> 5アクティブボーナス：対象外（会員資格無効）</li>
-          <li class="bonus-result-item"><span class="bonus-result-icon ng">✗</span> 10アクティブボーナス：対象外（会員資格無効）</li>
-        `;
+      const activeReferrals =
+        Number(
+          document.getElementById('ipt-active-num').value
+        ) || 0;
 
-        resultCardEl.classList.add('active');
-        resultCardEl.scrollIntoView({ behavior: 'smooth' });
+      const weakLegPoints =
+        Number(
+          document.getElementById('ipt-group-pt').value
+        ) || 0;
+
+      const myNumberStatus =
+        document.getElementById('chk-mynumber').value;
+
+
+      /* =====================================================
+         必須入力チェック
+         ====================================================== */
+
+      const selfPt =
+        document.getElementById('ipt-self-pt').value;
+
+
+      if (
+        memberStatus === '' ||
+        selfPt === '' ||
+        document.getElementById('ipt-active-num').value === '' ||
+        document.getElementById('ipt-group-pt').value === '' ||
+        myNumberStatus === ''
+      ) {
+
+        alert('すべての項目を入力・選択してください。');
+
         return;
       }
 
-      // ----------------------------------------------------
-      // 2. コミッション発生判定
-      // ----------------------------------------------------
-      const isCommissionEligible = (activeReferrals >= 1) && (weakLegPoints >= 30000);
-      if (isCommissionEligible) {
-        basicStatusEl.className = 'bonus-result-status status-ok';
-        let commissionText = '🎉 コミッション、発生！';
-        if (activeReferrals === 1) {
-          commissionText += '<div class="bonus-result-note">※ベーシックコミッションの分配率は3％になります</div>';
-        }
-        basicStatusEl.innerHTML = commissionText;
-      } else {
-        basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '🌱 あと少し！コミッション条件を確認しよう';
+
+      /* =====================================================
+         判定用の値
+         ====================================================== */
+
+      const isMember =
+        memberStatus === 'valid';
+
+      const hasMyNumber =
+        myNumberStatus === 'submitted';
+
+
+      const basicStatusEl =
+        document.getElementById('basic-status');
+
+      const titleStatusEl =
+        document.getElementById('title-status');
+
+      const activeBonusDetailsEl =
+        document.getElementById('active-bonus-details');
+
+      const resultCard =
+        document.getElementById('result-card');
+
+
+      /* =====================================================
+         1. 会員資格が無効の場合
+         ====================================================== */
+
+      if (!isMember) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '❌ コミッション発生なし（会員資格が無効）';
+
+
+        titleStatusEl.className =
+          'bonus-result-status status-ng';
+
+        titleStatusEl.innerText =
+          'タイトル：なし';
+
+
+        activeBonusDetailsEl.innerHTML = `
+          <li class="bonus-result-item">
+            <span class="bonus-result-icon ng">✗</span>
+            5アクティブボーナス：対象外（会員資格無効）
+          </li>
+
+          <li class="bonus-result-item">
+            <span class="bonus-result-icon ng">✗</span>
+            10アクティブボーナス：対象外（会員資格無効）
+          </li>
+        `;
+
+
+        resultCard.classList.remove('celebrate');
+
+        resultCard.classList.add('active');
+
+
+        /* 結果までスクロール */
+        scrollToResult();
+
+        return;
       }
 
-      // ----------------------------------------------------
-      // 3. タイトル判定
-      // ----------------------------------------------------
-      let calculatedTitle = 'メンバー';
-      let titleNote = '';
+
+      /* =====================================================
+         2. コミッション発生判定
+         ====================================================== */
+
+      const isCommissionEligible =
+        (activeReferrals >= 1) &&
+        (weakLegPoints >= 30000);
+
+
+      if (isCommissionEligible) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ok';
+
+
+        let commissionText =
+          '🎉 コミッション、発生！';
+
+
+        if (activeReferrals === 1) {
+
+          commissionText +=
+            '<div class="bonus-result-note">' +
+            '※ベーシックコミッションの分配率は3％になります' +
+            '</div>';
+
+        }
+
+
+        basicStatusEl.innerHTML =
+          commissionText;
+
+      } else {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '🌱 あと少し！コミッション条件を確認しよう';
+
+      }
+
+
+      /* =====================================================
+         3. タイトル判定
+         (タイトルはアクティブ紹介者2人以上が必要)
+         ====================================================== */
+
+      let calculatedTitle =
+        'メンバー';
+
+      let titleNote =
+        '';
+
 
       if (activeReferrals >= 2) {
-        if (weakLegPoints >= 60000000 && activeReferrals >= 4) {
-          calculatedTitle = 'ロワイヤルダイヤモンド';
-          titleNote = '※プラチナ以上の直紹介系列が3系列必要です。';
-        } else if (weakLegPoints >= 30000000 && activeReferrals >= 4) {
-          calculatedTitle = 'ダイヤモンド';
-          titleNote = '※ゴールド以上の直紹介系列が3系列必要です。';
-        } else if (weakLegPoints >= 12000000 && activeReferrals >= 4) {
-          calculatedTitle = 'プラチナ';
-          titleNote = '※エメラルド以上の直紹介系列が2系列必要です。';
-        } else if (weakLegPoints >= 6000000 && activeReferrals >= 4) {
-          calculatedTitle = 'ゴールド';
-        } else if (weakLegPoints >= 3000000) {
-          calculatedTitle = 'エメラルド';
-        } else if (weakLegPoints >= 1000000) {
-          calculatedTitle = 'サファイヤ';
-        } else if (weakLegPoints >= 500000) {
-          calculatedTitle = 'ラピス';
-        } else if (weakLegPoints >= 200000) {
-          calculatedTitle = 'クリスタル';
+
+        if (
+          weakLegPoints >= 60000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'ロワイヤルダイヤモンド';
+
+          titleNote =
+            '※プラチナ以上の直紹介系列が3系列必要です。';
+
         }
+
+        else if (
+          weakLegPoints >= 30000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'ダイヤモンド';
+
+          titleNote =
+            '※ゴールド以上の直紹介系列が3系列必要です。';
+
+        }
+
+        else if (
+          weakLegPoints >= 12000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'プラチナ';
+
+          titleNote =
+            '※エメラルド以上の直紹介系列が2系列必要です。';
+
+        }
+
+        else if (
+          weakLegPoints >= 6000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'ゴールド';
+
+        }
+
+        else if (
+          weakLegPoints >= 3000000
+        ) {
+
+          calculatedTitle =
+            'エメラルド';
+
+        }
+
+        else if (
+          weakLegPoints >= 1000000
+        ) {
+
+          calculatedTitle =
+            'サファイヤ';
+
+        }
+
+        else if (
+          weakLegPoints >= 500000
+        ) {
+
+          calculatedTitle =
+            'ラピス';
+
+        }
+
+        else if (
+          weakLegPoints >= 200000
+        ) {
+
+          calculatedTitle =
+            'クリスタル';
+
+        }
+
       }
 
-      // マイナンバー未提出の場合の制御
-      if (!hasMyNumber && calculatedTitle !== 'メンバー') {
-        titleStatusEl.className = 'bonus-result-status status-ng';
-        titleStatusEl.innerText = '⚠️ メンバー（※マイナンバー未提出のため昇格・ボーナス保留）';
-      } else {
-        titleStatusEl.className = calculatedTitle !== 'メンバー' ? 'bonus-result-status status-ok' : 'bonus-result-status status-ng';
-        let titleHtml = `<div class="bonus-title-achievement"><div class="bonus-title-crown">🏆</div><div class="bonus-title-label">タイトル達成！</div><div class="bonus-title-name">${calculatedTitle}</div>`;
+
+      /* =====================================================
+         マイナンバー未提出の場合の制御
+         ====================================================== */
+
+      if (
+        !hasMyNumber &&
+        calculatedTitle !== 'メンバー'
+      ) {
+
+        titleStatusEl.className =
+          'bonus-result-status status-ng';
+
+        titleStatusEl.innerText =
+          '⚠️ メンバー（※マイナンバー未提出のため昇格・ボーナス保留）';
+
+      }
+
+      else {
+
+        titleStatusEl.className =
+          calculatedTitle !== 'メンバー'
+            ? 'bonus-result-status status-ok'
+            : 'bonus-result-status status-ng';
+
+
+        let titleHtml = `
+          <div class="bonus-title-achievement">
+
+            <div class="bonus-title-crown">
+              🏆
+            </div>
+
+            <div class="bonus-title-label">
+              タイトル達成！
+            </div>
+
+            <div class="bonus-title-name">
+              ${calculatedTitle}
+            </div>
+        `;
+
+
         if (titleNote) {
-          titleHtml += `<div class="bonus-result-note" style="margin-top:6px;">${titleNote}</div>`;
+
+          titleHtml += `
+            <div
+              class="bonus-result-note"
+              style="margin-top:6px;"
+            >
+              ${titleNote}
+            </div>
+          `;
+
         }
-        titleHtml += `</div>`;
-        titleStatusEl.innerHTML = titleHtml;
+
+
+        titleHtml += `
+          </div>
+        `;
+
+
+        titleStatusEl.innerHTML =
+          titleHtml;
+
       }
 
-      // ----------------------------------------------------
-      // 4. アクティブボーナス判定
-      // ----------------------------------------------------
-      let active5Status = 'まだ条件前';
-      let active5Ok = false;
+
+      /* =====================================================
+         4. アクティブボーナス判定
+         ====================================================== */
+
+      /*
+        5アクティブボーナス：
+        5人以上 & タイトル昇格者は対象外（メンバーのみ）
+      */
+
+      let active5Status =
+        'まだ条件前';
+
+      let active5Ok =
+        false;
+
+
       if (activeReferrals >= 5) {
+
         if (calculatedTitle === 'メンバー') {
-          active5Status = '達成';
-          active5Ok = true;
-        } else {
-          active5Status = '対象外（タイトル昇格者のため）';
+
+          active5Status =
+            '達成';
+
+          active5Ok =
+            true;
+
         }
+
+        else {
+
+          active5Status =
+            '対象外（タイトル昇格者のため）';
+
+        }
+
       }
 
-      const sapphireAndBelow = ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'];
-      let active10Status = 'まだ条件前';
-      let active10Ok = false;
+
+      /*
+        10アクティブボーナス：
+        10人以上 & サファイア以下対象
+      */
+
+      const sapphireAndBelow = [
+        'メンバー',
+        'クリスタル',
+        'ラピス',
+        'サファイヤ'
+      ];
+
+
+      let active10Status =
+        'まだ条件前';
+
+      let active10Ok =
+        false;
+
+
       if (activeReferrals >= 10) {
-        if (sapphireAndBelow.includes(calculatedTitle)) {
-          active10Status = '達成';
-          active10Ok = true;
-        } else {
-          active10Status = '対象外（サファイア超過のため）';
+
+        if (
+          sapphireAndBelow.includes(
+            calculatedTitle
+          )
+        ) {
+
+          active10Status =
+            '達成';
+
+          active10Ok =
+            true;
+
         }
+
+        else {
+
+          active10Status =
+            '対象外（サファイア超過のため）';
+
+        }
+
       }
+
 
       activeBonusDetailsEl.innerHTML = `
+
         <li class="bonus-result-item">
-          <span class="bonus-result-icon ${active5Ok ? 'ok' : 'ng'}">${active5Ok ? '✓' : '–'}</span>
-          <span>5アクティブボーナス：<strong>${active5Status}</strong></span>
+
+          <span
+            class="bonus-result-icon ${active5Ok ? 'ok' : 'ng'}"
+          >
+            ${active5Ok ? '✓' : '–'}
+          </span>
+
+          <span>
+            5アクティブボーナス：
+            <strong>${active5Status}</strong>
+          </span>
+
         </li>
+
+
         <li class="bonus-result-item">
-          <span class="bonus-result-icon ${active10Ok ? 'ok' : 'ng'}">${active10Ok ? '✓' : '–'}</span>
-          <span>10アクティブボーナス：<strong>${active10Status}</strong></span>
+
+          <span
+            class="bonus-result-icon ${active10Ok ? 'ok' : 'ng'}"
+          >
+            ${active10Ok ? '✓' : '–'}
+          </span>
+
+          <span>
+            10アクティブボーナス：
+            <strong>${active10Status}</strong>
+          </span>
+
         </li>
+
       `;
 
-      // 結果カードの表示とスクロール移動
-      resultCardEl.classList.add('active');
-      resultCardEl.scrollIntoView({ behavior: 'smooth' });
 
-      // 達成時のお祝い演出
-      if (isCommissionEligible || calculatedTitle !== 'メンバー') {
-        resultCardEl.classList.add('celebrate');
-      } else {
-        resultCardEl.classList.remove('celebrate');
+      /* =====================================================
+         結果カードを表示
+         ====================================================== */
+
+      resultCard.classList.remove('celebrate');
+
+      resultCard.classList.add('active');
+
+
+      /* =====================================================
+         達成時だけお祝い演出
+         （判定ロジックには影響しない）
+         ====================================================== */
+
+      if (
+        isCommissionEligible ||
+        calculatedTitle !== 'メンバー'
+      ) {
+
+        resultCard.classList.add(
+          'celebrate'
+        );
+
       }
+
+
+      /* =====================================================
+         結果カードまで自動スクロール
+         ====================================================== */
+
+      scrollToResult();
+
     }
+
+
+    /* =======================================================
+       結果カードまでスクロール
+       ======================================================== */
+
+    function scrollToResult() {
+
+      const resultCard =
+        document.getElementById('result-card');
+
+
+      setTimeout(function () {
+
+        resultCard.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+      }, 100);
+
+    }
+
   </script>
 
 </body>
 </html>
+```
