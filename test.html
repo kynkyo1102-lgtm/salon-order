@@ -1,417 +1,2342 @@
-```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ニナファームジャポン メンバーズWebガイド</title>
+  <meta name="theme-color" content="#f59e0b">
+  <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
+  <link rel="stylesheet" href="common.css">
+
   <style>
-    /* 画像の配色（ロイヤルブルー × ライムグリーン）に合わせて調整 */
-    :root {
-      --primary: #1b4ea8;
-      --primary-dark: #123778;
-      --accent: #d4e114;
-      --accent-dark: #b1bd05;
-      --bg-color: #f0f4f9;
-      --text-color: #333333;
-      --card-bg: #ffffff;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-    }
-    
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      padding-bottom: 40px;
+    /* =========================================================
+       ボーナスチェックページ専用CSS
+       UI・アクセシビリティ改善版
+       ========================================================= */
+
+    .bonus-page {
+      --bonus-orange: #f59e0b;
+      --bonus-orange-dark: #d97706;
+      --bonus-green: #22c55e;
+      --bonus-green-bg: #ecfdf3;
+      --bonus-blue-bg: #eff6ff;
+      --bonus-yellow-bg: #fff9df;
+      --bonus-ink: #334155;
+      --bonus-muted: #64748b;
+      --bonus-line: #e2e8f0;
+      --bonus-focus: #2563eb;
+      --bonus-danger: #dc2626;
     }
 
-    /* ヘッダー */
-    header {
-      background-color: var(--primary);
-      border-bottom: 4px solid var(--accent);
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
+    /* =========================================================
+       ヒーロー
+       ========================================================= */
 
-    .header-container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-login {
-      background-color: var(--accent);
-      color: #1a1a1a;
-      padding: 8px 18px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .btn-login:hover {
-      background-color: var(--accent-dark);
-    }
-
-    /* メインコンテナ */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 25px 15px;
-    }
-
-    /* ヒーローエリア */
-    .hero {
-      text-align: center;
-      padding: 30px 20px;
-      background: #ffffff;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      border-top: 5px solid var(--primary);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .hero-subtitle {
-      color: var(--primary);
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 6px;
-      letter-spacing: 0.05em;
-    }
-
-    .hero-title {
-      font-size: 1.55rem;
-      margin-bottom: 12px;
-      color: #1a1a1a;
-      word-break: keep-all;
-    }
-
-    .hero-desc {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* セクションタイトル */
-    .section-title {
-      font-size: 1.15rem;
-      margin-bottom: 15px;
-      padding-left: 12px;
-      border-left: 5px solid var(--primary);
-      color: var(--primary-dark);
-      font-weight: bold;
-    }
-
-    .nav-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* カードデザイン */
-    .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 22px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      border: 1px solid #dbe3ee;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      transition: all 0.2s ease;
+    .bonus-hero {
       position: relative;
+      overflow: hidden;
+      margin: 4px 0 24px;
+      padding: 28px 22px 25px;
+      border-radius: 22px;
+      background: linear-gradient(
+        135deg,
+        #fff9df 0%,
+        #ffffff 58%,
+        #f1f7ff 100%
+      );
+      border: 2px solid #f2dda0;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, .10);
     }
 
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(27,78,168,0.12);
-      border-color: var(--primary);
-    }
-
-    /* ツール強調カード */
-    .card-tool {
-      border: 2px solid var(--primary);
-      background: #f4f7fc;
-    }
-
-    .card-badge {
-      display: inline-block;
-      background: #eef3fb;
-      color: var(--primary);
-      font-size: 0.78rem;
-      font-weight: bold;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-
-    .card-tool .card-badge {
-      background: var(--primary);
-      color: #ffffff;
-    }
-
-    .card-title {
-      font-size: 1.18rem;
-      font-weight: bold;
-      color: #111;
-      margin-bottom: 10px;
-    }
-
-    .card-list {
-      list-style: none;
-      font-size: 0.88rem;
-      color: #444;
-      margin-bottom: 15px;
-    }
-
-    .card-list li {
-      margin-bottom: 5px;
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .card-list li::before {
-      content: "▶";
+    .bonus-hero::before,
+    .bonus-hero::after {
+      content: "";
       position: absolute;
-      left: 0;
-      font-size: 0.65rem;
-      top: 3px;
-      color: var(--primary);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
-    .card-btn {
-      font-size: 0.88rem;
-      font-weight: bold;
-      color: var(--primary);
+    .bonus-hero::before {
+      width: 120px;
+      height: 120px;
+      right: -38px;
+      top: -45px;
+      background: rgba(244, 114, 182, .12);
+    }
+
+    .bonus-hero::after {
+      width: 85px;
+      height: 85px;
+      left: -32px;
+      bottom: -38px;
+      background: rgba(59, 130, 246, .10);
+    }
+
+    .bonus-kicker {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #f0d27a;
+      color: #a66b00;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    .bonus-hero h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      color: #1e293b;
+      font-size: clamp(1.4rem, 4.5vw, 2rem);
+      line-height: 1.35;
+      letter-spacing: -.02em;
+    }
+
+    .bonus-hero h1 span {
+      color: #e58b00;
+    }
+
+    .bonus-hero p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--bonus-muted);
+      font-size: .92rem;
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       入力フォーム
+       ========================================================= */
+
+    .bonus-check-form {
+      background: #fff;
+      border: 1px solid var(--bonus-line);
+      border-radius: 20px;
+      padding: 21px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, .06);
+    }
+
+    .bonus-form-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 13px 14px;
+      border-radius: 13px;
+      background: #f8fafc;
+    }
+
+    .bonus-form-intro-icon {
+      flex: 0 0 auto;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .bonus-form-intro strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--bonus-ink);
+    }
+
+    .bonus-form-intro span {
+      color: var(--bonus-muted);
+      font-size: .82rem;
+    }
+
+    .bonus-form-group {
+      margin-bottom: 17px;
+    }
+
+    .bonus-form-group:last-of-type {
+      margin-bottom: 20px;
+    }
+
+    .bonus-form-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--bonus-ink);
+      font-weight: 800;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .bonus-form-hint {
+      display: block;
+      margin-top: 5px;
+      color: var(--bonus-muted);
+      font-size: .76rem;
+      line-height: 1.5;
+    }
+
+    .bonus-form-required {
+      display: inline-block;
+      margin-left: 5px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #fff1f2;
+      color: #be123c;
+      font-size: .65rem;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+
+    .bonus-form-control {
+      display: block;
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background: #fff;
+      color: #1e293b;
+      transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background-color .18s ease;
+    }
+
+    .bonus-form-control::placeholder {
+      color: #94a3b8;
+    }
+
+    .bonus-form-control:hover {
+      border-color: #94a3b8;
+    }
+
+    .bonus-form-control:focus {
+      outline: none;
+      border-color: var(--bonus-focus);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .13);
+    }
+
+    .bonus-form-control[aria-invalid="true"] {
+      border-color: var(--bonus-danger);
+      background: #fffafa;
+    }
+
+    .bonus-field-error {
+      display: none;
+      margin-top: 5px;
+      color: var(--bonus-danger);
+      font-size: .76rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .bonus-field-error.is-visible {
+      display: block;
+    }
+
+    /* =========================================================
+       チェックボックス
+       ========================================================= */
+
+    .bonus-check-row {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      gap: 10px;
+      min-height: 48px;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 11px;
+      background: #fafafa;
+      border: 1px solid #edf0f3;
+      transition:
+        border-color .18s ease,
+        background-color .18s ease,
+        box-shadow .18s ease;
     }
 
-    /* フッター */
-    footer {
-      background-color: var(--primary-dark);
-      color: #ffffff;
+    .bonus-check-row:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .bonus-check-row:focus-within {
+      border-color: var(--bonus-focus);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .11);
+      background: #fff;
+    }
+
+    .bonus-check-row input {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      accent-color: var(--bonus-green);
+      flex: 0 0 auto;
+      cursor: pointer;
+    }
+
+    .bonus-check-row span {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--bonus-ink);
+      line-height: 1.45;
+    }
+
+    /* =========================================================
+       ボタン
+       ========================================================= */
+
+    .bonus-submit {
+      position: relative;
+      width: 100%;
+      min-height: 52px;
+      border: none;
+      border-radius: 13px !important;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 7px 16px rgba(249, 115, 22, .20);
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        filter .15s ease;
+    }
+
+    .bonus-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(249, 115, 22, .28);
+      filter: brightness(1.02);
+    }
+
+    .bonus-submit:active {
+      transform: translateY(1px);
+    }
+
+    .bonus-submit:focus-visible {
+      outline: 3px solid var(--bonus-focus);
+      outline-offset: 3px;
+    }
+
+    /* =========================================================
+       結果カード
+       ========================================================= */
+
+    .bonus-result {
+      scroll-margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+      background: #fff !important;
+      border: 2px solid #e5e7eb !important;
+      border-radius: 22px !important;
+      padding: 20px;
+      margin-top: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, .08) !important;
+    }
+
+    .bonus-result:not(.active) {
+      display: none;
+    }
+
+    .bonus-result.active {
+      display: block;
+      animation: bonusAppear .35s ease both;
+    }
+
+    @keyframes bonusAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(.985);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .bonus-result-head {
+      margin-bottom: 18px;
       text-align: center;
-      margin-top: 50px;
-      padding: 30px 15px 20px;
-      border-top: 6px solid var(--accent);
     }
 
-    .footer-links {
-      margin-bottom: 15px;
+    .bonus-result-head .small {
+      display: block;
+      margin-bottom: 3px;
+      color: #94a3b8;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
     }
 
-    .footer-links a {
-      color: #ffffff;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 0.85rem;
+    .bonus-result-head h2 {
+      margin: 0;
+      color: var(--bonus-ink);
+      font-size: 1.45rem;
+      line-height: 1.35;
     }
 
-    .footer-links a:hover {
-      text-decoration: underline;
-      color: var(--accent);
+    .bonus-result-block {
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 13px;
     }
 
-    .disclaimer {
-      max-width: 650px;
-      margin: 0 auto;
-      line-height: 1.5;
-      font-size: 0.78rem;
-      color: #d0dceb;
+    .bonus-result-block:last-child {
+      margin-bottom: 0;
     }
 
-    .copyright {
-      margin-top: 20px;
-      font-size: 0.75rem;
-      color: var(--accent);
+    .bonus-result-block.commission {
+      background: var(--bonus-green-bg);
+      border: 1px solid #bbf7d0;
+    }
+
+    .bonus-result-block.title {
+      background: linear-gradient(135deg, var(--bonus-yellow-bg), #fff);
+      border: 1px solid #f1d477;
+    }
+
+    .bonus-result-label {
+      margin-bottom: 8px;
+      color: var(--bonus-muted);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .bonus-result-status {
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.06rem;
+      font-weight: 900;
+      line-height: 1.55;
+    }
+
+    .bonus-result-status.status-ok {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .bonus-result-status.status-ng {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    .bonus-result-note {
+      margin-top: 8px;
+      font-size: .82rem;
+      color: #d97706;
       font-weight: bold;
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       タイトル達成
+       ========================================================= */
+
+    .bonus-title-achievement {
+      padding: 15px;
+      text-align: center;
+      background: #fff;
+      border-radius: 15px;
+      border: 1px solid #f0d37c;
+    }
+
+    .bonus-title-crown {
+      font-size: 2.35rem;
+      line-height: 1;
+    }
+
+    .bonus-title-label {
+      margin-top: 6px;
+      color: #c47a00;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .bonus-title-name {
+      margin-top: 2px;
+      color: #1e293b;
+      font-size: 1.4rem;
+      font-weight: 900;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    /* =========================================================
+       お祝い演出
+       ========================================================= */
+
+    .bonus-result.celebrate {
+      border-color: #f2c94c !important;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, .14) !important;
+    }
+
+    .bonus-confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .bonus-confetti i {
+      position: absolute;
+      top: -12px;
+      width: 7px;
+      height: 12px;
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .bonus-result.celebrate .bonus-confetti i {
+      animation: bonusFall 1.5s ease-in forwards;
+    }
+
+    .bonus-confetti i:nth-child(1) {
+      left: 8%;
+      background: #f59e0b;
+      animation-delay: .02s;
+    }
+
+    .bonus-confetti i:nth-child(2) {
+      left: 18%;
+      background: #60a5fa;
+      animation-delay: .12s;
+    }
+
+    .bonus-confetti i:nth-child(3) {
+      left: 31%;
+      background: #f472b6;
+      animation-delay: .05s;
+    }
+
+    .bonus-confetti i:nth-child(4) {
+      left: 45%;
+      background: #22c55e;
+      animation-delay: .18s;
+    }
+
+    .bonus-confetti i:nth-child(5) {
+      left: 59%;
+      background: #8b5cf6;
+      animation-delay: .08s;
+    }
+
+    .bonus-confetti i:nth-child(6) {
+      left: 72%;
+      background: #f97316;
+      animation-delay: .20s;
+    }
+
+    .bonus-confetti i:nth-child(7) {
+      left: 84%;
+      background: #06b6d4;
+      animation-delay: .10s;
+    }
+
+    .bonus-confetti i:nth-child(8) {
+      left: 93%;
+      background: #ec4899;
+      animation-delay: .16s;
+    }
+
+    @keyframes bonusFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(230px) rotate(300deg);
+        opacity: 0;
+      }
+    }
+
+    /* =========================================================
+       あと少しガイド
+       ========================================================= */
+
+    .bonus-next-guide {
+      margin-top: 10px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .72);
+      border: 1px dashed #cbd5e1;
+      color: var(--bonus-ink);
+      font-size: .82rem;
+      line-height: 1.65;
+    }
+
+    .bonus-next-guide strong {
+      color: #d97706;
+    }
+
+    .bonus-next-guide ul {
+      margin: 6px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .bonus-next-guide li {
+      margin: 3px 0;
+    }
+
+    .bonus-next-guide .done {
+      color: #15803d;
+      font-weight: 800;
+    }
+
+    /* =========================================================
+       共通必須条件の案内
+       ========================================================= */
+
+    .bonus-important-rule {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin: 0 0 18px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: .82rem;
+      line-height: 1.6;
+    }
+
+    .bonus-important-rule-icon {
+      flex: 0 0 auto;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .bonus-important-rule strong {
+      font-weight: 900;
+    }
+
+    /* =========================================================
+       参考表
+       ========================================================= */
+
+    .bonus-reference {
+      margin-top: 24px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid var(--bonus-line);
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, .05);
+    }
+
+    .bonus-reference-title {
+      margin-bottom: 7px;
+      color: var(--bonus-ink);
+      font-weight: 900;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .bonus-reference-note {
+      margin: 0 0 13px;
+      color: var(--bonus-muted);
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    .bonus-reference-required {
+      display: inline-block;
+      margin-bottom: 13px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: .78rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .bonus-reference .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 10px;
+    }
+
+    .bonus-reference table {
+      width: 100%;
+      min-width: 540px;
+    }
+
+    .bonus-reference th,
+    .bonus-reference td {
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       数値入力の矢印を非表示
+       ========================================================= */
+
+    .bonus-form-control[type="number"]::-webkit-outer-spin-button,
+    .bonus-form-control[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .bonus-form-control[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* =========================================================
+       スマホ
+       ========================================================= */
+
+    @media (max-width: 600px) {
+
+      .bonus-hero {
+        padding: 21px 17px 22px;
+        border-radius: 19px;
+      }
+
+      .bonus-kicker {
+        font-size: .72rem;
+        padding: 4px 10px;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.34rem;
+        line-height: 1.35;
+        letter-spacing: -.025em;
+      }
+
+      .bonus-hero p {
+        font-size: .84rem;
+        line-height: 1.7;
+      }
+
+      .bonus-check-form,
+      .bonus-result,
+      .bonus-reference {
+        padding: 17px;
+      }
+
+      .bonus-form-label {
+        font-size: .82rem;
+        line-height: 1.45;
+        margin-bottom: 6px;
+      }
+
+      .bonus-form-hint {
+        font-size: .72rem;
+      }
+
+      .bonus-form-control {
+        min-height: 47px;
+        font-size: 16px;
+      }
+
+      .bonus-check-row {
+        min-height: 50px;
+        padding: 10px 11px;
+      }
+
+      .bonus-check-row span {
+        font-size: .82rem;
+      }
+
+      .bonus-form-intro {
+        padding: 12px;
+      }
+
+      .bonus-form-intro strong {
+        font-size: .86rem;
+      }
+
+      .bonus-form-intro span {
+        font-size: .74rem;
+      }
+
+      .bonus-submit {
+        min-height: 53px;
+        font-size: .95rem;
+      }
+
+      .bonus-result-head h2 {
+        font-size: 1.28rem;
+      }
+
+      .bonus-result-status {
+        font-size: .93rem;
+      }
+
+      .bonus-title-name {
+        font-size: 1.2rem;
+      }
+
+      .bonus-next-guide {
+        font-size: .77rem;
+      }
+
+      .bonus-important-rule {
+        font-size: .76rem;
+      }
+
+      .bonus-reference-title {
+        font-size: .92rem;
+      }
+
+      .bonus-reference-note {
+        font-size: .75rem;
+      }
+
+      .bonus-reference-required {
+        font-size: .74rem;
+      }
+    }
+
+    /* =========================================================
+       小さいスマホ
+       ========================================================= */
+
+    @media (max-width: 380px) {
+
+      .bonus-hero {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.25rem;
+      }
+
+      .bonus-form-label {
+        font-size: .78rem;
+      }
+
+      .bonus-check-row span {
+        font-size: .78rem;
+      }
+
+      .bonus-result-block {
+        padding: 14px;
+      }
+    }
+
+    /* =========================================================
+       動きを減らしたいユーザーへの配慮
+       ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .bonus-submit:hover {
+        transform: none;
+      }
+
+      .bonus-submit:active {
+        transform: none;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <div class="logo">
-        NINAPHARM JAPON メンバーズガイド
-      </div>
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
+      <a href="./ninaguide.html" class="back-link">
+        ← トップガイドへ戻る
+      </a>
+
+      <a
+        href="https://sslgw.jns-asp.jp/685/pc.html?new"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-login"
+      >
+        🔐 E-Serviceログイン
+      </a>
     </div>
   </header>
 
-  <!-- メインコンテンツ -->
-  <div class="container">
+  <main class="container bonus-page">
 
-    <!-- ヒーローエリア -->
-    <div class="hero">
-      <div class="hero-subtitle">知りたいことから、すぐに見つかる</div>
-      <h1 class="hero-title">メンバー手続き・ボーナス・定期購入ガイド</h1>
-      <p class="hero-desc">
-        「これってどうすればいい？」と思ったときに、必要な情報へすぐにたどり着けるようにまとめています。
+    <!-- ヒーロー -->
+    <section
+      class="bonus-hero"
+      aria-labelledby="page-title"
+    >
+      <span class="bonus-kicker">✨ CHECK TOOL</span>
+
+      <h1 id="page-title">
+        いまのあなた、<span>どこまで来た？</span>
+      </h1>
+
+      <p>
+        数字を入れるだけで、コミッションやタイトルの達成状況をチェックできます。<br>
+        「あと少し！」も「達成した！」も、ここで確認しよう。
       </p>
-    </div>
+    </section>
 
+    <!-- 入力フォーム -->
+    <form
+      class="bonus-check-form"
+      id="bonus-check-form"
+      onsubmit="event.preventDefault(); checkConditions();"
+    >
 
-    <!-- 今すぐ確認したい -->
-    <h2 class="section-title">⚡ 今すぐ確認したい</h2>
+      <div class="bonus-form-intro">
+        <div
+          class="bonus-form-intro-icon"
+          aria-hidden="true"
+        >
+          📝
+        </div>
 
-    <div class="nav-cards" style="margin-bottom: 35px;">
+        <div>
+          <strong>まずは現在の数字を入れてみよう</strong>
+          <span>
+            わかるところから入力でOK。チェックすると結果が出ます。
+          </span>
+        </div>
+      </div>
 
-      <a href="./check.html" class="card card-tool">
-        <span class="card-badge">🛠️ かんたんチェック</span>
-        <div class="card-title">今月、ボーナスを受け取れる？</div>
+      <!-- 共通必須条件 -->
+      <div
+        class="bonus-important-rule"
+        role="note"
+      >
+        <div
+          class="bonus-important-rule-icon"
+          aria-hidden="true"
+        >
+          🔑
+        </div>
 
-        <ul class="card-list">
-          <li>質問に「はい / いいえ」で答えるだけ</li>
-          <li>今月のボーナス取得権利をチェック</li>
-          <li>3%・10%の取得条件を確認</li>
-          <li>権利漏れにつながる注意点もチェック</li>
-        </ul>
+        <div>
+          <strong>ポイント！</strong><br>
+          コミッション・タイトル昇格には、
+          <strong>自己購入10,000P以上</strong>が共通の前提条件です。
+        </div>
+      </div>
 
-        <div class="card-btn">ボーナス取得条件をチェック ➔</div>
-      </a>
+      <!-- ① 会員資格 -->
+      <div class="bonus-form-group">
 
-    </div>
+        <div
+          id="member-status-label"
+          class="bonus-form-label"
+        >
+          ① 会員資格の確認
+          <span class="bonus-form-required">必須</span>
+        </div>
 
+        <label class="bonus-check-row">
+          <input
+            type="checkbox"
+            id="chk-member-status"
+            aria-labelledby="member-status-label"
+          >
+          <span>会員資格は有効になっている</span>
+        </label>
 
-    <!-- やりたいことから探す -->
-    <h2 class="section-title">🔎 やりたいことから探す</h2>
+        <small class="bonus-form-hint">
+          E-Serviceの【組織図】で確認できます。
+        </small>
 
-    <div class="nav-cards">
+      </div>
 
-      <!-- A -->
-      <a href="./guide-a.html" class="card">
+      <!-- ② 自己購入P -->
+      <div class="bonus-form-group">
 
-        <span class="card-badge">👤 新しい人を登録したい</span>
+        <label
+          class="bonus-form-label"
+          for="ipt-self-pt"
+        >
+          ② 自己購入P
+          <span class="bonus-form-required">必須</span>
+        </label>
 
-        <div class="card-title">A. 登録案内・各種手続き</div>
+        <input
+          type="number"
+          id="ipt-self-pt"
+          class="bonus-form-control"
+          placeholder="例：10,000"
+          min="0"
+          step="1000"
+          inputmode="numeric"
+          autocomplete="off"
+          aria-describedby="self-pt-hint self-pt-error"
+        >
 
-        <ul class="card-list">
-          <li>新しいメンバーを登録する方法</li>
-          <li>登録用リンク（URL）の発行方法</li>
-          <li>初回費用や月額費用を説明したい</li>
-          <li>WEB登録と郵送登録の違いを知りたい</li>
-        </ul>
+        <small
+          class="bonus-form-hint"
+          id="self-pt-hint"
+        >
+          コミッション・タイトル昇格には自己購入10,000P以上が必要です。
+        </small>
 
-        <div class="card-btn">登録・案内について見る ➔</div>
+        <div
+          id="self-pt-error"
+          class="bonus-field-error"
+          role="alert"
+        ></div>
 
-      </a>
+      </div>
 
+      <!-- ③ グループ売上 -->
+      <div class="bonus-form-group">
 
-      <!-- B -->
-      <a href="./guide-b.html" class="card">
+        <label
+          class="bonus-form-label"
+          for="ipt-group-pt"
+        >
+          ③ 左右グループ売上Pの少ない方（P）
+        </label>
 
-        <span class="card-badge">📦 定期購入について知りたい</span>
+        <input
+          type="number"
+          id="ipt-group-pt"
+          class="bonus-form-control"
+          placeholder="例：200,000"
+          min="0"
+          step="10000"
+          inputmode="numeric"
+          autocomplete="off"
+          aria-describedby="group-pt-hint group-pt-error"
+        >
 
-        <div class="card-title">B. 定期購入・毎月の手続き</div>
+        <small
+          class="bonus-form-hint"
+          id="group-pt-hint"
+        >
+          左右のうち、ポイントが少ない側の数字を入力。
+        </small>
 
-        <ul class="card-list">
-          <li>毎月の定期購入について知りたい</li>
-          <li>金額や支払い方法を確認したい</li>
-          <li>カード・口座を変更したい</li>
-          <li>変更・休止・退会の方法を知りたい</li>
-          <li>毎月10日の締め日について確認したい</li>
-        </ul>
+        <div
+          id="group-pt-error"
+          class="bonus-field-error"
+          role="alert"
+        ></div>
 
-        <div class="card-btn">定期購入について見る ➔</div>
+      </div>
 
-      </a>
+      <!-- ④ アクティブ紹介者 -->
+      <div class="bonus-form-group">
 
+        <label
+          class="bonus-form-label"
+          for="ipt-active-num"
+        >
+          ④ アクティブ紹介者数（今月度新規登録分も含めて）
+        </label>
 
-      <!-- C -->
-      <a href="./guide-c.html" class="card">
+        <input
+          type="number"
+          id="ipt-active-num"
+          class="bonus-form-control"
+          placeholder="例：2"
+          min="0"
+          step="1"
+          inputmode="numeric"
+          autocomplete="off"
+          aria-describedby="active-num-error"
+        >
 
-        <span class="card-badge">💰 ボーナスについて知りたい</span>
+        <div
+          id="active-num-error"
+          class="bonus-field-error"
+          role="alert"
+        ></div>
 
-        <div class="card-title">C. ボーナスプラン・報酬の仕組み</div>
+      </div>
 
-        <ul class="card-list">
-          <li>どんなボーナスがあるのか知りたい</li>
-          <li>紹介するとどのように報酬が発生する？</li>
-          <li>3%・10%の違いを知りたい</li>
-          <li>タイトル昇格の条件を確認したい</li>
-          <li>メガマッチなどの仕組みを知りたい</li>
-        </ul>
+      <!-- ⑤ 今月度紹介人数 -->
+      <div class="bonus-form-group">
 
-        <div class="card-btn">ボーナスプランを見る ➔</div>
+        <label
+          class="bonus-form-label"
+          for="ipt-new-member-num"
+        >
+          ⑤ 今月度紹介した人数（新規会員）
+        </label>
 
-      </a>
+        <input
+          type="number"
+          id="ipt-new-member-num"
+          class="bonus-form-control"
+          placeholder="例：1"
+          min="0"
+          step="1"
+          inputmode="numeric"
+          autocomplete="off"
+          aria-describedby="new-member-num-hint new-member-num-error"
+        >
 
+        <small
+          class="bonus-form-hint"
+          id="new-member-num-hint"
+        >
+          ファーストスタートボーナスの判定に使用します。
+        </small>
 
-      <!-- FAQ -->
-      <a href="./guide-e.html" class="card">
+        <div
+          id="new-member-num-error"
+          class="bonus-field-error"
+          role="alert"
+        ></div>
 
-        <span class="card-badge">❓ 困った・エラーになった</span>
+      </div>
 
-        <div class="card-title">D. 困ったときのFAQ</div>
+      <!-- ⑥ マイナンバー -->
+      <div class="bonus-form-group">
 
-        <ul class="card-list">
-          <li>カード決済がうまくいかない</li>
-          <li>ボーナスが振り込まれていない</li>
-          <li>登録や定期購入について困っている</li>
-          <li>どこに問い合わせればいいか分からない</li>
-        </ul>
+        <div
+          id="mynumber-label"
+          class="bonus-form-label"
+        >
+          ⑥ 個人番号（マイナンバー）提出
+        </div>
 
-        <div class="card-btn">困ったときのFAQを見る ➔</div>
+        <label class="bonus-check-row">
+          <input
+            type="checkbox"
+            id="chk-mynumber"
+            aria-labelledby="mynumber-label"
+          >
+          <span>個人番号（マイナンバー）の提出が完了している</span>
+        </label>
 
-      </a>
+        <small class="bonus-form-hint">
+          タイトル昇格には個人番号の提出が必要です。
+        </small>
 
-    </div>
+      </div>
 
-  </div>
+      <button
+        type="submit"
+        class="bonus-submit"
+      >
+        🚀 いまの達成状況をチェック！
+      </button>
 
+    </form>
+
+    <!-- 判定結果 -->
+    <section
+      id="result-card"
+      class="bonus-result"
+      aria-labelledby="result-heading"
+      aria-live="polite"
+      aria-atomic="false"
+      tabindex="-1"
+    >
+
+      <div
+        class="bonus-confetti"
+        aria-hidden="true"
+      >
+        <i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i>
+      </div>
+
+      <div class="bonus-result-head">
+        <span class="small">YOUR RESULT</span>
+        <h2 id="result-heading">
+          チェック結果 🎉
+        </h2>
+      </div>
+
+      <!-- コミッション -->
+      <section
+        class="bonus-result-block commission"
+        aria-labelledby="commission-result-label"
+      >
+        <div
+          id="commission-result-label"
+          class="bonus-result-label"
+        >
+          💰 コミッション
+        </div>
+
+        <div
+          id="basic-status"
+          class="bonus-result-status"
+          role="status"
+        ></div>
+
+        <div id="commission-next-guide"></div>
+      </section>
+
+      <!-- タイトル -->
+      <section
+        class="bonus-result-block title"
+        aria-labelledby="title-result-label"
+      >
+        <div
+          id="title-result-label"
+          class="bonus-result-label"
+        >
+          🏆 タイトル
+        </div>
+
+        <div id="title-status"></div>
+
+        <div id="title-next-guide"></div>
+      </section>
+
+    </section>
+
+    <!-- 参考：昇格条件一覧表 -->
+    <section
+      class="bonus-reference"
+      aria-labelledby="reference-heading"
+    >
+
+      <div
+        id="reference-heading"
+        class="bonus-reference-title"
+      >
+        📊 タイトル昇格条件をざっくり確認
+      </div>
+
+      <p class="bonus-reference-note">
+        「次はどこを目指せばいい？」というときの目安として見てください。
+      </p>
+
+      <div class="bonus-reference-required">
+        🔑 全タイトル共通：自己購入10,000P以上が前提です。
+      </div>
+
+      <div class="table-container">
+
+        <table>
+          <caption class="sr-only">
+            タイトルごとの昇格条件一覧
+          </caption>
+
+          <thead>
+            <tr>
+              <th scope="col">
+                タイトル
+              </th>
+
+              <th scope="col">
+                昇格条件<br>
+                <span style="font-size:0.75em; font-weight:normal;">
+                  （少ない方のグループ売上P）
+                </span>
+              </th>
+
+              <th scope="col">
+                必要アクティブ<br>
+                紹介者数
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <th scope="row">クリスタル</th>
+              <td>20万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">ラピス</th>
+              <td>50万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">サファイヤ</th>
+              <td>100万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">エメラルド</th>
+              <td>300万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">ゴールド</th>
+              <td>600万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">プラチナ</th>
+              <td>1,200万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">ダイヤモンド</th>
+              <td>3,000万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">ロワイヤルダイヤモンド</th>
+              <td>6,000万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                カリナンロワイヤルダイヤモンド
+              </th>
+              <td>
+                連続6つの月度ロワイヤルダイヤモンドを達成
+              </td>
+              <td>4人</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+
+  </main>
 
   <!-- フッター -->
   <footer>
-
-    <div class="footer-links">
-
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank">
-        E-Service ログイン
-      </a>
-
-      |
-
-      <a href="https://www.ninapharm.co.jp/" target="_blank">
-        公式サイト
-      </a>
-
-    </div>
-
-    <p class="disclaimer">
-      ※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>
-      正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
+    <p>
+      ※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。
     </p>
 
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
-
   </footer>
+
+  <script>
+
+    /* =====================================================
+       入力値のチェック
+       ===================================================== */
+
+    function validateNumberInput(id, errorId, label) {
+
+      const input = document.getElementById(id);
+      const error = document.getElementById(errorId);
+
+      const rawValue = input.value.trim();
+
+      input.removeAttribute('aria-invalid');
+      error.classList.remove('is-visible');
+      error.textContent = '';
+
+      if (rawValue === '') {
+        return true;
+      }
+
+      const value = Number(rawValue);
+
+      if (
+        !Number.isFinite(value) ||
+        value < 0
+      ) {
+
+        input.setAttribute(
+          'aria-invalid',
+          'true'
+        );
+
+        error.textContent =
+          `${label}は0以上の数字を入力してください。`;
+
+        error.classList.add(
+          'is-visible'
+        );
+
+        return false;
+      }
+
+      return true;
+    }
+
+
+    /* =====================================================
+       メイン判定
+       ===================================================== */
+
+    function checkConditions() {
+
+      const inputValidities = [
+
+        validateNumberInput(
+          'ipt-self-pt',
+          'self-pt-error',
+          '自己購入P'
+        ),
+
+        validateNumberInput(
+          'ipt-group-pt',
+          'group-pt-error',
+          'グループ売上P'
+        ),
+
+        validateNumberInput(
+          'ipt-active-num',
+          'active-num-error',
+          'アクティブ紹介者数'
+        ),
+
+        validateNumberInput(
+          'ipt-new-member-num',
+          'new-member-num-error',
+          '今月度紹介した人数'
+        )
+
+      ];
+
+      if (!inputValidities.every(Boolean)) {
+
+        const firstInvalid =
+          document.querySelector(
+            '.bonus-form-control[aria-invalid="true"]'
+          );
+
+        if (firstInvalid) {
+          firstInvalid.focus();
+        }
+
+        return;
+      }
+
+
+      const isMember =
+        document.getElementById(
+          'chk-member-status'
+        ).checked;
+
+
+      const selfPurchasePoints =
+        Number(
+          document.getElementById(
+            'ipt-self-pt'
+          ).value
+        ) || 0;
+
+
+      const weakLegPoints =
+        Number(
+          document.getElementById(
+            'ipt-group-pt'
+          ).value
+        ) || 0;
+
+
+      const activeReferrals =
+        Number(
+          document.getElementById(
+            'ipt-active-num'
+          ).value
+        ) || 0;
+
+
+      const newMemberReferrals =
+        Number(
+          document.getElementById(
+            'ipt-new-member-num'
+          ).value
+        ) || 0;
+
+
+      const hasMyNumber =
+        document.getElementById(
+          'chk-mynumber'
+        ).checked;
+
+
+      const resultCard =
+        document.getElementById(
+          'result-card'
+        );
+
+
+      const basicStatusEl =
+        document.getElementById(
+          'basic-status'
+        );
+
+
+      const titleStatusEl =
+        document.getElementById(
+          'title-status'
+        );
+
+
+      const commissionNextGuideEl =
+        document.getElementById(
+          'commission-next-guide'
+        );
+
+
+      const titleNextGuideEl =
+        document.getElementById(
+          'title-next-guide'
+        );
+
+
+      resultCard.classList.remove(
+        'celebrate'
+      );
+
+
+      /* =====================================================
+         共通の前提条件
+
+         ① 会員資格が有効
+         ② 自己購入10,000P以上
+
+         この2つを満たして初めて、
+         コミッション・タイトルの判定に進む。
+         ===================================================== */
+
+      const selfPurchaseEligible =
+        selfPurchasePoints >= 10000;
+
+
+      /* =====================================================
+         会員資格が無効
+         ===================================================== */
+
+      if (!isMember) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '❌ コミッション発生なし（会員資格が無効）';
+
+        commissionNextGuideEl.innerHTML = '';
+
+
+        titleStatusEl.className =
+          'bonus-result-status status-ng';
+
+        titleStatusEl.innerText =
+          'タイトル：なし';
+
+
+        titleNextGuideEl.innerHTML =
+          '<div class="bonus-next-guide">' +
+          '会員資格が有効になると、現在の数字からタイトル・コミッション条件をチェックできます。' +
+          '</div>';
+
+
+        resultCard.classList.add(
+          'active'
+        );
+
+
+        resultCard.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+
+        resultCard.focus({
+          preventScroll: true
+        });
+
+
+        return;
+      }
+
+
+      /* =====================================================
+         タイトル判定
+
+         ★自己購入10,000P以上も必須
+         ===================================================== */
+
+      let calculatedTitle =
+        'メンバー';
+
+      let titleNote = '';
+
+
+      if (
+        selfPurchaseEligible &&
+        activeReferrals >= 2
+      ) {
+
+        if (
+          weakLegPoints >= 60000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'ロワイヤルダイヤモンド';
+
+          titleNote =
+            '※プラチナ以上の直紹介系列が3系列必要です。';
+
+
+        } else if (
+          weakLegPoints >= 30000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'ダイヤモンド';
+
+          titleNote =
+            '※ゴールド以上の直紹介系列が3系列必要です。';
+
+
+        } else if (
+          weakLegPoints >= 12000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'プラチナ';
+
+          titleNote =
+            '※エメラルド以上の直紹介系列が2系列必要です。';
+
+
+        } else if (
+          weakLegPoints >= 6000000 &&
+          activeReferrals >= 4
+        ) {
+
+          calculatedTitle =
+            'ゴールド';
+
+
+        } else if (
+          weakLegPoints >= 3000000
+        ) {
+
+          calculatedTitle =
+            'エメラルド';
+
+
+        } else if (
+          weakLegPoints >= 1000000
+        ) {
+
+          calculatedTitle =
+            'サファイヤ';
+
+
+        } else if (
+          weakLegPoints >= 500000
+        ) {
+
+          calculatedTitle =
+            'ラピス';
+
+
+        } else if (
+          weakLegPoints >= 200000
+        ) {
+
+          calculatedTitle =
+            'クリスタル';
+
+        }
+      }
+
+
+      const rawTitle =
+        calculatedTitle;
+
+
+      /* =====================================================
+         個人番号未提出ならタイトル昇格をブロック
+         ===================================================== */
+
+      const titlePromotionBlocked =
+        !hasMyNumber &&
+        rawTitle !== 'メンバー';
+
+
+      const effectiveTitle =
+        titlePromotionBlocked
+          ? 'メンバー'
+          : rawTitle;
+
+
+      /* =====================================================
+         コミッション判定
+
+         ベーシック：
+         ・自己購入10,000P以上
+         ・アクティブ紹介者1人以上
+         ・少ない方のグループ売上30,000P以上
+         ===================================================== */
+
+      const regularCommissionEligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 1 &&
+        weakLegPoints >= 30000;
+
+
+      /* =====================================================
+         アクティブ／ファーストスタート判定
+         ===================================================== */
+
+      const active5Eligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 5 &&
+        effectiveTitle === 'メンバー';
+
+
+      const active10Eligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 10 &&
+        [
+          'メンバー',
+          'クリスタル',
+          'ラピス',
+          'サファイヤ'
+        ].includes(
+          effectiveTitle
+        );
+
+
+      const firstStartEligible =
+        selfPurchaseEligible &&
+        newMemberReferrals >= 1;
+
+
+      /* =====================================================
+         コミッションは自己購入10,000Pが共通必須条件
+         ===================================================== */
+
+      const hasAnyCommission =
+        selfPurchaseEligible &&
+        (
+          regularCommissionEligible ||
+          active5Eligible ||
+          active10Eligible ||
+          firstStartEligible
+        );
+
+
+      /* =====================================================
+         コミッション表示
+         ===================================================== */
+
+      if (!selfPurchaseEligible) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerHTML =
+          '🔒 コミッション受取条件を満たしていません' +
+          '<div class="bonus-result-note">' +
+          '自己購入10,000P以上が必要です。' +
+          '</div>';
+
+
+      } else if (hasAnyCommission) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ok';
+
+
+        let commissionText =
+          '🎉 コミッションあり！';
+
+
+        if (
+          regularCommissionEligible &&
+          activeReferrals === 1
+        ) {
+
+          commissionText +=
+            '<div class="bonus-result-note">' +
+            '※ベーシックコミッションの分配率は3％になります' +
+            '</div>';
+
+        }
+
+
+        const bonusNotes = [];
+
+
+        if (active5Eligible) {
+
+          bonusNotes.push(
+            '⚡ 5アクティブボーナス取得'
+          );
+
+        }
+
+
+        if (active10Eligible) {
+
+          bonusNotes.push(
+            '⚡ 10アクティブボーナス取得'
+          );
+
+        }
+
+
+        if (firstStartEligible) {
+
+          bonusNotes.push(
+            `🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`
+          );
+
+        }
+
+
+        if (bonusNotes.length) {
+
+          commissionText +=
+            `<div class="bonus-next-guide">
+              ${bonusNotes.map(
+                x => `<div>✓ ${x}</div>`
+              ).join('')}
+            </div>`;
+
+        }
+
+
+        basicStatusEl.innerHTML =
+          commissionText;
+
+
+      } else {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '🌱 もう少し！コミッション条件を確認しよう';
+
+      }
+
+
+      /* =====================================================
+         コミッションまでの不足条件
+         ===================================================== */
+
+      const commissionNeeds = [];
+
+
+      if (!selfPurchaseEligible) {
+
+        commissionNeeds.push(
+          `自己購入あと${formatPoints(
+            10000 - selfPurchasePoints
+          )}P`
+        );
+
+      }
+
+
+      if (selfPurchaseEligible) {
+
+        if (!regularCommissionEligible) {
+
+          if (activeReferrals < 1) {
+
+            commissionNeeds.push(
+              `アクティブ紹介者あと${1 - activeReferrals}人`
+            );
+
+          }
+
+
+          if (weakLegPoints < 30000) {
+
+            commissionNeeds.push(
+              `少ない方のグループ売上あと${formatPoints(
+                30000 - weakLegPoints
+              )}P`
+            );
+
+          }
+
+        }
+
+
+        if (
+          !active5Eligible &&
+          effectiveTitle === 'メンバー'
+        ) {
+
+          const active5Needs = [];
+
+
+          if (activeReferrals < 5) {
+
+            active5Needs.push(
+              `アクティブ紹介者あと${5 - activeReferrals}人`
+            );
+
+          }
+
+
+          if (active5Needs.length) {
+
+            commissionNeeds.push(
+              `5アクティブ：${active5Needs.join('・')}`
+            );
+
+          }
+
+        }
+
+
+        if (
+          !active10Eligible &&
+          [
+            'メンバー',
+            'クリスタル',
+            'ラピス',
+            'サファイヤ'
+          ].includes(
+            effectiveTitle
+          )
+        ) {
+
+          const active10Needs = [];
+
+
+          if (activeReferrals < 10) {
+
+            active10Needs.push(
+              `アクティブ紹介者あと${10 - activeReferrals}人`
+            );
+
+          }
+
+
+          if (active10Needs.length) {
+
+            commissionNeeds.push(
+              `10アクティブ：${active10Needs.join('・')}`
+            );
+
+          }
+
+        }
+
+
+        if (!firstStartEligible) {
+
+          const firstStartNeeds = [];
+
+
+          if (newMemberReferrals < 1) {
+
+            firstStartNeeds.push(
+              '新規会員の紹介あと1人'
+            );
+
+          }
+
+
+          if (firstStartNeeds.length) {
+
+            commissionNeeds.push(
+              `ファーストスタート：${firstStartNeeds.join('・')}`
+            );
+
+          }
+
+        }
+
+      }
+
+
+      commissionNextGuideEl.innerHTML =
+        commissionNeeds.length
+          ? `
+            <div class="bonus-next-guide">
+              <strong>
+                📌 あとこれをクリアすると、取得できるコミッションが増えます
+              </strong>
+
+              <ul>
+                ${commissionNeeds
+                  .map(x => `<li>${x}</li>`)
+                  .join('')}
+              </ul>
+            </div>
+          `
+          : '';
+
+
+      /* =====================================================
+         タイトル表示
+         ===================================================== */
+
+      titleStatusEl.className =
+        effectiveTitle !== 'メンバー'
+          ? 'bonus-result-status status-ok'
+          : 'bonus-result-status status-ng';
+
+
+      let titleHtml = '';
+
+
+      if (!selfPurchaseEligible) {
+
+        titleHtml =
+          `🔒 現在のタイトル：メンバー
+          <div class="bonus-result-note">
+            タイトル昇格には自己購入10,000P以上が必要です。
+          </div>`;
+
+
+      } else if (titlePromotionBlocked) {
+
+        titleHtml =
+          `⚠️ 現在のタイトル：メンバー
+          <div class="bonus-result-note">
+            個人番号未提出のため、タイトル昇格は保留中です。
+          </div>`;
+
+
+      } else {
+
+        titleHtml =
+          `<div class="bonus-title-achievement">
+            <div class="bonus-title-crown">🏆</div>
+            <div class="bonus-title-label">現在のタイトル</div>
+            <div class="bonus-title-name">${effectiveTitle}</div>`;
+
+
+        if (titleNote) {
+
+          titleHtml +=
+            `<div
+              class="bonus-result-note"
+              style="margin-top:6px;"
+            >
+              ${titleNote}
+            </div>`;
+
+        }
+
+
+        titleHtml +=
+          `</div>`;
+
+      }
+
+
+      titleStatusEl.innerHTML =
+        titleHtml;
+
+
+      /* =====================================================
+         次のタイトルまであとどれくらい？
+         ===================================================== */
+
+      const titleTargets = [
+
+        {
+          name: 'クリスタル',
+          points: 200000,
+          active: 2
+        },
+
+        {
+          name: 'ラピス',
+          points: 500000,
+          active: 2
+        },
+
+        {
+          name: 'サファイヤ',
+          points: 1000000,
+          active: 2
+        },
+
+        {
+          name: 'エメラルド',
+          points: 3000000,
+          active: 2
+        },
+
+        {
+          name: 'ゴールド',
+          points: 6000000,
+          active: 4
+        },
+
+        {
+          name: 'プラチナ',
+          points: 12000000,
+          active: 4
+        },
+
+        {
+          name: 'ダイヤモンド',
+          points: 30000000,
+          active: 4
+        },
+
+        {
+          name: 'ロワイヤルダイヤモンド',
+          points: 60000000,
+          active: 4
+        }
+
+      ];
+
+
+      const currentIndex =
+        titleTargets.findIndex(
+          t => t.name === effectiveTitle
+        );
+
+
+      const nextTarget =
+        currentIndex >= 0
+          ? titleTargets[currentIndex + 1]
+          : titleTargets[0];
+
+
+      /* =====================================================
+         自己購入不足
+         ===================================================== */
+
+      if (!selfPurchaseEligible) {
+
+        titleNextGuideEl.innerHTML =
+          `
+          <div class="bonus-next-guide">
+            <strong>
+              🔑 まずは自己購入10,000P以上をクリアしよう！
+            </strong>
+
+            <ul>
+              <li>
+                自己購入あと${formatPoints(
+                  10000 - selfPurchasePoints
+                )}P
+              </li>
+
+              <li>
+                10,000P以上になると、
+                グループ売上・アクティブ紹介者数から
+                タイトル昇格条件をチェックできます。
+              </li>
+            </ul>
+          </div>
+          `;
+
+
+      /* =====================================================
+         個人番号未提出
+         ===================================================== */
+
+      } else if (
+        !hasMyNumber &&
+        rawTitle !== 'メンバー'
+      ) {
+
+        titleNextGuideEl.innerHTML =
+          `
+          <div class="bonus-next-guide">
+            <strong>
+              🔑 まずは個人番号を提出すると、
+              タイトル昇格の判定ができるようになります。
+            </strong>
+
+            <ul>
+              <li>
+                個人番号：未提出 → 提出する
+              </li>
+
+              <li>
+                現在の数字なら、本来は
+                <strong>${rawTitle}</strong>
+                までの条件を満たしています（系列条件を除く）。
+              </li>
+            </ul>
+          </div>
+          `;
+
+
+      /* =====================================================
+         次のタイトル
+         ===================================================== */
+
+      } else if (nextTarget) {
+
+        const titleNeeds = [];
+
+
+        if (
+          selfPurchasePoints < 10000
+        ) {
+
+          titleNeeds.push(
+            `自己購入あと${formatPoints(
+              10000 - selfPurchasePoints
+            )}P`
+          );
+
+        }
+
+
+        if (
+          weakLegPoints <
+          nextTarget.points
+        ) {
+
+          titleNeeds.push(
+            `少ない方のグループ売上あと${formatPoints(
+              nextTarget.points - weakLegPoints
+            )}P`
+          );
+
+        }
+
+
+        if (
+          activeReferrals <
+          nextTarget.active
+        ) {
+
+          titleNeeds.push(
+            `アクティブ紹介者あと${
+              nextTarget.active - activeReferrals
+            }人`
+          );
+
+        }
+
+
+        if (titleNeeds.length) {
+
+          titleNextGuideEl.innerHTML =
+            `
+            <div class="bonus-next-guide">
+
+              <strong>
+                🎯 次は「${nextTarget.name}」！
+              </strong>
+
+              <ul>
+                ${titleNeeds
+                  .map(x => `<li>${x}</li>`)
+                  .join('')}
+              </ul>
+
+              ${
+                [
+                  'プラチナ',
+                  'ダイヤモンド',
+                  'ロワイヤルダイヤモンド'
+                ].includes(
+                  nextTarget.name
+                )
+                  ? '<div class="bonus-result-note">※さらに系列条件の確認が必要です。</div>'
+                  : ''
+              }
+
+            </div>
+            `;
+
+
+        } else {
+
+          titleNextGuideEl.innerHTML =
+            `
+            <div class="bonus-next-guide">
+              <span class="done">
+                🎉 数値条件はクリア！
+                ${nextTarget.name}の系列条件がある場合は、
+                系列条件も確認してください。
+              </span>
+            </div>
+            `;
+
+        }
+
+
+      } else {
+
+        titleNextGuideEl.innerHTML =
+          `
+          <div class="bonus-next-guide">
+            <span class="done">
+              🎉 現在の数値条件で最高位のタイトルまで到達しています。
+              系列条件・継続条件は別途確認してください。
+            </span>
+          </div>
+          `;
+
+      }
+
+
+      /* =====================================================
+         結果表示
+         ===================================================== */
+
+      resultCard.classList.add(
+        'active'
+      );
+
+
+      resultCard.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+
+      if (
+        hasAnyCommission ||
+        effectiveTitle !== 'メンバー'
+      ) {
+
+        resultCard.classList.add(
+          'celebrate'
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       P表示
+       ===================================================== */
+
+    function formatPoints(value) {
+
+      return Number(
+        value
+      ).toLocaleString(
+        'ja-JP'
+      );
+
+    }
+
+  </script>
 
 </body>
 </html>
-```
