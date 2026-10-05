@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
+  <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
+  
 
   <style>
     /* =========================================================
        ボーナスチェックページ専用CSS
+       common.css は変更していません。
        ========================================================= */
 
     .bonus-page {
@@ -162,18 +165,6 @@
       transition: .18s ease;
     }
 
-    /* 数値入力の上下矢印を非表示 */
-    .bonus-form-control::-webkit-outer-spin-button,
-    .bonus-form-control::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .bonus-form-control[type="number"] {
-      -moz-appearance: textfield;
-      appearance: textfield;
-    }
-
     .bonus-form-control:focus {
       outline: none;
       border-color: var(--bonus-orange);
@@ -230,8 +221,8 @@
 
     /* ===== 結果カード ===== */
     .bonus-result {
-      position: relative;
       scroll-margin-top: 80px;
+      position: relative;
       overflow: hidden;
       background: #fff !important;
       border: 2px solid #e5e7eb !important;
@@ -298,6 +289,11 @@
       border: 1px solid #f1d477;
     }
 
+    .bonus-result-block.activebonus {
+      background: var(--bonus-blue-bg);
+      border: 1px solid #bfdbfe;
+    }
+
     .bonus-result-label {
       margin-bottom: 8px;
       color: var(--bonus-muted);
@@ -358,6 +354,49 @@
       color: #1e293b;
       font-size: 1.4rem;
       font-weight: 900;
+    }
+
+    /* ===== アクティブボーナス ===== */
+    .bonus-result-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .bonus-result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 9px 0;
+      color: var(--bonus-ink);
+      font-size: .88rem;
+      line-height: 1.5;
+      border-bottom: 1px dashed #dbeafe;
+    }
+
+    .bonus-result-item:last-child {
+      border-bottom: none;
+    }
+
+    .bonus-result-icon {
+      width: 25px;
+      height: 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 25px;
+      border-radius: 50%;
+      font-weight: 900;
+    }
+
+    .bonus-result-icon.ok {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .bonus-result-icon.ng {
+      background: #f1f5f9;
+      color: #94a3b8;
     }
 
     /* ===== お祝い演出 ===== */
@@ -429,6 +468,33 @@
       font-size: .8rem;
     }
 
+    /* ===== 数値入力の矢印を非表示 ===== */
+    .bonus-form-control[type="number"]::-webkit-outer-spin-button,
+    .bonus-form-control[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .bonus-form-control[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* ===== あと少しガイド ===== */
+    .bonus-next-guide {
+      margin-top: 10px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      border: 1px dashed #cbd5e1;
+      color: var(--bonus-ink);
+      font-size: .82rem;
+      line-height: 1.65;
+    }
+    .bonus-next-guide strong { color: #d97706; }
+    .bonus-next-guide ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .bonus-next-guide li { margin: 3px 0; }
+    .bonus-next-guide .done { color: #15803d; font-weight: 800; }
+
     @media (max-width: 600px) {
       .bonus-hero {
         padding: 23px 17px;
@@ -476,9 +542,7 @@
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label">
-          ① 会員資格の確認
-        </label>
+        <label class="bonus-form-label">① 会員資格の確認</label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-member-status">
           <span>会員資格は有効になっている</span>
@@ -487,77 +551,37 @@
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-self-pt">
-          ② 自己購入ポイント（P）
-        </label>
-        <input type="number"
-               id="ipt-self-pt"
-               class="bonus-form-control"
-               inputmode="numeric"
-               placeholder="例：10,000"
-               min="0"
-               step="1000">
+        <label class="bonus-form-label" for="ipt-self-pt">② 自己購入P</label>
+        <input type="number" id="ipt-self-pt" class="bonus-form-control" placeholder="例：10,000" min="0" step="1000">
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-group-pt">
-          ③ 左右グループ売上Pの少ない方（P）
-        </label>
-        <input type="number"
-               id="ipt-group-pt"
-               class="bonus-form-control"
-               inputmode="numeric"
-               placeholder="例：200,000"
-               min="0"
-               step="10000">
-        <small class="bonus-form-hint">
-          左右のうち、ポイントが少ない側の数字を入力。
-        </small>
+        <label class="bonus-form-label" for="ipt-group-pt">③ 左右グループ売上Pの少ない方（P）</label>
+        <input type="number" id="ipt-group-pt" class="bonus-form-control" placeholder="例：200,000" min="0" step="10000">
+        <small class="bonus-form-hint">左右のうち、ポイントが少ない側の数字を入力。</small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-active-num">
-          ④ アクティブ紹介者数（人）
-        </label>
-        <input type="number"
-               id="ipt-active-num"
-               class="bonus-form-control"
-               inputmode="numeric"
-               placeholder="例：5"
-               min="0">
-        <small class="bonus-form-hint">
-          今月度新規登録分も含めて入力してください。
-        </small>
+        <label class="bonus-form-label" for="ipt-active-num">④ アクティブ紹介者数（今月度新規登録分も含めて）</label>
+        <input type="number" id="ipt-active-num" class="bonus-form-control" placeholder="例：2" min="0">
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-new-referrals">
-          ⑤ 今月度紹介した人数（新規会員）
-        </label>
-        <input type="number"
-               id="ipt-new-referrals"
-               class="bonus-form-control"
-               inputmode="numeric"
-               placeholder="例：1"
-               min="0">
-        <small class="bonus-form-hint">
-          ファーストスタートボーナスの判定に使います。
-        </small>
+        <label class="bonus-form-label" for="ipt-new-member-num">⑤ 今月度紹介した人数（新規会員）</label>
+        <input type="number" id="ipt-new-member-num" class="bonus-form-control" placeholder="例：1" min="0">
+        <small class="bonus-form-hint">ファーストスタートボーナスの判定に使用します。</small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label">
-          ⑥ 個人番号（マイナンバー）提出
-        </label>
+        <label class="bonus-form-label">⑥ 個人番号（マイナンバー）提出</label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-mynumber">
           <span>個人番号（マイナンバー）の提出が完了している</span>
         </label>
+        <small class="bonus-form-hint">タイトル昇格には個人番号の提出が必要です。</small>
       </div>
 
-      <button type="button"
-              class="bonus-submit"
-              onclick="checkConditions()">
+      <button type="button" class="bonus-submit" onclick="checkConditions()">
         🚀 いまの達成状況をチェック！
       </button>
     </div>
@@ -579,12 +603,14 @@
       <div class="bonus-result-block commission">
         <div class="bonus-result-label">💰 コミッション</div>
         <div id="basic-status" class="bonus-result-status"></div>
+        <div id="commission-next-guide"></div>
       </div>
 
       <!-- タイトル -->
       <div class="bonus-result-block title">
         <div class="bonus-result-label">🏆 タイトル</div>
         <div id="title-status"></div>
+        <div id="title-next-guide"></div>
       </div>
 
     </div>
@@ -665,49 +691,46 @@
 
   <script>
     function checkConditions() {
-      // 入力値の取得
       const isMember = document.getElementById('chk-member-status').checked;
       const selfPurchasePoints = Number(document.getElementById('ipt-self-pt').value) || 0;
       const weakLegPoints = Number(document.getElementById('ipt-group-pt').value) || 0;
       const activeReferrals = Number(document.getElementById('ipt-active-num').value) || 0;
-      const newMemberReferrals = Number(document.getElementById('ipt-new-referrals').value) || 0;
+      const newMemberReferrals = Number(document.getElementById('ipt-new-member-num').value) || 0;
+      const hasMyNumber = document.getElementById('chk-mynumber').checked;
 
+      const resultCard = document.getElementById('result-card');
       const basicStatusEl = document.getElementById('basic-status');
       const titleStatusEl = document.getElementById('title-status');
-      const resultCard = document.getElementById('result-card');
+      const commissionNextGuideEl = document.getElementById('commission-next-guide');
+      const titleNextGuideEl = document.getElementById('title-next-guide');
 
-      // 結果カードを表示して、判定結果までジャンプ
-      function showResult() {
-        resultCard.classList.add('active');
-        resultCard.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+      resultCard.classList.remove('celebrate');
 
       // ----------------------------------------------------
-      // 1. 会員資格が無効の場合
+      // 会員資格が無効の場合
       // ----------------------------------------------------
       if (!isMember) {
         basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '❌ コミッションなし（会員資格を確認してください）';
+        basicStatusEl.innerText = '❌ コミッション発生なし（会員資格が無効）';
+        commissionNextGuideEl.innerHTML = '';
 
         titleStatusEl.className = 'bonus-result-status status-ng';
         titleStatusEl.innerText = 'タイトル：なし';
+        titleNextGuideEl.innerHTML = '<div class="bonus-next-guide">会員資格が有効になると、現在の数字からタイトル・コミッション条件をチェックできます。</div>';
 
-        resultCard.classList.remove('celebrate');
-        showResult();
+        resultCard.classList.add('active');
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
       // ----------------------------------------------------
-      // 2. 通常コミッション判定
+      // コミッション判定
       // ----------------------------------------------------
-      const regularCommissionEligible =
-        (activeReferrals >= 1) && (weakLegPoints >= 30000);
+      const regularCommissionEligible = (activeReferrals >= 1) && (weakLegPoints >= 30000);
 
       // ----------------------------------------------------
-      // 3. タイトル判定
+      // タイトル判定
+      // ※個人番号未提出の場合、タイトル昇格はできない
       // ----------------------------------------------------
       let calculatedTitle = 'メンバー';
       let titleNote = '';
@@ -735,37 +758,26 @@
         }
       }
 
+      const rawTitle = calculatedTitle;
+      const titlePromotionBlocked = !hasMyNumber && rawTitle !== 'メンバー';
+      const effectiveTitle = titlePromotionBlocked ? 'メンバー' : rawTitle;
+
       // ----------------------------------------------------
-      // 4. アクティブボーナス判定
-      //
-      // 5アクティブ：
-      // ・自己購入10,000P以上
-      // ・アクティブ紹介者5人以上
-      // ・メンバーのみ
-      //
-      // 10アクティブ：
-      // ・自己購入10,000P以上
-      // ・アクティブ紹介者10人以上
-      // ・サファイヤまで
-      //
-      // ※5アクティブと10アクティブは両立
+      // アクティブ／ファーストスタート判定
       // ----------------------------------------------------
       const active5Eligible =
-        (selfPurchasePoints >= 10000) &&
-        (activeReferrals >= 5) &&
-        (calculatedTitle === 'メンバー');
+        selfPurchasePoints >= 10000 &&
+        activeReferrals >= 5 &&
+        effectiveTitle === 'メンバー';
 
       const active10Eligible =
-        (selfPurchasePoints >= 10000) &&
-        (activeReferrals >= 10) &&
-        ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'].includes(calculatedTitle);
+        selfPurchasePoints >= 10000 &&
+        activeReferrals >= 10 &&
+        ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'].includes(effectiveTitle);
 
-      // ----------------------------------------------------
-      // 5. ファーストスタートボーナス判定
-      // ----------------------------------------------------
       const firstStartEligible =
-        (selfPurchasePoints >= 10000) &&
-        (newMemberReferrals >= 1);
+        selfPurchasePoints >= 10000 &&
+        newMemberReferrals >= 1;
 
       // 少しでもお金が発生するなら「コミッションあり」
       const hasAnyCommission =
@@ -775,82 +787,130 @@
         firstStartEligible;
 
       // ----------------------------------------------------
-      // 6. コミッション結果
+      // コミッション表示
       // ----------------------------------------------------
       if (hasAnyCommission) {
         basicStatusEl.className = 'bonus-result-status status-ok';
-
         let commissionText = '🎉 コミッションあり！';
-        const bonusNotes = [];
-
         if (regularCommissionEligible && activeReferrals === 1) {
           commissionText += '<div class="bonus-result-note">※ベーシックコミッションの分配率は3％になります</div>';
         }
 
-        if (active5Eligible) {
-          bonusNotes.push('⚡ 5アクティブボーナス取得');
+        const bonusNotes = [];
+        if (active5Eligible) bonusNotes.push('⚡ 5アクティブボーナス取得');
+        if (active10Eligible) bonusNotes.push('⚡ 10アクティブボーナス取得');
+        if (firstStartEligible) bonusNotes.push(`🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`);
+        if (bonusNotes.length) {
+          commissionText += `<div class="bonus-next-guide">${bonusNotes.map(x => `<div>✓ ${x}</div>`).join('')}</div>`;
         }
-
-        if (active10Eligible) {
-          bonusNotes.push('⚡ 10アクティブボーナス取得');
-        }
-
-        if (firstStartEligible) {
-          bonusNotes.push(`🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`);
-        }
-
-        if (bonusNotes.length > 0) {
-          commissionText += `
-            <div class="bonus-result-note">
-              ${bonusNotes.join('<br>')}
-            </div>
-          `;
-        }
-
         basicStatusEl.innerHTML = commissionText;
-
       } else {
         basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '🌱 あと少し！コミッション条件を確認しよう';
+        basicStatusEl.innerText = '🌱 もう少し！コミッション条件を確認しよう';
       }
 
-      // ----------------------------------------------------
-      // 7. タイトル結果
-      // ----------------------------------------------------
-      titleStatusEl.className =
-        calculatedTitle !== 'メンバー'
-          ? 'bonus-result-status status-ok'
-          : 'bonus-result-status status-ng';
-
-      let titleHtml = `
-        <div class="bonus-title-achievement">
-          <div class="bonus-title-crown">🏆</div>
-          <div class="bonus-title-label">
-            ${calculatedTitle !== 'メンバー' ? 'タイトル達成！' : '現在のタイトル'}
-          </div>
-          <div class="bonus-title-name">${calculatedTitle}</div>
-      `;
-
-      if (titleNote) {
-        titleHtml += `
-          <div class="bonus-result-note" style="margin-top:6px;">
-            ${titleNote}
-          </div>
-        `;
+      // コミッションまでの不足条件
+      const commissionNeeds = [];
+      if (!regularCommissionEligible) {
+        if (activeReferrals < 1) commissionNeeds.push(`アクティブ紹介者あと${1 - activeReferrals}人`);
+        if (weakLegPoints < 30000) commissionNeeds.push(`少ない方のグループ売上あと${formatPoints(30000 - weakLegPoints)}P`);
+      }
+      if (!active5Eligible && effectiveTitle === 'メンバー') {
+        const active5Needs = [];
+        if (selfPurchasePoints < 10000) active5Needs.push(`自己購入あと${formatPoints(10000 - selfPurchasePoints)}P`);
+        if (activeReferrals < 5) active5Needs.push(`アクティブ紹介者あと${5 - activeReferrals}人`);
+        if (active5Needs.length) commissionNeeds.push(`5アクティブ：${active5Needs.join('・')}`);
+      }
+      if (!active10Eligible && ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'].includes(effectiveTitle)) {
+        const active10Needs = [];
+        if (selfPurchasePoints < 10000) active10Needs.push(`自己購入あと${formatPoints(10000 - selfPurchasePoints)}P`);
+        if (activeReferrals < 10) active10Needs.push(`アクティブ紹介者あと${10 - activeReferrals}人`);
+        if (active10Needs.length) commissionNeeds.push(`10アクティブ：${active10Needs.join('・')}`);
+      }
+      if (!firstStartEligible) {
+        const firstStartNeeds = [];
+        if (selfPurchasePoints < 10000) firstStartNeeds.push(`自己購入あと${formatPoints(10000 - selfPurchasePoints)}P`);
+        if (newMemberReferrals < 1) firstStartNeeds.push('新規会員の紹介あと1人');
+        if (firstStartNeeds.length) commissionNeeds.push(`ファーストスタート：${firstStartNeeds.join('・')}`);
       }
 
-      titleHtml += '</div>';
+      commissionNextGuideEl.innerHTML = commissionNeeds.length
+        ? `<div class="bonus-next-guide"><strong>📌 あとこれをクリアすると、取得できるコミッションが増えます</strong><ul>${commissionNeeds.map(x => `<li>${x}</li>`).join('')}</ul></div>`
+        : '';
+
+      // ----------------------------------------------------
+      // タイトル表示
+      // ----------------------------------------------------
+      titleStatusEl.className = effectiveTitle !== 'メンバー' ? 'bonus-result-status status-ok' : 'bonus-result-status status-ng';
+      let titleHtml = '';
+
+      if (titlePromotionBlocked) {
+        titleHtml = `⚠️ 現在のタイトル：メンバー<div class="bonus-result-note">個人番号未提出のため、タイトル昇格は保留中です。</div>`;
+      } else {
+        titleHtml = `<div class="bonus-title-achievement"><div class="bonus-title-crown">🏆</div><div class="bonus-title-label">現在のタイトル</div><div class="bonus-title-name">${effectiveTitle}</div>`;
+        if (titleNote) {
+          titleHtml += `<div class="bonus-result-note" style="margin-top:6px;">${titleNote}</div>`;
+        }
+        titleHtml += `</div>`;
+      }
       titleStatusEl.innerHTML = titleHtml;
 
       // ----------------------------------------------------
-      // 8. 結果表示
+      // 次のタイトルまであとどれくらい？
       // ----------------------------------------------------
-      resultCard.classList.toggle(
-        'celebrate',
-        hasAnyCommission || calculatedTitle !== 'メンバー'
-      );
+      const titleTargets = [
+        { name: 'クリスタル', points: 200000, active: 2 },
+        { name: 'ラピス', points: 500000, active: 2 },
+        { name: 'サファイヤ', points: 1000000, active: 2 },
+        { name: 'エメラルド', points: 3000000, active: 2 },
+        { name: 'ゴールド', points: 6000000, active: 4 },
+        { name: 'プラチナ', points: 12000000, active: 4 },
+        { name: 'ダイヤモンド', points: 30000000, active: 4 },
+        { name: 'ロワイヤルダイヤモンド', points: 60000000, active: 4 }
+      ];
 
-      showResult();
+      const currentIndex = titleTargets.findIndex(t => t.name === effectiveTitle);
+      const nextTarget = currentIndex >= 0 ? titleTargets[currentIndex + 1] : titleTargets[0];
+
+      if (!hasMyNumber && rawTitle !== 'メンバー') {
+        titleNextGuideEl.innerHTML = `
+          <div class="bonus-next-guide">
+            <strong>🔑 まずは個人番号を提出すると、タイトル昇格の判定ができるようになります。</strong>
+            <ul>
+              <li>個人番号：未提出 → 提出する</li>
+              ${rawTitle !== 'メンバー' ? `<li>現在の数字なら、本来は<strong>${rawTitle}</strong>までの条件を満たしています（系列条件を除く）。</li>` : ''}
+            </ul>
+          </div>`;
+      } else if (nextTarget) {
+        const titleNeeds = [];
+        if (weakLegPoints < nextTarget.points) titleNeeds.push(`少ない方のグループ売上あと${formatPoints(nextTarget.points - weakLegPoints)}P`);
+        if (activeReferrals < nextTarget.active) titleNeeds.push(`アクティブ紹介者あと${nextTarget.active - activeReferrals}人`);
+        if (titleNeeds.length) {
+          titleNextGuideEl.innerHTML = `
+            <div class="bonus-next-guide">
+              <strong>🎯 次は「${nextTarget.name}」！</strong>
+              <ul>${titleNeeds.map(x => `<li>${x}</li>`).join('')}
+              </ul>
+              ${['プラチナ','ダイヤモンド','ロワイヤルダイヤモンド'].includes(nextTarget.name) ? '<div class="bonus-result-note">※さらに系列条件の確認が必要です。</div>' : ''}
+            </div>`;
+        } else {
+          titleNextGuideEl.innerHTML = `<div class="bonus-next-guide"><span class="done">🎉 数値条件はクリア！${nextTarget.name}の系列条件がある場合は、系列条件も確認してください。</span></div>`;
+        }
+      } else {
+        titleNextGuideEl.innerHTML = '<div class="bonus-next-guide"><span class="done">🎉 現在の数値条件で最高位のタイトルまで到達しています。系列条件・継続条件は別途確認してください。</span></div>';
+      }
+
+      // 結果表示 → 自動スクロール
+      resultCard.classList.add('active');
+      resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (hasAnyCommission || effectiveTitle !== 'メンバー') {
+        resultCard.classList.add('celebrate');
+      }
+    }
+
+    function formatPoints(value) {
+      return Number(value).toLocaleString('ja-JP');
     }
   </script>
 
