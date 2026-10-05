@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
-  <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
 
   <style>
     /* =========================================================
        ボーナスチェックページ専用CSS
-       common.css は変更していません。
        ========================================================= */
 
     .bonus-page {
@@ -300,11 +298,6 @@
       border: 1px solid #f1d477;
     }
 
-    .bonus-result-block.activebonus {
-      background: var(--bonus-blue-bg);
-      border: 1px solid #bfdbfe;
-    }
-
     .bonus-result-label {
       margin-bottom: 8px;
       color: var(--bonus-muted);
@@ -365,49 +358,6 @@
       color: #1e293b;
       font-size: 1.4rem;
       font-weight: 900;
-    }
-
-    /* ===== アクティブボーナス ===== */
-    .bonus-result-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .bonus-result-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      padding: 9px 0;
-      color: var(--bonus-ink);
-      font-size: .88rem;
-      line-height: 1.5;
-      border-bottom: 1px dashed #dbeafe;
-    }
-
-    .bonus-result-item:last-child {
-      border-bottom: none;
-    }
-
-    .bonus-result-icon {
-      width: 25px;
-      height: 25px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 25px;
-      border-radius: 50%;
-      font-weight: 900;
-    }
-
-    .bonus-result-icon.ok {
-      background: #dcfce7;
-      color: #16a34a;
-    }
-
-    .bonus-result-icon.ng {
-      background: #f1f5f9;
-      color: #94a3b8;
     }
 
     /* ===== お祝い演出 ===== */
@@ -637,12 +587,6 @@
         <div id="title-status"></div>
       </div>
 
-      <!-- アクティブボーナス -->
-      <div class="bonus-result-block activebonus">
-        <div class="bonus-result-label">⚡ アクティブボーナス</div>
-        <ul id="active-bonus-details" class="bonus-result-list"></ul>
-      </div>
-
     </div>
 
     <!-- 参考：昇格条件一覧表 -->
@@ -730,7 +674,6 @@
 
       const basicStatusEl = document.getElementById('basic-status');
       const titleStatusEl = document.getElementById('title-status');
-      const activeBonusDetailsEl = document.getElementById('active-bonus-details');
       const resultCard = document.getElementById('result-card');
 
       // 結果カードを表示して、判定結果までジャンプ
@@ -752,81 +695,16 @@
         titleStatusEl.className = 'bonus-result-status status-ng';
         titleStatusEl.innerText = 'タイトル：なし';
 
-        activeBonusDetailsEl.innerHTML = `
-          <li class="bonus-result-item">
-            <span class="bonus-result-icon ng">–</span>
-            <span>会員資格が有効になっているか確認してください。</span>
-          </li>
-        `;
-
         resultCard.classList.remove('celebrate');
         showResult();
         return;
       }
 
       // ----------------------------------------------------
-      // 2. コミッション・ボーナス判定
+      // 2. 通常コミッション判定
       // ----------------------------------------------------
-
-      // 通常コミッション
       const regularCommissionEligible =
         (activeReferrals >= 1) && (weakLegPoints >= 30000);
-
-      // 5アクティブボーナス
-      const active5Eligible =
-        (selfPurchasePoints >= 10000) && (activeReferrals >= 5);
-
-      // 10アクティブボーナス
-      const active10Eligible =
-        (selfPurchasePoints >= 10000) && (activeReferrals >= 10);
-
-      // ファーストスタートボーナス
-      const firstStartEligible =
-        (selfPurchasePoints >= 10000) && (newMemberReferrals >= 1);
-
-      // 少しでもお金が発生するなら「コミッションあり」
-      const hasAnyCommission =
-        regularCommissionEligible ||
-        active5Eligible ||
-        active10Eligible ||
-        firstStartEligible;
-
-      if (hasAnyCommission) {
-        basicStatusEl.className = 'bonus-result-status status-ok';
-
-        let commissionText = '🎉 コミッションあり！';
-
-        if (regularCommissionEligible && activeReferrals === 1) {
-          commissionText += '<div class="bonus-result-note">※ベーシックコミッションの分配率は3％になります</div>';
-        }
-
-        const bonusNotes = [];
-
-        if (active5Eligible) {
-          bonusNotes.push('⚡ 5アクティブボーナス取得');
-        }
-
-        if (active10Eligible) {
-          bonusNotes.push('⚡ 10アクティブボーナス取得');
-        }
-
-        if (firstStartEligible) {
-          bonusNotes.push(`🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`);
-        }
-
-        if (bonusNotes.length > 0) {
-          commissionText += `
-            <div class="bonus-result-note">
-              ${bonusNotes.join('<br>')}
-            </div>
-          `;
-        }
-
-        basicStatusEl.innerHTML = commissionText;
-      } else {
-        basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '🌱 あと少し！コミッション条件を確認しよう';
-      }
 
       // ----------------------------------------------------
       // 3. タイトル判定
@@ -857,6 +735,88 @@
         }
       }
 
+      // ----------------------------------------------------
+      // 4. アクティブボーナス判定
+      //
+      // 5アクティブ：
+      // ・自己購入10,000P以上
+      // ・アクティブ紹介者5人以上
+      // ・メンバーのみ
+      //
+      // 10アクティブ：
+      // ・自己購入10,000P以上
+      // ・アクティブ紹介者10人以上
+      // ・サファイヤまで
+      //
+      // ※5アクティブと10アクティブは両立
+      // ----------------------------------------------------
+      const active5Eligible =
+        (selfPurchasePoints >= 10000) &&
+        (activeReferrals >= 5) &&
+        (calculatedTitle === 'メンバー');
+
+      const active10Eligible =
+        (selfPurchasePoints >= 10000) &&
+        (activeReferrals >= 10) &&
+        ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'].includes(calculatedTitle);
+
+      // ----------------------------------------------------
+      // 5. ファーストスタートボーナス判定
+      // ----------------------------------------------------
+      const firstStartEligible =
+        (selfPurchasePoints >= 10000) &&
+        (newMemberReferrals >= 1);
+
+      // 少しでもお金が発生するなら「コミッションあり」
+      const hasAnyCommission =
+        regularCommissionEligible ||
+        active5Eligible ||
+        active10Eligible ||
+        firstStartEligible;
+
+      // ----------------------------------------------------
+      // 6. コミッション結果
+      // ----------------------------------------------------
+      if (hasAnyCommission) {
+        basicStatusEl.className = 'bonus-result-status status-ok';
+
+        let commissionText = '🎉 コミッションあり！';
+        const bonusNotes = [];
+
+        if (regularCommissionEligible && activeReferrals === 1) {
+          commissionText += '<div class="bonus-result-note">※ベーシックコミッションの分配率は3％になります</div>';
+        }
+
+        if (active5Eligible) {
+          bonusNotes.push('⚡ 5アクティブボーナス取得');
+        }
+
+        if (active10Eligible) {
+          bonusNotes.push('⚡ 10アクティブボーナス取得');
+        }
+
+        if (firstStartEligible) {
+          bonusNotes.push(`🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`);
+        }
+
+        if (bonusNotes.length > 0) {
+          commissionText += `
+            <div class="bonus-result-note">
+              ${bonusNotes.join('<br>')}
+            </div>
+          `;
+        }
+
+        basicStatusEl.innerHTML = commissionText;
+
+      } else {
+        basicStatusEl.className = 'bonus-result-status status-ng';
+        basicStatusEl.innerText = '🌱 あと少し！コミッション条件を確認しよう';
+      }
+
+      // ----------------------------------------------------
+      // 7. タイトル結果
+      // ----------------------------------------------------
       titleStatusEl.className =
         calculatedTitle !== 'メンバー'
           ? 'bonus-result-status status-ok'
@@ -883,52 +843,7 @@
       titleStatusEl.innerHTML = titleHtml;
 
       // ----------------------------------------------------
-      // 4. 追加ボーナスの表示
-      //    5・10アクティブは④だけで判定
-      //    ファーストスタートは⑤で判定
-      // ----------------------------------------------------
-      const bonusItems = [];
-
-      if (active5Eligible) {
-        bonusItems.push(`
-          <li class="bonus-result-item">
-            <span class="bonus-result-icon ok">✓</span>
-            <span><strong>5アクティブボーナス取得</strong></span>
-          </li>
-        `);
-      }
-
-      if (active10Eligible) {
-        bonusItems.push(`
-          <li class="bonus-result-item">
-            <span class="bonus-result-icon ok">✓</span>
-            <span><strong>10アクティブボーナス取得</strong></span>
-          </li>
-        `);
-      }
-
-      if (firstStartEligible) {
-        bonusItems.push(`
-          <li class="bonus-result-item">
-            <span class="bonus-result-icon ok">✓</span>
-            <span><strong>ファーストスタートボーナス${newMemberReferrals}人分取得</strong></span>
-          </li>
-        `);
-      }
-
-      if (bonusItems.length === 0) {
-        bonusItems.push(`
-          <li class="bonus-result-item">
-            <span class="bonus-result-icon ng">–</span>
-            <span>今回は追加ボーナスの達成条件なし</span>
-          </li>
-        `);
-      }
-
-      activeBonusDetailsEl.innerHTML = bonusItems.join('');
-
-      // ----------------------------------------------------
-      // 5. 結果表示
+      // 8. 結果表示
       // ----------------------------------------------------
       resultCard.classList.toggle(
         'celebrate',
