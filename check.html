@@ -11,7 +11,6 @@
   <style>
     /* =========================================================
        ボーナスチェックページ専用CSS
-       common.css は変更していません。
        ========================================================= */
 
     .bonus-page {
@@ -82,7 +81,7 @@
       z-index: 1;
       margin: 0 0 10px;
       color: #1e293b;
-      font-size: clamp(1.55rem, 5vw, 2.1rem);
+      font-size: clamp(1.4rem, 5vw, 2.1rem);
       line-height: 1.4;
     }
 
@@ -136,7 +135,7 @@
     }
 
     .bonus-form-group {
-      margin-bottom: 17px;
+      margin-bottom: 18px;
     }
 
     .bonus-form-label {
@@ -163,6 +162,17 @@
       box-sizing: border-box;
       background: #fff;
       transition: .18s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* select要素用の矢印表示 */
+    select.bonus-form-control {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2064748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
     }
 
     .bonus-form-control:focus {
@@ -171,43 +181,20 @@
       box-shadow: 0 0 0 4px rgba(245, 158, 11, .13);
     }
 
-    .bonus-check-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      padding: 11px 12px;
-      border-radius: 11px;
-      background: #fafafa;
-      border: 1px solid #edf0f3;
-    }
-
-    .bonus-check-row input {
-      width: 19px;
-      height: 19px;
-      accent-color: var(--bonus-green);
-      flex: 0 0 auto;
-    }
-
-    .bonus-check-row span {
-      font-size: .88rem;
-      font-weight: 700;
-      color: var(--bonus-ink);
-    }
-
     .bonus-submit {
       position: relative;
       width: 100%;
       border: none;
       border-radius: 13px !important;
-      padding: 15px 18px;
+      padding: 16px 18px;
       background: linear-gradient(135deg, #f59e0b, #f97316) !important;
       color: #fff;
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 900;
       cursor: pointer;
       box-shadow: 0 7px 16px rgba(249, 115, 22, .20);
       transition: transform .15s ease, box-shadow .15s ease;
+      touch-action: manipulation;
     }
 
     .bonus-submit:hover {
@@ -221,6 +208,7 @@
 
     /* ===== 結果カード ===== */
     .bonus-result {
+      display: none; /* 初期状態は非表示 */
       position: relative;
       overflow: hidden;
       background: #fff !important;
@@ -230,6 +218,7 @@
       margin-top: 22px;
       margin-bottom: 25px;
       box-shadow: 0 8px 26px rgba(15, 23, 42, .08) !important;
+      scroll-margin-top: 20px; /* スクロール位置の微調整用 */
     }
 
     .bonus-result.active {
@@ -445,7 +434,7 @@
       }
     }
 
-    /* ===== 昇格条件一覧 ===== */
+    /* ===== 昇格条件一覧（テーブル横スクロール対応） ===== */
     .bonus-reference {
       margin-top: 24px;
       padding: 20px;
@@ -467,15 +456,45 @@
       font-size: .8rem;
     }
 
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-container table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 320px;
+    }
+
+    /* ===== スマホ（レスポンシブ）最適化 ===== */
     @media (max-width: 600px) {
       .bonus-hero {
-        padding: 23px 17px;
+        padding: 20px 15px;
+        border-radius: 16px;
       }
 
       .bonus-check-form,
       .bonus-result,
       .bonus-reference {
-        padding: 17px;
+        padding: 15px;
+        border-radius: 16px !important;
+      }
+
+      .bonus-form-control {
+        font-size: 16px; /* iOS等のズーム防止用サイズ */
+        padding: 11px 12px;
+      }
+
+      .bonus-submit {
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+
+      .bonus-result-status {
+        font-size: 0.98rem;
+        padding: 10px;
       }
     }
   </style>
@@ -502,25 +521,25 @@
       </p>
     </div>
 
-    <!-- 入力フォーム -->
+    <!-- 入力フォーム (完全入力型へ統一) -->
     <div class="bonus-check-form">
 
       <div class="bonus-form-intro">
         <div class="bonus-form-intro-icon">📝</div>
         <div>
-          <strong>まずは現在の数字を入れてみよう</strong>
-          <span>わかるところから入力でOK。チェックすると結果が出ます。</span>
+          <strong>まずは現在の状況・数字を入れてみよう</strong>
+          <span>全ての項目に入力・選択してチェックボタンを押してください。</span>
         </div>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label">
-          ① 会員資格の確認
+        <label class="bonus-form-label" for="sel-member-status">
+          ① 会員資格の状況
         </label>
-        <label class="bonus-check-row">
-          <input type="checkbox" id="chk-member-status">
-          <span>会員資格は有効になっている</span>
-        </label>
+        <select id="sel-member-status" class="bonus-form-control">
+          <option value="1">有効</option>
+          <option value="0">無効</option>
+        </select>
         <small class="bonus-form-hint">E-Serviceの【組織図】で確認できます。</small>
       </div>
 
@@ -531,9 +550,10 @@
         <input type="number"
                id="ipt-self-pt"
                class="bonus-form-control"
-               placeholder="例：10,000"
+               placeholder="例：10000"
                min="0"
-               step="1000">
+               step="1000"
+               inputmode="numeric">
       </div>
 
       <div class="bonus-form-group">
@@ -544,7 +564,8 @@
                id="ipt-active-num"
                class="bonus-form-control"
                placeholder="例：2"
-               min="0">
+               min="0"
+               inputmode="numeric">
       </div>
 
       <div class="bonus-form-group">
@@ -554,22 +575,23 @@
         <input type="number"
                id="ipt-group-pt"
                class="bonus-form-control"
-               placeholder="例：200,000"
+               placeholder="例：200000"
                min="0"
-               step="10000">
+               step="10000"
+               inputmode="numeric">
         <small class="bonus-form-hint">
           左右のうち、ポイントが少ない側の数字を入力。
         </small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label">
-          ⑤ 個人番号（マイナンバー）提出
+        <label class="bonus-form-label" for="sel-mynumber">
+          ⑤ 個人番号（マイナンバー）提出状況
         </label>
-        <label class="bonus-check-row">
-          <input type="checkbox" id="chk-mynumber">
-          <span>個人番号（マイナンバー）の提出が完了している</span>
-        </label>
+        <select id="sel-mynumber" class="bonus-form-control">
+          <option value="1">提出済み</option>
+          <option value="0">未提出</option>
+        </select>
       </div>
 
       <button type="button"
@@ -613,7 +635,7 @@
     </div>
 
     <!-- 参考：昇格条件一覧表 -->
-    <div class="bonus-reference" style="margin-top: 24px;">
+    <div class="bonus-reference">
       <div class="bonus-reference-title">📊 タイトル昇格条件をざっくり確認</div>
       <p class="bonus-reference-note">
         「次はどこを目指せばいい？」というときの目安として見てください。
@@ -688,12 +710,13 @@
 
   <script>
 function checkConditions() {
-      // 入力値の取得
-      const isMember = document.getElementById('chk-member-status').checked;
+      // 入力値の取得（すべて選択肢・入力フィールドから取得）
+      const isMember = document.getElementById('sel-member-status').value === '1';
       const activeReferrals = Number(document.getElementById('ipt-active-num').value) || 0;
       const weakLegPoints = Number(document.getElementById('ipt-group-pt').value) || 0;
-      const hasMyNumber = document.getElementById('chk-mynumber').checked;
+      const hasMyNumber = document.getElementById('sel-mynumber').value === '1';
 
+      const resultCardEl = document.getElementById('result-card');
       const basicStatusEl = document.getElementById('basic-status');
       const titleStatusEl = document.getElementById('title-status');
       const activeBonusDetailsEl = document.getElementById('active-bonus-details');
@@ -713,7 +736,8 @@ function checkConditions() {
           <li class="bonus-result-item"><span class="bonus-result-icon ng">✗</span> 10アクティブボーナス：対象外（会員資格無効）</li>
         `;
 
-        document.getElementById('result-card').classList.add('active');
+        resultCardEl.classList.add('active');
+        resultCardEl.scrollIntoView({ behavior: 'smooth' });
         return;
       }
 
@@ -735,7 +759,6 @@ function checkConditions() {
 
       // ----------------------------------------------------
       // 3. タイトル判定
-      // (タイトルはアクティブ紹介者2人以上が必要)
       // ----------------------------------------------------
       let calculatedTitle = 'メンバー';
       let titleNote = '';
@@ -780,7 +803,6 @@ function checkConditions() {
       // ----------------------------------------------------
       // 4. アクティブボーナス判定
       // ----------------------------------------------------
-      // 5アクティブボーナス：5人以上 & タイトル昇格者は対象外（メンバーのみ）
       let active5Status = 'まだ条件前';
       let active5Ok = false;
       if (activeReferrals >= 5) {
@@ -792,7 +814,6 @@ function checkConditions() {
         }
       }
 
-      // 10アクティブボーナス：10人以上 & サファイア以下対象
       const sapphireAndBelow = ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'];
       let active10Status = 'まだ条件前';
       let active10Ok = false;
@@ -816,12 +837,15 @@ function checkConditions() {
         </li>
       `;
 
-      // 結果カードを表示
-      document.getElementById('result-card').classList.add('active');
+      // 結果カードの表示とスクロール移動
+      resultCardEl.classList.add('active');
+      resultCardEl.scrollIntoView({ behavior: 'smooth' });
 
-      // 達成時だけお祝い演出（判定ロジックには影響しない）
+      // 達成時のお祝い演出
       if (isCommissionEligible || calculatedTitle !== 'メンバー') {
-        document.getElementById('result-card').classList.add('celebrate');
+        resultCardEl.classList.add('celebrate');
+      } else {
+        resultCardEl.classList.remove('celebrate');
       }
     }
   </script>
