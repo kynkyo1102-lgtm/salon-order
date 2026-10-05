@@ -3,2296 +3,1453 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>C. ボーナスプランガイド - メンバーズWebガイド</title>
-
-  <!-- 共通スタイルシート -->
+  <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
   <link rel="stylesheet" href="common.css">
 
-  <!-- 当ページ固有のスタイル -->
   <style>
-
     /* =========================================================
-       警告ボックス
-    ========================================================= */
+       ボーナスチェックページ専用CSS
+       common.css は変更していません。
+       ========================================================= */
 
-    .warning-box {
-      background-color: #fef2f2;
-      border: 1px solid #fecaca;
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 0.82rem;
-      color: #991b1b;
-      margin-top: 12px;
-      line-height: 1.6;
+    .bonus-page {
+      --bonus-orange: #f59e0b;
+      --bonus-orange-dark: #d97706;
+      --bonus-green: #22c55e;
+      --bonus-green-bg: #ecfdf3;
+      --bonus-blue-bg: #eff6ff;
+      --bonus-yellow-bg: #fff9df;
+      --bonus-ink: #334155;
+      --bonus-muted: #64748b;
+      --bonus-line: #e2e8f0;
     }
 
-
-    /* =========================================================
-       ボーナス全体図
-    ========================================================= */
-
-    .bonus-map {
-      margin-top: 22px;
-    }
-
-    .bonus-map-intro {
-      text-align: center;
-      margin-bottom: 18px;
-      color: #475569;
-      font-size: 0.86rem;
-      line-height: 1.6;
-    }
-
-    /* 中央のロワイヤルダイヤモンド */
-
-    .royal-center {
+    /* ===== ヒーロー ===== */
+    .bonus-hero {
       position: relative;
-      width: min(100%, 360px);
-      margin: 0 auto 24px;
-      text-align: center;
-    }
-
-    .royal-center-card {
-      position: relative;
-      padding: 22px 18px 20px;
-      border: 2px solid var(--primary);
-      border-radius: 18px;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-    }
-
-    .royal-crown {
-      font-size: 2.2rem;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .royal-label {
-      font-size: 0.76rem;
-      color: #64748b;
-      letter-spacing: 0.08em;
-      font-weight: bold;
-    }
-
-    .royal-title {
-      margin-top: 4px;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-    }
-
-    .royal-sub {
-      margin-top: 7px;
-      font-size: 0.78rem;
-      color: #64748b;
-    }
-
-    .royal-arrow {
-      text-align: center;
-      color: #94a3b8;
-      font-size: 1.2rem;
-      margin: 8px 0 0;
-    }
-
-
-    /* =========================================================
-       ボーナスカード一覧
-    ========================================================= */
-
-    .bonus-map-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .bonus-map-item {
-      background: #fff;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
       overflow: hidden;
-      transition:
-        transform 0.15s ease,
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
+      margin: 4px 0 24px;
+      padding: 28px 22px 25px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #fff9df 0%, #ffffff 58%, #f1f7ff 100%);
+      border: 2px solid #f2dda0;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, .10);
     }
 
-    .bonus-map-item:hover {
-      border-color: var(--primary);
-      box-shadow: 0 5px 16px rgba(15, 23, 42, 0.08);
-    }
-
-    .bonus-map-item[open] {
-      grid-column: 1 / -1;
-      border-color: var(--primary);
-      box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
-    }
-
-    .bonus-map-summary {
-      position: relative;
-      min-height: 116px;
-      padding: 14px 12px 12px;
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .bonus-map-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .bonus-map-summary::after {
-      content: "＋";
+    .bonus-hero::before,
+    .bonus-hero::after {
+      content: "";
       position: absolute;
-      right: 9px;
-      top: 8px;
-      width: 22px;
-      height: 22px;
       border-radius: 50%;
-      background: #f1f5f9;
-      color: var(--primary);
-      font-size: 0.9rem;
-      line-height: 22px;
-      text-align: center;
-      font-weight: bold;
+      pointer-events: none;
     }
 
-    .bonus-map-item[open] .bonus-map-summary {
-      display: none;
+    .bonus-hero::before {
+      width: 120px;
+      height: 120px;
+      right: -38px;
+      top: -45px;
+      background: rgba(244, 114, 182, .12);
     }
 
-    .bonus-map-item[open] .bonus-map-summary::after {
-      content: "－";
+    .bonus-hero::after {
+      width: 85px;
+      height: 85px;
+      left: -32px;
+      bottom: -38px;
+      background: rgba(59, 130, 246, .10);
     }
 
-    .bonus-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #f1f5f9;
-      color: var(--primary-dark);
-      font-size: 0.72rem;
-      font-weight: 800;
+    .bonus-kicker {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
       margin-bottom: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #f0d27a;
+      color: #a66b00;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .04em;
     }
 
-    .bonus-map-name {
-      font-size: 0.84rem;
-      line-height: 1.35;
-      font-weight: 800;
+    .bonus-hero h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
       color: #1e293b;
-      padding-right: 18px;
+      font-size: clamp(1.45rem, 5vw, 2.1rem);
+      line-height: 1.4;
     }
 
-    .bonus-map-value {
-      margin-top: 8px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--primary);
+    .bonus-hero h1 span {
+      color: #e58b00;
     }
 
-    .bonus-map-tap {
-      margin-top: 5px;
-      font-size: 0.67rem;
-      color: #94a3b8;
+    .bonus-hero p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--bonus-muted);
+      font-size: .92rem;
+      line-height: 1.75;
     }
 
-
-    /* =========================================================
-       開いたときの詳細
-    ========================================================= */
-
-    .bonus-map-content {
-      padding: 18px 16px 18px;
-      border-top: 1px solid #e2e8f0;
-      background: #fafafa;
-      font-size: 0.88rem;
-      color: #334155;
-      line-height: 1.6;
-    }
-
-    .bonus-map-content h3 {
-      margin: 0 0 12px;
-      color: var(--primary-dark);
-      font-size: 1rem;
-    }
-
-    .bonus-close {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 7px 12px;
-      border-radius: 7px;
-      background: #e2e8f0;
-      color: #475569;
-      font-size: 0.75rem;
-      font-weight: bold;
-    }
-
-
-    /* =========================================================
-       詳細内の図
-    ========================================================= */
-
-    .mini-flow {
-      text-align: center;
-      margin: 16px 0;
-    }
-
-    .mini-flow-box {
-      display: inline-block;
-      padding: 9px 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
+    /* ===== 入力フォーム ===== */
+    .bonus-check-form {
       background: #fff;
+      border: 1px solid var(--bonus-line);
+      border-radius: 20px;
+      padding: 21px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, .06);
     }
 
-    .mini-flow-arrow {
-      margin: 6px 0;
-      color: #64748b;
-    }
-
-    .mini-flow-highlight {
-      display: inline-block;
-      padding: 10px 17px;
-      border: 2px solid #64748b;
-      border-radius: 8px;
-      background: #e2e8f0;
-      font-weight: bold;
-    }
-
-
-    /* =========================================================
-       計算式
-    ========================================================= */
-
-    .formula-box {
-      margin-top: 10px;
-      padding: 11px;
-      border-radius: 8px;
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .formula-result {
-      margin-top: 8px;
-      text-align: center;
-      font-weight: 800;
-      font-size: 1rem;
-      color: var(--primary-dark);
-    }
-
-
-    /* =========================================================
-       3段階の説明カード
-    ========================================================= */
-
-    .step-list {
-      display: grid;
-      gap: 8px;
-      margin: 14px 0;
-    }
-
-    .step-item {
+    .bonus-form-intro {
       display: flex;
       align-items: flex-start;
-      gap: 9px;
-      padding: 10px;
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-    }
-
-    .step-num {
-      flex: 0 0 auto;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #e2e8f0;
-      color: #475569;
-      text-align: center;
-      line-height: 24px;
-      font-size: 0.72rem;
-      font-weight: 800;
-    }
-
-
-    /* =========================================================
-       タイトル別カード
-    ========================================================= */
-
-    .title-rate-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 7px;
-      margin-top: 12px;
-    }
-
-    .title-rate-card {
-      padding: 9px 8px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background: #fff;
-      text-align: center;
-    }
-
-    .title-rate-name {
-      font-size: 0.72rem;
-      color: #64748b;
-    }
-
-    .title-rate-value {
-      margin-top: 3px;
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #1e293b;
-    }
-
-
-    /* =========================================================
-       既存のテーブルをスマホで扱いやすく
-    ========================================================= */
-
-    .bonus-detail-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      font-size: 0.82rem;
-    }
-
-    .bonus-detail-table th,
-    .bonus-detail-table td {
-      padding: 8px;
-      border: 1px solid #e2e8f0;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .bonus-detail-table th {
-      background: #f1f5f9;
-      font-weight: 700;
-    }
-
-
-    /* =========================================================
-       マップ下の説明
-    ========================================================= */
-
-    .map-guide {
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 9px;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 13px 14px;
+      border-radius: 13px;
       background: #f8fafc;
-      border: 1px solid #e2e8f0;
+    }
+
+    .bonus-form-intro-icon {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .bonus-form-intro strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--bonus-ink);
+    }
+
+    .bonus-form-intro span {
+      color: var(--bonus-muted);
+      font-size: .82rem;
+    }
+
+    .bonus-form-group {
+      margin-bottom: 17px;
+    }
+
+    .bonus-form-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--bonus-ink);
+      font-weight: 800;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .bonus-form-hint {
+      display: block;
+      margin-top: 5px;
+      color: var(--bonus-muted);
+      font-size: .76rem;
+      line-height: 1.5;
+    }
+
+    .bonus-form-control {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background: #fff;
+      transition: .18s ease;
+    }
+
+    .bonus-form-control:focus {
+      outline: none;
+      border-color: var(--bonus-orange);
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, .13);
+    }
+
+    .bonus-check-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 11px 12px;
+      border-radius: 11px;
+      background: #fafafa;
+      border: 1px solid #edf0f3;
+    }
+
+    .bonus-check-row input {
+      width: 19px;
+      height: 19px;
+      accent-color: var(--bonus-green);
+      flex: 0 0 auto;
+    }
+
+    .bonus-check-row span {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--bonus-ink);
+      line-height: 1.45;
+    }
+
+    .bonus-submit {
+      position: relative;
+      width: 100%;
+      border: none;
+      border-radius: 13px !important;
+      padding: 15px 18px;
+      background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 7px 16px rgba(249, 115, 22, .20);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .bonus-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(249, 115, 22, .28);
+    }
+
+    .bonus-submit:active {
+      transform: translateY(1px);
+    }
+
+    /* ===== 結果カード ===== */
+    .bonus-result {
+      scroll-margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+      background: #fff !important;
+      border: 2px solid #e5e7eb !important;
+      border-radius: 22px !important;
+      padding: 20px;
+      margin-top: 22px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 26px rgba(15, 23, 42, .08) !important;
+    }
+
+    .bonus-result.active {
+      display: block;
+      animation: bonusAppear .35s ease both;
+    }
+
+    @keyframes bonusAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .bonus-result-head {
+      margin-bottom: 18px;
       text-align: center;
+    }
+
+    .bonus-result-head .small {
+      display: block;
+      margin-bottom: 3px;
+      color: #94a3b8;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .bonus-result-head h2 {
+      margin: 0;
+      color: var(--bonus-ink);
+      font-size: 1.45rem;
+    }
+
+    .bonus-result-block {
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 13px;
+    }
+
+    .bonus-result-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .bonus-result-block.commission {
+      background: var(--bonus-green-bg);
+      border: 1px solid #bbf7d0;
+    }
+
+    .bonus-result-block.title {
+      background: linear-gradient(135deg, var(--bonus-yellow-bg), #fff);
+      border: 1px solid #f1d477;
+    }
+
+    .bonus-result-label {
+      margin-bottom: 8px;
+      color: var(--bonus-muted);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .bonus-result-status {
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.06rem;
+      font-weight: 900;
+    }
+
+    .bonus-result-status.status-ok {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .bonus-result-status.status-ng {
+      background: #f1f5f9;
       color: #64748b;
-      font-size: 0.78rem;
-      line-height: 1.6;
+      border: 1px solid #e2e8f0;
     }
 
+    .bonus-result-note {
+      margin-top: 8px;
+      font-size: .82rem;
+      color: #d97706;
+      font-weight: bold;
+      line-height: 1.5;
+    }
 
-    /* =========================================================
-       スマホ
-    ========================================================= */
+    /* ===== タイトル達成 ===== */
+    .bonus-title-achievement {
+      padding: 15px;
+      text-align: center;
+      background: #fff;
+      border-radius: 15px;
+      border: 1px solid #f0d37c;
+    }
 
-    @media (max-width: 520px) {
+    .bonus-title-crown {
+      font-size: 2.35rem;
+      line-height: 1;
+    }
 
-      .bonus-map-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
+    .bonus-title-label {
+      margin-top: 6px;
+      color: #c47a00;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .bonus-title-name {
+      margin-top: 2px;
+      color: #1e293b;
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+
+    /* ===== お祝い演出 ===== */
+    .bonus-result.celebrate {
+      border-color: #f2c94c !important;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, .14) !important;
+    }
+
+    .bonus-confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .bonus-confetti i {
+      position: absolute;
+      top: -12px;
+      width: 7px;
+      height: 12px;
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .bonus-result.celebrate .bonus-confetti i {
+      animation: bonusFall 1.5s ease-in forwards;
+    }
+
+    .bonus-confetti i:nth-child(1) { left: 8%;  background:#f59e0b; animation-delay:.02s; }
+    .bonus-confetti i:nth-child(2) { left: 18%; background:#60a5fa; animation-delay:.12s; }
+    .bonus-confetti i:nth-child(3) { left: 31%; background:#f472b6; animation-delay:.05s; }
+    .bonus-confetti i:nth-child(4) { left: 45%; background:#22c55e; animation-delay:.18s; }
+    .bonus-confetti i:nth-child(5) { left: 59%; background:#8b5cf6; animation-delay:.08s; }
+    .bonus-confetti i:nth-child(6) { left: 72%; background:#f97316; animation-delay:.20s; }
+    .bonus-confetti i:nth-child(7) { left: 84%; background:#06b6d4; animation-delay:.10s; }
+    .bonus-confetti i:nth-child(8) { left: 93%; background:#ec4899; animation-delay:.16s; }
+
+    @keyframes bonusFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
       }
-
-      .bonus-map-summary {
-        min-height: 108px;
-        padding: 11px 10px;
-      }
-
-      .bonus-map-name {
-        font-size: 0.78rem;
-      }
-
-      .bonus-map-value {
-        font-size: 0.76rem;
-      }
-
-      .bonus-map-content {
-        padding: 15px 12px;
-      }
-
-      .title-rate-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      100% {
+        transform: translateY(230px) rotate(300deg);
+        opacity: 0;
       }
     }
 
-
-    /* =========================================================
-       PC
-    ========================================================= */
-
-    @media (min-width: 700px) {
-
-      .bonus-map-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .bonus-map-item[open] {
-        grid-column: 1 / -1;
-      }
-
-      .bonus-map-summary {
-        min-height: 128px;
-      }
-
+    /* ===== あと少しガイド ===== */
+    .bonus-next-guide {
+      margin-top: 10px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      border: 1px dashed #cbd5e1;
+      color: var(--bonus-ink);
+      font-size: .82rem;
+      line-height: 1.65;
     }
 
+    .bonus-next-guide strong {
+      color: #d97706;
+    }
+
+    .bonus-next-guide ul {
+      margin: 6px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .bonus-next-guide li {
+      margin: 3px 0;
+    }
+
+    .bonus-next-guide .done {
+      color: #15803d;
+      font-weight: 800;
+    }
+
+    /* ===== 参考表 ===== */
+    .bonus-reference {
+      margin-top: 24px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid var(--bonus-line);
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, .05);
+    }
+
+    .bonus-reference-title {
+      margin-bottom: 7px;
+      color: var(--bonus-ink);
+      font-weight: 900;
+    }
+
+    .bonus-reference-note {
+      margin: 0 0 13px;
+      color: var(--bonus-muted);
+      font-size: .8rem;
+    }
+
+    /* ===== 数値入力の矢印を非表示 ===== */
+    .bonus-form-control[type="number"]::-webkit-outer-spin-button,
+    .bonus-form-control[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .bonus-form-control[type="number"] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    /* ===== スマホ ===== */
+    @media (max-width: 600px) {
+
+      .bonus-hero {
+        padding: 22px 17px;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.38rem;
+        line-height: 1.35;
+      }
+
+      .bonus-hero p {
+        font-size: .86rem;
+      }
+
+      .bonus-check-form,
+      .bonus-result,
+      .bonus-reference {
+        padding: 17px;
+      }
+
+      /* スマホでは入力項目のタイトルを少し小さく */
+      .bonus-form-label {
+        font-size: .82rem;
+        line-height: 1.45;
+        margin-bottom: 6px;
+      }
+
+      .bonus-form-hint {
+        font-size: .72rem;
+      }
+
+      .bonus-check-row span {
+        font-size: .82rem;
+      }
+
+      .bonus-form-intro strong {
+        font-size: .88rem;
+      }
+
+      .bonus-form-intro span {
+        font-size: .76rem;
+      }
+
+      .bonus-result-head h2 {
+        font-size: 1.3rem;
+      }
+
+      .bonus-result-status {
+        font-size: .95rem;
+      }
+
+      .bonus-title-name {
+        font-size: 1.25rem;
+      }
+
+      .bonus-next-guide {
+        font-size: .78rem;
+      }
+    }
+
+    /* ===== 小さいスマホ ===== */
+    @media (max-width: 380px) {
+
+      .bonus-form-label {
+        font-size: .78rem;
+      }
+
+      .bonus-check-row span {
+        font-size: .78rem;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.28rem;
+      }
+    }
   </style>
 </head>
 
-
 <body>
 
-  <!-- =========================================================
-       ヘッダー
-  ========================================================= -->
-
+  <!-- ヘッダー -->
   <header>
     <div class="header-container">
-
-      <a href="./index.html" class="back-link">
-        ← トップガイドへ戻る
+      <a href="./ninaguide.html" class="back-link">← トップガイドへ戻る</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">
+        🔐 E-Serviceログイン
       </a>
-
-      <a
-        href="https://sslgw.jns-asp.jp/685/pc.html?new"
-        target="_blank"
-        class="btn-login"
-      >
-        🔐 E-Service ログイン
-      </a>
-
     </div>
   </header>
 
+  <div class="container bonus-page">
 
-  <!-- =========================================================
-       メインコンテンツ
-  ========================================================= -->
-
-  <div class="container">
-
-
-    <!-- =======================================================
-         ページタイトル
-    ======================================================== -->
-
-    <div class="page-header">
-
-      <div class="page-category">
-        GUIDE C
-      </div>
-
-      <h1 class="page-title">
-        🎁 ボーナス取得・権利維持ガイド
-      </h1>
-
-    </div>
-
-
-    <!-- =======================================================
-         目次
-    ======================================================== -->
-
-    <div class="toc-card">
-
-      <div class="toc-title">
-        INDEX
-      </div>
-
-      <ul class="toc-list">
-
-        <li class="toc-item">
-          <a href="#sec-1">
-            <span class="toc-num">01</span>
-            <span>ボーナス取得の基本条件</span>
-          </a>
-        </li>
-
-        <li class="toc-item">
-          <a href="#sec-2">
-            <span class="toc-num">02</span>
-            <span>9種類のボーナスプラン</span>
-          </a>
-        </li>
-
-        <li class="toc-item">
-          <a href="#sec-3">
-            <span class="toc-num">03</span>
-            <span>タイトル昇格条件とブランチ</span>
-          </a>
-        </li>
-
-      </ul>
-
-    </div>
-
-
-    <!-- =========================================================
-         1. 基本条件
-    ========================================================= -->
-
-    <div id="sec-1" class="section-card">
-
-      <div class="section-card-title">
-        💡 1. ボーナス取得の基本条件
-      </div>
-
-      <p class="section-desc">
-        ボーナスを受け取るための基本的な条件です。
+    <div class="bonus-hero">
+      <span class="bonus-kicker">✨ CHECK TOOL</span>
+      <h1>いまのあなた、<span>どこまで来た？</span></h1>
+      <p>
+        数字を入れるだけで、コミッションやタイトルの達成状況をチェックできます。<br>
+        「あと少し！」も「達成した！」も、ここで確認しよう。
       </p>
+    </div>
 
+    <!-- 入力フォーム -->
+    <div class="bonus-check-form">
 
-      <div style="font-size:0.9rem; color:#334155; line-height:1.8;">
-
-        <p style="margin:0 0 8px;">
-          ① <b>会員資格が有効</b>である
-        </p>
-
-        <p style="margin:0 0 8px;">
-          ② <b>自己購入が10,000PT</b>ある
-        </p>
-
-        <p style="margin:0;">
-          ③ <b>アクティブ紹介者がいる</b>
-        </p>
-
+      <div class="bonus-form-intro">
+        <div class="bonus-form-intro-icon">📝</div>
+        <div>
+          <strong>まずは現在の数字を入れてみよう</strong>
+          <span>わかるところから入力でOK。チェックすると結果が出ます。</span>
+        </div>
       </div>
 
+      <div class="bonus-form-group">
+        <label class="bonus-form-label">① 会員資格の確認</label>
+        <label class="bonus-check-row">
+          <input type="checkbox" id="chk-member-status">
+          <span>会員資格は有効になっている</span>
+        </label>
+        <small class="bonus-form-hint">
+          E-Serviceの【組織図】で確認できます。
+        </small>
+      </div>
 
-      <div class="info-box" style="margin-top:16px;">
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-self-pt">
+          ② 自己購入P
+        </label>
+        <input type="number"
+               id="ipt-self-pt"
+               class="bonus-form-control"
+               placeholder="例：10,000"
+               min="0"
+               step="1000">
+        <small class="bonus-form-hint">
+          コミッション・タイトル昇格には自己購入10,000P以上が必要です。
+        </small>
+      </div>
 
-        <b>🔍 自分が条件を満たしているか確認したい方へ</b>
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-group-pt">
+          ③ 左右グループ売上Pの少ない方（P）
+        </label>
+        <input type="number"
+               id="ipt-group-pt"
+               class="bonus-form-control"
+               placeholder="例：200,000"
+               min="0"
+               step="10000">
+        <small class="bonus-form-hint">
+          左右のうち、ポイントが少ない側の数字を入力。
+        </small>
+      </div>
 
-        <p style="margin:8px 0 12px;">
-          ボーナス取得に必要な条件をチェックできます。
-        </p>
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-active-num">
+          ④ アクティブ紹介者数（今月度新規登録分も含めて）
+        </label>
+        <input type="number"
+               id="ipt-active-num"
+               class="bonus-form-control"
+               placeholder="例：2"
+               min="0">
+      </div>
 
-        <a
-          href="https://kynkyo1102-lgtm.github.io/salon-order/check.html"
-          target="_blank"
-          style="
-            display:inline-block;
-            padding:9px 14px;
-            border-radius:8px;
-            text-decoration:none;
-            background:var(--primary);
-            color:#fff;
-            font-weight:bold;
-          "
-        >
-          ボーナス取得条件をチェックする →
-        </a>
+      <div class="bonus-form-group">
+        <label class="bonus-form-label" for="ipt-new-member-num">
+          ⑤ 今月度紹介した人数（新規会員）
+        </label>
+        <input type="number"
+               id="ipt-new-member-num"
+               class="bonus-form-control"
+               placeholder="例：1"
+               min="0">
+        <small class="bonus-form-hint">
+          ファーストスタートボーナスの判定に使用します。
+        </small>
+      </div>
 
+      <div class="bonus-form-group">
+        <label class="bonus-form-label">
+          ⑥ マイナンバー提出
+        </label>
+        <label class="bonus-check-row">
+          <input type="checkbox" id="chk-mynumber">
+          <span>マイナンバーの提出が完了している</span>
+        </label>
+        <small class="bonus-form-hint">
+          タイトル昇格にはマイナンバーの提出が必要です。
+        </small>
+      </div>
+
+      <button type="button"
+              class="bonus-submit"
+              onclick="checkConditions()">
+        🚀 いまの達成状況をチェック！
+      </button>
+
+    </div>
+
+    <!-- 判定結果 -->
+    <div id="result-card" class="bonus-result">
+
+      <div class="bonus-confetti" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i>
+      </div>
+
+      <div class="bonus-result-head">
+        <span class="small">YOUR RESULT</span>
+        <h2>チェック結果 🎉</h2>
+      </div>
+
+      <!-- コミッション -->
+      <div class="bonus-result-block commission">
+        <div class="bonus-result-label">💰 コミッション</div>
+        <div id="basic-status" class="bonus-result-status"></div>
+        <div id="commission-next-guide"></div>
+      </div>
+
+      <!-- タイトル -->
+      <div class="bonus-result-block title">
+        <div class="bonus-result-label">🏆 タイトル</div>
+        <div id="title-status"></div>
+        <div id="title-next-guide"></div>
       </div>
 
     </div>
 
+    <!-- 参考：昇格条件一覧表 -->
+    <div class="bonus-reference" style="margin-top: 24px;">
 
-    <!-- =========================================================
-         2. 9種類のボーナス
-    ========================================================= -->
-
-    <div id="sec-2" class="section-card">
-
-      <div class="section-card-title">
-        📊 2. 9種類のボーナスプラン
+      <div class="bonus-reference-title">
+        📊 タイトル昇格条件をざっくり確認
       </div>
 
-      <p class="section-desc">
-        まずは全体像を見てみましょう。<br>
-        <b>気になるボーナスをタップ</b>すると、仕組み・条件・計算例を確認できます。
+      <p class="bonus-reference-note">
+        「次はどこを目指せばいい？」というときの目安として見てください。
       </p>
-
-
-      <!-- =====================================================
-           ボーナス全体図
-      ===================================================== -->
-
-      <div class="bonus-map">
-
-        <div class="bonus-map-intro">
-          ロワイヤルダイヤモンドになると、<br>
-          さまざまなボーナスの対象になります。
-        </div>
-
-
-        <!-- 中央 -->
-
-        <div class="royal-center">
-
-          <div class="royal-center-card">
-
-            <div class="royal-crown">
-              👑
-            </div>
-
-            <div class="royal-label">
-              TITLE
-            </div>
-
-            <div class="royal-title">
-              ロワイヤルダイヤモンド
-            </div>
-
-            <div class="royal-sub">
-              ボーナスプラン全体を見る
-            </div>
-
-          </div>
-
-          <div class="royal-arrow">
-            ↓
-          </div>
-
-        </div>
-
-
-        <!-- ===================================================
-             9つのボーナス
-        ==================================================== -->
-
-        <div class="bonus-map-grid">
-
-
-          <!-- =================================================
-               ① ファーストスタート
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                01
-              </span>
-
-              <span class="bonus-map-name">
-                ファーストスタート
-              </span>
-
-              <span class="bonus-map-value">
-                1人 3,000円
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ① ファーストスタートボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                新規会員を直接紹介すると取得できるボーナスです。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div class="mini-flow-box">
-                  👤 あなた
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓ 直接紹介
-                </div>
-
-                <div class="mini-flow-box">
-                  👤 新規会員
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-                <div class="mini-flow-highlight">
-                  💰 3,000円
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <tbody>
-
-                  <tr>
-                    <th>何をすると？</th>
-                    <td>新規会員を直接紹介</td>
-                  </tr>
-
-                  <tr>
-                    <th>いくら？</th>
-                    <td><b>1人につき3,000円</b></td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 ポイント</b><br>
-
-                自分が直接紹介した新規会員1人につき、
-                <b>3,000円</b>を取得します。
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ② 5アクティブ
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                02
-              </span>
-
-              <span class="bonus-map-name">
-                5アクティブ
-              </span>
-
-              <span class="bonus-map-value">
-                総売上Pの1%
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ② 5アクティブボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                アクティブ紹介者5人を達成すると、
-                総売上Pの1%を達成人数（ポジション数）で分配するボーナスです。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div class="mini-flow-box">
-                  👤 あなた
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-                <div style="
-                  display:flex;
-                  justify-content:center;
-                  flex-wrap:wrap;
-                  gap:5px;
-                  max-width:260px;
-                  margin:auto;
-                ">
-
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-                <div class="mini-flow-highlight">
-                  🎁 5アクティブボーナス
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <tbody>
-
-                  <tr>
-                    <th>必要人数</th>
-                    <td><b>アクティブ紹介者5人</b></td>
-                  </tr>
-
-                  <tr>
-                    <th>対象</th>
-                    <td>メンバー</td>
-                  </tr>
-
-                  <tr>
-                    <th>分配</th>
-                    <td>
-                      総売上Pの1%を
-                      達成人数（ポジション数）で分配
-                    </td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 計算例</b><br>
-
-                総売上ポイントが
-                <b>3億8,700万PT</b>、
-                達成人数（ポジション数）が
-                <b>900</b>の場合。
-
-                <div class="formula-box">
-                  3億8,700万PT × 1% ÷ 900
-                </div>
-
-                <div class="formula-result">
-                  ＝ 4,300円
-                </div>
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ③ 10アクティブ
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                03
-              </span>
-
-              <span class="bonus-map-name">
-                10アクティブ
-              </span>
-
-              <span class="bonus-map-value">
-                総売上Pの1%
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ③ 10アクティブボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                アクティブ紹介者10人を達成すると、
-                総売上Pの1%を達成人数（ポジション数）で分配するボーナスです。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div class="mini-flow-box">
-                  👤 あなた
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-                <div style="
-                  display:flex;
-                  justify-content:center;
-                  flex-wrap:wrap;
-                  gap:5px;
-                  max-width:260px;
-                  margin:auto;
-                ">
-
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-                  <span>●</span>
-
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-                <div class="mini-flow-highlight">
-                  🎁 10アクティブボーナス
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <tbody>
-
-                  <tr>
-                    <th>必要人数</th>
-                    <td><b>アクティブ紹介者10人</b></td>
-                  </tr>
-
-                  <tr>
-                    <th>対象タイトル</th>
-                    <td>サファイヤまで</td>
-                  </tr>
-
-                  <tr>
-                    <th>分配</th>
-                    <td>
-                      総売上Pの1%を
-                      達成人数（ポジション数）で分配
-                    </td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 計算例</b><br>
-
-                総売上ポイントが
-                <b>3億8,700万PT</b>、
-                達成人数（ポジション数）が
-                <b>450</b>の場合。
-
-                <div class="formula-box">
-                  3億8,700万PT × 1% ÷ 450
-                </div>
-
-                <div class="formula-result">
-                  ＝ 8,600円
-                </div>
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ④ ベーシックコミッション
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                04
-              </span>
-
-              <span class="bonus-map-name">
-                ベーシック<br>コミッション
-              </span>
-
-              <span class="bonus-map-value">
-                最大10%
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ④ ベーシックコミッションボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                左右のグループのうち、
-                <b>売上Pが少ない側</b>を基準に計算されるボーナスです。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div class="mini-flow-box">
-                  👤 あなた
-                </div>
-
-                <div style="
-                  display:flex;
-                  justify-content:center;
-                  gap:10px;
-                  margin-top:10px;
-                ">
-
-                  <div style="
-                    width:42%;
-                    max-width:150px;
-                    padding:10px 5px;
-                    border:2px solid #64748b;
-                    border-radius:8px;
-                    background:#e2e8f0;
-                    font-weight:bold;
-                  ">
-                    左グループ<br>
-                    500,000P<br>
-                    <span style="font-size:0.72rem;">
-                      ← 基準
-                    </span>
-                  </div>
-
-                  <div style="
-                    width:42%;
-                    max-width:150px;
-                    padding:10px 5px;
-                    border:1px solid #cbd5e1;
-                    border-radius:8px;
-                    background:#fff;
-                  ">
-                    右グループ<br>
-                    800,000P
-                  </div>
-
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-                <div class="mini-flow-highlight">
-                  少ない方の500,000Pを基準
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <tbody>
-
-                  <tr>
-                    <th>対象</th>
-                    <td>左右グループの売上P</td>
-                  </tr>
-
-                  <tr>
-                    <th>基準</th>
-                    <td><b>売上Pが少ない側</b></td>
-                  </tr>
-
-                  <tr>
-                    <th>対象範囲</th>
-                    <td>30,000P〜2,500万P</td>
-                  </tr>
-
-                  <tr>
-                    <th>取得率</th>
-                    <td><b>最大10%</b></td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 ポイント</b><br>
-
-                少ない側のグループ売上Pが
-                <b>30,000P以上</b>あることが、
-                ベーシックコミッションボーナスの取得条件です。
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ⑤ メガマッチ
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                05
-              </span>
-
-              <span class="bonus-map-name">
-                メガマッチ
-              </span>
-
-              <span class="bonus-map-value">
-                100%
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ⑤ メガマッチボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                自分の<b>直接紹介者</b>が取得した
-                ベーシックコミッションボーナスに連動して発生します。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div class="mini-flow-box">
-                  👤 あなた
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓ 直接紹介
-                </div>
-
-                <div class="mini-flow-box">
-
-                  👤 Aさん<br>
-
-                  <span style="font-size:0.76rem;">
-                    ベーシックコミッション<br>
-                    <b>10,000円</b>
-                  </span>
-
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓ 100%
-                </div>
-
-                <div class="mini-flow-highlight">
-                  あなたにも 10,000円
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <tbody>
-
-                  <tr>
-                    <th>誰の実績？</th>
-                    <td>
-                      直接紹介者が取得した
-                      ベーシックコミッション
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th>取得率</th>
-                    <td><b>100%</b></td>
-                  </tr>
-
-                  <tr>
-                    <th>対象タイトル</th>
-                    <td>クリスタル以上</td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <p style="margin:16px 0 8px;">
-                <b>💰 1紹介者から取得できる上限金額</b>
-              </p>
-
-
-              <div class="title-rate-grid">
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">クリスタル</div>
-                  <div class="title-rate-value">10万円</div>
-                </div>
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">ラピス</div>
-                  <div class="title-rate-value">10万円</div>
-                </div>
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">サファイヤ</div>
-                  <div class="title-rate-value">20万円</div>
-                </div>
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">エメラルド以上</div>
-                  <div class="title-rate-value">40万円</div>
-                </div>
-
-              </div>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 ポイント</b><br>
-
-                自分の直接紹介者が取得した
-                <b>ベーシックコミッション</b>が基準になります。<br>
-
-                タイトルによって、
-                1紹介者から取得できる上限金額が異なります。
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ⑥ ダブルメガマッチ
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                06
-              </span>
-
-              <span class="bonus-map-name">
-                ダブルメガマッチ
-              </span>
-
-              <span class="bonus-map-value">
-                10%
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ⑥ ダブルメガマッチボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                直接紹介者のさらに先にいる
-                <b>二次紹介者</b>のベーシックコミッションに連動します。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div class="mini-flow-box">
-                  👤 あなた
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓ 直接紹介
-                </div>
-
-                <div class="mini-flow-box">
-                  👤 Aさん
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓ Aさんが紹介
-                </div>
-
-                <div class="mini-flow-box">
-
-                  👤 Bさん（二次紹介者）<br>
-
-                  <span style="font-size:0.76rem;">
-                    ベーシックコミッション<br>
-                    <b>10,000円</b>
-                  </span>
-
-                </div>
-
-                <div class="mini-flow-arrow">
-                  ↓ 10%
-                </div>
-
-                <div class="mini-flow-highlight">
-                  あなたに 1,000円
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <tbody>
-
-                  <tr>
-                    <th>誰の実績？</th>
-                    <td>
-                      二次紹介者が取得した
-                      ベーシックコミッション
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th>取得率</th>
-                    <td><b>10%</b></td>
-                  </tr>
-
-                  <tr>
-                    <th>対象タイトル</th>
-                    <td>クリスタル以上</td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <p style="margin:16px 0 8px;">
-                <b>💰 二次紹介者1人あたりから取得できる上限金額</b>
-              </p>
-
-
-              <div class="title-rate-grid">
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">クリスタル</div>
-                  <div class="title-rate-value">10万円</div>
-                </div>
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">ラピス</div>
-                  <div class="title-rate-value">10万円</div>
-                </div>
-
-                <div class="title-rate-card">
-                  <div class="title-rate-name">サファイヤ以上</div>
-                  <div class="title-rate-value">25万円</div>
-                </div>
-
-              </div>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 ポイント</b><br>
-
-                <b>メガマッチ＝直接紹介者</b><br>
-                <b>ダブルメガマッチ＝二次紹介者</b><br><br>
-
-                二次紹介者とは、
-                <b>自分の直接紹介者が直接紹介したメンバー</b>
-                のことです。
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ⑦ リーダーシップ
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                07
-              </span>
-
-              <span class="bonus-map-name">
-                リーダーシップ
-              </span>
-
-              <span class="bonus-map-value">
-                最大3.0%
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ⑦ リーダーシップボーナス
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                エメラルド以上のタイトルを達成し、
-                左右のグループ売上Pを基準に計算されるボーナスです。
-              </p>
-
-
-              <div class="step-list">
-
-                <div class="step-item">
-
-                  <div class="step-num">
-                    1
-                  </div>
-
-                  <div>
-                    <b>エメラルド以上を達成</b>
-                  </div>
-
-                </div>
-
-                <div class="step-item">
-
-                  <div class="step-num">
-                    2
-                  </div>
-
-                  <div>
-                    <b>左右のグループ売上Pを比較</b>
-                  </div>
-
-                </div>
-
-                <div class="step-item">
-
-                  <div class="step-num">
-                    3
-                  </div>
-
-                  <div>
-                    <b>少ない方を基準に対象ボリュームを計算</b>
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <table class="bonus-detail-table">
-
-                <thead>
-
-                  <tr>
-                    <th>タイトル</th>
-                    <th>分配率</th>
-                    <th>対象ボリューム</th>
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  <tr>
-                    <th>エメラルド</th>
-                    <td><b>1.5%</b></td>
-                    <td>2 × 少ない側</td>
-                  </tr>
-
-                  <tr>
-                    <th>ゴールド</th>
-                    <td><b>2.0%</b></td>
-                    <td>3 × 少ない側</td>
-                  </tr>
-
-                  <tr>
-                    <th>プラチナ</th>
-                    <td><b>2.5%</b></td>
-                    <td>3 × 少ない側</td>
-                  </tr>
-
-                  <tr>
-                    <th>ダイヤモンド</th>
-                    <td><b>3.0%</b></td>
-                    <td>4 × 少ない側</td>
-                  </tr>
-
-                  <tr>
-                    <th>ロワイヤルダイヤモンド</th>
-                    <td><b>3.0%</b></td>
-                    <td>4 × 少ない側</td>
-                  </tr>
-
-                  <tr>
-                    <th>カリナンロワイヤルダイヤモンド</th>
-                    <td><b>3.0%</b></td>
-                    <td>4 × 少ない側</td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 計算の考え方</b><br>
-
-                対象ボリュームを計算したあと、
-                もう一度左右のグループ売上Pと比較し、
-                <b>少ない方</b>に分配率を掛けて
-                リーダーシップボーナスを計算します。
-
-              </div>
-
-
-              <div style="
-                margin-top:12px;
-                padding:12px;
-                border:1px solid #cbd5e1;
-                border-radius:8px;
-                background:#fff;
-              ">
-
-                <b>🧮 計算例：エメラルドの場合</b>
-
-                <p style="margin:8px 0;">
-                  左グループ：500万P<br>
-                  右グループ：300万P
-                </p>
-
-                <p style="margin:8px 0;">
-                  ① 少ない方は300万P
-                </p>
-
-                <p style="margin:8px 0;">
-                  ② 対象ボリューム<br>
-                  300万P × 2 ＝ <b>600万P</b>
-                </p>
-
-                <p style="margin:8px 0;">
-                  ③ 500万Pと600万Pを比較
-                </p>
-
-                <p style="margin:8px 0;">
-                  ④ 少ない方の500万Pに1.5%を掛ける
-                </p>
-
-                <p style="
-                  margin:10px 0 0;
-                  text-align:center;
-                  font-size:1rem;
-                  font-weight:bold;
-                ">
-                  500万P × 1.5% ＝ 75,000円
-                </p>
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ⑧ AMF
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                08
-              </span>
-
-              <span class="bonus-map-name">
-                AMF
-              </span>
-
-              <span class="bonus-map-value">
-                0.5%原資
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ⑧ アニュアルマネジメントフィー（AMF）
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                ロワイヤルダイヤモンドを達成し、
-                条件を満たしている月に取得できる決算ボーナスです。
-              </p>
-
-
-              <div class="step-list">
-
-                <div class="step-item">
-
-                  <div class="step-num">
-                    1
-                  </div>
-
-                  <div>
-                    <b>ロワイヤルダイヤモンドを達成</b>
-                  </div>
-
-                </div>
-
-                <div class="step-item">
-
-                  <div class="step-num">
-                    2
-                  </div>
-
-                  <div>
-                    <b>条件をクリアした月が対象</b>
-                  </div>
-
-                </div>
-
-                <div class="step-item">
-
-                  <div class="step-num">
-                    3
-                  </div>
-
-                  <div>
-                    <b>AMFを計算</b>
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="info-box">
-
-                <b>📌 ロワイヤルダイヤモンド昇格条件</b><br><br>
-
-                ① 左右ポイントを比較して、
-                少ない側が<b>6,000万ポイント以上</b>を
-                達成していること。<br><br>
-
-                ② <b>プラチナ以上</b>を育成している
-                メガ（直紹介）系列が<b>3系列</b>必要です。
-
-              </div>
-
-
-              <p style="margin:16px 0 8px;">
-                <b>💰 AMFの計算</b>
-              </p>
-
-
-              <div class="formula-box">
-
-                取得AMF ×
-                （達成した月の0.5%の総合計 ÷ 総達成AMF）
-
-              </div>
-
-
-              <p style="margin:12px 0 8px;">
-                達成度合いによって、
-                取得するAMFが異なります。
-              </p>
-
-
-              <table class="bonus-detail-table">
-
-                <thead>
-
-                  <tr>
-                    <th>達成度合い</th>
-                    <th>AMF</th>
-                  </tr>
-
-                </thead>
-
-                <tbody>
-
-                  <tr>
-                    <th>
-                      メガ・Wメガで
-                      プラチナを達成
-                    </th>
-                    <td><b>1 AMF</b></td>
-                  </tr>
-
-                  <tr>
-                    <th>
-                      ユニ系列で
-                      プラチナを育成
-                    </th>
-                    <td><b>0.8 AMF</b></td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 支給時期</b><br>
-
-                上期（4月〜9月）の実績は
-                <b>9月のボーナス</b>と一緒に支給。<br>
-
-                下期（10月〜3月）の実績は
-                <b>3月のボーナス</b>と一緒に支給されます。
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-          <!-- =================================================
-               ⑨ カリナンAMF
-          ================================================== -->
-
-          <details class="bonus-map-item" name="bonus-plan">
-
-            <summary class="bonus-map-summary">
-
-              <span class="bonus-number">
-                09
-              </span>
-
-              <span class="bonus-map-name">
-                カリナンAMF
-              </span>
-
-              <span class="bonus-map-value">
-                0.25%原資
-              </span>
-
-              <span class="bonus-map-tap">
-                タップして詳細を見る
-              </span>
-
-            </summary>
-
-
-            <div class="bonus-map-content">
-
-              <h3>
-                ⑨ カリナンアニュアルマネジメントフィー
-              </h3>
-
-              <p>
-                <b>💡 ひとことで言うと</b><br>
-                ロワイヤルダイヤモンドを6ヶ月連続で達成すると、
-                カリナンロワイヤルダイヤモンドとなり、
-                カリナンAMFの対象になります。
-              </p>
-
-
-              <div class="mini-flow">
-
-                <div style="
-                  display:flex;
-                  justify-content:center;
-                  flex-wrap:wrap;
-                  gap:5px;
-                  max-width:300px;
-                  margin:auto;
-                ">
-
-                  <div style="
-                    padding:8px 10px;
-                    border:1px solid #cbd5e1;
-                    border-radius:6px;
-                    background:#fff;
-                  ">
-                    1ヶ月目<br>✓
-                  </div>
-
-                  <div style="
-                    padding:8px 10px;
-                    border:1px solid #cbd5e1;
-                    border-radius:6px;
-                    background:#fff;
-                  ">
-                    2ヶ月目<br>✓
-                  </div>
-
-                  <div style="
-                    padding:8px 10px;
-                    border:1px solid #cbd5e1;
-                    border-radius:6px;
-                    background:#fff;
-                  ">
-                    3ヶ月目<br>✓
-                  </div>
-
-                  <div style="
-                    padding:8px 10px;
-                    border:1px solid #cbd5e1;
-                    border-radius:6px;
-                    background:#fff;
-                  ">
-                    4ヶ月目<br>✓
-                  </div>
-
-                  <div style="
-                    padding:8px 10px;
-                    border:1px solid #cbd5e1;
-                    border-radius:6px;
-                    background:#fff;
-                  ">
-                    5ヶ月目<br>✓
-                  </div>
-
-                  <div style="
-                    padding:8px 10px;
-                    border:1px solid #cbd5e1;
-                    border-radius:6px;
-                    background:#fff;
-                  ">
-                    6ヶ月目<br>✓
-                  </div>
-
-                </div>
-
-
-                <div class="mini-flow-arrow">
-                  ↓ 6ヶ月連続達成
-                </div>
-
-
-                <div class="mini-flow-box">
-                  💎 カリナンロワイヤルダイヤモンド
-                </div>
-
-
-                <div class="mini-flow-arrow">
-                  ↓
-                </div>
-
-
-                <div class="mini-flow-highlight">
-                  🎁 カリナンAMF
-                </div>
-
-              </div>
-
-
-              <div class="info-box">
-
-                <b>📌 カリナンロワイヤルダイヤモンドの条件</b><br><br>
-
-                <b>6つの月度連続</b>で
-                ロワイヤルダイヤモンドを達成すること。
-
-              </div>
-
-
-              <p style="margin:16px 0 8px;">
-                <b>💰 カリナンAMFの計算</b>
-              </p>
-
-
-              <div class="formula-box">
-
-                ロワイヤルダイヤモンド達成者の
-                月度総売上ポイントの
-                <b>0.25%</b>を
-                カリナンAMF原資として計算
-
-              </div>
-
-
-              <div class="info-box" style="margin-top:12px;">
-
-                <b>📌 支給時期</b><br>
-
-                カリナンロワイヤルダイヤモンドを達成した
-                最終月（6つ目の月）が<br>
-
-                4月〜9月の場合 → <b>9月のボーナスと一緒に支給</b><br>
-
-                10月〜3月の場合 → <b>3月のボーナスと一緒に支給</b>
-
-              </div>
-
-
-              <div class="info-box" style="margin-top:10px;">
-
-                <b>📌 連続達成について</b><br>
-
-                6つ目の月を達成した翌月は、
-                連続月度カウントの<b>1ヶ月目</b>として扱われます。
-
-              </div>
-
-            </div>
-
-          </details>
-
-
-        </div>
-
-
-        <div class="map-guide">
-          👆 ボーナスをタップすると詳細が開きます。<br>
-          もう一度タップすると閉じられます。
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================================================
-         3. タイトル昇格条件とブランチ
-    ========================================================= -->
-
-    <div id="sec-3" class="section-card">
-
-      <div class="section-card-title">
-        🏆 3. タイトル昇格条件とブランチ
-      </div>
-
-
-      <p class="section-desc">
-        昇格には「少ない側のグループ売上P」および
-        「必要アクティブ紹介者数」の条件を満たす必要があります。
-      </p>
-
 
       <div class="table-container">
-
         <table>
-
           <thead>
-
             <tr>
-
-              <th>
-                タイトル
-              </th>
-
+              <th>タイトル</th>
               <th>
                 昇格条件<br>
-                <span style="
-                  font-size:0.8em;
-                  font-weight:normal;
-                ">
+                <span style="font-size:0.75em; font-weight:normal;">
                   (少ない方のグループ売上P)
                 </span>
               </th>
-
               <th>
-                必要アクティブ<br>
-                紹介者数
+                必要アクティブ<br>紹介者数
               </th>
-
             </tr>
-
           </thead>
 
-
           <tbody>
-
             <tr>
               <th>クリスタル</th>
               <td>20万P〜</td>
               <td>2人</td>
             </tr>
-
             <tr>
               <th>ラピス</th>
               <td>50万P〜</td>
               <td>2人</td>
             </tr>
-
             <tr>
               <th>サファイヤ</th>
               <td>100万P〜</td>
               <td>2人</td>
             </tr>
-
             <tr>
               <th>エメラルド</th>
               <td>300万P〜</td>
               <td>2人</td>
             </tr>
-
             <tr>
               <th>ゴールド</th>
               <td>600万P〜</td>
               <td>4人</td>
             </tr>
-
             <tr>
               <th>プラチナ</th>
               <td>1,200万P〜</td>
               <td>4人</td>
             </tr>
-
             <tr>
               <th>ダイヤモンド</th>
               <td>3,000万P〜</td>
               <td>4人</td>
             </tr>
-
             <tr>
               <th>ロワイヤルダイヤモンド</th>
               <td>6,000万P〜</td>
               <td>4人</td>
             </tr>
-
             <tr>
-              <th>
-                カリナンロワイヤル<br>
-                ダイヤモンド
-              </th>
-              <td>
-                連続6つの月度
-                ロワイヤルダイヤモンドを達成
-              </td>
+              <th>カリナンロワイヤルダイヤモンド</th>
+              <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
               <td>4人</td>
             </tr>
-
           </tbody>
-
         </table>
-
       </div>
-
-
-      <div class="info-box" style="margin-top:14px;">
-
-        <b>📌 直紹介系列に関する注釈：</b><br>
-
-        プラチナ以上のタイトル昇格には、
-        売上Pとアクティブ数に加え、
-        直紹介系列における指定タイトルの育成条件が必要です。<br><br>
-
-        例：<br>
-
-        ・プラチナ → エメラルド以上 × 2系列<br>
-
-        ・ダイヤモンド → ゴールド以上 × 3系列<br>
-
-        ・ロワイヤルダイヤモンド → プラチナ以上 × 3系列
-
-      </div>
-
-
-      <div class="info-box" style="margin-top:10px;">
-
-        <b>📌 手続きに関する注意点：</b><br>
-
-        クリスタル以上に昇格した場合、
-        昇格月度の翌々月10日までに
-        必要な各種提出手続きが必要です。<br><br>
-
-        初昇格月は未提出でも昇格可ですが、
-        翌月以降未提出の場合は
-        上位ボーナスの取得・昇格が制限されます。
-
-      </div>
-
-
-      <!-- =====================================================
-           ブランチ
-      ====================================================== -->
-
-      <div style="margin-top:16px;">
-
-        <p class="section-desc" style="margin-bottom:6px;">
-
-          <b>■ ブランチの活用</b>
-
-        </p>
-
-
-        <p style="
-          font-size:0.85rem;
-          color:#4a5568;
-          line-height:1.6;
-        ">
-
-          本店の獲得タイトルに応じて、
-          自身の分身となる独立ポジション
-          「ブランチ」をグループ内に配置できます。
-
-        </p>
-
-
-        <div style="text-align:center; margin:16px 0;">
-
-          <div style="
-            display:inline-block;
-            padding:9px 16px;
-            border:1px solid #cbd5e1;
-            border-radius:8px;
-            background:#fff;
-          ">
-            🏆 本店のタイトル
-          </div>
-
-          <div style="
-            margin:7px 0;
-            color:#64748b;
-          ">
-            ↓
-          </div>
-
-          <div style="
-            display:inline-block;
-            padding:9px 16px;
-            border:1px solid #cbd5e1;
-            border-radius:8px;
-            background:#fff;
-          ">
-            📍 配置できるブランチ数が増える
-          </div>
-
-        </div>
-
-
-        <div class="table-container">
-
-          <table>
-
-            <tbody>
-
-              <tr>
-                <th>クリスタル</th>
-                <td>5か所</td>
-              </tr>
-
-              <tr>
-                <th>ロワイヤルダイヤモンド</th>
-                <td>40か所</td>
-              </tr>
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-
-        <div class="warning-box" style="margin-top:12px;">
-
-          <b>注意：</b>
-
-          ブランチは配置するだけで
-          自動的に有効になるわけではありません。<br>
-
-          ブランチ単独での
-          <b>10,000P以上の購入</b>と
-          <b>アクティブ条件</b>の達成が必要です。
-
-        </div>
-
-      </div>
-
     </div>
 
   </div>
 
-
-  <!-- =========================================================
-       フッター
-  ========================================================= -->
-
+  <!-- フッター -->
   <footer>
-
     <p>
-      ※当サイトは会員有志による手続き・仕組みの解説用ガイドであり、
-      公式の概要書面を正とします。
+      ※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。
     </p>
 
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
-
   </footer>
 
+  <script>
+    function checkConditions() {
+
+      const isMember =
+        document.getElementById('chk-member-status').checked;
+
+      const selfPurchasePoints =
+        Number(document.getElementById('ipt-self-pt').value) || 0;
+
+      const weakLegPoints =
+        Number(document.getElementById('ipt-group-pt').value) || 0;
+
+      const activeReferrals =
+        Number(document.getElementById('ipt-active-num').value) || 0;
+
+      const newMemberReferrals =
+        Number(document.getElementById('ipt-new-member-num').value) || 0;
+
+      const hasMyNumber =
+        document.getElementById('chk-mynumber').checked;
+
+      const resultCard =
+        document.getElementById('result-card');
+
+      const basicStatusEl =
+        document.getElementById('basic-status');
+
+      const titleStatusEl =
+        document.getElementById('title-status');
+
+      const commissionNextGuideEl =
+        document.getElementById('commission-next-guide');
+
+      const titleNextGuideEl =
+        document.getElementById('title-next-guide');
+
+      resultCard.classList.remove('celebrate');
+
+      /* =====================================================
+         共通の前提条件
+         -----------------------------------------------------
+         ① 会員資格が有効
+         ② 自己購入10,000P以上
+
+         この2つを満たして初めて、
+         コミッション・タイトルの判定に進む。
+         ===================================================== */
+
+      const selfPurchaseEligible =
+        selfPurchasePoints >= 10000;
+
+      // ----------------------------------------------------
+      // 会員資格が無効の場合
+      // ----------------------------------------------------
+      if (!isMember) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '❌ コミッション発生なし（会員資格が無効）';
+
+        commissionNextGuideEl.innerHTML = '';
+
+        titleStatusEl.className =
+          'bonus-result-status status-ng';
+
+        titleStatusEl.innerText =
+          'タイトル：なし';
+
+        titleNextGuideEl.innerHTML =
+          '<div class="bonus-next-guide">' +
+          '会員資格が有効になると、現在の数字からタイトル・コミッション条件をチェックできます。' +
+          '</div>';
+
+        resultCard.classList.add('active');
+
+        resultCard.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+        return;
+      }
+
+      // ----------------------------------------------------
+      // タイトル判定
+      //
+      // ★自己購入10,000P以上も必須
+      // ----------------------------------------------------
+
+      let calculatedTitle = 'メンバー';
+      let titleNote = '';
+
+      if (
+        selfPurchaseEligible &&
+        activeReferrals >= 2
+      ) {
+
+        if (
+          weakLegPoints >= 60000000 &&
+          activeReferrals >= 4
+        ) {
+          calculatedTitle = 'ロワイヤルダイヤモンド';
+          titleNote =
+            '※プラチナ以上の直紹介系列が3系列必要です。';
+
+        } else if (
+          weakLegPoints >= 30000000 &&
+          activeReferrals >= 4
+        ) {
+          calculatedTitle = 'ダイヤモンド';
+          titleNote =
+            '※ゴールド以上の直紹介系列が3系列必要です。';
+
+        } else if (
+          weakLegPoints >= 12000000 &&
+          activeReferrals >= 4
+        ) {
+          calculatedTitle = 'プラチナ';
+          titleNote =
+            '※エメラルド以上の直紹介系列が2系列必要です。';
+
+        } else if (
+          weakLegPoints >= 6000000 &&
+          activeReferrals >= 4
+        ) {
+          calculatedTitle = 'ゴールド';
+
+        } else if (
+          weakLegPoints >= 3000000
+        ) {
+          calculatedTitle = 'エメラルド';
+
+        } else if (
+          weakLegPoints >= 1000000
+        ) {
+          calculatedTitle = 'サファイヤ';
+
+        } else if (
+          weakLegPoints >= 500000
+        ) {
+          calculatedTitle = 'ラピス';
+
+        } else if (
+          weakLegPoints >= 200000
+        ) {
+          calculatedTitle = 'クリスタル';
+        }
+      }
+
+      const rawTitle = calculatedTitle;
+
+      // マイナンバー未提出ならタイトル昇格をブロック
+      const titlePromotionBlocked =
+        !hasMyNumber &&
+        rawTitle !== 'メンバー';
+
+      const effectiveTitle =
+        titlePromotionBlocked
+          ? 'メンバー'
+          : rawTitle;
+
+      // ----------------------------------------------------
+      // コミッション判定
+      //
+      // ベーシック：
+      // ・自己購入10,000P以上
+      // ・アクティブ紹介者1人以上
+      // ・少ない方のグループ売上30,000P以上
+      // ----------------------------------------------------
+
+      const regularCommissionEligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 1 &&
+        weakLegPoints >= 30000;
+
+      // ----------------------------------------------------
+      // アクティブ／ファーストスタート判定
+      // ----------------------------------------------------
+
+      const active5Eligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 5 &&
+        effectiveTitle === 'メンバー';
+
+      const active10Eligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 10 &&
+        [
+          'メンバー',
+          'クリスタル',
+          'ラピス',
+          'サファイヤ'
+        ].includes(effectiveTitle);
+
+      const firstStartEligible =
+        selfPurchaseEligible &&
+        newMemberReferrals >= 1;
+
+      // コミッションは自己購入10,000Pが共通必須条件
+      const hasAnyCommission =
+        selfPurchaseEligible &&
+        (
+          regularCommissionEligible ||
+          active5Eligible ||
+          active10Eligible ||
+          firstStartEligible
+        );
+
+      // ----------------------------------------------------
+      // コミッション表示
+      // ----------------------------------------------------
+
+      if (!selfPurchaseEligible) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerHTML =
+          '🔒 コミッション受取条件を満たしていません' +
+          '<div class="bonus-result-note">' +
+          '自己購入10,000P以上が必要です。' +
+          '</div>';
+
+      } else if (hasAnyCommission) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ok';
+
+        let commissionText =
+          '🎉 コミッションあり！';
+
+        if (
+          regularCommissionEligible &&
+          activeReferrals === 1
+        ) {
+          commissionText +=
+            '<div class="bonus-result-note">' +
+            '※ベーシックコミッションの分配率は3％になります' +
+            '</div>';
+        }
+
+        const bonusNotes = [];
+
+        if (active5Eligible) {
+          bonusNotes.push(
+            '⚡ 5アクティブボーナス取得'
+          );
+        }
+
+        if (active10Eligible) {
+          bonusNotes.push(
+            '⚡ 10アクティブボーナス取得'
+          );
+        }
+
+        if (firstStartEligible) {
+          bonusNotes.push(
+            `🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`
+          );
+        }
+
+        if (bonusNotes.length) {
+          commissionText +=
+            `<div class="bonus-next-guide">
+              ${bonusNotes.map(
+                x => `<div>✓ ${x}</div>`
+              ).join('')}
+            </div>`;
+        }
+
+        basicStatusEl.innerHTML =
+          commissionText;
+
+      } else {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '🌱 もう少し！コミッション条件を確認しよう';
+      }
+
+      // ----------------------------------------------------
+      // コミッションまでの不足条件
+      // ----------------------------------------------------
+
+      const commissionNeeds = [];
+
+      // 自己購入10,000P未満なら最優先で表示
+      if (!selfPurchaseEligible) {
+
+        commissionNeeds.push(
+          `自己購入あと${formatPoints(
+            10000 - selfPurchasePoints
+          )}P`
+        );
+      }
+
+      // 自己購入10,000P以上の場合のみ、
+      // 他のコミッション条件を案内
+      if (selfPurchaseEligible) {
+
+        if (!regularCommissionEligible) {
+
+          if (activeReferrals < 1) {
+            commissionNeeds.push(
+              `アクティブ紹介者あと${1 - activeReferrals}人`
+            );
+          }
+
+          if (weakLegPoints < 30000) {
+            commissionNeeds.push(
+              `少ない方のグループ売上あと${formatPoints(
+                30000 - weakLegPoints
+              )}P`
+            );
+          }
+        }
+
+        if (
+          !active5Eligible &&
+          effectiveTitle === 'メンバー'
+        ) {
+
+          const active5Needs = [];
+
+          if (activeReferrals < 5) {
+            active5Needs.push(
+              `アクティブ紹介者あと${5 - activeReferrals}人`
+            );
+          }
+
+          if (active5Needs.length) {
+            commissionNeeds.push(
+              `5アクティブ：${active5Needs.join('・')}`
+            );
+          }
+        }
+
+        if (
+          !active10Eligible &&
+          [
+            'メンバー',
+            'クリスタル',
+            'ラピス',
+            'サファイヤ'
+          ].includes(effectiveTitle)
+        ) {
+
+          const active10Needs = [];
+
+          if (activeReferrals < 10) {
+            active10Needs.push(
+              `アクティブ紹介者あと${10 - activeReferrals}人`
+            );
+          }
+
+          if (active10Needs.length) {
+            commissionNeeds.push(
+              `10アクティブ：${active10Needs.join('・')}`
+            );
+          }
+        }
+
+        if (!firstStartEligible) {
+
+          const firstStartNeeds = [];
+
+          if (newMemberReferrals < 1) {
+            firstStartNeeds.push(
+              '新規会員の紹介あと1人'
+            );
+          }
+
+          if (firstStartNeeds.length) {
+            commissionNeeds.push(
+              `ファーストスタート：${firstStartNeeds.join('・')}`
+            );
+          }
+        }
+      }
+
+      commissionNextGuideEl.innerHTML =
+        commissionNeeds.length
+          ? `
+            <div class="bonus-next-guide">
+              <strong>
+                📌 あとこれをクリアすると、取得できるコミッションが増えます
+              </strong>
+              <ul>
+                ${commissionNeeds
+                  .map(x => `<li>${x}</li>`)
+                  .join('')}
+              </ul>
+            </div>
+          `
+          : '';
+
+      // ----------------------------------------------------
+      // タイトル表示
+      // ----------------------------------------------------
+
+      titleStatusEl.className =
+        effectiveTitle !== 'メンバー'
+          ? 'bonus-result-status status-ok'
+          : 'bonus-result-status status-ng';
+
+      let titleHtml = '';
+
+      if (!selfPurchaseEligible) {
+
+        titleHtml =
+          `🔒 現在のタイトル：メンバー
+          <div class="bonus-result-note">
+            タイトル昇格には自己購入10,000P以上が必要です。
+          </div>`;
+
+      } else if (titlePromotionBlocked) {
+
+        titleHtml =
+          `⚠️ 現在のタイトル：メンバー
+          <div class="bonus-result-note">
+            マイナンバー未提出のため、タイトル昇格は保留中です。
+          </div>`;
+
+      } else {
+
+        titleHtml =
+          `<div class="bonus-title-achievement">
+            <div class="bonus-title-crown">🏆</div>
+            <div class="bonus-title-label">現在のタイトル</div>
+            <div class="bonus-title-name">${effectiveTitle}</div>`;
+
+        if (titleNote) {
+          titleHtml +=
+            `<div class="bonus-result-note" style="margin-top:6px;">
+              ${titleNote}
+            </div>`;
+        }
+
+        titleHtml += `</div>`;
+      }
+
+      titleStatusEl.innerHTML =
+        titleHtml;
+
+      // ----------------------------------------------------
+      // 次のタイトルまであとどれくらい？
+      // ----------------------------------------------------
+
+      const titleTargets = [
+        {
+          name: 'クリスタル',
+          points: 200000,
+          active: 2
+        },
+        {
+          name: 'ラピス',
+          points: 500000,
+          active: 2
+        },
+        {
+          name: 'サファイヤ',
+          points: 1000000,
+          active: 2
+        },
+        {
+          name: 'エメラルド',
+          points: 3000000,
+          active: 2
+        },
+        {
+          name: 'ゴールド',
+          points: 6000000,
+          active: 4
+        },
+        {
+          name: 'プラチナ',
+          points: 12000000,
+          active: 4
+        },
+        {
+          name: 'ダイヤモンド',
+          points: 30000000,
+          active: 4
+        },
+        {
+          name: 'ロワイヤルダイヤモンド',
+          points: 60000000,
+          active: 4
+        }
+      ];
+
+      const currentIndex =
+        titleTargets.findIndex(
+          t => t.name === effectiveTitle
+        );
+
+      const nextTarget =
+        currentIndex >= 0
+          ? titleTargets[currentIndex + 1]
+          : titleTargets[0];
+
+      // 自己購入不足
+      if (!selfPurchaseEligible) {
+
+        titleNextGuideEl.innerHTML = `
+          <div class="bonus-next-guide">
+            <strong>
+              🔑 まずは自己購入10,000P以上をクリアしよう！
+            </strong>
+            <ul>
+              <li>
+                自己購入あと${formatPoints(
+                  10000 - selfPurchasePoints
+                )}P
+              </li>
+              <li>
+                10,000P以上になると、
+                グループ売上・アクティブ紹介者数から
+                タイトル昇格条件をチェックできます。
+              </li>
+            </ul>
+          </div>
+        `;
+
+      // マイナンバー未提出
+      } else if (
+        !hasMyNumber &&
+        rawTitle !== 'メンバー'
+      ) {
+
+        titleNextGuideEl.innerHTML = `
+          <div class="bonus-next-guide">
+            <strong>
+              🔑 まずはマイナンバーを提出すると、
+              タイトル昇格の判定ができるようになります。
+            </strong>
+            <ul>
+              <li>
+                マイナンバー：未提出 → 提出する
+              </li>
+              <li>
+                現在の数字なら、本来は
+                <strong>${rawTitle}</strong>
+                までの条件を満たしています（系列条件を除く）。
+              </li>
+            </ul>
+          </div>
+        `;
+
+      // 次のタイトル
+      } else if (nextTarget) {
+
+        const titleNeeds = [];
+
+        // 自己購入条件
+        if (selfPurchasePoints < 10000) {
+          titleNeeds.push(
+            `自己購入あと${formatPoints(
+              10000 - selfPurchasePoints
+            )}P`
+          );
+        }
+
+        // グループ売上条件
+        if (
+          weakLegPoints <
+          nextTarget.points
+        ) {
+          titleNeeds.push(
+            `少ない方のグループ売上あと${formatPoints(
+              nextTarget.points - weakLegPoints
+            )}P`
+          );
+        }
+
+        // アクティブ紹介者条件
+        if (
+          activeReferrals <
+          nextTarget.active
+        ) {
+          titleNeeds.push(
+            `アクティブ紹介者あと${
+              nextTarget.active - activeReferrals
+            }人`
+          );
+        }
+
+        if (titleNeeds.length) {
+
+          titleNextGuideEl.innerHTML = `
+            <div class="bonus-next-guide">
+              <strong>
+                🎯 次は「${nextTarget.name}」！
+              </strong>
+
+              <ul>
+                ${titleNeeds
+                  .map(x => `<li>${x}</li>`)
+                  .join('')}
+              </ul>
+
+              ${
+                [
+                  'プラチナ',
+                  'ダイヤモンド',
+                  'ロワイヤルダイヤモンド'
+                ].includes(nextTarget.name)
+                  ? '<div class="bonus-result-note">※さらに系列条件の確認が必要です。</div>'
+                  : ''
+              }
+            </div>
+          `;
+
+        } else {
+
+          titleNextGuideEl.innerHTML = `
+            <div class="bonus-next-guide">
+              <span class="done">
+                🎉 数値条件はクリア！
+                ${nextTarget.name}の系列条件がある場合は、
+                系列条件も確認してください。
+              </span>
+            </div>
+          `;
+        }
+
+      } else {
+
+        titleNextGuideEl.innerHTML =
+          `<div class="bonus-next-guide">
+            <span class="done">
+              🎉 現在の数値条件で最高位のタイトルまで到達しています。
+              系列条件・継続条件は別途確認してください。
+            </span>
+          </div>`;
+      }
+
+      // ----------------------------------------------------
+      // 結果表示
+      // ----------------------------------------------------
+
+      resultCard.classList.add('active');
+
+      resultCard.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      if (
+        hasAnyCommission ||
+        effectiveTitle !== 'メンバー'
+      ) {
+        resultCard.classList.add('celebrate');
+      }
+    }
+
+    function formatPoints(value) {
+      return Number(value).toLocaleString('ja-JP');
+    }
+  </script>
 
 </body>
 </html>
