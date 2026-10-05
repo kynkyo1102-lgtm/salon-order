@@ -1,12 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
-  <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
-  
 
   <style>
     /* =========================================================
@@ -82,7 +81,7 @@
       z-index: 1;
       margin: 0 0 10px;
       color: #1e293b;
-      font-size: clamp(1.55rem, 5vw, 2.1rem);
+      font-size: clamp(1.45rem, 5vw, 2.1rem);
       line-height: 1.4;
     }
 
@@ -145,6 +144,7 @@
       color: var(--bonus-ink);
       font-weight: 800;
       font-size: .9rem;
+      line-height: 1.5;
     }
 
     .bonus-form-hint {
@@ -152,6 +152,7 @@
       margin-top: 5px;
       color: var(--bonus-muted);
       font-size: .76rem;
+      line-height: 1.5;
     }
 
     .bonus-form-control {
@@ -193,6 +194,7 @@
       font-size: .88rem;
       font-weight: 700;
       color: var(--bonus-ink);
+      line-height: 1.45;
     }
 
     .bonus-submit {
@@ -289,11 +291,6 @@
       border: 1px solid #f1d477;
     }
 
-    .bonus-result-block.activebonus {
-      background: var(--bonus-blue-bg);
-      border: 1px solid #bfdbfe;
-    }
-
     .bonus-result-label {
       margin-bottom: 8px;
       color: var(--bonus-muted);
@@ -326,6 +323,7 @@
       font-size: .82rem;
       color: #d97706;
       font-weight: bold;
+      line-height: 1.5;
     }
 
     /* ===== タイトル達成 ===== */
@@ -354,49 +352,6 @@
       color: #1e293b;
       font-size: 1.4rem;
       font-weight: 900;
-    }
-
-    /* ===== アクティブボーナス ===== */
-    .bonus-result-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .bonus-result-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      padding: 9px 0;
-      color: var(--bonus-ink);
-      font-size: .88rem;
-      line-height: 1.5;
-      border-bottom: 1px dashed #dbeafe;
-    }
-
-    .bonus-result-item:last-child {
-      border-bottom: none;
-    }
-
-    .bonus-result-icon {
-      width: 25px;
-      height: 25px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 25px;
-      border-radius: 50%;
-      font-weight: 900;
-    }
-
-    .bonus-result-icon.ok {
-      background: #dcfce7;
-      color: #16a34a;
-    }
-
-    .bonus-result-icon.ng {
-      background: #f1f5f9;
-      color: #94a3b8;
     }
 
     /* ===== お祝い演出 ===== */
@@ -446,7 +401,37 @@
       }
     }
 
-    /* ===== 昇格条件一覧 ===== */
+    /* ===== あと少しガイド ===== */
+    .bonus-next-guide {
+      margin-top: 10px;
+      padding: 12px 13px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      border: 1px dashed #cbd5e1;
+      color: var(--bonus-ink);
+      font-size: .82rem;
+      line-height: 1.65;
+    }
+
+    .bonus-next-guide strong {
+      color: #d97706;
+    }
+
+    .bonus-next-guide ul {
+      margin: 6px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .bonus-next-guide li {
+      margin: 3px 0;
+    }
+
+    .bonus-next-guide .done {
+      color: #15803d;
+      font-weight: 800;
+    }
+
+    /* ===== 参考表 ===== */
     .bonus-reference {
       margin-top: 24px;
       padding: 20px;
@@ -474,30 +459,26 @@
       -webkit-appearance: none;
       margin: 0;
     }
+
     .bonus-form-control[type="number"] {
       -moz-appearance: textfield;
       appearance: textfield;
     }
 
-    /* ===== あと少しガイド ===== */
-    .bonus-next-guide {
-      margin-top: 10px;
-      padding: 12px 13px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.72);
-      border: 1px dashed #cbd5e1;
-      color: var(--bonus-ink);
-      font-size: .82rem;
-      line-height: 1.65;
-    }
-    .bonus-next-guide strong { color: #d97706; }
-    .bonus-next-guide ul { margin: 6px 0 0; padding-left: 1.2em; }
-    .bonus-next-guide li { margin: 3px 0; }
-    .bonus-next-guide .done { color: #15803d; font-weight: 800; }
-
+    /* ===== スマホ ===== */
     @media (max-width: 600px) {
+
       .bonus-hero {
-        padding: 23px 17px;
+        padding: 22px 17px;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.38rem;
+        line-height: 1.35;
+      }
+
+      .bonus-hero p {
+        font-size: .86rem;
       }
 
       .bonus-check-form,
@@ -505,20 +486,77 @@
       .bonus-reference {
         padding: 17px;
       }
+
+      /* スマホでは入力項目のタイトルを少し小さく */
+      .bonus-form-label {
+        font-size: .82rem;
+        line-height: 1.45;
+        margin-bottom: 6px;
+      }
+
+      .bonus-form-hint {
+        font-size: .72rem;
+      }
+
+      .bonus-check-row span {
+        font-size: .82rem;
+      }
+
+      .bonus-form-intro strong {
+        font-size: .88rem;
+      }
+
+      .bonus-form-intro span {
+        font-size: .76rem;
+      }
+
+      .bonus-result-head h2 {
+        font-size: 1.3rem;
+      }
+
+      .bonus-result-status {
+        font-size: .95rem;
+      }
+
+      .bonus-title-name {
+        font-size: 1.25rem;
+      }
+
+      .bonus-next-guide {
+        font-size: .78rem;
+      }
+    }
+
+    /* ===== 小さいスマホ ===== */
+    @media (max-width: 380px) {
+
+      .bonus-form-label {
+        font-size: .78rem;
+      }
+
+      .bonus-check-row span {
+        font-size: .78rem;
+      }
+
+      .bonus-hero h1 {
+        font-size: 1.28rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
       <a href="./ninaguide.html" class="back-link">← トップガイドへ戻る</a>
-      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">🔐 E-Serviceログイン</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">
+        🔐 E-Serviceログイン
+      </a>
     </div>
   </header>
 
-  <!-- メインコンテンツ -->
   <div class="container bonus-page">
 
     <div class="bonus-hero">
@@ -547,43 +585,85 @@
           <input type="checkbox" id="chk-member-status">
           <span>会員資格は有効になっている</span>
         </label>
-        <small class="bonus-form-hint">E-Serviceの【組織図】で確認できます。</small>
+        <small class="bonus-form-hint">
+          E-Serviceの【組織図】で確認できます。
+        </small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-self-pt">② 自己購入P</label>
-        <input type="number" id="ipt-self-pt" class="bonus-form-control" placeholder="例：10,000" min="0" step="1000">
+        <label class="bonus-form-label" for="ipt-self-pt">
+          ② 自己購入P
+        </label>
+        <input type="number"
+               id="ipt-self-pt"
+               class="bonus-form-control"
+               placeholder="例：10,000"
+               min="0"
+               step="1000">
+        <small class="bonus-form-hint">
+          コミッション・タイトル昇格には自己購入10,000P以上が必要です。
+        </small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-group-pt">③ 左右グループ売上Pの少ない方（P）</label>
-        <input type="number" id="ipt-group-pt" class="bonus-form-control" placeholder="例：200,000" min="0" step="10000">
-        <small class="bonus-form-hint">左右のうち、ポイントが少ない側の数字を入力。</small>
+        <label class="bonus-form-label" for="ipt-group-pt">
+          ③ 左右グループ売上Pの少ない方（P）
+        </label>
+        <input type="number"
+               id="ipt-group-pt"
+               class="bonus-form-control"
+               placeholder="例：200,000"
+               min="0"
+               step="10000">
+        <small class="bonus-form-hint">
+          左右のうち、ポイントが少ない側の数字を入力。
+        </small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-active-num">④ アクティブ紹介者数（今月度新規登録分も含めて）</label>
-        <input type="number" id="ipt-active-num" class="bonus-form-control" placeholder="例：2" min="0">
+        <label class="bonus-form-label" for="ipt-active-num">
+          ④ アクティブ紹介者数（今月度新規登録分も含めて）
+        </label>
+        <input type="number"
+               id="ipt-active-num"
+               class="bonus-form-control"
+               placeholder="例：2"
+               min="0">
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label" for="ipt-new-member-num">⑤ 今月度紹介した人数（新規会員）</label>
-        <input type="number" id="ipt-new-member-num" class="bonus-form-control" placeholder="例：1" min="0">
-        <small class="bonus-form-hint">ファーストスタートボーナスの判定に使用します。</small>
+        <label class="bonus-form-label" for="ipt-new-member-num">
+          ⑤ 今月度紹介した人数（新規会員）
+        </label>
+        <input type="number"
+               id="ipt-new-member-num"
+               class="bonus-form-control"
+               placeholder="例：1"
+               min="0">
+        <small class="bonus-form-hint">
+          ファーストスタートボーナスの判定に使用します。
+        </small>
       </div>
 
       <div class="bonus-form-group">
-        <label class="bonus-form-label">⑥ 個人番号（マイナンバー）提出</label>
+        <label class="bonus-form-label">
+          ⑥ 個人番号（マイナンバー）提出
+        </label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-mynumber">
           <span>個人番号（マイナンバー）の提出が完了している</span>
         </label>
-        <small class="bonus-form-hint">タイトル昇格には個人番号の提出が必要です。</small>
+        <small class="bonus-form-hint">
+          タイトル昇格には個人番号の提出が必要です。
+        </small>
       </div>
 
-      <button type="button" class="bonus-submit" onclick="checkConditions()">
+      <button type="button"
+              class="bonus-submit"
+              onclick="checkConditions()">
         🚀 いまの達成状況をチェック！
       </button>
+
     </div>
 
     <!-- 判定結果 -->
@@ -617,19 +697,32 @@
 
     <!-- 参考：昇格条件一覧表 -->
     <div class="bonus-reference" style="margin-top: 24px;">
-      <div class="bonus-reference-title">📊 タイトル昇格条件をざっくり確認</div>
+
+      <div class="bonus-reference-title">
+        📊 タイトル昇格条件をざっくり確認
+      </div>
+
       <p class="bonus-reference-note">
         「次はどこを目指せばいい？」というときの目安として見てください。
       </p>
+
       <div class="table-container">
         <table>
           <thead>
             <tr>
               <th>タイトル</th>
-              <th>昇格条件<br><span style="font-size:0.75em; font-weight:normal;">(少ない方のグループ売上P)</span></th>
-              <th>必要アクティブ<br>紹介者数</th>
+              <th>
+                昇格条件<br>
+                <span style="font-size:0.75em; font-weight:normal;">
+                  (少ない方のグループ売上P)
+                </span>
+              </th>
+              <th>
+                必要アクティブ<br>紹介者数
+              </th>
             </tr>
           </thead>
+
           <tbody>
             <tr>
               <th>クリスタル</th>
@@ -685,7 +778,10 @@
 
   <!-- フッター -->
   <footer>
-    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+    <p>
+      ※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。
+    </p>
+
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
@@ -693,220 +789,660 @@
 
   <script>
     function checkConditions() {
-      const isMember = document.getElementById('chk-member-status').checked;
-      const selfPurchasePoints = Number(document.getElementById('ipt-self-pt').value) || 0;
-      const weakLegPoints = Number(document.getElementById('ipt-group-pt').value) || 0;
-      const activeReferrals = Number(document.getElementById('ipt-active-num').value) || 0;
-      const newMemberReferrals = Number(document.getElementById('ipt-new-member-num').value) || 0;
-      const hasMyNumber = document.getElementById('chk-mynumber').checked;
 
-      const resultCard = document.getElementById('result-card');
-      const basicStatusEl = document.getElementById('basic-status');
-      const titleStatusEl = document.getElementById('title-status');
-      const commissionNextGuideEl = document.getElementById('commission-next-guide');
-      const titleNextGuideEl = document.getElementById('title-next-guide');
+      const isMember =
+        document.getElementById('chk-member-status').checked;
+
+      const selfPurchasePoints =
+        Number(document.getElementById('ipt-self-pt').value) || 0;
+
+      const weakLegPoints =
+        Number(document.getElementById('ipt-group-pt').value) || 0;
+
+      const activeReferrals =
+        Number(document.getElementById('ipt-active-num').value) || 0;
+
+      const newMemberReferrals =
+        Number(document.getElementById('ipt-new-member-num').value) || 0;
+
+      const hasMyNumber =
+        document.getElementById('chk-mynumber').checked;
+
+      const resultCard =
+        document.getElementById('result-card');
+
+      const basicStatusEl =
+        document.getElementById('basic-status');
+
+      const titleStatusEl =
+        document.getElementById('title-status');
+
+      const commissionNextGuideEl =
+        document.getElementById('commission-next-guide');
+
+      const titleNextGuideEl =
+        document.getElementById('title-next-guide');
 
       resultCard.classList.remove('celebrate');
+
+      /* =====================================================
+         共通の前提条件
+         -----------------------------------------------------
+         ① 会員資格が有効
+         ② 自己購入10,000P以上
+
+         この2つを満たして初めて、
+         コミッション・タイトルの判定に進む。
+         ===================================================== */
+
+      const selfPurchaseEligible =
+        selfPurchasePoints >= 10000;
 
       // ----------------------------------------------------
       // 会員資格が無効の場合
       // ----------------------------------------------------
       if (!isMember) {
-        basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '❌ コミッション発生なし（会員資格が無効）';
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '❌ コミッション発生なし（会員資格が無効）';
+
         commissionNextGuideEl.innerHTML = '';
 
-        titleStatusEl.className = 'bonus-result-status status-ng';
-        titleStatusEl.innerText = 'タイトル：なし';
-        titleNextGuideEl.innerHTML = '<div class="bonus-next-guide">会員資格が有効になると、現在の数字からタイトル・コミッション条件をチェックできます。</div>';
+        titleStatusEl.className =
+          'bonus-result-status status-ng';
+
+        titleStatusEl.innerText =
+          'タイトル：なし';
+
+        titleNextGuideEl.innerHTML =
+          '<div class="bonus-next-guide">' +
+          '会員資格が有効になると、現在の数字からタイトル・コミッション条件をチェックできます。' +
+          '</div>';
 
         resultCard.classList.add('active');
-        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        resultCard.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
         return;
       }
 
       // ----------------------------------------------------
-      // コミッション判定
-      // ----------------------------------------------------
-      const regularCommissionEligible = (activeReferrals >= 1) && (weakLegPoints >= 30000);
-
-      // ----------------------------------------------------
       // タイトル判定
-      // ※個人番号未提出の場合、タイトル昇格はできない
+      //
+      // ★自己購入10,000P以上も必須
       // ----------------------------------------------------
+
       let calculatedTitle = 'メンバー';
       let titleNote = '';
 
-      if (activeReferrals >= 2) {
-        if (weakLegPoints >= 60000000 && activeReferrals >= 4) {
+      if (
+        selfPurchaseEligible &&
+        activeReferrals >= 2
+      ) {
+
+        if (
+          weakLegPoints >= 60000000 &&
+          activeReferrals >= 4
+        ) {
           calculatedTitle = 'ロワイヤルダイヤモンド';
-          titleNote = '※プラチナ以上の直紹介系列が3系列必要です。';
-        } else if (weakLegPoints >= 30000000 && activeReferrals >= 4) {
+          titleNote =
+            '※プラチナ以上の直紹介系列が3系列必要です。';
+
+        } else if (
+          weakLegPoints >= 30000000 &&
+          activeReferrals >= 4
+        ) {
           calculatedTitle = 'ダイヤモンド';
-          titleNote = '※ゴールド以上の直紹介系列が3系列必要です。';
-        } else if (weakLegPoints >= 12000000 && activeReferrals >= 4) {
+          titleNote =
+            '※ゴールド以上の直紹介系列が3系列必要です。';
+
+        } else if (
+          weakLegPoints >= 12000000 &&
+          activeReferrals >= 4
+        ) {
           calculatedTitle = 'プラチナ';
-          titleNote = '※エメラルド以上の直紹介系列が2系列必要です。';
-        } else if (weakLegPoints >= 6000000 && activeReferrals >= 4) {
+          titleNote =
+            '※エメラルド以上の直紹介系列が2系列必要です。';
+
+        } else if (
+          weakLegPoints >= 6000000 &&
+          activeReferrals >= 4
+        ) {
           calculatedTitle = 'ゴールド';
-        } else if (weakLegPoints >= 3000000) {
+
+        } else if (
+          weakLegPoints >= 3000000
+        ) {
           calculatedTitle = 'エメラルド';
-        } else if (weakLegPoints >= 1000000) {
+
+        } else if (
+          weakLegPoints >= 1000000
+        ) {
           calculatedTitle = 'サファイヤ';
-        } else if (weakLegPoints >= 500000) {
+
+        } else if (
+          weakLegPoints >= 500000
+        ) {
           calculatedTitle = 'ラピス';
-        } else if (weakLegPoints >= 200000) {
+
+        } else if (
+          weakLegPoints >= 200000
+        ) {
           calculatedTitle = 'クリスタル';
         }
       }
 
       const rawTitle = calculatedTitle;
-      const titlePromotionBlocked = !hasMyNumber && rawTitle !== 'メンバー';
-      const effectiveTitle = titlePromotionBlocked ? 'メンバー' : rawTitle;
+
+      // 個人番号未提出ならタイトル昇格をブロック
+      const titlePromotionBlocked =
+        !hasMyNumber &&
+        rawTitle !== 'メンバー';
+
+      const effectiveTitle =
+        titlePromotionBlocked
+          ? 'メンバー'
+          : rawTitle;
+
+      // ----------------------------------------------------
+      // コミッション判定
+      //
+      // ベーシック：
+      // ・自己購入10,000P以上
+      // ・アクティブ紹介者1人以上
+      // ・少ない方のグループ売上30,000P以上
+      // ----------------------------------------------------
+
+      const regularCommissionEligible =
+        selfPurchaseEligible &&
+        activeReferrals >= 1 &&
+        weakLegPoints >= 30000;
 
       // ----------------------------------------------------
       // アクティブ／ファーストスタート判定
       // ----------------------------------------------------
+
       const active5Eligible =
-        selfPurchasePoints >= 10000 &&
+        selfPurchaseEligible &&
         activeReferrals >= 5 &&
         effectiveTitle === 'メンバー';
 
       const active10Eligible =
-        selfPurchasePoints >= 10000 &&
+        selfPurchaseEligible &&
         activeReferrals >= 10 &&
-        ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'].includes(effectiveTitle);
+        [
+          'メンバー',
+          'クリスタル',
+          'ラピス',
+          'サファイヤ'
+        ].includes(effectiveTitle);
 
       const firstStartEligible =
-        selfPurchasePoints >= 10000 &&
+        selfPurchaseEligible &&
         newMemberReferrals >= 1;
 
-      // 少しでもお金が発生するなら「コミッションあり」
+      // コミッションは自己購入10,000Pが共通必須条件
       const hasAnyCommission =
-        regularCommissionEligible ||
-        active5Eligible ||
-        active10Eligible ||
-        firstStartEligible;
+        selfPurchaseEligible &&
+        (
+          regularCommissionEligible ||
+          active5Eligible ||
+          active10Eligible ||
+          firstStartEligible
+        );
 
       // ----------------------------------------------------
       // コミッション表示
       // ----------------------------------------------------
-      if (hasAnyCommission) {
-        basicStatusEl.className = 'bonus-result-status status-ok';
-        let commissionText = '🎉 コミッションあり！';
-        if (regularCommissionEligible && activeReferrals === 1) {
-          commissionText += '<div class="bonus-result-note">※ベーシックコミッションの分配率は3％になります</div>';
+
+      if (!selfPurchaseEligible) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerHTML =
+          '🔒 コミッション受取条件を満たしていません' +
+          '<div class="bonus-result-note">' +
+          '自己購入10,000P以上が必要です。' +
+          '</div>';
+
+      } else if (hasAnyCommission) {
+
+        basicStatusEl.className =
+          'bonus-result-status status-ok';
+
+        let commissionText =
+          '🎉 コミッションあり！';
+
+        if (
+          regularCommissionEligible &&
+          activeReferrals === 1
+        ) {
+          commissionText +=
+            '<div class="bonus-result-note">' +
+            '※ベーシックコミッションの分配率は3％になります' +
+            '</div>';
         }
 
         const bonusNotes = [];
-        if (active5Eligible) bonusNotes.push('⚡ 5アクティブボーナス取得');
-        if (active10Eligible) bonusNotes.push('⚡ 10アクティブボーナス取得');
-        if (firstStartEligible) bonusNotes.push(`🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`);
-        if (bonusNotes.length) {
-          commissionText += `<div class="bonus-next-guide">${bonusNotes.map(x => `<div>✓ ${x}</div>`).join('')}</div>`;
+
+        if (active5Eligible) {
+          bonusNotes.push(
+            '⚡ 5アクティブボーナス取得'
+          );
         }
-        basicStatusEl.innerHTML = commissionText;
+
+        if (active10Eligible) {
+          bonusNotes.push(
+            '⚡ 10アクティブボーナス取得'
+          );
+        }
+
+        if (firstStartEligible) {
+          bonusNotes.push(
+            `🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`
+          );
+        }
+
+        if (bonusNotes.length) {
+          commissionText +=
+            `<div class="bonus-next-guide">
+              ${bonusNotes.map(
+                x => `<div>✓ ${x}</div>`
+              ).join('')}
+            </div>`;
+        }
+
+        basicStatusEl.innerHTML =
+          commissionText;
+
       } else {
-        basicStatusEl.className = 'bonus-result-status status-ng';
-        basicStatusEl.innerText = '🌱 もう少し！コミッション条件を確認しよう';
+
+        basicStatusEl.className =
+          'bonus-result-status status-ng';
+
+        basicStatusEl.innerText =
+          '🌱 もう少し！コミッション条件を確認しよう';
       }
 
+      // ----------------------------------------------------
       // コミッションまでの不足条件
+      // ----------------------------------------------------
+
       const commissionNeeds = [];
-      if (!regularCommissionEligible) {
-        if (activeReferrals < 1) commissionNeeds.push(`アクティブ紹介者あと${1 - activeReferrals}人`);
-        if (weakLegPoints < 30000) commissionNeeds.push(`少ない方のグループ売上あと${formatPoints(30000 - weakLegPoints)}P`);
-      }
-      if (!active5Eligible && effectiveTitle === 'メンバー') {
-        const active5Needs = [];
-        if (selfPurchasePoints < 10000) active5Needs.push(`自己購入あと${formatPoints(10000 - selfPurchasePoints)}P`);
-        if (activeReferrals < 5) active5Needs.push(`アクティブ紹介者あと${5 - activeReferrals}人`);
-        if (active5Needs.length) commissionNeeds.push(`5アクティブ：${active5Needs.join('・')}`);
-      }
-      if (!active10Eligible && ['メンバー', 'クリスタル', 'ラピス', 'サファイヤ'].includes(effectiveTitle)) {
-        const active10Needs = [];
-        if (selfPurchasePoints < 10000) active10Needs.push(`自己購入あと${formatPoints(10000 - selfPurchasePoints)}P`);
-        if (activeReferrals < 10) active10Needs.push(`アクティブ紹介者あと${10 - activeReferrals}人`);
-        if (active10Needs.length) commissionNeeds.push(`10アクティブ：${active10Needs.join('・')}`);
-      }
-      if (!firstStartEligible) {
-        const firstStartNeeds = [];
-        if (selfPurchasePoints < 10000) firstStartNeeds.push(`自己購入あと${formatPoints(10000 - selfPurchasePoints)}P`);
-        if (newMemberReferrals < 1) firstStartNeeds.push('新規会員の紹介あと1人');
-        if (firstStartNeeds.length) commissionNeeds.push(`ファーストスタート：${firstStartNeeds.join('・')}`);
+
+      // 自己購入10,000P未満なら最優先で表示
+      if (!selfPurchaseEligible) {
+
+        commissionNeeds.push(
+          `自己購入あと${formatPoints(
+            10000 - selfPurchasePoints
+          )}P`
+        );
       }
 
-      commissionNextGuideEl.innerHTML = commissionNeeds.length
-        ? `<div class="bonus-next-guide"><strong>📌 あとこれをクリアすると、取得できるコミッションが増えます</strong><ul>${commissionNeeds.map(x => `<li>${x}</li>`).join('')}</ul></div>`
-        : '';
+      // 自己購入10,000P以上の場合のみ、
+      // 他のコミッション条件を案内
+      if (selfPurchaseEligible) {
+
+        if (!regularCommissionEligible) {
+
+          if (activeReferrals < 1) {
+            commissionNeeds.push(
+              `アクティブ紹介者あと${1 - activeReferrals}人`
+            );
+          }
+
+          if (weakLegPoints < 30000) {
+            commissionNeeds.push(
+              `少ない方のグループ売上あと${formatPoints(
+                30000 - weakLegPoints
+              )}P`
+            );
+          }
+        }
+
+        if (
+          !active5Eligible &&
+          effectiveTitle === 'メンバー'
+        ) {
+
+          const active5Needs = [];
+
+          if (activeReferrals < 5) {
+            active5Needs.push(
+              `アクティブ紹介者あと${5 - activeReferrals}人`
+            );
+          }
+
+          if (active5Needs.length) {
+            commissionNeeds.push(
+              `5アクティブ：${active5Needs.join('・')}`
+            );
+          }
+        }
+
+        if (
+          !active10Eligible &&
+          [
+            'メンバー',
+            'クリスタル',
+            'ラピス',
+            'サファイヤ'
+          ].includes(effectiveTitle)
+        ) {
+
+          const active10Needs = [];
+
+          if (activeReferrals < 10) {
+            active10Needs.push(
+              `アクティブ紹介者あと${10 - activeReferrals}人`
+            );
+          }
+
+          if (active10Needs.length) {
+            commissionNeeds.push(
+              `10アクティブ：${active10Needs.join('・')}`
+            );
+          }
+        }
+
+        if (!firstStartEligible) {
+
+          const firstStartNeeds = [];
+
+          if (newMemberReferrals < 1) {
+            firstStartNeeds.push(
+              '新規会員の紹介あと1人'
+            );
+          }
+
+          if (firstStartNeeds.length) {
+            commissionNeeds.push(
+              `ファーストスタート：${firstStartNeeds.join('・')}`
+            );
+          }
+        }
+      }
+
+      commissionNextGuideEl.innerHTML =
+        commissionNeeds.length
+          ? `
+            <div class="bonus-next-guide">
+              <strong>
+                📌 あとこれをクリアすると、取得できるコミッションが増えます
+              </strong>
+              <ul>
+                ${commissionNeeds
+                  .map(x => `<li>${x}</li>`)
+                  .join('')}
+              </ul>
+            </div>
+          `
+          : '';
 
       // ----------------------------------------------------
       // タイトル表示
       // ----------------------------------------------------
-      titleStatusEl.className = effectiveTitle !== 'メンバー' ? 'bonus-result-status status-ok' : 'bonus-result-status status-ng';
+
+      titleStatusEl.className =
+        effectiveTitle !== 'メンバー'
+          ? 'bonus-result-status status-ok'
+          : 'bonus-result-status status-ng';
+
       let titleHtml = '';
 
-      if (titlePromotionBlocked) {
-        titleHtml = `⚠️ 現在のタイトル：メンバー<div class="bonus-result-note">個人番号未提出のため、タイトル昇格は保留中です。</div>`;
+      if (!selfPurchaseEligible) {
+
+        titleHtml =
+          `🔒 現在のタイトル：メンバー
+          <div class="bonus-result-note">
+            タイトル昇格には自己購入10,000P以上が必要です。
+          </div>`;
+
+      } else if (titlePromotionBlocked) {
+
+        titleHtml =
+          `⚠️ 現在のタイトル：メンバー
+          <div class="bonus-result-note">
+            個人番号未提出のため、タイトル昇格は保留中です。
+          </div>`;
+
       } else {
-        titleHtml = `<div class="bonus-title-achievement"><div class="bonus-title-crown">🏆</div><div class="bonus-title-label">現在のタイトル</div><div class="bonus-title-name">${effectiveTitle}</div>`;
+
+        titleHtml =
+          `<div class="bonus-title-achievement">
+            <div class="bonus-title-crown">🏆</div>
+            <div class="bonus-title-label">現在のタイトル</div>
+            <div class="bonus-title-name">${effectiveTitle}</div>`;
+
         if (titleNote) {
-          titleHtml += `<div class="bonus-result-note" style="margin-top:6px;">${titleNote}</div>`;
+          titleHtml +=
+            `<div class="bonus-result-note" style="margin-top:6px;">
+              ${titleNote}
+            </div>`;
         }
+
         titleHtml += `</div>`;
       }
-      titleStatusEl.innerHTML = titleHtml;
+
+      titleStatusEl.innerHTML =
+        titleHtml;
 
       // ----------------------------------------------------
       // 次のタイトルまであとどれくらい？
       // ----------------------------------------------------
+
       const titleTargets = [
-        { name: 'クリスタル', points: 200000, active: 2 },
-        { name: 'ラピス', points: 500000, active: 2 },
-        { name: 'サファイヤ', points: 1000000, active: 2 },
-        { name: 'エメラルド', points: 3000000, active: 2 },
-        { name: 'ゴールド', points: 6000000, active: 4 },
-        { name: 'プラチナ', points: 12000000, active: 4 },
-        { name: 'ダイヤモンド', points: 30000000, active: 4 },
-        { name: 'ロワイヤルダイヤモンド', points: 60000000, active: 4 }
+        {
+          name: 'クリスタル',
+          points: 200000,
+          active: 2
+        },
+        {
+          name: 'ラピス',
+          points: 500000,
+          active: 2
+        },
+        {
+          name: 'サファイヤ',
+          points: 1000000,
+          active: 2
+        },
+        {
+          name: 'エメラルド',
+          points: 3000000,
+          active: 2
+        },
+        {
+          name: 'ゴールド',
+          points: 6000000,
+          active: 4
+        },
+        {
+          name: 'プラチナ',
+          points: 12000000,
+          active: 4
+        },
+        {
+          name: 'ダイヤモンド',
+          points: 30000000,
+          active: 4
+        },
+        {
+          name: 'ロワイヤルダイヤモンド',
+          points: 60000000,
+          active: 4
+        }
       ];
 
-      const currentIndex = titleTargets.findIndex(t => t.name === effectiveTitle);
-      const nextTarget = currentIndex >= 0 ? titleTargets[currentIndex + 1] : titleTargets[0];
+      const currentIndex =
+        titleTargets.findIndex(
+          t => t.name === effectiveTitle
+        );
 
-      if (!hasMyNumber && rawTitle !== 'メンバー') {
+      const nextTarget =
+        currentIndex >= 0
+          ? titleTargets[currentIndex + 1]
+          : titleTargets[0];
+
+      // 自己購入不足
+      if (!selfPurchaseEligible) {
+
         titleNextGuideEl.innerHTML = `
           <div class="bonus-next-guide">
-            <strong>🔑 まずは個人番号を提出すると、タイトル昇格の判定ができるようになります。</strong>
+            <strong>
+              🔑 まずは自己購入10,000P以上をクリアしよう！
+            </strong>
             <ul>
-              <li>個人番号：未提出 → 提出する</li>
-              ${rawTitle !== 'メンバー' ? `<li>現在の数字なら、本来は<strong>${rawTitle}</strong>までの条件を満たしています（系列条件を除く）。</li>` : ''}
+              <li>
+                自己購入あと${formatPoints(
+                  10000 - selfPurchasePoints
+                )}P
+              </li>
+              <li>
+                10,000P以上になると、
+                グループ売上・アクティブ紹介者数から
+                タイトル昇格条件をチェックできます。
+              </li>
             </ul>
-          </div>`;
+          </div>
+        `;
+
+      // 個人番号未提出
+      } else if (
+        !hasMyNumber &&
+        rawTitle !== 'メンバー'
+      ) {
+
+        titleNextGuideEl.innerHTML = `
+          <div class="bonus-next-guide">
+            <strong>
+              🔑 まずは個人番号を提出すると、
+              タイトル昇格の判定ができるようになります。
+            </strong>
+            <ul>
+              <li>
+                個人番号：未提出 → 提出する
+              </li>
+              <li>
+                現在の数字なら、本来は
+                <strong>${rawTitle}</strong>
+                までの条件を満たしています（系列条件を除く）。
+              </li>
+            </ul>
+          </div>
+        `;
+
+      // 次のタイトル
       } else if (nextTarget) {
+
         const titleNeeds = [];
-        if (weakLegPoints < nextTarget.points) titleNeeds.push(`少ない方のグループ売上あと${formatPoints(nextTarget.points - weakLegPoints)}P`);
-        if (activeReferrals < nextTarget.active) titleNeeds.push(`アクティブ紹介者あと${nextTarget.active - activeReferrals}人`);
+
+        // 自己購入条件
+        if (selfPurchasePoints < 10000) {
+          titleNeeds.push(
+            `自己購入あと${formatPoints(
+              10000 - selfPurchasePoints
+            )}P`
+          );
+        }
+
+        // グループ売上条件
+        if (
+          weakLegPoints <
+          nextTarget.points
+        ) {
+          titleNeeds.push(
+            `少ない方のグループ売上あと${formatPoints(
+              nextTarget.points - weakLegPoints
+            )}P`
+          );
+        }
+
+        // アクティブ紹介者条件
+        if (
+          activeReferrals <
+          nextTarget.active
+        ) {
+          titleNeeds.push(
+            `アクティブ紹介者あと${
+              nextTarget.active - activeReferrals
+            }人`
+          );
+        }
+
         if (titleNeeds.length) {
+
           titleNextGuideEl.innerHTML = `
             <div class="bonus-next-guide">
-              <strong>🎯 次は「${nextTarget.name}」！</strong>
-              <ul>${titleNeeds.map(x => `<li>${x}</li>`).join('')}
+              <strong>
+                🎯 次は「${nextTarget.name}」！
+              </strong>
+
+              <ul>
+                ${titleNeeds
+                  .map(x => `<li>${x}</li>`)
+                  .join('')}
               </ul>
-              ${['プラチナ','ダイヤモンド','ロワイヤルダイヤモンド'].includes(nextTarget.name) ? '<div class="bonus-result-note">※さらに系列条件の確認が必要です。</div>' : ''}
-            </div>`;
+
+              ${
+                [
+                  'プラチナ',
+                  'ダイヤモンド',
+                  'ロワイヤルダイヤモンド'
+                ].includes(nextTarget.name)
+                  ? '<div class="bonus-result-note">※さらに系列条件の確認が必要です。</div>'
+                  : ''
+              }
+            </div>
+          `;
+
         } else {
-          titleNextGuideEl.innerHTML = `<div class="bonus-next-guide"><span class="done">🎉 数値条件はクリア！${nextTarget.name}の系列条件がある場合は、系列条件も確認してください。</span></div>`;
+
+          titleNextGuideEl.innerHTML = `
+            <div class="bonus-next-guide">
+              <span class="done">
+                🎉 数値条件はクリア！
+                ${nextTarget.name}の系列条件がある場合は、
+                系列条件も確認してください。
+              </span>
+            </div>
+          `;
         }
+
       } else {
-        titleNextGuideEl.innerHTML = '<div class="bonus-next-guide"><span class="done">🎉 現在の数値条件で最高位のタイトルまで到達しています。系列条件・継続条件は別途確認してください。</span></div>';
+
+        titleNextGuideEl.innerHTML =
+          `<div class="bonus-next-guide">
+            <span class="done">
+              🎉 現在の数値条件で最高位のタイトルまで到達しています。
+              系列条件・継続条件は別途確認してください。
+            </span>
+          </div>`;
       }
 
-      // 結果表示 → 自動スクロール
-      resultCard.classList.add('active');
-      resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // ----------------------------------------------------
+      // 結果表示
+      // ----------------------------------------------------
 
-      if (hasAnyCommission || effectiveTitle !== 'メンバー') {
+      resultCard.classList.add('active');
+
+      resultCard.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      if (
+        hasAnyCommission ||
+        effectiveTitle !== 'メンバー'
+      ) {
         resultCard.classList.add('celebrate');
       }
     }
@@ -918,3 +1454,4 @@
 
 </body>
 </html>
+```
