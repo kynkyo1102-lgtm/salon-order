@@ -9,18 +9,6 @@
   
   <!-- 当ページ固有のスタイル -->
   <style>
-    /* サブリスト */
-    .sub-list {
-      margin-top: 8px;
-      margin-left: 20px;
-      font-size: 0.84rem;
-      color: #475569;
-    }
-
-    .sub-list li {
-      margin-bottom: 4px;
-    }
-
     /* 警告ボックス */
     .warning-box {
       background-color: #fef2f2;
@@ -33,56 +21,63 @@
       line-height: 1.6;
     }
 
-    /* トラブル対応切替（タブ型ラジオボタンUI） */
-    .selector-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .selector-option {
-      flex: 1;
-      position: relative;
-    }
-
-    .selector-option input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .selector-label {
+    /* アコーディオン（折り畳み）スタイル */
+    .bonus-accordion {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 12px 8px;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .bonus-item {
       background: #f8fafc;
-      border: 2px solid #cbd5e1;
-      border-radius: 10px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.88rem;
-      color: #475569;
-      transition: all 0.2s ease;
-      min-height: 54px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
     }
 
-    .selector-option input[type="radio"]:checked + .selector-label {
-      background: #ebf8ff;
+    .bonus-item[open] {
       border-color: var(--primary);
-      color: var(--primary-dark);
-      box-shadow: 0 2px 6px rgba(27, 78, 168, 0.15);
+      background: #ffffff;
     }
 
-    .flow-panel {
+    .bonus-summary {
+      padding: 14px 16px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      user-select: none;
+    }
+
+    .bonus-summary::-webkit-details-marker {
       display: none;
     }
 
-    .flow-panel.active {
-      display: block;
+    .bonus-summary::after {
+      content: "＋";
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .bonus-item[open] .bonus-summary::after {
+      content: "－";
+    }
+
+    .bonus-content {
+      padding: 12px 16px 16px;
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.6;
+      border-top: 1px dashed #e2e8f0;
+      background: #fafafa;
     }
   </style>
 </head>
@@ -105,7 +100,7 @@
       <h1 class="page-title">🎁 ボーナス取得・権利維持ガイド</h1>
     </div>
 
-    <!-- 目次 (TOC) - common.cssの構造に統一 -->
+    <!-- 目次 (TOC) -->
     <div class="toc-card">
       <div class="toc-title">INDEX</div>
       <ul class="toc-list">
@@ -125,12 +120,6 @@
           <a href="#sec-3">
             <span class="toc-num">03</span>
             <span>タイトル昇格条件とブランチ</span>
-          </a>
-        </li>
-        <li class="toc-item">
-          <a href="#sec-4">
-            <span class="toc-num">04</span>
-            <span>権利喪失を防ぐための注意点・支払仕様</span>
           </a>
         </li>
       </ul>
@@ -170,55 +159,73 @@
     <!-- 2. 9種類のボーナスプラン概要 -->
     <div id="sec-2" class="section-card">
       <div class="section-card-title">📊 2. 9種類のボーナスプラン概要</div>
-      <p class="section-desc">ニナファームジャポンでは、実績やビジネス目標に応じた9種類のボーナスが用意されています。</p>
+      <p class="section-desc">ニナファームジャポンでは、実績やビジネス目標に応じた9種類のボーナスが用意されています。タップすると詳細を確認できます。</p>
 
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:40%;">ボーナス名称</th>
-              <th>概要・特徴</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>① ファーストスタートボーナス</th>
-              <td>新規会員を紹介するごとに<b>3,000円</b>を取得。</td>
-            </tr>
-            <tr>
-              <th>② 5アクティブボーナス</th>
-              <td>アクティブ紹介者5人（1口）で総売上Pの1%を達成口数で分配（最大1口、メンバー対象）。</td>
-            </tr>
-            <tr>
-              <th>③ 10アクティブボーナス</th>
-              <td>アクティブ紹介者10人（1口）で総売上Pの1%を達成口数で分配（サファイヤまで対象）。</td>
-            </tr>
-            <tr>
-              <th>④ ベーシックコミッションボーナス</th>
-              <td>左右グループのうち売上Pが少ない方の実績に応じ最大10%（対象範囲: 3万P〜2,500万P）を取得。</td>
-            </tr>
-            <tr>
-              <th>⑤ メガマッチボーナス</th>
-              <td>直接紹介者が取得したベーシックコミッションボーナスの<b>100%</b>を取得（クリスタル以上）。</td>
-            </tr>
-            <tr>
-              <th>⑥ ダブルメガマッチボーナス</th>
-              <td>二次紹介者（直紹介者が紹介した会員）が取得したベーシックコミッションボーナスの<b>10%</b>を取得（クリスタル以上）。</td>
-            </tr>
-            <tr>
-              <th>⑦ リーダーシップボーナス</th>
-              <td>エメラルド以上のタイトルを獲得し、グループを大きく成長させた場合に取得。</td>
-            </tr>
-            <tr>
-              <th>⑧ アニュアルマネジメントフィー (AMF)</th>
-              <td>ロワイヤルダイヤモンドが取得できる年2回（9月・3月）の決算ボーナス。</td>
-            </tr>
-            <tr>
-              <th>⑨ カリナンアニュアルマネジメントフィー</th>
-              <td>カリナンロワイヤルダイヤモンド（6ヶ月連続達成）が取得できる年2回の決算ボーナス。</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="bonus-accordion">
+        
+        <details class="bonus-item">
+          <summary class="bonus-summary">① ファーストスタートボーナス</summary>
+          <div class="bonus-content">
+            新規会員を紹介するごとに<b>3,000円</b>を取得。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">② 5アクティブボーナス</summary>
+          <div class="bonus-content">
+            アクティブ紹介者5人（1口）で総売上Pの1%を達成口数で分配（最大1口、メンバー対象）。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">③ 10アクティブボーナス</summary>
+          <div class="bonus-content">
+            アクティブ紹介者10人（1口）で総売上Pの1%を達成口数で分配（サファイヤまで対象）。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">④ ベーシックコミッションボーナス</summary>
+          <div class="bonus-content">
+            左右グループのうち売上Pが少ない方の実績に応じ最大10%（対象範囲: 3万P〜2,500万P）を取得。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">⑤ メガマッチボーナス</summary>
+          <div class="bonus-content">
+            直接紹介者が取得したベーシックコミッションボーナスの<b>100%</b>を取得（クリスタル以上）。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">⑥ ダブルメガマッチボーナス</summary>
+          <div class="bonus-content">
+            二次紹介者（直紹介者が紹介した会員）が取得したベーシックコミッションボーナスの<b>10%</b>を取得（クリスタル以上）。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">⑦ リーダーシップボーナス</summary>
+          <div class="bonus-content">
+            エメラルド以上のタイトルを獲得し、グループを大きく成長させた場合に取得。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">⑧ アニュアルマネジメントフィー (AMF)</summary>
+          <div class="bonus-content">
+            ロワイヤルダイヤモンドが取得できる年2回（9月・3月）の決算ボーナス。
+          </div>
+        </details>
+
+        <details class="bonus-item">
+          <summary class="bonus-summary">⑨ カリナンアニュアルマネジメントフィー</summary>
+          <div class="bonus-content">
+            カリナンロワイヤルダイヤモンド（6ヶ月連続達成）が取得できる年2回の決算ボーナス。
+          </div>
+        </details>
+
       </div>
     </div>
 
@@ -226,7 +233,7 @@
     <div id="sec-3" class="section-card">
       <div class="section-card-title">🏆 3. タイトル昇格条件とブランチ</div>
       <p class="section-desc">
-        昇格には「少ない側のグループ売上P」「必要アクティブ紹介者数」「育成メガ系列数（プラチナ以上）」の条件を満たす必要があります。
+        昇格には「少ない側のグループ売上P」および「必要アクティブ紹介者数」の条件を満たす必要があります。
       </p>
 
       <div class="table-container">
@@ -234,9 +241,8 @@
           <thead>
             <tr>
               <th>タイトル</th>
-              <th>売上P（少ない側）</th>
-              <th>アクティブ数</th>
-              <th>条件・育成メガ系列</th>
+              <th>昇格条件<br><span style="font-size: 0.8em; font-weight: normal;">(少ない方のグループ売上P)</span></th>
+              <th>必要アクティブ<br>紹介者数</th>
             </tr>
           </thead>
           <tbody>
@@ -244,59 +250,57 @@
               <th>クリスタル</th>
               <td>20万P〜</td>
               <td>2人</td>
-              <td>-</td>
             </tr>
             <tr>
               <th>ラピス</th>
               <td>50万P〜</td>
               <td>2人</td>
-              <td>-</td>
             </tr>
             <tr>
               <th>サファイヤ</th>
               <td>100万P〜</td>
               <td>2人</td>
-              <td>-</td>
             </tr>
             <tr>
               <th>エメラルド</th>
               <td>300万P〜</td>
               <td>2人</td>
-              <td>-</td>
             </tr>
             <tr>
               <th>ゴールド</th>
               <td>600万P〜</td>
               <td>4人</td>
-              <td>-</td>
             </tr>
             <tr>
               <th>プラチナ</th>
               <td>1,200万P〜</td>
               <td>4人</td>
-              <td>エメラルド以上×2系列</td>
             </tr>
             <tr>
               <th>ダイヤモンド</th>
               <td>3,000万P〜</td>
               <td>4人</td>
-              <td>ゴールド以上×3系列</td>
             </tr>
             <tr>
               <th>ロワイヤルダイヤモンド</th>
               <td>6,000万P〜</td>
               <td>4人</td>
-              <td>プラチナ以上×3系列</td>
             </tr>
             <tr>
-              <th>カリナンロワイヤル</th>
-              <td colspan="3">6ヶ月連続ロワイヤルダイヤモンド達成</td>
+              <th>カリナンロワイヤルダイヤモンド</th>
+              <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
+              <td>4人</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="info-box">
+      <div class="info-box" style="margin-top: 14px;">
+        <b>📌 直紹介系列に関する注釈：</b><br>
+        プラチナ以上のタイトル昇格には、売上Pとアクティブ数に加え、直紹介系列における指定タイトルの育成条件が必要です。（例: プラチナはエメラルド以上×2系列、ダイヤモンドはゴールド以上×3系列、ロワイヤルダイヤモンドはプラチナ以上×3系列）
+      </div>
+
+      <div class="info-box" style="margin-top: 10px;">
         <b>📌 手続きに関する注意点：</b><br>
         クリスタル以上に昇格した場合、昇格月度の翌々月10日までに必要な各種提出手続きが必要です（初昇格月は未提出でも昇格可。翌月以降未提出の場合は上位ボーナスの取得・昇格が制限されます）。
       </div>
@@ -310,78 +314,6 @@
       </div>
     </div>
 
-    <!-- 4. 注意点・支払仕様・トラブル対応 -->
-    <div id="sec-4" class="section-card">
-      <div class="section-card-title">⚠️️ 4. 権利喪失を防ぐための注意点・支払仕様</div>
-      <p class="section-desc">
-        締切日時や振込仕様を確認し、決済エラー等による権利失効に注意してください。
-      </p>
-
-      <div class="table-container">
-        <table>
-          <tbody>
-            <tr>
-              <th style="width:30%;">新規登録締切</th>
-              <td>月末までに書類提出・Web入力・入金完了（翌月5日書類完備、翌月10日不審点問合せ締切）。</td>
-            </tr>
-            <tr>
-              <th>追加購入締切</th>
-              <td>実績月度の末日までに注文書到着・完備・入金。</td>
-            </tr>
-            <tr>
-              <th>ボーナス振込</th>
-              <td><b>翌月25日</b>（休業日の場合は翌営業日）。振込手数料700円（税込）相殺。3,000円未満は翌月繰越。</td>
-            </tr>
-            <tr>
-              <th>キャップ調整</th>
-              <td>還元上限は各月総売上Pの55%。超えた場合は対象ボーナスに比例調整が適用されます。</td>
-            </tr>
-            <tr>
-              <th>インボイス制度</th>
-              <td>適格請求書発行事業者番号の届出がない場合、ボーナスから消費税相当額が控除されます。</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 決済エラー時タブ切り替え -->
-      <div class="selector-group" style="margin-top: 18px;">
-        <div class="selector-option">
-          <input type="radio" id="tab-card" name="trouble-type" checked onchange="switchTrouble()">
-          <label for="tab-card" class="selector-label">💳 カード決済エラー</label>
-        </div>
-        <div class="selector-option">
-          <input type="radio" id="tab-bank" name="trouble-type" onchange="switchTrouble()">
-          <label for="tab-bank" class="selector-label">🏦 口座振替エラー</label>
-        </div>
-      </div>
-
-      <!-- カードエラー時の対応 -->
-      <div id="panel-card" class="flow-panel active">
-        <div class="warning-box">
-          <b>【クレジットカードエラー時の対処法】</b><br>
-          月末までに公式E-Serviceにログインし、カード情報の更新またはスポット購入で決済を完了させてください。
-        </div>
-        <ul class="sub-list" style="margin-top: 10px;">
-          <li>1. E-Serviceにログイン</li>
-          <li>2. 「会員情報変更」からカード情報を更新</li>
-          <li>3. 当月分の再決済処理を実施</li>
-        </ul>
-      </div>
-
-      <!-- 口座振替エラー時の対応 -->
-      <div id="panel-bank" class="flow-panel">
-        <div class="warning-box">
-          <b>【口座振替残高不足時の対処法】</b><br>
-          引き落としが出来なかった場合は、当月中に本社指定口座への銀行振込によるリカバリーが必要です。
-        </div>
-        <ul class="sub-list" style="margin-top: 10px;">
-          <li>※振込先詳細は会社からの通知メール、またはカスタマーサポートにご確認ください。</li>
-        </ul>
-      </div>
-
-    </div>
-
   </div>
 
   <!-- フッター -->
@@ -391,23 +323,6 @@
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
   </footer>
-
-  <!-- 動的切り替え用スクリプト -->
-  <script>
-    function switchTrouble() {
-      const isCard = document.getElementById('tab-card').checked;
-      const panelCard = document.getElementById('panel-card');
-      const panelBank = document.getElementById('panel-bank');
-
-      if (isCard) {
-        panelCard.classList.add('active');
-        panelBank.classList.remove('active');
-      } else {
-        panelBank.classList.add('active');
-        panelCard.classList.remove('active');
-      }
-    }
-  </script>
 
 </body>
 </html>
