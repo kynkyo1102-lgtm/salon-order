@@ -45,22 +45,6 @@
       color: var(--primary);
     }
 
-    .stop-list {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 0.84rem;
-      color: #334155;
-      line-height: 1.7;
-    }
-
-    .stop-list li {
-      margin-bottom: 10px;
-    }
-
-    .stop-list li:last-child {
-      margin-bottom: 0;
-    }
-
     @media (max-width: 700px) {
       .deadline-card {
         padding: 14px;
@@ -70,8 +54,7 @@
         font-size: 0.86rem;
       }
 
-      .deadline-card-text,
-      .stop-list {
+      .deadline-card-text {
         font-size: 0.82rem;
       }
     }
@@ -109,7 +92,9 @@
     <!-- 締め日 -->
     <div class="section-card">
 
-      <div class="section-card-title">定期購入の変更・停止には締め日があります</div>
+      <div class="section-card-title">
+        定期購入の変更・停止には締め日があります
+      </div>
 
       <p class="section-desc">
         定期購入の内容変更や停止をする場合は、各月の締め日までに手続きを完了する必要があります。
@@ -160,46 +145,6 @@
         </div>
 
       </details>
-
-
-      <!-- その他の停止条件 -->
-      <div style="margin-top: 22px;">
-
-        <div class="section-card-title" style="margin-bottom: 14px;">
-          定期購入が停止となる場合
-        </div>
-
-        <p class="section-desc">
-          以下の場合、原則として本人への通知なく定期購入が停止されます。
-        </p>
-
-
-        <div class="deadline-card">
-
-          <ol class="stop-list">
-
-            <li>
-              住所不明で当社に返送され、返送された月の
-              <b>翌月10日まで</b>に当社で正しい住所が確認できないとき。
-            </li>
-
-            <li>
-              <b>受取拒否</b>をした旨を、2か月連続で配送業者から報告を受けた場合。
-            </li>
-
-            <li>
-              <b>受取拒否または長期不在</b>である旨を、あわせて3か月連続で配送業者から報告を受けた場合。
-            </li>
-
-            <li>
-              <b>口座振替・クレジットカード決済が3か月連続してできなかった場合。</b>
-            </li>
-
-          </ol>
-
-        </div>
-
-      </div>
 
 
       <div class="manual-ref">
