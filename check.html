@@ -599,9 +599,6 @@
                placeholder="例：10,000"
                min="0"
                step="1000">
-        <small class="bonus-form-hint">
-          コミッション・タイトル昇格には自己購入10,000P以上が必要です。
-        </small>
       </div>
 
       <div class="bonus-form-group">
@@ -614,9 +611,6 @@
                placeholder="例：200,000"
                min="0"
                step="10000">
-        <small class="bonus-form-hint">
-          左右のうち、ポイントが少ない側の数字を入力。
-        </small>
       </div>
 
       <div class="bonus-form-group">
@@ -639,22 +633,16 @@
                class="bonus-form-control"
                placeholder="例：1"
                min="0">
-        <small class="bonus-form-hint">
-          ファーストスタートボーナスの判定に使用します。
-        </small>
       </div>
 
       <div class="bonus-form-group">
         <label class="bonus-form-label">
-          ⑥ 個人番号（マイナンバー）提出
+          ⑥ マイナンバー提出
         </label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-mynumber">
-          <span>個人番号（マイナンバー）の提出が完了している</span>
+          <span>マイナンバーの提出が完了している</span>
         </label>
-        <small class="bonus-form-hint">
-          タイトル昇格には個人番号の提出が必要です。
-        </small>
       </div>
 
       <button type="button"
@@ -939,7 +927,7 @@
 
       const rawTitle = calculatedTitle;
 
-      // 個人番号未提出ならタイトル昇格をブロック
+      // マイナンバー未提出ならタイトル昇格をブロック
       const titlePromotionBlocked =
         !hasMyNumber &&
         rawTitle !== 'メンバー';
@@ -1210,7 +1198,7 @@
         titleHtml =
           `⚠️ 現在のタイトル：メンバー
           <div class="bonus-result-note">
-            個人番号未提出のため、タイトル昇格は保留中です。
+            マイナンバー未提出のため、タイトル昇格は保留中です。
           </div>`;
 
       } else {
@@ -1314,7 +1302,7 @@
           </div>
         `;
 
-      // 個人番号未提出
+      // マイナンバー未提出
       } else if (
         !hasMyNumber &&
         rawTitle !== 'メンバー'
@@ -1323,12 +1311,12 @@
         titleNextGuideEl.innerHTML = `
           <div class="bonus-next-guide">
             <strong>
-              🔑 まずは個人番号を提出すると、
+              🔑 まずはマイナンバーを提出すると、
               タイトル昇格の判定ができるようになります。
             </strong>
             <ul>
               <li>
-                個人番号：未提出 → 提出する
+                マイナンバー：未提出 → 提出する
               </li>
               <li>
                 現在の数字なら、本来は
@@ -1453,4 +1441,3 @@
 
 </body>
 </html>
-```
