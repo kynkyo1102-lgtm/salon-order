@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>お届けスケジュール - メンバーズWebガイド</title>
+
+  <link rel="stylesheet" href="common.css">
+
+  <style>
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .schedule-card {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+    }
+
+    .schedule-label {
+      font-size: 0.74rem;
+      color: #7b8798;
+      margin-bottom: 3px;
+    }
+
+    .schedule-date {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.45;
+    }
+
+    .schedule-arrow {
+      color: #a5afbc;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .schedule-shipping {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.45;
+    }
+
+    .schedule-note {
+      margin-top: 10px;
+      font-size: 0.76rem;
+      color: #64748b;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 700px) {
+      .schedule-card {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 8px;
+        padding: 14px 12px;
+      }
+
+      .schedule-date,
+      .schedule-shipping {
+        font-size: 0.84rem;
+      }
+
+      .schedule-label {
+        font-size: 0.7rem;
+      }
+
+      .schedule-arrow {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <a href="./guide-b.html" class="back-link">← 定期購入についてへ戻る</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new"
+         target="_blank"
+         class="btn-login">🔐 E-Service ログイン</a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <div class="container">
+
+    <!-- ページタイトル -->
+    <div class="page-header">
+      <div class="page-category">GUIDE B / 02</div>
+      <h1 class="page-title">お届けスケジュール</h1>
+    </div>
+
+    <!-- お届けスケジュール -->
+    <div class="section-card">
+
+      <div class="section-card-title">登録日と発送手続き日</div>
+
+      <p class="section-desc">
+        ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。
+      </p>
+
+      <div class="schedule-list">
+
+        <!-- 1日～6日 -->
+        <div class="schedule-card">
+          <div>
+            <div class="schedule-label">会員の登録日</div>
+            <div class="schedule-date">1日 ～ 6日</div>
+          </div>
+
+          <div class="schedule-arrow">→</div>
+
+          <div>
+            <div class="schedule-label">発送手続き日</div>
+            <div class="schedule-shipping">毎月 5日</div>
+          </div>
+        </div>
+
+        <!-- 7日～12日 -->
+        <div class="schedule-card">
+          <div>
+            <div class="schedule-label">会員の登録日</div>
+            <div class="schedule-date">7日 ～ 12日</div>
+          </div>
+
+          <div class="schedule-arrow">→</div>
+
+          <div>
+            <div class="schedule-label">発送手続き日</div>
+            <div class="schedule-shipping">毎月 7日</div>
+          </div>
+        </div>
+
+        <!-- 13日～18日 -->
+        <div class="schedule-card">
+          <div>
+            <div class="schedule-label">会員の登録日</div>
+            <div class="schedule-date">13日 ～ 18日</div>
+          </div>
+
+          <div class="schedule-arrow">→</div>
+
+          <div>
+            <div class="schedule-label">発送手続き日</div>
+            <div class="schedule-shipping">毎月 9日</div>
+          </div>
+        </div>
+
+        <!-- 19日～24日 -->
+        <div class="schedule-card">
+          <div>
+            <div class="schedule-label">会員の登録日</div>
+            <div class="schedule-date">19日 ～ 24日</div>
+          </div>
+
+          <div class="schedule-arrow">→</div>
+
+          <div>
+            <div class="schedule-label">発送手続き日</div>
+            <div class="schedule-shipping">毎月 11日</div>
+          </div>
+        </div>
+
+        <!-- 25日～29日 -->
+        <div class="schedule-card">
+          <div>
+            <div class="schedule-label">会員の登録日</div>
+            <div class="schedule-date">25日 ～ 29日</div>
+          </div>
+
+          <div class="schedule-arrow">→</div>
+
+          <div>
+            <div class="schedule-label">発送手続き日</div>
+            <div class="schedule-shipping">毎月 13日</div>
+          </div>
+        </div>
+
+        <!-- 30日～31日 -->
+        <div class="schedule-card">
+          <div>
+            <div class="schedule-label">会員の登録日</div>
+            <div class="schedule-date">30日 ～ 31日</div>
+          </div>
+
+          <div class="schedule-arrow">→</div>
+
+          <div>
+            <div class="schedule-label">発送手続き日</div>
+            <div class="schedule-shipping">毎月 15日</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="schedule-note">
+        ※手続き日の翌日以降に順次発送されます。1月・5月の大型連休時は出荷日が10日前後になる場合があります。
+      </p>
+
+      <!-- 発送日の変更 -->
+      <div class="info-box">
+        <div class="info-box-title">💡 発送日（お届けスケジュール）の変更方法</div>
+        発送日を変更する場合は、E-Serviceにログイン後、メニューの
+        <b>【定期購入情報へ】</b>より変更可能です。
+      </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
+
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
