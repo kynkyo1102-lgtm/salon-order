@@ -4,293 +4,262 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>定期購入について - メンバーズWebガイド</title>
-  
-  <!-- 共通デザインCSSの読み込み -->
+
   <link rel="stylesheet" href="common.css">
 
-  <!-- このページ固有のCSSがある場合のみここに記述（なければ省略可） -->
   <style>
-    .payment-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .guide-menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .guide-menu-card {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 225px;
+      padding: 28px 20px 22px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      text-align: center;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
     }
 
-    .payment-list li {
-      line-height: 1.5;
+    .guide-menu-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(27, 78, 168, 0.25);
+      box-shadow: 0 6px 18px rgba(18, 55, 120, 0.10);
     }
 
-    .payment-label {
-      font-weight: bold;
+    .guide-menu-icon {
+      width: 76px;
+      height: 76px;
+      margin-bottom: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .guide-menu-icon svg {
+      width: 64px;
+      height: 64px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .guide-menu-title {
+      font-size: 1rem;
+      font-weight: 800;
       color: var(--primary-dark);
-      display: block;
-      margin-bottom: 2px;
+      line-height: 1.45;
+      margin-bottom: 8px;
     }
 
-    .payment-detail {
-      color: #334155;
-      padding-left: 4px;
-      display: block;
+    .guide-menu-desc {
+      font-size: 0.78rem;
+      color: #687386;
+      line-height: 1.65;
+    }
+
+    .guide-menu-arrow {
+      margin-top: auto;
+      padding-top: 14px;
+      color: #a5afbc;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 700px) {
+      .guide-menu {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .guide-menu-card {
+        min-height: 0;
+        padding: 21px 18px 17px;
+        display: grid;
+        grid-template-columns: 64px 1fr auto;
+        grid-template-rows: auto auto;
+        column-gap: 15px;
+        text-align: left;
+        align-items: center;
+      }
+
+      .guide-menu-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0;
+        grid-row: 1 / 3;
+        grid-column: 1;
+      }
+
+      .guide-menu-icon svg {
+        width: 55px;
+        height: 55px;
+      }
+
+      .guide-menu-title {
+        grid-column: 2;
+        grid-row: 1;
+        margin-bottom: 3px;
+        font-size: 0.96rem;
+      }
+
+      .guide-menu-desc {
+        grid-column: 2;
+        grid-row: 2;
+        font-size: 0.76rem;
+      }
+
+      .guide-menu-arrow {
+        grid-column: 3;
+        grid-row: 1 / 3;
+        margin: 0;
+        padding: 0;
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
       <a href="./ninaguide.html" class="back-link">← トップガイドへ戻る</a>
-      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new"
+         target="_blank"
+         class="btn-login">🔐 E-Service ログイン</a>
     </div>
   </header>
 
-  <!-- メインコンテナ -->
+  <!-- メイン -->
   <div class="container">
 
-    <!-- ページタイトル -->
     <div class="page-header">
       <div class="page-category">GUIDE B</div>
-      <h1 class="page-title">📦 定期購入について</h1>
+      <h1 class="page-title">定期購入について</h1>
     </div>
 
-    <!-- 目次 -->
-    <nav class="toc-card">
-      <div class="toc-title">INDEX</div>
-      <ul class="toc-list">
-        <li class="toc-item"><a href="#section-cost"><span class="toc-num">01</span>毎月の商品購入</a></li>
-        <li class="toc-item"><a href="#section-schedule"><span class="toc-num">02</span>お届けスケジュール</a></li>
-        <li class="toc-item"><a href="#section-payment"><span class="toc-num">03</span>お支払い方法</a></li>
-        <li class="toc-item"><a href="#section-deadline"><span class="toc-num">04</span>締め日について</a></li>
-        <li class="toc-item"><a href="#section-stop"><span class="toc-num">05</span>定期購入の停止</a></li>
-        <li class="toc-item"><a href="#section-bonus"><span class="toc-num">06</span>6ヶ月連続購入特典（6Months）</a></li>
-      </ul>
-    </nav>
+    <div class="guide-menu">
 
-    <!-- 1. 毎月の商品購入 -->
-    <div id="section-cost" class="section-card">
-      <div class="section-card-title">💵 毎月の商品購入</div>
-      <p class="section-desc">OX‐288を定期購入する場合の費用は以下の通りです。</p>
-
-      <div class="table-container">
-        <table>
-          <tr>
-            <th style="width:35%;">商品代金（1個）</th>
-            <td><b>￥13,800</b><span class="table-subtext">（サンテアージュ OX-288 会員価格 / 税込）</span></td>
-          </tr>
-          <tr>
-            <th>配送手数料</th>
-            <td><b>￥1,000</b><span class="table-subtext">（税込）</span></td>
-          </tr>
-          <tr>
-            <th>毎月の合計</th>
-            <td><b style="font-size:1.05rem; color:var(--primary);">￥14,800</b><span class="table-subtext">（クレジットカード・口座振替の場合）</span></td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="info-box">
-        💡 <b>まとめ配送でお得に（同梱サービス）</b><br>
-        定期購入と追加商品を同梱し、1回の注文代金が<b>￥30,000（税込）以上</b>になると<b>配送手数料（￥1,000）が無料</b>になります。
-      </div>
-
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
-
-    <!-- 2. お届けスケジュール -->
-    <div id="section-schedule" class="section-card">
-      <div class="section-card-title">📅 お届けスケジュール</div>
-      <p class="section-desc">ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。</p>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:45%;">会員の登録日</th>
-              <th style="width:55%;">発送手続き日</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>1日 ～ 6日</b></td>
-              <td>毎月 <b>5日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>7日 ～ 12日</b></td>
-              <td>毎月 <b>7日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>13日 ～ 18日</b></td>
-              <td>毎月 <b>9日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>19日 ～ 24日</b></td>
-              <td>毎月 <b>11日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>25日 ～ 29日</b></td>
-              <td>毎月 <b>13日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>30日 ～ 31日</b></td>
-              <td>毎月 <b>15日</b> に発送手続き</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="font-size: 0.76rem; color: #64748b; margin-top: 8px;">
-        ※手続き日の翌日以降に順次発送されます。1月・5月の大型連休時は出荷日が10日前後になる場合があります。
-      </p>
-
-      <div class="info-box">
-        <div class="info-box-title">💡 発送日（お届けスケジュール）の変更方法</div>
-        発送日を変更する場合は、E-Serviceにログイン後、メニューの<b>【定期購入情報へ】</b>より変更可能です。
-      </div>
-
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
-
-    <!-- 3. お支払い方法 -->
-    <div id="section-payment" class="section-card">
-      <div class="section-card-title">💳 お支払い方法</div>
-      
-      <div class="step-list">
-        <!-- 口座振替 -->
-        <details class="step-item" open>
-          <summary>
-            <span class="step-num">1</span>
-            <span class="step-title-text">口座振替（引き落とし）の流れ</span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-          <div class="step-body">
-            <ul class="payment-list">
-              <li>
-                <span class="payment-label">・引き落とし日</span>
-                <span class="payment-detail">毎月 <b>27日</b>（27日に引き落とされた代金が<b>翌月発送分</b>となります）</span>
-              </li>
-              <li>
-                <span class="payment-label">・振替開始までの間</span>
-                <span class="payment-detail">手続きが完了するまでは<b>代金引換（代引き）</b>での発送となります</span>
-              </li>
-              <li>
-                <span class="payment-label">・代引き手数料</span>
-                <span class="payment-detail"><b>￥350</b>（税込）が会員負担となります（1点合計 <b>￥15,150</b>）</span>
-              </li>
-            </ul>
-
-            <details class="alert-box">
-              <summary>⚠ 口座振替開始月の重なりに注意</summary>
-              <div class="alert-box-content">
-                口座振替が始まる月は、その月の「代金引換」と翌月分の「口座振替（27日）」のお支払いが重なる場合があります。引き落とし口座の残高にご注意ください。
-              </div>
-            </details>
-          </div>
-        </details>
-
-        <!-- クレジットカード -->
-        <details class="step-item" open>
-          <summary>
-            <span class="step-num">2</span>
-            <span class="step-title-text">クレジットカード決済の流れ</span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-          <div class="step-body">
-            <ul class="payment-list">
-              <li>
-                <span class="payment-label">・決済日</span>
-                <span class="payment-detail">毎月 <b>1日</b> に当月分のカード決済処理が行われます</span>
-              </li>
-              <li>
-                <span class="payment-label">・利用可能なカード</span>
-                <span class="payment-detail">VISA, Mastercard, JCB, AMERICAN EXPRESS, Diners Club</span>
-              </li>
-              <li>
-                <span class="payment-label">・カード情報の変更</span>
-                <span class="payment-detail">E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です</span>
-              </li>
-            </ul>
-
-            <details class="alert-box">
-              <summary>⚠️ 有効期限切れ・決済エラーにご注意</summary>
-              <div class="alert-box-content">
-                カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
-              </div>
-            </details>
-          </div>
-        </details>
-      </div>
-
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
-
-    <!-- 4. 締め日について -->
-    <div id="section-deadline" class="section-card">
-      <div class="section-card-title">⏰ 締め日について</div>
-      <p class="section-desc">定期購入の内容変更・停止・再開には厳格な締め日ルールが定められています。</p>
-
-      <div class="table-container">
-        <table>
-          <tr>
-            <th style="width:32%;">変更・停止締切</th>
-            <td><b>各月10日 必着</b><span class="table-subtext">（E-Serviceまたは書面にて）</span></td>
-          </tr>
-          <tr>
-            <th>翌月反映</th>
-            <td>10日までに完了した申請は<b>翌月発送分から反映</b>されます。</td>
-          </tr>
-        </table>
-      </div>
-
-      <details class="alert-box">
-        <summary>⚠️ 10日を過ぎた場合</summary>
-        <div class="alert-box-content">
-          10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。10日を過ぎての申請は翌々月からの反映となりますので十分ご注意ください。
+      <!-- 1 -->
+      <a href="./guide-b-cost.html" class="guide-menu-card">
+        <div class="guide-menu-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="24"></circle>
+            <path d="M32 16v32"></path>
+            <path d="M40 23c-2-3-5-4-8-4-5 0-9 3-9 7 0 5 4 6 9 8 5 1 9 3 9 8 0 4-4 7-9 7-4 0-8-2-10-5"></path>
+          </svg>
         </div>
-      </details>
-
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
-
-    <!-- 5. 定期購入の停止 -->
-    <div id="section-stop" class="section-card">
-      <div class="section-card-title">🛑 定期購入の停止</div>
-      <p class="section-desc">定期購入を一時停止（お休み）または解約したい場合は、以下の手順で申請を行ってください。</p>
-
-      <div class="step-list">
-        <div class="step-item" style="padding:14px; background:#fff;">
-          <p style="font-weight:bold; font-size:0.9rem; color:var(--primary-dark); margin-bottom:6px;">【手続き方法】</p>
-          <ul style="padding-left:18px; font-size:0.85rem; color:#334155; line-height:1.6;">
-            <li><b>E-Serviceでの手続き</b>：ログイン後、【定期購入情報】メニューより停止手続きが可能です。</li>
-            <li><b>書面での手続き</b>：専用の「定期購入解約・停止申請書」をカスタマーサービスへ郵送またはFAXで送付してください。</li>
-          </ul>
+        <div class="guide-menu-title">毎月の商品購入</div>
+        <div class="guide-menu-desc">
+          OX-288の毎月の購入費用や配送手数料について確認できます。
         </div>
-      </div>
+        <div class="guide-menu-arrow">›</div>
+      </a>
 
-      <details class="alert-box">
-        <summary>⚠️ 停止に関する注意点</summary>
-        <div class="alert-box-content">
-          ・必ず<b>停止したい月の前月10日まで</b>に手続きを完了させてください。<br>
-          ・定期購入を停止すると、各種ボーナス受給権利や連続購入特典（6Months）のカウントがリセットされますのでご注意ください。
+      <!-- 2 -->
+      <a href="./guide-b-schedule.html" class="guide-menu-card">
+        <div class="guide-menu-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="12" y="15" width="40" height="38" rx="4"></rect>
+            <path d="M20 11v8"></path>
+            <path d="M44 11v8"></path>
+            <path d="M12 25h40"></path>
+            <path d="M21 34h8"></path>
+            <path d="M35 34h8"></path>
+            <path d="M21 43h8"></path>
+            <path d="M35 43h8"></path>
+          </svg>
         </div>
-      </details>
+        <div class="guide-menu-title">お届けスケジュール</div>
+        <div class="guide-menu-desc">
+          登録日によって決まる発送手続き日と、お届け時期を確認できます。
+        </div>
+        <div class="guide-menu-arrow">›</div>
+      </a>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
+      <!-- 3 -->
+      <a href="./guide-b-payment.html" class="guide-menu-card">
+        <div class="guide-menu-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="10" y="16" width="44" height="32" rx="5"></rect>
+            <path d="M10 27h44"></path>
+            <path d="M18 38h10"></path>
+            <path d="M40 37h7"></path>
+          </svg>
+        </div>
+        <div class="guide-menu-title">お支払い方法</div>
+        <div class="guide-menu-desc">
+          口座振替・クレジットカードの支払い方法や注意点を確認できます。
+        </div>
+        <div class="guide-menu-arrow">›</div>
+      </a>
 
-    <!-- 6. 愛用者特典 -->
-    <div id="section-bonus" class="section-card">
-      <div class="section-card-title">🎁 6ヶ月連続購入特典（6Months・NINA）</div>
-      <p class="section-desc">定期購入でサンテアージュ OX-288を継続購入いただくと、6ヶ月ごとに<b>ニナファームオリジナルグッズ</b>がプレゼントされます！</p>
+      <!-- 4 -->
+      <a href="./guide-b-deadline.html" class="guide-menu-card">
+        <div class="guide-menu-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="22"></circle>
+            <path d="M32 19v14l9 6"></path>
+            <path d="M20 11l-4 5"></path>
+            <path d="M44 11l4 5"></path>
+          </svg>
+        </div>
+        <div class="guide-menu-title">締め日について</div>
+        <div class="guide-menu-desc">
+          定期購入の変更・停止・再開に関する締切日と反映時期を確認できます。
+        </div>
+        <div class="guide-menu-arrow">›</div>
+      </a>
 
-      <div class="info-box">
-        <b>【達成条件】</b><br>
-        定期購入にてサンテアージュ OX-288を<b>連続して6ヶ月間</b>購入すること（初回購入分もカウント対象）。<br>
-        ※途中で停止・決済不能となった場合はカウントがリセット（0に戻る）されますのでご注意ください。
-      </div>
+      <!-- 5 -->
+      <a href="./guide-b-stop.html" class="guide-menu-card">
+        <div class="guide-menu-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="23"></circle>
+            <path d="M24 23v18"></path>
+            <path d="M40 23v18"></path>
+          </svg>
+        </div>
+        <div class="guide-menu-title">定期購入の停止</div>
+        <div class="guide-menu-desc">
+          定期購入を一時停止・解約するときの手続き方法を確認できます。
+        </div>
+        <div class="guide-menu-arrow">›</div>
+      </a>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
+      <!-- 6 -->
+      <a href="./guide-b-bonus.html" class="guide-menu-card">
+        <div class="guide-menu-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="13" y="20" width="38" height="31" rx="4"></rect>
+            <path d="M32 20v31"></path>
+            <path d="M13 30h38"></path>
+            <path d="M32 20c-2-7-7-11-11-8-4 3 0 8 11 8Z"></path>
+            <path d="M32 20c2-7 7-11 11-8 4 3 0 8-11 8Z"></path>
+          </svg>
+        </div>
+        <div class="guide-menu-title">6ヶ月連続購入特典</div>
+        <div class="guide-menu-desc">
+          6Months・NINAの達成条件と、連続購入特典について確認できます。
+        </div>
+        <div class="guide-menu-arrow">›</div>
+      </a>
+
     </div>
 
   </div>
