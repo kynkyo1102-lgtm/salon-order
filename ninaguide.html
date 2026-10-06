@@ -91,23 +91,27 @@
       margin: 0;
     }
 
-    /* A〜E */
+    /* A〜E：LINEの使い方ガイドのような「目的別タイル」 */
     .top-guide-page .top-guide-menu {
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
 
     .top-guide-page .top-guide-card {
       position: relative;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      min-height: 94px;
-      padding: 17px 18px 17px 15px;
+      min-height: 210px;
+      aspect-ratio: 1 / .88;
+      padding: 22px 18px 18px;
       border: 0;
       border-radius: 18px;
       color: inherit;
       text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       overflow: hidden;
       box-shadow: 0 3px 12px rgba(40, 65, 100, .07);
       transition: transform .15s ease, box-shadow .15s ease;
@@ -116,17 +120,18 @@
     .top-guide-page .top-guide-card::after {
       content: "";
       position: absolute;
-      width: 75px;
-      height: 75px;
+      width: 105px;
+      height: 105px;
       border-radius: 50%;
-      right: -28px;
-      bottom: -35px;
-      opacity: .35;
+      right: -42px;
+      bottom: -42px;
+      opacity: .45;
+      pointer-events: none;
     }
 
     .top-guide-page .top-guide-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(40, 65, 100, .12);
+      box-shadow: 0 8px 20px rgba(40, 65, 100, .13);
     }
 
     .top-guide-page .top-guide-card-a,
@@ -157,19 +162,19 @@
       background: #e8ed91;
     }
 
-    /* 丸いA〜E */
+    /* A〜Eの小さなラベル */
     .top-guide-page .top-guide-label {
-      flex: 0 0 48px;
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
       border-radius: 50%;
       background: var(--top-blue);
       color: #fff;
       font-weight: 800;
-      font-size: 1.05rem;
-      box-shadow: 0 3px 8px rgba(27, 78, 168, .18);
+      font-size: .95rem;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 8px rgba(27, 78, 168, .16);
       position: relative;
       z-index: 1;
     }
@@ -177,43 +182,44 @@
     .top-guide-page .top-guide-card-b .top-guide-label,
     .top-guide-page .top-guide-card-e .top-guide-label {
       background: var(--top-green);
-      box-shadow: 0 3px 8px rgba(127, 159, 18, .18);
+      box-shadow: 0 3px 8px rgba(127, 159, 18, .16);
     }
 
     .top-guide-page .top-guide-card-c .top-guide-label {
       background: #a8b900;
-      box-shadow: 0 3px 8px rgba(168, 185, 0, .18);
+      box-shadow: 0 3px 8px rgba(168, 185, 0, .16);
     }
 
     .top-guide-page .top-guide-body {
-      min-width: 0;
-      flex: 1;
       position: relative;
       z-index: 1;
+      min-width: 0;
     }
 
     .top-guide-page .top-guide-body h2 {
       color: #202020;
       font-size: 1.08rem;
       font-weight: 800;
-      margin: 0 0 3px;
-      line-height: 1.4;
+      line-height: 1.45;
+      margin: 0;
     }
 
     .top-guide-page .top-guide-body p {
       color: #707070;
-      font-size: .76rem;
-      margin: 0;
+      font-size: .72rem;
+      line-height: 1.5;
+      margin: 7px 0 0;
     }
 
     .top-guide-page .top-guide-arrow {
       color: var(--top-blue);
-      font-size: 2rem;
+      font-size: 1.45rem;
       line-height: 1;
       font-weight: 300;
-      position: relative;
+      position: absolute;
       z-index: 1;
-      margin-right: 2px;
+      right: 13px;
+      bottom: 10px;
     }
 
     .top-guide-page .top-guide-card-b .top-guide-arrow,
@@ -221,11 +227,18 @@
       color: var(--top-green);
     }
 
+    /* 5枚目は中央に置く */
+    .top-guide-page .top-guide-card-e {
+      grid-column: 1 / -1;
+      width: calc(50% - 7px);
+      justify-self: center;
+    }
+
     /* 診断 */
     .top-guide-page .top-diagnosis {
-      margin-top: 22px;
-      padding: 18px 20px;
-      background: linear-gradient(135deg, #fffef0, #f4f8e4);
+      margin-top: 20px;
+      padding: 16px 19px;
+      background: #fffef0;
       border: 2px solid #e2e9a9;
       border-radius: 18px;
       display: flex;
@@ -236,20 +249,20 @@
 
     .top-guide-page .top-diagnosis-label {
       color: var(--top-green);
-      font-size: .7rem;
+      font-size: .68rem;
       font-weight: 900;
       letter-spacing: .1em;
     }
 
     .top-guide-page .top-diagnosis h2 {
       color: var(--top-blue-dark);
-      font-size: .98rem;
+      font-size: .96rem;
       margin: 2px 0;
     }
 
     .top-guide-page .top-diagnosis p {
       color: #666;
-      font-size: .75rem;
+      font-size: .73rem;
       margin: 0;
     }
 
@@ -267,11 +280,11 @@
 
     @media (max-width: 600px) {
       .top-guide-page .top-container {
-        padding: 22px 12px 8px;
+        padding: 20px 12px 8px;
       }
 
       .top-guide-page .top-hero {
-        padding: 25px 15px 23px;
+        padding: 24px 15px 22px;
         margin-bottom: 18px;
         border-radius: 20px;
       }
@@ -281,37 +294,44 @@
       }
 
       .top-guide-page .top-guide-menu {
-        gap: 11px;
+        gap: 10px;
       }
 
       .top-guide-page .top-guide-card {
-        min-height: 84px;
-        padding: 14px 13px;
-        gap: 12px;
+        min-height: 165px;
+        aspect-ratio: 1 / .88;
+        padding: 17px 10px 16px;
         border-radius: 15px;
       }
 
       .top-guide-page .top-guide-label {
-        flex-basis: 40px;
-        width: 40px;
-        height: 40px;
-        font-size: .92rem;
+        width: 36px;
+        height: 36px;
+        font-size: .84rem;
+        margin-bottom: 11px;
       }
 
       .top-guide-page .top-guide-body h2 {
-        font-size: .93rem;
+        font-size: .88rem;
       }
 
       .top-guide-page .top-guide-body p {
-        font-size: .7rem;
+        font-size: .66rem;
+        margin-top: 5px;
       }
 
       .top-guide-page .top-guide-arrow {
-        font-size: 1.7rem;
+        font-size: 1.25rem;
+        right: 9px;
+        bottom: 7px;
+      }
+
+      .top-guide-page .top-guide-card-e {
+        width: calc(50% - 5px);
       }
 
       .top-guide-page .top-diagnosis {
-        padding: 15px;
+        padding: 14px;
         border-radius: 15px;
       }
 
