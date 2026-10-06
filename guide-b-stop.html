@@ -45,22 +45,6 @@
       color: var(--primary);
     }
 
-    .stop-list {
-      margin: 0;
-      padding-left: 20px;
-      font-size: 0.84rem;
-      color: #334155;
-      line-height: 1.7;
-    }
-
-    .stop-list li {
-      margin-bottom: 12px;
-    }
-
-    .stop-list li:last-child {
-      margin-bottom: 0;
-    }
-
     .stop-number-list {
       display: flex;
       flex-direction: column;
@@ -126,7 +110,6 @@
       }
 
       .stop-card-text,
-      .stop-list,
       .stop-number-text {
         font-size: 0.82rem;
       }
@@ -166,8 +149,53 @@
     </div>
 
 
-    <!-- 手続き方法 -->
-    <div class="section-card">
+    <!-- 目次 -->
+    <nav class="toc-card">
+      <div class="toc-title">INDEX</div>
+
+      <ul class="toc-list">
+
+        <li class="toc-item">
+          <a href="#section-procedure">
+            <span class="toc-num">01</span>
+            定期購入を停止する方法
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#section-deadline">
+            <span class="toc-num">02</span>
+            停止手続きの締切
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#section-late">
+            <span class="toc-num">03</span>
+            10日を過ぎてから停止する場合
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#section-auto-stop">
+            <span class="toc-num">04</span>
+            定期購入が停止される場合
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#section-restart">
+            <span class="toc-num">05</span>
+            定期購入を再開する場合
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+
+    <!-- 01. 定期購入を停止する方法 -->
+    <div id="section-procedure" class="section-card">
 
       <div class="section-card-title">
         定期購入を停止する方法
@@ -212,15 +240,39 @@
 
       </div>
 
+    </div>
 
-      <!-- 締切 -->
+
+    <!-- 02. 停止手続きの締切 -->
+    <div id="section-deadline" class="section-card">
+
+      <div class="section-card-title">
+        停止手続きの締切
+      </div>
+
+      <p class="section-desc">
+        停止手続きは、各月の締切日までに行う必要があります。
+      </p>
+
+
+      <div class="stop-card stop-main">
+
+        <div class="stop-card-title">
+          各月10日まで
+        </div>
+
+        <div class="stop-card-text">
+          各月<b>10日まで</b>にE-Serviceまたは書面での手続きが確認できた場合、
+          <b>翌月発送分より停止</b>となります。
+        </div>
+
+      </div>
+
+
       <details class="alert-box">
-        <summary>⚠️ 停止手続きの締切にご注意ください</summary>
+        <summary>⚠️ 10日を過ぎた場合</summary>
 
         <div class="alert-box-content">
-          <b>各月10日まで</b>にE-Serviceまたは書面での手続きが確認できた場合、
-          <b>翌月発送分より停止</b>となります。<br><br>
-
           各月10日を過ぎた後は、当月の口座振替を停止することはできません。
           10日を過ぎてから停止手続きをしても、翌月の商品は発送されますのでご注意ください。
         </div>
@@ -230,16 +282,17 @@
     </div>
 
 
-    <!-- クレジットカード・代引きの場合 -->
-    <div class="section-card">
+    <!-- 03. 10日を過ぎてから停止する場合 -->
+    <div id="section-late" class="section-card">
 
       <div class="section-card-title">
         10日を過ぎてから停止する場合
       </div>
 
       <p class="section-desc">
-        お支払い方法によって、停止の申請期限が異なります。
+        お支払い方法によって、10日を過ぎた後の停止手続きの期限が異なります。
       </p>
+
 
       <div class="stop-card">
 
@@ -258,8 +311,8 @@
     </div>
 
 
-    <!-- 自動的に停止される場合 -->
-    <div class="section-card">
+    <!-- 04. 定期購入が停止される場合 -->
+    <div id="section-auto-stop" class="section-card">
 
       <div class="section-card-title">
         定期購入が停止される場合
@@ -276,6 +329,7 @@
 
           <div class="stop-number-item">
             <span class="stop-number">1</span>
+
             <div class="stop-number-text">
               住所不明で当社に返送され、返送された月の
               <b>翌月10日まで</b>に当社で正しい住所が確認できないとき。
@@ -285,6 +339,7 @@
 
           <div class="stop-number-item">
             <span class="stop-number">2</span>
+
             <div class="stop-number-text">
               <b>受取拒否</b>をした旨を、
               <b>2か月連続</b>で配送業者から報告を受けた場合。
@@ -294,6 +349,7 @@
 
           <div class="stop-number-item">
             <span class="stop-number">3</span>
+
             <div class="stop-number-text">
               <b>受取拒否または長期不在</b>である旨を、
               あわせて<b>3か月連続</b>で配送業者から報告を受けた場合。
@@ -303,6 +359,7 @@
 
           <div class="stop-number-item">
             <span class="stop-number">4</span>
+
             <div class="stop-number-text">
               <b>口座振替・クレジットカード決済が3か月連続してできなかった場合。</b>
             </div>
@@ -313,7 +370,6 @@
       </div>
 
 
-      <!-- 全支店・ブランチ -->
       <details class="alert-box">
         <summary>⚠️ 定期購入停止時の注意</summary>
 
@@ -327,8 +383,8 @@
     </div>
 
 
-    <!-- 停止後の再開 -->
-    <div class="section-card">
+    <!-- 05. 定期購入を再開する場合 -->
+    <div id="section-restart" class="section-card">
 
       <div class="section-card-title">
         定期購入を再開する場合
@@ -337,6 +393,7 @@
       <p class="section-desc">
         一度定期購入が停止となった場合でも、再開の手続きができます。
       </p>
+
 
       <div class="restart-box">
 
@@ -351,19 +408,6 @@
 
       </div>
 
-    </div>
-
-
-    <div class="section-card">
-
-      <div class="info-box">
-        <div class="info-box-title">
-          💡 停止・再開の手続きについて
-        </div>
-
-        定期購入の停止・再開や変更を行う場合は、
-        締切日を確認したうえで、余裕をもって手続きを行ってください。
-      </div>
 
       <div class="manual-ref">
         メンバーズマニュアル1P参照
