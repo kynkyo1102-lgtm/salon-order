@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>A. 郵送登録の流れ - メンバーズWebガイド</title>
+
+  <link rel="stylesheet" href="common.css">
+
+  <style>
+    .step-sub-list {
+      margin: 8px 0 0 20px;
+      padding-left: 15px;
+    }
+
+    .step-sub-list li {
+      margin-bottom: 4px;
+    }
+
+    .bank-box {
+      background: #f7f9fc;
+      border: 1px solid var(--border-color);
+      border-radius: 9px;
+      padding: 15px 16px;
+      margin-top: 14px;
+      font-size: 0.84rem;
+      line-height: 1.75;
+    }
+
+    .bank-title {
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 7px;
+    }
+
+    .bank-item {
+      margin-bottom: 8px;
+    }
+
+    .bank-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .bank-name {
+      font-weight: 700;
+    }
+
+    .text-danger {
+      color: #b33a3a;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-container">
+      <a href="./guide-a.html" class="back-link">
+        ← A. 新規登録の流れへ戻る
+      </a>
+
+      <a
+        href="https://sslgw.jns-asp.jp/685/pc.html?new"
+        target="_blank"
+        class="btn-login"
+      >
+        🔐 E-Serviceログイン
+      </a>
+    </div>
+  </header>
+
+
+  <div class="container">
+
+    <div class="page-header">
+      <div class="page-category">GUIDE A / 郵送登録</div>
+      <h1 class="page-title">郵送登録の流れ</h1>
+    </div>
+
+
+    <!-- STEP 1 -->
+    <div class="section-card">
+
+      <h2 class="section-card-title">
+        1. 概要書面の受け取り・説明確認
+      </h2>
+
+      <p class="section-desc">
+        紹介者から概要書面を受け取り、
+        内容について説明・確認を受けてください。
+      </p>
+
+    </div>
+
+
+    <!-- STEP 2 -->
+    <div class="section-card">
+
+      <h2 class="section-card-title">
+        2. 申請書の記入・捺印
+      </h2>
+
+      <p class="section-desc">
+        必要事項を申請書へ記入し、所定の箇所へ捺印してください。
+      </p>
+
+    </div>
+
+
+    <!-- STEP 3 -->
+    <div class="section-card">
+
+      <h2 class="section-card-title">
+        3. 商品代金の振込（事前決済）
+      </h2>
+
+      <p class="section-desc">
+        登録する商品数に応じた商品代金を、事前に振り込んでください。
+      </p>
+
+      <ul class="step-sub-list">
+        <li>1点登録：17,800円</li>
+        <li>3点登録：51,400円</li>
+      </ul>
+
+
+      <div class="bank-box">
+
+        <div class="bank-title">
+          振込先
+        </div>
+
+        <div class="bank-item">
+          <div class="bank-name">
+            三井住友銀行 銀座支店
+          </div>
+          普通 7608513
+        </div>
+
+        <div class="bank-item">
+          <div class="bank-name">
+            ゆうちょ銀行
+          </div>
+          00190-9-261488<br>
+          （電信のみ）
+        </div>
+
+        <div class="bank-item">
+          <div class="bank-name">
+            口座名義
+          </div>
+          株式会社ニナファームジャポン
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- STEP 4 -->
+    <div class="section-card">
+
+      <h2 class="section-card-title">
+        4. 振込明細書コピー添付と申請書郵送
+      </h2>
+
+      <p class="section-desc">
+        振込明細書のコピーを申請書に添付し、
+        必要書類と一緒に郵送してください。
+      </p>
+
+      <ul class="step-sub-list">
+        <li>法人：登記事項証明書（コピー可）＋本人確認書類</li>
+        <li>25歳未満：本人確認書類</li>
+        <li>外国籍：在留カードまたは特別永住者証明書</li>
+      </ul>
+
+    </div>
+
+
+    <!-- STEP 5 -->
+    <div class="section-card">
+
+      <h2 class="section-card-title">
+        5. 本社で審査・登録処理
+      </h2>
+
+      <p class="section-desc">
+        申請書類が本社に到着した後、審査・登録処理が行われます。
+      </p>
+
+      <div class="alert-box">
+        <details>
+          <summary>審査について</summary>
+          <div class="alert-box-content">
+            審査の結果、登録が承認されない場合は、
+            商品代金が返金されます。
+          </div>
+        </details>
+      </div>
+
+    </div>
+
+
+    <!-- STEP 6 -->
+    <div class="section-card">
+
+      <h2 class="section-card-title">
+        6. 商品受領・会員証到着・活動開始
+      </h2>
+
+      <p class="section-desc">
+        登録処理後、商品・契約書面等が到着します。
+      </p>
+
+      <ul class="step-sub-list">
+        <li>商品・契約書面は1週間以内を目安に到着</li>
+        <li>会員証は別途到着</li>
+        <li>会員証到着後、活動を開始できます</li>
+        <li>クーリングオフ期間は商品受領から20日間</li>
+      </ul>
+
+    </div>
+
+
+    <div class="manual-ref">
+      詳細は公式の概要書面・会員マニュアルをご確認ください。
+    </div>
+
+  </div>
+
+
+  <footer>
+    <p>
+      ※当サイトは会員有志による手続き案内ガイドであり、
+      公式の概要書面を正とします。
+    </p>
+
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
