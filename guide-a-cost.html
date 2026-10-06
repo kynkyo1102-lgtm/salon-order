@@ -9,51 +9,196 @@
   <link rel="stylesheet" href="common.css">
 
   <style>
-    .cost-table th:first-child {
-      width: 28%;
+    /* =========================================================
+       初回費用ページ
+       ========================================================= */
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .cost-table th:nth-child(2) {
-      width: 22%;
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: #ffffff;
     }
 
-    .cost-table th:nth-child(3) {
-      width: 25%;
-    }
-
-    .cost-table th:nth-child(4) {
-      width: 25%;
-    }
-
-    .price {
+    .product-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.76rem;
       font-weight: 800;
+    }
+
+    .product-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .product-type {
+      color: var(--muted-text);
+      font-size: 0.73rem;
+      margin-bottom: 2px;
+    }
+
+    .product-name {
       color: var(--primary-dark);
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .product-quantity {
+      color: #596579;
+      font-size: 0.79rem;
       white-space: nowrap;
     }
 
-    .cost-note {
-      margin-top: 18px;
+    .cost-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cost-item {
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .cost-item-title {
+      padding: 11px 14px;
+      background: var(--sub-bg);
+      color: var(--primary-dark);
+      font-size: 0.83rem;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cost-detail {
+      padding: 13px 14px;
+    }
+
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 7px 0;
+      font-size: 0.82rem;
+      color: #596579;
+      border-bottom: 1px dashed #edf0f4;
+    }
+
+    .cost-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .cost-row:first-child {
+      padding-top: 0;
+    }
+
+    .cost-price {
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .cost-total {
+      margin-top: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .cost-total-label {
+      color: var(--primary-dark);
+      font-size: 0.83rem;
+      font-weight: 800;
+    }
+
+    .cost-total-price {
+      color: var(--primary);
+      font-size: 1.08rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .free-price {
+      color: #5d6b2b;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .cost-subtext {
+      display: block;
+      margin-top: 2px;
+      color: #7b8798;
+      font-size: 0.71rem;
+      line-height: 1.5;
     }
 
     @media (max-width: 700px) {
-      .cost-table {
-        min-width: 650px;
+      .product-item {
+        padding: 13px;
+        gap: 11px;
       }
 
-      .cost-table th:first-child {
-        width: 150px;
+      .product-number {
+        width: 31px;
+        height: 31px;
+        font-size: 0.7rem;
       }
 
-      .cost-table th:nth-child(2) {
-        width: 125px;
+      .product-name {
+        font-size: 0.9rem;
       }
 
-      .cost-table th:nth-child(3) {
-        width: 170px;
+      .product-quantity {
+        font-size: 0.74rem;
       }
 
-      .cost-table th:nth-child(4) {
-        width: 205px;
+      .cost-item-title {
+        padding: 10px 12px;
+        font-size: 0.79rem;
+      }
+
+      .cost-detail {
+        padding: 12px;
+      }
+
+      .cost-row {
+        font-size: 0.79rem;
+      }
+
+      .cost-price {
+        font-size: 0.86rem;
+      }
+
+      .cost-total-label {
+        font-size: 0.79rem;
+      }
+
+      .cost-total-price {
+        font-size: 1rem;
       }
     }
   </style>
@@ -86,95 +231,7 @@
     </div>
 
 
-    <div class="section-card">
-
-      <h2 class="section-card-title">
-        登録時にかかる費用
-      </h2>
-
-      <p class="section-desc">
-        会員登録料は無料ですが、登録時には商品代金と配送手数料が必要です。
-      </p>
-
-      <div class="table-container">
-
-        <table class="cost-table">
-
-          <thead>
-            <tr>
-              <th>項目</th>
-              <th>商品代金</th>
-              <th>配送手数料</th>
-              <th>合計</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <tr>
-              <th>
-                会員登録料
-              </th>
-              <td colspan="3">
-                <span class="price">0円（無料）</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                1点登録
-              </th>
-              <td>
-                <span class="price">￥16,800</span>
-              </td>
-              <td>
-                ￥1,000
-              </td>
-              <td>
-                <span class="price">￥17,800</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                3点登録
-              </th>
-              <td>
-                <span class="price">￥50,400</span>
-              </td>
-              <td>
-                ￥1,000
-              </td>
-              <td>
-                <span class="price">￥51,400</span>
-              </td>
-            </tr>
-
-            <tr>
-              <th>
-                2ヶ月目以降<br>
-                <span class="table-subtext">追加・定期</span>
-              </th>
-              <td colspan="2">
-                ―
-              </td>
-              <td>
-                <span class="price">￥13,800</span><br>
-                <span class="table-subtext">
-                  1点あたり・送料別
-                </span>
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
+    <!-- 登録時の商品 -->
     <div class="section-card">
 
       <h2 class="section-card-title">
@@ -185,49 +242,173 @@
         初回登録時の商品はOX-288です。
       </p>
 
-      <div class="table-container">
 
-        <table>
+      <div class="product-list">
 
-          <thead>
-            <tr>
-              <th>登録方法</th>
-              <th>商品</th>
-              <th>数量</th>
-            </tr>
-          </thead>
+        <div class="product-item">
 
-          <tbody>
+          <div class="product-number">
+            1
+          </div>
 
-            <tr>
-              <th>1点登録</th>
-              <td>OX-288</td>
-              <td>1個</td>
-            </tr>
+          <div class="product-info">
+            <div class="product-type">
+              1点登録
+            </div>
+            <div class="product-name">
+              OX-288
+            </div>
+          </div>
 
-            <tr>
-              <th>3点登録</th>
-              <td>OX-288</td>
-              <td>3個</td>
-            </tr>
+          <div class="product-quantity">
+            1個
+          </div>
 
-          </tbody>
+        </div>
 
-        </table>
+
+        <div class="product-item">
+
+          <div class="product-number">
+            3
+          </div>
+
+          <div class="product-info">
+            <div class="product-type">
+              3点登録
+            </div>
+            <div class="product-name">
+              OX-288
+            </div>
+          </div>
+
+          <div class="product-quantity">
+            3個
+          </div>
+
+        </div>
 
       </div>
 
     </div>
 
 
-    <div class="info-box cost-note">
+    <!-- かかる費用 -->
+    <div class="section-card">
 
-      <div class="info-box-title">
-        2ヶ月目以降について
+      <h2 class="section-card-title">
+        かかる費用
+      </h2>
+
+      <p class="section-desc">
+        会員登録料は無料ですが、登録時には商品代金と配送手数料が必要です。
+      </p>
+
+
+      <div class="cost-list">
+
+        <!-- 会員登録料 -->
+        <div class="cost-item">
+
+          <div class="cost-item-title">
+            会員登録料
+          </div>
+
+          <div class="cost-detail">
+            <span class="free-price">
+              0円（無料）
+            </span>
+          </div>
+
+        </div>
+
+
+        <!-- 1点登録 -->
+        <div class="cost-item">
+
+          <div class="cost-item-title">
+            1点登録
+          </div>
+
+          <div class="cost-detail">
+
+            <div class="cost-row">
+              <span>商品代金</span>
+              <span class="cost-price">￥16,800</span>
+            </div>
+
+            <div class="cost-row">
+              <span>配送手数料</span>
+              <span class="cost-price">￥1,000</span>
+            </div>
+
+            <div class="cost-total">
+              <span class="cost-total-label">合計</span>
+              <span class="cost-total-price">￥17,800</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- 3点登録 -->
+        <div class="cost-item">
+
+          <div class="cost-item-title">
+            3点登録
+          </div>
+
+          <div class="cost-detail">
+
+            <div class="cost-row">
+              <span>商品代金</span>
+              <span class="cost-price">￥50,400</span>
+            </div>
+
+            <div class="cost-row">
+              <span>配送手数料</span>
+              <span class="cost-price">￥1,000</span>
+            </div>
+
+            <div class="cost-total">
+              <span class="cost-total-label">合計</span>
+              <span class="cost-total-price">￥51,400</span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- 2ヶ月目以降 -->
+        <div class="cost-item">
+
+          <div class="cost-item-title">
+            2ヶ月目以降（追加・定期）
+          </div>
+
+          <div class="cost-detail">
+
+            <div class="cost-total">
+              <span class="cost-total-label">
+                OX-288 1個あたり
+              </span>
+
+              <span class="cost-total-price">
+                ￥13,800
+              </span>
+            </div>
+
+            <span class="cost-subtext">
+              会員価格・送料別
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
-
-      2ヶ月目以降の追加・定期購入は、
-      OX-288 1個あたり￥13,800（会員価格・送料別）です。
 
     </div>
 
