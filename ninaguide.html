@@ -10,142 +10,210 @@
 
   <!-- トップページ専用CSS -->
   <style>
-    /* ================================
+    /* =========================================
        ninaguide.html 専用
-       ================================ */
+       ※ common.css は変更しない
+       ========================================= */
 
     .top-guide-page {
       --top-blue: #1b4ea8;
       --top-blue-dark: #123778;
       --top-green: #7f9f12;
       --top-lime: #d4e114;
-      --top-border: #e1e6ee;
-      --top-bg: #f7f9fc;
     }
 
     .top-guide-page .top-container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 34px 15px 10px;
+      padding: 32px 15px 14px;
     }
 
-    /* ヒーロー */
+    /* ヘッダー直下のタイトル */
     .top-guide-page .top-hero {
-      background: #fff;
-      padding: 30px 20px 26px;
-      margin-bottom: 22px;
-      border-bottom: 3px solid var(--top-lime);
+      background: linear-gradient(135deg, #f1f6ff 0%, #fbfff0 100%);
+      padding: 32px 20px 30px;
+      margin-bottom: 24px;
+      border-radius: 24px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .top-guide-page .top-hero::before,
+    .top-guide-page .top-hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .top-guide-page .top-hero::before {
+      width: 100px;
+      height: 100px;
+      background: rgba(212, 225, 20, .22);
+      top: -48px;
+      right: 8%;
+    }
+
+    .top-guide-page .top-hero::after {
+      width: 72px;
+      height: 72px;
+      background: rgba(27, 78, 168, .10);
+      bottom: -35px;
+      left: 8%;
+    }
+
+    .top-guide-page .top-hero-subtitle,
+    .top-guide-page .top-hero-title,
+    .top-guide-page .top-hero-desc {
+      position: relative;
+      z-index: 1;
     }
 
     .top-guide-page .top-hero-subtitle {
       color: var(--top-green);
-      font-size: .8rem;
-      font-weight: bold;
-      letter-spacing: .12em;
-      margin-bottom: 5px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      margin-bottom: 6px;
     }
 
     .top-guide-page .top-hero-title {
       color: var(--top-blue-dark);
-      font-size: 1.7rem;
-      margin: 0 0 6px;
+      font-size: 1.75rem;
+      margin: 0 0 7px;
+      letter-spacing: .02em;
     }
 
     .top-guide-page .top-hero-desc {
       color: #666;
-      font-size: .9rem;
+      font-size: .88rem;
       margin: 0;
     }
 
-    /* A〜Eカード */
+    /* A〜E */
     .top-guide-page .top-guide-menu {
       display: grid;
-      gap: 12px;
+      gap: 14px;
     }
 
     .top-guide-page .top-guide-card {
       position: relative;
       display: flex;
       align-items: center;
-      gap: 15px;
-      min-height: 92px;
-      padding: 17px 20px 17px 17px;
-      background: #fff;
-      border: 1px solid var(--top-border);
-      border-left: 6px solid var(--top-blue);
-      border-radius: 8px;
+      gap: 16px;
+      min-height: 94px;
+      padding: 17px 18px 17px 15px;
+      border: 0;
+      border-radius: 18px;
       color: inherit;
       text-decoration: none;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(40, 65, 100, .07);
       transition: transform .15s ease, box-shadow .15s ease;
     }
 
+    .top-guide-page .top-guide-card::after {
+      content: "";
+      position: absolute;
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      right: -28px;
+      bottom: -35px;
+      opacity: .35;
+    }
+
     .top-guide-page .top-guide-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 14px rgba(27,78,168,.10);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(40, 65, 100, .12);
     }
 
     .top-guide-page .top-guide-card-a,
     .top-guide-page .top-guide-card-d {
-      border-left-color: var(--top-blue);
+      background: #f1f6ff;
     }
 
     .top-guide-page .top-guide-card-b,
     .top-guide-page .top-guide-card-e {
-      border-left-color: var(--top-green);
+      background: #f4f8e7;
     }
 
     .top-guide-page .top-guide-card-c {
-      border-left-color: var(--top-lime);
+      background: #fbfce8;
     }
 
+    .top-guide-page .top-guide-card-a::after,
+    .top-guide-page .top-guide-card-d::after {
+      background: #cbdafa;
+    }
+
+    .top-guide-page .top-guide-card-b::after,
+    .top-guide-page .top-guide-card-e::after {
+      background: #d5e5a1;
+    }
+
+    .top-guide-page .top-guide-card-c::after {
+      background: #e8ed91;
+    }
+
+    /* 丸いA〜E */
     .top-guide-page .top-guide-label {
-      flex: 0 0 42px;
-      width: 42px;
-      height: 42px;
+      flex: 0 0 48px;
+      width: 48px;
+      height: 48px;
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: #edf2fb;
-      color: var(--top-blue);
+      background: var(--top-blue);
+      color: #fff;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 1.05rem;
+      box-shadow: 0 3px 8px rgba(27, 78, 168, .18);
+      position: relative;
+      z-index: 1;
     }
 
     .top-guide-page .top-guide-card-b .top-guide-label,
     .top-guide-page .top-guide-card-e .top-guide-label {
-      background: #f0f5df;
-      color: var(--top-green);
+      background: var(--top-green);
+      box-shadow: 0 3px 8px rgba(127, 159, 18, .18);
     }
 
     .top-guide-page .top-guide-card-c .top-guide-label {
-      background: #f7f9d9;
-      color: #718600;
+      background: #a8b900;
+      box-shadow: 0 3px 8px rgba(168, 185, 0, .18);
     }
 
     .top-guide-page .top-guide-body {
       min-width: 0;
       flex: 1;
+      position: relative;
+      z-index: 1;
     }
 
     .top-guide-page .top-guide-body h2 {
-      color: #222;
-      font-size: 1.05rem;
-      margin: 0 0 2px;
+      color: #202020;
+      font-size: 1.08rem;
+      font-weight: 800;
+      margin: 0 0 3px;
       line-height: 1.4;
     }
 
     .top-guide-page .top-guide-body p {
-      color: #777;
-      font-size: .78rem;
+      color: #707070;
+      font-size: .76rem;
       margin: 0;
     }
 
     .top-guide-page .top-guide-arrow {
       color: var(--top-blue);
-      font-size: 1.8rem;
+      font-size: 2rem;
       line-height: 1;
       font-weight: 300;
+      position: relative;
+      z-index: 1;
+      margin-right: 2px;
     }
 
     .top-guide-page .top-guide-card-b .top-guide-arrow,
@@ -153,13 +221,13 @@
       color: var(--top-green);
     }
 
-    /* ボーナス・タイトル診断 */
+    /* 診断 */
     .top-guide-page .top-diagnosis {
       margin-top: 22px;
       padding: 18px 20px;
-      background: #f4f7fc;
-      border: 1px solid #cbd8ed;
-      border-radius: 8px;
+      background: linear-gradient(135deg, #fffef0, #f4f8e4);
+      border: 2px solid #e2e9a9;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -168,9 +236,9 @@
 
     .top-guide-page .top-diagnosis-label {
       color: var(--top-green);
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .08em;
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .1em;
     }
 
     .top-guide-page .top-diagnosis h2 {
@@ -181,7 +249,7 @@
 
     .top-guide-page .top-diagnosis p {
       color: #666;
-      font-size: .76rem;
+      font-size: .75rem;
       margin: 0;
     }
 
@@ -191,9 +259,10 @@
       color: #fff;
       text-decoration: none;
       padding: 9px 15px;
-      border-radius: 6px;
-      font-size: .8rem;
+      border-radius: 999px;
+      font-size: .78rem;
       font-weight: bold;
+      box-shadow: 0 3px 8px rgba(27, 78, 168, .16);
     }
 
     @media (max-width: 600px) {
@@ -202,47 +271,53 @@
       }
 
       .top-guide-page .top-hero {
-        padding: 23px 15px 20px;
-        margin-bottom: 16px;
+        padding: 25px 15px 23px;
+        margin-bottom: 18px;
+        border-radius: 20px;
       }
 
       .top-guide-page .top-hero-title {
-        font-size: 1.35rem;
+        font-size: 1.4rem;
+      }
+
+      .top-guide-page .top-guide-menu {
+        gap: 11px;
       }
 
       .top-guide-page .top-guide-card {
-        min-height: 82px;
-        padding: 14px 14px 14px 13px;
-        gap: 11px;
-        border-left-width: 5px;
+        min-height: 84px;
+        padding: 14px 13px;
+        gap: 12px;
+        border-radius: 15px;
       }
 
       .top-guide-page .top-guide-label {
-        flex-basis: 36px;
-        width: 36px;
-        height: 36px;
-        font-size: .9rem;
-      }
-
-      .top-guide-page .top-guide-body h2 {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
         font-size: .92rem;
       }
 
+      .top-guide-page .top-guide-body h2 {
+        font-size: .93rem;
+      }
+
       .top-guide-page .top-guide-body p {
-        font-size: .72rem;
+        font-size: .7rem;
       }
 
       .top-guide-page .top-guide-arrow {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
       }
 
       .top-guide-page .top-diagnosis {
         padding: 15px;
+        border-radius: 15px;
       }
 
       .top-guide-page .top-diagnosis-button {
-        padding: 8px 11px;
-        font-size: .74rem;
+        padding: 8px 12px;
+        font-size: .72rem;
       }
     }
   </style>
