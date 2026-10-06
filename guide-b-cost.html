@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>毎月の商品購入 - メンバーズWebガイド</title>
+
+  <link rel="stylesheet" href="common.css">
+
+  <style>
+    .cost-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cost-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      padding: 17px 16px;
+    }
+
+    .cost-card-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .cost-card-main {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .cost-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    .cost-unit {
+      font-size: 0.78rem;
+      color: #687386;
+    }
+
+    .cost-note {
+      margin-top: 5px;
+      font-size: 0.74rem;
+      color: #7b8798;
+      line-height: 1.55;
+    }
+
+    .cost-total {
+      border-color: rgba(27, 78, 168, 0.25);
+      background: #f8faff;
+    }
+
+    .cost-total .cost-card-title {
+      color: var(--primary);
+    }
+
+    .cost-total .cost-price {
+      font-size: 1.45rem;
+    }
+
+    .shipping-box {
+      margin-top: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .cost-card {
+        padding: 15px 14px;
+      }
+
+      .cost-price {
+        font-size: 1.18rem;
+      }
+
+      .cost-total .cost-price {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <a href="./guide-b.html" class="back-link">← 定期購入についてへ戻る</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new"
+         target="_blank"
+         class="btn-login">🔐 E-Service ログイン</a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <div class="container">
+
+    <!-- ページタイトル -->
+    <div class="page-header">
+      <div class="page-category">GUIDE B / 01</div>
+      <h1 class="page-title">毎月の商品購入</h1>
+    </div>
+
+    <!-- 商品購入 -->
+    <div class="section-card">
+      <div class="section-card-title">OX-288の毎月の購入費用</div>
+
+      <p class="section-desc">
+        OX-288を定期購入する場合の費用は以下の通りです。
+      </p>
+
+      <div class="cost-list">
+
+        <!-- 商品代金 -->
+        <div class="cost-card">
+          <div class="cost-card-title">商品代金（1個）</div>
+          <div class="cost-card-main">
+            <span class="cost-price">￥13,800</span>
+          </div>
+          <div class="cost-note">
+            サンテアージュ OX-288 会員価格 / 税込
+          </div>
+        </div>
+
+        <!-- 配送手数料 -->
+        <div class="cost-card">
+          <div class="cost-card-title">配送手数料</div>
+          <div class="cost-card-main">
+            <span class="cost-price">￥1,000</span>
+          </div>
+          <div class="cost-note">
+            税込
+          </div>
+        </div>
+
+        <!-- 毎月の合計 -->
+        <div class="cost-card cost-total">
+          <div class="cost-card-title">毎月の合計</div>
+          <div class="cost-card-main">
+            <span class="cost-price">￥14,800</span>
+          </div>
+          <div class="cost-note">
+            クレジットカード・口座振替の場合
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 同梱サービス -->
+      <div class="info-box shipping-box">
+        <div class="info-box-title">💡 まとめ配送でお得に（同梱サービス）</div>
+        定期購入と追加商品を同梱し、1回の注文代金が
+        <b>￥30,000（税込）以上</b>になると
+        <b>配送手数料（￥1,000）が無料</b>になります。
+      </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
