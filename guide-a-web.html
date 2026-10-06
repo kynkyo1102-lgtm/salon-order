@@ -9,17 +9,98 @@
   <link rel="stylesheet" href="common.css">
 
   <style>
-    .step-sub-list {
-      margin: 8px 0 0 20px;
-      padding-left: 15px;
+    /* =========================================================
+       WEB登録ページ
+       ========================================================= */
+
+    .flow-toc {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
 
-    .step-sub-list li {
-      margin-bottom: 4px;
+    .flow-toc a {
+      display: flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #344054;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .flow-toc a:hover {
+      background: var(--sub-bg);
+      color: var(--primary);
+    }
+
+    .flow-toc-num {
+      width: 27px;
+      height: 27px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .flow-toc-arrow {
+      margin-left: auto;
+      color: #a3adba;
+      font-size: 1.05rem;
+    }
+
+    .step-list-text {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.86rem;
+      color: #3f4b5b;
+      line-height: 1.7;
+    }
+
+    .step-list-text li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    .step-list-text li:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-list-text li::before {
+      content: "・";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 800;
     }
 
     .text-danger {
       color: #b33a3a;
+      font-weight: 800;
+    }
+
+    .cooling-off {
+      margin-top: 13px;
+      padding: 11px 13px;
+      border-radius: 8px;
+      background: #fff8f8;
+      border: 1px solid #f1caca;
+      color: #b33a3a;
+      font-size: 0.83rem;
+      line-height: 1.65;
       font-weight: 700;
     }
 
@@ -37,6 +118,33 @@
 
     .btn-official-link:hover {
       background: var(--primary-dark);
+    }
+
+    .section-card[id] {
+      scroll-margin-top: 80px;
+    }
+
+    @media (max-width: 700px) {
+      .flow-toc a {
+        min-height: 40px;
+        padding: 7px 8px;
+        font-size: 0.79rem;
+      }
+
+      .flow-toc-num {
+        width: 25px;
+        height: 25px;
+        margin-right: 9px;
+        font-size: 0.69rem;
+      }
+
+      .step-list-text {
+        font-size: 0.82rem;
+      }
+
+      .cooling-off {
+        font-size: 0.79rem;
+      }
     }
   </style>
 </head>
@@ -68,8 +176,86 @@
     </div>
 
 
+    <!-- 目次 -->
+    <div class="toc-card">
+
+      <div class="toc-title">
+        登録の流れ
+      </div>
+
+      <ol class="flow-toc">
+
+        <li>
+          <a href="#step1">
+            <span class="flow-toc-num">1</span>
+            <span>必要事項・添付物の事前準備</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step2">
+            <span class="flow-toc-num">2</span>
+            <span>WEB登録受付ページへアクセス</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step3">
+            <span class="flow-toc-num">3</span>
+            <span>オンライン登録を選択</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step4">
+            <span class="flow-toc-num">4</span>
+            <span>メールアドレスを送信</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step5">
+            <span class="flow-toc-num">5</span>
+            <span>登録画面へ入力</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step6">
+            <span class="flow-toc-num">6</span>
+            <span>受付完了・必要書類提出</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step7">
+            <span class="flow-toc-num">7</span>
+            <span>本社での審査・登録処理</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#step8">
+            <span class="flow-toc-num">8</span>
+            <span>商品・契約書面の到着・活動開始</span>
+            <span class="flow-toc-arrow">›</span>
+          </a>
+        </li>
+
+      </ol>
+
+    </div>
+
+
     <!-- STEP 1 -->
-    <div class="section-card">
+    <div class="section-card" id="step1">
 
       <h2 class="section-card-title">
         1. 必要事項・添付物の事前準備
@@ -79,7 +265,7 @@
         登録を始める前に、以下のものを準備してください。
       </p>
 
-      <ul class="step-sub-list">
+      <ul class="step-list-text">
         <li>概要書面（紹介者から事前に受け取ってください）</li>
         <li>決済用クレジットカード</li>
         <li>銀行またはゆうちょ銀行口座情報</li>
@@ -103,7 +289,7 @@
 
 
     <!-- STEP 2 -->
-    <div class="section-card">
+    <div class="section-card" id="step2">
 
       <h2 class="section-card-title">
         2. WEB登録受付ページへアクセス
@@ -125,7 +311,7 @@
 
 
     <!-- STEP 3 -->
-    <div class="section-card">
+    <div class="section-card" id="step3">
 
       <h2 class="section-card-title">
         3. 「オンラインで会員登録される方はこちら」を選択
@@ -140,7 +326,7 @@
 
 
     <!-- STEP 4 -->
-    <div class="section-card">
+    <div class="section-card" id="step4">
 
       <h2 class="section-card-title">
         4. メールアドレスの送信
@@ -154,7 +340,7 @@
 
 
     <!-- STEP 5 -->
-    <div class="section-card">
+    <div class="section-card" id="step5">
 
       <h2 class="section-card-title">
         5. 受信メールのURLから登録画面へ入力
@@ -165,7 +351,7 @@
         必要事項を入力してください。
       </p>
 
-      <ul class="step-sub-list">
+      <ul class="step-list-text">
         <li>規約同意</li>
         <li>概要書面番号・会員番号</li>
         <li>紹介者・上位者</li>
@@ -186,7 +372,7 @@
 
 
     <!-- STEP 6 -->
-    <div class="section-card">
+    <div class="section-card" id="step6">
 
       <h2 class="section-card-title">
         6. 受付完了（必要書類提出）
@@ -197,7 +383,7 @@
         写真データを提出してください。
       </p>
 
-      <ul class="step-sub-list">
+      <ul class="step-list-text">
         <li>25歳未満：本人確認書類写真データ</li>
         <li>外国籍：在留カードまたは特別永住者証明書写真データ</li>
       </ul>
@@ -206,7 +392,7 @@
 
 
     <!-- STEP 7 -->
-    <div class="section-card">
+    <div class="section-card" id="step7">
 
       <h2 class="section-card-title">
         7. 本社での審査・登録処理
@@ -229,7 +415,7 @@
 
 
     <!-- STEP 8 -->
-    <div class="section-card">
+    <div class="section-card" id="step8">
 
       <h2 class="section-card-title">
         8. 商品・契約書面の到着・活動開始
@@ -239,12 +425,15 @@
         登録処理後、商品・契約書面が到着します。
       </p>
 
-      <ul class="step-sub-list">
+      <ul class="step-list-text">
         <li>商品・契約書面は1週間以内を目安に到着</li>
         <li>会員証は別途到着</li>
         <li>会員証到着後、活動を開始できます</li>
-        <li>クーリングオフ期間は商品受領から20日間</li>
       </ul>
+
+      <div class="cooling-off">
+        クーリングオフ期間は商品受領から20日間です。
+      </div>
 
     </div>
 
