@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>お支払い方法 - メンバーズWebガイド</title>
+
+  <link rel="stylesheet" href="common.css">
+
+  <style>
+    .payment-card {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .payment-card-header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 15px 16px;
+      background: var(--sub-bg);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .payment-card-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .payment-card-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.45;
+    }
+
+    .payment-card-body {
+      padding: 15px 16px 16px;
+    }
+
+    .payment-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .payment-list li {
+      line-height: 1.6;
+    }
+
+    .payment-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 3px;
+    }
+
+    .payment-detail {
+      display: block;
+      font-size: 0.84rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .card-brands {
+      line-height: 1.8;
+    }
+
+    .payment-alert {
+      margin-top: 15px;
+    }
+
+    @media (max-width: 700px) {
+      .payment-card-header {
+        padding: 14px;
+      }
+
+      .payment-card-body {
+        padding: 14px;
+      }
+
+      .payment-card-title {
+        font-size: 0.88rem;
+      }
+
+      .payment-detail {
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+      <a href="./guide-b.html" class="back-link">← 定期購入についてへ戻る</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new"
+         target="_blank"
+         class="btn-login">🔐 E-Service ログイン</a>
+    </div>
+  </header>
+
+  <!-- メインコンテナ -->
+  <div class="container">
+
+    <!-- ページタイトル -->
+    <div class="page-header">
+      <div class="page-category">GUIDE B / 03</div>
+      <h1 class="page-title">お支払い方法</h1>
+    </div>
+
+    <div class="section-card">
+
+      <div class="section-card-title">お支払い方法を確認</div>
+
+      <p class="section-desc">
+        定期購入のお支払い方法は、口座振替とクレジットカードから確認できます。
+      </p>
+
+      <!-- 口座振替 -->
+      <div class="payment-card">
+
+        <div class="payment-card-header">
+          <span class="payment-card-num">1</span>
+          <span class="payment-card-title">口座振替（引き落とし）の流れ</span>
+        </div>
+
+        <div class="payment-card-body">
+
+          <ul class="payment-list">
+
+            <li>
+              <span class="payment-label">・引き落とし日</span>
+              <span class="payment-detail">
+                毎月 <b>27日</b>（27日に引き落とされた代金が<b>翌月発送分</b>となります）
+              </span>
+            </li>
+
+            <li>
+              <span class="payment-label">・振替開始までの間</span>
+              <span class="payment-detail">
+                手続きが完了するまでは<b>代金引換（代引き）</b>での発送となります
+              </span>
+            </li>
+
+            <li>
+              <span class="payment-label">・代引き手数料</span>
+              <span class="payment-detail">
+                <b>￥350</b>（税込）が会員負担となります（1点合計 <b>￥15,150</b>）
+              </span>
+            </li>
+
+          </ul>
+
+          <details class="alert-box payment-alert">
+            <summary>⚠ 口座振替開始月の重なりに注意</summary>
+            <div class="alert-box-content">
+              口座振替が始まる月は、その月の「代金引換」と翌月分の「口座振替（27日）」のお支払いが重なる場合があります。引き落とし口座の残高にご注意ください。
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- クレジットカード -->
+      <div class="payment-card">
+
+        <div class="payment-card-header">
+          <span class="payment-card-num">2</span>
+          <span class="payment-card-title">クレジットカード決済の流れ</span>
+        </div>
+
+        <div class="payment-card-body">
+
+          <ul class="payment-list">
+
+            <li>
+              <span class="payment-label">・決済日</span>
+              <span class="payment-detail">
+                毎月 <b>1日</b> に当月分のカード決済処理が行われます
+              </span>
+            </li>
+
+            <li>
+              <span class="payment-label">・利用可能なカード</span>
+              <span class="payment-detail card-brands">
+                VISA、Mastercard、JCB、AMERICAN EXPRESS、Diners Club
+              </span>
+            </li>
+
+            <li>
+              <span class="payment-label">・カード情報の変更</span>
+              <span class="payment-detail">
+                E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です
+              </span>
+            </li>
+
+          </ul>
+
+          <details class="alert-box payment-alert">
+            <summary>⚠️ 有効期限切れ・決済エラーにご注意</summary>
+            <div class="alert-box-content">
+              カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <div class="manual-ref">メンバーズマニュアル1P参照</div>
+
+    </div>
+
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
