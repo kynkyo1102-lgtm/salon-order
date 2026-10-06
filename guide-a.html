@@ -3,149 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>A. 登録案内・手続き - メンバーズWebガイド</title>
+
+  <title>A. 新規登録の流れ - メンバーズWebガイド</title>
+
   <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
-  
-  <!-- 当ページ固有のスタイル -->
+
   <style>
-    /* 登録方法切り替え（タブ型ラジオボタンUI） */
-    .selector-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 18px;
+    /* =========================================================
+       Aページ：登録案内メニュー
+       ========================================================= */
+
+    .guide-menu {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
-    .selector-option {
-      flex: 1;
-      position: relative;
-    }
-
-    .selector-option input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .selector-label {
+    .guide-menu-card {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 12px 8px;
-      background: #f8fafc;
-      border: 2px solid #cbd5e1;
-      border-radius: 10px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.9rem;
-      color: #475569;
-      transition: all 0.2s ease;
-      min-height: 60px;
-    }
-
-    .selector-option input[type="radio"]:checked + .selector-label {
-      background: #ebf8ff;
-      border-color: var(--primary);
-      color: var(--primary-dark);
-      box-shadow: 0 2px 6px rgba(27,78,168,0.15);
-    }
-
-    .selector-label span {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: normal;
-      color: #64748b;
-      margin-top: 3px;
-    }
-
-    /* 手順パネル表示切り替え */
-    .flow-panel {
-      display: none;
-    }
-
-    .flow-panel.active {
-      display: block;
-    }
-
-    /* 常時開いているステップ用スタイル（ステップ②） */
-    .step-item-static {
-      border: 2px solid #4a90e2;
-      border-radius: 10px;
-      overflow: hidden;
+      align-items: flex-start;
+      min-height: 220px;
+      padding: 26px 24px 23px;
       background: #ffffff;
-      box-shadow: 0 2px 6px rgba(74,144,226,0.12);
-    }
-
-    .step-header-static {
-      padding: 14px;
-      background: #edf2f7;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      user-select: none;
-    }
-
-    .step-sub-list {
-      margin-top: 8px;
-      margin-left: 20px;
-      font-size: 0.84rem;
-      color: #475569;
-    }
-
-    .step-sub-list li {
-      margin-bottom: 4px;
-    }
-
-    /* 強調テキスト・補助エリア */
-    .text-danger {
-      color: #dc2626;
-      font-weight: bold;
-    }
-
-    .btn-official-link {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background-color: var(--primary);
-      color: #ffffff;
-      padding: 13px 16px;
-      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
       text-decoration: none;
-      font-weight: bold;
-      font-size: 0.92rem;
-      margin-top: 10px;
-      box-shadow: 0 2px 6px rgba(27,78,168,0.2);
-      transition: background 0.2s;
+      color: inherit;
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
     }
 
-    .btn-official-link:active {
-      background-color: var(--primary-dark);
+    .guide-menu-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(27, 78, 168, 0.28);
+      box-shadow: 0 6px 18px rgba(18, 55, 120, 0.10);
     }
 
-    .bank-box {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-top: 10px;
-      font-size: 0.82rem;
-      color: #334155;
-      line-height: 1.6;
+    .guide-menu-icon {
+      width: 58px;
+      height: 58px;
+      margin-bottom: 20px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .guide-menu-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .guide-menu-title {
+      color: var(--primary-dark);
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .guide-menu-desc {
+      color: #687386;
+      font-size: 0.84rem;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .guide-menu-arrow {
+      align-self: flex-end;
+      margin-top: 16px;
+      color: var(--primary);
+      font-size: 1.25rem;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    /* スマートフォン */
+    @media (max-width: 700px) {
+      .guide-menu {
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+
+      .guide-menu-card {
+        min-height: 0;
+        padding: 21px 19px 19px;
+      }
+
+      .guide-menu-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+      }
+
+      .guide-menu-title {
+        font-size: 1.02rem;
+      }
+
+      .guide-menu-desc {
+        font-size: 0.81rem;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <a href="./ninaguide.html" class="back-link">← トップガイドへ戻る</a>
-      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">🔐 E-Serviceログイン</a>
+      <a href="./ninaguide.html" class="back-link">
+        ← トップガイドへ戻る
+      </a>
+
+      <a
+        href="https://sslgw.jns-asp.jp/685/pc.html?new"
+        target="_blank"
+        class="btn-login"
+      >
+        🔐 E-Serviceログイン
+      </a>
     </div>
   </header>
+
 
   <!-- メインコンテンツ -->
   <div class="container">
@@ -153,349 +137,167 @@
     <!-- ページタイトル -->
     <div class="page-header">
       <div class="page-category">GUIDE A</div>
-      <h1 class="page-title">🤝 登録案内・手続き手順</h1>
+      <h1 class="page-title">新規登録の流れ</h1>
     </div>
 
-    <!-- 1. WEB登録と郵送登録の違い -->
-    <div class="section-card">
-      <div class="section-card-title">⚖️ 登録方法の比較（WEB or 郵送）</div>
-      <p class="section-desc">
-        状況に合わせて最適な案内方法をお選びください。どちらの手続きも<b>会員登録料は無料</b>です。
-      </p>
 
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:28%;">項目</th>
-              <th style="width:36%;">💻 WEB（推奨）</th>
-              <th style="width:36%;">📮 郵送（書面）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>会員登録料</th>
-              <td><b>無料</b></td>
-              <td><b>無料</b></td>
-            </tr>
-            <tr>
-              <th>初回決済</th>
-              <td>カード決済</td>
-              <td><b>事前振込</b><span class="table-subtext">（明細コピー添付）</span></td>
-            </tr>
-            <tr>
-              <th>完了目安</th>
-              <td><b>審査後、順次処理</b><span class="table-subtext">（スピーディー）</span></td>
-              <td><b>郵送後、順次処理</b><span class="table-subtext">（日数がかかります）</span></td>
-            </tr>
-            <tr>
-              <th>審査について</th>
-              <td colspan="2" style="text-align:center; background:#fff;"><b>どちらの方法もニナファームジャポン本社にて審査・登録処理が行われます</b></td>
-            </tr>
-            <tr>
-              <th>こんな方に</th>
-              <td>クレジットカードをお持ちで、スマホから早く手続きしたい方</td>
-              <td>口座振替希望の方・法人登録の方・確認したい方</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <!-- 登録案内メニュー -->
+    <div class="guide-menu">
 
-    <!-- 2. 登録方法の選択 -->
-    <div class="section-card">
-      <div class="section-card-title">📋 登録手順の案内（方法を選択）</div>
-      <p class="section-desc">
-        登録方法を選択し、各ステップをタップして手順をご確認ください。
-      </p>
+      <!-- 1. 登録方法を比較 -->
+      <a href="./guide-a-compare.html" class="guide-menu-card">
 
-      <!-- ラジオボタン選択肢 -->
-      <div class="selector-group">
-        <div class="selector-option">
-          <input type="radio" id="opt-web" name="reg-type" value="web" checked onchange="switchFlow()">
-          <label for="opt-web" class="selector-label">
-            💻 WEB登録の流れ
-            <span>スマホ・PCで完結</span>
-          </label>
+        <div class="guide-menu-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect x="7" y="13" width="22" height="38" rx="3"
+                  stroke="currentColor" stroke-width="3"/>
+            <rect x="35" y="13" width="22" height="38" rx="3"
+                  stroke="currentColor" stroke-width="3"/>
+            <path d="M13 23H23M13 30H23M13 37H20"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"/>
+            <path d="M41 23H51M41 30H51M41 37H48"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"/>
+          </svg>
         </div>
-        <div class="selector-option">
-          <input type="radio" id="opt-paper" name="reg-type" value="paper" onchange="switchFlow()">
-          <label for="opt-paper" class="selector-label">
-            📮 郵送登録の流れ
-            <span>紙の概要書面を使用</span>
-          </label>
+
+        <div class="guide-menu-title">
+          登録方法を比較
         </div>
-      </div>
 
-      <!-- パネル1: WEB登録の流れ -->
-      <div id="panel-web" class="flow-panel active">
-        <div class="step-list">
-
-          <!-- ステップ1 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">1</span>
-              <span class="step-title-text">必要事項・添付物の事前準備</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              手続き前に以下の準備をしていただきます。
-              <ul class="step-sub-list">
-                <li>概要書面（紹介者から事前受け取り）</li>
-                <li>決済用のクレジットカード</li>
-                <li>銀行またはゆうちょ銀行の口座情報</li>
-                <li>25歳未満の方：本人確認書類の写真データ</li>
-                <li>外国籍の方：在留カードまたは特別永住者証明書の写真データ</li>
-              </ul>
-              <div class="info-box">
-                ※受信設定：<code>signup@santeage.com</code> からのメールが届くよう受信許可設定を行ってください。<br>
-                ※法人登録はWEB不可です。郵送での登録を行ってください。
-              </div>
-            </div>
-          </details>
-
-          <!-- ステップ2（常時オープン＆指定URLリンク） -->
-          <div class="step-item-static">
-            <div class="step-header-static">
-              <span class="step-num">2</span>
-              <span class="step-title-text">WEB登録受付ページへアクセス</span>
-            </div>
-            <div class="step-body">
-              以下の公式受付ページへアクセスします。
-              <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-official-link">🔗 ニナファームジャポン WEB登録受付ページ</a>
-            </div>
-          </div>
-
-          <!-- ステップ3 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">3</span>
-              <span class="step-title-text">「オンラインで会員登録される方はこちら」を選択</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              画面上の「オンラインで会員登録される方はこちら」をクリックします。
-            </div>
-          </details>
-
-          <!-- ステップ4 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">4</span>
-              <span class="step-title-text">メールアドレスの送信</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              ご自身のメールアドレスを入力し、「送信する」をクリックします。
-            </div>
-          </details>
-
-          <!-- ステップ5 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">5</span>
-              <span class="step-title-text">受信メールのURLから登録画面へ入力</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              返信メール内のURLへアクセスし、画面の指示に従い各項目を入力します。
-              <ol class="step-sub-list" style="list-style-type: decimal;">
-                <li>規約等の同意</li>
-                <li>概要書面番号・会員番号入力</li>
-                <li>紹介者・上位者入力</li>
-                <li>氏名など個人情報の入力</li>
-                <li>初回登録ポジションの選択</li>
-                <li>追加商品選択（希望の場合）</li>
-                <li>定期購入の確認</li>
-                <li>クレジットカード決済処理</li>
-              </ol>
-              <div class="info-box">
-                <div class="info-box-title">⚠️ 入力時の必須確認事項</div>
-                <b>紹介者氏名とその会員番号</b>、および<b>上位者（指定する場合）氏名とその会員番号</b>を間違いなく確認・入力してください。
-              </div>
-            </div>
-          </details>
-
-          <!-- ステップ6 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">6</span>
-              <span class="step-title-text">受付完了（必要書類の提出）</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              受付完了メールが届きます。<br>
-              ※25歳未満または外国籍の方は、必要書類（写真データ）を添付して送信します。
-            </div>
-          </details>
-
-          <!-- ステップ7 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">7</span>
-              <span class="step-title-text">本社での審査・登録処理</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              ニナファームジャポンにて申請内容を審査のうえ、登録処理を行います。（※審査の結果、登録がお断りされる場合があります）
-            </div>
-          </details>
-
-          <!-- ステップ8 -->
-          <details class="step-item">
-            <summary>
-              <span class="step-num">8</span>
-              <span class="step-title-text">商品・契約書面の到着・活動開始</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              登録処理完了後、1週間以内にご住所へ商品および契約書面が届きます。別送にて会員証が届き次第、提示してビジネス活動が可能です。<br>
-              <span class="text-danger">※商品受領日より20日間のクーリング・オフ期間が適用されます。</span>
-            </div>
-          </details>
-
+        <div class="guide-menu-desc">
+          WEB登録と郵送登録の違いを確認できます。
         </div>
-      </div>
 
-      <!-- パネル2: 郵送登録の流れ -->
-      <div id="panel-paper" class="flow-panel">
-        <div class="step-list">
+        <div class="guide-menu-arrow">→</div>
 
-          <details class="step-item">
-            <summary>
-              <span class="step-num">1</span>
-              <span class="step-title-text">概要書面の受け取り・説明確認</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              紹介者より「会員登録申請書」添付の概要書面を受け取り、内容の説明を受けます。必ずお客様控（5枚目・黄色）と概要書面を受け取り十分にご確認ください。
-            </div>
-          </details>
+      </a>
 
-          <details class="step-item">
-            <summary>
-              <span class="step-num">2</span>
-              <span class="step-title-text">申請書の記入・捺印</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              「ニナファームジャポン会員登録申請書 兼 初回商品注文書 兼 定期購入申込書」に必要事項を記入・捺印します。（記載漏れ・印鑑漏れにご注意ください）
-            </div>
-          </details>
 
-          <details class="step-item">
-            <summary>
-              <span class="step-num">3</span>
-              <span class="step-title-text">商品代金のお振込み（事前決済）</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              商品代金・配送手数料の合計金額（1点登録：17,800円 / 3点登録：51,400円）を以下の指定口座へ振り込みます。（※振込手数料はお客さま負担）
-              <div class="bank-box">
-                <b>【振込先情報】</b><br>
-                ・三井住友銀行 銀座支店 普通 7608513<br>
-                ・ゆうちょ銀行 00190-9-261488（電信のみ）<br>
-                口座名義：株式会社ニナファームジャポン
-              </div>
-            </div>
-          </details>
+      <!-- 2. WEB登録 -->
+      <a href="./guide-a-web.html" class="guide-menu-card">
 
-          <details class="step-item">
-            <summary>
-              <span class="step-num">4</span>
-              <span class="step-title-text">振込明細書のコピー添付と申請書の郵送</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              記入・捺印した申請書に<b>「振込明細書のコピー」を添付</b>し、ニナファームジャポン宛に郵送します。
-              <div class="info-box">
-                ※法人登録：登記事項証明書（コピー可）＋本人確認書類<br>
-                ※25歳未満：本人確認書類（コピー可）<br>
-                ※外国籍：在留カードまたは特別永住者証明書（コピー可）を同封
-              </div>
-            </div>
-          </details>
-
-          <details class="step-item">
-            <summary>
-              <span class="step-num">5</span>
-              <span class="step-title-text">本社での審査・登録処理</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              ニナファームジャポンにて到着した書類・振込確認のうえ審査・登録処理を行います。（承認されなかった場合は返金されます）
-            </div>
-          </details>
-
-          <details class="step-item">
-            <summary>
-              <span class="step-num">6</span>
-              <span class="step-title-text">商品受領・会員証到着・活動開始</span>
-              <span class="step-toggle-icon">▼</span>
-            </summary>
-            <div class="step-body">
-              登録完了後、1週間以内にご住所へ商品・契約書面が届きます。別送で「会員証」が届きましたらビジネス活動が可能です。<br>
-              <span class="text-danger">※商品受領日より20日間のクーリング・オフ期間が適用されます。</span>
-            </div>
-          </details>
-
+        <div class="guide-menu-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="7" width="44" height="50" rx="5"
+                  stroke="currentColor" stroke-width="3"/>
+            <rect x="17" y="14" width="30" height="22" rx="2"
+                  stroke="currentColor" stroke-width="3"/>
+            <path d="M23 44H41"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"/>
+            <path d="M28 50H36"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"/>
+            <path d="M24 26L28 30L39 20"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+          </svg>
         </div>
-      </div>
 
-    </div>
+        <div class="guide-menu-title">
+          WEB登録の流れ
+        </div>
 
-    <!-- 3. 初回費用 -->
-    <div class="section-card">
-      <div class="section-card-title">💰 初回費用</div>
+        <div class="guide-menu-desc">
+          スマホ・PCから登録する場合の手順を確認できます。
+        </div>
 
-      <div class="table-container">
-        <table>
-          <tr>
-            <th style="width:34%;">会員登録料</th>
-            <td><b>0円（無料）</b></td>
-          </tr>
-          <tr>
-            <th>初回購入費用<span class="table-subtext">（1点登録）</span></th>
-            <td><b>商品代金 ￥16,800<br>＋ 配送手数料 ￥1,000</b><span class="table-subtext">（合計 ￥17,800 / OX-288 1個）</span></td>
-          </tr>
-          <tr>
-            <th>初回購入費用<span class="table-subtext">（3点登録）</span></th>
-            <td><b>商品代金 ￥50,400<br>＋ 配送手数料 ￥1,000</b><span class="table-subtext">（合計 ￥51,400 / OX-288 3個）</span></td>
-          </tr>
-          <tr>
-            <th>2ヶ月目以降<span class="table-subtext">（追加・定期）</span></th>
-            <td><b>￥13,800 / OX-288 1個あたり</b><span class="table-subtext">（会員価格・送料別）</span></td>
-          </tr>
-        </table>
-      </div>
+        <div class="guide-menu-arrow">→</div>
+
+      </a>
+
+
+      <!-- 3. 郵送登録 -->
+      <a href="./guide-a-paper.html" class="guide-menu-card">
+
+        <div class="guide-menu-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect x="7" y="15" width="50" height="34" rx="4"
+                  stroke="currentColor" stroke-width="3"/>
+            <path d="M9 19L32 37L55 19"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M9 46L25 32"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"/>
+            <path d="M55 46L39 32"
+                  stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="guide-menu-title">
+          郵送登録の流れ
+        </div>
+
+        <div class="guide-menu-desc">
+          書面を使って登録する場合の手順を確認できます。
+        </div>
+
+        <div class="guide-menu-arrow">→</div>
+
+      </a>
+
+
+      <!-- 4. 初回費用 -->
+      <a href="./guide-a-cost.html" class="guide-menu-card">
+
+        <div class="guide-menu-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="24"
+                    stroke="currentColor" stroke-width="3"/>
+            <path d="M37 22C35.5 20.5 33.5 19.5 31 19.5
+                     C27 19.5 24 22 24 25
+                     C24 28.5 27 30 32 31.5
+                     C37 33 40 34.5 40 38
+                     C40 41.5 36.5 44.5 32 44.5
+                     C28.5 44.5 25.5 43 23.5 40.5"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"/>
+            <path d="M32 16V48"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="guide-menu-title">
+          初回費用
+        </div>
+
+        <div class="guide-menu-desc">
+          登録料や初回購入費用、2ヶ月目以降の費用を確認できます。
+        </div>
+
+        <div class="guide-menu-arrow">→</div>
+
+      </a>
+
     </div>
 
   </div>
 
+
   <!-- フッター -->
   <footer>
-    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+    <p>
+      ※当サイトは会員有志による手続き案内ガイドであり、
+      公式の概要書面を正とします。
+    </p>
+
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
   </footer>
-
-  <!-- 動的切り替え用スクリプト -->
-  <script>
-    function switchFlow() {
-      const isWeb = document.getElementById('opt-web').checked;
-      const panelWeb = document.getElementById('panel-web');
-      const panelPaper = document.getElementById('panel-paper');
-
-      if (isWeb) {
-        panelWeb.classList.add('active');
-        panelPaper.classList.remove('active');
-      } else {
-        panelPaper.classList.add('active');
-        panelWeb.classList.remove('active');
-      }
-    }
-  </script>
 
 </body>
 </html>
