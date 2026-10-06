@@ -1,65 +1,117 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
   <title>6ヶ月連続購入特典 - メンバーズWebガイド</title>
 
   <link rel="stylesheet" href="common.css">
 
   <style>
-    .six-month-hero {
-      background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
-      border: 1px solid var(--border-color);
+    /* =========================================
+       6Months 専用
+       ========================================= */
+
+    .months-hero {
+      background: linear-gradient(135deg, #f1f6ff 0%, #fbfff0 100%);
+      border: 1px solid #e3eaf5;
       border-radius: 14px;
-      padding: 24px 20px;
+      padding: 22px 20px;
+      margin-bottom: 20px;
       text-align: center;
-      margin-bottom: 18px;
     }
 
-    .six-month-label {
-      font-size: 0.75rem;
+    .months-label {
+      display: inline-block;
+      color: var(--primary);
+      font-size: 0.74rem;
       font-weight: 800;
       letter-spacing: 0.12em;
-      color: var(--primary);
       margin-bottom: 5px;
     }
 
-    .six-month-title {
-      font-size: 1.55rem;
-      font-weight: 800;
+    .months-hero-title {
       color: var(--primary-dark);
-      line-height: 1.35;
+      font-size: 1.3rem;
+      font-weight: 800;
+      line-height: 1.45;
     }
 
-    .six-month-subtitle {
+    .months-hero-text {
       margin-top: 7px;
-      font-size: 0.84rem;
-      color: #687386;
-      line-height: 1.6;
+      color: #596579;
+      font-size: 0.82rem;
+      line-height: 1.65;
     }
 
-    .six-month-flow {
+    /* 6ヶ月の流れ */
+
+    .months-flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 7px;
+      margin-top: 18px;
+    }
+
+    .months-flow-item {
+      text-align: center;
+      background: #f8faff;
+      border: 1px solid #e3eaf5;
+      border-radius: 9px;
+      padding: 11px 4px 10px;
+    }
+
+    .months-flow-num {
+      display: block;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .months-flow-text {
+      display: block;
+      color: #344054;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .months-flow-item:last-child {
+      background: #f8fce9;
+      border-color: #dbe7a7;
+    }
+
+    .months-flow-item:last-child .months-flow-num,
+    .months-flow-item:last-child .months-flow-text {
+      color: #6d7e10;
+    }
+
+    /* 条件カード */
+
+    .condition-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 16px;
+      gap: 11px;
     }
 
-    .six-month-step {
+    .condition-card {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 11px;
-      padding: 14px 15px;
       background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 15px;
     }
 
-    .six-month-number {
-      width: 32px;
-      height: 32px;
+    .condition-num {
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: var(--primary);
       color: #ffffff;
@@ -67,106 +119,73 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 800;
     }
 
-    .six-month-step-text {
-      font-size: 0.85rem;
-      color: #334155;
-      line-height: 1.6;
-    }
-
-    .six-month-step-text b {
+    .condition-title {
+      font-size: 0.86rem;
+      font-weight: 800;
       color: var(--primary-dark);
-    }
-
-    .condition-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .condition-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 13px 14px;
-      background: #ffffff;
-    }
-
-    .condition-mark {
-      color: var(--primary);
-      font-weight: 800;
-      flex-shrink: 0;
-      line-height: 1.6;
+      margin-bottom: 3px;
+      line-height: 1.5;
     }
 
     .condition-text {
-      font-size: 0.84rem;
-      color: #334155;
-      line-height: 1.7;
+      font-size: 0.81rem;
+      color: #475569;
+      line-height: 1.65;
     }
 
-    .check-box {
-      margin-top: 15px;
-      background: #f8faff;
-      border: 1px solid rgba(27, 78, 168, 0.22);
-      border-radius: 10px;
-      padding: 15px 16px;
-    }
+    /* 注意 */
 
-    .check-box-title {
-      font-size: 0.86rem;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 5px;
-    }
-
-    .check-box-text {
-      font-size: 0.82rem;
-      color: #475467;
-      line-height: 1.7;
-    }
-
-    .reset-alert {
-      margin-top: 15px;
+    .months-alert {
+      margin-top: 16px;
     }
 
     @media (max-width: 700px) {
-      .six-month-hero {
-        padding: 21px 16px;
+
+      .months-hero {
+        padding: 20px 16px;
+        border-radius: 12px;
       }
 
-      .six-month-title {
-        font-size: 1.38rem;
+      .months-hero-title {
+        font-size: 1.16rem;
       }
 
-      .six-month-subtitle {
+      .months-hero-text {
         font-size: 0.8rem;
       }
 
-      .six-month-step {
+      .months-flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .months-flow-item {
+        padding: 10px 4px 9px;
+      }
+
+      .months-flow-text {
+        font-size: 0.69rem;
+      }
+
+      .condition-card {
         padding: 13px;
       }
 
-      .six-month-step-text {
-        font-size: 0.82rem;
-      }
-
-      .condition-item {
-        padding: 12px 13px;
+      .condition-title {
+        font-size: 0.83rem;
       }
 
       .condition-text {
-        font-size: 0.81rem;
+        font-size: 0.79rem;
       }
     }
   </style>
 </head>
+
 
 <body>
 
@@ -190,7 +209,7 @@
   </header>
 
 
-  <!-- メインコンテナ -->
+  <!-- メイン -->
   <div class="container">
 
     <!-- ページタイトル -->
@@ -200,25 +219,26 @@
     </div>
 
 
-    <!-- イントロ -->
-    <div class="six-month-hero">
+    <!-- 導入 -->
+    <div class="months-hero">
 
-      <div class="six-month-label">
+      <div class="months-label">
         6 MONTHS NINA
       </div>
 
-      <div class="six-month-title">
-        6ヶ月連続購入特典
+      <div class="months-hero-title">
+        6ヶ月続けると、プレゼントがもらえます
       </div>
 
-      <div class="six-month-subtitle">
-        6ヶ月連続して商品を購入された方には、特典があります。
-      </div>
+      <p class="months-hero-text">
+        定期購入でサンテアージュ OX-288を6か月連続して購入すると、
+        6Months NINAのプレゼント対象となります。
+      </p>
 
     </div>
 
 
-    <!-- 6ヶ月連続購入の流れ -->
+    <!-- 1. 6ヶ月の流れ -->
     <div class="section-card">
 
       <div class="section-card-title">
@@ -226,41 +246,40 @@
       </div>
 
       <p class="section-desc">
-        6ヶ月連続してサンテアージュ OX-288を購入することで、6ヶ月連続購入特典の対象となります。
+        6回連続して購入すると、6Months NINAのプレゼント対象になります。
       </p>
 
-      <div class="six-month-flow">
 
-        <div class="six-month-step">
-          <div class="six-month-number">1</div>
-          <div class="six-month-step-text">
-            <b>1ヶ月目</b><br>
-            OX-288の購入を開始します。
-          </div>
+      <div class="months-flow">
+
+        <div class="months-flow-item">
+          <span class="months-flow-num">1ヶ月目</span>
+          <span class="months-flow-text">購入</span>
         </div>
 
-        <div class="six-month-step">
-          <div class="six-month-number">2</div>
-          <div class="six-month-step-text">
-            <b>2ヶ月目〜5ヶ月目</b><br>
-            毎月継続してOX-288を購入します。
-          </div>
+        <div class="months-flow-item">
+          <span class="months-flow-num">2ヶ月目</span>
+          <span class="months-flow-text">購入</span>
         </div>
 
-        <div class="six-month-step">
-          <div class="six-month-number">3</div>
-          <div class="six-month-step-text">
-            <b>6ヶ月目</b><br>
-            6ヶ月連続購入の条件を満たします。
-          </div>
+        <div class="months-flow-item">
+          <span class="months-flow-num">3ヶ月目</span>
+          <span class="months-flow-text">購入</span>
         </div>
 
-        <div class="six-month-step">
-          <div class="six-month-number">4</div>
-          <div class="six-month-step-text">
-            <b>特典対象</b><br>
-            6ヶ月連続購入特典の対象となります。
-          </div>
+        <div class="months-flow-item">
+          <span class="months-flow-num">4ヶ月目</span>
+          <span class="months-flow-text">購入</span>
+        </div>
+
+        <div class="months-flow-item">
+          <span class="months-flow-num">5ヶ月目</span>
+          <span class="months-flow-text">購入</span>
+        </div>
+
+        <div class="months-flow-item">
+          <span class="months-flow-num">6ヶ月目</span>
+          <span class="months-flow-text">特典対象</span>
         </div>
 
       </div>
@@ -268,7 +287,7 @@
     </div>
 
 
-    <!-- 対象条件 -->
+    <!-- 2. 対象条件 -->
     <div class="section-card">
 
       <div class="section-card-title">
@@ -276,41 +295,79 @@
       </div>
 
       <p class="section-desc">
-        6ヶ月連続購入特典を受け取るためには、以下の条件を満たしている必要があります。
+        6Months NINAは、以下の条件を満たした方が対象です。
       </p>
+
 
       <div class="condition-list">
 
-        <div class="condition-item">
-          <div class="condition-mark">✓</div>
-          <div class="condition-text">
-            <b>サンテアージュ OX-288を6ヶ月連続して購入していること</b>
+        <div class="condition-card">
+
+          <div class="condition-num">1</div>
+
+          <div>
+            <div class="condition-title">
+              OX-288を定期購入している
+            </div>
+
+            <div class="condition-text">
+              サンテアージュ OX-288 カプセルタイプまたはゼリータイプの
+              定期購入が対象です。
+            </div>
           </div>
+
         </div>
 
-        <div class="condition-item">
-          <div class="condition-mark">✓</div>
-          <div class="condition-text">
-            初回購入分も連続購入の対象に含まれます。
+
+        <div class="condition-card">
+
+          <div class="condition-num">2</div>
+
+          <div>
+            <div class="condition-title">
+              6ヶ月連続して購入する
+            </div>
+
+            <div class="condition-text">
+              6か月連続で購入するとプレゼントの対象になります。
+              初回購入もカウントされます。
+            </div>
           </div>
+
         </div>
 
-        <div class="condition-item">
-          <div class="condition-mark">✓</div>
-          <div class="condition-text">
-            1ポジションごとに購入状況が判定されます。
+
+        <div class="condition-card">
+
+          <div class="condition-num">3</div>
+
+          <div>
+            <div class="condition-title">
+              ポジションごとにカウント
+            </div>
+
+            <div class="condition-text">
+              6ヶ月連続購入のカウントは、ポジションごとに行われます。
+            </div>
           </div>
+
         </div>
 
       </div>
 
-      <details class="alert-box reset-alert">
-        <summary>⚠️ 途中で購入できなかった場合</summary>
+
+      <!-- 注意 -->
+      <details class="alert-box months-alert">
+
+        <summary>
+          ⚠️ 連続購入のカウントがリセットされる場合
+        </summary>
 
         <div class="alert-box-content">
-          代金のお支払いができなかった場合や、商品が返送された場合などは、
-          6ヶ月連続購入のカウントがリセットされる場合があります。
-          継続購入の状況をご確認ください。
+          決済NG、振替不能、返品などにより商品を受け取れなかった場合は、
+          連続購入のカウントがリセットされ、リカウントとなります。
+          <br><br>
+          また、サロン等での定期購入は6Months NINAの対象外です。
         </div>
 
       </details>
@@ -318,7 +375,7 @@
     </div>
 
 
-    <!-- 確認方法 -->
+    <!-- 3. 確認ポイント -->
     <div class="section-card">
 
       <div class="section-card-title">
@@ -326,23 +383,32 @@
       </div>
 
       <p class="section-desc">
-        ご自身の購入状況や定期購入の状態は、E-Serviceから確認できます。
+        「自分が何ヶ月目なのかわからない」という場合は、
+        E-Serviceの購入履歴などを確認してください。
       </p>
 
-      <div class="check-box">
-
-        <div class="check-box-title">
-          E-Serviceで確認
-        </div>
-
-        <div class="check-box-text">
-          E-Serviceへログインし、定期購入の状況や購入履歴をご確認ください。
-        </div>
-
-      </div>
+      <a
+        href="https://sslgw.jns-asp.jp/685/pc.html?new"
+        target="_blank"
+        class="btn-official-link"
+        style="
+          display:block;
+          width:100%;
+          text-align:center;
+          background-color:var(--primary);
+          color:#ffffff;
+          padding:13px 16px;
+          border-radius:8px;
+          text-decoration:none;
+          font-weight:800;
+          font-size:0.88rem;
+        "
+      >
+        E-Serviceを確認する →
+      </a>
 
       <div class="manual-ref">
-        メンバーズマニュアル1P参照
+        メンバーズマニュアル参照
       </div>
 
     </div>
