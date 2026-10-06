@@ -15,8 +15,8 @@
 
     /* =========================================
        ninaguide.html 専用
-       LINE風・ポップ版
-
+       ポップ × ブランドカラー × 線画アイコン
+       
        ※ common.css は変更しない
        ========================================= */
 
@@ -26,18 +26,12 @@
       --top-green: #7f9f12;
       --top-lime: #d4e114;
 
-      --pink: #ffe8ee;
-      --blue-light: #eaf2ff;
-      --green-light: #f1f8d9;
-      --yellow-light: #fff8d9;
-      --purple-light: #f2edff;
-
       background: #ffffff;
     }
 
 
     /* =========================================
-       全体
+       メインコンテナ
        ========================================= */
 
     .top-guide-page .top-container {
@@ -85,9 +79,6 @@
         inset 0 0 0 1px rgba(27, 78, 168, .05);
     }
 
-
-    /* ヒーロー左下の飾り */
-
     .top-guide-page .top-hero::before {
       content: "•••";
 
@@ -104,9 +95,6 @@
       transform: rotate(-12deg);
     }
 
-
-    /* ヒーロー右下の飾り */
-
     .top-guide-page .top-hero::after {
       content: "✦";
 
@@ -121,16 +109,12 @@
       transform: rotate(12deg);
     }
 
-
     .top-guide-page .top-hero-subtitle,
     .top-guide-page .top-hero-title,
     .top-guide-page .top-hero-desc {
       position: relative;
       z-index: 1;
     }
-
-
-    /* 小見出し */
 
     .top-guide-page .top-hero-subtitle {
       display: inline-block;
@@ -152,9 +136,6 @@
         0 3px 10px rgba(40, 65, 100, .06);
     }
 
-
-    /* メインタイトル */
-
     .top-guide-page .top-hero-title {
       color: var(--top-blue-dark);
 
@@ -166,9 +147,6 @@
       letter-spacing: .03em;
       line-height: 1.35;
     }
-
-
-    /* 説明 */
 
     .top-guide-page .top-hero-desc {
       color: #657080;
@@ -182,8 +160,6 @@
 
     /* =========================================
        カードグリッド
-       CHECK + A〜E = 6枚
-       2列 × 3段
        ========================================= */
 
     .top-guide-page .top-guide-menu {
@@ -197,7 +173,7 @@
 
 
     /* =========================================
-       カード共通
+       カード本体
        ========================================= */
 
     .top-guide-page .top-guide-card {
@@ -218,10 +194,10 @@
       display: flex;
       flex-direction: column;
 
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
 
-      text-align: center;
+      text-align: left;
 
       overflow: hidden;
 
@@ -237,7 +213,7 @@
     }
 
 
-    /* カード右下の大きな丸 */
+    /* カードの装飾 */
 
     .top-guide-page .top-guide-card::before {
       content: "";
@@ -257,9 +233,6 @@
       z-index: -1;
     }
 
-
-    /* カード左上の小さな丸 */
-
     .top-guide-page .top-guide-card::after {
       content: "";
 
@@ -278,11 +251,8 @@
       z-index: -1;
     }
 
-
-    /* ホバー */
-
     .top-guide-page .top-guide-card:hover {
-      transform: translateY(-5px) rotate(-.5deg);
+      transform: translateY(-5px);
 
       box-shadow:
         0 10px 24px rgba(40, 65, 100, .14),
@@ -300,8 +270,8 @@
       background:
         linear-gradient(
           145deg,
-          #fff9d9 0%,
-          #f5f8d8 100%
+          #f0fad9 0%,
+          #e7f6c7 100%
         );
     }
 
@@ -332,13 +302,13 @@
       background:
         linear-gradient(
           145deg,
-          #f3f9df 0%,
-          #edf6d1 100%
+          #fff8d9 0%,
+          #fff1c5 100%
         );
     }
 
     .top-guide-page .top-guide-card-b::before {
-      background: rgba(127, 159, 18, .20);
+      background: rgba(230, 194, 52, .20);
     }
 
 
@@ -348,13 +318,13 @@
       background:
         linear-gradient(
           145deg,
-          #fff8d9 0%,
-          #fff4c7 100%
+          #f2edff 0%,
+          #ebe4ff 100%
         );
     }
 
     .top-guide-page .top-guide-card-c::before {
-      background: rgba(230, 194, 52, .20);
+      background: rgba(130, 105, 210, .17);
     }
 
 
@@ -364,13 +334,13 @@
       background:
         linear-gradient(
           145deg,
-          #f1ecff 0%,
-          #ece5ff 100%
+          #ffeef4 0%,
+          #ffe5ee 100%
         );
     }
 
     .top-guide-page .top-guide-card-d::before {
-      background: rgba(130, 105, 210, .16);
+      background: rgba(230, 112, 140, .17);
     }
 
 
@@ -380,64 +350,39 @@
       background:
         linear-gradient(
           145deg,
-          #ffeef2 0%,
-          #ffe5eb 100%
+          #eaf7f2 0%,
+          #e0f2eb 100%
         );
     }
 
     .top-guide-page .top-guide-card-e::before {
-      background: rgba(230, 112, 140, .17);
+      background: rgba(91, 168, 145, .18);
     }
 
 
     /* =========================================
-       CHECKラベル
-       ========================================= */
-
-    .top-guide-page .top-guide-card-check .top-guide-label {
-      background: var(--top-green);
-
-      width: 58px;
-      height: 30px;
-
-      border-radius: 999px;
-
-      color: #ffffff;
-
-      font-size: .68rem;
-      font-weight: 900;
-      letter-spacing: .08em;
-
-      box-shadow:
-        0 4px 10px rgba(127, 159, 18, .20);
-
-      margin-bottom: 13px;
-    }
-
-
-    /* =========================================
-       A〜E ラベル
+       ラベル
        ========================================= */
 
     .top-guide-page .top-guide-label {
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
 
       display: grid;
       place-items: center;
 
       border-radius: 50%;
 
-      background: var(--top-blue);
-      color: #ffffff;
+      background: rgba(255, 255, 255, .85);
+      color: var(--top-blue);
 
       font-weight: 900;
-      font-size: 1rem;
+      font-size: .85rem;
 
       margin-bottom: 13px;
 
       box-shadow:
-        0 4px 10px rgba(27, 78, 168, .18);
+        0 3px 8px rgba(40, 65, 100, .07);
 
       position: relative;
       z-index: 1;
@@ -446,43 +391,103 @@
     }
 
 
-    /* B */
+    /* CHECKだけ横長 */
+
+    .top-guide-page .top-guide-card-check .top-guide-label {
+      width: auto;
+      min-width: 57px;
+      height: 28px;
+
+      padding: 0 10px;
+
+      border-radius: 999px;
+
+      background: #ffffff;
+      color: var(--top-green);
+
+      font-size: .62rem;
+      letter-spacing: .08em;
+
+      margin-bottom: 13px;
+
+      box-shadow:
+        0 3px 8px rgba(127, 159, 18, .12);
+    }
+
+
+    /* 各カードのラベル色 */
 
     .top-guide-page .top-guide-card-b .top-guide-label {
-      background: var(--top-green);
-
-      box-shadow:
-        0 4px 10px rgba(127, 159, 18, .18);
+      color: #a98a00;
     }
-
-
-    /* C */
 
     .top-guide-page .top-guide-card-c .top-guide-label {
-      background: #b4bd00;
-
-      box-shadow:
-        0 4px 10px rgba(180, 189, 0, .18);
+      color: #7964c8;
     }
-
-
-    /* D */
 
     .top-guide-page .top-guide-card-d .top-guide-label {
-      background: #7964c8;
+      color: #d45f7d;
+    }
 
-      box-shadow:
-        0 4px 10px rgba(121, 100, 200, .18);
+    .top-guide-page .top-guide-card-e .top-guide-label {
+      color: #438b72;
     }
 
 
-    /* E */
+    /* =========================================
+       線画アイコン
+       ========================================= */
 
-    .top-guide-page .top-guide-card-e .top-guide-label {
-      background: #df718c;
+    .top-guide-page .top-guide-icon {
+      width: 32px;
+      height: 32px;
 
-      box-shadow:
-        0 4px 10px rgba(223, 113, 140, .18);
+      margin-bottom: 11px;
+
+      color: var(--top-blue);
+
+      position: relative;
+      z-index: 1;
+
+      flex-shrink: 0;
+    }
+
+    .top-guide-page .top-guide-icon svg {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      fill: none;
+
+      stroke: currentColor;
+      stroke-width: 1.8;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+
+    /* アイコン色 */
+
+    .top-guide-page .top-guide-card-check .top-guide-icon {
+      color: var(--top-green);
+    }
+
+    .top-guide-page .top-guide-card-b .top-guide-icon {
+      color: #a98a00;
+    }
+
+    .top-guide-page .top-guide-card-c .top-guide-icon {
+      color: #7964c8;
+    }
+
+    .top-guide-page .top-guide-card-d .top-guide-icon {
+      color: #d45f7d;
+    }
+
+    .top-guide-page .top-guide-card-e .top-guide-icon {
+      color: #438b72;
     }
 
 
@@ -495,12 +500,11 @@
       z-index: 1;
 
       min-width: 0;
-      max-width: 100%;
+      width: 100%;
     }
 
-
     .top-guide-page .top-guide-body h2 {
-      color: #202020;
+      color: var(--top-blue-dark);
 
       font-size: 1.05rem;
       font-weight: 900;
@@ -510,16 +514,15 @@
       margin: 0;
     }
 
-
     .top-guide-page .top-guide-body p {
-      color: #6d7580;
+      color: #657080;
 
-      font-size: .7rem;
+      font-size: .68rem;
       font-weight: 600;
 
       line-height: 1.5;
 
-      margin: 6px 0 0;
+      margin: 5px 0 0;
     }
 
 
@@ -533,8 +536,8 @@
       right: 12px;
       bottom: 11px;
 
-      width: 28px;
-      height: 28px;
+      width: 27px;
+      height: 27px;
 
       display: grid;
       place-items: center;
@@ -545,7 +548,7 @@
 
       color: var(--top-blue);
 
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 400;
 
       line-height: 1;
@@ -556,32 +559,24 @@
         0 2px 6px rgba(40, 65, 100, .06);
     }
 
-
-    /* CHECK */
-
     .top-guide-page .top-guide-card-check .top-guide-arrow {
       color: var(--top-green);
     }
 
-
-    /* B */
-
     .top-guide-page .top-guide-card-b .top-guide-arrow {
-      color: var(--top-green);
+      color: #a98a00;
     }
 
-
-    /* D */
-
-    .top-guide-page .top-guide-card-d .top-guide-arrow {
+    .top-guide-page .top-guide-card-c .top-guide-arrow {
       color: #7964c8;
     }
 
-
-    /* E */
+    .top-guide-page .top-guide-card-d .top-guide-arrow {
+      color: #d45f7d;
+    }
 
     .top-guide-page .top-guide-card-e .top-guide-arrow {
-      color: #df718c;
+      color: #438b72;
     }
 
 
@@ -595,88 +590,76 @@
         padding: 18px 12px 10px;
       }
 
-
-      /* ヒーロー */
-
       .top-guide-page .top-hero {
         padding: 30px 14px 27px;
-
         margin-bottom: 15px;
-
         border-radius: 25px;
       }
-
 
       .top-guide-page .top-hero-title {
         font-size: 1.5rem;
       }
-
 
       .top-guide-page .top-hero-subtitle {
         font-size: .64rem;
         padding: 4px 10px;
       }
 
-
       .top-guide-page .top-hero-desc {
         font-size: .74rem;
       }
-
-
-      /* カード */
 
       .top-guide-page .top-guide-menu {
         gap: 10px;
       }
 
-
       .top-guide-page .top-guide-card {
-        padding: 16px 9px 15px;
-
+        padding: 16px 10px 15px;
         border-radius: 20px;
       }
 
-
       .top-guide-page .top-guide-label {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
 
-        font-size: .88rem;
+        font-size: .78rem;
 
-        margin-bottom: 10px;
+        margin-bottom: 9px;
       }
-
 
       .top-guide-page .top-guide-card-check .top-guide-label {
-        width: 50px;
+        min-width: 49px;
+        height: 25px;
+
+        font-size: .55rem;
+
+        margin-bottom: 9px;
+      }
+
+      .top-guide-page .top-guide-icon {
+        width: 27px;
         height: 27px;
 
-        font-size: .6rem;
-
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
-
 
       .top-guide-page .top-guide-body h2 {
-        font-size: .82rem;
+        font-size: .79rem;
       }
-
 
       .top-guide-page .top-guide-body p {
-        font-size: .61rem;
-
-        margin-top: 4px;
+        font-size: .58rem;
+        margin-top: 3px;
       }
 
-
       .top-guide-page .top-guide-arrow {
-        width: 24px;
-        height: 24px;
+        width: 23px;
+        height: 23px;
 
         right: 8px;
         bottom: 8px;
 
-        font-size: 1.05rem;
+        font-size: 1rem;
       }
     }
 
@@ -748,7 +731,9 @@
     <section class="top-guide-menu">
 
 
-      <!-- CHECK -->
+      <!-- =====================================
+           CHECK
+           ===================================== -->
 
       <a
         href="./check.html"
@@ -759,14 +744,40 @@
           CHECK
         </span>
 
+
+        <!-- チェックアイコン -->
+
+        <span class="top-guide-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 32 32">
+
+            <circle
+              cx="16"
+              cy="16"
+              r="10.5"
+            ></circle>
+
+            <path
+              d="M12 16.2l2.7 2.8L21 12.5"
+            ></path>
+
+            <path
+              d="M23.5 8.5l1.8-1.8"
+            ></path>
+
+          </svg>
+
+        </span>
+
+
         <div class="top-guide-body">
 
           <h2>
-            ボーナス・タイトル診断
+            入会後チェック
           </h2>
 
           <p>
-            今の自分の状況をチェック
+            最初に確認したい6つの項目
           </p>
 
         </div>
@@ -778,7 +789,9 @@
       </a>
 
 
-      <!-- A -->
+      <!-- =====================================
+           A
+           ===================================== -->
 
       <a
         href="./guide-a.html"
@@ -789,14 +802,38 @@
           A
         </span>
 
+
+        <!-- 本・ガイドアイコン -->
+
+        <span class="top-guide-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 32 32">
+
+            <path
+              d="M16 8.5c-2-2-4.8-2.8-8-2.2v15.8c3.2-.6 6 .2 8 2.2"
+            ></path>
+
+            <path
+              d="M16 8.5c2-2 4.8-2.8 8-2.2v15.8c-3.2-.6-6 .2-8 2.2"
+            ></path>
+
+            <path
+              d="M16 8.5v15.8"
+            ></path>
+
+          </svg>
+
+        </span>
+
+
         <div class="top-guide-body">
 
           <h2>
-            新規登録する
+            はじめに
           </h2>
 
           <p>
-            新しくメンバーを登録したい
+            ガイドの目的と基本の確認事項
           </p>
 
         </div>
@@ -808,7 +845,9 @@
       </a>
 
 
-      <!-- B -->
+      <!-- =====================================
+           B
+           ===================================== -->
 
       <a
         href="./guide-b.html"
@@ -819,14 +858,48 @@
           B
         </span>
 
+
+        <!-- ロケットアイコン -->
+
+        <span class="top-guide-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 32 32">
+
+            <path
+              d="M20.8 5.5c-4.4.8-8.3 4.1-10.3 8.3l5.2 5.2c4.2-2 7.5-5.9 8.3-10.3.3-1.8-1.4-3.5-3.2-3.2z"
+            ></path>
+
+            <path
+              d="M10.5 14l-4.2.8-1.8 3.5 5.1-.8"
+            ></path>
+
+            <path
+              d="M18 21.5l-.8 5.1 3.5-1.8.8-4.2"
+            ></path>
+
+            <circle
+              cx="19.5"
+              cy="11.5"
+              r="1.7"
+            ></circle>
+
+            <path
+              d="M9 22.8c-1.7.2-3 1.5-3.2 3.2 1.7-.2 3-1.5 3.2-3.2z"
+            ></path>
+
+          </svg>
+
+        </span>
+
+
         <div class="top-guide-body">
 
           <h2>
-            定期購入したい・停止したい
+            スタートガイド
           </h2>
 
           <p>
-            毎月の購入や継続について
+            活動を始める前の準備を整理
           </p>
 
         </div>
@@ -838,7 +911,9 @@
       </a>
 
 
-      <!-- C -->
+      <!-- =====================================
+           C
+           ===================================== -->
 
       <a
         href="./guide-c.html"
@@ -849,14 +924,56 @@
           C
         </span>
 
+
+        <!-- IDカードアイコン -->
+
+        <span class="top-guide-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 32 32">
+
+            <rect
+              x="5"
+              y="7"
+              width="22"
+              height="18"
+              rx="2.5"
+            ></rect>
+
+            <circle
+              cx="11"
+              cy="13"
+              r="2"
+            ></circle>
+
+            <path
+              d="M8.5 19c.8-1.8 4.2-1.8 5 0"
+            ></path>
+
+            <path
+              d="M17 12h6"
+            ></path>
+
+            <path
+              d="M17 16h6"
+            ></path>
+
+            <path
+              d="M17 20h4"
+            ></path>
+
+          </svg>
+
+        </span>
+
+
         <div class="top-guide-body">
 
           <h2>
-            ボーナスプランを知りたい
+            会員制度の基本
           </h2>
 
           <p>
-            ボーナスやタイトルについて
+            登録・注文などの基本を確認
           </p>
 
         </div>
@@ -868,7 +985,9 @@
       </a>
 
 
-      <!-- D -->
+      <!-- =====================================
+           D
+           ===================================== -->
 
       <a
         href="./guide-d.html"
@@ -879,14 +998,38 @@
           D
         </span>
 
+
+        <!-- ハート・つながりアイコン -->
+
+        <span class="top-guide-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 32 32">
+
+            <path
+              d="M16 24.5s-9.5-5.8-9.5-11.5c0-3 2.2-5 5-5 2 0 3.6 1 4.5 2.7C16.9 9 18.5 8 20.5 8c2.8 0 5 2 5 5 0 5.7-9.5 11.5-9.5 11.5z"
+            ></path>
+
+            <path
+              d="M11 16.5l3-3 3 3 4-4"
+            ></path>
+
+            <path
+              d="M19 19l2.5 2.5"
+            ></path>
+
+          </svg>
+
+        </span>
+
+
         <div class="top-guide-body">
 
           <h2>
-            その他手続き
+            活動の基本ルール
           </h2>
 
           <p>
-            変更・休止・退会など
+            信頼につながる伝え方と配慮
           </p>
 
         </div>
@@ -898,7 +1041,9 @@
       </a>
 
 
-      <!-- E -->
+      <!-- =====================================
+           E
+           ===================================== -->
 
       <a
         href="./guide-e.html"
@@ -909,14 +1054,34 @@
           E
         </span>
 
+
+        <!-- 吹き出しアイコン -->
+
+        <span class="top-guide-icon" aria-hidden="true">
+
+          <svg viewBox="0 0 32 32">
+
+            <path
+              d="M6 8.5h14a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-7l-5 4v-4H6a3 3 0 0 1-3-3v-7a3 3 0 0 1 3-3z"
+            ></path>
+
+            <path
+              d="M19 15h7a3 3 0 0 1 3 3v5a3 3 0 0 1-3 3h-2.5"
+            ></path>
+
+          </svg>
+
+        </span>
+
+
         <div class="top-guide-body">
 
           <h2>
-            こんなときどうする？
+            サポート・FAQ
           </h2>
 
           <p>
-            困ったとき・わからないとき
+            迷ったときの相談先とよくある質問
           </p>
 
         </div>
@@ -982,4 +1147,3 @@
 
 </body>
 </html>
-```
