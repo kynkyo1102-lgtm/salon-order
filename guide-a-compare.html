@@ -9,22 +9,54 @@
   <link rel="stylesheet" href="common.css">
 
   <style>
-    .compare-table th:first-child {
-      width: 22%;
+    /* =========================================================
+       登録方法比較
+       ========================================================= */
+
+    .compare-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .compare-table th:nth-child(2),
-    .compare-table th:nth-child(3) {
-      width: 39%;
+    .compare-item {
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .compare-item-title {
+      padding: 11px 14px;
+      background: var(--sub-bg);
+      color: var(--primary-dark);
+      font-size: 0.82rem;
+      font-weight: 800;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .compare-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .compare-method {
+      padding: 13px 14px;
+      font-size: 0.82rem;
+      line-height: 1.65;
+    }
+
+    .compare-method + .compare-method {
+      border-left: 1px solid var(--border-color);
     }
 
     .method-label {
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       font-weight: 800;
-      padding: 4px 9px;
+      padding: 3px 8px;
       border-radius: 999px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .method-web {
@@ -37,18 +69,34 @@
       background: #f4f7e5;
     }
 
+    .compare-method-text {
+      color: #344054;
+    }
+
+    .compare-method-note {
+      display: block;
+      margin-top: 3px;
+      color: #7b8798;
+      font-size: 0.72rem;
+    }
+
     @media (max-width: 700px) {
-      .compare-table {
-        min-width: 620px;
+      .compare-item-title {
+        padding: 10px 12px;
+        font-size: 0.79rem;
       }
 
-      .compare-table th:first-child {
-        width: 110px;
+      .compare-method {
+        padding: 12px 11px;
+        font-size: 0.79rem;
       }
 
-      .compare-table th:nth-child(2),
-      .compare-table th:nth-child(3) {
-        width: 255px;
+      .method-label {
+        font-size: 0.65rem;
+      }
+
+      .compare-method-note {
+        font-size: 0.69rem;
       }
     }
   </style>
@@ -92,86 +140,157 @@
         それぞれの違いを確認して、自分に合った方法を選んでください。
       </p>
 
-      <div class="table-container">
-        <table class="compare-table">
 
-          <thead>
-            <tr>
-              <th>項目</th>
-              <th>
-                <span class="method-label method-web">WEB登録</span>
-              </th>
-              <th>
-                <span class="method-label method-paper">郵送登録</span>
-              </th>
-            </tr>
-          </thead>
+      <div class="compare-list">
 
-          <tbody>
+        <!-- 会員登録料 -->
+        <div class="compare-item">
 
-            <tr>
-              <th>会員登録料</th>
-              <td>無料</td>
-              <td>無料</td>
-            </tr>
+          <div class="compare-item-title">
+            会員登録料
+          </div>
 
-            <tr>
-              <th>初回決済</th>
-              <td>カード決済</td>
-              <td>
-                事前振込<br>
-                <span class="table-subtext">
-                  振込明細コピーを添付
-                </span>
-              </td>
-            </tr>
+          <div class="compare-methods">
 
-            <tr>
-              <th>完了目安</th>
-              <td>
+            <div class="compare-method">
+              <span class="method-label method-web">WEB登録</span>
+              <div class="compare-method-text">無料</div>
+            </div>
+
+            <div class="compare-method">
+              <span class="method-label method-paper">郵送登録</span>
+              <div class="compare-method-text">無料</div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- 初回決済 -->
+        <div class="compare-item">
+
+          <div class="compare-item-title">
+            初回決済
+          </div>
+
+          <div class="compare-methods">
+
+            <div class="compare-method">
+              <span class="method-label method-web">WEB登録</span>
+              <div class="compare-method-text">
+                カード決済
+              </div>
+            </div>
+
+            <div class="compare-method">
+              <span class="method-label method-paper">郵送登録</span>
+              <div class="compare-method-text">
+                事前振込
+              </div>
+              <span class="compare-method-note">
+                振込明細コピーを添付
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- 完了目安 -->
+        <div class="compare-item">
+
+          <div class="compare-item-title">
+            完了目安
+          </div>
+
+          <div class="compare-methods">
+
+            <div class="compare-method">
+              <span class="method-label method-web">WEB登録</span>
+              <div class="compare-method-text">
                 審査後順次処理
-                <span class="table-subtext">
-                  スピーディー
-                </span>
-              </td>
-              <td>
+              </div>
+              <span class="compare-method-note">
+                スピーディー
+              </span>
+            </div>
+
+            <div class="compare-method">
+              <span class="method-label method-paper">郵送登録</span>
+              <div class="compare-method-text">
                 郵送後順次処理
-                <span class="table-subtext">
-                  日数がかかります
-                </span>
-              </td>
-            </tr>
+              </div>
+              <span class="compare-method-note">
+                日数がかかります
+              </span>
+            </div>
 
-            <tr>
-              <th>審査について</th>
-              <td>本社による審査・登録処理</td>
-              <td>本社による審査・登録処理</td>
-            </tr>
+          </div>
 
-            <tr>
-              <th>こんな方に</th>
-              <td>
+        </div>
+
+
+        <!-- 審査 -->
+        <div class="compare-item">
+
+          <div class="compare-item-title">
+            審査について
+          </div>
+
+          <div class="compare-methods">
+
+            <div class="compare-method">
+              <span class="method-label method-web">WEB登録</span>
+              <div class="compare-method-text">
+                本社による審査・登録処理
+              </div>
+            </div>
+
+            <div class="compare-method">
+              <span class="method-label method-paper">郵送登録</span>
+              <div class="compare-method-text">
+                本社による審査・登録処理
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- こんな方に -->
+        <div class="compare-item">
+
+          <div class="compare-item-title">
+            こんな方に
+          </div>
+
+          <div class="compare-methods">
+
+            <div class="compare-method">
+              <span class="method-label method-web">WEB登録</span>
+              <div class="compare-method-text">
                 クレジットカードをお持ちで、
                 スマホから早く手続きしたい方
-              </td>
-              <td>
+              </div>
+            </div>
+
+            <div class="compare-method">
+              <span class="method-label method-paper">郵送登録</span>
+              <div class="compare-method-text">
                 口座振替希望の方・法人登録の方・
                 確認しながら手続きしたい方
-              </td>
-            </tr>
+              </div>
+            </div>
 
-          </tbody>
+          </div>
 
-        </table>
+        </div>
+
       </div>
 
-    </div>
-
-
-    <div class="info-box">
-      <div class="info-box-title">登録方法に迷ったら</div>
-      WEB登録と郵送登録では必要なものや手順が異なります。
-      詳しい手順は、それぞれのページで確認してください。
     </div>
 
   </div>
