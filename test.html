@@ -3,37 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>定期購入について - メンバーズWebガイド</title>
-  
-  <!-- 共通デザインCSSの読み込み -->
+  <title>C. ボーナスプランガイド - メンバーズWebガイド</title>
+  <!-- 共通スタイルシート -->
   <link rel="stylesheet" href="common.css">
-
-  <!-- このページ固有のCSSがある場合のみここに記述（なければ省略可） -->
+  
+  <!-- 当ページ固有のスタイル -->
   <style>
-    .payment-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    /* 警告ボックス */
+    .warning-box {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      color: #991b1b;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* アコーディオン（折り畳み）スタイル */
+    .bonus-accordion {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      margin-top: 12px;
     }
 
-    .payment-list li {
-      line-height: 1.5;
+    .bonus-item {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
     }
 
-    .payment-label {
+    .bonus-item[open] {
+      border-color: var(--primary);
+      background: #ffffff;
+    }
+
+    .bonus-summary {
+      padding: 14px 16px;
       font-weight: bold;
+      font-size: 0.95rem;
       color: var(--primary-dark);
-      display: block;
-      margin-bottom: 2px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      user-select: none;
     }
 
-    .payment-detail {
+    .bonus-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .bonus-summary::after {
+      content: "＋";
+      font-size: 1.1rem;
+      color: var(--primary);
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .bonus-item[open] .bonus-summary::after {
+      content: "－";
+    }
+
+    .bonus-content {
+      padding: 12px 16px 16px;
+      font-size: 0.88rem;
       color: #334155;
-      padding-left: 4px;
-      display: block;
+      line-height: 1.6;
+      border-top: 1px dashed #e2e8f0;
+      background: #fafafa;
     }
   </style>
 </head>
@@ -42,265 +86,1637 @@
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <a href="./ninaguide.html" class="back-link">← トップガイドへ戻る</a>
+      <a href="./index.html" class="back-link">← トップガイドへ戻る</a>
       <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
     </div>
   </header>
 
-  <!-- メインコンテナ -->
+  <!-- メインコンテンツ -->
   <div class="container">
 
     <!-- ページタイトル -->
     <div class="page-header">
-      <div class="page-category">GUIDE B</div>
-      <h1 class="page-title">📦 定期購入について</h1>
+      <div class="page-category">GUIDE C</div>
+      <h1 class="page-title">🎁 ボーナス取得・権利維持ガイド</h1>
     </div>
 
     <!-- 目次 -->
-    <nav class="toc-card">
+    <div class="toc-card">
       <div class="toc-title">INDEX</div>
       <ul class="toc-list">
-        <li class="toc-item"><a href="#section-cost"><span class="toc-num">01</span>毎月の商品購入</a></li>
-        <li class="toc-item"><a href="#section-schedule"><span class="toc-num">02</span>お届けスケジュール</a></li>
-        <li class="toc-item"><a href="#section-payment"><span class="toc-num">03</span>お支払い方法</a></li>
-        <li class="toc-item"><a href="#section-deadline"><span class="toc-num">04</span>締め日について</a></li>
-        <li class="toc-item"><a href="#section-stop"><span class="toc-num">05</span>定期購入の停止</a></li>
-        <li class="toc-item"><a href="#section-bonus"><span class="toc-num">06</span>6ヶ月連続購入特典（6Months）</a></li>
+        <li class="toc-item">
+          <a href="#sec-1">
+            <span class="toc-num">01</span>
+            <span>ボーナス取得の基本条件</span>
+          </a>
+        </li>
+        <li class="toc-item">
+          <a href="#sec-2">
+            <span class="toc-num">02</span>
+            <span>9種類のボーナスプラン概要</span>
+          </a>
+        </li>
+        <li class="toc-item">
+          <a href="#sec-3">
+            <span class="toc-num">03</span>
+            <span>タイトル昇格条件とブランチ</span>
+          </a>
+        </li>
       </ul>
-    </nav>
-
-    <!-- 1. 毎月の商品購入 -->
-    <div id="section-cost" class="section-card">
-      <div class="section-card-title">💵 毎月の商品購入</div>
-      <p class="section-desc">OX‐288を定期購入する場合の費用は以下の通りです。</p>
-
-      <div class="table-container">
-        <table>
-          <tr>
-            <th style="width:35%;">商品代金（1個）</th>
-            <td><b>￥13,800</b><span class="table-subtext">（サンテアージュ OX-288 会員価格 / 税込）</span></td>
-          </tr>
-          <tr>
-            <th>配送手数料</th>
-            <td><b>￥1,000</b><span class="table-subtext">（税込）</span></td>
-          </tr>
-          <tr>
-            <th>毎月の合計</th>
-            <td><b style="font-size:1.05rem; color:var(--primary);">￥14,800</b><span class="table-subtext">（クレジットカード・口座振替の場合）</span></td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="info-box">
-        💡 <b>まとめ配送でお得に（同梱サービス）</b><br>
-        定期購入と追加商品を同梱し、1回の注文代金が<b>￥30,000（税込）以上</b>になると<b>配送手数料（￥1,000）が無料</b>になります。
-      </div>
-
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
-    <!-- 2. お届けスケジュール -->
-    <div id="section-schedule" class="section-card">
-      <div class="section-card-title">📅 お届けスケジュール</div>
-      <p class="section-desc">ご自身の「登録日」によって、毎月の発送手続き日およびお届け時期が決まります。</p>
 
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th style="width:45%;">会員の登録日</th>
-              <th style="width:55%;">発送手続き日</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>1日 ～ 6日</b></td>
-              <td>毎月 <b>5日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>7日 ～ 12日</b></td>
-              <td>毎月 <b>7日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>13日 ～ 18日</b></td>
-              <td>毎月 <b>9日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>19日 ～ 24日</b></td>
-              <td>毎月 <b>11日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>25日 ～ 29日</b></td>
-              <td>毎月 <b>13日</b> に発送手続き</td>
-            </tr>
-            <tr>
-              <td><b>30日 ～ 31日</b></td>
-              <td>毎月 <b>15日</b> に発送手続き</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="font-size: 0.76rem; color: #64748b; margin-top: 8px;">
-        ※手続き日の翌日以降に順次発送されます。1月・5月の大型連休時は出荷日が10日前後になる場合があります。
+    <!-- ========================================================= -->
+    <!-- 1. 基本条件 -->
+    <!-- ========================================================= -->
+
+    <div id="sec-1" class="section-card">
+
+      <div class="section-card-title">💡 1. ボーナス取得の基本条件</div>
+
+      <p class="section-desc">
+        ボーナスを受け取るための基本的な条件です。
       </p>
 
-      <div class="info-box">
-        <div class="info-box-title">💡 発送日（お届けスケジュール）の変更方法</div>
-        発送日を変更する場合は、E-Serviceにログイン後、メニューの<b>【定期購入情報へ】</b>より変更可能です。
+      <div style="font-size:0.9rem; color:#334155; line-height:1.8;">
+
+        <p style="margin:0 0 8px;">
+          ① <b>会員資格が有効</b>である
+        </p>
+
+        <p style="margin:0 0 8px;">
+          ② <b>自己購入が10,000PT</b>ある
+        </p>
+
+        <p style="margin:0;">
+          ③ <b>アクティブ紹介者がいる</b>
+        </p>
+
       </div>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
 
-    <!-- 3. お支払い方法 -->
-    <div id="section-payment" class="section-card">
-      <div class="section-card-title">💳 お支払い方法</div>
-      
-      <div class="step-list">
-        <!-- 口座振替 -->
-        <details class="step-item" open>
-          <summary>
-            <span class="step-num">1</span>
-            <span class="step-title-text">口座振替（引き落とし）の流れ</span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-          <div class="step-body">
-            <ul class="payment-list">
-              <li>
-                <span class="payment-label">・引き落とし日</span>
-                <span class="payment-detail">毎月 <b>27日</b>（27日に引き落とされた代金が<b>翌月発送分</b>となります）</span>
-              </li>
-              <li>
-                <span class="payment-label">・振替開始までの間</span>
-                <span class="payment-detail">手続きが完了するまでは<b>代金引換（代引き）</b>での発送となります</span>
-              </li>
-              <li>
-                <span class="payment-label">・代引き手数料</span>
-                <span class="payment-detail"><b>￥350</b>（税込）が会員負担となります（1点合計 <b>￥15,150</b>）</span>
-              </li>
-            </ul>
+      <!-- 条件チェックへの誘導 -->
+      <div class="info-box" style="margin-top:16px;">
 
-            <details class="alert-box">
-              <summary>⚠ 口座振替開始月の重なりに注意</summary>
-              <div class="alert-box-content">
-                口座振替が始まる月は、その月の「代金引換」と翌月分の「口座振替（27日）」のお支払いが重なる場合があります。引き落とし口座の残高にご注意ください。
-              </div>
-            </details>
-          </div>
-        </details>
+        <b>🔍 自分が条件を満たしているか確認したい方へ</b>
 
-        <!-- クレジットカード -->
-        <details class="step-item" open>
-          <summary>
-            <span class="step-num">2</span>
-            <span class="step-title-text">クレジットカード決済の流れ</span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-          <div class="step-body">
-            <ul class="payment-list">
-              <li>
-                <span class="payment-label">・決済日</span>
-                <span class="payment-detail">毎月 <b>1日</b> に当月分のカード決済処理が行われます</span>
-              </li>
-              <li>
-                <span class="payment-label">・利用可能なカード</span>
-                <span class="payment-detail">VISA, Mastercard, JCB, AMERICAN EXPRESS, Diners Club</span>
-              </li>
-              <li>
-                <span class="payment-label">・カード情報の変更</span>
-                <span class="payment-detail">E-Serviceの<b>【カード情報登録・更新へ】</b>から変更可能です</span>
-              </li>
-            </ul>
+        <p style="margin:8px 0 12px;">
+          ボーナス取得に必要な条件をチェックできます。
+        </p>
 
-            <details class="alert-box">
-              <summary>⚠️ 有効期限切れ・決済エラーにご注意</summary>
-              <div class="alert-box-content">
-                カードの有効期限切れや限度額オーバー等で1日の自動決済がエラーになると、商品の出荷がストップしてしまいます。有効期限の更新時は速やかに変更手続きを行ってください。
-              </div>
-            </details>
-          </div>
-        </details>
+        <a
+          href="https://kynkyo1102-lgtm.github.io/salon-order/check.html"
+          target="_blank"
+          style="
+            display:inline-block;
+            padding:9px 14px;
+            border-radius:8px;
+            text-decoration:none;
+            background:var(--primary);
+            color:#fff;
+            font-weight:bold;
+          "
+        >
+          ボーナス取得条件をチェックする →
+        </a>
+
       </div>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
     </div>
 
-    <!-- 4. 締め日について -->
-    <div id="section-deadline" class="section-card">
-      <div class="section-card-title">⏰ 締め日について</div>
-      <p class="section-desc">定期購入の内容変更・停止・再開には厳格な締め日ルールが定められています。</p>
+
+    <!-- ========================================================= -->
+    <!-- 2. 9種類のボーナス -->
+    <!-- ========================================================= -->
+
+    <div id="sec-2" class="section-card">
+
+      <div class="section-card-title">📊 2. 9種類のボーナスプラン概要</div>
+
+      <p class="section-desc">
+        ボーナスは、それぞれ「何をしたか」「誰の実績が対象になるか」
+        によって仕組みが異なります。<br>
+        タップすると、具体的な仕組みを確認できます。
+      </p>
+
+
+      <div class="bonus-accordion">
+
+
+        <!-- ===================================================== -->
+        <!-- ① ファーストスタート -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ① ファーストスタートボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              新規会員を直接紹介すると取得できるボーナスです。
+            </p>
+
+
+            <div style="text-align:center; margin:16px 0; font-size:0.85rem;">
+
+              <div style="
+                display:inline-block;
+                padding:10px 16px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 あなた
+              </div>
+
+              <div style="margin:6px 0; color:#64748b;">
+                ↓ 直接紹介
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 16px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 新規会員
+              </div>
+
+              <div style="margin:6px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 20px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                💰 <b>3,000円</b>
+              </div>
+
+            </div>
+
+
+            <table>
+              <tbody>
+                <tr>
+                  <th>何をすると？</th>
+                  <td>新規会員を直接紹介</td>
+                </tr>
+
+                <tr>
+                  <th>いくら？</th>
+                  <td><b>1人につき3,000円</b></td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              自分が直接紹介した新規会員1人につき、
+              <b>3,000円</b>を取得します。
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ② 5アクティブ -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ② 5アクティブボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              アクティブ紹介者の人数に応じて、
+              総売上Pの1%を達成人数（ポジション数）で分配するボーナスです。
+            </p>
+
+
+            <!-- 図 -->
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 あなた
+              </div>
+
+              <div style="margin:8px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:flex;
+                justify-content:center;
+                flex-wrap:wrap;
+                gap:6px;
+              ">
+
+                <span style="padding:7px 9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:7px 9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:7px 9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:7px 9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:7px 9px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+
+              </div>
+
+              <div style="margin:8px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                🎁 5アクティブボーナス
+              </div>
+
+            </div>
+
+
+            <table>
+              <tbody>
+
+                <tr>
+                  <th>必要人数</th>
+                  <td><b>アクティブ紹介者5人</b></td>
+                </tr>
+
+                <tr>
+                  <th>対象</th>
+                  <td>メンバー</td>
+                </tr>
+
+                <tr>
+                  <th>分配</th>
+                  <td>総売上Pの1%を達成人数（ポジション数）で分配</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              たとえば、総売上ポイントが
+              <b>3億8,700万PT</b>、
+              達成人数（ポジション数）が
+              <b>900</b>だった場合、
+
+              <div style="
+                margin-top:10px;
+                padding:10px;
+                border-radius:8px;
+                background:#fff;
+                text-align:center;
+              ">
+
+                3億8,700万PT × 1% ÷ 900
+
+              </div>
+
+              <div style="
+                margin-top:8px;
+                text-align:center;
+                font-weight:bold;
+              ">
+
+                ＝ <b>4,300円</b>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ③ 10アクティブ -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ③ 10アクティブボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              アクティブ紹介者の人数に応じて、
+              総売上Pの1%を達成人数（ポジション数）で分配するボーナスです。
+            </p>
+
+
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 あなた
+              </div>
+
+              <div style="margin:8px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:flex;
+                justify-content:center;
+                flex-wrap:wrap;
+                gap:5px;
+                max-width:260px;
+                margin:auto;
+              ">
+
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+                <span style="padding:5px 8px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">●</span>
+
+              </div>
+
+              <div style="margin:8px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                🎁 10アクティブボーナス
+              </div>
+
+            </div>
+
+
+            <table>
+              <tbody>
+
+                <tr>
+                  <th>必要人数</th>
+                  <td><b>アクティブ紹介者10人</b></td>
+                </tr>
+
+                <tr>
+                  <th>対象タイトル</th>
+                  <td>サファイヤまで</td>
+                </tr>
+
+                <tr>
+                  <th>分配</th>
+                  <td>総売上Pの1%を達成人数（ポジション数）で分配</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              たとえば、総売上ポイントが
+              <b>3億8,700万PT</b>、
+              達成人数（ポジション数）が
+              <b>450</b>だった場合、
+
+              <div style="
+                margin-top:10px;
+                padding:10px;
+                border-radius:8px;
+                background:#fff;
+                text-align:center;
+              ">
+
+                3億8,700万PT × 1% ÷ 450
+
+              </div>
+
+              <div style="
+                margin-top:8px;
+                text-align:center;
+                font-weight:bold;
+              ">
+
+                ＝ <b>8,600円</b>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ④ ベーシックコミッション -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ④ ベーシックコミッションボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              左右のグループのうち、
+              <b>売上Pが少ない側</b>を基準に計算されるボーナスです。
+            </p>
+
+
+            <!-- 左右グループ -->
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:9px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+                font-weight:bold;
+              ">
+                👤 あなた
+              </div>
+
+
+              <div style="
+                display:flex;
+                justify-content:center;
+                gap:12px;
+                margin-top:8px;
+              ">
+
+                <!-- 少ない方 -->
+                <div style="width:42%; max-width:150px;">
+
+                  <div style="color:#64748b; margin-bottom:5px;">
+                    ↓
+                  </div>
+
+                  <div style="
+                    padding:10px 6px;
+                    border:2px solid #64748b;
+                    border-radius:8px;
+                    background:#e2e8f0;
+                    font-weight:bold;
+                  ">
+
+                    左グループ<br>
+
+                    <span style="font-size:1.05rem;">
+                      500,000P
+                    </span>
+
+                    <br>
+
+                    <span style="font-size:0.75rem;">
+                      ← 基準
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <!-- 多い方 -->
+                <div style="width:42%; max-width:150px;">
+
+                  <div style="color:#64748b; margin-bottom:5px;">
+                    ↓
+                  </div>
+
+                  <div style="
+                    padding:10px 6px;
+                    border:1px solid #cbd5e1;
+                    border-radius:8px;
+                    background:#fff;
+                  ">
+
+                    右グループ<br>
+
+                    <span style="font-size:1.05rem;">
+                      800,000P
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div style="margin:10px 0; color:#64748b;">
+                ↓
+              </div>
+
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:2px solid #64748b;
+                border-radius:8px;
+                background:#e2e8f0;
+              ">
+
+                <b>少ない方の500,000Pを基準</b>
+
+              </div>
+
+            </div>
+
+
+            <table>
+              <tbody>
+
+                <tr>
+                  <th>対象</th>
+                  <td>左右グループの売上P</td>
+                </tr>
+
+                <tr>
+                  <th>基準</th>
+                  <td><b>売上Pが少ない側</b></td>
+                </tr>
+
+                <tr>
+                  <th>対象範囲</th>
+                  <td>30,000P〜2,500万P</td>
+                </tr>
+
+                <tr>
+                  <th>取得率</th>
+                  <td><b>最大10%</b></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              少ない側のグループ売上Pが
+              <b>30,000P以上</b>あることが、
+              ベーシックコミッションボーナスの取得条件です。
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ⑤ メガマッチ -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ⑤ メガマッチボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              自分の<b>直接紹介者</b>が取得したベーシックコミッションボーナスに連動して発生します。
+            </p>
+
+
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 あなた
+              </div>
+
+              <div style="margin:5px 0; color:#64748b;">
+                ↓ 直接紹介
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 Aさん<br>
+                <span style="font-size:0.8rem;">
+                  ベーシックコミッション<br>
+                  <b>10,000円</b>
+                </span>
+              </div>
+
+              <div style="margin:5px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                あなたにも <b>100%</b>
+              </div>
+
+            </div>
+
+
+            <table>
+              <tbody>
+
+                <tr>
+                  <th>誰の実績？</th>
+                  <td>直接紹介者が取得したベーシックコミッション</td>
+                </tr>
+
+                <tr>
+                  <th>取得率</th>
+                  <td><b>100%</b></td>
+                </tr>
+
+                <tr>
+                  <th>対象タイトル</th>
+                  <td>クリスタル以上</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <p style="margin:16px 0 8px;">
+              <b>💰 1紹介者から取得できる上限金額</b>
+            </p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>タイトル</th>
+                  <th>分配率</th>
+                  <th>上限金額</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <th>クリスタル</th>
+                  <td><b>100%</b></td>
+                  <td><b>10万円</b></td>
+                </tr>
+
+                <tr>
+                  <th>ラピス</th>
+                  <td><b>100%</b></td>
+                  <td><b>10万円</b></td>
+                </tr>
+
+                <tr>
+                  <th>サファイヤ</th>
+                  <td><b>100%</b></td>
+                  <td><b>20万円</b></td>
+                </tr>
+
+                <tr>
+                  <th>エメラルド以上</th>
+                  <td><b>100%</b></td>
+                  <td><b>40万円</b></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              自分の直接紹介者が取得した
+              <b>ベーシックコミッション</b>が基準になります。<br>
+              タイトルによって、1紹介者から取得できる上限金額が異なります。
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ⑥ ダブルメガマッチ -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ⑥ ダブルメガマッチボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              直接紹介者のさらに先にいる
+              <b>二次紹介者</b>のベーシックコミッションに連動します。
+            </p>
+
+
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 あなた
+              </div>
+
+              <div style="margin:5px 0; color:#64748b;">
+                ↓ 直接紹介
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 Aさん
+              </div>
+
+              <div style="margin:5px 0; color:#64748b;">
+                ↓ Aさんが紹介
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                👤 Bさん（二次紹介者）<br>
+                <span style="font-size:0.8rem;">
+                  ベーシックコミッション<br>
+                  <b>10,000円</b>
+                </span>
+              </div>
+
+              <div style="margin:5px 0; color:#64748b;">
+                ↓ 10%
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:8px 14px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                あなたに <b>1,000円</b>
+              </div>
+
+            </div>
+
+
+            <table>
+              <tbody>
+
+                <tr>
+                  <th>誰の実績？</th>
+                  <td>二次紹介者が取得したベーシックコミッション</td>
+                </tr>
+
+                <tr>
+                  <th>取得率</th>
+                  <td><b>10%</b></td>
+                </tr>
+
+                <tr>
+                  <th>対象タイトル</th>
+                  <td>クリスタル以上</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <p style="margin:16px 0 8px;">
+              <b>💰 二次紹介者1人あたりから取得できる上限金額</b>
+            </p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>タイトル</th>
+                  <th>分配率</th>
+                  <th>上限金額</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <th>クリスタル</th>
+                  <td><b>10%</b></td>
+                  <td><b>10万円</b></td>
+                </tr>
+
+                <tr>
+                  <th>ラピス</th>
+                  <td><b>10%</b></td>
+                  <td><b>10万円</b></td>
+                </tr>
+
+                <tr>
+                  <th>サファイヤ以上</th>
+                  <td><b>10%</b></td>
+                  <td><b>25万円</b></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              <b>メガマッチ＝直接紹介者</b><br>
+              <b>ダブルメガマッチ＝二次紹介者</b><br><br>
+
+              二次紹介者とは、
+              <b>自分の直接紹介者が直接紹介したメンバー</b>のことです。
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ⑦ リーダーシップ -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ⑦ リーダーシップボーナス
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              エメラルド以上のタイトルを達成し、
+              左右のグループ売上Pを基準に計算されるボーナスです。
+            </p>
+
+
+            <!-- 仕組み -->
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                🏆 エメラルド以上を達成
+              </div>
+
+              <div style="margin:7px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                左右のグループ売上Pを比較
+              </div>
+
+              <div style="margin:7px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                少ない方を基準に対象ボリュームを計算
+              </div>
+
+            </div>
+
+
+            <table>
+              <thead>
+                <tr>
+                  <th>タイトル</th>
+                  <th>分配率</th>
+                  <th>対象ボリューム</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <th>エメラルド</th>
+                  <td><b>1.5%</b></td>
+                  <td>2 × 少ない側のグループ売上P</td>
+                </tr>
+
+                <tr>
+                  <th>ゴールド</th>
+                  <td><b>2.0%</b></td>
+                  <td>3 × 少ない側のグループ売上P</td>
+                </tr>
+
+                <tr>
+                  <th>プラチナ</th>
+                  <td><b>2.5%</b></td>
+                  <td>3 × 少ない側のグループ売上P</td>
+                </tr>
+
+                <tr>
+                  <th>ダイヤモンド</th>
+                  <td><b>3.0%</b></td>
+                  <td>4 × 少ない側のグループ売上P</td>
+                </tr>
+
+                <tr>
+                  <th>ロワイヤルダイヤモンド</th>
+                  <td><b>3.0%</b></td>
+                  <td>4 × 少ない側のグループ売上P</td>
+                </tr>
+
+                <tr>
+                  <th>カリナンロワイヤルダイヤモンド</th>
+                  <td><b>3.0%</b></td>
+                  <td>4 × 少ない側のグループ売上P</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 ポイント</b><br>
+
+              対象ボリュームを計算したあと、
+              もう一度左右のグループ売上Pと比較し、
+              <b>少ない方</b>に分配率を掛けて
+              リーダーシップボーナスを計算します。
+
+            </div>
+
+
+            <!-- 計算例 -->
+            <div style="
+              margin-top:12px;
+              padding:12px;
+              border:1px solid #cbd5e1;
+              border-radius:8px;
+              background:#fff;
+            ">
+
+              <b>🧮 計算例：エメラルドの場合</b>
+
+              <p style="margin:8px 0;">
+                左グループ：500万P<br>
+                右グループ：300万P
+              </p>
+
+              <p style="margin:8px 0;">
+                ① 少ない方は300万P
+              </p>
+
+              <p style="margin:8px 0;">
+                ② 対象ボリューム<br>
+                300万P × 2 ＝ <b>600万P</b>
+              </p>
+
+              <p style="margin:8px 0;">
+                ③ 500万Pと600万Pを比較
+              </p>
+
+              <p style="margin:8px 0;">
+                ④ 少ない方の500万Pに1.5%を掛ける
+              </p>
+
+              <p style="
+                margin:10px 0 0;
+                text-align:center;
+                font-size:1rem;
+                font-weight:bold;
+              ">
+                500万P × 1.5% ＝ 75,000円
+              </p>
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ⑧ AMF -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ⑧ アニュアルマネジメントフィー（AMF）
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              ロワイヤルダイヤモンドを達成し、
+              条件を満たしている月に取得できる決算ボーナスです。
+            </p>
+
+
+            <!-- 条件 -->
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                🏆 ロワイヤルダイヤモンド達成
+              </div>
+
+              <div style="margin:7px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                条件をクリアした月が対象
+              </div>
+
+              <div style="margin:7px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                🎁 AMF
+              </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+              <b>📌 ロワイヤルダイヤモンド昇格条件</b><br><br>
+
+              ① 左右ポイントを比較して、
+              少ない側が<b>6,000万ポイント以上</b>を達成していること。<br>
+
+              ② <b>プラチナ以上</b>を育成している
+              メガ（直紹介）系列が<b>3系列</b>必要です。
+
+            </div>
+
+
+            <p style="margin:16px 0 8px;">
+              <b>💰 AMFの計算</b>
+            </p>
+
+            <div style="
+              padding:12px;
+              border:1px solid #cbd5e1;
+              border-radius:8px;
+              background:#fff;
+              text-align:center;
+            ">
+
+              <b>
+                取得AMF ×
+                （達成した月の0.5%の総合計 ÷ 総達成AMF）
+              </b>
+
+            </div>
+
+
+            <p style="margin:12px 0 8px;">
+              達成度合いによって、取得するAMFが異なります。
+            </p>
+
+
+            <table>
+              <thead>
+                <tr>
+                  <th>達成度合い</th>
+                  <th>AMF</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <th>メガ・Wメガでプラチナを達成</th>
+                  <td><b>1 AMF</b></td>
+                </tr>
+
+                <tr>
+                  <th>ユニ系列でプラチナを育成</th>
+                  <td><b>0.8 AMF</b></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 支給時期</b><br>
+
+              上期（4月〜9月）の実績は
+              <b>9月のボーナス</b>と一緒に支給。<br>
+
+              下期（10月〜3月）の実績は
+              <b>3月のボーナス</b>と一緒に支給されます。
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+        <!-- ===================================================== -->
+        <!-- ⑨ カリナンAMF -->
+        <!-- ===================================================== -->
+
+        <details class="bonus-item">
+
+          <summary class="bonus-summary">
+            ⑨ カリナンアニュアルマネジメントフィー
+          </summary>
+
+          <div class="bonus-content">
+
+            <p style="margin-top:0;">
+              <b>💡 ひとことで言うと</b><br>
+              ロワイヤルダイヤモンドを6ヶ月連続で達成すると、
+              カリナンロワイヤルダイヤモンドとなり、
+              カリナンAMFの対象になります。
+            </p>
+
+
+            <!-- 6ヶ月 -->
+            <div style="text-align:center; margin:16px 0;">
+
+              <div style="
+                display:flex;
+                justify-content:center;
+                flex-wrap:wrap;
+                gap:5px;
+                max-width:300px;
+                margin:auto;
+              ">
+
+                <div style="padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                  1ヶ月目<br>✓
+                </div>
+
+                <div style="padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                  2ヶ月目<br>✓
+                </div>
+
+                <div style="padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                  3ヶ月目<br>✓
+                </div>
+
+                <div style="padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                  4ヶ月目<br>✓
+                </div>
+
+                <div style="padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                  5ヶ月目<br>✓
+                </div>
+
+                <div style="padding:8px 10px; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
+                  6ヶ月目<br>✓
+                </div>
+
+              </div>
+
+
+              <div style="margin:10px 0; color:#64748b;">
+                ↓ 6ヶ月連続達成
+              </div>
+
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                💎 カリナンロワイヤルダイヤモンド
+              </div>
+
+              <div style="margin:7px 0; color:#64748b;">
+                ↓
+              </div>
+
+              <div style="
+                display:inline-block;
+                padding:10px 18px;
+                border:1px solid #cbd5e1;
+                border-radius:8px;
+                background:#fff;
+              ">
+                🎁 カリナンAMF
+              </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+              <b>📌 カリナンロワイヤルダイヤモンドの条件</b><br><br>
+
+              <b>6つの月度連続</b>で
+              ロワイヤルダイヤモンドを達成すること。
+
+            </div>
+
+
+            <p style="margin:16px 0 8px;">
+              <b>💰 カリナンAMFの計算</b>
+            </p>
+
+            <div style="
+              padding:12px;
+              border:1px solid #cbd5e1;
+              border-radius:8px;
+              background:#fff;
+              text-align:center;
+            ">
+
+              ロワイヤルダイヤモンド達成者の
+              月度総売上ポイントの<b>0.25%</b>を
+              カリナンAMF原資として計算
+
+            </div>
+
+
+            <div class="info-box" style="margin-top:12px;">
+
+              <b>📌 支給時期</b><br>
+
+              カリナンロワイヤルダイヤモンドを達成した
+              最終月（6つ目の月）が<br>
+
+              4月〜9月の場合 → <b>9月のボーナスと一緒に支給</b><br>
+
+              10月〜3月の場合 → <b>3月のボーナスと一緒に支給</b>
+
+            </div>
+
+
+            <div class="info-box" style="margin-top:10px;">
+
+              <b>📌 連続達成について</b><br>
+
+              6つ目の月を達成した翌月は、
+              連続月度カウントの<b>1ヶ月目</b>として扱われます。
+
+            </div>
+
+          </div>
+
+        </details>
+
+
+      </div>
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- 3. タイトル昇格条件とブランチ -->
+    <!-- ========================================================= -->
+
+    <div id="sec-3" class="section-card">
+
+      <div class="section-card-title">
+        🏆 3. タイトル昇格条件とブランチ
+      </div>
+
+      <p class="section-desc">
+        昇格には「少ない側のグループ売上P」および
+        「必要アクティブ紹介者数」の条件を満たす必要があります。
+      </p>
+
 
       <div class="table-container">
+
         <table>
-          <tr>
-            <th style="width:32%;">変更・停止締切</th>
-            <td><b>各月10日 必着</b><span class="table-subtext">（E-Serviceまたは書面にて）</span></td>
-          </tr>
-          <tr>
-            <th>翌月反映</th>
-            <td>10日までに完了した申請は<b>翌月発送分から反映</b>されます。</td>
-          </tr>
+
+          <thead>
+            <tr>
+              <th>タイトル</th>
+
+              <th>
+                昇格条件<br>
+                <span style="font-size: 0.8em; font-weight: normal;">
+                  (少ない方のグループ売上P)
+                </span>
+              </th>
+
+              <th>
+                必要アクティブ<br>
+                紹介者数
+              </th>
+            </tr>
+          </thead>
+
+
+          <tbody>
+
+            <tr>
+              <th>クリスタル</th>
+              <td>20万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th>ラピス</th>
+              <td>50万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th>サファイヤ</th>
+              <td>100万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th>エメラルド</th>
+              <td>300万P〜</td>
+              <td>2人</td>
+            </tr>
+
+            <tr>
+              <th>ゴールド</th>
+              <td>600万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th>プラチナ</th>
+              <td>1,200万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th>ダイヤモンド</th>
+              <td>3,000万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th>ロワイヤルダイヤモンド</th>
+              <td>6,000万P〜</td>
+              <td>4人</td>
+            </tr>
+
+            <tr>
+              <th>カリナンロワイヤルダイヤモンド</th>
+              <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
+              <td>4人</td>
+            </tr>
+
+          </tbody>
+
         </table>
+
       </div>
 
-      <details class="alert-box">
-        <summary>⚠️ 10日を過ぎた場合</summary>
-        <div class="alert-box-content">
-          10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。10日を過ぎての申請は翌々月からの反映となりますので十分ご注意ください。
-        </div>
-      </details>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
+      <div class="info-box" style="margin-top: 14px;">
 
-    <!-- 5. 定期購入の停止 -->
-    <div id="section-stop" class="section-card">
-      <div class="section-card-title">🛑 定期購入の停止</div>
-      <p class="section-desc">定期購入を一時停止（お休み）または解約したい場合は、以下の手順で申請を行ってください。</p>
+        <b>📌 直紹介系列に関する注釈：</b><br>
 
-      <div class="step-list">
-        <div class="step-item" style="padding:14px; background:#fff;">
-          <p style="font-weight:bold; font-size:0.9rem; color:var(--primary-dark); margin-bottom:6px;">【手続き方法】</p>
-          <ul style="padding-left:18px; font-size:0.85rem; color:#334155; line-height:1.6;">
-            <li><b>E-Serviceでの手続き</b>：ログイン後、【定期購入情報】メニューより停止手続きが可能です。</li>
-            <li><b>書面での手続き</b>：専用の「定期購入解約・停止申請書」をカスタマーサービスへ郵送またはFAXで送付してください。</li>
-          </ul>
-        </div>
+        プラチナ以上のタイトル昇格には、
+        売上Pとアクティブ数に加え、
+        直紹介系列における指定タイトルの育成条件が必要です。<br><br>
+
+        例：<br>
+        ・プラチナ → エメラルド以上 × 2系列<br>
+        ・ダイヤモンド → ゴールド以上 × 3系列<br>
+        ・ロワイヤルダイヤモンド → プラチナ以上 × 3系列
+
       </div>
 
-      <details class="alert-box">
-        <summary>⚠️ 停止に関する注意点</summary>
-        <div class="alert-box-content">
-          ・必ず<b>停止したい月の前月10日まで</b>に手続きを完了させてください。<br>
-          ・定期購入を停止すると、各種ボーナス受給権利や連続購入特典（6Months）のカウントがリセットされますのでご注意ください。
-        </div>
-      </details>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
-    </div>
+      <div class="info-box" style="margin-top: 10px;">
 
-    <!-- 6. 愛用者特典 -->
-    <div id="section-bonus" class="section-card">
-      <div class="section-card-title">🎁 6ヶ月連続購入特典（6Months・NINA）</div>
-      <p class="section-desc">定期購入でサンテアージュ OX-288を継続購入いただくと、6ヶ月ごとに<b>ニナファームオリジナルグッズ</b>がプレゼントされます！</p>
+        <b>📌 手続きに関する注意点：</b><br>
 
-      <div class="info-box">
-        <b>【達成条件】</b><br>
-        定期購入にてサンテアージュ OX-288を<b>連続して6ヶ月間</b>購入すること（初回購入分もカウント対象）。<br>
-        ※途中で停止・決済不能となった場合はカウントがリセット（0に戻る）されますのでご注意ください。
+        クリスタル以上に昇格した場合、
+        昇格月度の翌々月10日までに必要な各種提出手続きが必要です。<br><br>
+
+        初昇格月は未提出でも昇格可ですが、
+        翌月以降未提出の場合は上位ボーナスの取得・昇格が制限されます。
+
       </div>
 
-      <div class="manual-ref">メンバーズマニュアル1P参照</div>
+
+      <!-- ブランチ -->
+      <div style="margin-top: 16px;">
+
+        <p class="section-desc" style="margin-bottom: 6px;">
+          <b>■ ブランチの活用</b>
+        </p>
+
+        <p style="font-size: 0.85rem; color: #4a5568; line-height: 1.6;">
+
+          本店の獲得タイトルに応じて、
+          自身の分身となる独立ポジション「ブランチ」を
+          グループ内に配置できます。
+
+        </p>
+
+
+        <div style="text-align:center; margin:16px 0;">
+
+          <div style="
+            display:inline-block;
+            padding:9px 16px;
+            border:1px solid #cbd5e1;
+            border-radius:8px;
+            background:#fff;
+          ">
+            🏆 本店のタイトル
+          </div>
+
+          <div style="margin:7px 0; color:#64748b;">
+            ↓
+          </div>
+
+          <div style="
+            display:inline-block;
+            padding:9px 16px;
+            border:1px solid #cbd5e1;
+            border-radius:8px;
+            background:#fff;
+          ">
+            📍 配置できるブランチ数が増える
+          </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+          <table>
+
+            <tbody>
+
+              <tr>
+                <th>クリスタル</th>
+                <td>5か所</td>
+              </tr>
+
+              <tr>
+                <th>ロワイヤルダイヤモンド</th>
+                <td>40か所</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <div class="warning-box" style="margin-top:12px;">
+
+          <b>注意：</b>
+
+          ブランチは配置するだけで自動的に有効になるわけではありません。<br>
+
+          ブランチ単独での
+          <b>10,000P以上の購入</b>と
+          <b>アクティブ条件</b>の達成が必要です。
+
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
+
   <!-- フッター -->
   <footer>
-    <p>※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。</p>
+
+    <p>
+      ※当サイトは会員有志による手続き・仕組みの解説用ガイドであり、
+      公式の概要書面を正とします。
+    </p>
+
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
+
   </footer>
 
 </body>
