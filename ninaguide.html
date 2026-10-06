@@ -4,297 +4,338 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ニナファームジャポン メンバーズWebガイド</title>
+
+  <!-- 共通CSS：他ページと共有。ここは変更しない -->
   <link rel="stylesheet" href="./common.css">
+
+  <!-- トップページ専用CSS -->
+  <style>
+    /* ================================
+       ninaguide.html 専用
+       ================================ */
+
+    .top-guide-page {
+      --top-blue: #1b4ea8;
+      --top-blue-dark: #123778;
+      --top-green: #7f9f12;
+      --top-lime: #d4e114;
+      --top-border: #e1e6ee;
+      --top-bg: #f7f9fc;
+    }
+
+    .top-guide-page .top-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 34px 15px 10px;
+    }
+
+    /* ヒーロー */
+    .top-guide-page .top-hero {
+      background: #fff;
+      padding: 30px 20px 26px;
+      margin-bottom: 22px;
+      border-bottom: 3px solid var(--top-lime);
+      text-align: center;
+    }
+
+    .top-guide-page .top-hero-subtitle {
+      color: var(--top-green);
+      font-size: .8rem;
+      font-weight: bold;
+      letter-spacing: .12em;
+      margin-bottom: 5px;
+    }
+
+    .top-guide-page .top-hero-title {
+      color: var(--top-blue-dark);
+      font-size: 1.7rem;
+      margin: 0 0 6px;
+    }
+
+    .top-guide-page .top-hero-desc {
+      color: #666;
+      font-size: .9rem;
+      margin: 0;
+    }
+
+    /* A〜Eカード */
+    .top-guide-page .top-guide-menu {
+      display: grid;
+      gap: 12px;
+    }
+
+    .top-guide-page .top-guide-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      min-height: 92px;
+      padding: 17px 20px 17px 17px;
+      background: #fff;
+      border: 1px solid var(--top-border);
+      border-left: 6px solid var(--top-blue);
+      border-radius: 8px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .top-guide-page .top-guide-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 14px rgba(27,78,168,.10);
+    }
+
+    .top-guide-page .top-guide-card-a,
+    .top-guide-page .top-guide-card-d {
+      border-left-color: var(--top-blue);
+    }
+
+    .top-guide-page .top-guide-card-b,
+    .top-guide-page .top-guide-card-e {
+      border-left-color: var(--top-green);
+    }
+
+    .top-guide-page .top-guide-card-c {
+      border-left-color: var(--top-lime);
+    }
+
+    .top-guide-page .top-guide-label {
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #edf2fb;
+      color: var(--top-blue);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .top-guide-page .top-guide-card-b .top-guide-label,
+    .top-guide-page .top-guide-card-e .top-guide-label {
+      background: #f0f5df;
+      color: var(--top-green);
+    }
+
+    .top-guide-page .top-guide-card-c .top-guide-label {
+      background: #f7f9d9;
+      color: #718600;
+    }
+
+    .top-guide-page .top-guide-body {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .top-guide-page .top-guide-body h2 {
+      color: #222;
+      font-size: 1.05rem;
+      margin: 0 0 2px;
+      line-height: 1.4;
+    }
+
+    .top-guide-page .top-guide-body p {
+      color: #777;
+      font-size: .78rem;
+      margin: 0;
+    }
+
+    .top-guide-page .top-guide-arrow {
+      color: var(--top-blue);
+      font-size: 1.8rem;
+      line-height: 1;
+      font-weight: 300;
+    }
+
+    .top-guide-page .top-guide-card-b .top-guide-arrow,
+    .top-guide-page .top-guide-card-e .top-guide-arrow {
+      color: var(--top-green);
+    }
+
+    /* ボーナス・タイトル診断 */
+    .top-guide-page .top-diagnosis {
+      margin-top: 22px;
+      padding: 18px 20px;
+      background: #f4f7fc;
+      border: 1px solid #cbd8ed;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .top-guide-page .top-diagnosis-label {
+      color: var(--top-green);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .top-guide-page .top-diagnosis h2 {
+      color: var(--top-blue-dark);
+      font-size: .98rem;
+      margin: 2px 0;
+    }
+
+    .top-guide-page .top-diagnosis p {
+      color: #666;
+      font-size: .76rem;
+      margin: 0;
+    }
+
+    .top-guide-page .top-diagnosis-button {
+      flex: 0 0 auto;
+      background: var(--top-blue);
+      color: #fff;
+      text-decoration: none;
+      padding: 9px 15px;
+      border-radius: 6px;
+      font-size: .8rem;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .top-guide-page .top-container {
+        padding: 22px 12px 8px;
+      }
+
+      .top-guide-page .top-hero {
+        padding: 23px 15px 20px;
+        margin-bottom: 16px;
+      }
+
+      .top-guide-page .top-hero-title {
+        font-size: 1.35rem;
+      }
+
+      .top-guide-page .top-guide-card {
+        min-height: 82px;
+        padding: 14px 14px 14px 13px;
+        gap: 11px;
+        border-left-width: 5px;
+      }
+
+      .top-guide-page .top-guide-label {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+        font-size: .9rem;
+      }
+
+      .top-guide-page .top-guide-body h2 {
+        font-size: .92rem;
+      }
+
+      .top-guide-page .top-guide-body p {
+        font-size: .72rem;
+      }
+
+      .top-guide-page .top-guide-arrow {
+        font-size: 1.5rem;
+      }
+
+      .top-guide-page .top-diagnosis {
+        padding: 15px;
+      }
+
+      .top-guide-page .top-diagnosis-button {
+        padding: 8px 11px;
+        font-size: .74rem;
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body class="top-guide-page">
 
-  <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <div class="back-link">プラッスドゥニナ南熊本店</div>
-
-      <a
-        href="https://www.ninapharm.co.jp/e-service/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-login"
-      >
+      <div class="logo">プラッスドゥニナ南熊本店</div>
+      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" class="btn-login">
         E-Service ログイン
       </a>
     </div>
   </header>
 
-  <main class="container">
+  <main class="top-container">
 
-    <!-- ページ紹介 -->
-    <section class="page-header">
-      <div class="page-category">NINAPHARM JAPON / MEMBERS GUIDE</div>
-      <h1 class="page-title">ニナファーム メンバーズガイド</h1>
-      <p class="section-desc" style="margin-top: 10px; margin-bottom: 0;">
-        登録・毎月の条件・各種手続き・ボーナスなど、
-        メンバーとして知っておきたいことを、目的別にまとめています。
-      </p>
+    <section class="top-hero">
+      <div class="top-hero-subtitle">NINAPHARM JAPON</div>
+      <h1 class="top-hero-title">メンバーズガイド</h1>
+      <p class="top-hero-desc">知りたいことを選んでください。</p>
     </section>
 
-    <!-- 目次 -->
-    <nav class="toc-card" aria-label="ページ内メニュー">
-      <div class="toc-title">知りたいことから探す</div>
+    <section class="top-guide-menu">
 
-      <ul class="toc-list">
-        <li class="toc-item">
-          <a href="#guide-a">
-            <span class="toc-num">01</span>
-            新しい方を登録・案内したい
-          </a>
-        </li>
-
-        <li class="toc-item">
-          <a href="#guide-b">
-            <span class="toc-num">02</span>
-            毎月の条件を確認したい
-          </a>
-        </li>
-
-        <li class="toc-item">
-          <a href="#guide-c">
-            <span class="toc-num">03</span>
-            自分の手続きをしたい
-          </a>
-        </li>
-
-        <li class="toc-item">
-          <a href="#guide-d">
-            <span class="toc-num">04</span>
-            ボーナスの仕組みを知りたい
-          </a>
-        </li>
-
-        <li class="toc-item">
-          <a href="#guide-e">
-            <span class="toc-num">05</span>
-            困ったとき・エラーを確認したい
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- ボーナス診断 -->
-    <section class="section-card" id="bonus-check">
-      <div class="section-card-title">ボーナス・タイトル診断</div>
-
-      <p class="section-desc">
-        「今の自分は、どのボーナスを受け取れる状態？」を
-        かんたんに確認できます。
-      </p>
-
-      <a
-        href="./check.html"
-        class="step-item"
-        style="display: block; text-decoration: none; color: inherit;"
-      >
-        <div style="padding: 15px; display: flex; align-items: center;">
-          <span class="step-num">✓</span>
-
-          <div class="step-title-text">
-            <div>いまのあなた、どこまできた？</div>
-            <div style="font-size: 0.78rem; color: #687386; font-weight: 500; margin-top: 3px;">
-              質問に答えるだけで、今月のボーナス受取条件をチェック
-            </div>
-          </div>
-
-          <span style="color: #8792a2; font-size: 1.2rem; margin-left: 8px;">›</span>
+      <a href="./guide-a.html" class="top-guide-card top-guide-card-a">
+        <span class="top-guide-label">A</span>
+        <div class="top-guide-body">
+          <h2>新規登録する</h2>
+          <p>新しくメンバーを登録したい</p>
         </div>
+        <span class="top-guide-arrow">›</span>
       </a>
+
+      <a href="./guide-b.html" class="top-guide-card top-guide-card-b">
+        <span class="top-guide-label">B</span>
+        <div class="top-guide-body">
+          <h2>定期購入したい・停止したい</h2>
+          <p>毎月の購入や継続について</p>
+        </div>
+        <span class="top-guide-arrow">›</span>
+      </a>
+
+      <a href="./guide-c.html" class="top-guide-card top-guide-card-c">
+        <span class="top-guide-label">C</span>
+        <div class="top-guide-body">
+          <h2>ボーナスプランを知りたい</h2>
+          <p>ボーナスやタイトルについて</p>
+        </div>
+        <span class="top-guide-arrow">›</span>
+      </a>
+
+      <a href="./guide-d.html" class="top-guide-card top-guide-card-d">
+        <span class="top-guide-label">D</span>
+        <div class="top-guide-body">
+          <h2>その他手続き</h2>
+          <p>変更・休止・退会など</p>
+        </div>
+        <span class="top-guide-arrow">›</span>
+      </a>
+
+      <a href="./guide-e.html" class="top-guide-card top-guide-card-e">
+        <span class="top-guide-label">E</span>
+        <div class="top-guide-body">
+          <h2>こんなときどうする？</h2>
+          <p>困ったとき・わからないとき</p>
+        </div>
+        <span class="top-guide-arrow">›</span>
+      </a>
+
     </section>
 
-    <!-- ガイド一覧 -->
-    <section class="section-card">
-      <div class="section-card-title">知りたい項目から見る</div>
-
-      <p class="section-desc">
-        今知りたいことに近い項目を選んでください。
-        必要な手続きや条件を、順番に確認できます。
-      </p>
-
-      <div class="step-list">
-
-        <!-- A -->
-        <details class="step-item" id="guide-a">
-          <summary>
-            <span class="step-num">1</span>
-            <span class="step-title-text">
-              新しい方を登録・案内したい
-            </span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-
-          <div class="step-body">
-            <p>
-              新しくメンバーになる方へ、登録方法や費用について案内するときに。
-            </p>
-
-            <ul style="margin: 10px 0 0 18px;">
-              <li>登録用リンク（URL）の発行手順</li>
-              <li>初回費用（17,800円）と月額</li>
-              <li>WEB登録と郵送登録の違い・注意点</li>
-            </ul>
-
-            <p style="margin-top: 14px;">
-              <a href="./guide-a.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
-                登録・案内ガイドを見る ›
-              </a>
-            </p>
-          </div>
-        </details>
-
-        <!-- B -->
-        <details class="step-item" id="guide-b">
-          <summary>
-            <span class="step-num">2</span>
-            <span class="step-title-text">
-              毎月の条件・権利維持について知りたい
-            </span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-
-          <div class="step-body">
-            <p>
-              ボーナスを受け取るために、毎月確認しておきたい条件について。
-            </p>
-
-            <ul style="margin: 10px 0 0 18px;">
-              <li>毎月の維持費（14,800円）</li>
-              <li>ボーナス取得に必要な「アクティブ紹介者」とは？</li>
-              <li>カードエラーが起きた場合のリカバリー方法</li>
-            </ul>
-
-            <p style="margin-top: 14px;">
-              <a href="./guide-b.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
-                権利維持条件を見る ›
-              </a>
-            </p>
-          </div>
-        </details>
-
-        <!-- C -->
-        <details class="step-item" id="guide-c">
-          <summary>
-            <span class="step-num">3</span>
-            <span class="step-title-text">
-              自分の登録情報・定期購入を変更したい
-            </span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-
-          <div class="step-body">
-            <p>
-              支払い方法の変更や、休止・退会などの各種手続きについて。
-            </p>
-
-            <ul style="margin: 10px 0 0 18px;">
-              <li>クレジットカード・引き落とし口座の変更</li>
-              <li>毎月10日の締め日ルール</li>
-              <li>クーリングオフ・退会手続き・再登録制限</li>
-            </ul>
-
-            <p style="margin-top: 14px;">
-              <a href="./guide-c.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
-                各種手続きを見る ›
-              </a>
-            </p>
-          </div>
-        </details>
-
-        <!-- D -->
-        <details class="step-item" id="guide-d">
-          <summary>
-            <span class="step-num">4</span>
-            <span class="step-title-text">
-              ボーナス・コミッションの仕組みを知りたい
-            </span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-
-          <div class="step-body">
-            <p>
-              どんなボーナスがあり、どのような条件で受け取れるのかを確認できます。
-            </p>
-
-            <ul style="margin: 10px 0 0 18px;">
-              <li>ファーストスタート（3,000円）</li>
-              <li>バイナリー還元率「3%」と「10%」の違いと条件</li>
-              <li>メガマッチ（100%）の獲得条件</li>
-            </ul>
-
-            <p style="margin-top: 14px;">
-              <a href="./guide-d.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
-                ボーナス詳細を見る ›
-              </a>
-            </p>
-          </div>
-        </details>
-
-        <!-- E -->
-        <details class="step-item" id="guide-e">
-          <summary>
-            <span class="step-num">5</span>
-            <span class="step-title-text">
-              困ったとき・エラーが起きたとき
-            </span>
-            <span class="step-toggle-icon">▼</span>
-          </summary>
-
-          <div class="step-body">
-            <p>
-              「決済できない」「ボーナスが入っていない」など、
-              よくある困りごとを確認できます。
-            </p>
-
-            <ul style="margin: 10px 0 0 18px;">
-              <li>直紹介者のカード決済が失敗していたら？</li>
-              <li>今月のボーナスが振り込まれていない理由</li>
-              <li>ニナファームジャポンのサポート窓口</li>
-            </ul>
-
-            <p style="margin-top: 14px;">
-              <a href="./guide-e.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
-                よくある質問を見る ›
-              </a>
-            </p>
-          </div>
-        </details>
-
+    <section class="top-diagnosis">
+      <div>
+        <span class="top-diagnosis-label">CHECK</span>
+        <h2>ボーナス・タイトル診断</h2>
+        <p>今の自分の状況をチェック</p>
       </div>
+      <a href="./check.html" class="top-diagnosis-button">診断する ›</a>
     </section>
 
   </main>
 
-  <!-- フッター -->
   <footer>
     <div class="footer-links">
-      <a
-        href="https://www.ninapharm.co.jp/e-service/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        E-Service ログイン
-      </a>
-      |
-      <a
-        href="https://www.ninapharm.co.jp/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        ニナファームジャポン公式サイト
-      </a>
+      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank">E-Service ログイン</a>
+      <a href="https://www.ninapharm.co.jp/" target="_blank">公式サイト</a>
     </div>
 
     <p class="disclaimer">
-      ※当サイトは、会員向けの各種手続き・規約の要点を
-      分かりやすくまとめたサポートガイドです。<br>
-      正式な契約内容・規約については、ニナファームジャポン発行の
-      「概要書面」「メンバーズマニュアル」をご確認ください。
+      ※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>
+      正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
     </p>
 
     <div class="copyright">
