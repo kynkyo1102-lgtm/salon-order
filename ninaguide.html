@@ -4,430 +4,299 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ニナファームジャポン メンバーズWebガイド</title>
-  <style>
-    /* 画像の配色（ロイヤルブルー × ライムグリーン）に合わせて調整 */
-    :root {
-      --primary: #1b4ea8;       /* メインのロイヤルブルー */
-      --primary-dark: #123778;  /* ダークブルー */
-      --accent: #d4e114;        /* アクセントのライムグリーン */
-      --accent-dark: #b1bd05;   /* 濃いライムグリーン */
-      --bg-color: #f0f4f9;      /* 薄いブルーグレーの背景 */
-      --text-color: #333333;
-      --card-bg: #ffffff;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-    }
-    
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      padding-bottom: 40px;
-    }
-
-    /* ヘッダー */
-    header {
-      background-color: var(--primary);
-      border-bottom: 4px solid var(--accent);
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    .header-container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-login {
-      background-color: var(--accent);
-      color: #1a1a1a;
-      padding: 8px 18px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      transition: background 0.2s, transform 0.1s;
-      white-space: nowrap;
-    }
-
-    .btn-login:hover {
-      background-color: var(--accent-dark);
-    }
-
-    /* メインコンテナ */
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 25px 15px;
-    }
-
-    /* ヒーローエリア */
-    .hero {
-      text-align: center;
-      padding: 30px 20px;
-      background: #ffffff;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      border-top: 5px solid var(--primary);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .hero-subtitle {
-      color: var(--primary);
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 6px;
-      letter-spacing: 0.05em;
-    }
-
-    .hero-title {
-      font-size: 1.55rem;
-      margin-bottom: 12px;
-      color: #1a1a1a;
-      word-break: keep-all;
-    }
-
-    .hero-desc {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    /* セクションタイトル */
-    .section-title {
-      font-size: 1.15rem;
-      margin-bottom: 15px;
-      padding-left: 12px;
-      border-left: 5px solid var(--primary);
-      color: var(--primary-dark);
-      font-weight: bold;
-    }
-
-    .nav-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* カードデザイン */
-    .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 22px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      border: 1px solid #dbe3ee;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(27,78,168,0.12);
-      border-color: var(--primary);
-    }
-
-    /* ツール強調カード */
-    .card-tool {
-      border: 2px solid var(--primary);
-      background: #f4f7fc;
-    }
-
-    .card-badge {
-      display: inline-block;
-      background: #eef3fb;
-      color: var(--primary);
-      font-size: 0.78rem;
-      font-weight: bold;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-
-    .card-tool .card-badge {
-      background: var(--primary);
-      color: #ffffff;
-    }
-
-    .card-title {
-      font-size: 1.18rem;
-      font-weight: bold;
-      color: #111;
-      margin-bottom: 10px;
-    }
-
-    .card-list {
-      list-style: none;
-      font-size: 0.88rem;
-      color: #444;
-      margin-bottom: 15px;
-    }
-
-    .card-list li {
-      margin-bottom: 5px;
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .card-list li::before {
-      content: "▶";
-      position: absolute;
-      left: 0;
-      font-size: 0.65rem;
-      top: 3px;
-      color: var(--primary);
-    }
-
-    .card-btn {
-      font-size: 0.88rem;
-      font-weight: bold;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    /* フッター */
-    footer {
-      background-color: var(--primary-dark);
-      color: #ffffff;
-      text-align: center;
-      margin-top: 50px;
-      padding: 30px 15px 20px;
-      border-top: 6px solid var(--accent);
-    }
-
-    .footer-links {
-      margin-bottom: 15px;
-    }
-
-    .footer-links a {
-      color: #ffffff;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 0.85rem;
-    }
-
-    .footer-links a:hover {
-      text-decoration: underline;
-      color: var(--accent);
-    }
-
-    .disclaimer {
-      max-width: 650px;
-      margin: 0 auto;
-      line-height: 1.5;
-      font-size: 0.78rem;
-      color: #d0dceb;
-    }
-
-    .copyright {
-      margin-top: 20px;
-      font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: bold;
-    }
-
-    /* スマートフォン向け調整 */
-    @media (max-width: 768px) {
-      header {
-        padding: 12px 15px;
-      }
-
-      .logo {
-        font-size: 0.95rem;
-      }
-
-      .btn-login {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-      }
-
-      .container {
-        padding: 18px 12px;
-      }
-
-      .hero {
-        padding: 20px 15px;
-        margin-bottom: 20px;
-      }
-
-      .hero-subtitle {
-        font-size: 0.8rem;
-      }
-
-      .hero-title {
-        font-size: 1.25rem;
-        word-break: normal;
-      }
-
-      .hero-desc {
-        font-size: 0.82rem;
-      }
-
-      .section-title {
-        font-size: 1.05rem;
-      }
-
-      .card {
-        padding: 16px;
-      }
-
-      .card-badge {
-        font-size: 0.72rem;
-      }
-
-      .card-title {
-        font-size: 1.02rem;
-      }
-
-      .card-list {
-        font-size: 0.82rem;
-      }
-
-      .card-btn {
-        font-size: 0.82rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./common.css">
 </head>
+
 <body>
 
   <!-- ヘッダー -->
   <header>
     <div class="header-container">
-      <div class="logo">
-        プラッスドゥニナ南熊本店
-      </div>
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" class="btn-login">🔐 E-Service ログイン</a>
+      <div class="back-link">プラッスドゥニナ南熊本店</div>
+
+      <a
+        href="https://www.ninapharm.co.jp/e-service/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-login"
+      >
+        E-Service ログイン
+      </a>
     </div>
   </header>
 
-  <!-- メインコンテンツ -->
-  <div class="container">
+  <main class="container">
 
-    <!-- ヒーローエリア -->
-    <div class="hero">
-      <div class="hero-subtitle">これだけ抑えれば迷わない！</div>
-      <h1 class="hero-title">メンバーズガイド</h1>
-      <p class="hero-desc">ご自身の手続きや、直紹介者様へスムーズに案内・説明するための情報を分かりやすくまとめています。</p>
-    </div>
+    <!-- ページ紹介 -->
+    <section class="page-header">
+      <div class="page-category">NINAPHARM JAPON / MEMBERS GUIDE</div>
+      <h1 class="page-title">ニナファーム メンバーズガイド</h1>
+      <p class="section-desc" style="margin-top: 10px; margin-bottom: 0;">
+        登録・毎月の条件・各種手続き・ボーナスなど、
+        メンバーとして知っておきたいことを、目的別にまとめています。
+      </p>
+    </section>
 
-    <!-- セルフ診断ツール誘導 -->
-    <h2 class="section-title">ボーナス・タイトル診断</h2>
-    <div class="nav-cards" style="margin-bottom: 35px;">
-      <a href="./check.html" class="card card-tool">
-        <span class="card-badge">🛠️ かんたんチェック</span>
-        <div class="card-title">⚡ いまのあなた、どこまできた？</div>
-        <ul class="card-list">
-          <li>質問に答えるだけ！</li>
-          <li>今月のボーナス受取権利を自動判定</li>
-          <li>権利漏れを防ぐための注意事項をチェック</li>
-        </ul>
-        <div class="card-btn">診断ツールを試す ➔</div>
+    <!-- 目次 -->
+    <nav class="toc-card" aria-label="ページ内メニュー">
+      <div class="toc-title">知りたいことから探す</div>
+
+      <ul class="toc-list">
+        <li class="toc-item">
+          <a href="#guide-a">
+            <span class="toc-num">01</span>
+            新しい方を登録・案内したい
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#guide-b">
+            <span class="toc-num">02</span>
+            毎月の条件を確認したい
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#guide-c">
+            <span class="toc-num">03</span>
+            自分の手続きをしたい
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#guide-d">
+            <span class="toc-num">04</span>
+            ボーナスの仕組みを知りたい
+          </a>
+        </li>
+
+        <li class="toc-item">
+          <a href="#guide-e">
+            <span class="toc-num">05</span>
+            困ったとき・エラーを確認したい
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ボーナス診断 -->
+    <section class="section-card" id="bonus-check">
+      <div class="section-card-title">ボーナス・タイトル診断</div>
+
+      <p class="section-desc">
+        「今の自分は、どのボーナスを受け取れる状態？」を
+        かんたんに確認できます。
+      </p>
+
+      <a
+        href="./check.html"
+        class="step-item"
+        style="display: block; text-decoration: none; color: inherit;"
+      >
+        <div style="padding: 15px; display: flex; align-items: center;">
+          <span class="step-num">✓</span>
+
+          <div class="step-title-text">
+            <div>いまのあなた、どこまできた？</div>
+            <div style="font-size: 0.78rem; color: #687386; font-weight: 500; margin-top: 3px;">
+              質問に答えるだけで、今月のボーナス受取条件をチェック
+            </div>
+          </div>
+
+          <span style="color: #8792a2; font-size: 1.2rem; margin-left: 8px;">›</span>
+        </div>
       </a>
-    </div>
+    </section>
 
-    <!-- お悩みナビゲーション -->
-    <h2 class="section-title">知りたい項目を選んでください</h2>
-    
-    <div class="nav-cards">
+    <!-- ガイド一覧 -->
+    <section class="section-card">
+      <div class="section-card-title">知りたい項目から見る</div>
 
-      <!-- カード A -->
-      <a href="./guide-a.html" class="card">
-        <span class="card-badge">こんなとき：知人を新しく紹介・登録案内したい</span>
-        <div class="card-title">🤝 A. 新しい方（直紹介）を登録・案内したい</div>
-        <ul class="card-list">
-          <li>登録用リンク（URL）の発行手順</li>
-          <li>相手に伝える「初回費用（17,800円）」と月額</li>
-          <li>WEB登録と郵送登録の違い・注意点</li>
-        </ul>
-        <div class="card-btn">案内ガイドを見る ➔</div>
-      </a>
+      <p class="section-desc">
+        今知りたいことに近い項目を選んでください。
+        必要な手続きや条件を、順番に確認できます。
+      </p>
 
-      <!-- カード B -->
-      <a href="./guide-b.html" class="card">
-        <span class="card-badge">こんなとき：ボーナス維持やアクティブ条件を知りたい</span>
-        <div class="card-title">🔑 B. 毎月の「権利維持」と「損をしない条件」</div>
-        <ul class="card-list">
-          <li>毎月いくらかかる？（14,800円の維持費）</li>
-          <li>ボーナス取得に必要な「アクティブ紹介者」とは？</li>
-          <li>カードエラーで権利が消える？リカバリー方法</li>
-        </ul>
-        <div class="card-btn">権利維持条件を見る ➔</div>
-      </a>
+      <div class="step-list">
 
-      <!-- カード C -->
-      <a href="./guide-c.html" class="card">
-        <span class="card-badge">こんなとき：カード変更や休止・退会をしたい</span>
-        <div class="card-title">💳 C. 自分自身の各種手続き・定期購入の変更</div>
-        <ul class="card-list">
-          <li>クレジットカード・引き落とし口座の変更手順</li>
-          <li>最重要！「毎月10日」の締め日ルール</li>
-          <li>クーリングオフ・退会手続き・再登録制限</li>
-        </ul>
-        <div class="card-btn">各種手続きを見る ➔</div>
-      </a>
+        <!-- A -->
+        <details class="step-item" id="guide-a">
+          <summary>
+            <span class="step-num">1</span>
+            <span class="step-title-text">
+              新しい方を登録・案内したい
+            </span>
+            <span class="step-toggle-icon">▼</span>
+          </summary>
 
-      <!-- カード D -->
-      <a href="./guide-d.html" class="card">
-        <span class="card-badge">こんなとき：報酬体系や還元率を把握したい</span>
-        <div class="card-title">💰 D. ボーナス・コミッションの仕組み</div>
-        <ul class="card-list">
-          <li>1人紹介したらもらえる「ファーストスタート（3,000円）」</li>
-          <li>バイナリー還元率「3%」と「10%」の違いと条件</li>
-          <li>リーダー向け「メガマッチ（100%）」の獲得条件</li>
-        </ul>
-        <div class="card-btn">ボーナス詳細を見る ➔</div>
-      </a>
+          <div class="step-body">
+            <p>
+              新しくメンバーになる方へ、登録方法や費用について案内するときに。
+            </p>
 
-      <!-- カード E -->
-      <a href="./guide-e.html" class="card">
-        <span class="card-badge">こんなとき：トラブルやエラーをすぐに解決したい</span>
-        <div class="card-title">❓ E. トラブル・困ったときのFAQ</div>
-        <ul class="card-list">
-          <li>直紹介者のカード決済が失敗していたら？</li>
-          <li>今月のボーナスが振込されていない理由</li>
-          <li>ニナファームジャポン サポート窓口一覧</li>
-        </ul>
-        <div class="card-btn">よくある質問を見る ➔</div>
-      </a>
+            <ul style="margin: 10px 0 0 18px;">
+              <li>登録用リンク（URL）の発行手順</li>
+              <li>初回費用（17,800円）と月額</li>
+              <li>WEB登録と郵送登録の違い・注意点</li>
+            </ul>
 
-    </div>
+            <p style="margin-top: 14px;">
+              <a href="./guide-a.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
+                登録・案内ガイドを見る ›
+              </a>
+            </p>
+          </div>
+        </details>
 
-  </div>
+        <!-- B -->
+        <details class="step-item" id="guide-b">
+          <summary>
+            <span class="step-num">2</span>
+            <span class="step-title-text">
+              毎月の条件・権利維持について知りたい
+            </span>
+            <span class="step-toggle-icon">▼</span>
+          </summary>
+
+          <div class="step-body">
+            <p>
+              ボーナスを受け取るために、毎月確認しておきたい条件について。
+            </p>
+
+            <ul style="margin: 10px 0 0 18px;">
+              <li>毎月の維持費（14,800円）</li>
+              <li>ボーナス取得に必要な「アクティブ紹介者」とは？</li>
+              <li>カードエラーが起きた場合のリカバリー方法</li>
+            </ul>
+
+            <p style="margin-top: 14px;">
+              <a href="./guide-b.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
+                権利維持条件を見る ›
+              </a>
+            </p>
+          </div>
+        </details>
+
+        <!-- C -->
+        <details class="step-item" id="guide-c">
+          <summary>
+            <span class="step-num">3</span>
+            <span class="step-title-text">
+              自分の登録情報・定期購入を変更したい
+            </span>
+            <span class="step-toggle-icon">▼</span>
+          </summary>
+
+          <div class="step-body">
+            <p>
+              支払い方法の変更や、休止・退会などの各種手続きについて。
+            </p>
+
+            <ul style="margin: 10px 0 0 18px;">
+              <li>クレジットカード・引き落とし口座の変更</li>
+              <li>毎月10日の締め日ルール</li>
+              <li>クーリングオフ・退会手続き・再登録制限</li>
+            </ul>
+
+            <p style="margin-top: 14px;">
+              <a href="./guide-c.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
+                各種手続きを見る ›
+              </a>
+            </p>
+          </div>
+        </details>
+
+        <!-- D -->
+        <details class="step-item" id="guide-d">
+          <summary>
+            <span class="step-num">4</span>
+            <span class="step-title-text">
+              ボーナス・コミッションの仕組みを知りたい
+            </span>
+            <span class="step-toggle-icon">▼</span>
+          </summary>
+
+          <div class="step-body">
+            <p>
+              どんなボーナスがあり、どのような条件で受け取れるのかを確認できます。
+            </p>
+
+            <ul style="margin: 10px 0 0 18px;">
+              <li>ファーストスタート（3,000円）</li>
+              <li>バイナリー還元率「3%」と「10%」の違いと条件</li>
+              <li>メガマッチ（100%）の獲得条件</li>
+            </ul>
+
+            <p style="margin-top: 14px;">
+              <a href="./guide-d.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
+                ボーナス詳細を見る ›
+              </a>
+            </p>
+          </div>
+        </details>
+
+        <!-- E -->
+        <details class="step-item" id="guide-e">
+          <summary>
+            <span class="step-num">5</span>
+            <span class="step-title-text">
+              困ったとき・エラーが起きたとき
+            </span>
+            <span class="step-toggle-icon">▼</span>
+          </summary>
+
+          <div class="step-body">
+            <p>
+              「決済できない」「ボーナスが入っていない」など、
+              よくある困りごとを確認できます。
+            </p>
+
+            <ul style="margin: 10px 0 0 18px;">
+              <li>直紹介者のカード決済が失敗していたら？</li>
+              <li>今月のボーナスが振り込まれていない理由</li>
+              <li>ニナファームジャポンのサポート窓口</li>
+            </ul>
+
+            <p style="margin-top: 14px;">
+              <a href="./guide-e.html" style="color: var(--primary); font-weight: 800; text-decoration: none;">
+                よくある質問を見る ›
+              </a>
+            </p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
 
   <!-- フッター -->
   <footer>
     <div class="footer-links">
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank">E-Service ログイン</a> | 
-      <a href="https://www.ninapharm.co.jp/" target="_blank">公式サイト</a>
+      <a
+        href="https://www.ninapharm.co.jp/e-service/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        E-Service ログイン
+      </a>
+      |
+      <a
+        href="https://www.ninapharm.co.jp/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ニナファームジャポン公式サイト
+      </a>
     </div>
+
     <p class="disclaimer">
-      ※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>
-      正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
+      ※当サイトは、会員向けの各種手続き・規約の要点を
+      分かりやすくまとめたサポートガイドです。<br>
+      正式な契約内容・規約については、ニナファームジャポン発行の
+      「概要書面」「メンバーズマニュアル」をご確認ください。
     </p>
+
     <div class="copyright">
       Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
     </div>
