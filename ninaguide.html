@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>ニナファームジャポン メンバーズWebガイド</title>
 
   <!-- 共通CSS：他ページと共有。ここは変更しない -->
@@ -10,8 +12,11 @@
 
   <!-- トップページ専用CSS -->
   <style>
+
     /* =========================================
        ninaguide.html 専用
+       LINE風・ポップ版
+
        ※ common.css は変更しない
        ========================================= */
 
@@ -20,48 +25,102 @@
       --top-blue-dark: #123778;
       --top-green: #7f9f12;
       --top-lime: #d4e114;
+
+      --pink: #ffe8ee;
+      --blue-light: #eaf2ff;
+      --green-light: #f1f8d9;
+      --yellow-light: #fff8d9;
+      --purple-light: #f2edff;
+
+      background: #ffffff;
     }
+
+
+    /* =========================================
+       全体
+       ========================================= */
 
     .top-guide-page .top-container {
-      max-width: 800px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 32px 15px 14px;
+      padding: 26px 16px 20px;
     }
 
-    /* ヘッダー直下のタイトル */
+
+    /* =========================================
+       ヒーロー
+       ========================================= */
+
     .top-guide-page .top-hero {
-      background: linear-gradient(135deg, #f1f6ff 0%, #fbfff0 100%);
-      padding: 32px 20px 30px;
-      margin-bottom: 24px;
-      border-radius: 24px;
-      text-align: center;
       position: relative;
       overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 10% 20%,
+          rgba(212, 225, 20, .28) 0 28px,
+          transparent 29px
+        ),
+        radial-gradient(
+          circle at 91% 18%,
+          rgba(27, 78, 168, .10) 0 42px,
+          transparent 43px
+        ),
+        linear-gradient(
+          135deg,
+          #f4f8ff 0%,
+          #fbffe9 100%
+        );
+
+      padding: 38px 22px 34px;
+      margin-bottom: 22px;
+
+      border-radius: 30px;
+      border: 3px solid #ffffff;
+
+      text-align: center;
+
+      box-shadow:
+        0 7px 24px rgba(40, 65, 100, .08),
+        inset 0 0 0 1px rgba(27, 78, 168, .05);
     }
 
-    .top-guide-page .top-hero::before,
-    .top-guide-page .top-hero::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
+
+    /* ヒーロー左下の飾り */
 
     .top-guide-page .top-hero::before {
-      width: 100px;
-      height: 100px;
-      background: rgba(212, 225, 20, .22);
-      top: -48px;
-      right: 8%;
+      content: "•••";
+
+      position: absolute;
+      left: 20px;
+      bottom: 14px;
+
+      color: var(--top-lime);
+
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 5px;
+
+      transform: rotate(-12deg);
     }
 
+
+    /* ヒーロー右下の飾り */
+
     .top-guide-page .top-hero::after {
-      width: 72px;
-      height: 72px;
-      background: rgba(27, 78, 168, .10);
-      bottom: -35px;
-      left: 8%;
+      content: "✦";
+
+      position: absolute;
+      right: 24px;
+      bottom: 16px;
+
+      color: var(--top-blue);
+
+      font-size: 1.45rem;
+
+      transform: rotate(12deg);
     }
+
 
     .top-guide-page .top-hero-subtitle,
     .top-guide-page .top-hero-title,
@@ -70,373 +129,857 @@
       z-index: 1;
     }
 
+
+    /* 小見出し */
+
     .top-guide-page .top-hero-subtitle {
+      display: inline-block;
+
       color: var(--top-green);
-      font-size: .78rem;
-      font-weight: 800;
+      background: #ffffff;
+
+      padding: 5px 12px;
+
+      border-radius: 999px;
+
+      font-size: .7rem;
+      font-weight: 900;
       letter-spacing: .14em;
-      margin-bottom: 6px;
+
+      margin-bottom: 10px;
+
+      box-shadow:
+        0 3px 10px rgba(40, 65, 100, .06);
     }
+
+
+    /* メインタイトル */
 
     .top-guide-page .top-hero-title {
       color: var(--top-blue-dark);
-      font-size: 1.75rem;
-      margin: 0 0 7px;
-      letter-spacing: .02em;
+
+      font-size: 2rem;
+      font-weight: 900;
+
+      margin: 0 0 8px;
+
+      letter-spacing: .03em;
+      line-height: 1.35;
     }
 
+
+    /* 説明 */
+
     .top-guide-page .top-hero-desc {
-      color: #666;
-      font-size: .88rem;
+      color: #657080;
+
+      font-size: .82rem;
+      font-weight: 600;
+
       margin: 0;
     }
 
-    /* A〜E：LINEの使い方ガイドのような「目的別タイル」 */
+
+    /* =========================================
+       カードグリッド
+       CHECK + A〜E = 6枚
+       2列 × 3段
+       ========================================= */
+
     .top-guide-page .top-guide-menu {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
       gap: 14px;
     }
 
+
+    /* =========================================
+       カード共通
+       ========================================= */
+
     .top-guide-page .top-guide-card {
       position: relative;
-      min-height: 210px;
-      aspect-ratio: 1 / .88;
-      padding: 22px 18px 18px;
+
+      min-height: 0;
+
+      aspect-ratio: 1 / 1;
+
+      padding: 20px 15px 17px;
+
       border: 0;
-      border-radius: 18px;
+      border-radius: 25px;
+
       color: inherit;
       text-decoration: none;
+
       display: flex;
       flex-direction: column;
+
       align-items: center;
       justify-content: center;
+
       text-align: center;
+
       overflow: hidden;
-      box-shadow: 0 3px 12px rgba(40, 65, 100, .07);
-      transition: transform .15s ease, box-shadow .15s ease;
+
+      box-shadow:
+        0 5px 18px rgba(40, 65, 100, .09),
+        0 1px 3px rgba(40, 65, 100, .05);
+
+      transition:
+        transform .16s ease,
+        box-shadow .16s ease;
+
+      isolation: isolate;
     }
+
+
+    /* カード右下の大きな丸 */
+
+    .top-guide-page .top-guide-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 105px;
+      height: 105px;
+
+      right: -32px;
+      bottom: -35px;
+
+      border-radius: 50%;
+
+      opacity: .65;
+
+      z-index: -1;
+    }
+
+
+    /* カード左上の小さな丸 */
 
     .top-guide-page .top-guide-card::after {
       content: "";
+
       position: absolute;
-      width: 105px;
-      height: 105px;
+
+      width: 24px;
+      height: 24px;
+
+      left: 15px;
+      top: 14px;
+
       border-radius: 50%;
-      right: -42px;
-      bottom: -42px;
-      opacity: .45;
-      pointer-events: none;
+
+      background: rgba(255, 255, 255, .65);
+
+      z-index: -1;
     }
+
+
+    /* ホバー */
 
     .top-guide-page .top-guide-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(40, 65, 100, .13);
+      transform: translateY(-5px) rotate(-.5deg);
+
+      box-shadow:
+        0 10px 24px rgba(40, 65, 100, .14),
+        0 2px 5px rgba(40, 65, 100, .06);
     }
 
-    .top-guide-page .top-guide-card-a,
-    .top-guide-page .top-guide-card-d {
-      background: #f1f6ff;
+
+    /* =========================================
+       カードカラー
+       ========================================= */
+
+    /* CHECK */
+
+    .top-guide-page .top-guide-card-check {
+      background:
+        linear-gradient(
+          145deg,
+          #fff9d9 0%,
+          #f5f8d8 100%
+        );
     }
 
-    .top-guide-page .top-guide-card-b,
-    .top-guide-page .top-guide-card-e {
-      background: #f4f8e7;
+    .top-guide-page .top-guide-card-check::before {
+      background: rgba(212, 225, 20, .38);
     }
+
+
+    /* A */
+
+    .top-guide-page .top-guide-card-a {
+      background:
+        linear-gradient(
+          145deg,
+          #edf4ff 0%,
+          #e5efff 100%
+        );
+    }
+
+    .top-guide-page .top-guide-card-a::before {
+      background: rgba(91, 143, 230, .18);
+    }
+
+
+    /* B */
+
+    .top-guide-page .top-guide-card-b {
+      background:
+        linear-gradient(
+          145deg,
+          #f3f9df 0%,
+          #edf6d1 100%
+        );
+    }
+
+    .top-guide-page .top-guide-card-b::before {
+      background: rgba(127, 159, 18, .20);
+    }
+
+
+    /* C */
 
     .top-guide-page .top-guide-card-c {
-      background: #fbfce8;
+      background:
+        linear-gradient(
+          145deg,
+          #fff8d9 0%,
+          #fff4c7 100%
+        );
     }
 
-    .top-guide-page .top-guide-card-a::after,
-    .top-guide-page .top-guide-card-d::after {
-      background: #cbdafa;
+    .top-guide-page .top-guide-card-c::before {
+      background: rgba(230, 194, 52, .20);
     }
 
-    .top-guide-page .top-guide-card-b::after,
-    .top-guide-page .top-guide-card-e::after {
-      background: #d5e5a1;
+
+    /* D */
+
+    .top-guide-page .top-guide-card-d {
+      background:
+        linear-gradient(
+          145deg,
+          #f1ecff 0%,
+          #ece5ff 100%
+        );
     }
 
-    .top-guide-page .top-guide-card-c::after {
-      background: #e8ed91;
+    .top-guide-page .top-guide-card-d::before {
+      background: rgba(130, 105, 210, .16);
     }
 
-    /* A〜Eの小さなラベル */
+
+    /* E */
+
+    .top-guide-page .top-guide-card-e {
+      background:
+        linear-gradient(
+          145deg,
+          #ffeef2 0%,
+          #ffe5eb 100%
+        );
+    }
+
+    .top-guide-page .top-guide-card-e::before {
+      background: rgba(230, 112, 140, .17);
+    }
+
+
+    /* =========================================
+       CHECKラベル
+       ========================================= */
+
+    .top-guide-page .top-guide-card-check .top-guide-label {
+      background: var(--top-green);
+
+      width: 58px;
+      height: 30px;
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+
+      box-shadow:
+        0 4px 10px rgba(127, 159, 18, .20);
+
+      margin-bottom: 13px;
+    }
+
+
+    /* =========================================
+       A〜E ラベル
+       ========================================= */
+
     .top-guide-page .top-guide-label {
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
+
       display: grid;
       place-items: center;
+
       border-radius: 50%;
+
       background: var(--top-blue);
-      color: #fff;
-      font-weight: 800;
-      font-size: .95rem;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 8px rgba(27, 78, 168, .16);
+      color: #ffffff;
+
+      font-weight: 900;
+      font-size: 1rem;
+
+      margin-bottom: 13px;
+
+      box-shadow:
+        0 4px 10px rgba(27, 78, 168, .18);
+
       position: relative;
       z-index: 1;
+
+      flex-shrink: 0;
     }
 
-    .top-guide-page .top-guide-card-b .top-guide-label,
-    .top-guide-page .top-guide-card-e .top-guide-label {
+
+    /* B */
+
+    .top-guide-page .top-guide-card-b .top-guide-label {
       background: var(--top-green);
-      box-shadow: 0 3px 8px rgba(127, 159, 18, .16);
+
+      box-shadow:
+        0 4px 10px rgba(127, 159, 18, .18);
     }
+
+
+    /* C */
 
     .top-guide-page .top-guide-card-c .top-guide-label {
-      background: #a8b900;
-      box-shadow: 0 3px 8px rgba(168, 185, 0, .16);
+      background: #b4bd00;
+
+      box-shadow:
+        0 4px 10px rgba(180, 189, 0, .18);
     }
+
+
+    /* D */
+
+    .top-guide-page .top-guide-card-d .top-guide-label {
+      background: #7964c8;
+
+      box-shadow:
+        0 4px 10px rgba(121, 100, 200, .18);
+    }
+
+
+    /* E */
+
+    .top-guide-page .top-guide-card-e .top-guide-label {
+      background: #df718c;
+
+      box-shadow:
+        0 4px 10px rgba(223, 113, 140, .18);
+    }
+
+
+    /* =========================================
+       カード本文
+       ========================================= */
 
     .top-guide-page .top-guide-body {
       position: relative;
       z-index: 1;
+
       min-width: 0;
+      max-width: 100%;
     }
+
 
     .top-guide-page .top-guide-body h2 {
       color: #202020;
-      font-size: 1.08rem;
-      font-weight: 800;
+
+      font-size: 1.05rem;
+      font-weight: 900;
+
       line-height: 1.45;
+
       margin: 0;
     }
+
 
     .top-guide-page .top-guide-body p {
-      color: #707070;
-      font-size: .72rem;
+      color: #6d7580;
+
+      font-size: .7rem;
+      font-weight: 600;
+
       line-height: 1.5;
-      margin: 7px 0 0;
+
+      margin: 6px 0 0;
     }
+
+
+    /* =========================================
+       矢印
+       ========================================= */
 
     .top-guide-page .top-guide-arrow {
-      color: var(--top-blue);
-      font-size: 1.45rem;
-      line-height: 1;
-      font-weight: 300;
       position: absolute;
-      z-index: 1;
-      right: 13px;
-      bottom: 10px;
+
+      right: 12px;
+      bottom: 11px;
+
+      width: 28px;
+      height: 28px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, .72);
+
+      color: var(--top-blue);
+
+      font-size: 1.25rem;
+      font-weight: 400;
+
+      line-height: 1;
+
+      z-index: 2;
+
+      box-shadow:
+        0 2px 6px rgba(40, 65, 100, .06);
     }
 
-    .top-guide-page .top-guide-card-b .top-guide-arrow,
+
+    /* CHECK */
+
+    .top-guide-page .top-guide-card-check .top-guide-arrow {
+      color: var(--top-green);
+    }
+
+
+    /* B */
+
+    .top-guide-page .top-guide-card-b .top-guide-arrow {
+      color: var(--top-green);
+    }
+
+
+    /* D */
+
+    .top-guide-page .top-guide-card-d .top-guide-arrow {
+      color: #7964c8;
+    }
+
+
+    /* E */
+
     .top-guide-page .top-guide-card-e .top-guide-arrow {
-      color: var(--top-green);
+      color: #df718c;
     }
 
-    /* 5枚目は中央に置く */
-    .top-guide-page .top-guide-card-e {
-      grid-column: 1 / -1;
-      width: calc(50% - 7px);
-      justify-self: center;
-    }
 
-    /* 診断 */
-    .top-guide-page .top-diagnosis {
-      margin-top: 20px;
-      padding: 16px 19px;
-      background: #fffef0;
-      border: 2px solid #e2e9a9;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .top-guide-page .top-diagnosis-label {
-      color: var(--top-green);
-      font-size: .68rem;
-      font-weight: 900;
-      letter-spacing: .1em;
-    }
-
-    .top-guide-page .top-diagnosis h2 {
-      color: var(--top-blue-dark);
-      font-size: .96rem;
-      margin: 2px 0;
-    }
-
-    .top-guide-page .top-diagnosis p {
-      color: #666;
-      font-size: .73rem;
-      margin: 0;
-    }
-
-    .top-guide-page .top-diagnosis-button {
-      flex: 0 0 auto;
-      background: var(--top-blue);
-      color: #fff;
-      text-decoration: none;
-      padding: 9px 15px;
-      border-radius: 999px;
-      font-size: .78rem;
-      font-weight: bold;
-      box-shadow: 0 3px 8px rgba(27, 78, 168, .16);
-    }
+    /* =========================================
+       スマートフォン
+       ========================================= */
 
     @media (max-width: 600px) {
+
       .top-guide-page .top-container {
-        padding: 20px 12px 8px;
+        padding: 18px 12px 10px;
       }
+
+
+      /* ヒーロー */
 
       .top-guide-page .top-hero {
-        padding: 24px 15px 22px;
-        margin-bottom: 18px;
-        border-radius: 20px;
+        padding: 30px 14px 27px;
+
+        margin-bottom: 15px;
+
+        border-radius: 25px;
       }
 
+
       .top-guide-page .top-hero-title {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
+
+
+      .top-guide-page .top-hero-subtitle {
+        font-size: .64rem;
+        padding: 4px 10px;
+      }
+
+
+      .top-guide-page .top-hero-desc {
+        font-size: .74rem;
+      }
+
+
+      /* カード */
 
       .top-guide-page .top-guide-menu {
         gap: 10px;
       }
 
+
       .top-guide-page .top-guide-card {
-        min-height: 165px;
-        aspect-ratio: 1 / .88;
-        padding: 17px 10px 16px;
-        border-radius: 15px;
+        padding: 16px 9px 15px;
+
+        border-radius: 20px;
       }
+
 
       .top-guide-page .top-guide-label {
-        width: 36px;
-        height: 36px;
-        font-size: .84rem;
-        margin-bottom: 11px;
+        width: 40px;
+        height: 40px;
+
+        font-size: .88rem;
+
+        margin-bottom: 10px;
       }
+
+
+      .top-guide-page .top-guide-card-check .top-guide-label {
+        width: 50px;
+        height: 27px;
+
+        font-size: .6rem;
+
+        margin-bottom: 10px;
+      }
+
 
       .top-guide-page .top-guide-body h2 {
-        font-size: .88rem;
+        font-size: .82rem;
       }
+
 
       .top-guide-page .top-guide-body p {
-        font-size: .66rem;
-        margin-top: 5px;
+        font-size: .61rem;
+
+        margin-top: 4px;
       }
+
 
       .top-guide-page .top-guide-arrow {
-        font-size: 1.25rem;
-        right: 9px;
-        bottom: 7px;
-      }
+        width: 24px;
+        height: 24px;
 
-      .top-guide-page .top-guide-card-e {
-        width: calc(50% - 5px);
-      }
+        right: 8px;
+        bottom: 8px;
 
-      .top-guide-page .top-diagnosis {
-        padding: 14px;
-        border-radius: 15px;
-      }
-
-      .top-guide-page .top-diagnosis-button {
-        padding: 8px 12px;
-        font-size: .72rem;
+        font-size: 1.05rem;
       }
     }
+
   </style>
 </head>
 
+
 <body class="top-guide-page">
 
+
+  <!-- =========================================
+       ヘッダー
+       ========================================= -->
+
   <header>
+
     <div class="header-container">
-      <div class="logo">プラッスドゥニナ南熊本店</div>
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" class="btn-login">
+
+      <div class="logo">
+        プラッスドゥニナ南熊本店
+      </div>
+
+      <a
+        href="https://www.ninapharm.co.jp/e-service/"
+        target="_blank"
+        class="btn-login"
+      >
         E-Service ログイン
       </a>
+
     </div>
+
   </header>
+
+
+  <!-- =========================================
+       メイン
+       ========================================= -->
 
   <main class="top-container">
 
+
+    <!-- =========================================
+         ヒーロー
+         ========================================= -->
+
     <section class="top-hero">
-      <div class="top-hero-subtitle">NINAPHARM JAPON</div>
-      <h1 class="top-hero-title">メンバーズガイド</h1>
-      <p class="top-hero-desc">知りたいことを選んでください。</p>
+
+      <div class="top-hero-subtitle">
+        NINAPHARM JAPON
+      </div>
+
+      <h1 class="top-hero-title">
+        メンバーズガイド
+      </h1>
+
+      <p class="top-hero-desc">
+        知りたいことを選んでください。
+      </p>
+
     </section>
+
+
+    <!-- =========================================
+         ガイドカード
+         CHECK + A〜E
+         ========================================= -->
 
     <section class="top-guide-menu">
 
-      <a href="./guide-a.html" class="top-guide-card top-guide-card-a">
-        <span class="top-guide-label">A</span>
+
+      <!-- CHECK -->
+
+      <a
+        href="./check.html"
+        class="top-guide-card top-guide-card-check"
+      >
+
+        <span class="top-guide-label">
+          CHECK
+        </span>
+
         <div class="top-guide-body">
-          <h2>新規登録する</h2>
-          <p>新しくメンバーを登録したい</p>
+
+          <h2>
+            ボーナス・タイトル診断
+          </h2>
+
+          <p>
+            今の自分の状況をチェック
+          </p>
+
         </div>
-        <span class="top-guide-arrow">›</span>
+
+        <span class="top-guide-arrow">
+          ›
+        </span>
+
       </a>
 
-      <a href="./guide-b.html" class="top-guide-card top-guide-card-b">
-        <span class="top-guide-label">B</span>
+
+      <!-- A -->
+
+      <a
+        href="./guide-a.html"
+        class="top-guide-card top-guide-card-a"
+      >
+
+        <span class="top-guide-label">
+          A
+        </span>
+
         <div class="top-guide-body">
-          <h2>定期購入したい・停止したい</h2>
-          <p>毎月の購入や継続について</p>
+
+          <h2>
+            新規登録する
+          </h2>
+
+          <p>
+            新しくメンバーを登録したい
+          </p>
+
         </div>
-        <span class="top-guide-arrow">›</span>
+
+        <span class="top-guide-arrow">
+          ›
+        </span>
+
       </a>
 
-      <a href="./guide-c.html" class="top-guide-card top-guide-card-c">
-        <span class="top-guide-label">C</span>
+
+      <!-- B -->
+
+      <a
+        href="./guide-b.html"
+        class="top-guide-card top-guide-card-b"
+      >
+
+        <span class="top-guide-label">
+          B
+        </span>
+
         <div class="top-guide-body">
-          <h2>ボーナスプランを知りたい</h2>
-          <p>ボーナスやタイトルについて</p>
+
+          <h2>
+            定期購入したい・停止したい
+          </h2>
+
+          <p>
+            毎月の購入や継続について
+          </p>
+
         </div>
-        <span class="top-guide-arrow">›</span>
+
+        <span class="top-guide-arrow">
+          ›
+        </span>
+
       </a>
 
-      <a href="./guide-d.html" class="top-guide-card top-guide-card-d">
-        <span class="top-guide-label">D</span>
+
+      <!-- C -->
+
+      <a
+        href="./guide-c.html"
+        class="top-guide-card top-guide-card-c"
+      >
+
+        <span class="top-guide-label">
+          C
+        </span>
+
         <div class="top-guide-body">
-          <h2>その他手続き</h2>
-          <p>変更・休止・退会など</p>
+
+          <h2>
+            ボーナスプランを知りたい
+          </h2>
+
+          <p>
+            ボーナスやタイトルについて
+          </p>
+
         </div>
-        <span class="top-guide-arrow">›</span>
+
+        <span class="top-guide-arrow">
+          ›
+        </span>
+
       </a>
 
-      <a href="./guide-e.html" class="top-guide-card top-guide-card-e">
-        <span class="top-guide-label">E</span>
+
+      <!-- D -->
+
+      <a
+        href="./guide-d.html"
+        class="top-guide-card top-guide-card-d"
+      >
+
+        <span class="top-guide-label">
+          D
+        </span>
+
         <div class="top-guide-body">
-          <h2>こんなときどうする？</h2>
-          <p>困ったとき・わからないとき</p>
+
+          <h2>
+            その他手続き
+          </h2>
+
+          <p>
+            変更・休止・退会など
+          </p>
+
         </div>
-        <span class="top-guide-arrow">›</span>
+
+        <span class="top-guide-arrow">
+          ›
+        </span>
+
       </a>
+
+
+      <!-- E -->
+
+      <a
+        href="./guide-e.html"
+        class="top-guide-card top-guide-card-e"
+      >
+
+        <span class="top-guide-label">
+          E
+        </span>
+
+        <div class="top-guide-body">
+
+          <h2>
+            こんなときどうする？
+          </h2>
+
+          <p>
+            困ったとき・わからないとき
+          </p>
+
+        </div>
+
+        <span class="top-guide-arrow">
+          ›
+        </span>
+
+      </a>
+
 
     </section>
 
-    <section class="top-diagnosis">
-      <div>
-        <span class="top-diagnosis-label">CHECK</span>
-        <h2>ボーナス・タイトル診断</h2>
-        <p>今の自分の状況をチェック</p>
-      </div>
-      <a href="./check.html" class="top-diagnosis-button">診断する ›</a>
-    </section>
 
   </main>
 
+
+  <!-- =========================================
+       フッター
+       ========================================= -->
+
   <footer>
+
     <div class="footer-links">
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank">E-Service ログイン</a>
-      <a href="https://www.ninapharm.co.jp/" target="_blank">公式サイト</a>
+
+      <a
+        href="https://www.ninapharm.co.jp/e-service/"
+        target="_blank"
+      >
+        E-Service ログイン
+      </a>
+
+      <a
+        href="https://www.ninapharm.co.jp/"
+        target="_blank"
+      >
+        公式サイト
+      </a>
+
     </div>
+
 
     <p class="disclaimer">
-      ※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>
-      正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。
+
+      ※当サイトは会員向けの各種お手続き・規約の要点を
+      分かりやすく解説したサポートガイドです。<br>
+
+      正式な契約内容・規約はニナファームジャポン発行の
+      「概要書面」「メンバーズマニュアル」をご確認ください。
+
     </p>
 
+
     <div class="copyright">
-      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+
+      Copyright (C) NINAPHARM JAPON CO.,Ltd.
+      All Rights Reserved.
+
     </div>
+
   </footer>
+
 
 </body>
 </html>
+```
