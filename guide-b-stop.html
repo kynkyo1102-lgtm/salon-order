@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>定期購入の停止 - メンバーズWebガイド</title>
+
+  <link rel="stylesheet" href="common.css">
+
+  <style>
+    .stop-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stop-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      padding: 16px;
+    }
+
+    .stop-card-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 7px;
+      line-height: 1.5;
+    }
+
+    .stop-card-text {
+      font-size: 0.84rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .stop-main {
+      border-color: rgba(27, 78, 168, 0.25);
+      background: #f8faff;
+    }
+
+    .stop-main .stop-card-title {
+      color: var(--primary);
+    }
+
+    .stop-list {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 0.84rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .stop-list li {
+      margin-bottom: 12px;
+    }
+
+    .stop-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .stop-number-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stop-number-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .stop-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .stop-number-text {
+      flex: 1;
+      font-size: 0.84rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .restart-box {
+      margin-top: 16px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 15px;
+    }
+
+    .restart-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 5px;
+    }
+
+    .restart-text {
+      font-size: 0.82rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 700px) {
+      .stop-card {
+        padding: 14px;
+      }
+
+      .stop-card-title {
+        font-size: 0.86rem;
+      }
+
+      .stop-card-text,
+      .stop-list,
+      .stop-number-text {
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-container">
+
+      <a href="./guide-b.html" class="back-link">
+        ← 定期購入についてへ戻る
+      </a>
+
+      <a
+        href="https://sslgw.jns-asp.jp/685/pc.html?new"
+        target="_blank"
+        class="btn-login"
+      >
+        🔐 E-Service ログイン
+      </a>
+
+    </div>
+  </header>
+
+
+  <!-- メインコンテナ -->
+  <div class="container">
+
+    <!-- ページタイトル -->
+    <div class="page-header">
+      <div class="page-category">GUIDE B / 05</div>
+      <h1 class="page-title">定期購入の停止</h1>
+    </div>
+
+
+    <!-- 手続き方法 -->
+    <div class="section-card">
+
+      <div class="section-card-title">
+        定期購入を停止する方法
+      </div>
+
+      <p class="section-desc">
+        定期購入を停止する場合は、E-Serviceまたは書面で手続きを行ってください。
+      </p>
+
+
+      <div class="stop-card-list">
+
+        <!-- E-Service -->
+        <div class="stop-card stop-main">
+
+          <div class="stop-card-title">
+            ① E-Serviceで手続きする場合
+          </div>
+
+          <div class="stop-card-text">
+            E-Serviceにログイン後、
+            <b>【定期購入情報へ】</b>
+            から停止手続きを行ってください。
+          </div>
+
+        </div>
+
+
+        <!-- 書面 -->
+        <div class="stop-card">
+
+          <div class="stop-card-title">
+            ② 書面で手続きする場合
+          </div>
+
+          <div class="stop-card-text">
+            「定期購入変更届」などの所定の書面に必要事項を記入し、
+            当社へ提出してください。
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- 締切 -->
+      <details class="alert-box">
+        <summary>⚠️ 停止手続きの締切にご注意ください</summary>
+
+        <div class="alert-box-content">
+          <b>各月10日まで</b>にE-Serviceまたは書面での手続きが確認できた場合、
+          <b>翌月発送分より停止</b>となります。<br><br>
+
+          各月10日を過ぎた後は、当月の口座振替を停止することはできません。
+          10日を過ぎてから停止手続きをしても、翌月の商品は発送されますのでご注意ください。
+        </div>
+
+      </details>
+
+    </div>
+
+
+    <!-- クレジットカード・代引きの場合 -->
+    <div class="section-card">
+
+      <div class="section-card-title">
+        10日を過ぎてから停止する場合
+      </div>
+
+      <p class="section-desc">
+        お支払い方法によって、停止の申請期限が異なります。
+      </p>
+
+      <div class="stop-card">
+
+        <div class="stop-card-title">
+          クレジットカード決済・代金引換の場合
+        </div>
+
+        <div class="stop-card-text">
+          定期購入をクレジットカード決済または代金引換にされている場合は、
+          <b>各月末日より2営業日前まで</b>に書面で申し出ていただくと、
+          <b>翌月発送より停止</b>となります。
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 自動的に停止される場合 -->
+    <div class="section-card">
+
+      <div class="section-card-title">
+        定期購入が停止される場合
+      </div>
+
+      <p class="section-desc">
+        以下の場合、原則として本人に通知することなく定期購入が停止されます。
+      </p>
+
+
+      <div class="stop-card">
+
+        <div class="stop-number-list">
+
+          <div class="stop-number-item">
+            <span class="stop-number">1</span>
+            <div class="stop-number-text">
+              住所不明で当社に返送され、返送された月の
+              <b>翌月10日まで</b>に当社で正しい住所が確認できないとき。
+            </div>
+          </div>
+
+
+          <div class="stop-number-item">
+            <span class="stop-number">2</span>
+            <div class="stop-number-text">
+              <b>受取拒否</b>をした旨を、
+              <b>2か月連続</b>で配送業者から報告を受けた場合。
+            </div>
+          </div>
+
+
+          <div class="stop-number-item">
+            <span class="stop-number">3</span>
+            <div class="stop-number-text">
+              <b>受取拒否または長期不在</b>である旨を、
+              あわせて<b>3か月連続</b>で配送業者から報告を受けた場合。
+            </div>
+          </div>
+
+
+          <div class="stop-number-item">
+            <span class="stop-number">4</span>
+            <div class="stop-number-text">
+              <b>口座振替・クレジットカード決済が3か月連続してできなかった場合。</b>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- 全支店・ブランチ -->
+      <details class="alert-box">
+        <summary>⚠️ 定期購入停止時の注意</summary>
+
+        <div class="alert-box-content">
+          本店が定期購入停止となった場合には、
+          <b>すべての支店・ブランチも定期購入停止</b>となります。
+        </div>
+
+      </details>
+
+    </div>
+
+
+    <!-- 停止後の再開 -->
+    <div class="section-card">
+
+      <div class="section-card-title">
+        定期購入を再開する場合
+      </div>
+
+      <p class="section-desc">
+        一度定期購入が停止となった場合でも、再開の手続きができます。
+      </p>
+
+      <div class="restart-box">
+
+        <div class="restart-title">
+          再開手続き
+        </div>
+
+        <div class="restart-text">
+          E-Serviceまたは本人からの書面による申請で手続きを行うことで、
+          定期購入を再開できます。
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="section-card">
+
+      <div class="info-box">
+        <div class="info-box-title">
+          💡 停止・再開の手続きについて
+        </div>
+
+        定期購入の停止・再開や変更を行う場合は、
+        締切日を確認したうえで、余裕をもって手続きを行ってください。
+      </div>
+
+      <div class="manual-ref">
+        メンバーズマニュアル1P参照
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- フッター -->
+  <footer>
+
+    <p>
+      ※当サイトは会員有志による手続き案内ガイドであり、公式の概要書面を正とします。
+    </p>
+
+    <div class="copyright">
+      Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.
+    </div>
+
+  </footer>
+
+</body>
+</html>
