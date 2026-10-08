@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -53,13 +54,10 @@
     .top-guide-page .top-hero {
       position: relative;
       overflow: hidden;
-      background:
-        linear-gradient(
-          135deg,
-          #eaf3ff 0%,
-          #f6faff 55%,
-          #eef8d9 100%
-        );
+
+      /* ★ メンバーズガイドの背景だけ変更 */
+      background: #f3f8ff;
+
       padding: 42px 22px 38px;
       margin-bottom: 28px;
 
@@ -72,29 +70,10 @@
         0 12px 30px rgba(36, 91, 170, .09);
     }
 
-    /* 背景の丸い装飾 */
-    .top-guide-page .top-hero::before {
-      content: "";
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      left: -65px;
-      top: -70px;
-      background: #d7e9ff;
-      border-radius: 50%;
-      opacity: .75;
-    }
-
+    /* ★ 背景の丸い装飾を削除 */
+    .top-guide-page .top-hero::before,
     .top-guide-page .top-hero::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      right: -45px;
-      bottom: -55px;
-      background: #dfeeb5;
-      border-radius: 50%;
-      opacity: .8;
+      display: none;
     }
 
     .top-guide-page .top-hero-subtitle,
@@ -749,18 +728,10 @@
         border-radius: 23px;
       }
 
-      .top-guide-page .top-hero::before {
-        width: 105px;
-        height: 105px;
-        left: -50px;
-        top: -50px;
-      }
-
+      /* ★ 背景装飾なし */
+      .top-guide-page .top-hero::before,
       .top-guide-page .top-hero::after {
-        width: 90px;
-        height: 90px;
-        right: -35px;
-        bottom: -40px;
+        display: none;
       }
 
       .top-guide-page .top-hero-title {
@@ -1215,3 +1186,4 @@
 
 </body>
 </html>
+```
