@@ -10,7 +10,7 @@
     .top-guide-page { --top-blue:#1557c0; --top-blue-dark:#123778; --top-green:#789d0d; background:#fff; }
     .top-container { max-width:1120px; margin:0 auto; padding:30px 22px 48px; }
     .top-hero { padding:38px 26px 34px; margin-bottom:34px; text-align:center; background:#f4f8fd; border:0; border-radius:22px; box-shadow:none; }
-    .top-hero-subtitle { display:inline-block; margin-bottom:14px; padding:7px 15px; border-radius:8px; background:#1557c0; color:#fff; font-size:1rem; font-weight:900; letter-spacing:.12em; }
+    .top-hero-subtitle { display:block; margin:0 0 10px; padding:0; background:transparent; color:#1557c0; font-size:.95rem; font-weight:900; letter-spacing:.12em; }
     .top-hero-title { margin:0 0 12px; color:#123778; font-size:clamp(2.2rem,5vw,3rem); line-height:1.35; font-weight:900; }
     .top-hero-desc { color:#43536b; font-size:1.2rem; font-weight:700; }
     .top-section { margin-bottom:44px; }
@@ -30,7 +30,8 @@
     .top-search label { display:block; margin-bottom:8px; color:#123778; font-size:1rem; font-weight:900; }
     .top-search-row { display:flex; gap:8px; }
     .top-search input { flex:1; min-width:0; min-height:56px; padding:12px 16px; border:2px solid #b9cfe9; border-radius:13px; background:#fff; color:#172b45; font:inherit; }
-    .top-search button { min-width:88px; padding:10px 16px; border:0; border-radius:13px; background:#1557c0; color:#fff; font:inherit; font-weight:900; cursor:pointer; }
+    .top-search button { display:grid; place-items:center; flex:0 0 42px; width:42px; min-width:42px; height:42px; padding:0; border:0; border-radius:12px; background:#1557c0; color:#fff; cursor:pointer; }
+    .top-search button svg { display:block; width:19px; height:19px; }
     .search-results { display:none; margin:12px auto 0; padding:0; list-style:none; text-align:left; }
     .search-results.is-visible { display:grid; gap:8px; }
     .search-results a { display:block; padding:13px 16px; border:1px solid #d9e7f8; border-radius:12px; background:#fff; color:#123778; font-weight:800; text-decoration:none; }
@@ -65,7 +66,8 @@
       .top-search { margin-top:18px; }
       .top-search-row { gap:6px; }
       .top-search input { min-height:50px; padding:10px 12px; font-size:1rem; }
-      .top-search button { min-width:70px; padding:8px 12px; font-size:.95rem; }
+      .top-search button { flex-basis:42px; width:42px; min-width:42px; height:42px; border-radius:10px; }
+      .top-search button svg { width:19px; height:19px; }
       .top-section { margin-bottom:34px; }
       .top-section-heading { font-size:1.45rem; margin-bottom:14px; }
       .top-quick-grid { gap:10px; }
@@ -103,9 +105,9 @@
     <ul class="site-menu-list">
       <li class="menu-main"><a href="./index.html">トップページ</a></li>
       <li class="menu-main"><a href="./check.html">ボーナス・タイトル診断</a></li>
-      <li class="menu-group"><details><summary>新規登録の流れ</summary><ul><li><a href="./guide-a.html">新規登録の全体の流れ</a></li><li><a href="./guide-a-web.html">WEBで新規登録する</a></li></ul></details></li>
-      <li class="menu-group"><details><summary>定期購入・停止</summary><ul><li><a href="./guide-b.html">定期購入について</a></li><li><a href="./guide-b.html">お届け・停止の手続き</a></li></ul></details></li>
-      <li class="menu-group"><details><summary>ボーナスプランについて</summary><ul><li><a href="./guide-c.html">ボーナスプランの基本</a></li><li><a href="./guide-c-bonus.html">ボーナス・タイトルの詳細</a></li><li><a href="./check.html">ボーナス・タイトル診断</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>新規登録の流れ</summary><ul><li><a href="./guide-a-compair.html">登録方法を比較</a></li><li><a href="./guide-a-web.html">WEB登録の流れ</a></li><li><a href="./guide-a-paper.html">郵送登録の流れ</a></li><li><a href="./guide-a-cost.html">初回費用</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>定期購入について</summary><ul><li><a href="./guide-b-cost.html">毎月の商品購入</a></li><li><a href="./guide-b-schedule.html">お届けスケジュール</a></li><li><a href="./guide-b-payment.html">お支払方法</a></li><li><a href="./guide-b-deadline.html">締め日について</a></li><li><a href="./guide-b-stop.html">定期購入の停止</a></li><li><a href="./guide-b-bonus.html">６か月連続購入特典</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>ボーナスプランについて</summary><ul><li><a href="./guide-c-basic.html">基本条件</a></li><li><a href="./guide-c-bonus.html">ボーナスプラン</a></li><li><a href="./guide-c-title.html">タイトル昇格条件</a></li><li><a href="./guide-c-branch.html">ブランチ</a></li><li><a href="./check.html">ボーナス・タイトル診断</a></li></ul></details></li>
       <li class="menu-group"><details><summary>その他手続き</summary><ul><li><a href="./guide-d.html">各種手続き・申請</a></li><li><a href="./guide-d.html">その他の手続き</a></li></ul></details></li>
       <li class="menu-group"><details><summary>こんなときどうする？</summary><ul><li><a href="./guide-e.html">よくある困りごと</a></li></ul></details></li>
     </ul>
@@ -115,10 +117,10 @@
     <section class="top-hero" aria-labelledby="pageTitle">
       <div class="top-hero-subtitle">NINAPHARM JAPON</div>
       <h1 class="top-hero-title" id="pageTitle">メンバーズガイド</h1>
-      <p class="top-hero-desc">知りたいことを選んでください。</p>
+      <p class="top-hero-desc">あなたのニナビジネスをサポート！</p>
       <form class="top-search" id="guideSearch" role="search">
         <label for="guideSearchInput">知りたいことを検索</label>
-        <div class="top-search-row"><input id="guideSearchInput" type="search" placeholder="例：新規登録、定期購入、ボーナス" autocomplete="off"><button type="submit">検索</button></div>
+        <div class="top-search-row"><input id="guideSearchInput" type="search" placeholder="例：新規登録、定期購入、ボーナス" autocomplete="off"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg></button></div>
         <ul class="search-results" id="guideSearchResults" aria-live="polite"></ul>
       </form>
     </section>
@@ -138,15 +140,15 @@
       <div class="category-list">
         <details class="category-card">
           <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20"/><path d="M18 8v6M15 11h6"/></svg></span><span class="category-summary-copy"><span class="category-title">新規登録の流れ</span></span></summary>
-          <div class="category-links"><a class="category-link" href="./guide-a.html">新規登録の全体の流れ</a><a class="category-link" href="./guide-a-web.html">WEBで新規登録する</a></div>
+          <div class="category-links"><a class="category-link" href="./guide-a-compair.html">登録方法を比較</a><a class="category-link" href="./guide-a-web.html">WEB登録の流れ</a><a class="category-link" href="./guide-a-paper.html">郵送登録の流れ</a><a class="category-link" href="./guide-a-cost.html">初回費用</a></div>
         </details>
         <details class="category-card green">
           <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-7V2"/><path d="M20 7a8.5 8.5 0 0 0-14.6-2L4 6.5M4 17h7v5"/><path d="M4 17a8.5 8.5 0 0 0 14.6 2L20 17.5"/></svg></span><span class="category-summary-copy"><span class="category-title">定期購入・停止</span></span></summary>
-          <div class="category-links"><a class="category-link" href="./guide-b.html">定期購入について</a><a class="category-link" href="./guide-b.html">お届け・停止の手続きを確認</a></div>
+          <div class="category-links"><a class="category-link" href="./guide-b-cost.html">毎月の商品購入</a><a class="category-link" href="./guide-b-schedule.html">お届けスケジュール</a><a class="category-link" href="./guide-b-payment.html">お支払方法</a><a class="category-link" href="./guide-b-deadline.html">締め日について</a><a class="category-link" href="./guide-b-stop.html">定期購入の停止</a><a class="category-link" href="./guide-b-bonus.html">６か月連続購入特典</a></div>
         </details>
         <details class="category-card">
           <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"/><path d="m12 5 1.1 2.2 2.4.4-1.75 1.7.4 2.4L12 10.6l-2.15 1.1.4-2.4L8.5 7.6l2.4-.4L12 5Z"/></svg></span><span class="category-summary-copy"><span class="category-title">ボーナスプランについて</span></span></summary>
-          <div class="category-links"><a class="category-link" href="./guide-c.html">ボーナスプランの基本</a><a class="category-link" href="./guide-c-bonus.html">ボーナス・タイトルの詳細</a><a class="category-link" href="./check.html">ボーナス・タイトル診断をする</a></div>
+          <div class="category-links"><a class="category-link" href="./guide-c-basic.html">基本条件</a><a class="category-link" href="./guide-c-bonus.html">ボーナスプラン</a><a class="category-link" href="./guide-c-title.html">タイトル昇格条件</a><a class="category-link" href="./guide-c-branch.html">ブランチ</a><a class="category-link" href="./check.html">ボーナス・タイトル診断</a></div>
         </details>
         <details class="category-card green">
           <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3.5h6v3H9zM8.5 12l2.2 2.2 4.8-4.8M8.5 17h7"/></svg></span><span class="category-summary-copy"><span class="category-title">その他手続き</span></span></summary>
