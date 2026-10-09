@@ -1140,8 +1140,9 @@ th, td { font-size: 1rem; padding: 13px 12px; }
 .home-button { color: #fff; background: rgba(255,255,255,.12); }
 .home-button svg { width: 28px; height: 28px; }
 .header-spacer { flex: 1; }
-.menu-button { gap: 9px; padding: 0 16px; color: #123b78; background: #fff; font-size: 1rem; font-weight: 900; }
-.menu-button .hamburger { font-size: 1.5rem; line-height: 1; }
+.menu-button { width: 48px; min-width: 48px; padding: 0; color: #fff; background: transparent; }
+.menu-button .hamburger { display:flex; width:25px; flex-direction:column; gap:5px; }
+.menu-button .hamburger span { display:block; width:25px; height:2px; border-radius:2px; background:currentColor; }
 .site-header .btn-login { font-size: 1rem; padding: 13px 18px; }
 .menu-backdrop { position: fixed; inset: 0; z-index: 1100; background: rgba(12,27,49,.52); opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s ease; }
 .menu-backdrop.is-open { opacity: 1; visibility: visible; }
@@ -1150,10 +1151,15 @@ th, td { font-size: 1rem; padding: 13px 12px; }
 .site-menu-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 .site-menu-title { color: var(--primary-dark); font-size: 1.5rem; font-weight: 900; }
 .menu-close { width: 50px; height: 50px; border: 0; border-radius: 12px; background: var(--blue-pale); color: var(--primary-dark); font-size: 1.8rem; cursor: pointer; }
-.site-menu-list { list-style: none; display: grid; gap: 10px; }
-.site-menu-list a { display: flex; align-items: center; min-height: 58px; padding: 13px 15px; border: 1px solid var(--border-color); border-radius: 13px; background: #fff; color: var(--primary-dark); font-size: 1.08rem; font-weight: 800; text-decoration: none; }
+.site-menu-list, .site-menu-list ul { list-style: none; display: grid; gap: 8px; padding: 0; margin: 0; }
+.site-menu-list > li { min-width: 0; }
+.site-menu-list a { display: flex; align-items: center; min-height: 54px; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 12px; background: #fff; color: var(--primary-dark); font-size: 1.04rem; font-weight: 800; text-decoration: none; }
+.site-menu-list .menu-group > a { background: var(--blue-pale); }
+.site-menu-list ul { margin: 7px 0 8px 15px; padding-left: 12px; border-left: 3px solid #d6e5f8; }
+.site-menu-list ul a { min-height: 44px; padding: 9px 12px; border-color: #e6edf5; font-size: .96rem; font-weight: 700; }
+.site-menu-list ul a::after { font-size: 1.2rem; }
 .site-menu-list a:focus-visible, .menu-button:focus-visible, .home-button:focus-visible, .top-guide-page a:focus-visible { outline: 3px solid #f4c542; outline-offset: 3px; }
-.site-menu-list a::after { content: '›'; margin-left: auto; font-size: 1.5rem; color: var(--primary); }
+.site-menu-list a::after { content: '›'; margin-left: auto; font-size: 1.4rem; color: var(--primary); }
 body.menu-open { overflow: hidden; }
 .back-to-top { display: flex; align-items: center; justify-content: center; gap: 8px; width: fit-content; min-height: 56px; margin: 30px auto 0; padding: 13px 24px; border: 2px solid #c7dbf4; border-radius: 999px; background: #fff; color: var(--primary-dark); font-size: 1.05rem; font-weight: 900; text-decoration: none; }
 @media (max-width: 700px) {
@@ -1162,7 +1168,12 @@ body.menu-open { overflow: hidden; }
   .site-header-inner { min-height: 68px; padding: 8px 12px; gap: 9px; }
   .home-button, .menu-button { min-width: 50px; min-height: 50px; border-radius: 12px; }
   .menu-button { padding: 0 12px; font-size: 1rem; }
-  .site-header .btn-login { padding: 12px 13px; font-size: .95rem; }
+  .site-header .btn-login { padding: 9px 11px; font-size: .82rem; }
+  .site-header-inner { min-height: 60px; }
+  .home-button { min-width: 42px; min-height: 42px; }
+  .menu-button { width: 42px; min-width: 42px; min-height: 42px; }
+  .menu-button .hamburger, .menu-button .hamburger span { width: 22px; }
+  .site-menu { padding: 18px 15px; }
   .section-card { padding: 22px 17px; scroll-margin-top: 82px; }
   .section-card-title { font-size: 1.3rem; }
   .section-desc, .step-body { font-size: 1.05rem; }
