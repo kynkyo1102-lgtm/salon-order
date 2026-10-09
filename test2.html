@@ -668,11 +668,13 @@
       }
 
 
-      /* HERO */
+      /* HERO (スマホ時に全幅・大きく表示) */
       .top-guide-page .top-hero {
-        margin-bottom: 19px;
+        margin-left: -12px;  /* コンテナのpaddingを相殺して画面幅いっぱいに */
+        margin-right: -12px;
+        margin-bottom: 22px;
 
-        border-radius: 20px;
+        border-radius: 0;   /* 横いっぱいの場合は角丸を解除（お好みで0〜12px等に調整可） */
       }
 
 
