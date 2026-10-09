@@ -7,9 +7,9 @@
   <title>ニナファームジャポン メンバーズWebガイド</title>
   <link rel="stylesheet" href="./common.css">
   <style>
-    .top-guide-page { --top-blue:#1557c0; --top-blue-dark:#123778; --top-green:#789d0d; background:linear-gradient(180deg,#f5f9ff 0%,#fff 42%); }
+    .top-guide-page { --top-blue:#1557c0; --top-blue-dark:#123778; --top-green:#789d0d; background:#fff; }
     .top-container { max-width:1120px; margin:0 auto; padding:30px 22px 48px; }
-    .top-hero { padding:42px 26px 38px; margin-bottom:34px; text-align:center; background:#edf5ff; border:1px solid #d5e6fb; border-radius:26px; box-shadow:0 10px 28px rgba(36,91,170,.08); }
+    .top-hero { padding:38px 26px 34px; margin-bottom:34px; text-align:center; background:#f4f8fd; border:0; border-radius:22px; box-shadow:none; }
     .top-hero-subtitle { display:inline-block; margin-bottom:14px; padding:7px 15px; border-radius:8px; background:#1557c0; color:#fff; font-size:1rem; font-weight:900; letter-spacing:.12em; }
     .top-hero-title { margin:0 0 12px; color:#123778; font-size:clamp(2.2rem,5vw,3rem); line-height:1.35; font-weight:900; }
     .top-hero-desc { color:#43536b; font-size:1.2rem; font-weight:700; }
@@ -36,20 +36,20 @@
     .search-results a { display:block; padding:13px 16px; border:1px solid #d9e7f8; border-radius:12px; background:#fff; color:#123778; font-weight:800; text-decoration:none; }
     .search-results .no-results { padding:12px 2px; color:#596579; }
     .category-list { display:grid; gap:18px; }
-    .category-card { overflow:hidden; border:2px solid #d9e7f8; border-radius:20px; background:#fff; box-shadow:0 6px 20px rgba(40,80,130,.06); }
+    .category-card { overflow:hidden; border:1px solid #d9e4f0; border-radius:16px; background:#fff; box-shadow:0 3px 12px rgba(40,80,130,.04); }
     .category-card.green { border-color:#d9e6ad; }
     .category-card-head { display:flex; align-items:center; gap:16px; padding:22px 24px; background:#edf5ff; }
     .category-card.green .category-card-head { background:#f1f8dc; }
-    .category-summary { display:flex; align-items:center; gap:16px; padding:22px 24px; background:#edf5ff; cursor:pointer; list-style:none; }
+    .category-summary { display:flex; align-items:center; gap:16px; padding:21px 24px; background:#f3f7fc; cursor:pointer; list-style:none; }
     .category-summary::-webkit-details-marker { display:none; }
-    .category-card.green .category-summary { background:#f1f8dc; }
+    .category-card.green .category-summary { background:#f6f9eb; }
     .category-summary::after { content:'＋'; margin-left:auto; color:#1557c0; font-size:1.6rem; font-weight:700; }
     .category-card[open] .category-summary::after { content:'−'; }
-    .category-thumb { display:block; flex:0 0 112px; width:112px; height:82px; object-fit:cover; border-radius:12px; background:#fff; border:1px solid rgba(18,55,120,.12); }
     .category-summary-copy { min-width:0; flex:1; }
-    .category-icon { display:none; }
-    .category-card.green .category-icon { color:#557500; }
-    .category-title { margin:0; color:#123778; font-size:1.45rem; line-height:1.45; font-weight:900; }
+    .category-icon { display:grid; place-items:center; flex:0 0 52px; width:52px; height:52px; border-radius:15px; background:#dceaff; color:#1557c0; }
+    .category-icon svg { display:block; width:27px; height:27px; }
+    .category-card.green .category-icon { background:#e4efc2; color:#557500; }
+    .category-title { margin:0; color:#123778; font-size:1.35rem; line-height:1.45; font-weight:900; }
     .category-links { display:grid; grid-template-columns:1fr; gap:10px; padding:18px 22px 22px; }
     .category-link { display:flex; align-items:center; gap:9px; min-height:56px; padding:12px 14px; border:1px solid #dfe8f2; border-radius:12px; color:#123778; background:#fff; text-decoration:none; font-size:1.02rem; line-height:1.5; font-weight:800; }
     .category-link::before { content:'›'; color:#1557c0; font-size:1.5rem; flex-shrink:0; }
@@ -76,9 +76,10 @@
       .quick-arrow { align-self:flex-end; margin-top:-8px; line-height:1; }
       .category-list { gap:14px; }
       .category-card { border-radius:16px; }
-      .category-summary { gap:10px; padding:14px 12px; }
-      .category-thumb { flex-basis:78px; width:78px; height:68px; border-radius:10px; }
-      .category-title { font-size:1.12rem; }
+      .category-summary { gap:10px; padding:17px 15px; }
+      .category-icon { flex-basis:42px; width:42px; height:42px; border-radius:12px; }
+      .category-icon svg { width:23px; height:23px; }
+      .category-title { font-size:1.08rem; }
       .category-links { gap:8px; padding:13px 13px 16px; }
       .category-link { min-height:52px; padding:11px 12px; font-size:1rem; }
     }
@@ -102,11 +103,11 @@
     <ul class="site-menu-list">
       <li class="menu-main"><a href="./index.html">トップページ</a></li>
       <li class="menu-main"><a href="./check.html">ボーナス・タイトル診断</a></li>
-      <li class="menu-group"><a href="./guide-a.html">新規登録の流れ</a><ul><li><a href="./guide-a.html">新規登録の全体の流れ</a></li><li><a href="./guide-a-web.html">WEBで新規登録する</a></li></ul></li>
-      <li class="menu-group"><a href="./guide-b.html">定期購入・停止</a><ul><li><a href="./guide-b.html">定期購入について</a></li><li><a href="./guide-b.html">お届け・停止の手続き</a></li></ul></li>
-      <li class="menu-group"><a href="./guide-c.html">ボーナスプランについて</a><ul><li><a href="./guide-c.html">ボーナスプランの基本</a></li><li><a href="./guide-c-bonus.html">ボーナス・タイトルの詳細</a></li><li><a href="./check.html">ボーナス・タイトル診断</a></li></ul></li>
-      <li class="menu-group"><a href="./guide-d.html">その他手続き</a><ul><li><a href="./guide-d.html">各種手続き・申請</a></li></ul></li>
-      <li class="menu-main"><a href="./guide-e.html">こんなときどうする？</a></li>
+      <li class="menu-group"><details><summary>新規登録の流れ</summary><ul><li><a href="./guide-a.html">新規登録の全体の流れ</a></li><li><a href="./guide-a-web.html">WEBで新規登録する</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>定期購入・停止</summary><ul><li><a href="./guide-b.html">定期購入について</a></li><li><a href="./guide-b.html">お届け・停止の手続き</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>ボーナスプランについて</summary><ul><li><a href="./guide-c.html">ボーナスプランの基本</a></li><li><a href="./guide-c-bonus.html">ボーナス・タイトルの詳細</a></li><li><a href="./check.html">ボーナス・タイトル診断</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>その他手続き</summary><ul><li><a href="./guide-d.html">各種手続き・申請</a></li><li><a href="./guide-d.html">その他の手続き</a></li></ul></details></li>
+      <li class="menu-group"><details><summary>こんなときどうする？</summary><ul><li><a href="./guide-e.html">よくある困りごと</a></li></ul></details></li>
     </ul>
   </nav>
 
@@ -136,23 +137,23 @@
       <h2 class="top-section-heading" id="categoryHeading"><small>CATEGORY</small>カテゴリから探す</h2>
       <div class="category-list">
         <details class="category-card">
-          <summary class="category-summary"><img class="category-thumb" src="./新規登録の流れ.png" alt="新規登録の流れのサムネイル"><span class="category-summary-copy"><span class="category-title">新規登録の流れ</span></span></summary>
+          <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20v-1.5A4.5 4.5 0 0 1 7.5 14h3A4.5 4.5 0 0 1 15 18.5V20"/><path d="M18 8v6M15 11h6"/></svg></span><span class="category-summary-copy"><span class="category-title">新規登録の流れ</span></span></summary>
           <div class="category-links"><a class="category-link" href="./guide-a.html">新規登録の全体の流れ</a><a class="category-link" href="./guide-a-web.html">WEBで新規登録する</a></div>
         </details>
         <details class="category-card green">
-          <summary class="category-summary"><img class="category-thumb" src="./定期購入・停止.png" alt="定期購入・停止のサムネイル"><span class="category-summary-copy"><span class="category-title">定期購入・停止</span></span></summary>
+          <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-7V2"/><path d="M20 7a8.5 8.5 0 0 0-14.6-2L4 6.5M4 17h7v5"/><path d="M4 17a8.5 8.5 0 0 0 14.6 2L20 17.5"/></svg></span><span class="category-summary-copy"><span class="category-title">定期購入・停止</span></span></summary>
           <div class="category-links"><a class="category-link" href="./guide-b.html">定期購入について</a><a class="category-link" href="./guide-b.html">お届け・停止の手続きを確認</a></div>
         </details>
         <details class="category-card">
-          <summary class="category-summary"><img class="category-thumb" src="./ボーナスプランについて.png" alt="ボーナスプランについてのサムネイル"><span class="category-summary-copy"><span class="category-title">ボーナスプランについて</span></span></summary>
+          <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"/><path d="m12 5 1.1 2.2 2.4.4-1.75 1.7.4 2.4L12 10.6l-2.15 1.1.4-2.4L8.5 7.6l2.4-.4L12 5Z"/></svg></span><span class="category-summary-copy"><span class="category-title">ボーナスプランについて</span></span></summary>
           <div class="category-links"><a class="category-link" href="./guide-c.html">ボーナスプランの基本</a><a class="category-link" href="./guide-c-bonus.html">ボーナス・タイトルの詳細</a><a class="category-link" href="./check.html">ボーナス・タイトル診断をする</a></div>
         </details>
         <details class="category-card green">
-          <summary class="category-summary"><img class="category-thumb" src="./その他手続き.png" alt="その他手続きのサムネイル"><span class="category-summary-copy"><span class="category-title">その他手続き</span></span></summary>
+          <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3.5h6v3H9zM8.5 12l2.2 2.2 4.8-4.8M8.5 17h7"/></svg></span><span class="category-summary-copy"><span class="category-title">その他手続き</span></span></summary>
           <div class="category-links"><a class="category-link" href="./guide-d.html">各種手続き・申請を確認</a><a class="category-link" href="./guide-d.html">その他の手続きについて</a></div>
         </details>
         <details class="category-card">
-          <summary class="category-summary"><img class="category-thumb" src="./こんなときどうする？.png" alt="こんなときどうする？のサムネイル"><span class="category-summary-copy"><span class="category-title">こんなときどうする？</span></span></summary>
+          <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.3 1.7c-1.1 1.1-1.9 1.3-1.9 3M12 17.5h.01"/></svg></span><span class="category-summary-copy"><span class="category-title">こんなときどうする？</span></span></summary>
           <div class="category-links"><a class="category-link" href="./guide-e.html">よくある困りごとを探す</a></div>
         </details>
       </div>
