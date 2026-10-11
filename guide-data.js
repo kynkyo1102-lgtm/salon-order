@@ -81,6 +81,13 @@ window.NINA_GUIDE_ARTICLES = [
     tags: ["ボーナス", "基本条件", "ボーナスプラン"]
   },
   {
+    title: "ファーストスタートボーナス",
+    href: "./guide-c-bonus-first-start.html",
+    category: "ボーナス・タイトル",
+    description: "新規会員を直接紹介した場合のファーストスタートボーナスの概要を確認できます。",
+    tags: ["ボーナス", "ファーストスタートボーナス", "直接紹介", "新規会員", "3,000円"]
+  },
+  {
     title: "ボーナス・タイトル診断",
     href: "./check.html",
     category: "ボーナス・タイトル",
