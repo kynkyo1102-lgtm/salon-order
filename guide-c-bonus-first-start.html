@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123b78">
+  <meta name="description" content="ファーストスタートボーナスの概要と、直接紹介による支給額の例を確認できます。">
+  <title>ファーストスタートボーナス - ニナファームジャポン メンバーズWebガイド</title>
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    .bonus-lead {
+      padding: 18px;
+      border: 1px solid #d9e8f8;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #edf5ff 0%, #fff 100%);
+      line-height: 1.8;
+    }
+    .bonus-amount {
+      margin: 18px 0;
+      padding: 22px 16px;
+      border-radius: 14px;
+      background: #f1f8dc;
+      border: 1px solid #dce9b9;
+      text-align: center;
+    }
+    .bonus-amount-label {
+      color: #526b17;
+      font-size: .88rem;
+      font-weight: 800;
+    }
+    .bonus-amount-value {
+      display: block;
+      margin-top: 4px;
+      color: #315000;
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.3;
+    }
+    .bonus-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 22px 0;
+    }
+    .bonus-flow-step {
+      min-width: 120px;
+      padding: 13px 16px;
+      border: 1px solid #cbd9ea;
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+      font-weight: 800;
+    }
+    .bonus-flow-arrow {
+      color: var(--primary);
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+    .related-links {
+      display: grid;
+      gap: 10px;
+    }
+    .related-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 800;
+      background: #fff;
+    }
+    .related-link:hover { background: var(--blue-pale); border-color: #b9d2f0; }
+    .note-box {
+      padding: 13px 15px;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      background: #f8fbea;
+      color: #40521a;
+      font-size: .88rem;
+      line-height: 1.8;
+    }
+    @media (max-width: 560px) {
+      .bonus-flow { flex-direction: column; }
+      .bonus-flow-arrow { transform: rotate(90deg); }
+      .section-card { padding: 22px 17px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="./ninaguide.html" class="back-link">← ニナガイドへ戻る</a>
+      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="page-category">GUIDE C｜ボーナス・タイトル</div>
+      <h1 class="page-title">ファーストスタートボーナス</h1>
+    </div>
+
+    <section class="section-card" aria-labelledby="overview">
+      <h2 class="section-card-title" id="overview">このボーナスの概要</h2>
+      <div class="bonus-lead">
+        新規会員を直接紹介すると、紹介した人数に応じて取得できるボーナスです。
+      </div>
+
+      <div class="bonus-amount">
+        <span class="bonus-amount-label">新規会員を直接紹介した場合</span>
+        <strong class="bonus-amount-value">1人につき 3,000円</strong>
+      </div>
+
+      <div class="bonus-flow" aria-label="あなたが新規会員を直接紹介すると、ボーナスの対象になります">
+        <div class="bonus-flow-step">👤 あなた</div>
+        <span class="bonus-flow-arrow" aria-hidden="true">→</span>
+        <div class="bonus-flow-step">👤 新規会員</div>
+        <span class="bonus-flow-arrow" aria-hidden="true">→</span>
+        <div class="bonus-flow-step">💰 3,000円</div>
+      </div>
+    </section>
+
+    <section class="section-card" aria-labelledby="conditions">
+      <h2 class="section-card-title" id="conditions">仕組みを確認</h2>
+      <div class="table-container">
+        <table>
+          <tbody>
+            <tr>
+              <th scope="row">何をすると？</th>
+              <td>新規会員を直接紹介</td>
+            </tr>
+            <tr>
+              <th scope="row">支給額の目安</th>
+              <td>直接紹介した新規会員1人につき3,000円</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-desc" style="margin-top:14px;margin-bottom:0;">
+        具体的な支給条件や適用ルールは、正式なメンバーズマニュアル等で確認してください。
+      </p>
+    </section>
+
+    <section class="section-card" aria-labelledby="related">
+      <h2 class="section-card-title" id="related">あわせて確認</h2>
+      <div class="related-links">
+        <a class="related-link" href="./guide-c-basic.html">
+          <span>ボーナス取得の基本条件</span><span aria-hidden="true">›</span>
+        </a>
+        <a class="related-link" href="./guide-list.html?category=%E3%83%9C%E3%83%BC%E3%83%8A%E3%82%B9%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB">
+          <span>ボーナス・タイトルの記事一覧</span><span aria-hidden="true">›</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>※このページは、会員向けの内容を分かりやすく整理したサポートガイドです。正式な契約内容・支給条件は、ニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
+    <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
+  </footer>
+</body>
+</html>
