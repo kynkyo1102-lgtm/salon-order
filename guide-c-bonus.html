@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123b78">
+  <meta name="description" content="9種類のボーナスプランの一覧です。それぞれの仕組みや取得条件を確認できます。">
+  <title>ボーナスプラン一覧 - メンバーズWebガイド</title>
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    .bonus-intro{margin-bottom:22px;padding:17px 19px;border:1px solid #d9e8f8;border-radius:12px;background:linear-gradient(135deg,#edf5ff 0%,#fff 100%);line-height:1.8;color:#334155}
+    .bonus-index{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .bonus-card{display:flex;align-items:center;gap:14px;min-height:104px;padding:18px;border:1px solid var(--border-color);border-radius:12px;background:#fff;color:inherit;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s ease,border-color .15s ease}
+    .bonus-card:hover{transform:translateY(-2px);border-color:#b9d2f0}
+    .bonus-number{display:flex;align-items:center;justify-content:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#edf5ff;color:var(--primary-dark);font-weight:900;font-size:1.05rem}
+    .bonus-card-text{flex:1;min-width:0}
+    .bonus-card-title{display:block;color:var(--primary-dark);font-weight:800;line-height:1.5}
+    .bonus-card-desc{display:block;margin-top:5px;color:#687386;font-size:.82rem;line-height:1.55}
+    .bonus-arrow{color:var(--primary);font-size:1.35rem;font-weight:800}
+    .quick-links{display:grid;gap:10px}
+    .quick-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--border-color);border-radius:10px;color:var(--primary-dark);text-decoration:none;font-weight:800;background:#fff}
+    .quick-link:hover{background:var(--blue-pale);border-color:#b9d2f0}
+    @media(max-width:700px){.bonus-index{grid-template-columns:1fr;gap:11px}.bonus-card{min-height:0;padding:16px}.section-card{padding:22px 17px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="./guide-c.html" class="back-link">← ボーナスプランについてへ戻る</a>
+      <a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">🔐 E-Serviceログイン</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="page-category">GUIDE C｜ボーナス・タイトル</div>
+      <h1 class="page-title">ボーナスプラン一覧</h1>
+    </div>
+
+    <div class="bonus-intro">
+      ボーナスプランは全部で9種類あります。気になるボーナスを選ぶと、仕組みや取得条件、計算例を確認できます。
+    </div>
+
+    <section class="section-card" aria-labelledby="bonus-list">
+      <h2 class="section-card-title" id="bonus-list">9種類のボーナス</h2>
+      <div class="bonus-index">
+        <a class="bonus-card" href="./guide-c-bonus-first-start.html"><span class="bonus-number">1</span><span class="bonus-card-text"><span class="bonus-card-title">ファーストスタートボーナス</span><span class="bonus-card-desc">新規会員の直接紹介に関するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-5-active.html"><span class="bonus-number">2</span><span class="bonus-card-text"><span class="bonus-card-title">5アクティブボーナス</span><span class="bonus-card-desc">アクティブ紹介者5人に関するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-10-active.html"><span class="bonus-number">3</span><span class="bonus-card-text"><span class="bonus-card-title">10アクティブボーナス</span><span class="bonus-card-desc">アクティブ紹介者10人に関するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-basic-commission.html"><span class="bonus-number">4</span><span class="bonus-card-text"><span class="bonus-card-title">ベーシックコミッションボーナス</span><span class="bonus-card-desc">左右グループの売上Pを基準にするボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-mega-match.html"><span class="bonus-number">5</span><span class="bonus-card-text"><span class="bonus-card-title">メガマッチボーナス</span><span class="bonus-card-desc">直接紹介者の実績に連動するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-double-mega-match.html"><span class="bonus-number">6</span><span class="bonus-card-text"><span class="bonus-card-title">ダブルメガマッチボーナス</span><span class="bonus-card-desc">二次紹介者の実績に連動するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-leadership.html"><span class="bonus-number">7</span><span class="bonus-card-text"><span class="bonus-card-title">リーダーシップボーナス</span><span class="bonus-card-desc">タイトルとグループ売上Pに関係するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-amf.html"><span class="bonus-number">8</span><span class="bonus-card-text"><span class="bonus-card-title">アニュアルマネジメントフィー（AMF）</span><span class="bonus-card-desc">AMFの条件・計算方法・支給時期</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+        <a class="bonus-card" href="./guide-c-bonus-cullinan-amf.html"><span class="bonus-number">9</span><span class="bonus-card-text"><span class="bonus-card-title">カリナンアニュアルマネジメントフィー</span><span class="bonus-card-desc">連続達成条件などを確認</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
+      </div>
+    </section>
+
+    <section class="section-card" aria-labelledby="related">
+      <h2 class="section-card-title" id="related">あわせて確認</h2>
+      <div class="quick-links">
+        <a class="quick-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span aria-hidden="true">›</span></a>
+        <a class="quick-link" href="./check.html"><span>ボーナス・タイトル診断</span><span aria-hidden="true">›</span></a>
+        <a class="quick-link" href="./guide-c.html"><span>ボーナスプランについてへ戻る</span><span aria-hidden="true">›</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>※当サイトは会員向けの内容を分かりやすく整理したサポートガイドです。正式な支給条件は、ニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
+    <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
+  </footer>
+</body>
+</html>
