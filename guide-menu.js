@@ -31,7 +31,10 @@
     ].join('');
 
     wrap.append(button, panel);
-    login.insertAdjacentElement('afterend', wrap);
+    const actions = document.createElement('div');
+    actions.className = 'guide-header-actions';
+    login.parentNode.insertBefore(actions, login);
+    actions.append(login, wrap);
 
     button.addEventListener('click', () => {
       const open = button.getAttribute('aria-expanded') !== 'true';
