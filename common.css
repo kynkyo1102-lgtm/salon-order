@@ -1199,3 +1199,35 @@ body.menu-open { overflow: hidden; }
   .home-button, .menu-button { min-width: 40px; min-height: 40px; }
   .menu-button .hamburger, .menu-button .hamburger span { width: 21px; }
 }
+
+
+/* サイト共通メニュー */
+.header-container { gap: 10px; }
+.guide-menu-wrap { position: relative; flex-shrink: 0; }
+.guide-menu-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 38px; padding: 7px 12px; border: 1px solid rgba(255,255,255,.38);
+  border-radius: 999px; background: rgba(255,255,255,.12); color: #fff;
+  font: inherit; font-size: .78rem; font-weight: 800; white-space: nowrap; cursor: pointer;
+}
+.guide-menu-button:hover, .guide-menu-button[aria-expanded="true"] { background: rgba(255,255,255,.23); }
+.guide-menu-icon { display: flex; flex-direction: column; gap: 3px; width: 15px; }
+.guide-menu-icon i { display: block; height: 2px; width: 15px; border-radius: 2px; background: currentColor; }
+.guide-menu-panel {
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: 200;
+  width: min(250px, calc(100vw - 28px)); padding: 8px;
+  border: 1px solid #d9e4f0; border-radius: 13px; background: #fff;
+  box-shadow: 0 10px 30px rgba(18,59,120,.2);
+}
+.guide-menu-panel[hidden] { display: none; }
+.guide-menu-panel a {
+  display: block; padding: 11px 12px; border-radius: 8px;
+  color: var(--primary-dark); text-decoration: none; font-size: .88rem; font-weight: 800;
+}
+.guide-menu-panel a:hover, .guide-menu-panel a:focus { background: var(--blue-pale); }
+@media (max-width: 560px) {
+  .header-container { gap: 7px; }
+  .guide-menu-button { min-height: 36px; padding: 6px 9px; font-size: .72rem; }
+  .btn-login { padding: 7px 10px; font-size: .7rem; }
+  .back-link { font-size: .75rem; white-space: normal; }
+}
