@@ -1203,6 +1203,7 @@ body.menu-open { overflow: hidden; }
 
 /* サイト共通メニュー */
 .header-container { gap: 10px; }
+.guide-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .guide-menu-wrap { position: relative; flex-shrink: 0; }
 .guide-menu-button {
   display: inline-flex; align-items: center; justify-content: center; gap: 7px;
