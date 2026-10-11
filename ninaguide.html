@@ -36,6 +36,9 @@
     .search-results.is-visible { display:grid; gap:8px; }
     .search-results a { display:block; padding:13px 16px; border:1px solid #d9e7f8; border-radius:12px; background:#fff; color:#123778; font-weight:800; text-decoration:none; }
     .search-results .no-results { padding:12px 2px; color:#596579; }
+    .top-keyword-list { display:flex; flex-wrap:wrap; gap:10px; }
+    .top-keyword-tag { display:inline-flex; align-items:center; min-height:42px; padding:9px 16px; border:1px solid #cdddf0; border-radius:999px; background:#f5f9ff; color:#1557c0; font-weight:800; text-decoration:none; transition:background .15s ease,border-color .15s ease; }
+    .top-keyword-tag:hover { background:#e8f2ff; border-color:#9dbfe9; }
     .category-list { display:grid; gap:18px; }
     .category-card { overflow:hidden; border:1px solid #d9e4f0; border-radius:16px; background:#fff; box-shadow:0 3px 12px rgba(40,80,130,.04); }
     .category-card.green { border-color:#d9e6ad; }
@@ -135,6 +138,11 @@
       </div>
     </section>
 
+    <section class="top-section" aria-labelledby="keywordHeading">
+      <h2 class="top-section-heading" id="keywordHeading"><small>KEYWORDS</small>キーワードから探す</h2>
+      <div class="top-keyword-list" id="keywordList" aria-label="キーワード一覧"></div>
+    </section>
+
     <section class="top-section" aria-labelledby="categoryHeading">
       <h2 class="top-section-heading" id="categoryHeading"><small>CATEGORY</small>カテゴリから探す</h2>
       <div class="category-list">
@@ -167,6 +175,7 @@
     <p class="disclaimer">※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
     <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
   </footer>
+  <script src="./guide-data.js"></script>
   <script>
     (() => {
       const openButton = document.getElementById('openMenu');
@@ -184,26 +193,22 @@
     (() => {
       const form = document.getElementById('guideSearch');
       const input = document.getElementById('guideSearchInput');
-      const results = document.getElementById('guideSearchResults');
-      const searchable = Array.from(document.querySelectorAll('.category-card .category-link')).map(link => ({
-        title: link.textContent.trim(), href: link.getAttribute('href'), category: link.closest('.category-card').querySelector('.category-title').textContent.trim()
-      }));
-      function runSearch() {
-        const query = input.value.trim().toLocaleLowerCase('ja');
-        results.innerHTML = '';
-        if (!query) { results.classList.remove('is-visible'); return; }
-        const matches = searchable.filter(item => (item.title + ' ' + item.category).toLocaleLowerCase('ja').includes(query));
-        results.classList.add('is-visible');
-        if (!matches.length) {
-          const li = document.createElement('li'); li.className = 'no-results'; li.textContent = '該当する項目が見つかりません。別の言葉で検索してください。'; results.appendChild(li); return;
-        }
-        matches.forEach(item => {
-          const li = document.createElement('li'); const a = document.createElement('a');
-          a.href = item.href; a.textContent = item.title + '（' + item.category + '）'; li.appendChild(a); results.appendChild(li);
-        });
-      }
-      form.addEventListener('submit', event => { event.preventDefault(); runSearch(); });
-      input.addEventListener('input', runSearch);
+      const keywordList = document.getElementById('keywordList');
+      const keywords = window.NINA_GUIDE_KEYWORDS || [];
+
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const q = input.value.trim();
+        if (q) location.href = './guide-list.html?q=' + encodeURIComponent(q);
+      });
+
+      keywords.forEach(keyword => {
+        const a = document.createElement('a');
+        a.className = 'top-keyword-tag';
+        a.href = './guide-list.html?tag=' + encodeURIComponent(keyword);
+        a.textContent = keyword;
+        keywordList.appendChild(a);
+      });
     })();
   </script>
 </body>
