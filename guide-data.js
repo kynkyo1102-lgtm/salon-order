@@ -88,6 +88,62 @@ window.NINA_GUIDE_ARTICLES = [
     tags: ["ボーナス", "ファーストスタートボーナス", "直接紹介", "新規会員", "3,000円"]
   },
   {
+    title: "5アクティブボーナス",
+    href: "./guide-c-bonus-5-active.html",
+    category: "ボーナス・タイトル",
+    description: "アクティブ紹介者5人が条件となるボーナスの仕組みと計算例を確認できます。",
+    tags: ["ボーナス", "5アクティブ", "アクティブ紹介者", "分配"]
+  },
+  {
+    title: "10アクティブボーナス",
+    href: "./guide-c-bonus-10-active.html",
+    category: "ボーナス・タイトル",
+    description: "アクティブ紹介者10人が条件となるボーナスの仕組みと計算例を確認できます。",
+    tags: ["ボーナス", "10アクティブ", "アクティブ紹介者", "分配"]
+  },
+  {
+    title: "ベーシックコミッションボーナス",
+    href: "./guide-c-bonus-basic-commission.html",
+    category: "ボーナス・タイトル",
+    description: "左右グループの売上Pを基準に計算するボーナスについて確認できます。",
+    tags: ["ボーナス", "ベーシックコミッション", "グループ売上", "売上P"]
+  },
+  {
+    title: "メガマッチボーナス",
+    href: "./guide-c-bonus-mega-match.html",
+    category: "ボーナス・タイトル",
+    description: "直接紹介者のベーシックコミッションに連動するボーナスについて確認できます。",
+    tags: ["ボーナス", "メガマッチ", "直接紹介", "ベーシックコミッション"]
+  },
+  {
+    title: "ダブルメガマッチボーナス",
+    href: "./guide-c-bonus-double-mega-match.html",
+    category: "ボーナス・タイトル",
+    description: "二次紹介者のベーシックコミッションに連動するボーナスについて確認できます。",
+    tags: ["ボーナス", "ダブルメガマッチ", "二次紹介者", "ベーシックコミッション"]
+  },
+  {
+    title: "リーダーシップボーナス",
+    href: "./guide-c-bonus-leadership.html",
+    category: "ボーナス・タイトル",
+    description: "タイトル別の分配率と左右グループ売上Pを基準にする仕組みを確認できます。",
+    tags: ["ボーナス", "リーダーシップ", "タイトル", "グループ売上"]
+  },
+  {
+    title: "アニュアルマネジメントフィー（AMF）",
+    href: "./guide-c-bonus-amf.html",
+    category: "ボーナス・タイトル",
+    description: "AMFの主な条件、計算式、支給時期について確認できます。",
+    tags: ["ボーナス", "AMF", "アニュアルマネジメントフィー", "ロワイヤルダイヤモンド"]
+  },
+  {
+    title: "カリナンアニュアルマネジメントフィー",
+    href: "./guide-c-bonus-cullinan-amf.html",
+    category: "ボーナス・タイトル",
+    description: "カリナンAMFに関係する連続達成条件と支給時期を確認できます。",
+    tags: ["ボーナス", "カリナンAMF", "カリナンロワイヤルダイヤモンド", "連続達成"]
+  },
+  {
     title: "ボーナス・タイトル診断",
     href: "./check.html",
     category: "ボーナス・タイトル",
