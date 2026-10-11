@@ -16,6 +16,21 @@
     .related-link:hover{background:var(--blue-pale);border-color:#b9d2f0}
     @media(max-width:560px){.section-card{padding:22px 17px}}
   </style>
+
+<style>
+.bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid #dbe5f0;border-radius:12px;background:#f8fbff;text-align:center;line-height:1.6}
+.diagram-node,.diagram-result{display:inline-block;max-width:100%;padding:10px 15px;border:1px solid #cbd9ea;border-radius:9px;background:#fff;color:#23466f;font-weight:800}
+.diagram-result{background:#edf5ff;border-color:#b9d2f0}
+.diagram-arrow{margin:7px 0;color:#55769b;font-weight:800}
+.diagram-people{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;max-width:310px;margin:0 auto}
+.diagram-person{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;color:#3570a8}
+.diagram-split{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.diagram-branch{display:flex;flex-direction:column;gap:5px;min-width:125px;padding:12px;border:1px solid #cbd9ea;border-radius:9px;background:#fff}
+.diagram-branch span{font-size:1.1rem;font-weight:900;color:#23466f}
+.diagram-months{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
+.diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
+@media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
+</style>
 </head>
 <body>
   <header><div class="header-container">
@@ -30,6 +45,13 @@
     <section class="section-card" aria-labelledby="overview">
       <h2 class="section-card-title" id="overview">このボーナスの概要</h2>
       <div class="bonus-lead">アクティブ紹介者の人数に応じて、総売上Pの1%を達成人数（ポジション数）で分配する仕組みとして、元ページでは説明されています。</div>
+    
+      <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
+      <div class="bonus-diagram" role="img" aria-label="あなたの下にアクティブ紹介者が5人いるイメージ">
+      <div class="diagram-node">👤 あなた</div><div class="diagram-arrow">↓</div>
+      <div class="diagram-people"><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span></div>
+      <div class="diagram-arrow">↓</div><div class="diagram-result">🎁 5アクティブボーナス</div>
+    </div>
     </section>
     <section class="section-card" aria-labelledby="conditions">
       <h2 class="section-card-title" id="conditions">仕組み・条件</h2>
