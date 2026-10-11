@@ -1250,3 +1250,60 @@ body.menu-open { overflow: hidden; }
   .header-container .guide-menu-button { width: 38px; min-width: 38px; min-height: 40px; }
   .header-container .btn-login { padding: 7px 8px; font-size: .7rem; }
 }
+
+
+/* Guide drawer menu: flat, always-expanded link list */
+.site-menu-list,
+.site-menu-list ul {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.site-menu-list > li {
+  margin: 0;
+  border-bottom: 1px solid #e6edf5;
+}
+.site-menu-list a,
+.site-menu-list ul a,
+.site-menu-list .menu-group > a {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  padding: 10px 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--primary-dark);
+  font-size: .98rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: none;
+}
+.site-menu-list a::after {
+  content: none;
+}
+.site-menu-list .menu-group {
+  padding: 12px 0 8px;
+}
+.site-menu-list .menu-group-title {
+  padding: 3px 0 7px;
+  color: var(--primary-dark);
+  font-size: 1.02rem;
+  font-weight: 900;
+}
+.site-menu-list .menu-group ul {
+  margin: 0;
+  padding: 0 0 0 12px;
+  border: 0;
+  background: transparent;
+}
+.site-menu-list .menu-group ul a {
+  padding: 8px 2px;
+  font-size: .94rem;
+  font-weight: 500;
+}
+.site-menu-list a:hover {
+  text-decoration: underline;
+  background: transparent;
+}
