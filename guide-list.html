@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -48,28 +49,36 @@
       <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service</a>
     </div>
   </header>
+
   <main class="guide-list-wrap">
     <a class="guide-list-back" href="./ninaguide.html">← メンバーズガイドへ戻る</a>
+
     <section class="guide-list-head">
       <h1 id="listTitle">記事を探す</h1>
       <p id="listIntro">キーワード・カテゴリから、知りたい内容を探せます。</p>
     </section>
+
     <div class="guide-list-tools">
       <label for="listSearch">記事タイトル・タグで検索</label>
       <input id="listSearch" type="search" placeholder="例：WEB登録、支払い、停止" autocomplete="off">
     </div>
-    <h2>キーワードから探す</h2>
+
+    <h2 id="keywordHeading">キーワードから探す</h2>
     <div class="guide-list-keywords" id="keywordList" aria-label="キーワード一覧"></div>
-    <h2>カテゴリから探す</h2>
+
+    <h2 id="categoryHeading">カテゴリから探す</h2>
     <div class="guide-list-keywords" id="categoryList" aria-label="カテゴリ一覧"></div>
+
     <p class="guide-list-status" id="resultStatus" aria-live="polite"></p>
     <div class="guide-list-cards" id="articleCards"></div>
     <p class="guide-list-empty" id="emptyMessage" hidden>該当する記事がありません。別のキーワードで検索してください。</p>
   </main>
+
   <footer class="top-footer">
     <p class="disclaimer">※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
     <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
   </footer>
+
   <script src="./guide-data.js"></script>
   <script>
   (() => {
@@ -77,74 +86,139 @@
     const keywords = window.NINA_GUIDE_KEYWORDS || [];
     const categories = window.NINA_GUIDE_CATEGORIES || [];
     const params = new URLSearchParams(location.search);
+
     const input = document.getElementById('listSearch');
     const cards = document.getElementById('articleCards');
     const status = document.getElementById('resultStatus');
     const empty = document.getElementById('emptyMessage');
     const title = document.getElementById('listTitle');
     const intro = document.getElementById('listIntro');
-    let selectedTag = params.get('tag') || '';
-    let selectedCategory = params.get('category') || '';
-    input.value = params.get('q') || '';
 
-    if (selectedTag) {
-      title.textContent = 'キーワード：「' + selectedTag + '」';
-      intro.textContent = '「' + selectedTag + '」に関連する記事です。';
-    } else if (selectedCategory) {
-      title.textContent = 'カテゴリ：' + selectedCategory;
-      intro.textContent = selectedCategory + 'に分類された記事です。';
-    } else if (input.value) {
-      title.textContent = '検索結果';
-      intro.textContent = '記事タイトルとタグから検索しています。';
-    }
+    const keywordHeading = document.getElementById('keywordHeading');
+    const keywordList = document.getElementById('keywordList');
+    const categoryHeading = document.getElementById('categoryHeading');
+    const categoryList = document.getElementById('categoryList');
+
+    const selectedTag = params.get('tag') || '';
+    const selectedCategory = params.get('category') || '';
+
+    input.value = params.get('q') || '';
 
     function makeTag(label, type, selected) {
       const a = document.createElement('a');
       a.className = 'guide-tag';
-      a.href = type === 'category' ? '?category=' + encodeURIComponent(label) : '?tag=' + encodeURIComponent(label);
+
+      a.href = type === 'category'
+        ? '?category=' + encodeURIComponent(label)
+        : '?tag=' + encodeURIComponent(label);
+
       a.textContent = label;
-      if (selected) a.setAttribute('aria-pressed', 'true');
+
+      if (selected) {
+        a.setAttribute('aria-pressed', 'true');
+      }
+
       return a;
     }
-    keywords.forEach(tag => document.getElementById('keywordList').appendChild(makeTag(tag, 'tag', selectedTag === tag)));
-    categories.forEach(cat => document.getElementById('categoryList').appendChild(makeTag(cat, 'category', selectedCategory === cat)));
+
+    keywords.forEach(tag => {
+      keywordList.appendChild(
+        makeTag(tag, 'tag', selectedTag === tag)
+      );
+    });
+
+    categories.forEach(cat => {
+      categoryList.appendChild(
+        makeTag(cat, 'category', selectedCategory === cat)
+      );
+    });
 
     function render() {
-      const q = input.value.trim().toLocaleLowerCase('ja');
+      const rawQuery = input.value.trim();
+      const q = rawQuery.toLocaleLowerCase('ja');
+
+      // キーワード・カテゴリ・検索語が指定されている場合は、
+      // 探し方の一覧を隠し、記事の検索結果に集中できるようにする。
+      const showBrowseLists =
+        !selectedTag && !selectedCategory && !rawQuery;
+
+      keywordHeading.hidden = !showBrowseLists;
+      keywordList.hidden = !showBrowseLists;
+      categoryHeading.hidden = !showBrowseLists;
+      categoryList.hidden = !showBrowseLists;
+
+      if (selectedTag) {
+        title.textContent = 'キーワード：「' + selectedTag + '」';
+        intro.textContent = '「' + selectedTag + '」に関連する記事です。';
+      } else if (selectedCategory) {
+        title.textContent = 'カテゴリ：' + selectedCategory;
+        intro.textContent = selectedCategory + 'に分類された記事です。';
+      } else if (rawQuery) {
+        title.textContent = '検索結果';
+        intro.textContent = '記事タイトルとタグから検索しています。';
+      } else {
+        title.textContent = '記事を探す';
+        intro.textContent = 'キーワード・カテゴリから、知りたい内容を探せます。';
+      }
+
       const found = articles.filter(item => {
-        const matchesTag = !selectedTag || item.tags.includes(selectedTag);
-        const matchesCategory = !selectedCategory || item.category === selectedCategory;
-        const searchText = [item.title, item.category, item.description, ...(item.tags || [])].join(' ').toLocaleLowerCase('ja');
-        return matchesTag && matchesCategory && (!q || searchText.includes(q));
+        const tags = item.tags || [];
+
+        const matchesTag =
+          !selectedTag || tags.includes(selectedTag);
+
+        const matchesCategory =
+          !selectedCategory || item.category === selectedCategory;
+
+        const searchText = [
+          item.title,
+          item.category,
+          item.description,
+          ...tags
+        ].join(' ').toLocaleLowerCase('ja');
+
+        return matchesTag &&
+          matchesCategory &&
+          (!q || searchText.includes(q));
       });
+
       cards.innerHTML = '';
+
       found.forEach(item => {
         const a = document.createElement('a');
         a.className = 'guide-list-card';
         a.href = item.href;
+
         const category = document.createElement('span');
         category.className = 'guide-list-card-category';
         category.textContent = item.category;
+
         const h = document.createElement('span');
         h.className = 'guide-list-card-title';
         h.textContent = item.title;
+
         const desc = document.createElement('span');
         desc.className = 'guide-list-card-desc';
         desc.textContent = item.description;
+
         const tags = document.createElement('span');
         tags.className = 'guide-list-card-tags';
-        item.tags.forEach(tag => {
+
+        (item.tags || []).forEach(tag => {
           const chip = document.createElement('span');
           chip.className = 'guide-tag';
           chip.textContent = tag;
           tags.appendChild(chip);
         });
+
         a.append(category, h, desc, tags);
         cards.appendChild(a);
       });
+
       status.textContent = found.length + '件の記事';
       empty.hidden = found.length !== 0;
     }
+
     input.addEventListener('input', render);
     render();
   })();
