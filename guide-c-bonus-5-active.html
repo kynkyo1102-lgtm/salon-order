@@ -20,8 +20,8 @@
 <style>
 .bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid var(--border-color);border-radius:12px;background:#fff;text-align:center;line-height:1.6}
 .bonus-diagram svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto;overflow:visible}
-.bonus-diagram .person-shape{fill:#111}
-.bonus-diagram .connection-line{fill:none;stroke:#111;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.bonus-diagram .avatar-line{fill:#fff;stroke:#111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bonus-diagram .connection-line{fill:none;stroke:#111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .bonus-diagram .person-label{fill:var(--text-color,#263445);font-size:12px;font-weight:700;text-anchor:middle}
 .bonus-diagram .diagram-caption-label{fill:var(--muted-text,#687386);font-size:11px;text-anchor:middle}
 .bonus-diagram-caption{margin:10px 0 0;color:var(--muted-text,#687386);font-size:.9rem;text-align:center;line-height:1.7}
@@ -44,39 +44,73 @@
     
       <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
       <div class="bonus-diagram">
-        <svg viewBox="0 0 360 205" role="img" aria-labelledby="active5-title active5-desc" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 420 218" role="img" aria-labelledby="active5-title active5-desc" xmlns="http://www.w3.org/2000/svg">
           <title id="active5-title">5アクティブボーナスの仕組み</title>
-          <desc id="active5-desc">あなたから5人のアクティブ紹介者それぞれに、個別の矢印が伸びる構成を示しています。</desc>
+          <desc id="active5-desc">顔と髪型を線で描いたアバターを使い、あなたから5人それぞれに矢印が伸びる構成です。</desc>
           <defs>
             <marker id="active5-arrow" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
               <path d="M0 0 L6 3.5 L0 7 Z" fill="#111"/>
             </marker>
           </defs>
           <g class="connection-line" marker-end="url(#active5-arrow)">
-            <path d="M159 72 L36 106"/>
-            <path d="M170 72 L108 106"/>
-            <path d="M180 72 L180 106"/>
-            <path d="M190 72 L252 106"/>
-            <path d="M201 72 L324 106"/>
+            <path d="M177 77 L39 103"/>
+            <path d="M185 77 L124 103"/>
+            <path d="M195 77 L210 103"/>
+            <path d="M203 77 L296 103"/>
+            <path d="M211 77 L381 103"/>
           </g>
-          <g class="person-shape" aria-hidden="true">
-            <circle cx="180" cy="39" r="12"/>
-            <path d="M157 69 Q159 52 180 52 Q201 52 203 69 Q203 72 199 72 H161 Q157 72 157 69Z"/>
-            <circle cx="36" cy="119" r="9"/><path d="M19 143 Q20 131 36 131 Q52 131 53 143 Q53 146 50 146 H22 Q19 146 19 143Z"/>
-            <circle cx="108" cy="119" r="9"/><path d="M91 143 Q92 131 108 131 Q124 131 125 143 Q125 146 122 146 H94 Q91 146 91 143Z"/>
-            <circle cx="180" cy="119" r="9"/><path d="M163 143 Q164 131 180 131 Q196 131 197 143 Q197 146 194 146 H166 Q163 146 163 143Z"/>
-            <circle cx="252" cy="119" r="9"/><path d="M235 143 Q236 131 252 131 Q268 131 269 143 Q269 146 266 146 H238 Q235 146 235 143Z"/>
-            <circle cx="324" cy="119" r="9"/><path d="M307 143 Q308 131 324 131 Q340 131 341 143 Q341 146 338 146 H310 Q307 146 307 143Z"/>
+          <!-- あなた：前髪のあるアバター -->
+          <g class="avatar-line" aria-hidden="true">
+            <path d="M164 43 Q163 20 180 19 Q199 19 198 43 L195 53 Q190 64 180 64 Q169 63 165 52Z"/>
+            <path d="M164 39 Q161 22 176 17 Q192 13 199 29 L198 40 Q191 32 185 29 Q179 37 164 39Z"/>
+            <path d="M172 43 Q175 40 178 43 M183 43 Q186 40 189 43"/>
+            <path d="M179 45 L178 50 L182 50 M175 55 Q180 58 185 55"/>
+            <path d="M166 70 Q168 62 175 61 L180 66 L185 61 Q193 62 195 70"/>
           </g>
-          <text class="person-label" x="180" y="15">あなた</text>
-          <text class="person-label" x="36" y="162">1人目</text>
-          <text class="person-label" x="108" y="162">2人目</text>
-          <text class="person-label" x="180" y="162">3人目</text>
-          <text class="person-label" x="252" y="162">4人目</text>
-          <text class="person-label" x="324" y="162">5人目</text>
-          <text class="diagram-caption-label" x="180" y="183">アクティブ紹介者 5人</text>
+          <text class="person-label" x="180" y="10">あなた</text>
+          <!-- 1人目：短髪 -->
+          <g class="avatar-line" aria-hidden="true">
+            <path d="M27 119 Q26 105 38 104 Q50 105 49 119 L47 127 Q44 135 38 135 Q31 135 29 127Z"/>
+            <path d="M27 118 Q25 106 35 103 Q45 101 50 111 L49 117 Q42 115 38 111 Q33 117 27 118Z"/>
+            <path d="M32 119 Q34 117 36 119 M40 119 Q42 117 44 119 M37 121 L36 125 L39 125 M34 129 Q38 132 42 129"/>
+            <path d="M27 145 Q29 137 34 136 L38 140 L42 136 Q48 137 50 145"/>
+          </g>
+          <!-- 2人目：ボブ -->
+          <g class="avatar-line" aria-hidden="true">
+            <path d="M113 119 Q111 104 124 103 Q137 104 135 120 L133 130 Q130 136 124 136 Q117 135 115 129Z"/>
+            <path d="M112 123 Q108 105 121 102 Q137 100 138 116 L136 132 L132 128 L133 114 Q123 116 116 111 L116 130 L112 133Z"/>
+            <path d="M118 119 Q120 117 122 119 M126 119 Q128 117 130 119 M124 121 L123 125 L126 125 M120 129 Q124 132 128 129"/>
+            <path d="M113 145 Q115 137 120 136 L124 140 L128 136 Q134 137 136 145"/>
+          </g>
+          <!-- 3人目：ミディアムヘア -->
+          <g class="avatar-line" aria-hidden="true">
+            <path d="M199 119 Q198 104 210 103 Q222 104 221 119 L219 128 Q216 136 210 136 Q203 135 201 128Z"/>
+            <path d="M198 119 Q195 105 207 102 Q222 100 224 114 L222 132 L218 128 L219 113 Q210 116 202 111 L202 131 L198 133Z"/>
+            <path d="M204 119 Q206 117 208 119 M212 119 Q214 117 216 119 M210 121 L209 125 L212 125 M206 129 Q210 132 214 129"/>
+            <path d="M199 145 Q201 137 206 136 L210 140 L214 136 Q220 137 222 145"/>
+          </g>
+          <!-- 4人目：サイド分け -->
+          <g class="avatar-line" aria-hidden="true">
+            <path d="M285 119 Q284 104 296 103 Q308 104 307 119 L305 128 Q302 136 296 136 Q289 135 287 128Z"/>
+            <path d="M284 118 Q282 105 294 102 Q307 101 310 112 L307 117 Q300 108 290 111 L286 120Z"/>
+            <path d="M290 119 Q292 117 294 119 M298 119 Q300 117 302 119 M296 121 L295 125 L298 125 M292 129 Q296 132 300 129"/>
+            <path d="M285 145 Q287 137 292 136 L296 140 L300 136 Q306 137 308 145"/>
+          </g>
+          <!-- 5人目：ロングヘア -->
+          <g class="avatar-line" aria-hidden="true">
+            <path d="M370 119 Q369 104 382 103 Q394 104 393 119 L391 128 Q388 136 382 136 Q375 135 373 128Z"/>
+            <path d="M369 120 Q366 104 379 101 Q394 100 396 115 L395 136 L391 132 L391 114 Q382 116 374 111 L374 133 L370 136Z"/>
+            <path d="M376 119 Q378 117 380 119 M384 119 Q386 117 388 119 M382 121 L381 125 L384 125 M378 129 Q382 132 386 129"/>
+            <path d="M371 145 Q373 137 378 136 L382 140 L386 136 Q392 137 394 145"/>
+          </g>
+          <text class="person-label" x="38" y="160">1人目</text>
+          <text class="person-label" x="124" y="160">2人目</text>
+          <text class="person-label" x="210" y="160">3人目</text>
+          <text class="person-label" x="296" y="160">4人目</text>
+          <text class="person-label" x="382" y="160">5人目</text>
+          <text class="diagram-caption-label" x="210" y="185">アクティブ紹介者 5人</text>
         </svg>
-        <p class="bonus-diagram-caption">あなたが直接紹介したアクティブ紹介者5人を、共通の人型アイコンと接続線で表しています。</p>
+        <p class="bonus-diagram-caption">顔や髪型を描いた線画アバターで、あなたから5人それぞれへの紹介関係を表しています。</p>
       </div>
     </section>
     <section class="section-card" aria-labelledby="conditions">
