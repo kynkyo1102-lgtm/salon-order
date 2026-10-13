@@ -18,18 +18,14 @@
   </style>
 
 <style>
-.bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid #dbe5f0;border-radius:12px;background:#f8fbff;text-align:center;line-height:1.6}
-.diagram-node,.diagram-result{display:inline-block;max-width:100%;padding:10px 15px;border:1px solid #cbd9ea;border-radius:9px;background:#fff;color:#23466f;font-weight:800}
-.diagram-result{background:#edf5ff;border-color:#b9d2f0}
-.diagram-arrow{margin:7px 0;color:#55769b;font-weight:800}
-.diagram-people{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;max-width:310px;margin:0 auto}
-.diagram-person{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;color:#3570a8}
-.diagram-split{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.diagram-branch{display:flex;flex-direction:column;gap:5px;min-width:125px;padding:12px;border:1px solid #cbd9ea;border-radius:9px;background:#fff}
-.diagram-branch span{font-size:1.1rem;font-weight:900;color:#23466f}
-.diagram-months{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
-.diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
-@media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
+.bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid var(--border-color);border-radius:12px;background:#fff;text-align:center;line-height:1.6}
+.bonus-diagram svg{display:block;width:100%;max-width:520px;height:auto;margin:0 auto;overflow:visible}
+.bonus-diagram .person-shape{fill:#111}
+.bonus-diagram .connection-line{fill:none;stroke:#111;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.bonus-diagram .person-label{fill:var(--text-color,#263445);font-size:12px;font-weight:700;text-anchor:middle}
+.bonus-diagram .diagram-caption-label{fill:var(--muted-text,#687386);font-size:11px;text-anchor:middle}
+.bonus-diagram-caption{margin:10px 0 0;color:var(--muted-text,#687386);font-size:.9rem;text-align:center;line-height:1.7}
+@media(max-width:560px){.bonus-diagram{padding:14px 8px}.bonus-diagram .person-label{font-size:11px}}
 </style>
 </head>
 <body>
@@ -47,11 +43,30 @@
       <div class="bonus-lead">アクティブ紹介者の人数に応じて、総売上Pの1%を達成人数（ポジション数）で分配する仕組みとして、元ページでは説明されています。</div>
     
       <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
-      <div class="bonus-diagram" role="img" aria-label="あなたの下にアクティブ紹介者が5人いるイメージ">
-      <div class="diagram-node">👤 あなた</div><div class="diagram-arrow">↓</div>
-      <div class="diagram-people"><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span></div>
-      <div class="diagram-arrow">↓</div><div class="diagram-result">🎁 5アクティブボーナス</div>
-    </div>
+      <div class="bonus-diagram">
+        <svg viewBox="0 0 360 190" role="img" aria-labelledby="active5-title active5-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="active5-title">5アクティブボーナスの仕組み</title>
+          <desc id="active5-desc">あなたから5人のアクティブ紹介者へ線がつながる構成を示しています。</desc>
+          <path class="connection-line" d="M180 57 V83 M36 83 H324 M36 83 V105 M108 83 V105 M180 83 V105 M252 83 V105 M324 83 V105"/>
+          <g class="person-shape" aria-hidden="true">
+            <circle cx="180" cy="25" r="12"/>
+            <path d="M157 55 Q159 38 180 38 Q201 38 203 55 Q203 59 199 59 H161 Q157 59 157 55Z"/>
+            <circle cx="36" cy="119" r="9"/><path d="M19 143 Q20 131 36 131 Q52 131 53 143 Q53 146 50 146 H22 Q19 146 19 143Z"/>
+            <circle cx="108" cy="119" r="9"/><path d="M91 143 Q92 131 108 131 Q124 131 125 143 Q125 146 122 146 H94 Q91 146 91 143Z"/>
+            <circle cx="180" cy="119" r="9"/><path d="M163 143 Q164 131 180 131 Q196 131 197 143 Q197 146 194 146 H166 Q163 146 163 143Z"/>
+            <circle cx="252" cy="119" r="9"/><path d="M235 143 Q236 131 252 131 Q268 131 269 143 Q269 146 266 146 H238 Q235 146 235 143Z"/>
+            <circle cx="324" cy="119" r="9"/><path d="M307 143 Q308 131 324 131 Q340 131 341 143 Q341 146 338 146 H310 Q307 146 307 143Z"/>
+          </g>
+          <text class="person-label" x="180" y="75">あなた</text>
+          <text class="person-label" x="36" y="162">1人目</text>
+          <text class="person-label" x="108" y="162">2人目</text>
+          <text class="person-label" x="180" y="162">3人目</text>
+          <text class="person-label" x="252" y="162">4人目</text>
+          <text class="person-label" x="324" y="162">5人目</text>
+          <text class="diagram-caption-label" x="180" y="183">アクティブ紹介者 5人</text>
+        </svg>
+        <p class="bonus-diagram-caption">あなたが直接紹介したアクティブ紹介者5人を、共通の人型アイコンと接続線で表しています。</p>
+      </div>
     </section>
     <section class="section-card" aria-labelledby="conditions">
       <h2 class="section-card-title" id="conditions">仕組み・条件</h2>
