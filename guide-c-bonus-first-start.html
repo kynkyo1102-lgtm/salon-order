@@ -36,27 +36,41 @@
       font-weight: 900;
       line-height: 1.3;
     }
-    .bonus-flow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 22px 0;
-    }
-    .bonus-flow-step {
-      min-width: 120px;
-      padding: 13px 16px;
-      border: 1px solid #cbd9ea;
-      border-radius: 10px;
+    .bonus-diagram {
+      margin: 24px auto 8px;
+      max-width: 560px;
+      padding: 20px 16px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
       background: #fff;
-      text-align: center;
-      font-weight: 800;
     }
-    .bonus-flow-arrow {
-      color: var(--primary);
-      font-size: 1.4rem;
-      font-weight: 900;
+    .bonus-diagram svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    .bonus-diagram .person-shape {
+      fill: var(--primary, #315f91);
+    }
+    .bonus-diagram .connection-line {
+      fill: none;
+      stroke: var(--primary, #315f91);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+    }
+    .bonus-diagram .person-label {
+      fill: var(--text-color, #263445);
+      font-size: 13px;
+      font-weight: 700;
+      text-anchor: middle;
+    }
+    .bonus-diagram-caption {
+      margin: 10px 0 0;
+      color: var(--text-muted, #5b6572);
+      font-size: .88rem;
+      text-align: center;
+      line-height: 1.7;
     }
     .related-links {
       display: grid;
@@ -117,12 +131,27 @@
         <strong class="bonus-amount-value">1人につき 3,000円</strong>
       </div>
 
-      <div class="bonus-flow" aria-label="あなたが新規会員を直接紹介すると、ボーナスの対象になります">
-        <div class="bonus-flow-step">👤 あなた</div>
-        <span class="bonus-flow-arrow" aria-hidden="true">→</span>
-        <div class="bonus-flow-step">👤 新規会員</div>
-        <span class="bonus-flow-arrow" aria-hidden="true">→</span>
-        <div class="bonus-flow-step">💰 3,000円</div>
+      <div class="bonus-diagram">
+        <svg viewBox="0 0 340 142" role="img" aria-labelledby="first-start-diagram-title first-start-diagram-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="first-start-diagram-title">直接紹介のイメージ</title>
+          <desc id="first-start-diagram-desc">あなたから新規会員へ線と矢印がつながっています。新規会員1人につき3,000円のボーナス例です。</desc>
+          <defs>
+            <marker id="first-start-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <path class="connection-line" d="M104 49 H232" marker-end="url(#first-start-arrow)"/>
+          <g class="person-shape" aria-hidden="true">
+            <circle cx="66" cy="35" r="15"/>
+            <path d="M36 83 Q38 57 66 57 Q94 57 96 83 Q96 88 91 88 H41 Q36 88 36 83Z"/>
+            <circle cx="274" cy="35" r="15"/>
+            <path d="M244 83 Q246 57 274 57 Q302 57 304 83 Q304 88 299 88 H249 Q244 88 244 83Z"/>
+          </g>
+          <text class="person-label" x="66" y="111">あなた</text>
+          <text class="person-label" x="274" y="111">新規会員</text>
+          <text class="person-label" x="170" y="36">直接紹介</text>
+        </svg>
+        <p class="bonus-diagram-caption">新規会員を直接紹介すると、ボーナスの対象になります。</p>
       </div>
     </section>
 
