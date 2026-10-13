@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#123b78">
+  <meta name="theme-color" content="#111111">
   <meta name="description" content="ファーストスタートボーナスの概要と、直接紹介による支給額の例を確認できます。">
   <title>ファーストスタートボーナス - ニナファームジャポン メンバーズWebガイド</title>
   <link rel="stylesheet" href="./common.css">
@@ -51,11 +51,11 @@
       overflow: visible;
     }
     .bonus-diagram .person-shape {
-      fill: var(--primary, #315f91);
+      fill: #111111;
     }
     .bonus-diagram .connection-line {
       fill: none;
-      stroke: var(--primary, #315f91);
+      stroke: #111111;
       stroke-width: 2.5;
       stroke-linecap: round;
     }
@@ -135,12 +135,8 @@
         <svg viewBox="0 0 340 142" role="img" aria-labelledby="first-start-diagram-title first-start-diagram-desc" xmlns="http://www.w3.org/2000/svg">
           <title id="first-start-diagram-title">直接紹介のイメージ</title>
           <desc id="first-start-diagram-desc">あなたから新規会員へ線と矢印がつながっています。新規会員1人につき3,000円のボーナス例です。</desc>
-          <defs>
-            <marker id="first-start-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L6,3 L0,6 Z" fill="currentColor"/>
-            </marker>
-          </defs>
-          <path class="connection-line" d="M104 49 H232" marker-end="url(#first-start-arrow)"/>
+          <path class="connection-line" d="M104 49 H225"/>
+          <path d="M225 43 L237 49 L225 55 Z" fill="#111111" aria-hidden="true"/>
           <g class="person-shape" aria-hidden="true">
             <circle cx="66" cy="35" r="15"/>
             <path d="M36 83 Q38 57 66 57 Q94 57 96 83 Q96 88 91 88 H41 Q36 88 36 83Z"/>
