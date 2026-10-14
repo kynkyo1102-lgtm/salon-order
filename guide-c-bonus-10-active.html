@@ -2,26 +2,62 @@
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#123b78"><meta name="description" content="10アクティブボーナスの概要と取得条件を確認できます。"><title>10アクティブボーナス - メンバーズWebガイド</title><link rel="stylesheet" href="./common.css">
 <style>.bonus-lead{padding:18px;border:1px solid #d9e8f8;border-radius:12px;background:linear-gradient(135deg,#edf5ff,#fff);line-height:1.8}.example-box{margin-top:14px;padding:16px;border:1px solid #d9e4ef;border-radius:12px;background:#f8fbff;line-height:1.85}.note-box{margin-top:14px;padding:13px 15px;border-left:4px solid #d6a23a;border-radius:6px;background:#fff9e9;color:#5e4a1b;font-size:.88rem;line-height:1.8}.related-links{display:grid;gap:10px}.related-link{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--border-color);border-radius:10px;color:var(--primary-dark);text-decoration:none;font-weight:800;background:#fff}@media(max-width:560px){.section-card{padding:22px 17px}}</style>
 <style>
-.bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid #dbe5f0;border-radius:12px;background:#f8fbff;text-align:center;line-height:1.6}
-.diagram-node,.diagram-result{display:inline-block;max-width:100%;padding:10px 15px;border:1px solid #cbd9ea;border-radius:9px;background:#fff;color:#23466f;font-weight:800}
-.diagram-result{background:#edf5ff;border-color:#b9d2f0}
-.diagram-arrow{margin:7px 0;color:#55769b;font-weight:800}
-.diagram-people{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;max-width:310px;margin:0 auto}
-.diagram-person{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;color:#3570a8}
-.diagram-split{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.diagram-branch{display:flex;flex-direction:column;gap:5px;min-width:125px;padding:12px;border:1px solid #cbd9ea;border-radius:9px;background:#fff}
-.diagram-branch span{font-size:1.1rem;font-weight:900;color:#23466f}
-.diagram-months{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
-.diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
-@media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
+.bonus-diagram{margin:20px 0 4px;padding:16px 10px;border:1px solid var(--border-color);border-radius:12px;background:#fff;text-align:center}
+.bonus-diagram-scroll{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.bonus-diagram svg{display:block;width:850px;height:auto;margin:0 auto}
+.bonus-diagram .person-label{fill:#111;font-size:13px;font-weight:700;text-anchor:middle}
+.bonus-diagram-caption{margin:10px 0 0;color:var(--text-muted,#687386);font-size:.88rem;line-height:1.7}
+@media(min-width:920px){.bonus-diagram svg{width:100%;max-width:850px}}
 </style>
 </head>
 <body><header><div class="header-container"><a href="#" class="back-link" onclick="if(history.length>1){history.back()}else{location.href='./guide-c-bonus.html'}return false">← 前のページに戻る</a><a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service ログイン</a></div></header>
 <main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">10アクティブボーナス</h1></div>
 <section class="section-card"><h2 class="section-card-title">このボーナスの概要</h2><div class="bonus-lead">アクティブ紹介者の人数に応じて、総売上Pの1%を達成人数（ポジション数）で分配する仕組みとして、元ページでは説明されています。</div>
       <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
-      <div class="bonus-diagram" role="img" aria-label="あなたの下にアクティブ紹介者が10人いるイメージ">
-      <div class="diagram-node">👤 あなた</div><div class="diagram-arrow">↓</div>
+      <div class="bonus-diagram">
+        <div class="bonus-diagram-scroll" tabindex="0" role="region" aria-label="10人の紹介関係の図。スマートフォンでは左右にスクロールできます。">
+          <svg viewBox="0 0 850 285" role="img" aria-labelledby="active10-title active10-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="active10-title">10アクティブボーナスの紹介関係</title>
+            <desc id="active10-desc">上段のわたしから、下段に横一列で並ぶ10人へ、10本の矢印がそれぞれ伸びています。</desc>
+            <defs><marker id="active10-tip" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6 Z" fill="#111"/></marker></defs>
+            <image href="./assets/illustration-test-02.svg" x="375" y="0" width="100" height="100"/>
+            <text class="person-label" x="425" y="110" style="font-size:16px">わたし</text>
+            <g fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" marker-end="url(#active10-tip)">
+              <path d="M398 119 L47 165"/>
+              <path d="M404 119 L131 165"/>
+              <path d="M410 119 L215 165"/>
+              <path d="M416 119 L299 165"/>
+              <path d="M422 119 L383 165"/>
+              <path d="M428 119 L467 165"/>
+              <path d="M434 119 L551 165"/>
+              <path d="M440 119 L635 165"/>
+              <path d="M446 119 L719 165"/>
+              <path d="M452 119 L803 165"/>
+            </g>
+            <image href="./assets/illustration-test-01.svg" x="11" y="175" width="72" height="72"/>
+            <text class="person-label" x="47" y="261">1人目</text>
+            <image href="./assets/illustration-test-03.svg" x="95" y="175" width="72" height="72"/>
+            <text class="person-label" x="131" y="261">2人目</text>
+            <image href="./assets/illustration-test-04.svg" x="179" y="175" width="72" height="72"/>
+            <text class="person-label" x="215" y="261">3人目</text>
+            <image href="./assets/illustration-test-05.svg" x="263" y="175" width="72" height="72"/>
+            <text class="person-label" x="299" y="261">4人目</text>
+            <image href="./assets/illustration-test-06.svg" x="347" y="175" width="72" height="72"/>
+            <text class="person-label" x="383" y="261">5人目</text>
+            <image href="./assets/illustration-test-07.svg" x="431" y="175" width="72" height="72"/>
+            <text class="person-label" x="467" y="261">6人目</text>
+            <image href="./assets/illustration-test-08.svg" x="515" y="175" width="72" height="72"/>
+            <text class="person-label" x="551" y="261">7人目</text>
+            <image href="./assets/illustration-test-09.svg" x="599" y="175" width="72" height="72"/>
+            <text class="person-label" x="635" y="261">8人目</text>
+            <image href="./assets/illustration-test-10.svg" x="683" y="175" width="72" height="72"/>
+            <text class="person-label" x="719" y="261">9人目</text>
+            <image href="./assets/illustration-test-11.svg" x="767" y="175" width="72" height="72"/>
+            <text class="person-label" x="803" y="261">10人目</text>
+          </svg>
+        </div>
+        <p class="bonus-diagram-caption">「わたし」から10人それぞれに直接つながる関係です。スマホでは図を左右に動かして確認できます。</p>
+      </div><div class="diagram-arrow">↓</div>
       <div class="diagram-people"><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span><span class="diagram-person">●</span></div>
       <div class="diagram-arrow">↓</div><div class="diagram-result">🎁 10アクティブボーナス</div>
     </div>
