@@ -44,35 +44,31 @@
     
       <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
       <div class="bonus-diagram">
-        <svg viewBox="0 0 420 275" role="img" aria-labelledby="active5-title active5-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="active5-title">5アクティブボーナスの紹介関係</title>
-          <desc id="active5-desc">上段のわたしから、下段に横一列で並ぶ5人のアクティブ紹介者へ、5本の矢印がそれぞれ伸びています。</desc>
-          <defs>
-            <marker id="active5-tip" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
-              <path d="M0 0 L6 3 L0 6 Z" fill="#111"/>
-            </marker>
-          </defs>
-          <image href="./assets/illustration-test-02.svg" x="160" y="0" width="100" height="100"/>
-          <text class="person-label" x="210" y="108" style="font-size:15px">わたし</text>
-          <g fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" marker-end="url(#active5-tip)">
-            <path d="M194 116 L44 161"/>
-            <path d="M202 116 L127 161"/>
-            <path d="M210 116 V161"/>
-            <path d="M218 116 L293 161"/>
-            <path d="M226 116 L376 161"/>
+        <svg viewBox="0 0 360 352" role="img" aria-labelledby="active5-title active5-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="active5-title">5アクティブと直接紹介ではない6人目</title>
+          <desc id="active5-desc">わたしを頂点に左右2方向に分岐するバイナリー図。1人目から5人目はわたしの直接紹介者として黒い線、6人目は別の会員の紹介としてオレンジの点線で区別しています。</desc>
+          <image href="./assets/illustration-test-02.svg" x="142" y="0" width="76" height="76"/>
+          <text class="person-label" x="180" y="82" style="font-size:14px">わたし</text>
+          <g fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M169 90 L100 126 M191 90 L260 126"/>
+            <path d="M90 205 L54 240 M110 205 L145 240"/>
+            <path d="M250 205 L214 240"/>
           </g>
-          <image href="./assets/illustration-test-01.svg" x="7" y="169" width="74" height="74"/>
-          <text class="person-label" x="44" y="255" style="font-size:12px">1人目</text>
-          <image href="./assets/illustration-test-03.svg" x="90" y="169" width="74" height="74"/>
-          <text class="person-label" x="127" y="255" style="font-size:12px">2人目</text>
-          <image href="./assets/illustration-test-04.svg" x="173" y="169" width="74" height="74"/>
-          <text class="person-label" x="210" y="255" style="font-size:12px">3人目</text>
-          <image href="./assets/illustration-test-05.svg" x="256" y="169" width="74" height="74"/>
-          <text class="person-label" x="293" y="255" style="font-size:12px">4人目</text>
-          <image href="./assets/illustration-test-06.svg" x="339" y="169" width="74" height="74"/>
-          <text class="person-label" x="376" y="255" style="font-size:12px">5人目</text>
+          <path d="M270 205 L306 240" fill="none" stroke="#d88724" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+          <image href="./assets/illustration-test-01.svg" x="67" y="130" width="66" height="66"/>
+          <text class="person-label" x="100" y="207" style="font-size:12px;">1人目</text>
+          <image href="./assets/illustration-test-03.svg" x="227" y="130" width="66" height="66"/>
+          <text class="person-label" x="260" y="207" style="font-size:12px;">2人目</text>
+          <image href="./assets/illustration-test-04.svg" x="21" y="244" width="66" height="66"/>
+          <text class="person-label" x="54" y="321" style="font-size:12px;">3人目</text>
+          <image href="./assets/illustration-test-05.svg" x="112" y="244" width="66" height="66"/>
+          <text class="person-label" x="145" y="321" style="font-size:12px;">4人目</text>
+          <image href="./assets/illustration-test-06.svg" x="181" y="244" width="66" height="66"/>
+          <text class="person-label" x="214" y="321" style="font-size:12px;">5人目</text>
+          <image href="./assets/illustration-test-07.svg" x="273" y="244" width="66" height="66"/>
+          <text class="person-label" x="306" y="321" style="font-size:12px;fill:#b66d13;">6人目</text>
         </svg>
-        <p class="bonus-diagram-caption">上の「わたし」から、横一列に並ぶ5人へそれぞれ矢印が伸びています。</p>
+        <p class="bonus-diagram-caption">黒線：わたしが直接紹介した5人／オレンジの点線：別の会員が紹介した6人目。線の色で紹介者の違いを示しています。</p>
       </div>
     </section>
     <section class="section-card" aria-labelledby="conditions">
