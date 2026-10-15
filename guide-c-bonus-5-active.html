@@ -40,6 +40,18 @@
 .active-simple .bonus-diagram-caption{margin:16px 0 0;color:var(--text-muted,#687386);font-size:.86rem;line-height:1.7}
 @media(max-width:560px){.active-simple{padding:16px 10px}.active-members{gap:6px}.active-person{padding:2px;border-radius:7px}.active-self img{width:72px;height:72px}}
 </style>
+<style>
+.calculation-flow{display:flex;flex-direction:column;align-items:stretch;gap:0;max-width:420px;margin:14px auto 8px}
+.calculation-step{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:13px 12px;background:#fff;border:1px solid #d4e3f2;border-radius:12px;text-align:center}
+.calculation-step-label{font-size:.85rem;color:#53667c;font-weight:700}
+.calculation-step strong{font-size:clamp(1.25rem,4.5vw,1.7rem);color:#123b78;line-height:1.4}
+.calculation-arrow{text-align:center;font-weight:800;color:#3469a2;font-size:22px;line-height:1.35;padding:4px 0}
+.calculation-arrow span{font-size:.85rem;vertical-align:2px}
+.calculation-result{background:#eaf4ff;border:2px solid #8db6e5}
+.calculation-result strong{font-size:clamp(1.7rem,6vw,2.2rem)}
+.calculation-formula{text-align:center;font-size:.87rem;overflow-wrap:anywhere;margin:12px 0 0}
+.calculation-disclaimer{font-size:.79rem;color:#53667c;margin:10px 0 0;line-height:1.65}
+</style>
 </head>
 <body>
   <header><div class="header-container">
@@ -72,7 +84,17 @@
       <div class="table-container"><table><tbody><tr><th scope="row">必要人数</th><td>アクティブ紹介者5人</td></tr>
 <tr><th scope="row">対象</th><td>メンバー</td></tr>
 <tr><th scope="row">分配方法</th><td>総売上Pの1%を達成人数（ポジション数）で分配</td></tr></tbody></table></div>
-      <div class="example-box"><strong>📌 具体例・確認ポイント</strong><p>総売上ポイントが3億8,700万PT、達成人数（ポジション数）が900の場合：3億8,700万PT × 1% ÷ 900 ＝ 4,300円</p></div>
+      <div class="example-box"><strong>📌 具体例・確認ポイント</strong>
+<div class="calculation-flow" role="group" aria-label="総売上ポイント3億8,700万PTの1%を900ポジションで分配する計算例">
+<div class="calculation-step"><span class="calculation-step-label">① 全体の総売上ポイント</span><strong>3億8,700万PT</strong></div>
+<div class="calculation-arrow" aria-hidden="true">↓ <span>その1%を分配</span></div>
+<div class="calculation-step"><span class="calculation-step-label">② 分配する原資</span><strong>387万PT相当</strong></div>
+<div class="calculation-arrow" aria-hidden="true">↓ <span>達成した900ポジションで分ける</span></div>
+<div class="calculation-step calculation-result"><span class="calculation-step-label">③ 1ポジションあたりの計算例</span><strong>4,300円</strong></div>
+</div>
+<p class="calculation-formula">3億8,700万PT × 1% ÷ 900 ＝ 4,300円</p>
+<p class="calculation-disclaimer">※掲載されている計算例を図にしたものです。ポイントと円の取り扱いや実際の支給条件は、正式資料をご確認ください。</p>
+</div>
       <div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。ボーナスの支給条件・計算式・上限は変更される場合があるため、正式な概要書面・メンバーズマニュアルを優先してください。</div>
     </section>
     
