@@ -74,14 +74,12 @@
 <label for="amf-eight-count">0.8AMFの達成者：<output id="amf-eight-value">10</output>人</label>
 <input id="amf-eight-count" type="range" min="0" max="30" step="1" value="10">
 </div>
-<div class="amf-chart-wrap"><svg id="amf-chart" viewBox="0 0 680 310" role="img" aria-label="人数構成に応じた1AMFと0.8AMFの1人あたり分配額を示す棒グラフ" style="width:100%;height:auto;display:block"></svg></div>
-<div class="amf-chart-legend"><span><i class="amf-line-key amf-line-one"></i>1 AMF</span><span><i class="amf-line-key amf-line-eight"></i>0.8 AMF</span></div>
 <div class="amf-sim-output" aria-live="polite">
 <div class="amf-sim-totals">対象者 <strong id="amf-total-people">20</strong>人 ／ 総達成AMF <strong id="amf-total-units">18</strong></div>
 <div class="amf-dual-result"><div><span>1AMFの人・1人あたり</span><strong id="amf-payout-one">83,333</strong></div><div><span>0.8AMFの人・1人あたり</span><strong id="amf-payout-eight">66,667</strong></div></div>
 <span class="amf-muted">単位：ポイント相当（例）</span>
 </div>
-<p class="amf-muted">※両グループは同じ分配原資を共有します。人数が0人のグループは分配対象がいないため、金額を「—」と表示します。両方0人の場合は計算できません。円への換算は行っていません。</p>
+<p class="amf-muted">※両グループは同じ分配原資を共有します。人数が0人のグループは「—」と表示します。両方0人の場合は計算できません。円への換算は行っていません。</p>
 </div></section><section class="section-card"><h2 class="section-card-title">取得条件</h2>
 <div class="table-container"><table><tbody><tr><th scope="row">タイトル</th><td>ロワイヤルダイヤモンドを達成していること</td></tr><tr><th scope="row">左右ポイント</th><td>少ない側が6,000万ポイント以上</td></tr><tr><th scope="row">系列条件</th><td>プラチナ以上を育成しているメガ（直紹介）系列が3系列</td></tr></tbody></table></div>
 <h3 style="margin:22px 0 10px;font-size:1rem;color:var(--primary-dark)">獲得AMFの基準</h3>
@@ -94,30 +92,17 @@
 <footer><p>※このページは会員向けの内容を分かりやすく整理したサポートガイドです。正式な支給条件は、ニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p><div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div></footer>  <script src="./guide-menu.js" defer></script>
 <script>
 (function(){
-const one=document.getElementById('amf-one-count'),eight=document.getElementById('amf-eight-count'),svg=document.getElementById('amf-chart');
-const NS='http://www.w3.org/2000/svg',W=680,H=310,L=82,R=22,T=22,B=54,POOL=1500000;
-function el(tag,attrs,text){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;svg.appendChild(n);return n}
+const one=document.getElementById('amf-one-count'),eight=document.getElementById('amf-eight-count');
 function fmt(n){return Math.round(n).toLocaleString('ja-JP')}
-function draw(){
+function update(){
 const n1=Number(one.value),n8=Number(eight.value),units=n1+.8*n8,total=n1+n8;
-const p1=units?POOL/units:0,p8=units?.8*POOL/units:0;
 document.getElementById('amf-one-value').textContent=n1;
 document.getElementById('amf-eight-value').textContent=n8;
 document.getElementById('amf-total-people').textContent=total;
 document.getElementById('amf-total-units').textContent=Number(units.toFixed(1)).toLocaleString('ja-JP');
-document.getElementById('amf-payout-one').textContent=n1?fmt(p1):'—';
-document.getElementById('amf-payout-eight').textContent=n8?fmt(p8):'—';
-svg.replaceChildren();
-const max=Math.max(POOL,p1,p8),top=max*1.08;
-const y=v=>H-B-(v/top)*(H-T-B);
-[0,.25,.5,.75,1].forEach(k=>{const v=max*k;el('line',{x1:L,y1:y(v),x2:W-R,y2:y(v),stroke:'#dfe8f2','stroke-width':1});el('text',{x:L-10,y:y(v)+5,'text-anchor':'end',fill:'#657a90','font-size':13},v>=10000?(v/10000).toFixed(v%10000===0?0:1)+'万':fmt(v))});
-[[n1,p1,'#2469ae',190,'1 AMF'],[n8,p8,'#e28b3c',405,'0.8 AMF']].forEach(([count,p,color,x,label])=>{
-const val=count?p:0;el('rect',{x,y:y(val),width:105,height:Math.max(0,H-B-y(val)),rx:5,fill:color});
-el('text',{x:x+52.5,y:H-25,'text-anchor':'middle',fill:'#426487','font-size':15,'font-weight':700},label);
-el('text',{x:x+52.5,y:Math.max(T+14,y(val)-9),'text-anchor':'middle',fill:color,'font-size':16,'font-weight':700},count?fmt(p):'対象者なし');
-});
-if(!total)el('text',{x:W/2,y:H/2,'text-anchor':'middle',fill:'#657a90','font-size':18},'達成者数を設定してください');
+document.getElementById('amf-payout-one').textContent=n1&&units?fmt(1500000/units):'—';
+document.getElementById('amf-payout-eight').textContent=n8&&units?fmt(1200000/units):'—';
 }
-one.addEventListener('input',draw);eight.addEventListener('input',draw);draw();
+one.addEventListener('input',update);eight.addEventListener('input',update);update();
 })();
 </script></body></html>
