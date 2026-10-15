@@ -15,19 +15,33 @@
 .diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
 @media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
 </style>
-</head>
+<style>
+.cul-formula{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px;margin:18px 0;padding:20px 12px;background:#f8fbff;border:1px solid #d7e4f1;border-radius:12px;text-align:center;color:#174776;font-weight:800}
+.cul-formula>div{padding:12px;background:#fff;border:1px solid #d7e4f1;border-radius:9px;line-height:1.7}.cul-formula .cul-highlight{background:#e8f3ff}
+.cul-note{font-size:.85rem;color:#61748a;line-height:1.8}
+.cul-months{margin:18px 0;padding:18px 12px;border:1px solid #d7e4f1;border-radius:12px;background:#f8fbff;text-align:center}
+.cul-month-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cul-month-grid span{padding:12px 5px;border:1px solid #cbd9ea;background:white;border-radius:9px;color:#315f37;font-weight:800;line-height:1.6}
+.cul-down{padding:12px 0;color:#55769b;font-weight:800}.cul-title{padding:13px 10px;border:1px solid #cbd9ea;border-radius:9px;background:white;font-weight:800;color:#23466f}.cul-accent{background:#e8f3ff}
+.cul-sim{padding:20px;border:1px solid #d7e4f1;border-radius:13px;background:#f8fbff}.cul-sim label{display:block;font-weight:800;color:#23466f;line-height:1.7}.cul-sim input{width:100%;margin-top:18px;accent-color:#2469ae}.cul-scale{display:flex;justify-content:space-between;color:#61748a;font-size:.85rem}
+.cul-output{margin-top:20px;padding:18px 10px;border-radius:10px;background:#eaf4ff;text-align:center;display:grid;gap:7px;color:#526e8d}.cul-output strong{font-size:clamp(1.8rem,6vw,2.5rem);color:#164e88}
+@media(min-width:580px){.cul-month-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+</style></head>
 <body><header><div class="header-container"><a href="#" class="back-link" onclick="if(history.length>1){history.back()}else{location.href='./guide-c-bonus.html'}return false">← 前のページに戻る</a><a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service ログイン</a></div></header>
 <main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">カリナンアニュアルマネジメントフィー</h1></div>
-<section class="section-card"><h2 class="section-card-title">このボーナスの概要</h2><div class="bonus-lead">元ページでは、ロワイヤルダイヤモンドを6つの月度連続で達成してカリナンロワイヤルダイヤモンドとなり、カリナンAMFの対象になると説明されています。</div>
-      <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
-      <div class="bonus-diagram" role="img" aria-label="ロワイヤルダイヤモンドを6か月連続達成し、カリナンAMFの対象になる流れ">
-      <div class="diagram-months"><span class="diagram-month"> 1か月目 ✓</span><span class="diagram-month"> 2か月目 ✓</span><span class="diagram-month"> 3か月目 ✓</span><span class="diagram-month"> 4か月目 ✓</span><span class="diagram-month"> 5か月目 ✓</span><span class="diagram-month"> 6か月目 ✓</span></div>
-      <div class="diagram-arrow">↓ 6か月連続達成</div>
-      <div class="diagram-node">💎 カリナンロワイヤルダイヤモンド</div><div class="diagram-arrow">↓</div>
-      <div class="diagram-result">🎁 カリナンAMF</div>
-    </div>
-    </section>
-<section class="section-card"><h2 class="section-card-title">仕組み・条件</h2><div class="table-container"><table><tbody><tr><th scope="row">主な条件（元ページ記載）</th><td>ロワイヤルダイヤモンドを6つの月度連続で達成</td></tr><tr><th scope="row">計算の説明（元ページ記載）</th><td>ロワイヤルダイヤモンド達成者の月度総売上ポイントの0.25%を原資として計算</td></tr><tr><th scope="row">支給時期（元ページ記載）</th><td>最終達成月が4〜9月なら9月、10〜3月なら3月のボーナスと一緒に支給</td></tr><tr><th scope="row">連続達成の扱い（元ページ記載）</th><td>6つ目の月を達成した翌月は、連続月度カウントの1か月目として扱う</td></tr></tbody></table></div><div class="example-box"><strong>📌 具体例・確認ポイント</strong><p>連続達成や支給対象期間の判定は誤解が起きやすいため、実際の適用条件は正式なメンバーズマニュアルで確認してください。</p></div><div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。正式な支給条件・計算式は、概要書面・メンバーズマニュアルを優先してください。</div></section>
+<section class="section-card"><h2 class="section-card-title">計算の仕組み</h2>
+<p>カリナンAMFは、<strong>ロワイヤルダイヤモンド達成者の月度総売上ポイントの0.25%</strong>を原資として計算するボーナスです。</p>
+<div class="cul-formula"><div>ロワイヤルダイヤモンド達成者の<br><strong>月度総売上ポイント</strong></div><span>×</span><strong>0.25%</strong><span>＝</span><div class="cul-highlight">カリナンAMFの原資</div></div>
+<p class="cul-note">※ここで示しているのは原資の計算です。個人ごとの分配方法は、現在確認できるページ情報だけでは確定できません。</p></section>
+<section class="section-card"><h2 class="section-card-title">達成までの流れ（例）</h2>
+<p>ロワイヤルダイヤモンドを<strong>6つの月度連続</strong>で達成すると、カリナンロワイヤルダイヤモンドになります。</p>
+<div class="cul-months" aria-label="6か月連続達成の例"><div class="cul-month-grid"><span>1か月目<br>✓</span><span>2か月目<br>✓</span><span>3か月目<br>✓</span><span>4か月目<br>✓</span><span>5か月目<br>✓</span><span>6か月目<br>✓</span></div><div class="cul-down">↓ 6か月連続達成</div><div class="cul-title">💎 カリナンロワイヤルダイヤモンド</div><div class="cul-down">↓</div><div class="cul-title cul-accent">カリナンAMFの対象</div></div>
+<p class="cul-note">※連続達成の例です。6つ目の月を達成した翌月は、次の連続月度カウントの1か月目として扱います。</p></section>
+<section class="section-card"><h2 class="section-card-title">原資シミュレーション（例）</h2>
+<p>対象となる月度総売上ポイントを変えて、原資がどう変わるか試せます。<strong>個人の受取額を算出するものではありません。</strong></p>
+<div class="cul-sim"><label for="cul-sales">対象の月度総売上ポイント：<strong id="cul-sales-label">3億</strong>ポイント</label><input id="cul-sales" type="range" min="1" max="30" step="1" value="3"><div class="cul-scale"><span>1億</span><span>30億</span></div><div class="cul-output"><span>カリナンAMFの分配原資</span><strong id="cul-pool">75万</strong><span>ポイント相当（例）</span></div></div><p class="cul-note">※0.25%を掛けた試算です。対象となる売上ポイントの範囲、個人への分配方法、ポイントと円の換算は公式資料での確認が必要です。</p></section>
+<section class="section-card"><h2 class="section-card-title">取得条件</h2><div class="table-container"><table><tbody><tr><th scope="row">達成タイトル</th><td>ロワイヤルダイヤモンドを6つの月度連続で達成し、カリナンロワイヤルダイヤモンドとなること</td></tr><tr><th scope="row">連続達成の扱い</th><td>6つ目の月を達成した翌月は、連続月度カウントの1か月目として扱う</td></tr></tbody></table></div></section>
+<section class="section-card"><h2 class="section-card-title">支給時期</h2><div class="table-container"><table><thead><tr><th>最終達成月</th><th>支給時期</th></tr></thead><tbody><tr><td>4〜9月</td><td>9月度のボーナスと一緒に支給</td></tr><tr><td>10〜3月</td><td>3月度のボーナスと一緒に支給</td></tr></tbody></table></div><div class="note-box">正式な支給条件・計算式は、概要書面・メンバーズマニュアルをご確認ください。</div></section>
 <section class="section-card"><h2 class="section-card-title">あわせて確認</h2><div class="related-links"><a class="related-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span>›</span></a><a class="related-link" href="./check.html"><span>ボーナス・タイトル診断</span><span>›</span></a><a class="related-link" href="./guide-list.html?category=%E3%83%9C%E3%83%BC%E3%83%8A%E3%82%B9%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB"><span>ボーナス・タイトルの記事一覧</span><span>›</span></a></div></section></main>
 <footer><p>※このページは会員向けの内容を分かりやすく整理したサポートガイドです。正式な支給条件は、ニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p><div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div></footer>  <script src="./guide-menu.js" defer></script>
-</body></html>
+<script>(function(){const slider=document.getElementById('cul-sales');const label=document.getElementById('cul-sales-label'),pool=document.getElementById('cul-pool');function update(){const n=Number(slider.value);label.textContent=n+'億';const amount=n*25;pool.textContent=amount%100===0?(amount/100)+'百万':amount+'万'}slider.addEventListener('input',update);update()})();</script></body></html>
