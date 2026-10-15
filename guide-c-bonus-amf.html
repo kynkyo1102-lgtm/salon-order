@@ -32,15 +32,15 @@
 </div>
 <p class="amf-muted">公式：獲得AMF ×（対象月の売上総ポイント × 0.5% ÷ 総達成AMF）。獲得AMFの上限は3AMFです。</p></section>
 <section class="section-card"><h2 class="section-card-title">AMF分配シミュレーション</h2>
-<p>売上総ポイントを<strong>50億ポイント</strong>と仮定すると、0.5%の分配原資は<strong>2,500万ポイント相当</strong>です。対象者数や自分のAMFを変えて、分配割合の違いを確認できます。</p>
+<p>売上総ポイントを<strong>3億ポイント</strong>と仮定すると、0.5%の分配原資は<strong>150万ポイント相当</strong>です。対象者数や自分のAMFを変えて、分配割合の違いを確認できます。</p>
 <div class="amf-sim">
-<div class="amf-step"><small>仮定する売上総ポイント</small><strong>50億ポイント</strong><div class="amf-muted">分配原資：2,500万ポイント相当</div></div>
+<div class="amf-step"><small>仮定する売上総ポイント</small><strong>3億ポイント</strong><div class="amf-muted">分配原資：150万ポイント相当</div></div>
 <label for="amf-count">対象者数：<output id="amf-count-value">20</output>人</label>
 <input id="amf-count" type="range" min="10" max="100" step="10" value="20">
 <div class="amf-muted">10人 ～ 100人</div>
 <label for="amf-own">自分の獲得AMF</label>
 <select id="amf-own"><option value="0.8">0.8 AMF</option><option value="1" selected>1 AMF</option><option value="2">2 AMF</option><option value="3">3 AMF</option></select>
-<div class="amf-sim-output" aria-live="polite"><span class="amf-muted">自分の分配額（ポイント相当の試算）</span><strong id="amf-payout">1,250,000</strong><span class="amf-muted" id="amf-detail">総達成AMF：20 ／ 分配割合：5%</span></div>
+<div class="amf-sim-output" aria-live="polite"><span class="amf-muted">自分の分配額（ポイント相当の試算）</span><strong id="amf-payout">75,000</strong><span class="amf-muted" id="amf-detail">総達成AMF：20 ／ 分配割合：5%</span></div>
 <p class="amf-muted">※自分以外の対象者は全員1AMFと仮定しています。実際の対象者数・総達成AMF・支給額を示すものではありません。ポイントから円への換算条件はここでは設定していません。</p>
 </div></section>
 <section class="section-card"><h2 class="section-card-title">取得条件</h2>
@@ -58,7 +58,7 @@
 const count=document.getElementById('amf-count'),own=document.getElementById('amf-own');
 function update(){
 const n=Number(count.value),a=Number(own.value),total=n-1+a;
-const payout=25000000*a/total;
+const payout=1500000*a/total;
 document.getElementById('amf-count-value').textContent=n;
 document.getElementById('amf-payout').textContent=Math.round(payout).toLocaleString('ja-JP');
 document.getElementById('amf-detail').textContent='総達成AMF：'+Number(total.toFixed(1)).toLocaleString('ja-JP')+' ／ 分配割合：'+(100*a/total).toFixed(2).replace(/\\.?0+$/,'')+'%';
