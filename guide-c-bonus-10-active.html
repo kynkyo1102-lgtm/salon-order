@@ -22,6 +22,18 @@
 .active-simple .bonus-diagram-caption{margin:16px 0 0;color:var(--text-muted,#687386);font-size:.86rem;line-height:1.7}
 @media(max-width:560px){.active-simple{padding:16px 10px}.active-members{gap:6px}.active-person{padding:2px;border-radius:7px}.active-self img{width:72px;height:72px}}
 </style>
+<style>
+.calculation-flow{display:flex;flex-direction:column;align-items:stretch;gap:0;max-width:420px;margin:14px auto 8px}
+.calculation-step{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:13px 12px;background:#fff;border:1px solid #d4e3f2;border-radius:12px;text-align:center}
+.calculation-step-label{font-size:.85rem;color:#53667c;font-weight:700}
+.calculation-step strong{font-size:clamp(1.25rem,4.5vw,1.7rem);color:#123b78;line-height:1.4}
+.calculation-arrow{text-align:center;font-weight:800;color:#3469a2;font-size:22px;line-height:1.35;padding:4px 0}
+.calculation-arrow span{font-size:.85rem;vertical-align:2px}
+.calculation-result{background:#eaf4ff;border:2px solid #8db6e5}
+.calculation-result strong{font-size:clamp(1.7rem,6vw,2.2rem)}
+.calculation-formula{text-align:center;font-size:.87rem;overflow-wrap:anywhere;margin:12px 0 0}
+.calculation-disclaimer{font-size:.79rem;color:#53667c;margin:10px 0 0;line-height:1.65}
+</style>
 </head>
 <body><header><div class="header-container"><a href="#" class="back-link" onclick="if(history.length>1){history.back()}else{location.href='./guide-c-bonus.html'}return false">← 前のページに戻る</a><a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service ログイン</a></div></header>
 <main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">10アクティブボーナス</h1></div>
@@ -43,7 +55,17 @@
   <p class="bonus-diagram-caption">あなたが直接紹介したアクティブ会員（10人）</p>
 </div>
 </section>
-<section class="section-card"><h2 class="section-card-title">仕組み・条件</h2><div class="table-container"><table><tbody><tr><th scope="row">必要人数</th><td>アクティブ紹介者10人</td></tr><tr><th scope="row">対象タイトル</th><td>サファイヤまで</td></tr><tr><th scope="row">分配方法</th><td>総売上Pの1%を達成人数（ポジション数）で分配</td></tr></tbody></table></div><div class="example-box"><strong>📌 具体例・確認ポイント</strong><p>総売上ポイントが3億8,700万PT、達成人数（ポジション数）が450の場合：3億8,700万PT × 1% ÷ 450 ＝ 8,600円</p></div><div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。正式な支給条件・計算式は、概要書面・メンバーズマニュアルを優先してください。</div></section>
+<section class="section-card"><h2 class="section-card-title">仕組み・条件</h2><div class="table-container"><table><tbody><tr><th scope="row">必要人数</th><td>アクティブ紹介者10人</td></tr><tr><th scope="row">対象タイトル</th><td>サファイヤまで</td></tr><tr><th scope="row">分配方法</th><td>総売上Pの1%を達成人数（ポジション数）で分配</td></tr></tbody></table></div><div class="example-box"><strong>📌 具体例・確認ポイント</strong>
+<div class="calculation-flow" role="group" aria-label="総売上ポイント3億8,700万PTの1%を450ポジションで分配する計算例">
+<div class="calculation-step"><span class="calculation-step-label">① 全体の総売上ポイント</span><strong>3億8,700万PT</strong></div>
+<div class="calculation-arrow" aria-hidden="true">↓ <span>その1%を分配</span></div>
+<div class="calculation-step"><span class="calculation-step-label">② 分配する原資</span><strong>387万PT相当</strong></div>
+<div class="calculation-arrow" aria-hidden="true">↓ <span>達成した450ポジションで分ける</span></div>
+<div class="calculation-step calculation-result"><span class="calculation-step-label">③ 1ポジションあたりの計算例</span><strong>8,600円</strong></div>
+</div>
+<p class="calculation-formula">3億8,700万PT × 1% ÷ 450 ＝ 8,600円</p>
+<p class="calculation-disclaimer">※掲載されている計算例を図にしたものです。ポイントと円の取り扱いや実際の支給条件は、正式資料をご確認ください。</p>
+</div><div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。正式な支給条件・計算式は、概要書面・メンバーズマニュアルを優先してください。</div></section>
 <section class="section-card"><h2 class="section-card-title">あわせて確認</h2><div class="related-links"><a class="related-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span>›</span></a><a class="related-link" href="./check.html"><span>ボーナス・タイトル診断</span><span>›</span></a><a class="related-link" href="./guide-list.html?category=%E3%83%9C%E3%83%BC%E3%83%8A%E3%82%B9%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB"><span>ボーナス・タイトルの記事一覧</span><span>›</span></a></div></section></main>
 <footer><p>※このページは会員向けの内容を分かりやすく整理したサポートガイドです。正式な支給条件は、ニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p><div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div></footer>  <script src="./guide-menu.js" defer></script>
 </body></html>
