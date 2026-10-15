@@ -33,7 +33,7 @@
 <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
 <p style="margin:12px 0 0;line-height:1.85">まず左右のグループ売上を比較します。リーダーシップボーナスでは、<strong>少ない側の売上にタイトルごとに決められた倍率をかけて</strong>、計算用のボリュームを求めます。</p><p style="margin:10px 0 0;line-height:1.85">この例は<strong>エメラルド</strong>なので、少ない側の売上を<strong>2倍</strong>にして比較します。</p>
 <div class="leader-diagram">
-<svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="エメラルドの例。左グループ500万P、右グループ300万P。ボタンを押すと右グループの計算用ボリュームが600万Pになり、少ない側の500万Pを基準に計算します">
+<svg viewBox="0 0 400 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="エメラルドの例。左グループ500万P、右グループ300万P。ボタンを押すと右グループの計算用ボリュームが600万Pになり、少ない側の500万Pを基準に計算します">
 <image href="./assets/illustration-basic-commission-vector.svg" x="147" y="0" width="106" height="106"/>
 <rect x="159" y="81" width="82" height="27" rx="14" fill="#171717" stroke="#fff" stroke-width="1.4"/><text x="200" y="100" font-size="17" font-weight="800" fill="#fff" text-anchor="middle">あなた</text>
 <text x="200" y="132" text-anchor="middle" font-size="14" font-weight="700" fill="#23466f">エメラルド</text>
@@ -67,8 +67,8 @@
    doubled=!doubled;
    triangle.setAttribute('d',doubled?'M200 147 L385 326 L200 326 Z':'M200 147 L385 236 L200 236 Z');
    ghost.setAttribute('visibility',doubled?'visible':'hidden');
-   label.setAttribute('y',doubled?'328':'260');
-   value.setAttribute('y',doubled?'348':'282');
+   label.setAttribute('y',doubled?'352':'260');
+   value.setAttribute('y',doubled?'375':'282');
    value.textContent=doubled?'600万P':'300万P';
    button.textContent=doubled?'元の売上に戻す':'エメラルドの計算を見てみる';
    button.setAttribute('aria-pressed',String(doubled));
