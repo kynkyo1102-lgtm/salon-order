@@ -31,6 +31,7 @@
 <section class="section-card"><h2 class="section-card-title">このボーナスの概要</h2>
 <div class="bonus-lead">エメラルド以上のタイトルを達成すると、左右のグループ売上Pをもとにリーダーシップボーナスを計算します。少ない側の売上にタイトル別の倍率を適用し、左右を比較して計算対象のボリュームを決めます。</div>
 <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
+<p style="margin:12px 0 0;line-height:1.85">まず左右のグループ売上を比較します。リーダーシップボーナスでは、<strong>少ない側の売上にタイトルごとに決められた倍率をかけて</strong>、計算用のボリュームを求めます。</p><p style="margin:10px 0 0;line-height:1.85">この例は<strong>エメラルド</strong>なので、少ない側の売上を<strong>2倍</strong>にして比較します。</p>
 <div class="leader-diagram">
 <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="エメラルドの例。左グループ500万P、右グループ300万P。ボタンを押すと右グループの計算用ボリュームが600万Pになり、少ない側の500万Pを基準に計算します">
 <image href="./assets/illustration-basic-commission-vector.svg" x="147" y="0" width="106" height="106"/>
@@ -41,7 +42,7 @@
 <text x="105" y="304" text-anchor="middle" font-size="15" font-weight="800" fill="#171717">左グループ</text><text x="105" y="326" text-anchor="middle" font-size="17" font-weight="800" fill="#171717">500万P</text>
 <text id="leader-right-label" x="295" y="260" text-anchor="middle" font-size="15" font-weight="800" fill="#171717">右グループ</text><text id="leader-right-value" x="295" y="282" text-anchor="middle" font-size="17" font-weight="800" fill="#171717">300万P</text>
 </svg>
-<button type="button" id="leader-toggle" class="leader-toggle" aria-pressed="false">少ない側を2倍にする</button>
+<button type="button" id="leader-toggle" class="leader-toggle" aria-pressed="false">エメラルドの計算を見てみる</button>
 <div id="leader-explain" class="leader-explain" aria-live="polite">右グループの300万Pが少ないため、エメラルドの倍率「2倍」を適用します。</div>
 </div></section>
 <section class="section-card"><h2 class="section-card-title">仕組み・条件</h2><div class="table-container"><table><tbody>
@@ -66,7 +67,7 @@
    label.setAttribute('y',doubled?'328':'260');
    value.setAttribute('y',doubled?'348':'282');
    value.textContent=doubled?'600万P':'300万P';
-   button.textContent=doubled?'元の売上に戻す':'少ない側を2倍にする';
+   button.textContent=doubled?'元の売上に戻す':'エメラルドの計算を見てみる';
    button.setAttribute('aria-pressed',String(doubled));
    explanation.innerHTML=doubled?'右グループ：300万P × 2 ＝ <strong>600万P</strong><br>左500万Pと右600万Pを比較し、少ない方の<strong>500万P</strong>が計算対象です。<br><strong>500万P × 1.5% ＝ 75,000円</strong>':'右グループの300万Pが少ないため、エメラルドの倍率「2倍」を適用します。';
  });
