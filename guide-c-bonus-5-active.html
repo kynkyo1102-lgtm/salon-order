@@ -27,6 +27,19 @@
 .bonus-diagram-caption{margin:10px 0 0;color:var(--muted-text,#687386);font-size:.9rem;text-align:center;line-height:1.7}
 @media(max-width:560px){.bonus-diagram{padding:14px 8px}.bonus-diagram .person-label{font-size:11px}}
 </style>
+<style>
+.active-simple{max-width:680px;margin:20px auto 4px;padding:20px 14px;border:1px solid var(--border-color);border-radius:12px;background:#fff;text-align:center}
+.active-self{display:flex;flex-direction:column;align-items:center;gap:2px;font-weight:700}
+.active-self img{display:block;width:82px;height:82px;object-fit:contain}
+.active-flow{display:flex;flex-direction:column;align-items:center;gap:2px;margin:4px 0 16px;font-size:.88rem;font-weight:700;color:var(--primary-dark)}
+.active-flow span:first-child{font-size:23px;line-height:1.2}
+.active-members{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:550px;margin:0 auto}
+.active-person{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border:2px dashed #d33b3b;border-radius:12px;padding:4px;min-width:0}
+.active-person img{width:100%;height:100%;object-fit:contain;display:block}
+.active-key{display:inline-block;width:19px;height:13px;border:2px dashed #d33b3b;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.active-simple .bonus-diagram-caption{margin:16px 0 0;color:var(--text-muted,#687386);font-size:.86rem;line-height:1.7}
+@media(max-width:560px){.active-simple{padding:16px 10px}.active-members{gap:6px}.active-person{padding:2px;border-radius:7px}.active-self img{width:72px;height:72px}}
+</style>
 </head>
 <body>
   <header><div class="header-container">
@@ -43,32 +56,17 @@
       <div class="bonus-lead">アクティブ紹介者の人数に応じて、総売上Pの1%を達成人数（ポジション数）で分配する仕組みとして、元ページでは説明されています。</div>
     
       <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
-      <div class="bonus-diagram">
-        <svg viewBox="0 0 360 355" role="img" aria-labelledby="active5-title active5-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="active5-title">5アクティブ：直接紹介者を赤い点線で囲んだバイナリー図</title>
-          <desc id="active5-desc">わたしから左右に分かれるバイナリー組織図。下の6人のうち5人が赤い点線の枠で囲まれた直接紹介者。右下の1人は別の会員の紹介なので囲まれていません。</desc>
-          <g fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M169 92 L98 139 M191 92 L262 139"/>
-            <path d="M88 208 L51 255 M108 208 L145 255"/>
-            <path d="M252 208 L215 255 M272 208 L309 255"/>
-          </g>
-          <image href="./assets/illustration-test-02.svg" x="142" y="0" width="76" height="76"/>
-          <text class="person-label" x="180" y="88" style="font-size:14px">わたし</text>
-          <rect x="61" y="137" width="74" height="82" rx="11" fill="none" stroke="#d33b3b" stroke-width="2" stroke-dasharray="5 4"/>
-          <image href="./assets/illustration-test-01.svg" x="65" y="142" width="66" height="66"/>
-          <rect x="225" y="137" width="74" height="82" rx="11" fill="none" stroke="#d33b3b" stroke-width="2" stroke-dasharray="5 4"/>
-          <image href="./assets/illustration-test-03.svg" x="229" y="142" width="66" height="66"/>
-          <rect x="14" y="253" width="74" height="82" rx="11" fill="none" stroke="#d33b3b" stroke-width="2" stroke-dasharray="5 4"/>
-          <image href="./assets/illustration-test-04.svg" x="18" y="258" width="66" height="66"/>
-          <rect x="108" y="253" width="74" height="82" rx="11" fill="none" stroke="#d33b3b" stroke-width="2" stroke-dasharray="5 4"/>
-          <image href="./assets/illustration-test-05.svg" x="112" y="258" width="66" height="66"/>
-          <rect x="178" y="253" width="74" height="82" rx="11" fill="none" stroke="#d33b3b" stroke-width="2" stroke-dasharray="5 4"/>
-          <image href="./assets/illustration-test-06.svg" x="182" y="258" width="66" height="66"/>
-          <image href="./assets/illustration-test-07.svg" x="276" y="258" width="66" height="66"/>
-        </svg>
-        <p class="bonus-diagram-caption"><span style="display:inline-block;width:19px;height:13px;border:2px dashed #d33b3b;border-radius:3px;vertical-align:-2px;margin-right:5px"></span>赤い点線の枠＝わたしの直接紹介者（5人）。枠のない右下の人は、別の会員が紹介した人です。</p>
-      </div>
-    </section>
+      <div class="bonus-diagram active-simple" role="group" aria-label="わたしが直接紹介したアクティブ会員5人">
+  <div class="active-self"><img src="./assets/illustration-test-02.svg" alt=""><span>わたし</span></div>
+  <div class="active-flow"><span aria-hidden="true">↓</span><span>直接紹介したアクティブ会員</span></div>
+  <div class="active-members"><div class="active-person" aria-label="直接紹介者"><img src="./assets/illustration-test-01.svg" alt="" loading="lazy"></div>
+<div class="active-person" aria-label="直接紹介者"><img src="./assets/illustration-test-03.svg" alt="" loading="lazy"></div>
+<div class="active-person" aria-label="直接紹介者"><img src="./assets/illustration-test-04.svg" alt="" loading="lazy"></div>
+<div class="active-person" aria-label="直接紹介者"><img src="./assets/illustration-test-05.svg" alt="" loading="lazy"></div>
+<div class="active-person" aria-label="直接紹介者"><img src="./assets/illustration-test-06.svg" alt="" loading="lazy"></div></div>
+  <p class="bonus-diagram-caption"><span class="active-key" aria-hidden="true"></span>赤い点線の枠＝わたしが直接紹介したアクティブ会員（5人）</p>
+</div>
+</section>
     <section class="section-card" aria-labelledby="conditions">
       <h2 class="section-card-title" id="conditions">仕組み・条件</h2>
       <div class="table-container"><table><tbody><tr><th scope="row">必要人数</th><td>アクティブ紹介者5人</td></tr>
