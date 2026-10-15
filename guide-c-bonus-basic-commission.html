@@ -15,16 +15,32 @@
 .diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
 @media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
 </style>
+<style>
+.basic-triangle-diagram{max-width:610px;margin:18px auto 0;background:#fff}
+.basic-triangle-self{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.94rem}
+.basic-triangle-self img{width:74px;height:74px;object-fit:contain;display:block}
+.basic-triangle-svg{display:block;width:100%;max-width:430px;height:auto;margin:4px auto 0}
+.basic-triangle-result{display:inline-block;max-width:100%;padding:11px 14px;border-radius:10px;background:#edf5ff;border:1px solid #b9d2f0;font-size:.94rem;color:#23466f}
+.basic-triangle-result strong{font-size:1.15rem}
+@media(max-width:560px){.basic-triangle-self img{width:66px;height:66px}.basic-triangle-result{font-size:.85rem}}
+</style>
 </head>
 <body><header><div class="header-container"><a href="#" class="back-link" onclick="if(history.length>1){history.back()}else{location.href='./guide-c-bonus.html'}return false">← 前のページに戻る</a><a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service ログイン</a></div></header>
 <main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">ベーシックコミッションボーナス</h1></div>
 <section class="section-card"><h2 class="section-card-title">このボーナスの概要</h2><div class="bonus-lead">左右のグループ売上Pを比較し、売上Pが少ない側を基準に計算されるボーナスです。</div>
       <h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
-      <div class="bonus-diagram" role="img" aria-label="左右グループの売上ポイントを比較し、少ない側を計算基準にする図">
-      <div class="diagram-node">👤 あなた</div><div class="diagram-arrow">↓</div>
-      <div class="diagram-split"><div class="diagram-branch"><strong>左グループ</strong><span>500,000P</span></div><div class="diagram-branch"><strong>右グループ</strong><span>800,000P</span></div></div>
-      <div class="diagram-arrow">↓</div><div class="diagram-result">少ない方の 500,000P を基準に計算</div>
-    </div>
+      <div class="bonus-diagram basic-triangle-diagram" role="img" aria-label="あなたの左グループは50万ポイント、右グループは80万ポイント。少ない左グループを基準に計算する図">
+        <div class="basic-triangle-self"><img src="./assets/illustration-test-02.svg" alt=""><strong>あなた</strong></div>
+        <svg class="basic-triangle-svg" viewBox="0 0 360 234" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M166 12 L20 174 L166 174 Z" fill="#28a7e7"/>
+          <path d="M194 12 L194 212 L342 212 Z" fill="#ee4739"/>
+          <text x="117" y="136" fill="#fff" font-size="17" font-weight="700" text-anchor="middle">左グループ</text>
+          <text x="117" y="157" fill="#fff" font-size="17" font-weight="700" text-anchor="middle">50万P</text>
+          <text x="264" y="168" fill="#fff" font-size="17" font-weight="700" text-anchor="middle">右グループ</text>
+          <text x="264" y="189" fill="#fff" font-size="17" font-weight="700" text-anchor="middle">80万P</text>
+        </svg>
+        <div class="basic-triangle-result">少ない側の <strong>50万P</strong> を基準に計算</div>
+      </div>
     </section>
 <section class="section-card"><h2 class="section-card-title">仕組み・条件</h2><div class="table-container"><table><tbody><tr><th scope="row">対象</th><td>左右グループの売上P</td></tr><tr><th scope="row">計算基準</th><td>売上Pが少ない側</td></tr><tr><th scope="row">対象範囲</th><td>30,000P〜2,500万P</td></tr><tr><th scope="row">取得率</th><td>最大10%</td></tr></tbody></table></div><div class="example-box"><strong>📌 具体例・確認ポイント</strong><p>元ページでは、少ない側のグループ売上Pが30,000P以上あることを条件として案内しています。</p></div><div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。正式な支給条件・計算式は、概要書面・メンバーズマニュアルを優先してください。</div></section>
 <section class="section-card"><h2 class="section-card-title">あわせて確認</h2><div class="related-links"><a class="related-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span>›</span></a><a class="related-link" href="./check.html"><span>ボーナス・タイトル診断</span><span>›</span></a><a class="related-link" href="./guide-list.html?category=%E3%83%9C%E3%83%BC%E3%83%8A%E3%82%B9%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB"><span>ボーナス・タイトルの記事一覧</span><span>›</span></a></div></section></main>
