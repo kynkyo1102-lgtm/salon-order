@@ -53,6 +53,15 @@
 .calculation-disclaimer{font-size:.78rem;color:#53667c;margin:10px 0 0;line-height:1.7}
 @media(max-width:370px){.bonus-example-pair{gap:5px}.bonus-example-pair>div{padding:10px 4px}.bonus-example-pair strong{font-size:.88rem}}
 </style>
+<style>
+.bonus-example-sequence{display:flex;flex-direction:column;align-items:stretch;gap:0}
+.bonus-example-number{background:#fff;border-radius:9px;padding:11px 8px}
+.bonus-example-number span{display:block;font-size:.8rem;color:#52647b}
+.bonus-example-number strong{display:block;font-size:clamp(1.05rem,4vw,1.4rem);color:#123b78;margin-top:3px}
+.bonus-example-percent{padding:3px 0;color:#235d9e;font-size:.95rem;font-weight:800}
+.bonus-example-percent span{font-size:1.35rem;vertical-align:-2px}
+.bonus-example-fund{background:#dcecff}
+</style>
 </head>
 <body><header><div class="header-container"><a href="#" class="back-link" onclick="if(history.length>1){history.back()}else{location.href='./guide-c-bonus.html'}return false">← 前のページに戻る</a><a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service ログイン</a></div></header>
 <main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">10アクティブボーナス</h1></div>
@@ -78,9 +87,10 @@
 <div class="bonus-example-visual" role="group" aria-label="10アクティブボーナスの分配計算例">
   <div class="bonus-example-company">
     <div class="bonus-example-heading"><span class="bonus-example-icon" aria-hidden="true">▥</span> ニナファームジャポン（会社）</div>
-    <div class="bonus-example-pair">
-      <div><span>会社全体の総売上ポイント</span><strong>3億8,700万PT</strong></div>
-      <div><span>ボーナス原資（1%）</span><strong>387万PT相当</strong></div>
+    <div class="bonus-example-sequence">
+      <div class="bonus-example-number"><span>会社全体の総売上ポイント</span><strong>3億8,700万PT</strong></div>
+      <div class="bonus-example-percent"><span aria-hidden="true">↓</span> その1% </div>
+      <div class="bonus-example-number bonus-example-fund"><span>ボーナス原資</span><strong>387万PT相当</strong></div>
     </div>
   </div>
   <div class="bonus-example-down" aria-hidden="true">↓</div>
