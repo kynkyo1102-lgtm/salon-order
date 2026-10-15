@@ -52,6 +52,25 @@
 .calculation-formula{text-align:center;font-size:.87rem;overflow-wrap:anywhere;margin:12px 0 0}
 .calculation-disclaimer{font-size:.79rem;color:#53667c;margin:10px 0 0;line-height:1.65}
 </style>
+<style>
+.bonus-example-visual{max-width:530px;margin:14px auto 4px;text-align:center;line-height:1.55}
+.bonus-example-company,.bonus-example-recipients,.bonus-example-result{padding:15px 12px;border:1px solid #d4e3f2;border-radius:12px;background:#fff}
+.bonus-example-company{background:#eef5fd}
+.bonus-example-heading{font-size:.95rem;font-weight:800;color:#123b78;margin-bottom:10px}
+.bonus-example-icon{display:inline-block;font-size:1.45rem;line-height:1;vertical-align:-2px;margin-right:4px}
+.bonus-example-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.bonus-example-pair>div{padding:11px 6px;border-radius:8px;background:#fff;min-width:0}
+.bonus-example-pair span,.bonus-example-result span{display:block;font-size:.78rem;color:#52647b}
+.bonus-example-pair strong{display:block;margin-top:4px;font-size:clamp(.96rem,3.6vw,1.2rem);color:#123b78;overflow-wrap:anywhere}
+.bonus-example-down{font-size:24px;font-weight:700;color:#3469a2;line-height:1.5}
+.bonus-example-recipients p{margin:0 0 5px;font-size:.9rem}
+.bonus-example-recipients>strong{display:block;font-size:1.45rem;color:#123b78}
+.bonus-example-result{background:#eaf4ff;border:2px solid #8db6e5}
+.bonus-example-result strong{display:block;font-size:2rem;color:#123b78}
+.calculation-formula{font-size:.86rem;text-align:center;overflow-wrap:anywhere;margin:12px 0 0}
+.calculation-disclaimer{font-size:.78rem;color:#53667c;margin:10px 0 0;line-height:1.7}
+@media(max-width:370px){.bonus-example-pair{gap:5px}.bonus-example-pair>div{padding:10px 4px}.bonus-example-pair strong{font-size:.88rem}}
+</style>
 </head>
 <body>
   <header><div class="header-container">
@@ -85,17 +104,26 @@
 <tr><th scope="row">対象</th><td>メンバー</td></tr>
 <tr><th scope="row">分配方法</th><td>総売上Pの1%を達成人数（ポジション数）で分配</td></tr></tbody></table></div>
       <div class="example-box"><strong>📌 具体例・確認ポイント</strong>
-<div class="calculation-flow" role="group" aria-label="総売上ポイント3億8,700万PTの1%を900ポジションで分配する計算例">
-<div class="calculation-step"><span class="calculation-step-label">① 全体の総売上ポイント</span><strong>3億8,700万PT</strong></div>
-<div class="calculation-arrow" aria-hidden="true">↓ <span>その1%を分配</span></div>
-<div class="calculation-step"><span class="calculation-step-label">② 分配する原資</span><strong>387万PT相当</strong></div>
-<div class="calculation-arrow" aria-hidden="true">↓ <span>達成した900ポジションで分ける</span></div>
-<div class="calculation-step calculation-result"><span class="calculation-step-label">③ 1ポジションあたりの計算例</span><strong>4,300円</strong></div>
+<div class="bonus-example-visual" role="group" aria-label="5アクティブボーナスの分配計算例">
+  <div class="bonus-example-company">
+    <div class="bonus-example-heading"><span class="bonus-example-icon" aria-hidden="true">▥</span> ニナファームジャポン（会社）</div>
+    <div class="bonus-example-pair">
+      <div><span>会社全体の総売上ポイント</span><strong>3億8,700万PT</strong></div>
+      <div><span>ボーナス原資（1%）</span><strong>387万PT相当</strong></div>
+    </div>
+  </div>
+  <div class="bonus-example-down" aria-hidden="true">↓</div>
+  <div class="bonus-example-recipients">
+    <div class="bonus-example-heading">♙ 条件を達成したメンバーに分配</div>
+    <p>直接紹介したアクティブ会員が5人いる<br>達成ポジションの総数</p>
+    <strong>900ポジション</strong>
+  </div>
+  <div class="bonus-example-down" aria-hidden="true">↓</div>
+  <div class="bonus-example-result"><span>1ポジションあたりの計算例</span><strong>4,300円</strong></div>
 </div>
 <p class="calculation-formula">3億8,700万PT × 1% ÷ 900 ＝ 4,300円</p>
 <p class="calculation-disclaimer">※掲載されている計算例を図にしたものです。ポイントと円の取り扱いや実際の支給条件は、正式資料をご確認ください。</p>
-</div>
-      <div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。ボーナスの支給条件・計算式・上限は変更される場合があるため、正式な概要書面・メンバーズマニュアルを優先してください。</div>
+</div><div class="note-box"><strong>ご確認ください</strong><br>上記は既存の「test.html」に記載されていた内容を整理したものです。ボーナスの支給条件・計算式・上限は変更される場合があるため、正式な概要書面・メンバーズマニュアルを優先してください。</div>
     </section>
     
     <section class="section-card" aria-labelledby="related">
