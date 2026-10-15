@@ -47,10 +47,10 @@
       <div class="bonus-diagram basic-triangle-diagram" role="img" aria-label="あなたの左グループ売上は50万PT、右グループ売上は100万PT。左グループの売上50万PTの10%にあたる5万円を計算する例">
         <div class="basic-triangle-art">
           <svg class="basic-triangle-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs><marker id="basic-commission-arrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L6 3 L0 6 Z" fill="#111"/></marker></defs>
+            <defs><marker id="basic-commission-arrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L6 3 L0 6 Z" fill="#111"/></marker><clipPath id="basic-commission-arrow-clip"><path d="M0 0 H400 V96 H200 L14 216 L0 225 Z"/></clipPath></defs>
             <path d="M200 96 L14 216 L200 216 Z" fill="#ffda32" stroke="#151515" stroke-width="2" stroke-linejoin="round"/>
             <path d="M200 96 L386 336 L200 336 Z" fill="#17a5ec" stroke="#151515" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M70 180 Q80 106 148 71" fill="none" stroke="#111" stroke-width="3.4" stroke-linecap="round" marker-end="url(#basic-commission-arrowhead)"/>
+            <path d="M70 180 Q80 106 148 71" fill="none" stroke="#111" stroke-width="3.4" stroke-linecap="butt" marker-end="url(#basic-commission-arrowhead)" clip-path="url(#basic-commission-arrow-clip)"/>
             <text x="69" y="112" text-anchor="middle" fill="#111" font-size="19" font-weight="800">10%</text>
             <image href="./assets/illustration-test-02.svg" x="147" y="0" width="106" height="112" preserveAspectRatio="xMidYMid meet"/>
             <rect x="160" y="78" width="80" height="28" rx="14" fill="#171717" stroke="#fff" stroke-width="1.4"/>
