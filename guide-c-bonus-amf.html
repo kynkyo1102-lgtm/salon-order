@@ -38,38 +38,46 @@
 .amf-fraction{display:inline-flex;flex-direction:column;gap:6px;align-items:stretch;text-align:center;max-width:100%}
 .amf-fraction span{display:block;padding:3px 6px}.amf-fraction span:first-child{border-bottom:2px solid #174776}
 @media(max-width:560px){.amf-share-legend>div{align-items:flex-start}.amf-share-legend strong{width:100%;margin-left:21px}.amf-story{padding:15px 10px}}
+</style><style>
+.amf-chart-wrap{margin-top:18px;background:white;border:1px solid #dbe6f0;border-radius:10px;padding:8px}
+.amf-chart-legend{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:12px 0;font-size:.88rem;font-weight:800;color:#23466f}
+.amf-chart-legend span{display:flex;align-items:center;gap:8px}.amf-line-key{display:inline-block;width:25px;height:0;border-top:4px solid}.amf-line-one{border-color:#2469ae}.amf-line-eight{border-color:#e28b3c}
+.amf-dual-result{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.amf-dual-result>div{padding:12px 5px;border-radius:9px;background:white}.amf-dual-result span{display:block;font-weight:800;font-size:.85rem;color:#426487}
+.amf-dual-result strong{font-size:clamp(1.1rem,3.7vw,1.8rem);overflow-wrap:anywhere}
+.amf-dual-result>div:nth-child(2) strong{color:#bc6c28}
 </style></head>
 <body><header><div class="header-container"><a href="#" class="back-link" onclick="if(history.length>1){history.back()}else{location.href='./guide-c-bonus.html'}return false">← 前のページに戻る</a><a href="https://sslgw.jns-asp.jp/685/pc.html?new" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service ログイン</a></div></header>
 <main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">アニュアルマネジメントフィー（AMF）</h1></div>
-<section class="section-card"><h2 class="section-card-title">AMFは、みんなで原資を分け合うボーナス</h2>
-<p>全体の売上総ポイントの<strong>0.5%</strong>を原資にして、対象者の<strong>獲得AMFに応じて分配</strong>します。まずは、2人だけで分ける例を見てみましょう。</p>
-<div class="amf-story" aria-label="3億ポイントの0.5%を、1AMFのAさんと2AMFのBさんで分ける例">
+<section class="section-card"><h2 class="section-card-title">計算式を確認する</h2>
+<p>仕組みを数字で確認したい方はこちら。分配原資を総達成AMFで割り、自分の獲得AMFを掛けます。</p>
+<div class="amf-formula"><div class="amf-formula-caption">自分のAMFボーナス</div><div class="amf-formula-main">獲得AMF × <span class="amf-fraction"><span>対象月の売上総ポイント × 0.5%</span><span>総達成AMF</span></span></div></div>
+<p class="amf-muted">獲得AMFの上限は3AMFです。実際の計算・支給条件は公式資料をご確認ください。</p></section>
+<section class="section-card"><h2 class="section-card-title">分配の仕組み（例）</h2>
+<p>全体の売上総ポイントの<strong>0.5%</strong>を原資にして、対象者の<strong>獲得AMFに応じて分配</strong>します。以下は説明用の例です。</p>
+<h3 style="margin:18px 0 8px;color:var(--primary-dark);font-size:1rem">（例）達成者がAさんとBさんの2人の場合</h3><div class="amf-story" aria-label="3億ポイントの0.5%を、1AMFのAさんと2AMFのBさんで分ける例">
 <div class="amf-story-total"><span>全体の売上総ポイント</span><strong>3億ポイント</strong></div>
 <div class="amf-story-arrow">↓ <span>そのうち0.5%が分配原資に</span></div>
-<div class="amf-story-pool"><span>みんなで分け合う原資</span><strong>150万ポイント相当</strong></div>
+<div class="amf-story-pool"><span>分配原資（例）</span><strong>150万ポイント相当</strong></div>
 <div class="amf-story-arrow">↓ <span>AMFの持ち分に応じて分ける</span></div>
 <div class="amf-share-bar" role="img" aria-label="Aさん1AMFが3分の1、Bさん2AMFが3分の2"><div class="amf-share-a">Aさん 1/3</div><div class="amf-share-b">Bさん 2/3</div></div>
 <div class="amf-share-legend"><div><span class="amf-dot amf-dot-a"></span><b>Aさん：1 AMF</b><strong>50万ポイント相当</strong></div><div><span class="amf-dot amf-dot-b"></span><b>Bさん：2 AMF</b><strong>100万ポイント相当</strong></div></div>
 </div>
 <p class="amf-muted">※これは対象者がAさん・Bさんの2人だけで、総達成AMFが3の場合の説明用イメージです。円での支給額を表すものではありません。</p>
 <p class="amf-takeaway"><strong>ポイント：</strong>分配原資が同じなら、総達成AMFが少ないほど1AMFあたりの取り分は大きくなります。</p></section>
-<section class="section-card"><h2 class="section-card-title">AMF分配シミュレーション</h2>
-<p>売上総ポイントを<strong>3億ポイント</strong>と仮定すると、0.5%の分配原資は<strong>150万ポイント相当</strong>です。対象者数や自分のAMFを変えて、分配割合の違いを確認できます。</p>
+<section class="section-card"><h2 class="section-card-title">AMF分配シミュレーション（例）</h2>
+<p>売上総ポイント<strong>3億ポイント</strong>、分配原資<strong>150万ポイント相当</strong>の場合。対象者数が変わると、1AMFと0.8AMFの取り分はどう変わるでしょうか。</p>
 <div class="amf-sim">
-<div class="amf-step"><small>仮定する売上総ポイント</small><strong>3億ポイント</strong><div class="amf-muted">分配原資：150万ポイント相当</div></div>
 <label for="amf-count">対象者数：<output id="amf-count-value">20</output>人</label>
 <input id="amf-count" type="range" min="1" max="30" step="1" value="20">
-<div class="amf-muted">1人 ～ 30人</div>
-<label for="amf-own">自分の獲得AMF</label>
-<select id="amf-own"><option value="0.8">0.8 AMF</option><option value="1" selected>1 AMF</option><option value="2">2 AMF</option><option value="3">3 AMF</option></select>
-<div class="amf-sim-output" aria-live="polite"><span class="amf-muted">自分の分配額（ポイント相当の試算）</span><strong id="amf-payout">75,000</strong><span class="amf-muted" id="amf-detail">総達成AMF：20 ／ 分配割合：5%</span></div>
-<p class="amf-muted">※自分以外の対象者は全員1AMFと仮定しています。実際の対象者数・総達成AMF・支給額を示すものではありません。ポイントから円への換算条件はここでは設定していません。</p>
-</div></section>
-<section class="section-card"><h2 class="section-card-title">計算式を確認する</h2>
-<p>仕組みを数字で確認したい方はこちら。分配原資を総達成AMFで割り、自分の獲得AMFを掛けます。</p>
-<div class="amf-formula"><div class="amf-formula-caption">自分のAMFボーナス</div><div class="amf-formula-main">獲得AMF × <span class="amf-fraction"><span>対象月の売上総ポイント × 0.5%</span><span>総達成AMF</span></span></div></div>
-<p class="amf-muted">獲得AMFの上限は3AMFです。実際の計算・支給条件は公式資料をご確認ください。</p></section>
-<section class="section-card"><h2 class="section-card-title">取得条件</h2>
+<div class="amf-muted">1人 ～ 30人（1人刻み）</div>
+<div class="amf-chart-wrap"><svg id="amf-chart" viewBox="0 0 680 310" role="img" aria-label="対象者数1人から30人の、1AMFと0.8AMFの分配額を比較する折れ線グラフ" style="width:100%;height:auto;display:block"></svg></div>
+<div class="amf-chart-legend"><span><i class="amf-line-key amf-line-one"></i>1 AMF</span><span><i class="amf-line-key amf-line-eight"></i>0.8 AMF</span></div>
+<div class="amf-sim-output" aria-live="polite"><span class="amf-muted">対象者 <b id="amf-selected-count">20</b> 人の場合</span>
+<div class="amf-dual-result"><div><span>1 AMF</span><strong id="amf-payout-one">75,000</strong></div><div><span>0.8 AMF</span><strong id="amf-payout-eight">60,606</strong></div></div>
+<span class="amf-muted">単位：ポイント相当（例）</span></div>
+<p class="amf-muted">※各線は「自分以外の対象者が全員1AMF」と仮定した場合です。1AMFの線は総達成AMF＝対象者数、0.8AMFの線は総達成AMF＝対象者数−0.2として計算します。実際の支給額ではなく、円への換算は行っていません。</p>
+</div></section><section class="section-card"><h2 class="section-card-title">取得条件</h2>
 <div class="table-container"><table><tbody><tr><th scope="row">タイトル</th><td>ロワイヤルダイヤモンドを達成していること</td></tr><tr><th scope="row">左右ポイント</th><td>少ない側が6,000万ポイント以上</td></tr><tr><th scope="row">系列条件</th><td>プラチナ以上を育成しているメガ（直紹介）系列が3系列</td></tr></tbody></table></div>
 <h3 style="margin:22px 0 10px;font-size:1rem;color:var(--primary-dark)">獲得AMFの基準</h3>
 <div class="table-container"><table><thead><tr><th>達成・育成内容</th><th>AMF</th></tr></thead><tbody><tr><td>メガ・Wメガでプラチナを達成した場合</td><td>1 AMF</td></tr><tr><td>ユニ系列でプラチナを育成した場合</td><td>0.8 AMF</td></tr></tbody></table></div>
@@ -81,14 +89,28 @@
 <footer><p>※このページは会員向けの内容を分かりやすく整理したサポートガイドです。正式な支給条件は、ニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p><div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div></footer>  <script src="./guide-menu.js" defer></script>
 <script>
 (function(){
-const count=document.getElementById('amf-count'),own=document.getElementById('amf-own');
-function update(){
-const n=Number(count.value),a=Number(own.value),total=n-1+a;
-const payout=1500000*a/total;
+const count=document.getElementById('amf-count'),svg=document.getElementById('amf-chart');
+const NS='http://www.w3.org/2000/svg',W=680,H=310,L=72,R=20,T=18,B=49,MAX=1500000;
+function el(tag,attrs,text){const n=document.createElementNS(NS,tag);Object.entries(attrs||{}).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;svg.appendChild(n);return n}
+function payout(n,a){return 1500000*a/(n-1+a)}
+function x(n){return L+(n-1)*(W-L-R)/29}
+function y(v){return T+(MAX-v)*(H-T-B)/MAX}
+function draw(){
+svg.replaceChildren();
+[0,500000,1000000,1500000].forEach(v=>{el('line',{x1:L,y1:y(v),x2:W-R,y2:y(v),stroke:'#dfe8f2','stroke-width':1});el('text',{x:L-10,y:y(v)+5,'text-anchor':'end',fill:'#657a90','font-size':13},(v/10000)+'万')});
+[1,5,10,15,20,25,30].forEach(n=>el('text',{x:x(n),y:H-18,'text-anchor':'middle',fill:'#657a90','font-size':13},n));
+el('text',{x:W-R,y:H-2,'text-anchor':'end',fill:'#657a90','font-size':12},'対象者数（人）');
+[[1,'#2469ae'],[0.8,'#e28b3c']].forEach(([a,color])=>{
+let d='';for(let n=1;n<=30;n++)d+=(n===1?'M':'L')+x(n).toFixed(2)+','+y(payout(n,a)).toFixed(2)+' ';
+el('path',{d,fill:'none',stroke:color,'stroke-width':3.5,'stroke-linecap':'round','stroke-linejoin':'round'});
+});
+const n=Number(count.value);el('line',{x1:x(n),y1:T,x2:x(n),y2:H-B,stroke:'#8098ae','stroke-width':1.5,'stroke-dasharray':'5 5'});
+[[1,'#2469ae'],[0.8,'#e28b3c']].forEach(([a,color])=>el('circle',{cx:x(n),cy:y(payout(n,a)),r:6,fill:color,stroke:'white','stroke-width':2}));
 document.getElementById('amf-count-value').textContent=n;
-document.getElementById('amf-payout').textContent=Math.round(payout).toLocaleString('ja-JP');
-document.getElementById('amf-detail').textContent='総達成AMF：'+Number(total.toFixed(1)).toLocaleString('ja-JP')+' ／ 分配割合：'+(100*a/total).toFixed(2).replace(/\\.?0+$/,'')+'%';
+document.getElementById('amf-selected-count').textContent=n;
+document.getElementById('amf-payout-one').textContent=Math.round(payout(n,1)).toLocaleString('ja-JP');
+document.getElementById('amf-payout-eight').textContent=Math.round(payout(n,.8)).toLocaleString('ja-JP');
 }
-count.addEventListener('input',update);own.addEventListener('change',update);update();
+count.addEventListener('input',draw);draw();
 })();
 </script></body></html>
