@@ -474,3 +474,22 @@ body.registration-page .compare-method-note,body.registration-page .cost-subtext
 body.registration-page .step-list-text li::before{color:#555!important}
 body.registration-page .flow-toc-arrow{color:#777!important}
 @media(max-width:700px){body.registration-page .section-card+.section-card{margin-top:34px!important;padding-top:34px!important}body.registration-page .section-card-title{font-size:1.16rem!important}body.registration-page .bank-box{font-size:.8rem}}
+
+
+/* Registration comparison: one readable table, compact on phones */
+body.registration-page .registration-table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #e5e5e5;border-radius:8px}
+body.registration-page .registration-compare-table{width:100%;min-width:0;border-collapse:collapse;table-layout:fixed;font-size:.9rem;line-height:1.65}
+body.registration-page .registration-compare-table th,body.registration-page .registration-compare-table td{padding:15px 13px;text-align:left;vertical-align:top;border-bottom:1px solid #e8e8e8;overflow-wrap:anywhere}
+body.registration-page .registration-compare-table thead th{background:#f6f6f6!important;color:#242424!important;font-weight:750}
+body.registration-page .registration-compare-table thead th:first-child{width:26%}
+body.registration-page .registration-compare-table tbody th{background:#fff!important;color:#333!important;font-weight:700}
+body.registration-page .registration-compare-table tbody td{background:#fff!important;color:#333!important}
+body.registration-page .registration-compare-table tr:last-child th,body.registration-page .registration-compare-table tr:last-child td{border-bottom:0}
+body.registration-page .registration-compare-table th+th,body.registration-page .registration-compare-table td+td,body.registration-page .registration-compare-table th+td{border-left:1px solid #e8e8e8}
+body.registration-page .registration-compare-table .compare-method-note{display:block;margin-top:4px;color:#666;font-size:.78rem;line-height:1.55}
+body.registration-page .registration-next-links{margin-top:34px;padding-top:28px;border-top:1px solid #e8e8e8}
+body.registration-page .registration-next-links h3{margin:0 0 14px;font-size:1.06rem;color:#242424;font-weight:750}
+body.registration-page .registration-next-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+body.registration-page .registration-next-grid a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px 14px;border:1px solid #dcdcdc;border-radius:8px;background:#fff;color:#242424;font-weight:700;text-decoration:none;line-height:1.5}
+body.registration-page .registration-next-grid a:hover{background:#f7f7f7;border-color:#999}
+@media(max-width:700px){body.registration-page .registration-compare-table{font-size:.79rem}body.registration-page .registration-compare-table th,body.registration-page .registration-compare-table td{padding:12px 8px}body.registration-page .registration-compare-table thead th:first-child{width:25%}body.registration-page .registration-next-grid{grid-template-columns:1fr}body.registration-page .registration-next-links{margin-top:28px;padding-top:24px}}
