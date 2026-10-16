@@ -528,3 +528,7 @@ body.registration-page details.registration-step[open]>.registration-step-summar
 body.registration-page .registration-step-summary .section-card-title{border-left:3px solid #333!important;padding-left:12px!important}
 body.registration-page .registration-step-content{padding:22px 20px 26px!important}
 @media(max-width:700px){body.registration-page details.registration-step{margin-bottom:10px!important}body.registration-page .registration-step-summary{padding:16px 12px!important;min-height:64px}body.registration-page .registration-step-summary::after{width:30px;height:30px}body.registration-page .registration-step-content{padding:18px 15px 22px!important}}
+
+/* Registration step headings: remove decorative vertical rule only inside accordions. */
+body.registration-page details.registration-step > summary.registration-step-summary .section-card-title{border-left:0!important;border-inline-start:0!important;padding-left:0!important;padding-inline-start:0!important}
+body.registration-page details.registration-step > summary.registration-step-summary .section-card-title::before{content:none!important;display:none!important}
