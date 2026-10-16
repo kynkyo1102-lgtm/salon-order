@@ -1341,3 +1341,13 @@ body:not(.top-guide-page) .page-toc ul{margin:0;padding-left:1.3em;display:grid;
 body:not(.top-guide-page) .page-toc a{color:#333;text-decoration:underline;text-decoration-color:#bbb;text-underline-offset:3px;line-height:1.6}
 body:not(.top-guide-page) main.container .stack>.panel[id]{scroll-margin-top:28px}
 @media(max-width:700px){body:not(.top-guide-page) main.container .stack>.panel+.panel{margin-top:34px!important;padding-top:34px!important}body:not(.top-guide-page) main.container .stack>.panel>h2{font-size:1.16rem!important}body:not(.top-guide-page) .page-toc{padding:15px 17px}}
+
+/* Compact, Shibuya-inspired section jump links for longer articles */
+body:not(.top-guide-page) .page-toc{margin:0 0 38px!important;padding:17px 19px!important;border:1px solid #e5e5e5!important;border-radius:9px!important;background:#fff!important}
+body:not(.top-guide-page) .page-toc-title{font-size:.83rem!important;margin-bottom:12px!important;color:#555!important}
+body:not(.top-guide-page) .page-toc ul{list-style:none!important;display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin:0!important;padding:0!important}
+body:not(.top-guide-page) .page-toc li{margin:0!important;padding:0!important}
+body:not(.top-guide-page) .page-toc a{display:inline-flex!important;align-items:center!important;gap:6px!important;padding:8px 11px!important;border:1px solid #e5e5e5!important;border-radius:6px!important;background:#fafafa!important;color:#333!important;text-decoration:none!important;font-size:.88rem!important;line-height:1.45!important;font-weight:550!important}
+body:not(.top-guide-page) .page-toc a::after{content:"↓";font-size:.8rem;color:#888}
+body:not(.top-guide-page) .page-toc a:hover,body:not(.top-guide-page) .page-toc a:focus-visible{background:#f0f0f0!important;border-color:#aaa!important}
+@media(max-width:700px){body:not(.top-guide-page) .page-toc{padding:14px!important}body:not(.top-guide-page) .page-toc ul{gap:7px!important}body:not(.top-guide-page) .page-toc a{font-size:.82rem!important;padding:8px 10px!important}}
