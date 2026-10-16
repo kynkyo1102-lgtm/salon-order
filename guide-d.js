@@ -21,7 +21,7 @@ function mailSteps(panel,doc,mode,purpose){
  li.append(a);
  if(mode==="body"&&template){
   const details=el("details","mail-fallback");
-  const summary=el("summary","","メールが開かない場合はこちら");
+  const summary=el("summary","","本文がコピーされない場合はこちら");
   const actions=el("div","fallback-actions");
   const subjectButton=el("button","secondary-action","件名をコピー");subjectButton.type="button";subjectButton.onclick=()=>copyText(subject,subjectButton);
   const bodyButton=el("button","secondary-action","本文をコピー");bodyButton.type="button";bodyButton.onclick=()=>copyText(template.body,bodyButton);
