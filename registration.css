@@ -502,3 +502,16 @@ body.registration-page .registration-compare-table .compare-method-note{margin-t
 body.registration-page .registration-next-links{margin-top:40px;padding-top:32px}
 body.registration-page .registration-next-grid a{padding:19px 18px}
 @media(max-width:700px){body.registration-page .registration-compare-table{font-size:.82rem;line-height:1.75}body.registration-page .registration-compare-table th,body.registration-page .registration-compare-table td{padding:17px 11px}body.registration-page .registration-compare-table .compare-method-note{margin-top:6px;font-size:.75rem}body.registration-page .registration-next-grid a{padding:17px 15px}}
+
+/* Collapsible registration steps: headings remain visible, details stay readable. */
+body.registration-page details.registration-step{display:block;background:#fff!important;border:0!important;border-top:1px solid #e9e9e9!important;border-radius:0!important;box-shadow:none!important;padding:0!important;margin:0!important;scroll-margin-top:80px}
+body.registration-page .toc-card+details.registration-step{margin-top:30px!important}
+body.registration-page details.registration-step+details.registration-step{margin-top:0!important;padding-top:0!important}
+body.registration-page .registration-step-summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none;padding:22px 2px;min-height:66px}
+body.registration-page .registration-step-summary::-webkit-details-marker{display:none}
+body.registration-page .registration-step-summary::after{content:'＋';margin-left:auto;flex-shrink:0;font-size:1.4rem;font-weight:400;color:#666}
+body.registration-page details.registration-step[open]>.registration-step-summary::after{content:'−'}
+body.registration-page .registration-step-summary .section-card-title{flex:1;margin:0!important;font-size:1.19rem!important;line-height:1.55!important}
+body.registration-page .registration-step-content{padding:0 4px 28px 16px;color:#333;line-height:1.85}
+body.registration-page .registration-step-summary:focus-visible{outline:2px solid #555;outline-offset:3px}
+@media(max-width:700px){body.registration-page .registration-step-summary{padding:18px 2px;min-height:60px}body.registration-page .registration-step-summary .section-card-title{font-size:1.07rem!important}body.registration-page .registration-step-content{padding:0 2px 24px 14px}}
