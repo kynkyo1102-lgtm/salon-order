@@ -1351,3 +1351,7 @@ body:not(.top-guide-page) .page-toc a{display:inline-flex!important;align-items:
 body:not(.top-guide-page) .page-toc a::after{content:"↓";font-size:.8rem;color:#888}
 body:not(.top-guide-page) .page-toc a:hover,body:not(.top-guide-page) .page-toc a:focus-visible{background:#f0f0f0!important;border-color:#aaa!important}
 @media(max-width:700px){body:not(.top-guide-page) .page-toc{padding:14px!important}body:not(.top-guide-page) .page-toc ul{gap:7px!important}body:not(.top-guide-page) .page-toc a{font-size:.82rem!important;padding:8px 10px!important}}
+
+/* Preserve original artwork and icon colors while testing neutral layout */
+main .illustration,main .illustration *,main .artwork,main .artwork *,main .guide-icon,main .guide-icon *,main .step-icon,main .step-icon *,main .card-icon,main .card-icon *,main .guide-menu-icon,main .guide-menu-icon *{filter:none!important}
+main svg{--primary:#1769d1}
