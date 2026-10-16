@@ -1307,3 +1307,9 @@ body.menu-open { overflow: hidden; }
   text-decoration: underline;
   background: transparent;
 }
+
+/* 共通パンくずリスト */
+.site-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:14px 0 16px;font-size:.82rem;line-height:1.65;color:#64748b}
+.site-breadcrumb a{color:#004aad;text-decoration:underline;text-underline-offset:3px}
+.site-breadcrumb [aria-current=page]{color:#334155;font-weight:650}
+.breadcrumb-separator{color:#94a3b8;font-size:1rem}
