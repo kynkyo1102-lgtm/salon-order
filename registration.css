@@ -515,3 +515,16 @@ body.registration-page .registration-step-summary .section-card-title{flex:1;mar
 body.registration-page .registration-step-content{padding:0 4px 28px 16px;color:#333;line-height:1.85}
 body.registration-page .registration-step-summary:focus-visible{outline:2px solid #555;outline-offset:3px}
 @media(max-width:700px){body.registration-page .registration-step-summary{padding:18px 2px;min-height:60px}body.registration-page .registration-step-summary .section-card-title{font-size:1.07rem!important}body.registration-page .registration-step-content{padding:0 2px 24px 14px}}
+
+
+/* Clearly interactive step cards, without a redundant table of contents */
+body.registration-page details.registration-step{border:1px solid #dedede!important;border-radius:10px!important;margin:0 0 12px!important;overflow:hidden;background:#fff!important}
+body.registration-page details.registration-step+details.registration-step{margin-top:0!important;padding:0!important}
+body.registration-page .registration-step-summary{padding:19px 17px!important;min-height:68px;background:#f7f7f7;gap:12px}
+body.registration-page .registration-step-summary:hover{background:#f1f1f1}
+body.registration-page details.registration-step[open]>.registration-step-summary{background:#f5f5f5;border-bottom:1px solid #e5e5e5}
+body.registration-page .registration-step-summary::after{content:'⌄'!important;display:grid;place-items:center;width:32px;height:32px;border:1px solid #d4d4d4;border-radius:50%;background:#fff;color:#333!important;font-size:1.5rem!important;line-height:1;transform:translateY(-3px)}
+body.registration-page details.registration-step[open]>.registration-step-summary::after{content:'⌃'!important;transform:translateY(3px)}
+body.registration-page .registration-step-summary .section-card-title{border-left:3px solid #333!important;padding-left:12px!important}
+body.registration-page .registration-step-content{padding:22px 20px 26px!important}
+@media(max-width:700px){body.registration-page details.registration-step{margin-bottom:10px!important}body.registration-page .registration-step-summary{padding:16px 12px!important;min-height:64px}body.registration-page .registration-step-summary::after{width:30px;height:30px}body.registration-page .registration-step-content{padding:18px 15px 22px!important}}
