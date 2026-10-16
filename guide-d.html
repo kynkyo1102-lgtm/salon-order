@@ -5,10 +5,10 @@ const login="https://sslgw.jns-asp.jp/685/pc.html?new",email="nina_info@santeage
 const groups=[
 {name:"登録情報の変更",icon:0,items:[["住所・連絡先を変更したい","登録事項変更届"],["氏名などを変更したい","登録事項変更届"],["法人登録したい","譲渡・相続・法人・個人変更申請書"],["本人確認書類を提出したい","本人確認書類貼付用紙"]]},
 {name:"お支払い・振込",icon:1,items:[["クレジットカード情報を登録・変更したい","クレジット決済番号届出書","card"],["口座振替・自動振込を申し込みたい","アプラス預金口座振替依頼書・自動振込利用申込書"],["振込明細を提出したい","振込明細書貼付用紙"]]},
-{name:"定期購入",icon:2,items:[["定期購入の内容を変更したい","定期購入変更届","subscription"],["家族の定期購入をまとめたい","ご家族限定・定期購入おまとめ配送申請書"]]},
+{name:"定期購入",icon:2,items:[["定期購入の内容を変更したい","定期購入変更届","subscription"],["定期購入を停止したい","定期購入変更届"],["定期購入を再開したい","定期購入変更届"],["家族の定期購入をまとめたい","ご家族限定・定期購入おまとめ配送申請書"]]},
 {name:"会員資格・組織",icon:3,items:[["会員資格を復活したい","会員資格復活申請書"],["ポジションを譲渡・相続したい","譲渡・相続・法人・個人変更申請書"],["法人登録したい","譲渡・相続・法人・個人変更申請書"],["法人から個人登録へ変更したい","譲渡・相続・法人・個人変更申請書"],["ブランチを申請したい","ブランチ申請書"]]},
 {name:"商品・ツールの注文",icon:4,items:[["商品を注文したい","商品購入注文書","shopping"],["ビジネスツール（販促品）を注文したい","ビジネスツール兼商品購入注文書","shopping"],["名刺を注文したい","会員用名刺注文書"]]},
-{name:"解約・クーリングオフ",icon:5,items:[["解約・クーリングオフをしたい","クーリングオフ・解約申請書"]]},
+{name:"解約・クーリングオフ",icon:5,items:[["クーリングオフしたい","クーリングオフ・解約申請書"],["解約したい","クーリングオフ・解約申請書"]]},
 {name:"インボイス登録",icon:5,items:[["適格請求書発行事業者登録番号を届け出たい","適格請求書発行事業者登録番号届出書"]]},
 {name:"マイナンバー届出",icon:5,items:[["マイナンバーを届け出たい","マイナンバー届出書"]]}
 ];
@@ -20,10 +20,111 @@ function note(s){add("p","method-note",s)}function eservice(s){add("h3","method-
 function download(doc){add("h3","method-title","申請書での手続き");add("p","information-label","必要な書類");add("p","document-name",doc);note("申請書はE-Service内の申請書ダウンロードページでご確認ください。");link("E-Serviceにログインする");add("p","draft-label","※ログイン後の申請書ダウンロードページへの行き方は、確認後に掲載します。")}
 function docBox(parent,doc){const box=el("div","document-highlight");box.append(el("p","information-label","必要な書類"),el("p","document-name",doc));parent.append(box)}
 function documentSteps(parent,doc,fax){docBox(parent,doc);const p=el("p","method-note","E-Serviceの申請書ダウンロードページから書類を取得し、必要事項を記入してください。");parent.append(p);const a=el("a","eservice-link","E-Serviceにログインする ↗");a.href=login;a.target="_blank";a.rel="noopener noreferrer";parent.append(a,el("p","method-note",fax?"申請書を印刷し、必要事項を記入してください。":"印刷して記入した申請書を撮影するか、PDFに直接記入してください。"))}
-function mailSteps(panel,doc,mode){panel.replaceChildren();const ol=el("ol","mail-steps");panel.append(ol);function step(title,description){const li=el("li");li.append(el("strong","",title));if(description)li.append(el("p","method-note",description));ol.append(li);return li}if(mode==="body"){step("メール本文を準備する","必要事項を本文に記入します。本文テンプレートは準備中です。")}else{const li=step("申請書を準備する");documentSteps(li,doc,false)}const li=step("メールアプリを開く",mode==="body"?"必要事項をメール本文に記入してください。":"申請書をメールに添付してください。");li.append(el("p","method-note","宛先："+email));const a=el("a","secondary-action","メールアプリを開く ↗");a.href="mailto:"+email;li.append(a);step("内容を確認して送信する","送信内容を確認してください。")}
-function emailUI(panel,doc){const choices=el("div","method-choices"),steps=el("div","mail-instructions");panel.append(choices,steps);[["body","メール本文に必要事項を記入する"],["attach","記入済みの申請書を添付する"]].forEach(([v,t],i)=>{const label=el("label","method-choice"),radio=el("input");radio.type="radio";radio.name="mail-method";radio.value=v;radio.checked=i===0;radio.onchange=()=>mailSteps(steps,doc,v);label.append(radio,document.createTextNode(t));choices.append(label)});mailSteps(steps,doc,"body")}
+const mailTemplates={
+"住所・連絡先を変更したい":{subject:"【登録事項変更届】",body:`株式会社ニナファームジャポン御中
+
+■登録事項変更届■
+
+・申請日：　年　月　日
+・会員番号：
+・お名前：
+・旧住所：
+・新住所：
+・旧電話番号：
+・新電話番号：
+・携帯電話：
+
+(連絡先)`},
+"氏名などを変更したい":{subject:"【登録事項変更届】",body:`株式会社ニナファームジャポン御中
+
+■登録事項変更届■
+
+・申請日：　年　月　日
+・会員番号：
+・新氏名：
+・携帯電話：
+
+(連絡先)`},
+"本人確認書類を提出したい":{subject:"【本人確認書類の送付】",body:`株式会社ニナファームジャポン御中
+
+Web登録済みの以下のメンバーの
+身分証明書(免許証)を貼付致します。
+
+【会員番号・氏名】
+
+(連絡先)`},
+"定期購入を停止したい":{subject:"【定期購入変更届】",body:`株式会社ニナファームジャポン御中
+
+【定期購入変更届】
+①以下のポジションの定期サンテアージュOXを、　年　月より停止してください。
+
+●会員番号　お名前
+
+(連絡先)`},
+"定期購入を再開したい":{subject:"【定期購入変更届】",body:`株式会社ニナファームジャポン御中
+
+【定期購入変更届】
+①以下のポジションの定期サンテアージュOXを、　年　月より再開してください。
+
+●会員番号　お名前
+
+(連絡先)`},
+"家族の定期購入をまとめたい":{subject:"【おまとめ配送申請書】",body:`・申請日　年　月　日
+・会員番号
+・氏名
+・電話番号
+
+おまとめ配送を希望するポジション
+
+・会員番号
+・氏名
+・続柄
+
+(連絡先)`},
+"会員資格を復活したい":{subject:"【会員資格復活届】",body:`株式会社ニナファームジャポン 御中
+
+以下のポジションについて
+【購入したサロン】にて　月度分、20000ポイント以上購入済みの為、会員資格を復活させて下さい。
+
+・会員番号
+・氏名
+
+何卒よろしくお願いいたします。
+
+(連絡先)`},
+"クーリングオフしたい":{subject:"【クーリングオフの申請】",body:`株式会社ニナファームジャポン御中
+
+【クーリングオフのお願い】
+以下のポジションの定期サンテアージュOXのクーリングオフをお願いいたします。
+
+・申請日：　年　月　日
+●　　　　-00  氏名
+●　　　　-01  氏名
+●　　　　-02  氏名
+・住所：
+・電話番号：
+
+(連絡先)`},
+"解約したい":{subject:"【解約の申請】",body:`株式会社ニナファームジャポン御中
+
+【解約のお願い】
+以下のポジションの会員解約をお願いいたします。
+
+・申請日：　年　月　日
+●　　　　-00  氏名
+●　　　　-01  氏名
+●　　　　-02  氏名
+・住所：
+・電話番号：
+
+(連絡先)`}
+};
+function copyText(value,button){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(value).then(()=>{button.textContent="コピーしました"}).catch(()=>fallbackCopy(value,button))}else fallbackCopy(value,button)}
+function fallbackCopy(value,button){const t=document.createElement("textarea");t.value=value;t.style.position="fixed";t.style.opacity="0";document.body.append(t);t.select();try{document.execCommand("copy");button.textContent="コピーしました"}catch(e){button.textContent="コピーできませんでした"}t.remove()}
+function mailSteps(panel,doc,mode,purpose){panel.replaceChildren();const ol=el("ol","mail-steps");panel.append(ol);function step(title,description){const li=el("li");li.append(el("strong","",title));if(description)li.append(el("p","method-note",description));ol.append(li);return li}if(mode==="body"){const template=mailTemplates[purpose];const li=step("メール本文を準備する","件名と本文をコピーし、必要事項を入力してください。");if(template){const subject=el("div","template-field");subject.append(el("strong","","件名"),el("p","template-text",template.subject));const sb=el("button","secondary-action","件名をコピー");sb.type="button";sb.onclick=()=>copyText(template.subject,sb);subject.append(sb);const body=el("div","template-field");body.append(el("strong","","本文"),el("pre","template-text",template.body));const bb=el("button","secondary-action","本文をコピー");bb.type="button";bb.onclick=()=>copyText(template.body,bb);body.append(bb);li.append(subject,body)}else{li.append(el("p","method-note","この手続きはメール本文のテンプレートがありません。申請書を添付してください。"))}}else{const li=step("申請書を準備する");documentSteps(li,doc,false)}const li=step("メールアプリを開く",mode==="body"?"必要事項をメール本文に記入してください。":"申請書をメールに添付してください。");li.append(el("p","method-note","宛先："+email));const a=el("a","secondary-action","メールアプリを開く ↗");a.href="mailto:"+email;li.append(a);step("内容を確認して送信する","送信内容を確認してください。")}
+function emailUI(panel,doc,purpose){const choices=el("div","method-choices"),steps=el("div","mail-instructions");panel.append(choices,steps);[["body","メール本文に必要事項を記入する"],["attach","記入済みの申請書を添付する"]].forEach(([v,t],i)=>{const label=el("label","method-choice"),radio=el("input");radio.type="radio";radio.name="mail-method";radio.value=v;radio.checked=i===0;radio.onchange=()=>mailSteps(steps,doc,v,purpose);label.append(radio,document.createTextNode(t));choices.append(label)});mailSteps(steps,doc,"body",purpose)}
 function postalUI(doc){add("h3","method-title","郵送で提出する");const panel=add("div","submit-content");const ol=el("ol","mail-steps");panel.append(ol);const first=el("li");first.append(el("strong","","申請書を準備する"));documentSteps(first,doc,true);ol.append(first);const second=el("li");second.append(el("strong","","郵送する"),el("p","method-note","記入した書類を以下の宛先に郵送してください。"));const address=el("address","postal-address",postal);second.append(address,el("p","method-note","※郵送料はお客さま負担となります。"));ol.append(second)}
 function faxUI(panel,doc){const ol=el("ol","mail-steps");panel.append(ol);const first=el("li");first.append(el("strong","","申請書を準備する"));documentSteps(first,doc,true);ol.append(first);const second=el("li");second.append(el("strong","","FAXで送信する"),el("p","method-note","記入した申請書を次の番号に送信してください。"),el("p","fax-number","03-6550-8991"));ol.append(second);const third=el("li");third.append(el("strong","","送信結果を確認する"));ol.append(third)}
-function submitSelector(doc){add("h3","method-title","提出方法を選んでください");const options=add("div","submit-options"),panel=add("div","submit-content"),buttons=[];[["email","メールで提出"],["fax","申請書（FAX）で提出"]].forEach(([id,label])=>{const b=el("button","submit-option",label);b.type="button";b.setAttribute("aria-pressed","false");b.onclick=()=>{buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));panel.replaceChildren();if(id==="email")emailUI(panel,doc);else faxUI(panel,doc)};options.append(b);buttons.push(b)});buttons[0].click();note("※提出方法は本社確認内容に基づいています。詳細は公式案内をご確認ください。")}
-function detail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();back("手続き一覧に戻る",()=>category(i));heading(purpose);if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){add("h3","method-title","購入方法");note("各サロン（プラッスドゥニナ）からお買い求めいただけます。");note("また、E-Serviceの【ショッピング】からご注文いただけます。");link("E-Serviceにログインする");const sec=add("section","detail-divider");add("p","method-note","注文書を利用する場合： "+doc,sec)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。")}
+function submitSelector(doc,purpose){add("h3","method-title","提出方法を選んでください");const options=add("div","submit-options"),panel=add("div","submit-content"),buttons=[];[["email","メールで提出"],["fax","申請書（FAX）で提出"]].forEach(([id,label])=>{const b=el("button","submit-option",label);b.type="button";b.setAttribute("aria-pressed","false");b.onclick=()=>{buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));panel.replaceChildren();if(id==="email")emailUI(panel,doc,purpose);else faxUI(panel,doc)};options.append(b);buttons.push(b)});buttons[0].click();note("※提出方法は本社確認内容に基づいています。詳細は公式案内をご確認ください。")}
+function detail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();back("手続き一覧に戻る",()=>category(i));heading(purpose);if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){add("h3","method-title","購入方法");note("各サロン（プラッスドゥニナ）からお買い求めいただけます。");note("また、E-Serviceの【ショッピング】からご注文いただけます。");link("E-Serviceにログインする");const sec=add("section","detail-divider");add("p","method-note","注文書を利用する場合： "+doc,sec)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。")}
 home();</script></body></html>
