@@ -115,7 +115,7 @@
     </div>
 
     <!-- 判定結果 -->
-    <div id="result-card" class="bonus-result">
+    <div id="result-card" class="bonus-result" hidden>
 
       <div class="bonus-confetti" aria-hidden="true">
         <i></i><i></i><i></i><i></i>
@@ -143,8 +143,10 @@
 
     </div>
 
+    <button type="button" id="wizard-edit" class="wizard-edit" onclick="wizardEdit()" hidden>← 回答を修正する</button>
+
     <!-- 参考：昇格条件一覧表 -->
-    <div class="bonus-reference" style="margin-top: 24px;">
+    <div class="bonus-reference" id="bonus-reference" style="margin-top: 24px;" hidden>
 
       <div class="bonus-reference-title">
         📊 タイトル昇格条件をざっくり確認
@@ -338,6 +340,7 @@
           '会員資格が有効になると、現在の数字からタイトル・コミッション条件をチェックできます。' +
           '</div>';
 
+        showWizardResult();
         resultCard.classList.add('active');
 
         resultCard.scrollIntoView({
@@ -877,7 +880,8 @@
       // 結果表示
       // ----------------------------------------------------
 
-      resultCard.classList.add('active');
+      showWizardResult();
+        resultCard.classList.add('active');
 
       resultCard.scrollIntoView({
         behavior: 'smooth',
@@ -927,6 +931,22 @@
     document.getElementById('bonus-wizard').scrollIntoView({behavior:'smooth',block:'start'});
   }
   function wizardFinish(){checkConditions();}
+  function showWizardResult(){
+    document.getElementById("bonus-wizard").hidden=true;
+    document.querySelector(".bonus-hero").hidden=true;
+    document.getElementById("result-card").hidden=false;
+    document.getElementById("bonus-reference").hidden=false;
+    document.getElementById("wizard-edit").hidden=false;
+  }
+  function wizardEdit(){
+    document.getElementById("bonus-wizard").hidden=false;
+    document.querySelector(".bonus-hero").hidden=false;
+    document.getElementById("result-card").hidden=true;
+    document.getElementById("bonus-reference").hidden=true;
+    document.getElementById("wizard-edit").hidden=true;
+    wizardRender();
+    document.getElementById("bonus-wizard").scrollIntoView({behavior:"smooth",block:"start"});
+  }
   document.addEventListener('DOMContentLoaded',()=>{
     wizardSteps().forEach((step,i)=>{
       const checkbox=step.querySelector('input[type="checkbox"]');
