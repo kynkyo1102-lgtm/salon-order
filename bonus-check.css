@@ -657,3 +657,23 @@ body:has(.bonus-page){background:#f5f3fc}
 .point-shortcuts button:focus-visible{outline:3px solid #9c8add;outline-offset:2px}
 .point-preview{margin-top:12px;font-size:.86rem;line-height:1.5;color:#6353a3;font-weight:700;font-variant-numeric:tabular-nums}
 .point-preview:empty{display:none}
+
+/* Unified diagnosis palette: question, result and reference */
+.bonus-page{--bonus-accent:#7860bf;--bonus-accent-soft:#f1ecfc;--bonus-accent-border:#ddd3f4;--bonus-ink:#34315a;--bonus-muted:#716c86;--bonus-line:#e6def3}
+.bonus-page .bonus-result{border:1px solid var(--bonus-accent-border)!important;box-shadow:0 5px 20px rgba(86,65,145,.07)!important}
+.bonus-page .bonus-result-head{background:var(--bonus-accent-soft);border-radius:14px;padding:17px 14px;margin-bottom:24px}
+.bonus-page .bonus-result-head .small{color:#8171b0}
+.bonus-page .bonus-result-head h2{color:#51408d}
+.bonus-page .bonus-result-block.commission{background:#faf8ff;border:1px solid #e7ddf8}
+.bonus-page .bonus-result-block.title{background:#faf8ff;border:1px solid #e7ddf8}
+.bonus-page .bonus-result-label{color:#7063a2}
+.bonus-page .bonus-result-status.status-ok{background:#e8f6ec;color:#227642;border-color:#c5e7cf}
+.bonus-page .bonus-result-status.status-ng{background:#f1f0f7;color:#626177;border-color:#dedbea}
+.bonus-page .bonus-next-guide{border-color:#e5def5}
+.bonus-page .bonus-reference{border:1px solid var(--bonus-accent-border)!important;box-shadow:0 5px 20px rgba(86,65,145,.055)!important}
+.bonus-page .bonus-reference-title{color:#51408d}
+.bonus-page .bonus-reference-note{color:#716c86}
+.bonus-page .wizard-answers{border-color:var(--bonus-accent-border)}
+.bonus-page .wizard-answers h2{color:#51408d}
+.bonus-page .wizard-answer-row strong{color:#51408d}
+.bonus-page .point-shortcuts button{background:#f1ecfc;color:#6550a6;border-color:#d9cef3}
