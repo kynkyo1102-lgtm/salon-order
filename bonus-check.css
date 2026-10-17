@@ -577,3 +577,21 @@ body:has(.bonus-page){background:#f7f7f4}
 .bonus-result,.bonus-reference{border-color:#e4eae5!important;box-shadow:0 3px 13px rgba(27,53,39,.04)!important}
 @media(max-width:600px){.bonus-hero{padding:21px 3px 12px}.bonus-hero h1{font-size:1.7rem;line-height:1.48}.bonus-hero p{font-size:.93rem;line-height:1.85}.bonus-check-form{padding:0}.bonus-form-intro{padding:8px 4px 13px}.bonus-form-intro strong{font-size:1.04rem}.bonus-form-group{padding:20px 17px 21px;margin-bottom:13px}.bonus-form-label{font-size:1.03rem;line-height:1.6;margin-bottom:12px}.bonus-form-control[type="number"]{font-size:1.14rem;min-height:58px}.bonus-check-row span{font-size:.98rem}.bonus-form-hint{font-size:.84rem}.bonus-submit{font-size:1.04rem}}
 @media(max-width:380px){.bonus-form-label{font-size:1rem}.bonus-check-row span{font-size:.95rem}}
+
+/* One-question-at-a-time diagnosis */
+.bonus-wizard{max-width:620px;margin:0 auto 26px;scroll-margin-top:90px}
+.bonus-wizard .wizard-step[hidden],.bonus-wizard .wizard-actions button[hidden],.bonus-wizard .bonus-submit[hidden]{display:none!important}
+.bonus-wizard .wizard-step{min-height:215px;padding:28px 25px;margin:0 0 16px;border-radius:20px;box-shadow:0 5px 22px rgba(32,62,43,.045)}
+.bonus-wizard .bonus-form-label{font-size:1.15rem;line-height:1.65;margin-bottom:24px}
+.wizard-progress{display:flex;align-items:center;gap:16px;margin:0 2px 22px;color:#587367;font-weight:750;font-size:.9rem;white-space:nowrap}
+.wizard-track{flex:1;height:6px;background:#e1e9e3;border-radius:20px;overflow:hidden}
+#wizard-fill{height:100%;background:#4e9276;border-radius:20px;transition:width .2s}
+.wizard-actions{display:flex;gap:12px}
+.wizard-actions button{border:0;border-radius:13px;min-height:55px;font-size:1rem;font-weight:750;cursor:pointer}
+.wizard-back{background:#e9eee9;color:#405c4c;flex:0 0 30%}
+.wizard-next{background:#326d57;color:white;flex:1}
+.wizard-choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wizard-choices button{min-height:62px;border:1.5px solid #c8d8ce;background:#f8faf8;border-radius:13px;color:#315c47;font-size:1.07rem;font-weight:750;cursor:pointer}
+.wizard-choices button.selected{background:#e1f1e7;border-color:#438b6d}
+.bonus-wizard .bonus-submit{margin-top:0}
+@media(max-width:600px){.bonus-wizard .wizard-step{padding:26px 20px;min-height:205px}.bonus-wizard .bonus-form-label{font-size:1.09rem;margin-bottom:22px}.bonus-hero{margin-bottom:12px}.bonus-hero h1{font-size:1.5rem}.bonus-hero p{font-size:.87rem}}
