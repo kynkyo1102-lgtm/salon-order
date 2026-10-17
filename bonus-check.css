@@ -541,3 +541,12 @@
 .bonus-form-control[type="number"]{border:2px solid #64748b;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,.07)}
 .bonus-form-control[type="number"]:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.13)}
 .bonus-form-control[type="number"]::placeholder{color:#94a3b8}
+
+/* Input-area contrast: soft tinted panels around white controls */
+.bonus-check-form{background:#fff;border-color:#e2e8f0}
+.bonus-form-group{background:#f2f6fa;border:1px solid #e4ebf2;border-radius:16px;padding:18px 17px;margin-bottom:16px}
+.bonus-form-label{margin-bottom:12px;color:#253449;font-size:1rem}
+.bonus-form-control[type="number"]{background:#fff;border:2px solid #9aaabc;box-shadow:0 2px 6px rgba(27,45,70,.07)}
+.bonus-check-row{background:#fff;border:1px solid #d7e1ea}
+.bonus-form-hint{margin-top:10px}
+@media(max-width:600px){.bonus-form-group{padding:18px 15px;margin-bottom:17px}.bonus-form-label{font-size:1rem;margin-bottom:12px}.bonus-check-form{padding:19px 15px}}
