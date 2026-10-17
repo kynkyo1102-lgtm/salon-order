@@ -7,9 +7,9 @@
       --bonus-orange: #f59e0b;
       --bonus-orange-dark: #d97706;
       --bonus-green: #22c55e;
-      --bonus-green-bg: #ecfdf3;
-      --bonus-blue-bg: #eff6ff;
-      --bonus-yellow-bg: #fff9df;
+      --bonus-green-bg: #ffffff;
+      --bonus-blue-bg: #ffffff;
+      --bonus-yellow-bg: #ffffff;
       --bonus-ink: #334155;
       --bonus-muted: #64748b;
       --bonus-line: #e2e8f0;
@@ -22,8 +22,8 @@
       margin: 4px 0 24px;
       padding: 28px 22px 25px;
       border-radius: 22px;
-      background: linear-gradient(135deg, #fff9df 0%, #ffffff 58%, #f1f7ff 100%);
-      border: 2px solid #f2dda0;
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
       box-shadow: 0 8px 24px rgba(245, 158, 11, .10);
     }
 
@@ -59,8 +59,8 @@
       padding: 5px 12px;
       border-radius: 999px;
       background: #fff;
-      border: 1px solid #f0d27a;
-      color: #a66b00;
+      border: 1px solid #e2e8f0;
+      color: #475569;
       font-size: .78rem;
       font-weight: 800;
       letter-spacing: .04em;
@@ -76,7 +76,7 @@
     }
 
     .bonus-hero h1 span {
-      color: #e58b00;
+      color: #334155;
     }
 
     .bonus-hero p {
@@ -105,7 +105,7 @@
       margin-bottom: 18px;
       padding: 13px 14px;
       border-radius: 13px;
-      background: #f8fafc;
+      background: #ffffff;
     }
 
     .bonus-form-intro-icon {
@@ -169,7 +169,7 @@
       cursor: pointer;
       padding: 11px 12px;
       border-radius: 11px;
-      background: #fafafa;
+      background: #ffffff;
       border: 1px solid #edf0f3;
     }
 
@@ -193,7 +193,7 @@
       border: none;
       border-radius: 13px !important;
       padding: 15px 18px;
-      background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+      background: #334155 !important;
       color: #fff;
       font-size: 1rem;
       font-weight: 900;
@@ -279,8 +279,8 @@
     }
 
     .bonus-result-block.title {
-      background: linear-gradient(135deg, var(--bonus-yellow-bg), #fff);
-      border: 1px solid #f1d477;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
     }
 
     .bonus-result-label {
@@ -324,7 +324,7 @@
       text-align: center;
       background: #fff;
       border-radius: 15px;
-      border: 1px solid #f0d37c;
+      border: 1px solid #e2e8f0;
     }
 
     .bonus-title-crown {
@@ -334,7 +334,7 @@
 
     .bonus-title-label {
       margin-top: 6px;
-      color: #c47a00;
+      color: #475569;
       font-size: .78rem;
       font-weight: 900;
     }
@@ -481,8 +481,8 @@
 
       /* スマホでは入力項目のタイトルを少し小さく */
       .bonus-form-label {
-        font-size: .82rem;
-        line-height: 1.45;
+        font-size: 1rem;
+        line-height: 1.6;
         margin-bottom: 6px;
       }
 
@@ -523,7 +523,7 @@
     @media (max-width: 380px) {
 
       .bonus-form-label {
-        font-size: .78rem;
+        font-size: .95rem;
       }
 
       .bonus-check-row span {
@@ -534,3 +534,5 @@
         font-size: 1.28rem;
       }
     }
+
+@media(max-width:600px){.bonus-check-form{padding:23px 19px}.bonus-form-group{margin-bottom:27px}.bonus-form-label{font-size:1rem;line-height:1.6;margin-bottom:11px}.bonus-form-control{padding:15px;font-size:1.05rem;min-height:52px}.bonus-check-row{padding:16px 13px;gap:12px}.bonus-check-row span{font-size:.97rem;line-height:1.6}.bonus-form-hint,.bonus-form-intro span{font-size:.87rem;line-height:1.65}.bonus-form-intro{padding:16px;margin-bottom:25px}.bonus-form-intro strong{font-size:1rem}.bonus-submit{padding:18px;font-size:1.04rem}}
