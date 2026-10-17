@@ -536,3 +536,8 @@
     }
 
 @media(max-width:600px){.bonus-check-form{padding:23px 19px}.bonus-form-group{margin-bottom:27px}.bonus-form-label{font-size:1rem;line-height:1.6;margin-bottom:11px}.bonus-form-control{padding:15px;font-size:1.05rem;min-height:52px}.bonus-check-row{padding:16px 13px;gap:12px}.bonus-check-row span{font-size:.97rem;line-height:1.6}.bonus-form-hint,.bonus-form-intro span{font-size:.87rem;line-height:1.65}.bonus-form-intro{padding:16px;margin-bottom:25px}.bonus-form-intro strong{font-size:1rem}.bonus-submit{padding:18px;font-size:1.04rem}}
+
+/* Make numeric entry fields clearly recognizable */
+.bonus-form-control[type="number"]{border:2px solid #64748b;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(15,23,42,.07)}
+.bonus-form-control[type="number"]:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.13)}
+.bonus-form-control[type="number"]::placeholder{color:#94a3b8}
