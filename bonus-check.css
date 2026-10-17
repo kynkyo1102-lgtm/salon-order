@@ -628,3 +628,24 @@ body:has(.bonus-page){background:#f8f8fd}
 .wizard-answer-row span{font-size:.86rem;color:#68718a;line-height:1.55}
 .wizard-answer-row strong{font-size:.96rem;color:#343a60;text-align:right;white-space:nowrap}
 @media(max-width:600px){.wizard-answers{padding:18px 17px}.wizard-answer-row{gap:9px}.wizard-answer-row span{font-size:.83rem}.wizard-answer-row strong{font-size:.9rem}}
+
+/* Clearer lavender accent and relaxed results rhythm */
+body:has(.bonus-page){background:#f5f3fc}
+.bonus-hero{background:#eeeafb;border:1px solid #e4def6;border-radius:20px;padding:25px 23px;margin:8px 0 27px}
+.bonus-kicker{color:#7460b3}
+.bonus-wizard .wizard-step{border:1px solid #e5ddf4}
+.wizard-track{background:#e6ddf5}
+#wizard-fill{background:#8971cf}
+.wizard-next,.bonus-submit{background:#7860bf!important}
+.wizard-choices button.selected{background:#eee8fa;border-color:#8e77cf}
+.bonus-page .bonus-result{margin-bottom:30px;padding:23px}
+.bonus-page .bonus-result-block{margin-bottom:20px;padding:20px}
+.bonus-page .bonus-result-head{margin-bottom:24px}
+.bonus-page .bonus-reference{margin-top:30px!important;padding:24px}
+.bonus-page .wizard-answers{margin:30px 0 24px;padding:23px 22px}
+.bonus-page .wizard-answers h2{font-size:.98rem;margin-bottom:17px}
+.bonus-page .wizard-answer-row{padding:14px 0;gap:18px}
+.bonus-page .wizard-answer-row span{font-size:.78rem;line-height:1.6;font-weight:400}
+.bonus-page .wizard-answer-row strong{font-size:.84rem;line-height:1.55;font-weight:700}
+.bonus-page .wizard-edit{margin-bottom:30px}
+@media(max-width:600px){.bonus-hero{padding:23px 19px;margin-bottom:23px}.bonus-page .bonus-result{padding:19px;margin-bottom:25px}.bonus-page .bonus-result-block{padding:17px;margin-bottom:18px}.bonus-page .wizard-answers{padding:19px 17px;margin:26px 0 22px}.bonus-page .wizard-answer-row{padding:13px 0;gap:13px}.bonus-page .wizard-answer-row span{font-size:.76rem}.bonus-page .wizard-answer-row strong{font-size:.82rem}.bonus-page .bonus-reference{padding:19px;margin-top:28px!important}}
