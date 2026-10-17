@@ -58,6 +58,7 @@
                placeholder="例：10,000"
                min="0"
                step="1000">
+        <div class="point-shortcuts"><button type="button" onclick="fillSelfPoints()">10,000Pを入力</button></div>
       </div>
 
       <div class="bonus-form-group wizard-step">
@@ -70,6 +71,8 @@
                placeholder="例：200,000"
                min="0"
                step="10000">
+        <div class="point-shortcuts"><button type="button" onclick="multiplyGroupPoints(1000)">×1,000</button><button type="button" onclick="multiplyGroupPoints(10000)">×10,000</button></div>
+        <div id="group-point-preview" class="point-preview" aria-live="polite"></div>
       </div>
 
       <div class="bonus-form-group wizard-step">
@@ -908,6 +911,26 @@
 
   
   <script>
+  function fillSelfPoints(){
+    const input=document.getElementById('ipt-self-pt');
+    input.value='10000';
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+  function updateGroupPointPreview(){
+    const input=document.getElementById('ipt-group-pt');
+    const preview=document.getElementById('group-point-preview');
+    preview.textContent=input.value.trim()!=='' && Number.isFinite(Number(input.value))
+      ? '入力値：'+Number(input.value).toLocaleString('ja-JP')+' P' : '';
+  }
+  function multiplyGroupPoints(factor){
+    const input=document.getElementById('ipt-group-pt');
+    if(input.value.trim()===''){input.focus();return;}
+    const value=Number(input.value)*factor;
+    if(!Number.isSafeInteger(value)||value<0){input.focus();return;}
+    input.value=String(value);
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.focus();
+  }
   let wizardIndex=0;
   function wizardSteps(){return [...document.querySelectorAll('#bonus-wizard .wizard-step')];}
   function wizardRender(){
@@ -974,6 +997,8 @@
     document.getElementById("bonus-wizard").scrollIntoView({behavior:"smooth",block:"start"});
   }
   document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('ipt-group-pt').addEventListener('input',updateGroupPointPreview);
+    updateGroupPointPreview();
     wizardSteps().forEach((step,i)=>{
       const checkbox=step.querySelector('input[type="checkbox"]');
       if(checkbox){
