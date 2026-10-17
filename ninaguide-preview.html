@@ -93,6 +93,14 @@
 
 .top-guide-page .top-hero+.purpose-section{margin-top:48px}
 .top-guide-page .purpose-section+.top-section{padding-top:56px}
+
+/* Independent content: salon banner and compact diagnostic launcher */
+.salon-feature{margin-top:48px}
+.salon-banner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border:1px solid #d9e5f3;border-radius:16px;background:linear-gradient(110deg,#f0f6ff,#fff);color:#19345c;text-decoration:none}
+.salon-banner-copy{display:grid;gap:7px}.salon-banner-kicker{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:#3769a9}.salon-banner-title{font-size:1.2rem;font-weight:750}.salon-banner-desc{font-size:.84rem;color:#52657b}.salon-banner-visual{font-size:3rem;line-height:1;flex-shrink:0}.salon-banner-arrow{font-size:1.5rem;color:#004aad}
+.diagnosis-float{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;align-items:center;gap:7px;padding:11px 15px;border-radius:999px;background:#004aad;color:#fff;text-decoration:none;font-size:.87rem;font-weight:700;box-shadow:0 4px 15px #002b6660}
+.diagnosis-float:focus-visible,.salon-banner:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
+@media(max-width:700px){.salon-feature{margin-top:42px}.salon-banner{padding:17px 15px;gap:10px}.salon-banner-title{font-size:1.05rem}.salon-banner-visual{font-size:2.35rem}.diagnosis-float{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:10px 13px;font-size:.8rem}}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
@@ -155,7 +163,7 @@
         </details>
         <details class="category-card">
           <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"/><path d="m12 5 1.1 2.2 2.4.4-1.75 1.7.4 2.4L12 10.6l-2.15 1.1.4-2.4L8.5 7.6l2.4-.4L12 5Z"/></svg></span><span class="category-summary-copy"><span class="category-title">ボーナスプランについて</span></span></summary>
-          <div class="category-links"><a class="category-link" href="./guide-c-basic.html">基本条件</a><a class="category-link" href="./guide-c-bonus.html">ボーナスプラン</a><a class="category-link" href="./guide-c-title.html">タイトル昇格条件</a><a class="category-link" href="./guide-c-branch.html">ブランチ</a><a class="category-link" href="./check.html">ボーナス・タイトル診断</a></div>
+          <div class="category-links"><a class="category-link" href="./guide-c-basic.html">基本条件</a><a class="category-link" href="./guide-c-bonus.html">ボーナスプラン</a><a class="category-link" href="./guide-c-title.html">タイトル昇格条件</a><a class="category-link" href="./guide-c-branch.html">ブランチ</a></div>
         </details>
         <details class="category-card green">
           <summary class="category-summary"><span class="category-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3.5h6v3H9zM8.5 12l2.2 2.2 4.8-4.8M8.5 17h7"/></svg></span><span class="category-summary-copy"><span class="category-title">手続き・申請</span></span></summary>
@@ -167,9 +175,16 @@
         </details>
       </div>
     </section>
+    <section class="salon-feature" aria-labelledby="salonFeatureHeading">
+      <a class="salon-banner" href="#salonFeatureHeading" aria-label="全国サロン紹介（準備中）">
+        <span class="salon-banner-copy"><span class="salon-banner-kicker">SALON GUIDE</span><strong class="salon-banner-title" id="salonFeatureHeading">全国のサロンを探す</strong><span class="salon-banner-desc">全国のサロンをご紹介します <small>（準備中）</small></span></span>
+        <span class="salon-banner-visual" aria-hidden="true">🗾</span><span class="salon-banner-arrow" aria-hidden="true">›</span>
+      </a>
+    </section>
     <a class="back-to-top" href="#top">↑　ページの先頭へ戻る</a>
   </main>
 
+  <a class="diagnosis-float" href="./check.html" aria-label="ボーナス・タイトル診断を開く"><span aria-hidden="true">✦</span> ボーナス診断</a>
   <footer class="top-footer">
     <p class="disclaimer">※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
     <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
