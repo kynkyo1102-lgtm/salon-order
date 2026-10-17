@@ -32,16 +32,12 @@
     </div>
 
     <!-- 入力フォーム -->
-    <div class="bonus-check-form">
+    <div class="bonus-check-form bonus-wizard" id="bonus-wizard">
+      <div class="wizard-progress"><span id="wizard-count">1 / 6</span><div class="wizard-track"><div id="wizard-fill"></div></div></div>
 
-      <div class="bonus-form-intro">
-        
-        <div>
-          <strong>今月の状況を入力</strong>
-        </div>
-      </div>
+      
 
-      <div class="bonus-form-group">
+      <div class="bonus-form-group wizard-step">
         <label class="bonus-form-label">① 会員資格の確認</label>
         <label class="bonus-check-row">
           <input type="checkbox" id="chk-member-status">
@@ -52,7 +48,7 @@
         </small>
       </div>
 
-      <div class="bonus-form-group">
+      <div class="bonus-form-group wizard-step">
         <label class="bonus-form-label" for="ipt-self-pt">
           ② 自己購入P
         </label>
@@ -64,7 +60,7 @@
                step="1000">
       </div>
 
-      <div class="bonus-form-group">
+      <div class="bonus-form-group wizard-step">
         <label class="bonus-form-label" for="ipt-group-pt">
           ③ 左右グループ売上Pの少ない方（P）
         </label>
@@ -76,7 +72,7 @@
                step="10000">
       </div>
 
-      <div class="bonus-form-group">
+      <div class="bonus-form-group wizard-step">
         <label class="bonus-form-label" for="ipt-active-num">
           ④ アクティブ紹介者数（今月度新規登録分も含めて）
         </label>
@@ -87,7 +83,7 @@
                min="0">
       </div>
 
-      <div class="bonus-form-group">
+      <div class="bonus-form-group wizard-step">
         <label class="bonus-form-label" for="ipt-new-member-num">
           ⑤ 今月度紹介した人数（新規会員）
         </label>
@@ -98,7 +94,7 @@
                min="0">
       </div>
 
-      <div class="bonus-form-group">
+      <div class="bonus-form-group wizard-step">
         <label class="bonus-form-label">
           ⑥ マイナンバー提出
         </label>
@@ -108,11 +104,12 @@
         </label>
       </div>
 
+      <div class="wizard-actions"><button type="button" id="wizard-back" class="wizard-back" onclick="wizardMove(-1)">戻る</button><button type="button" id="wizard-next" class="wizard-next" onclick="wizardMove(1)">次へ</button></div>
       <p id="bonus-input-warning" class="bonus-input-warning" role="alert" hidden>数字の入力が必要です（該当しない場合は0を入力）。チェック項目は任意です。</p>
       <button type="button"
               class="bonus-submit"
-              onclick="checkConditions()">
-        🚀 いまの達成状況をチェック！
+              onclick="wizardFinish()">
+        診断結果を見る
       </button>
 
     </div>
@@ -898,6 +895,58 @@
     function formatPoints(value) {
       return Number(value).toLocaleString('ja-JP');
     }
+  </script>
+
+  
+  <script>
+  let wizardIndex=0;
+  function wizardSteps(){return [...document.querySelectorAll('#bonus-wizard .wizard-step')];}
+  function wizardRender(){
+    const steps=wizardSteps();
+    steps.forEach((el,i)=>{el.hidden=i!==wizardIndex;el.setAttribute('aria-hidden',String(i!==wizardIndex));});
+    document.getElementById('wizard-count').textContent=(wizardIndex+1)+' / '+steps.length;
+    document.getElementById('wizard-fill').style.width=((wizardIndex+1)/steps.length*100)+'%';
+    document.getElementById('wizard-back').hidden=wizardIndex===0;
+    document.getElementById('wizard-next').hidden=wizardIndex===steps.length-1;
+    document.querySelector('#bonus-wizard .bonus-submit').hidden=wizardIndex!==steps.length-1;
+    document.getElementById('bonus-input-warning').hidden=true;
+    document.getElementById('result-card').classList.remove('active');
+  }
+  function wizardMove(delta){
+    const steps=wizardSteps(), current=steps[wizardIndex];
+    if(delta>0){
+      const input=current.querySelector('input[type="number"]');
+      if(input && (input.value.trim()==='' || Number(input.value)<0)){
+        const warn=document.getElementById('bonus-input-warning');
+        warn.textContent='数字を入力してください。該当しない場合は0を入力してください。';
+        warn.hidden=false;input.focus();return;
+      }
+    }
+    wizardIndex=Math.max(0,Math.min(steps.length-1,wizardIndex+delta));
+    wizardRender();
+    document.getElementById('bonus-wizard').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function wizardFinish(){checkConditions();}
+  document.addEventListener('DOMContentLoaded',()=>{
+    wizardSteps().forEach((step,i)=>{
+      const checkbox=step.querySelector('input[type="checkbox"]');
+      if(checkbox){
+        const row=step.querySelector('.bonus-check-row');
+        if(row)row.hidden=true;
+        const choices=document.createElement('div');choices.className='wizard-choices';
+        choices.innerHTML='<button type="button" data-answer="yes">はい</button><button type="button" data-answer="no">いいえ</button>';
+        choices.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+          checkbox.checked=btn.dataset.answer==='yes';
+          choices.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',b===btn));
+          wizardMove(1);
+        }));
+        row.after(choices);
+      }
+      const num=step.querySelector('input[type="number"]');
+      if(num)num.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();wizardMove(1);}});
+    });
+    wizardRender();
+  });
   </script>
 
   <script src="./guide-menu.js" defer></script>
