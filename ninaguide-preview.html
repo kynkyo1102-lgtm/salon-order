@@ -74,6 +74,11 @@
 .purpose-card strong{margin:0;align-self:start}
 .purpose-desc{align-self:start}
 @media(max-width:700px){.purpose-card{grid-template-rows:150px auto auto;row-gap:7px}.purpose-art,.purpose-card:first-child .purpose-art{height:150px;margin:0;padding:5px}}
+
+/* Center the artwork and both text rows within each carousel card */
+.purpose-card{grid-template-columns:minmax(0,1fr);justify-items:stretch;text-align:center}
+.purpose-art,.purpose-card:first-child .purpose-art{justify-self:center;align-self:center}
+.purpose-card strong,.purpose-card .purpose-desc{display:block;width:100%;box-sizing:border-box;text-align:center;justify-self:center}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
