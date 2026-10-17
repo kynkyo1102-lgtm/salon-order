@@ -79,6 +79,14 @@
 .purpose-card{grid-template-columns:minmax(0,1fr);justify-items:stretch;text-align:center}
 .purpose-art,.purpose-card:first-child .purpose-art{justify-self:center;align-self:center}
 .purpose-card strong,.purpose-card .purpose-desc{display:block;width:100%;box-sizing:border-box;text-align:center;justify-self:center}
+
+/* Compact mobile carousel width; keep illustration and labels centered */
+@media(max-width:700px){
+  .purpose-grid{gap:12px;padding-right:18px}
+  .purpose-card{flex:0 0 68%;width:68%;max-width:260px;min-width:0;grid-template-columns:minmax(0,1fr);padding:10px 9px 13px}
+  .purpose-art,.purpose-card:first-child .purpose-art{width:100%;height:150px;max-width:100%;margin:0 auto;padding:4px}
+  .purpose-card strong,.purpose-card .purpose-desc{width:100%;text-align:center}
+}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
