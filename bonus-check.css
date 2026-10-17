@@ -601,3 +601,30 @@ body:has(.bonus-page){background:#f7f7f4}
 /* Separate question and results stages */
 .bonus-page #bonus-wizard[hidden],.bonus-page .bonus-hero[hidden],.bonus-page #result-card[hidden],.bonus-page #bonus-reference[hidden],.bonus-page #wizard-edit[hidden]{display:none!important}
 .wizard-edit{display:block;margin:0 auto 22px;background:transparent;border:1px solid #b8cec0;color:#326d57;padding:12px 20px;border-radius:12px;font-weight:750;font-size:.95rem;cursor:pointer}
+
+/* Diagnosis-specific periwinkle-blue palette */
+.bonus-page{--bonus-ink:#343a60;--bonus-muted:#6b718b;--bonus-line:#e5e6f3}
+body:has(.bonus-page){background:#f8f8fd}
+.bonus-kicker{color:#6269b7}
+.bonus-hero h1,.bonus-hero h1 span{color:#343a60}
+.bonus-hero p{color:#6b718b}
+.bonus-wizard .wizard-step{border-color:#e5e6f3;box-shadow:0 4px 18px rgba(65,67,126,.045)}
+.bonus-wizard .bonus-form-label{color:#343a60}
+.bonus-form-control[type="number"]{background:#fafaff;border-color:#c7c9e2;color:#343a60}
+.bonus-form-control[type="number"]:focus{border-color:#737bc8;box-shadow:0 0 0 4px rgba(115,123,200,.14)}
+.wizard-progress{color:#6b70ad}
+.wizard-track{background:#e5e6f5}
+#wizard-fill{background:#777fc9}
+.wizard-next,.bonus-submit{background:#686fbc!important;box-shadow:0 5px 14px rgba(104,111,188,.16)}
+.wizard-back{background:#eaeaf5;color:#555d98}
+.wizard-choices button{border-color:#c9cce8;background:#fafaff;color:#4b559c}
+.wizard-choices button.selected{background:#e9eafa;border-color:#777fc9}
+.wizard-edit{color:#6069b2;border-color:#c5c8e5}
+.bonus-result,.bonus-reference{border-color:#e5e6f3!important}
+.wizard-answers{background:#fff;border:1px solid #e5e6f3;border-radius:18px;padding:20px;margin:18px 0 14px;box-shadow:0 4px 15px rgba(65,67,126,.04)}
+.wizard-answers[hidden]{display:none!important}
+.wizard-answers h2{font-size:1.08rem;color:#343a60;margin:0 0 14px}
+.wizard-answer-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #ececf5}
+.wizard-answer-row span{font-size:.86rem;color:#68718a;line-height:1.55}
+.wizard-answer-row strong{font-size:.96rem;color:#343a60;text-align:right;white-space:nowrap}
+@media(max-width:600px){.wizard-answers{padding:18px 17px}.wizard-answer-row{gap:9px}.wizard-answer-row span{font-size:.83rem}.wizard-answer-row strong{font-size:.9rem}}
