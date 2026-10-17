@@ -597,3 +597,7 @@ body:has(.bonus-page){background:#f7f7f4}
 @media(max-width:600px){.bonus-wizard .wizard-step{padding:26px 20px;min-height:205px}.bonus-wizard .bonus-form-label{font-size:1.09rem;margin-bottom:22px}.bonus-hero{margin-bottom:12px}.bonus-hero h1{font-size:1.5rem}.bonus-hero p{font-size:.87rem}}
 
 .bonus-wizard .bonus-check-row[hidden]{display:none!important}
+
+/* Separate question and results stages */
+.bonus-page #bonus-wizard[hidden],.bonus-page .bonus-hero[hidden],.bonus-page #result-card[hidden],.bonus-page #bonus-reference[hidden],.bonus-page #wizard-edit[hidden]{display:none!important}
+.wizard-edit{display:block;margin:0 auto 22px;background:transparent;border:1px solid #b8cec0;color:#326d57;padding:12px 20px;border-radius:12px;font-weight:750;font-size:.95rem;cursor:pointer}
