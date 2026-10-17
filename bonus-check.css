@@ -595,3 +595,5 @@ body:has(.bonus-page){background:#f7f7f4}
 .wizard-choices button.selected{background:#e1f1e7;border-color:#438b6d}
 .bonus-wizard .bonus-submit{margin-top:0}
 @media(max-width:600px){.bonus-wizard .wizard-step{padding:26px 20px;min-height:205px}.bonus-wizard .bonus-form-label{font-size:1.09rem;margin-bottom:22px}.bonus-hero{margin-bottom:12px}.bonus-hero h1{font-size:1.5rem}.bonus-hero p{font-size:.87rem}}
+
+.bonus-wizard .bonus-check-row[hidden]{display:none!important}
