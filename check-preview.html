@@ -647,7 +647,7 @@
         </label>
       </div>
 
-      <p id="bonus-input-warning" class="bonus-input-warning" role="alert" hidden>未入力の項目があります。数字を入力してください（該当しない場合は0を入力）。</p>
+      <p id="bonus-input-warning" class="bonus-input-warning" role="alert" hidden>数字の入力が必要です（該当しない場合は0を入力）。チェック項目は任意です。</p>
       <button type="button"
               class="bonus-submit"
               onclick="checkConditions()">
@@ -783,13 +783,26 @@
       const requiredNumbers = [
         'ipt-self-pt', 'ipt-group-pt', 'ipt-active-num', 'ipt-new-member-num'
       ];
-      const missing = requiredNumbers.map(id => document.getElementById(id))
-        .find(input => input.value.trim() === '');
+      const numericInputs = requiredNumbers.map(id => document.getElementById(id));
+      const missing = numericInputs.filter(input => input.value.trim() === '');
       const warning = document.getElementById('bonus-input-warning');
-      if (missing) {
+      numericInputs.forEach(input => {
+        input.removeAttribute('aria-invalid');
+        input.style.borderColor = '';
+      });
+      if (missing.length) {
+        missing.forEach(input => {
+          input.setAttribute('aria-invalid', 'true');
+          input.style.borderColor = '#dc2626';
+        });
+        const names = missing.map(input => {
+          const label = document.querySelector('label[for="' + input.id + '"]');
+          return label ? label.textContent.trim().replace(/\\s+/g, ' ') : input.id;
+        });
+        warning.textContent = '数字の入力が必要です：' + names.join('、') + '。該当しない場合は0を入力してください。チェック項目は任意です。';
         warning.hidden = false;
-        missing.focus();
-        missing.scrollIntoView({behavior:'smooth', block:'center'});
+        missing[0].focus();
+        missing[0].scrollIntoView({behavior:'smooth', block:'center'});
         return;
       }
       warning.hidden = true;
