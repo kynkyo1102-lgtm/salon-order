@@ -897,7 +897,7 @@
         ) {
           calculatedTitle = 'ロワイヤルダイヤモンド';
           titleNote =
-            '※プラチナ以上の直紹介系列が3系列必要です。正式な昇格判定ではありません。';
+            '※プラチナ以上の直紹介系列が3系列必要です（系列条件は未判定）。';
 
         } else if (
           weakLegPoints >= 30000000 &&
@@ -905,7 +905,7 @@
         ) {
           calculatedTitle = 'ダイヤモンド';
           titleNote =
-            '※ゴールド以上の直紹介系列が3系列必要です。正式な昇格判定ではありません。';
+            '※ゴールド以上の直紹介系列が3系列必要です（系列条件は未判定）。';
 
         } else if (
           weakLegPoints >= 12000000 &&
@@ -913,7 +913,7 @@
         ) {
           calculatedTitle = 'プラチナ';
           titleNote =
-            '※エメラルド以上の直紹介系列が2系列必要です。正式な昇格判定ではありません。';
+            '※エメラルド以上の直紹介系列が2系列必要です（系列条件は未判定）。';
 
         } else if (
           weakLegPoints >= 6000000 &&
@@ -950,10 +950,8 @@
         !hasMyNumber &&
         rawTitle !== 'メンバー';
 
-      const effectiveTitle =
-        titlePromotionBlocked
-          ? 'メンバー'
-          : rawTitle;
+      // The monthly calculated title remains unchanged regardless of My Number submission.
+      const effectiveTitle = rawTitle;
 
       // ----------------------------------------------------
       // コミッション判定
@@ -1211,14 +1209,6 @@
             タイトル昇格には自己購入10,000P以上が必要です。
           </div>`;
 
-      } else if (titlePromotionBlocked) {
-
-        titleHtml =
-          `🎉 ${rawTitle}の数値条件を達成！
-          <div class="bonus-result-note">
-            マイナンバー未提出のため昇格判定は保留中です。${['プラチナ','ダイヤモンド','ロワイヤルダイヤモンド'].includes(rawTitle) ? '系列条件の確認も必要です。' : ''}
-          </div>`;
-
       } else {
 
         titleHtml =
@@ -1232,6 +1222,9 @@
             `<div class="bonus-result-note" style="margin-top:6px;">
               ${titleNote}
             </div>`;
+        }
+        if (!hasMyNumber) {
+          titleHtml += `<div class="bonus-result-note" style="margin-top:6px;">⚠️ マイナンバーが未提出です。${rawTitle !== 'メンバー' ? 'タイトル昇格には提出が必要です。' : '昇格に備えて提出状況をご確認ください。'}</div>`;
         }
 
         titleHtml += `</div>`;
@@ -1321,29 +1314,6 @@
         `;
 
       // マイナンバー未提出
-      } else if (
-        !hasMyNumber &&
-        rawTitle !== 'メンバー'
-      ) {
-
-        titleNextGuideEl.innerHTML = `
-          <div class="bonus-next-guide">
-            <strong>
-              🔑 まずはマイナンバーを提出すると、
-              タイトル昇格の判定ができるようになります。
-            </strong>
-            <ul>
-              <li>
-                マイナンバー：未提出 → 提出する
-              </li>
-              <li>
-                現在の数字なら<strong>${rawTitle}</strong>の数値条件を達成しています。
-                ${['プラチナ','ダイヤモンド','ロワイヤルダイヤモンド'].includes(rawTitle) ? 'マイナンバー提出後も系列条件の確認が必要です。' : 'マイナンバーの提出が残る条件です（その他の正式要件は規約をご確認ください）。'}
-              </li>
-            </ul>
-          </div>
-        `;
-
       // 次のタイトル
       } else if (nextTarget) {
 
