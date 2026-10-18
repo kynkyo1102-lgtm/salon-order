@@ -99,6 +99,14 @@
 .salon-banner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border:1px solid #d9e5f3;border-radius:16px;background:linear-gradient(110deg,#f0f6ff,#fff);color:#19345c;text-decoration:none}
 .salon-banner-copy{display:grid;gap:7px}.salon-banner-kicker{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:#3769a9}.salon-banner-title{font-size:1.2rem;font-weight:750}.salon-banner-desc{font-size:.84rem;color:#52657b}.salon-banner-visual{font-size:3rem;line-height:1;flex-shrink:0}.salon-banner-arrow{font-size:1.5rem;color:#004aad}
 .diagnosis-float{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;align-items:center;gap:7px;padding:11px 15px;border-radius:999px;background:#438d72;color:#fff;text-decoration:none;font-size:.87rem;font-weight:700;box-shadow:0 4px 15px rgba(50,110,77,.25)}
+/* Subtle sparkle on the floating diagnosis launcher */
+.diagnosis-float > span[aria-hidden="true"]{display:inline-block;transform-origin:center;animation:diagnosis-sparkle 5s ease-in-out infinite}
+@keyframes diagnosis-sparkle{
+  0%,12%,27%,100%{transform:rotate(0deg) scale(1);opacity:1}
+  17%{transform:rotate(22deg) scale(1.4);opacity:.85}
+  22%{transform:rotate(-9deg) scale(1.12);opacity:1}
+}
+@media(prefers-reduced-motion:reduce){.diagnosis-float > span[aria-hidden="true"]{animation:none}}
 .diagnosis-float:focus-visible,.salon-banner:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
 @media(max-width:700px){.salon-feature{margin-top:42px}.salon-banner{padding:17px 15px;gap:10px}.salon-banner-title{font-size:1.05rem}.salon-banner-visual{font-size:2.35rem}.diagnosis-float{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:10px 13px;font-size:.8rem}}
 </style></head>
