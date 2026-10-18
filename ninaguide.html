@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#123b78">
-  <title>【プレビュー】メンバーズWebガイド</title>
+  <title>メンバーズガイド｜プラッス ドゥ ニナ 南熊本店</title>
   <link rel="stylesheet" href="./common.css">
   <link rel="stylesheet" href="./top.css">
 <style>
@@ -109,6 +109,25 @@
 @media(prefers-reduced-motion:reduce){.diagnosis-float > span[aria-hidden="true"]{animation:none}}
 .diagnosis-float:focus-visible,.salon-banner:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
 @media(max-width:700px){.salon-feature{margin-top:42px}.salon-banner{padding:17px 15px;gap:10px}.salon-banner-title{font-size:1.05rem}.salon-banner-visual{font-size:2.35rem}.diagnosis-float{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:10px 13px;font-size:.8rem}}
+
+/* Refined compact editorial header, separated from search */
+.top-guide-page .top-hero{background:transparent;box-shadow:none;border:0;border-radius:0;text-align:left;padding:10px 0 0;margin:0 0 28px}
+.top-guide-page .top-hero-subtitle{display:block;background:none;padding:0;margin:0 0 5px;color:#687687;font-size:.76rem;font-weight:600;letter-spacing:.015em;line-height:1.6}
+.top-guide-page .top-hero-title{font-size:clamp(1.45rem,4.2vw,1.85rem);line-height:1.35;margin:0;color:#19345c;letter-spacing:.01em}
+.top-guide-page .top-hero-desc{font-size:.83rem;line-height:1.6;color:#687687;margin:8px 0 0}
+.top-guide-page .top-search{margin-top:30px;padding:25px 0 0;border-top:1px solid #e5ebf1;background:transparent;border-radius:0;box-shadow:none;max-width:none;text-align:left}
+.top-guide-page .top-search label{font-size:1rem;font-weight:700;color:#243d5c}
+.top-guide-page .search-keyword-inline{margin-top:18px}
+.top-guide-page .search-keyword-label{margin-bottom:10px}
+.top-guide-page .top-hero+.purpose-section{margin-top:45px}
+@media(max-width:700px){
+ .top-guide-page .top-hero{padding:6px 0 0;margin-bottom:25px}
+ .top-guide-page .top-hero-subtitle{font-size:.7rem;margin-bottom:5px}
+ .top-guide-page .top-hero-title{font-size:1.5rem}
+ .top-guide-page .top-hero-desc{font-size:.79rem;margin-top:7px}
+ .top-guide-page .top-search{margin-top:25px;padding-top:23px}
+ .top-guide-page .top-hero+.purpose-section{margin-top:38px}
+}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
@@ -138,9 +157,9 @@
 
   <main class="top-container" id="top">
     <section class="top-hero" aria-labelledby="pageTitle">
-      <div class="top-hero-subtitle">NINAPHARM JAPON</div>
+      <div class="top-hero-subtitle">プラッス ドゥ ニナ 南熊本店 presents</div>
       <h1 class="top-hero-title" id="pageTitle">メンバーズガイド</h1>
-      <p class="top-hero-desc">あなたのニナビジネスをサポート！</p>
+      <p class="top-hero-desc">会員のためのお手続き・ビジネスサポート</p>
       <form class="top-search" id="guideSearch" role="search">
         <label for="guideSearchInput">知りたいことを検索</label>
         <div class="top-search-row"><input id="guideSearchInput" type="search" placeholder="例：新規登録、定期購入、ボーナス" autocomplete="off"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg></button></div>
@@ -194,7 +213,7 @@
 
   <a class="diagnosis-float" href="./check.html" aria-label="ボーナス・タイトル診断を開く"><span aria-hidden="true">✦</span> ボーナス診断</a>
   <footer class="top-footer">
-    <p class="disclaimer">※当サイトは会員向けの各種お手続き・規約の要点を分かりやすく解説したサポートガイドです。<br>正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
+    <p class="disclaimer">※当サイトはプラッス ドゥ ニナ 南熊本店が独自に制作した会員向けガイドであり、ニナファームジャポンの公式サイトではありません。<br>正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
     <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
   </footer>
   <script src="./guide-data.js"></script>
