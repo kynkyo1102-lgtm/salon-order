@@ -330,3 +330,34 @@
   .home-page .section-title { font-size: 1.2rem; }
   .home-page .menu-card.featured-card { padding: 18px 15px; }
 }
+
+
+/* Order choice cards: always two columns, including phones */
+.home-page .home-order-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.home-page .home-order-grid .menu-card.featured-card {
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.home-page .home-order-grid .card-content { min-width: 0; }
+.home-page .home-order-grid .card-title { line-height: 1.45; }
+.home-page .home-order-grid .card-desc { overflow-wrap: anywhere; }
+.home-page .home-news-section { margin-bottom: 28px; }
+.home-page .home-news-section .news-box { margin-bottom: 0; }
+.home-page .home-news-section .news-accordion { margin-top: 10px; }
+@media (max-width: 520px) {
+  .home-page .home-order-grid { gap: 10px; }
+  .home-page .home-order-grid .menu-card.featured-card { padding: 16px 12px; }
+  .home-page .home-order-grid .card-title { font-size: .94rem; }
+  .home-page .home-order-grid .card-desc { font-size: .78rem; }
+}
