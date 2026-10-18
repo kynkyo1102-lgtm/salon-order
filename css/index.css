@@ -361,3 +361,44 @@
   .home-page .home-order-grid .card-title { font-size: .94rem; }
   .home-page .home-order-grid .card-desc { font-size: .78rem; }
 }
+
+
+/* Floating calculator: index only, restrained 5-second attention cue */
+.home-page .home-floating-calc {
+  position: fixed;
+  z-index: 50;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: 64px;
+  min-height: 64px;
+  padding: 8px 4px;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 22px;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 3px 14px rgba(0,0,0,.10);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.home-page .home-floating-calc-icon {
+  display: block;
+  transform-origin: center 80%;
+  animation: home-calculator-wiggle 5s ease-in-out infinite;
+}
+.home-page .home-floating-calc-label { font-size: .75rem; font-weight: 700; line-height: 1.2; }
+.home-page .home-floating-calc:hover,
+.home-page .home-floating-calc:focus-visible { border-color: #555; background: #f8f8f8; }
+.home-page .home-floating-calc:focus-visible { outline: 3px solid #777; outline-offset: 3px; }
+@keyframes home-calculator-wiggle {
+  0%, 6%, 18%, 100% { transform: rotate(0deg); }
+  9% { transform: rotate(-12deg); }
+  13% { transform: rotate(9deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-floating-calc-icon { animation: none; }
+}
