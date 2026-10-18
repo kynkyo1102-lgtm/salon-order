@@ -13,7 +13,7 @@
 
   <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
+<body class="home-page">
 
   <header>
     <a href="index.html" class="header-logo">Place de Nina</a>
@@ -22,15 +22,12 @@
 
   <main>
 
-    <!-- お知らせセクション（JavaScriptで自動挿入） -->
-    <div id="newsContainerArea"></div>
-
     <!-- メイン：注文ツールセクション -->
     <div class="hero-order-section">
-      <div class="section-title">LINEご注文作成ツール</div>
+      <h2 class="section-title">注文書を作成する</h2>
       
       <!-- 注意書き -->
-      <p style="font-size: 0.78rem; color: #c94b4b; margin: -4px 0 12px 0; line-height: 1.4; font-weight: bold;">
+      <p class="home-order-notice">
         ※こちらは直接サロンへ送信されるものではなく、注文テキストを作成できるツールになります。ご注文の際はツールで作成したテキストまたは画像をサロンLINEへご送信ください。
       </p>
 
@@ -38,12 +35,12 @@
       <details class="usage-guide-accordion">
         <summary class="usage-guide-summary">
           <span>💡 どちらのツールを使えばいい？</span>
-          <span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
+          <span class="home-accordion-arrow" aria-hidden="true">▼</span>
         </summary>
         <div class="usage-guide-content">
           ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br>
           ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br>
-          <span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
+          <span class="home-guide-note">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
         </div>
       </details>
 
@@ -82,9 +79,15 @@
       </a>
     </div>
 
+    <!-- お知らせ（注文機能の後に配置） -->
+    <section class="home-news-section" aria-label="お知らせ">
+      <h2 class="home-section-heading">お知らせ</h2>
+      <div id="newsContainerArea"></div>
+    </section>
+
     <!-- 店舗情報・SNSリンク -->
     <div class="sub-info-area">
-      <div class="sub-info-title">INFORMATION & SNS</div>
+      <h2 class="sub-info-title">サロン情報・サポート</h2>
       
       <div class="sub-grid">
         <a href="https://line.me/ti/p/7iG8fg4ykI" target="_blank" rel="noopener noreferrer" class="sub-btn">
@@ -114,8 +117,8 @@
   </main>
 
   <footer>
-    <div style="margin-bottom: 8px;">
-      <a href="privacy.html" style="color: var(--text-sub); text-decoration: underline; font-size: 0.7rem;">プライバシーポリシー</a>
+    <div class="home-footer-privacy">
+      <a href="privacy.html">プライバシーポリシー</a>
     </div>
     &copy; PLACE DE NINA MINAMIKUMAMOTO
   </footer>
