@@ -1378,3 +1378,28 @@ body main .top-container [class*="card"]:not(:has(svg)):not(:has(img)),body main
 body main .top-section+.top-section{border-top:1px solid #e9e9e9;padding-top:38px}
 body main .action-link:not(:has(svg)),body main .branch-action{background:#fff!important;color:#333!important;border:1px solid #aaa!important;box-shadow:none!important}
 @media(max-width:700px){body main .stack>.panel+.panel{padding-top:34px!important;margin-top:34px!important}body main .stack>.panel>h2{font-size:1.16rem!important}}
+
+/* Unified guide typography, simple navigation list and fixed quick links */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+html body,html body button,html body input,html body select,html body textarea,html body a,html body label{font-family:"Noto Sans JP",sans-serif!important}
+.site-menu-list .menu-group details{border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important}
+.site-menu-list .menu-group summary{background:transparent!important;border:0!important;border-radius:0!important;padding:12px 2px!important;font-size:1rem!important;font-weight:600!important;color:#263b53!important}
+.site-menu-list .menu-group summary::after{color:#6a798a!important}
+.site-menu-list .menu-group details[open]>summary{border-bottom:1px solid #e9edf1!important}
+.site-menu-list .menu-group details ul{margin:0!important;padding:4px 0 10px 15px!important;border:0!important;background:transparent!important}
+.site-menu-list .menu-group details ul a{border:0!important;border-radius:0!important;background:transparent!important;padding:10px 2px!important;min-height:42px!important;font-weight:400!important}
+.site-menu-list .menu-group-title{font-weight:600!important}
+.site-menu-list .menu-main a{font-weight:500!important}
+.site-menu-list>li{border-bottom:1px solid #e8edf2!important}
+.site-menu-title{font-weight:600!important;font-size:1.3rem!important}
+.menu-close{background:transparent!important;border-radius:0!important}
+.guide-floating-actions{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:12px;right:12px;z-index:80;display:flex;align-items:stretch;justify-content:center;gap:10px;pointer-events:none}
+.guide-floating-actions>a{position:static!important;flex:0 1 200px;min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;min-height:47px;padding:11px 12px;border-radius:999px;color:#fff!important;text-decoration:none;font-size:.88rem;font-weight:600;box-shadow:0 4px 15px rgba(31,55,70,.19);pointer-events:auto;white-space:nowrap}
+.guide-floating-actions .guide-float-eservice{background:#244d83}
+.guide-floating-actions .diagnosis-float{background:#438d72}
+.guide-floating-actions .diagnosis-float>span[aria-hidden="true"]{display:inline-block;transform-origin:center;animation:guide-sparkle 5s ease-in-out infinite}
+@keyframes guide-sparkle{0%,88%,100%{transform:scale(1) rotate(0)}92%{transform:scale(1.22) rotate(15deg)}96%{transform:scale(.96) rotate(-9deg)}}
+@media(prefers-reduced-motion:reduce){.guide-floating-actions .diagnosis-float>span{animation:none!important}}
+.guide-floating-actions>a:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
+body:has(.guide-floating-actions){padding-bottom:70px}
+@media(max-width:700px){.guide-floating-actions{gap:9px}.guide-floating-actions>a{flex:1 1 0;font-size:.82rem;min-height:46px;padding:10px 8px}}
