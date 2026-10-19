@@ -4,7 +4,7 @@
     <nav class="site-menu" id="guideSiteMenu" aria-label="サイト全体の目次" aria-hidden="true">
       <div class="site-menu-head"><h2 class="site-menu-title">ページ一覧</h2><button class="menu-close" id="guideMenuClose" type="button" aria-label="メニューを閉じる">×</button></div>
       <ul class="site-menu-list">
-        <li class="menu-main"><a href="./index.html">トップページ</a></li>
+        <li class="menu-main"><a href="./ninaguide.html">トップページ</a></li>
         <li class="menu-main"><a href="./check.html">ボーナス・タイトル診断</a></li>
         <li class="menu-group"><div class="menu-group-title">新規登録の流れ</div><ul>
           <li><a href="./guide-a-compare.html">登録方法を比較</a></li><li><a href="./guide-a-web.html">WEB登録の流れ</a></li><li><a href="./guide-a-paper.html">郵送登録の流れ</a></li><li><a href="./guide-a-cost.html">初回費用</a></li>
