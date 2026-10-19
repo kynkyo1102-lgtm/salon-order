@@ -7,7 +7,7 @@
   <title>メンバーズガイド｜プラッス ドゥ ニナ 南熊本店</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./common.css?v=20261019-meiryo1">
   <link rel="stylesheet" href="./top.css">
 <style>
@@ -133,7 +133,7 @@
 }
 
 /* Homepage-only UD font and softer type hierarchy trial */
-.top-guide-page,.top-guide-page button,.top-guide-page input,.top-guide-page select,.top-guide-page textarea,.top-guide-page a,.top-guide-page label{font-family:"BIZ UDPGothic",sans-serif!important}
+.top-guide-page,.top-guide-page button,.top-guide-page input,.top-guide-page select,.top-guide-page textarea,.top-guide-page a,.top-guide-page label{font-family:"Noto Sans JP",sans-serif!important}
 .top-guide-page .top-hero-title,.top-guide-page .top-section-heading,.top-guide-page .top-search label,.top-guide-page .purpose-card,.top-guide-page .top-keyword-tag,.top-guide-page .search-keyword-label,.top-guide-page .top-hero-subtitle{font-weight:700}
 .top-guide-page .top-hero-desc,.top-guide-page .purpose-lead{font-weight:400}
 .top-guide-page .top-search input{font-weight:400}
@@ -155,6 +155,29 @@
  .top-guide-page .top-hero{margin-bottom:43px!important}
  .top-guide-page .search-keyword-inline .top-keyword-tag{font-size:.875rem}
 }
+
+/* Homepage refinement: lighter typography and paired floating actions */
+.top-guide-page .top-hero-desc{display:none}
+.top-guide-page .top-search{margin-top:28px}
+.top-guide-page .top-search input{font-size:1rem}
+.top-guide-page .top-search input::placeholder{font-size:.91rem;color:#818c98;opacity:1}
+.top-guide-page .purpose-card strong{font-weight:600!important}
+.top-guide-page .purpose-card .purpose-desc{font-weight:400!important}
+.top-guide-page .category-title{font-weight:600!important}
+.top-guide-page .category-link{font-weight:400!important}
+.top-guide-page .top-section-heading{font-weight:600!important}
+.top-guide-page .top-hero-title{font-weight:600!important}
+.guide-floating-actions{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:12px;right:12px;z-index:80;display:flex;align-items:stretch;justify-content:center;gap:10px;pointer-events:none}
+.guide-floating-actions>a{position:static!important;flex:0 1 200px;min-width:0;display:flex;align-items:center;justify-content:center;gap:7px;min-height:47px;padding:11px 12px;border-radius:999px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;box-shadow:0 4px 15px rgba(31,55,70,.19);pointer-events:auto;white-space:nowrap}
+.guide-floating-actions .guide-float-eservice{background:#244d83}
+.guide-floating-actions .diagnosis-float{background:#438d72}
+.guide-floating-actions>a:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
+.top-guide-page{padding-bottom:62px}
+@media(max-width:700px){
+ .guide-floating-actions{gap:9px}
+ .guide-floating-actions>a{flex:1 1 0;font-size:.82rem;min-height:46px;padding:10px 8px}
+ .top-guide-page .top-search{margin-top:25px}
+}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
@@ -163,7 +186,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9"></path><path d="M9 21v-7h6v7"></path></svg>
       </a>
       <div class="header-spacer"></div>
-      <a href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer" class="btn-login">E-Service</a>
       <button class="menu-button" type="button" id="openMenu" aria-label="メニューを開く" aria-controls="siteMenu" aria-expanded="false"><span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span></button>
     </div>
   </header>
@@ -186,10 +208,8 @@
     <section class="top-hero" aria-labelledby="pageTitle">
       <div class="top-hero-subtitle">プラッス ドゥ ニナ 南熊本店 presents</div>
       <h1 class="top-hero-title" id="pageTitle">メンバーズガイド</h1>
-      <p class="top-hero-desc">会員のためのお手続き・ビジネスサポート</p>
-      <form class="top-search" id="guideSearch" role="search">
-        <label for="guideSearchInput">知りたいことを検索</label>
-        <div class="top-search-row"><input id="guideSearchInput" type="search" placeholder="例：新規登録、定期購入、ボーナス" autocomplete="off"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg></button></div>
+      <form class="top-search" id="guideSearch" role="search" aria-label="キーワード検索">
+        <div class="top-search-row"><input id="guideSearchInput" type="search" placeholder="探したいキーワードを入力してください" autocomplete="off"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg></button></div>
         <ul class="search-results" id="guideSearchResults" aria-live="polite"></ul>
         <div class="search-keyword-inline"><div class="top-keyword-list" id="keywordList" aria-label="よく検索されるキーワード"></div></div>
       </form>
@@ -238,7 +258,10 @@
     <a class="back-to-top" href="#top">↑　ページの先頭へ戻る</a>
   </main>
 
-  <a class="diagnosis-float" href="./check.html" aria-label="ボーナス・タイトル診断を開く"><span aria-hidden="true">✦</span> ボーナス診断</a>
+  <nav class="guide-floating-actions" aria-label="便利なリンク">
+    <a class="guide-float-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> E-Service</a>
+    <a class="diagnosis-float" href="./check.html" aria-label="ボーナス・タイトル診断を開く"><span aria-hidden="true">✦</span> ボーナス診断</a>
+  </nav>
   <footer class="top-footer">
     <p class="disclaimer">※当サイトはプラッス ドゥ ニナ 南熊本店が独自に制作した会員向けガイドであり、ニナファームジャポンの公式サイトではありません。<br>正式な契約内容・規約はニナファームジャポン発行の「概要書面」「メンバーズマニュアル」をご確認ください。</p>
     <div class="copyright">Copyright (C) NINAPHARM JAPON CO.,Ltd. All Rights Reserved.</div>
