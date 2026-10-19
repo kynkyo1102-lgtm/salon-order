@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap");
 
 /* ==========================================================================
    NINAPHARM JAPON MEMBERS GUIDE
@@ -1380,7 +1381,6 @@ body main .action-link:not(:has(svg)),body main .branch-action{background:#fff!i
 @media(max-width:700px){body main .stack>.panel+.panel{padding-top:34px!important;margin-top:34px!important}body main .stack>.panel>h2{font-size:1.16rem!important}}
 
 /* Unified guide typography, simple navigation list and fixed quick links */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
 html body,html body button,html body input,html body select,html body textarea,html body a,html body label{font-family:"Noto Sans JP",sans-serif!important}
 .site-menu-list .menu-group details{border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important}
 .site-menu-list .menu-group summary{background:transparent!important;border:0!important;border-radius:0!important;padding:12px 2px!important;font-size:1rem!important;font-weight:600!important;color:#263b53!important}
