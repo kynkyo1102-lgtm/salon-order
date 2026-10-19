@@ -139,6 +139,22 @@
 .top-guide-page .top-search input{font-weight:400}
 .top-guide-page .top-keyword-tag{letter-spacing:0}
 
+
+/* Search hierarchy: compact labels, consistently sized readable text */
+.top-guide-page .top-hero{border-bottom:0!important;padding-bottom:0!important;margin-bottom:48px!important}
+.top-guide-page .top-search{padding-bottom:0}
+.top-guide-page .search-keyword-inline{margin-top:14px;margin-bottom:0;clear:both}
+.top-guide-page .search-keyword-inline .top-keyword-list{gap:9px;align-items:center}
+.top-guide-page .search-keyword-inline .top-keyword-tag{font-size:.875rem;line-height:1.45;font-weight:400;min-height:38px;padding:8px 13px}
+.top-guide-page .top-search label{font-size:1rem;font-weight:700;line-height:1.5;margin-bottom:11px}
+.top-guide-page .top-search input{font-size:1rem;font-weight:400}
+.top-guide-page .top-hero+.purpose-section{margin-top:0!important;padding-top:0}
+.top-guide-page .top-section-heading{font-weight:700}
+.top-guide-page .top-section-heading small{font-weight:400}
+@media(max-width:700px){
+ .top-guide-page .top-hero{margin-bottom:43px!important}
+ .top-guide-page .search-keyword-inline .top-keyword-tag{font-size:.875rem}
+}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
@@ -175,7 +191,7 @@
         <label for="guideSearchInput">知りたいことを検索</label>
         <div class="top-search-row"><input id="guideSearchInput" type="search" placeholder="例：新規登録、定期購入、ボーナス" autocomplete="off"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg></button></div>
         <ul class="search-results" id="guideSearchResults" aria-live="polite"></ul>
-        <div class="search-keyword-inline"><span class="search-keyword-label">よく検索されるキーワード</span><div class="top-keyword-list" id="keywordList" aria-label="よく検索されるキーワード"></div></div>
+        <div class="search-keyword-inline"><div class="top-keyword-list" id="keywordList" aria-label="よく検索されるキーワード"></div></div>
       </form>
     </section>
     <section class="top-section purpose-section" aria-labelledby="purposeHeading">
