@@ -22,3 +22,11 @@
 .walkthrough-navigation button:disabled{opacity:.35;cursor:default}
 .walkthrough-print-link{display:inline-block;margin-top:12px;font-size:.87rem;color:var(--primary)}
 @media(max-width:480px){.walkthrough-chat-mascot{width:65px;flex-basis:65px}.walkthrough-chat-message{gap:8px}.walkthrough-chat-bubble{padding:13px;font-size:.9rem}}
+
+.walkthrough-actions{display:grid;gap:9px;margin:10px 0 15px}
+.walkthrough-action{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border-color);border-radius:12px;background:var(--card-bg);font-size:.95rem;line-height:1.5;cursor:pointer}
+.walkthrough-action input{width:20px;height:20px;flex:none;accent-color:var(--primary)}
+.walkthrough-more{margin:15px 0;border-top:1px solid var(--border-color);padding-top:14px}
+.walkthrough-more>summary{color:var(--primary);font-size:.88rem;font-weight:600;cursor:pointer;padding:8px 0}
+.walkthrough-more-body{padding:12px 0 4px;line-height:1.75}
+.walkthrough-more-body .step-list-text{margin-top:8px}
