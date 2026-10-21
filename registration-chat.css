@@ -30,3 +30,12 @@
 .walkthrough-more>summary{color:var(--primary);font-size:.88rem;font-weight:600;cursor:pointer;padding:8px 0}
 .walkthrough-more-body{padding:12px 0 4px;line-height:1.75}
 .walkthrough-more-body .step-list-text{margin-top:8px}
+
+.walkthrough-completion[hidden],.walkthrough-current[hidden],.walkthrough-chat-message[hidden],.walkthrough-navigation[hidden]{display:none!important}
+.walkthrough-completion{margin:20px 0;line-height:1.8}
+.walkthrough-completion>h2{text-align:center;font-size:1.4rem;color:var(--primary-dark)}
+.walkthrough-complete-mark{width:52px;height:52px;border-radius:50%;background:#e9f6ee;color:#26754e;display:grid;place-items:center;margin:0 auto 14px;font-size:1.6rem}
+.walkthrough-complete-note{text-align:center;color:var(--muted-text);font-size:.9rem;margin-bottom:26px}
+.walkthrough-after-item{padding:16px 0;border-top:1px solid var(--border-color)}
+.walkthrough-after-item .section-card-title{font-size:1rem;margin-bottom:8px}
+.walkthrough-restart{display:block;margin:24px auto;padding:12px 18px;background:white;border:1px solid var(--border-color);border-radius:var(--radius);color:var(--primary);font:inherit;cursor:pointer}
