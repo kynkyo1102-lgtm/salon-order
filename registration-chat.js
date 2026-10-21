@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded',function(){
 const steps=Array.from(document.querySelectorAll('.registration-step'));
 if(!steps.length)return;
 const isWeb=document.body.dataset.registrationType==='web';
+const actionCount=isWeb?6:4;
+const postSteps=steps.slice(actionCount);
+const actionSteps=steps.slice(0,actionCount);
 const messages=isWeb?[
 'まずは登録前の準備だよ。\n概要書面・カード・口座情報をそろえてね。必要な書類も確認しよう。',
 '準備ができたら、公式のWEB登録受付ページを開いてね。下のリンクから進めるよ。',
@@ -23,7 +26,7 @@ const intro=document.querySelector('.walkthrough-intro');
 if(intro)intro.textContent='ミトコンドリアちゃんと一緒に、ひとつずつ確認しながら進めよう。';
 const tools=document.querySelector('.walkthrough-tools');
 if(tools)tools.remove();
-steps.forEach(function(step){
+actionSteps.forEach(function(step){
  const label=step.querySelector('.walkthrough-check');if(label)label.remove();
  const content=step.querySelector('.registration-step-content');if(!content)return;
  const details=document.createElement('details');details.className='walkthrough-more';
@@ -59,21 +62,41 @@ panel.setAttribute('aria-label','ミトコンドリアちゃんの手順案内')
 panel.innerHTML='<div class="walkthrough-chat-head"><span id="chat-step-count"></span><span>手順を確認しながら進もう</span></div><div class="walkthrough-chat-track"><div class="walkthrough-chat-fill" id="chat-fill"></div></div><div class="walkthrough-chat-message"><div class="walkthrough-chat-mascot"><img src="./assets/mitochondria-chan.svg" alt="ミトコンドリアちゃん"></div><div class="walkthrough-chat-bubble" id="chat-message" aria-live="polite"></div></div><div class="walkthrough-current" id="chat-current"></div><div class="walkthrough-navigation"><button class="walkthrough-back" id="chat-back" type="button">← 戻る</button><button class="walkthrough-next" id="chat-next" type="button">次へ進む →</button></div>';
 if(intro)intro.after(panel);
 const current=panel.querySelector('#chat-current');
-steps.forEach(function(step){current.append(step)});
+actionSteps.forEach(function(step){current.append(step)});
+const completion=document.createElement('section');
+completion.className='walkthrough-completion';
+completion.hidden=true;
+completion.innerHTML='<div class="walkthrough-complete-mark" aria-hidden="true">✓</div><h2>登録手続きが完了しました！</h2><p class="walkthrough-complete-note">申請の手続きが終わりました。登録の確定は本社の審査後となります。</p><h3>このあとの流れ</h3>';
+postSteps.forEach(function(step){
+ const article=document.createElement('article');article.className='walkthrough-after-item';
+ const heading=step.querySelector('.section-card-title');
+ const content=step.querySelector('.registration-step-content');
+ if(heading)article.append(heading);
+ if(content)article.append(content);
+ completion.append(article);
+});
+const restart=document.createElement('button');restart.type='button';restart.className='walkthrough-restart';restart.textContent='最初から確認する';completion.append(restart);
+panel.append(completion);
 let index=0;
 function render(scroll){
-steps.forEach(function(step,i){step.classList.toggle('active',i===index)});
-panel.querySelector('#chat-step-count').textContent='STEP '+(index+1)+' / '+steps.length;
-panel.querySelector('#chat-fill').style.width=((index+1)/steps.length*100)+'%';
-panel.querySelector('#chat-message').textContent=messages[index];
+actionSteps.forEach(function(step,i){step.classList.toggle('active',i===index)});
+const finished=index===actionCount;
+current.hidden=finished;
+completion.hidden=!finished;
+panel.querySelector('.walkthrough-chat-message').hidden=finished;
+panel.querySelector('.walkthrough-navigation').hidden=finished;
+panel.querySelector('#chat-step-count').textContent=(finished?'手続き完了':'STEP '+(index+1)+' / '+actionCount);
+panel.querySelector('#chat-fill').style.width=((index+1)/actionCount*100)+'%';
+panel.querySelector('#chat-message').textContent=finished?'':messages[index];
 panel.querySelector('#chat-back').disabled=index===0;
-panel.querySelector('#chat-next').textContent=index===steps.length-1?'最初から確認する ↺':'次へ進む →';
+panel.querySelector('#chat-next').textContent=index===actionCount-1?'手続きを完了する →':'次へ進む →';
 if(scroll)panel.scrollIntoView({behavior:'smooth',block:'start'});
 }
 panel.querySelector('#chat-back').addEventListener('click',function(){if(index>0){index--;render(true)}});
-panel.querySelector('#chat-next').addEventListener('click',function(){index=index===steps.length-1?0:index+1;render(true)});
+panel.querySelector('#chat-next').addEventListener('click',function(){if(index<actionCount){index++;render(true)}});
+restart.addEventListener('click',function(){index=0;render(true)});
 document.body.classList.add('chat-ready');
 const hash=location.hash.match(/^#step(\d+)$/);
-if(hash){const n=Number(hash[1]);if(n>=1&&n<=steps.length)index=n-1}
+if(hash){const n=Number(hash[1]);if(n>=1&&n<=actionCount)index=n-1}
 render(false);
 });
