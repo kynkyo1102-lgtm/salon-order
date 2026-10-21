@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="common.css">
 
   <link rel="stylesheet" href="./registration.css">
-  <link rel="stylesheet" href="./registration-walkthrough.css?v=20261021-3">
+  <link rel="stylesheet" href="./registration-walkthrough.css?v=20261021-6">
   
 </head>
 
@@ -42,6 +42,7 @@
 
 
     <p class="walkthrough-intro">登録前の準備から、WEBでの入力、登録後の流れまで。上から順番に確認できます。</p>
+    <div class="walkthrough-tools"><span class="walkthrough-progress" id="walkthrough-progress">チェックは任意です</span><button type="button" class="walkthrough-print" onclick="window.print()">🖨 印刷する</button></div>
     
     
 
@@ -52,6 +53,7 @@
       <h2 class="section-card-title">
         必要事項・添付物の事前準備
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> この手順を終えた</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -90,6 +92,7 @@
       <h2 class="section-card-title">
         WEB登録受付ページへアクセス
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> この手順を終えた</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -113,6 +116,7 @@
       <h2 class="section-card-title">
         「オンラインで会員登録される方はこちら」を選択
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> この手順を終えた</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -129,6 +133,7 @@
       <h2 class="section-card-title">
         メールアドレスの送信
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> この手順を終えた</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -144,6 +149,7 @@
       <h2 class="section-card-title">
         受信メールのURLから登録画面へ入力
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> この手順を終えた</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -180,6 +186,7 @@
       <h2 class="section-card-title">
         受付完了（必要書類提出）
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> この手順を終えた</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -201,6 +208,7 @@
       <h2 class="section-card-title">
         本社での審査・登録処理
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> 内容を確認した</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -225,6 +233,7 @@
       <h2 class="section-card-title">
         商品・契約書面の到着・活動開始
       </h2>
+      <label class="walkthrough-check"><input type="checkbox"> 内容を確認した</label>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -266,5 +275,6 @@
 
   <script src="./guide-menu.js" defer></script>
 <script src="./registration-steps.js" defer></script>
+<script src="./registration-guide.js" defer></script>
 <script src="./breadcrumbs.js"></script><nav class="guide-floating-actions" aria-label="便利なリンク"><a class="guide-float-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer">↗ E-Service</a><a class="diagnosis-float" href="./check.html"><span aria-hidden="true">✦</span> ボーナス診断</a></nav></body>
 </html>
