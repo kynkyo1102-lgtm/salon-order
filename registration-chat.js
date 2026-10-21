@@ -23,7 +23,36 @@ const intro=document.querySelector('.walkthrough-intro');
 if(intro)intro.textContent='ミトコンドリアちゃんと一緒に、ひとつずつ確認しながら進めよう。';
 const tools=document.querySelector('.walkthrough-tools');
 if(tools)tools.remove();
-steps.forEach(function(step){const label=step.querySelector('.walkthrough-check');if(label)label.remove()});
+steps.forEach(function(step){
+ const label=step.querySelector('.walkthrough-check');if(label)label.remove();
+ const content=step.querySelector('.registration-step-content');if(!content)return;
+ const details=document.createElement('details');details.className='walkthrough-more';
+ const summary=document.createElement('summary');summary.textContent='詳しい説明・注意事項を見る';
+ const body=document.createElement('div');body.className='walkthrough-more-body';
+ while(content.firstChild)body.append(content.firstChild);
+ details.append(summary,body);
+ const n=Number(step.dataset.step);
+ const checks=isWeb?[
+ ['概要書面','クレジットカード','銀行口座情報'],
+ ['公式の受付ページを開く'],
+ ['オンライン会員登録を選ぶ'],
+ ['メールアドレスを送信する'],
+ ['受信メールのURLを開く','紹介者・上位者の情報を確認','必要事項を入力して決済'],
+ ['該当する場合は本人確認書類を提出'],
+ ['審査・登録処理の流れを確認'],
+ ['商品・契約書面の到着を確認','会員証と活動開始の条件を確認']
+ ]:[
+ ['概要書面を受け取る','説明を確認する'],
+ ['申請書に記入する','捺印する'],
+ ['登録点数と金額を確認','振込先を確認して振り込む'],
+ ['振込明細書のコピーを用意','必要書類をそろえて郵送'],
+ ['審査・登録処理の流れを確認'],
+ ['商品・契約書面の到着を確認','会員証と活動開始の条件を確認']
+ ];
+ const list=document.createElement('div');list.className='walkthrough-actions';
+ checks[n-1].forEach(function(t){const l=document.createElement('label');l.className='walkthrough-action';const cb=document.createElement('input');cb.type='checkbox';l.append(cb,document.createTextNode(t));list.append(l)});
+ content.append(list,details);
+});
 const panel=document.createElement('section');
 panel.className='walkthrough-chat';
 panel.setAttribute('aria-label','ミトコンドリアちゃんの手順案内');
