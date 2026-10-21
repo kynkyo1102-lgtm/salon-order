@@ -1,0 +1,24 @@
+/* Mascot-led registration walkthrough, progressive enhancement */
+.registration-walkthrough.chat-ready .walkthrough-stage,.registration-walkthrough.chat-ready .registration-timeline{display:none}
+.registration-walkthrough.chat-ready .registration-timeline.active{display:block;border:0;padding:0;margin:0}
+.registration-walkthrough.chat-ready .registration-step{display:none;border:0;margin:0;padding:0}
+.registration-walkthrough.chat-ready .registration-step.active{display:block}
+.registration-walkthrough.chat-ready .registration-step:before{display:none}
+.walkthrough-chat{margin:20px 0 18px}
+.walkthrough-chat-head{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.83rem;color:var(--muted-text);margin-bottom:12px}
+.walkthrough-chat-track{height:5px;background:var(--blue-pale);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.walkthrough-chat-fill{height:100%;background:var(--accent);transition:width .2s}
+.walkthrough-chat-message{display:flex;align-items:flex-end;gap:12px}
+.walkthrough-chat-mascot{width:80px;flex:0 0 80px}
+.walkthrough-chat-mascot img{width:100%;height:auto;display:block}
+.walkthrough-chat-bubble{position:relative;flex:1;background:var(--blue-pale);border:1px solid var(--border-color);border-radius:16px;padding:15px;line-height:1.75;white-space:pre-line;font-size:.96rem}
+.walkthrough-chat-bubble:before{content:"";position:absolute;left:-7px;bottom:24px;width:12px;height:12px;transform:rotate(45deg);background:var(--blue-pale);border-left:1px solid var(--border-color);border-bottom:1px solid var(--border-color)}
+.walkthrough-current{border-top:1px solid var(--border-color);padding-top:20px;margin-top:18px}
+.walkthrough-current .section-card-title{font-size:1.12rem!important}
+.walkthrough-navigation{display:flex;gap:10px;margin:22px 0 10px}
+.walkthrough-navigation button{min-height:48px;border-radius:var(--radius);padding:12px 15px;font:inherit;cursor:pointer}
+.walkthrough-back{border:1px solid var(--border-color);background:#fff;color:var(--primary)}
+.walkthrough-next{flex:1;border:0;background:var(--primary);color:#fff;font-weight:600}
+.walkthrough-navigation button:disabled{opacity:.35;cursor:default}
+.walkthrough-print-link{display:inline-block;margin-top:12px;font-size:.87rem;color:var(--primary)}
+@media(max-width:480px){.walkthrough-chat-mascot{width:65px;flex-basis:65px}.walkthrough-chat-message{gap:8px}.walkthrough-chat-bubble{padding:13px;font-size:.9rem}}
