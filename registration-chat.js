@@ -66,7 +66,7 @@ actionSteps.forEach(function(step){current.append(step)});
 const completion=document.createElement('section');
 completion.className='walkthrough-completion';
 completion.hidden=true;
-completion.innerHTML='<div class="walkthrough-complete-mark" aria-hidden="true">✓</div><h2>登録手続きが完了しました！</h2><p class="walkthrough-complete-note">申請の手続きが終わりました。登録の確定は本社の審査後となります。</p><h3>このあとの流れ</h3>';
+completion.innerHTML='<div class="walkthrough-celebration"><span class="walkthrough-confetti" aria-hidden="true">✦ 🎉 ✦</span><img src="./assets/mitochondria-chan.svg" alt="喜ぶミトコンドリアちゃん" class="walkthrough-happy-mascot"><div class="walkthrough-happy-speech">やったー！お疲れさま！</div></div><div class="walkthrough-complete-mark" aria-hidden="true">✓</div><h2>登録手続きが完了しました！</h2><p class="walkthrough-complete-note">申請の手続きが終わりました。登録の確定は本社の審査後となります。</p><h3>このあとの流れ</h3>';
 postSteps.forEach(function(step){
  const article=document.createElement('article');article.className='walkthrough-after-item';
  const heading=step.querySelector('.section-card-title');
