@@ -1,0 +1,31 @@
+/* WEB registration walkthrough: page-specific only. Colors, typography and header remain in common.css. */
+.registration-walkthrough .container{max-width:820px}
+.registration-walkthrough .page-header{margin-bottom:18px}
+.walkthrough-intro{color:var(--muted-text);font-size:.94rem;line-height:1.85;margin:0 0 20px}
+.walkthrough-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 28px}
+.walkthrough-overview a{display:flex;flex-direction:column;gap:7px;text-decoration:none;color:var(--text-color);border:1px solid var(--border-color);border-radius:var(--radius);padding:15px 12px;background:var(--card-bg);box-shadow:var(--shadow)}
+.walkthrough-overview .overview-num{color:var(--primary);font-size:.76rem;font-weight:700}
+.walkthrough-overview strong{font-size:.95rem;line-height:1.55;font-weight:600}
+.walkthrough-overview small{font-size:.75rem;color:var(--muted-text);line-height:1.5}
+.walkthrough-stage{margin:32px 0 14px;scroll-margin-top:85px}
+.walkthrough-stage .stage-label{font-size:.78rem;font-weight:600;color:var(--primary);letter-spacing:.04em}
+.walkthrough-stage h2{font-size:1.3rem;font-weight:600;color:var(--primary-dark);margin:5px 0}
+.walkthrough-stage p{font-size:.86rem;color:var(--muted-text);line-height:1.75}
+.registration-walkthrough details.registration-step{padding:0;overflow:hidden;margin-bottom:12px;border-radius:var(--radius);box-shadow:var(--shadow)}
+.registration-walkthrough .registration-step>summary{display:flex;align-items:center;gap:12px;padding:19px 17px;cursor:pointer;list-style:none;background:var(--card-bg)}
+.registration-walkthrough .registration-step>summary::-webkit-details-marker{display:none}
+.registration-walkthrough .registration-step>summary:before{content:attr(data-step);display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--blue-pale);color:var(--primary);font-size:.88rem;font-weight:700}
+.registration-walkthrough .registration-step>summary:after{content:"＋";color:var(--primary);font-size:1.2rem;margin-left:auto}
+.registration-walkthrough .registration-step[open]>summary:after{content:"−"}
+.registration-walkthrough .registration-step .section-card-title{margin:0;padding:0;border:0;display:block;font-size:1rem;font-weight:600;line-height:1.65;color:var(--text-color)}
+.registration-walkthrough .registration-step .section-card-title:before{display:none}
+.registration-walkthrough .registration-step-content{padding:5px 20px 22px 61px;border-top:1px solid var(--border-color)}
+.registration-walkthrough .registration-step-content>.section-desc{font-size:.94rem;line-height:1.85;color:var(--text-color);margin:14px 0}
+.registration-walkthrough .registration-step-content .step-list-text{font-size:.89rem;line-height:1.8}
+.registration-walkthrough .registration-step-content .step-list-text li{margin-bottom:7px}
+.registration-walkthrough .registration-step-content .info-box{margin-top:16px}
+.registration-walkthrough .registration-step-content .btn-official-link{display:block;width:100%;max-width:400px;text-align:center;padding:15px;border-radius:var(--radius);font-weight:600;font-size:.94rem}
+.walkthrough-next{display:flex;justify-content:flex-end;margin:16px 0 8px}
+.walkthrough-next a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 18px;border:1px solid var(--border-color);border-radius:var(--radius);color:var(--primary);background:var(--card-bg);text-decoration:none;font-weight:600;font-size:.88rem}
+.registration-walkthrough a:focus-visible,.registration-walkthrough summary:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+@media(max-width:600px){.walkthrough-overview{gap:7px}.walkthrough-overview a{padding:12px 8px}.walkthrough-overview strong{font-size:.83rem}.walkthrough-overview small{font-size:.69rem}.walkthrough-stage h2{font-size:1.18rem}.registration-walkthrough .registration-step-content{padding:5px 16px 19px 17px}.registration-walkthrough .registration-step>summary{padding:16px 13px;gap:9px}.registration-walkthrough .registration-step .section-card-title{font-size:.92rem}}
