@@ -9,9 +9,10 @@
   <link rel="stylesheet" href="common.css">
 
   <link rel="stylesheet" href="./registration.css">
+  <link rel="stylesheet" href="./registration-walkthrough.css?v=20261021-1">
 </head>
 
-<body class="registration-page">
+<body class="registration-page registration-walkthrough">
 
   <header>
     <div class="header-container">
@@ -38,11 +39,19 @@
     </div>
 
 
-    <!-- 目次 -->
+
+    <p class="walkthrough-intro">登録前の準備から、WEBでの入力、登録後の流れまで。必要なところを開いて、順番に確認できます。</p>
+    <nav class="walkthrough-overview" aria-label="登録手順の3段階">
+      <a href="#stage-prepare"><span class="overview-num">01 / 準備</span><strong>必要なものを用意</strong><small>まず確認すること</small></a>
+      <a href="#stage-apply"><span class="overview-num">02 / 申請</span><strong>WEBで登録</strong><small>受付・メール・入力</small></a>
+      <a href="#stage-after"><span class="overview-num">03 / 登録後</span><strong>完了までの流れ</strong><small>書類・審査・到着</small></a>
+    </nav>
+    <div class="walkthrough-stage" id="stage-prepare"><span class="stage-label">PART 01</span><h2>登録前に準備しよう</h2><p>最初に必要なものをそろえておくと、手続きを進めやすくなります。</p></div>
+
     <!-- STEP 1 -->
-    <details class="section-card registration-step" id="step1" open>
+    <details class="section-card registration-step" id="step1" data-step="1" open>
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        1. 必要事項・添付物の事前準備
+        必要事項・添付物の事前準備
       </h2></summary>
       <div class="registration-step-content">
 
@@ -74,10 +83,11 @@
     </details>
 
 
+    <div class="walkthrough-stage" id="stage-apply"><span class="stage-label">PART 02</span><h2>WEBで登録しよう</h2><p>受付ページを開き、メールを確認しながら必要事項を入力します。</p></div>
     <!-- STEP 2 -->
-    <details class="section-card registration-step" id="step2">
+    <details class="section-card registration-step" id="step2" data-step="2">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        2. WEB登録受付ページへアクセス
+        WEB登録受付ページへアクセス
       </h2></summary>
       <div class="registration-step-content">
 
@@ -98,9 +108,9 @@
 
 
     <!-- STEP 3 -->
-    <details class="section-card registration-step" id="step3">
+    <details class="section-card registration-step" id="step3" data-step="3">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        3. 「オンラインで会員登録される方はこちら」を選択
+        「オンラインで会員登録される方はこちら」を選択
       </h2></summary>
       <div class="registration-step-content">
 
@@ -114,9 +124,9 @@
 
 
     <!-- STEP 4 -->
-    <details class="section-card registration-step" id="step4">
+    <details class="section-card registration-step" id="step4" data-step="4">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        4. メールアドレスの送信
+        メールアドレスの送信
       </h2></summary>
       <div class="registration-step-content">
 
@@ -129,9 +139,9 @@
 
 
     <!-- STEP 5 -->
-    <details class="section-card registration-step" id="step5">
+    <details class="section-card registration-step" id="step5" data-step="5">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        5. 受信メールのURLから登録画面へ入力
+        受信メールのURLから登録画面へ入力
       </h2></summary>
       <div class="registration-step-content">
 
@@ -161,10 +171,11 @@
     </details>
 
 
+    <div class="walkthrough-stage" id="stage-after"><span class="stage-label">PART 03</span><h2>受付後の流れを確認しよう</h2><p>必要書類の提出から、審査・商品到着までの案内です。</p></div>
     <!-- STEP 6 -->
-    <details class="section-card registration-step" id="step6">
+    <details class="section-card registration-step" id="step6" data-step="6">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        6. 受付完了（必要書類提出）
+        受付完了（必要書類提出）
       </h2></summary>
       <div class="registration-step-content">
 
@@ -183,9 +194,9 @@
 
 
     <!-- STEP 7 -->
-    <details class="section-card registration-step" id="step7">
+    <details class="section-card registration-step" id="step7" data-step="7">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        7. 本社での審査・登録処理
+        本社での審査・登録処理
       </h2></summary>
       <div class="registration-step-content">
 
@@ -207,9 +218,9 @@
 
 
     <!-- STEP 8 -->
-    <details class="section-card registration-step" id="step8">
+    <details class="section-card registration-step" id="step8" data-step="8">
       <summary class="registration-step-summary"><h2 class="section-card-title">
-        8. 商品・契約書面の到着・活動開始
+        商品・契約書面の到着・活動開始
       </h2></summary>
       <div class="registration-step-content">
 
