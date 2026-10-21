@@ -9,9 +9,10 @@
   <link rel="stylesheet" href="common.css">
 
   <link rel="stylesheet" href="./registration.css">
+  <link rel="stylesheet" href="./registration-walkthrough.css?v=20261021-3">
 </head>
 
-<body class="registration-page">
+<body class="registration-page registration-walkthrough">
 
   <header>
     <div class="header-container">
@@ -38,12 +39,14 @@
     </div>
 
 
-    <!-- 目次 -->
+<p class="walkthrough-intro">概要書面の確認から、申請書の郵送、登録後の流れまで。上から順番に確認できます。</p>
+    <div class="walkthrough-stage" id="stage-prepare"><span class="stage-label">PART 01</span><h2>書類を準備する</h2><p>概要書面を確認し、申請書を記入します。</p></div>
+    <div class="registration-timeline">
     <!-- STEP 1 -->
-    <details class="section-card registration-step" id="step1" open>
-      <summary class="registration-step-summary"><h2 class="section-card-title">
-        1. 概要書面の受け取り・説明確認
-      </h2></summary>
+    <section class="registration-step" id="step1" data-step="1">
+      <h2 class="section-card-title">
+        概要書面の受け取り・説明確認
+      </h2>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -52,14 +55,14 @@
       </p>
 
       </div>
-    </details>
+    </section>
 
 
     <!-- STEP 2 -->
-    <details class="section-card registration-step" id="step2">
-      <summary class="registration-step-summary"><h2 class="section-card-title">
-        2. 申請書の記入・捺印
-      </h2></summary>
+    <section class="registration-step" id="step2" data-step="2">
+      <h2 class="section-card-title">
+        申請書の記入・捺印
+      </h2>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -67,14 +70,17 @@
       </p>
 
       </div>
-    </details>
+    </section>
 
 
+    </div>
+    <div class="walkthrough-stage" id="stage-apply"><span class="stage-label">PART 02</span><h2>支払い・郵送する</h2><p>振込と必要書類の郵送を行います。</p></div>
+    <div class="registration-timeline">
     <!-- STEP 3 -->
-    <details class="section-card registration-step" id="step3">
-      <summary class="registration-step-summary"><h2 class="section-card-title">
-        3. 商品代金の振込（事前決済）
-      </h2></summary>
+    <section class="registration-step" id="step3" data-step="3">
+      <h2 class="section-card-title">
+        商品代金の振込（事前決済）
+      </h2>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -118,14 +124,14 @@
       </div>
 
       </div>
-    </details>
+    </section>
 
 
     <!-- STEP 4 -->
-    <details class="section-card registration-step" id="step4">
-      <summary class="registration-step-summary"><h2 class="section-card-title">
-        4. 振込明細書コピー添付と申請書郵送
-      </h2></summary>
+    <section class="registration-step" id="step4" data-step="4">
+      <h2 class="section-card-title">
+        振込明細書コピー添付と申請書郵送
+      </h2>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -140,14 +146,17 @@
       </ul>
 
       </div>
-    </details>
+    </section>
 
 
+    </div>
+    <div class="walkthrough-stage" id="stage-after"><span class="stage-label">PART 03</span><h2>登録後の流れ</h2><p>審査から商品・会員証の到着まで。</p></div>
+    <div class="registration-timeline">
     <!-- STEP 5 -->
-    <details class="section-card registration-step" id="step5">
-      <summary class="registration-step-summary"><h2 class="section-card-title">
-        5. 本社で審査・登録処理
-      </h2></summary>
+    <section class="registration-step" id="step5" data-step="5">
+      <h2 class="section-card-title">
+        本社で審査・登録処理
+      </h2>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -165,14 +174,14 @@
       </div>
 
       </div>
-    </details>
+    </section>
 
 
     <!-- STEP 6 -->
-    <details class="section-card registration-step" id="step6">
-      <summary class="registration-step-summary"><h2 class="section-card-title">
-        6. 商品受領・会員証到着・活動開始
-      </h2></summary>
+    <section class="registration-step" id="step6" data-step="6">
+      <h2 class="section-card-title">
+        商品受領・会員証到着・活動開始
+      </h2>
       <div class="registration-step-content">
 
       <p class="section-desc">
@@ -190,7 +199,8 @@
       </div>
 
       </div>
-    </details>
+    </section>
+    </div>
 
 
     <div class="manual-ref">
