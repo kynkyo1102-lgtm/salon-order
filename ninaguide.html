@@ -179,39 +179,12 @@
  .top-guide-page .top-search{margin-top:25px}
 }
 
-/* Homepage-only color token preview; common.css and other pages remain unchanged. */
-.top-guide-page{
- --primary:#004aad;
- --primary-dark:#123b78;
- --accent:#efaFA7;
- --blue-pale:#e7f1fb;
- --card-bg:#fff;
- --text-color:#263238;
- --muted-text:#687386;
- --border-color:#dfe8f2;
- background:#f5f8fc;
-}
-.top-guide-page .purpose-card,.top-guide-page .category-card,.top-guide-page .top-search input{background:#fff}
-.top-guide-page .top-keyword-tag{background:#e7f1fb;border-color:#d3e5f8;color:#123b78}
-.top-guide-page .top-keyword-tag:hover,.top-guide-page .top-keyword-tag:focus-visible{background:#d7e8fa}
-.top-guide-page .top-section-heading{border-left-color:#004aad}
-.top-guide-page .salon-banner{background:linear-gradient(110deg,#e7f1fb,#fff)}
-
-/* Visible color-system trial: homepage only */
-html:has(body.top-guide-page){background:#edf4fa}
-body.top-guide-page{background:linear-gradient(180deg,#e4effa 0,#f0f6fb 330px,#f5f8fc 720px)!important;color:#263238}
-.top-guide-page .top-hero{background:#dceafa!important;border-radius:20px!important;padding:26px 25px!important;margin-bottom:30px!important;border:1px solid #c7ddf3!important}
-.top-guide-page .top-hero-title{color:#123b78!important}
-.top-guide-page .top-hero-subtitle{color:#315d90!important}
-.top-guide-page .top-section-heading{color:#123b78!important;border-left-color:#004aad!important}
-.top-guide-page .purpose-card{background:#fff!important;border:1px solid #cddfec!important;box-shadow:0 5px 20px rgba(23,72,124,.08)}
-.top-guide-page .purpose-card:hover{border-color:#004aad!important}
-.top-guide-page .top-search{background:#fff!important;border:1px solid #d3e3f1!important;border-radius:18px!important;padding:24px!important;box-shadow:0 4px 18px rgba(23,72,124,.06)}
-.top-guide-page .top-search input{border-color:#adcbe6!important}
-.top-guide-page .top-search button{background:#004aad!important}
-.top-guide-page .top-keyword-tag{background:#e4f0fc!important;border:1px solid #bfd7f0!important;color:#164a83!important}
-.top-guide-page .salon-banner{background:linear-gradient(110deg,#dceafa,#f6faff)!important;border-color:#bcd5ed!important}
-@media(max-width:700px){.top-guide-page .top-hero{padding:22px 17px!important}.top-guide-page .top-search{padding:18px 15px!important}}
+/* Homepage: white content, colored shared header, unboxed title. */
+.top-guide-page{background:#fff!important}
+.top-guide-page .site-header{background:#123b78!important}
+.top-guide-page .top-hero{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:10px 0 0!important;margin-bottom:36px!important}
+.top-guide-page .top-hero-title{color:#19345c!important}
+.top-guide-page .top-search{background:transparent!important;border:0!important;border-top:1px solid #e5ebf1!important;box-shadow:none!important;border-radius:0!important;padding:25px 0 0!important}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
