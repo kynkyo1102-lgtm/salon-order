@@ -80,7 +80,12 @@ updateMarkerScale();
 function setView(v){
  const w=Math.max(28,Math.min(full.w,v.w)),h=w*full.h/full.w;
  const x=Math.max(-50,Math.min(full.w-w+50,v.x)),y=Math.max(-50,Math.min(full.h-h+50,v.y));
- view={x,y,w,h};svg.setAttribute('viewBox',[x,y,w,h].join(' '));updateMarkerScale();
+ const widthChanged=Math.abs(w-view.w)>0.0001;
+ view={x,y,w,h};
+ // Pan updates only the viewBox. Rebuilding every marker on every pointer
+ // event causes unnecessary SVG layout/paint work and visible stutter.
+ svg.setAttribute('viewBox',[x,y,w,h].join(' '));
+ if(widthChanged)updateMarkerScale();
 }
 function updateMarkerScale(){
  // Keep markers and their numbers readable at a fixed on-screen size.
@@ -136,8 +141,14 @@ svg.addEventListener('pointerdown',e=>{
  captureTarget.setPointerCapture(e.pointerId);
  gesture=gestureState();moved=false;
 });
+// Coalesce high-frequency pointer events into at most one paint per frame.
+let pendingGestureView=null,gestureFrame=0;
+function flushGestureView(){
+ gestureFrame=0;
+ if(pendingGestureView){const next=pendingGestureView;pendingGestureView=null;setView(next)}
+}
 svg.addEventListener('pointermove',e=>{
- if(!touches.has(e.pointerId))return;
+ if(!touches.has(e.pointerId)||!gesture)return;
  touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
  const pts=[...touches.values()],mid={x:pts.reduce((a,p)=>a+p.x,0)/pts.length,y:pts.reduce((a,p)=>a+p.y,0)/pts.length};
  const rect=svg.getBoundingClientRect();
@@ -147,10 +158,12 @@ svg.addEventListener('pointermove',e=>{
  if(Math.abs(mid.x-gesture.mid.x)>4||Math.abs(mid.y-gesture.mid.y)>4||Math.abs(dist-gesture.dist)>4)moved=true;
  const w=gesture.base.w*scale,h=gesture.base.h*scale;
  const rx=(gesture.world.x-gesture.base.x)/gesture.base.w,ry=(gesture.world.y-gesture.base.y)/gesture.base.h;
- setView({x:gesture.world.x-rx*w-dx*scale,y:gesture.world.y-ry*h-dy*scale,w,h});
+ pendingGestureView={x:gesture.world.x-rx*w-dx*scale,y:gesture.world.y-ry*h-dy*scale,w,h};
+ if(!gestureFrame)gestureFrame=requestAnimationFrame(flushGestureView);
 });
 function pointerEnd(e){
  if(!touches.has(e.pointerId))return;
+ if(gestureFrame){cancelAnimationFrame(gestureFrame);gestureFrame=0;flushGestureView()}
  touches.delete(e.pointerId);
  if(moved)suppressClickUntil=performance.now()+350;
  gesture=gestureState();
