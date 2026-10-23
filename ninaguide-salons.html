@@ -182,23 +182,21 @@ function approximatePoints(p,stores){
  const geo=prefectureGeometry[p];
  if(!geo)return stores.map(()=>positions[p]||[650,700]);
  const [[x0,y0],[x1,y1]]=geo.bounds,w=x1-x0,h=y1-y0;
- const candidates=[];
- for(let row=0;row<55;row++)for(let col=0;col<55;col++){
-  const x=x0+(col+.5)/55*w,y=y0+(row+.5)/55*h;
-  if(insidePrefecture(x,y,geo))candidates.push([x,y]);
- }
- if(!candidates.length)return stores.map(()=>positions[p]);
  const seen={};
  return stores.map(store=>{
   const key=Object.keys(municipalityPositions).find(k=>store.address.includes(k));
   const code=municipalityCodes[p+key];
-  const accurate=code&&municipalityCenters[code];
-  const frac=municipalityPositions[key]||[.5,.5];
-  const n=seen[key]||0;seen[key]=n+1;
-  const spacing=Math.min(w,h)*.075;
-  const base=accurate||[x0+w*frac[0],y0+h*frac[1]];
-  const target=[base[0]+(n?Math.cos(n*2.4)*spacing:0),base[1]+(n?Math.sin(n*2.4)*spacing:0)];
-  return candidates.reduce((best,c)=>Math.hypot(c[0]-target[0],c[1]-target[1])<Math.hypot(best[0]-target[0],best[1]-target[1])?c:best,candidates[0]);
+  const actual=code?municipalityCenters[code]:null;
+  if(actual){
+   // Municipality geometry is already in the exact same coordinates as
+   // the prefecture SVG. Never snap it to a grid or replace it with ratios.
+   const n=seen[code]||0;seen[code]=n+1;
+   const spread=Math.min(w,h)*.018;
+   return [actual[0]+(n?Math.cos(n*2.4)*spread:0),actual[1]+(n?Math.sin(n*2.4)*spread:0)];
+  }
+  // Unverified municipalities are not presented as geolocated pins.
+  console.warn('市区町村の正確な位置データなし:',store.address);
+  return null;
  });
 }
 function selectPref(p){
@@ -226,6 +224,7 @@ function selectPref(p){
  const coords=approximatePoints(p,stores);
  const radius=w*0.027;
  stores.forEach((store,i)=>{
+  if(!coords[i])return;
   const [x,y]=coords[i];
   const marker=document.createElementNS(ns,'g');
   marker.setAttribute('class','detail-marker');
@@ -254,7 +253,7 @@ function selectPref(p){
 function showList(){
  const stores=groups[selectedPref]||[];
  document.getElementById('selected').textContent=selectedPref+'（'+stores.length+'施設）';
- document.getElementById('list').innerHTML='<p class="citycaption">京都府は市区町村の地図データを基準にしています。他県は概略位置のため、正確な場所はGoogleマップをご確認ください。タップすると詳細を表示します。</p>'+stores.map((s,i)=>'<button type="button" class="store" data-store="'+i+'" style="display:block;width:100%;text-align:left;background:white;border:0;border-top:1px solid #e5ece7;cursor:pointer"><h3>❀ '+esc(s.name)+'</h3><div class="meta">'+esc(s.address)+'</div></button>').join('');
+ document.getElementById('list').innerHTML='<p class="citycaption">京都府のピンは住所に記載された市区の位置を基準に表示します。位置を検証できない店舗は地図に推測で配置せず、右側の一覧から確認できます。タップすると詳細を表示します。</p>'+stores.map((s,i)=>'<button type="button" class="store" data-store="'+i+'" style="display:block;width:100%;text-align:left;background:white;border:0;border-top:1px solid #e5ece7;cursor:pointer"><h3>❀ '+esc(s.name)+'</h3><div class="meta">'+esc(s.address)+'</div></button>').join('');
  document.querySelectorAll('[data-store]').forEach(b=>b.onclick=()=>showStore(stores[Number(b.dataset.store)]));
 }
 function showStore(s){
