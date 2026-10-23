@@ -36,11 +36,25 @@
     </nav>`;
 
   function init() {
-    const header = document.querySelector('.header-container, .site-header-inner');
-    if (!header || header.querySelector('#openMenu, .menu-button, .guide-menu-button')) return;
-    const login = header.querySelector('.btn-login');
-    if (!login) return;
+    const header = document.querySelector('header .header-container, header .site-header-inner');
+    if (!header) return;
+    const isHome = document.body.classList.contains('top-guide-page');
+    if (isHome) return; // Homepage owns its existing menu.
 
+    const headerElement = header.closest('header');
+    if (headerElement) headerElement.classList.add('guide-unified-header');
+
+    // All article pages use the same title link, regardless of their old back-link markup.
+    const oldBack = header.querySelector('.back-link, .home-button');
+    const title = document.createElement('a');
+    title.className = 'guide-header-title';
+    title.href = './ninaguide.html';
+    title.textContent = 'メンバーズガイド';
+    title.setAttribute('aria-label', 'メンバーズガイドのトップページへ');
+    if (oldBack) oldBack.replaceWith(title);
+    else header.prepend(title);
+
+    if (header.querySelector('#openMenu, .menu-button, .guide-menu-button')) return;
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'menu-button guide-menu-button';
@@ -49,9 +63,9 @@
     button.setAttribute('aria-controls', 'guideSiteMenu');
     button.setAttribute('aria-expanded', 'false');
     button.innerHTML = '<span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>';
-    login.insertAdjacentElement('afterend', button);
+    header.appendChild(button);
 
-    document.body.insertAdjacentHTML('beforeend', menuMarkup);
+    if (!document.getElementById('guideSiteMenu')) document.body.insertAdjacentHTML('beforeend', menuMarkup);
     const menu = document.getElementById('guideSiteMenu');
     const backdrop = document.getElementById('guideMenuBackdrop');
     const close = document.getElementById('guideMenuClose');
