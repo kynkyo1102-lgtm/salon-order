@@ -17,6 +17,8 @@ const positions={"北海道":[1040,183],"宮城県":[941,535],"秋田県":[910,4
 // calculated from the actual prefecture polygons, not guessed map coordinates.
 const prefCodes={'北海道':'01','青森県':'02','岩手県':'03','宮城県':'04','秋田県':'05','山形県':'06','福島県':'07','茨城県':'08','栃木県':'09','群馬県':'10','埼玉県':'11','千葉県':'12','東京都':'13','神奈川県':'14','新潟県':'15','富山県':'16','石川県':'17','福井県':'18','山梨県':'19','長野県':'20','岐阜県':'21','静岡県':'22','愛知県':'23','三重県':'24','滋賀県':'25','京都府':'26','大阪府':'27','兵庫県':'28','奈良県':'29','和歌山県':'30','鳥取県':'31','島根県':'32','岡山県':'33','広島県':'34','山口県':'35','徳島県':'36','香川県':'37','愛媛県':'38','高知県':'39','福岡県':'40','佐賀県':'41','長崎県':'42','熊本県':'43','大分県':'44','宮崎県':'45','鹿児島県':'46','沖縄県':'47'};
 const prefectureGeometry={};
+const municipalityCenters={};
+const municipalityCodes={'京都府宮津市':'26205','京都府宇治市':'26204','京都府八幡市':'26210','京都府京都市中京区':'26104','京都府京都市山科区':'26110'};
 let nationalView=null;
 async function loadAccurateMap(){
  try{
@@ -54,6 +56,17 @@ async function loadAccurateMap(){
    const main={type:'Polygon',coordinates:largest};
    const b=path.bounds(main);
    prefectureGeometry[name]={shape,originalD:path(feature),mainD:path(main),bounds:[b[0].map((v,i)=>v*factor+[ox,oy][i]),b[1].map((v,i)=>v*factor+[ox,oy][i])],rings:largest.map(r=>r.map(q=>[q[0]*factor+ox,q[1]*factor+oy]))};
+  }
+  // Municipality polygons share exactly the same projected coordinates as
+  // the prefectures. Use their actual land centroids rather than guessed ratios.
+  const municipalFeatures=topojson.feature(topology,topology.objects.municipalities).features;
+  for(const mf of municipalFeatures){
+   const code=String(mf.id).padStart(5,'0');
+   if(!Object.values(municipalityCodes).includes(code))continue;
+   const polygons=mf.geometry.type==='MultiPolygon'?mf.geometry.coordinates:[mf.geometry.coordinates];
+   const largest=polygons.reduce((best,poly)=>!best||path.area({type:'Polygon',coordinates:poly})>path.area({type:'Polygon',coordinates:best})?poly:best,null);
+   const center=path.centroid({type:'Polygon',coordinates:largest});
+   if(center.every(Number.isFinite))municipalityCenters[code]=[center[0]*factor+ox,center[1]*factor+oy];
   }
   document.querySelectorAll('#pins .pin').forEach(g=>{const xy=positions[g.dataset.pref];if(xy)g.setAttribute('transform','translate('+xy[0]+' '+xy[1]+')')});
   // The SVG already uses the full viewBox. Do not reset it after loading:
@@ -178,10 +191,13 @@ function approximatePoints(p,stores){
  const seen={};
  return stores.map(store=>{
   const key=Object.keys(municipalityPositions).find(k=>store.address.includes(k));
+  const code=municipalityCodes[p+key];
+  const accurate=code&&municipalityCenters[code];
   const frac=municipalityPositions[key]||[.5,.5];
   const n=seen[key]||0;seen[key]=n+1;
   const spacing=Math.min(w,h)*.075;
-  const target=[x0+w*frac[0]+(n?Math.cos(n*2.4)*spacing:0),y0+h*frac[1]+(n?Math.sin(n*2.4)*spacing:0)];
+  const base=accurate||[x0+w*frac[0],y0+h*frac[1]];
+  const target=[base[0]+(n?Math.cos(n*2.4)*spacing:0),base[1]+(n?Math.sin(n*2.4)*spacing:0)];
   return candidates.reduce((best,c)=>Math.hypot(c[0]-target[0],c[1]-target[1])<Math.hypot(best[0]-target[0],best[1]-target[1])?c:best,candidates[0]);
  });
 }
@@ -238,7 +254,7 @@ function selectPref(p){
 function showList(){
  const stores=groups[selectedPref]||[];
  document.getElementById('selected').textContent=selectedPref+'（'+stores.length+'施設）';
- document.getElementById('list').innerHTML='<p class="citycaption">個別ピンは市区町村を目安にした概略位置です。タップすると詳細を表示します。</p>'+stores.map((s,i)=>'<button type="button" class="store" data-store="'+i+'" style="display:block;width:100%;text-align:left;background:white;border:0;border-top:1px solid #e5ece7;cursor:pointer"><h3>❀ '+esc(s.name)+'</h3><div class="meta">'+esc(s.address)+'</div></button>').join('');
+ document.getElementById('list').innerHTML='<p class="citycaption">京都府は市区町村の地図データを基準にしています。他県は概略位置のため、正確な場所はGoogleマップをご確認ください。タップすると詳細を表示します。</p>'+stores.map((s,i)=>'<button type="button" class="store" data-store="'+i+'" style="display:block;width:100%;text-align:left;background:white;border:0;border-top:1px solid #e5ece7;cursor:pointer"><h3>❀ '+esc(s.name)+'</h3><div class="meta">'+esc(s.address)+'</div></button>').join('');
  document.querySelectorAll('[data-store]').forEach(b=>b.onclick=()=>showStore(stores[Number(b.dataset.store)]));
 }
 function showStore(s){
