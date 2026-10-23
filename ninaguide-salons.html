@@ -24,23 +24,25 @@ function updateMarkerScale(){
  // Keep markers and their numbers readable at a fixed on-screen size.
  // The SVG viewBox zoom changes the map scale; compensate both circles and text.
  const scale=view.w/full.w;
+ const zoom=full.w/view.w;
+ const markerBoost=1+0.24*Math.min(1,Math.max(0,(zoom-1)/2));
  document.querySelectorAll('#pins .pin').forEach(g=>{
   const circles=g.querySelectorAll('circle');
   const count=(groups[g.dataset.pref]||[]).length;
   const radius=Math.min(63,49+5*Math.sqrt(count));
-  if(circles[0])circles[0].setAttribute('r',Math.max(79,radius+22)*scale);
-  if(circles[1])circles[1].setAttribute('r',radius*scale);
+  if(circles[0])circles[0].setAttribute('r',Math.max(79,radius+22)*scale*markerBoost);
+  if(circles[1])circles[1].setAttribute('r',radius*scale*markerBoost);
   const t=g.querySelector('text');
   if(t){
-   t.style.fontSize=(33*scale)+'px';
-   t.setAttribute('dy',11*scale);
+   t.style.fontSize=(47*scale*markerBoost)+'px';
+   t.setAttribute('dy',15*scale*markerBoost);
   }
   circles.forEach(c=>{c.style.strokeWidth=(4*scale)+'px'});
  });
  document.querySelectorAll('#citypins .city-pin').forEach(g=>{
   const circles=g.querySelectorAll('circle');
-  if(circles[0])circles[0].setAttribute('r',75*scale);
-  if(circles[1])circles[1].setAttribute('r',49*scale);
+  if(circles[0])circles[0].setAttribute('r',75*scale*markerBoost);
+  if(circles[1])circles[1].setAttribute('r',49*scale*markerBoost);
   circles.forEach(c=>{c.style.strokeWidth=(4*scale)+'px'});
  });
 }
