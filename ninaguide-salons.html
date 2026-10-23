@@ -15,7 +15,7 @@ async function loadAccurateMap(){
   const path=d3.geoPath(d3.geoIdentity());
   const bounds=path.bounds({type:'FeatureCollection',features});
   const width=bounds[1][0]-bounds[0][0],height=bounds[1][1]-bounds[0][1];
-  const factor=Math.min(1270/width,1060/height),ox=(1362-width*factor)/2-bounds[0][0]*factor,oy=(1155-height*factor)/2-bounds[0][1]*factor;
+  const factor=Math.min(1340/width,1125/height),ox=(1362-width*factor)/2-bounds[0][0]*factor,oy=(1155-height*factor)/2-bounds[0][1]*factor;
   const group=document.getElementById('pref-shapes');group.replaceChildren();
   const ns='http://www.w3.org/2000/svg';
   for(const feature of features){
@@ -29,7 +29,12 @@ async function loadAccurateMap(){
    if(point.every(Number.isFinite))positions[name]=[point[0]*factor+ox,point[1]*factor+oy];
   }
   document.querySelectorAll('#pins .pin').forEach(g=>{const xy=positions[g.dataset.pref];if(xy)g.setAttribute('transform','translate('+xy[0]+' '+xy[1]+')')});
-  updateMarkerScale();
+  // Fit the visible prefectures (and pins) more tightly in the initial viewport.
+  const fitPadding=26;
+  const fittedWidth=Math.min(full.w,Math.max(width*factor+fitPadding*2,(height*factor+fitPadding*2)*full.w/full.h));
+  const centerX=(bounds[0][0]+bounds[1][0])*factor/2+ox;
+  const centerY=(bounds[0][1]+bounds[1][1])*factor/2+oy;
+  setView({x:centerX-fittedWidth/2,y:centerY-fittedWidth*full.h/full.w/2,w:fittedWidth});
  }catch(err){console.error('都道府県地図の読み込みに失敗:',err)}
 }
 const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
