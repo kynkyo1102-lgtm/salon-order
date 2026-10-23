@@ -1403,3 +1403,18 @@ html body,html body button,html body input,html body select,html body textarea,h
 .guide-floating-actions>a:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
 body:has(.guide-floating-actions){padding-bottom:70px}
 @media(max-width:700px){.guide-floating-actions{gap:9px}.guide-floating-actions>a{flex:1 1 0;font-size:.82rem;min-height:46px;padding:10px 8px}}
+
+
+/* Guide-wide header and footer: 2026-10-23 */
+body header.guide-unified-header{background:#123b78!important;color:#fff!important;border:0!important;box-shadow:0 2px 10px rgba(18,59,120,.12)!important;margin:0!important;padding:0!important;min-height:0!important;position:sticky;top:0;z-index:1000}
+body header.guide-unified-header .header-container,
+body header.guide-unified-header .site-header-inner{width:100%;max-width:1040px;min-height:64px;box-sizing:border-box;margin:0 auto;padding:6px 16px;display:flex;align-items:center;gap:12px}
+body header.guide-unified-header .back-link{color:#fff!important}
+body header.guide-unified-header .home-button{color:#fff!important}
+body footer.guide-unified-footer{background:#123b78!important;color:#fff!important;border:0!important;box-shadow:none!important;margin-top:45px;padding:28px 20px;text-align:center;font-size:.84rem;line-height:1.85}
+body footer.guide-unified-footer .disclaimer{max-width:900px;margin:0 auto;color:#fff!important}
+@media(max-width:700px){
+ body header.guide-unified-header .header-container,
+ body header.guide-unified-header .site-header-inner{min-height:58px;padding:5px 13px;gap:9px}
+ body footer.guide-unified-footer{padding:25px 16px;font-size:.78rem}
+}
