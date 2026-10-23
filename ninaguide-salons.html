@@ -37,13 +37,13 @@ function renderHokkaido(){
   g.setAttribute('class','city-pin');g.setAttribute('transform','translate('+x+' '+y+')');
   g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',s.name);
   const c=document.createElementNS(ns,'circle');c.setAttribute('r',16);g.appendChild(c);
-  const t=document.createElementNS(ns,'text');t.setAttribute('text-anchor','middle');t.setAttribute('dy','6');t.textContent=i+1;g.appendChild(t);
+  const t=document.createElementNS(ns,'text');t.setAttribute('text-anchor','middle');t.setAttribute('dy','6');
   g.addEventListener('click',()=>showStore(s,i));
   g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showStore(s,i)}});
   root.appendChild(g);
  });
  document.getElementById('selected').textContent='北海道（'+hokkaidoStores.length+'施設）';
- document.getElementById('list').innerHTML='<p class="citycaption">番号付きピンをタップすると施設の詳細が表示されます。位置は市区町村・区名の目安です。</p>'+hokkaidoStores.map((s,i)=>'<button type="button" class="store" data-store="'+i+'" style="display:block;width:100%;text-align:left;background:white;border:0;border-top:1px solid #e5ece7;cursor:pointer"><h3>❀ '+(i+1)+'　'+esc(s.name)+'</h3><div class="meta">'+esc(s.address)+'</div></button>').join('');
+ document.getElementById('list').innerHTML='<p class="citycaption">ピンをタップすると施設の詳細が表示されます。位置は市区町村・区名の目安です。</p>'+hokkaidoStores.map((s,i)=>'<button type="button" class="store" data-store="'+i+'" style="display:block;width:100%;text-align:left;background:white;border:0;border-top:1px solid #e5ece7;cursor:pointer"><h3>❀ '+esc(s.name)+'</h3><div class="meta">'+esc(s.address)+'</div></button>').join('');
  document.querySelectorAll('[data-store]').forEach(b=>b.onclick=()=>showStore(hokkaidoStores[Number(b.dataset.store)],Number(b.dataset.store)));
 }
 function showStore(s,i){
