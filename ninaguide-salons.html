@@ -16,7 +16,27 @@ let view={...full},selectedPref=null;
 function setView(v){
  const w=Math.max(145,Math.min(full.w,v.w)),h=w*full.h/full.w;
  const x=Math.max(-50,Math.min(full.w-w+50,v.x)),y=Math.max(-50,Math.min(full.h-h+50,v.y));
- view={x,y,w,h};svg.setAttribute('viewBox',[x,y,w,h].join(' '));
+ view={x,y,w,h};svg.setAttribute('viewBox',[x,y,w,h].join(' '));updateMarkerScale();
+}
+function updateMarkerScale(){
+ // Counter-scale each marker, keeping its visible and touch size steady
+ // while the distance between prefecture positions increases on zoom.
+ const scale=view.w/full.w;
+ document.querySelectorAll('#pins .pin').forEach(g=>{
+  const circles=g.querySelectorAll('circle');
+  const count=(groups[g.dataset.pref]||[]).length;
+  const r=Math.min(58,34+8*Math.sqrt(count));
+  if(circles[0])circles[0].setAttribute('r',Math.max(62,r+12)*scale);
+  if(circles[1])circles[1].setAttribute('r',r*scale);
+  const t=g.querySelector('text');
+  if(t){t.setAttribute('font-size',25*scale);t.setAttribute('dy',4*scale)}
+  circles.forEach(c=>c.setAttribute('stroke-width',Math.max(1,4*scale)));
+ });
+ document.querySelectorAll('#citypins .city-pin').forEach(g=>{
+  const circles=g.querySelectorAll('circle');
+  if(circles[0])circles[0].setAttribute('r',Math.max(8,52*scale));
+  if(circles[1])circles[1].setAttribute('r',Math.max(5,34*scale));
+ });
 }
 function zoomAt(factor,cx,cy){
  const w=Math.max(145,Math.min(full.w,view.w/factor)),h=w*full.h/full.w;
@@ -87,6 +107,7 @@ function selectPref(p){
   g.addEventListener('click',()=>showStore(s));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showStore(s)}});
   root.appendChild(g);
  });
+ updateMarkerScale();
  showList();
 }
 function showList(){
