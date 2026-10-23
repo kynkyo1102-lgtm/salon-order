@@ -1418,3 +1418,9 @@ body footer.guide-unified-footer .disclaimer{max-width:900px;margin:0 auto;color
  body header.guide-unified-header .site-header-inner{min-height:58px;padding:5px 13px;gap:9px}
  body footer.guide-unified-footer{padding:25px 16px;font-size:.78rem}
 }
+
+
+/* Compact, naturally wrapping guide footer */
+body footer.guide-unified-footer{padding:20px 18px!important;margin-top:40px!important;text-align:left!important}
+body footer.guide-unified-footer .disclaimer{max-width:680px!important;margin:0 auto!important;text-align:left!important;font-size:.78rem!important;line-height:1.75!important;overflow-wrap:normal;word-break:normal}
+@media(max-width:700px){body footer.guide-unified-footer{padding:18px 20px!important}body footer.guide-unified-footer .disclaimer{font-size:.75rem!important}}
