@@ -116,7 +116,9 @@ function gestureState(){
 }
 svg.addEventListener('pointerdown',e=>{
  if(e.pointerType==='mouse'&&e.button!==0)return;
- touches.set(e.pointerId,{x:e.clientX,y:e.clientY});svg.setPointerCapture(e.pointerId);
+ touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ // Do not capture pointer events from a pin: capturing retargets click to the SVG.
+ if(!e.target.closest?.('.pin,.city-pin'))svg.setPointerCapture(e.pointerId);
  gesture=gestureState();moved=false;
 });
 svg.addEventListener('pointermove',e=>{
