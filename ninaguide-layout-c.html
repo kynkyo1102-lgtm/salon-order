@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>メンバーズガイド｜構成確認用</title><style>*{box-sizing:border-box}body{margin:0;font:16px/1.7 system-ui,sans-serif;color:#222}header,main,footer{max-width:1050px;margin:auto;padding:22px}header{border-bottom:1px solid #bbb;display:flex;justify-content:space-between}main{display:flex;flex-direction:column;gap:35px}section{min-width:0}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.25;margin:10px 0}h2{font-size:1.5rem}input,button{font:inherit;padding:9px}input{max-width:100%}li{margin:8px 0}a{color:inherit}footer{border-top:1px solid #ccc}#search p{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:650px){header,main,footer{padding:16px}}main section:first-child{display:contents}main section:first-child>p:first-child{order:1;margin:30px 0 0}main section:first-child>h1{order:2;margin:0}main section:first-child>p:nth-child(3){order:3;margin:0}main section:nth-child(2){order:4}main section:nth-child(2)>ul{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;list-style:none;padding:0}main section:nth-child(2) li{border:1px solid #aaa;padding:16px;margin:0}main section:first-child form{order:5;border-top:1px solid #aaa;padding-top:25px}main section:first-child #results{order:6}main section:first-child>p:nth-last-child(2){order:7;margin:0}main section:first-child>p:last-child{order:8;margin:0}main section:nth-child(3){order:9;border-top:1px solid #aaa;padding-top:25px}@media(max-width:650px){main section:nth-child(2)>ul{grid-template-columns:1fr}}</style></head>
+<body>
+<header><p><a href="./index.html">サロンページへ</a></p><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
+<main>
+<section><p>NINAPHARM JAPON</p><h1>メンバーズガイド</h1><p>あなたのニナビジネスをサポート！</p>
+<form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
+<div id="results" aria-live="polite"></div>
+<p>よく検索されるキーワード</p><p><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></p>
+</section>
+<section><h2>知りたいことから探す</h2><p>目的に合わせて選んでください。</p><ul>
+<li><a href="./guide-a-compare.html">新規登録について</a></li>
+<li><a href="./guide-b-cost.html">定期購入について</a></li>
+<li><a href="./guide-c-basic.html">ボーナスプランについて</a></li>
+<li><a href="./guide-d.html">手続き・申請について</a></li>
+<li><a href="./guide-e.html">こんなときどうする？</a></li>
+</ul></section>
+<section><h2>カテゴリから探す</h2>
+<h3>新規登録</h3><ul><li><a href="./guide-a-compare.html">登録方法を比較</a></li><li><a href="./guide-a-web.html">WEB登録の流れ</a></li><li><a href="./guide-a-paper.html">郵送登録の流れ</a></li><li><a href="./guide-a-cost.html">初回費用</a></li></ul>
+<h3>定期購入</h3><ul><li><a href="./guide-b-cost.html">毎月の商品購入</a></li><li><a href="./guide-b-schedule.html">お届けスケジュール</a></li><li><a href="./guide-b-payment.html">お支払方法</a></li><li><a href="./guide-b-deadline.html">締め日について</a></li><li><a href="./guide-b-stop.html">定期購入の停止</a></li><li><a href="./guide-b-bonus.html">６か月連続購入特典</a></li></ul>
+<h3>ボーナスプラン</h3><ul><li><a href="./guide-c-basic.html">基本条件</a></li><li><a href="./guide-c-bonus.html">ボーナスプラン</a></li><li><a href="./guide-c-title.html">タイトル昇格条件</a></li><li><a href="./guide-c-branch.html">ブランチ</a></li><li><a href="./check.html">ボーナス・タイトル診断</a></li></ul>
+<h3>手続き・申請</h3><p><a href="./guide-d.html">各種手続き</a></p>
+<h3>こんなときどうする？</h3><p><a href="./guide-e.html">よくある困りごと</a></p>
+</section></main>
+<footer><p>南熊本店プレゼンツ｜メンバーズガイド</p><p>非公式の補助ガイドです。正確な情報は公式サイトをご確認ください。</p><p><a href="./ninaguide-preview.html">以前のプレビューを見る</a></p></footer>
+<script>
+const entries=Array.from(document.querySelectorAll('main a[href]'));
+function search(q){const box=document.getElementById('results');box.replaceChildren();if(!q.trim())return;const found=entries.filter(a=>a.textContent.includes(q.trim()));const h=document.createElement('p');h.textContent=found.length+'件の候補';box.append(h);const ul=document.createElement('ul');found.forEach(a=>{const li=document.createElement('li');li.append(a.cloneNode(true));ul.append(li)});box.append(ul)}
+document.getElementById('search').addEventListener('submit',e=>{e.preventDefault();search(document.getElementById('q').value)});
+document.querySelectorAll('[data-query]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('q').value=b.dataset.query;search(b.dataset.query)}));
+</script></body></html>
