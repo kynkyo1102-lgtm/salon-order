@@ -31,13 +31,20 @@ main section.pickup-section{padding-top:45px;padding-bottom:40px}.pickup-heading
 .pickup-card[data-card-type="4"]{background:#e7f4ef;border-radius:18px}
 
 @media(max-width:700px){.hero-title-row{gap:6px}.hero-title-row h1{font-size:clamp(31px,7.5vw,44px)}.hero-mascot{width:40px;height:59px}.hero-brand .hero-tagline{font-size:13px}}
+.hero-brand{margin-bottom:13px}
+main section.hero-section{padding-bottom:52px}
+.hero-section #search{background:transparent;box-shadow:none;border-radius:0;padding:0;max-width:730px}
+.hero-section #search label{margin-bottom:7px}
+.hero-section .quick-keywords{display:flex;flex-wrap:wrap;gap:9px;max-width:730px;margin:11px auto 0}
+.hero-section .quick-keywords button{border:1px solid #d4e2ed;background:#fff;color:#0055A4;font-weight:600;font-size:13px;padding:7px 15px;border-radius:999px;box-shadow:2px 3px 0 #e8f0f6}
+.hero-section .quick-keywords button:hover{background:#f2f7fb}
 </style></head><body>
 <header><p><a href="./index.html">サロンページへ</a></p><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="" aria-hidden="true"></div><p class="hero-tagline">あなたのニナビジネスをサポート！</p></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
 <div id="results" aria-live="polite"></div>
-<p>よく検索されるキーワード</p><p><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></p>
+<div class="quick-keywords" aria-label="よく検索されるキーワード"><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></div>
 </section>
 <section class="pickup-section" aria-labelledby="pickup-title">
 <div class="pickup-heading"><div><h2 id="pickup-title" class="pickup-main-title">PICKUP CONTENTS</h2></div><div class="pickup-controls"><button type="button" class="pickup-arrow" id="pickup-prev" aria-label="前のカードへ">←</button><button type="button" class="pickup-arrow" id="pickup-next" aria-label="次のカードへ">→</button></div></div>
