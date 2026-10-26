@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#123b78">
-  <title>【プレビュー】メンバーズWebガイド</title>
+  <title>【配色・フォント試作】ニナガイド</title>
   <link rel="stylesheet" href="./common.css">
   <link rel="stylesheet" href="./top.css">
 <style>
@@ -101,6 +101,50 @@
 .diagnosis-float{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;align-items:center;gap:7px;padding:11px 15px;border-radius:999px;background:#004aad;color:#fff;text-decoration:none;font-size:.87rem;font-weight:700;box-shadow:0 4px 15px #002b6660}
 .diagnosis-float:focus-visible,.salon-banner:focus-visible{outline:3px solid #ffbc45;outline-offset:3px}
 @media(max-width:700px){.salon-feature{margin-top:42px}.salon-banner{padding:17px 15px;gap:10px}.salon-banner-title{font-size:1.05rem}.salon-banner-visual{font-size:2.35rem}.diagnosis-float{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:10px 13px;font-size:.8rem}}
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style id="editorial-blue-preview">
+/* Editorial guide redesign — preview only */
+:root{--editorial-blue:#004AAD;--editorial-navy:#192638;--editorial-beige:#F6F2E9}
+html{background:var(--editorial-beige)}
+body.top-guide-page{font-family:"Noto Sans JP",sans-serif!important;background:var(--editorial-beige)!important;color:var(--editorial-navy)!important;line-height:1.7}
+.top-guide-page .top-container{max-width:1060px;padding:38px 24px 110px}
+.top-guide-page .top-hero{text-align:left!important;padding:26px 0 35px!important;margin:0 0 24px!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.top-guide-page .top-hero-subtitle{font-size:12px!important;letter-spacing:.13em!important;color:var(--editorial-blue)!important;font-weight:800}
+.top-guide-page .top-hero-title{font-size:clamp(32px,5.8vw,58px)!important;line-height:1.3!important;letter-spacing:-.04em!important;color:var(--editorial-navy)!important;font-weight:900!important;margin:12px 0!important}
+.top-guide-page .top-hero-desc{font-size:15px!important;color:#526071!important;margin:0 0 30px!important}
+.top-guide-page .top-search{max-width:790px;margin:0!important;text-align:left!important}
+.top-guide-page .top-search label{display:block;color:var(--editorial-navy)!important;font-size:17px!important;font-weight:800!important;margin-bottom:11px!important}
+.top-guide-page .top-search-row{background:white;border:1px solid #d8d8d4;border-radius:10px;padding:5px;box-shadow:none}
+.top-guide-page .top-search-row input{background:#fff!important;border:0!important;border-radius:7px!important;min-height:49px;color:var(--editorial-navy)!important}
+.top-guide-page .top-search button{background:var(--editorial-blue)!important;border-radius:7px!important}
+.top-guide-page .search-keyword-label{color:#65707b!important;font-weight:600}
+.top-guide-page .top-keyword-tag{background:#fff!important;border:1px solid #d9dfeb!important;border-radius:6px!important;color:var(--editorial-blue)!important;box-shadow:none!important;font-weight:700!important}
+.top-guide-page .top-section{margin-top:40px!important;padding-top:0!important}
+.top-guide-page .top-section-heading{border:0!important;padding:0!important;margin:0 0 19px!important;color:var(--editorial-navy)!important;font-weight:900!important;font-size:clamp(22px,3vw,30px)!important;letter-spacing:-.03em}
+.top-guide-page .top-section-heading small{display:block!important;color:var(--editorial-blue)!important;font-size:11px!important;letter-spacing:.14em!important;margin-bottom:5px!important;font-weight:800!important}
+.top-guide-page .purpose-lead{color:#596574!important}
+.top-guide-page .purpose-carousel-wrap{display:block!important}
+.top-guide-page .purpose-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;overflow:visible!important;padding:0!important}
+.top-guide-page .purpose-card{display:flex!important;flex-direction:column!important;align-items:flex-start!important;text-align:left!important;justify-content:space-between!important;min-height:194px!important;width:auto!important;max-width:none!important;flex:auto!important;background:#fff!important;border:1px solid #e6e4de!important;border-radius:13px!important;padding:23px 19px!important;gap:12px!important;box-shadow:none!important;position:relative}
+.top-guide-page .purpose-card:before{content:"›";color:var(--editorial-blue);font-size:30px;font-weight:700;line-height:1}
+.top-guide-page .purpose-card .purpose-art{display:none!important}
+.top-guide-page .purpose-card strong{color:var(--editorial-navy)!important;font-size:17px!important;font-weight:800!important;text-align:left!important;margin:0!important}
+.top-guide-page .purpose-card .purpose-desc{color:#65717f!important;font-size:12px!important;text-align:left!important}
+.top-guide-page .purpose-arrow,.top-guide-page .purpose-dots{display:none!important}
+.top-guide-page .category-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px!important}
+.top-guide-page .category-card{margin:0!important;border:1px solid #e4e4df!important;background:#fff!important;border-radius:12px!important;box-shadow:none!important;overflow:hidden}
+.top-guide-page .category-summary{padding:18px!important;background:#fff!important;color:var(--editorial-navy)!important}
+.top-guide-page .category-icon{background:#e9f0fa!important;color:var(--editorial-blue)!important}
+.top-guide-page .category-title{font-weight:800!important;color:var(--editorial-navy)!important}
+.top-guide-page .category-links{background:#fff!important}
+.top-guide-page .category-link{color:var(--editorial-navy)!important}
+.top-guide-page .salon-banner{background:#fff!important;border:1px solid #e4e4df!important;color:var(--editorial-navy)!important;box-shadow:none!important}
+.top-guide-page .salon-banner-title{color:var(--editorial-navy)!important;font-weight:800!important}
+.top-guide-page .salon-banner-kicker{color:var(--editorial-blue)!important}
+.top-guide-page .diagnosis-float{background:var(--editorial-blue)!important;box-shadow:0 5px 15px #003b8029!important}
+.top-guide-page .site-header{background:var(--editorial-navy)!important}
+.top-guide-page .site-footer{background:var(--editorial-navy)!important}
+@media(max-width:760px){.top-guide-page .top-container{padding:22px 17px 95px}.top-guide-page .purpose-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.top-guide-page .purpose-card{min-height:160px!important;padding:17px 13px!important}.top-guide-page .purpose-card strong{font-size:14px!important}.top-guide-page .category-list{grid-template-columns:1fr}.top-guide-page .top-hero{padding-top:14px!important}}
 </style></head>
 <body class="top-guide-page">
   <header class="site-header">
@@ -142,7 +186,7 @@
     </section>
     <section class="top-section purpose-section" aria-labelledby="purposeHeading">
       <h2 class="top-section-heading" id="purposeHeading"><small>WHAT WOULD YOU LIKE TO DO?</small>知りたいことから探す</h2>
-      <p class="purpose-lead">カードを左右にスワイプして、やりたいことを選んでください。</p>
+      <p class="purpose-lead">気になる項目を選んで、詳しい案内をご覧ください。</p>
       <div class="purpose-carousel-wrap"><button type="button" class="purpose-arrow purpose-prev" aria-label="前のカードへ" id="purposePrev">‹</button><div class="purpose-grid" id="purposeCarousel" tabindex="0" role="region" aria-roledescription="カルーセル" aria-label="知りたいことから探す">
         <a class="purpose-card" href="./guide-a.html"><span class="purpose-art"><img src="./assets/smartphone-registration-preview-new.svg" alt="スマートフォンを操作する笑顔の人物" loading="lazy"></span><strong>新規登録したい</strong><span class="purpose-desc">会員・代理店の登録</span></a>
         <a class="purpose-card" href="./guide-d.html#category=2"><span class="purpose-art"><img src="./assets/subscription-procedure-final.svg" alt="循環マーク付きの箱を持つ女性" loading="lazy"></span><strong>定期購入の手続きをしたい</strong><span class="purpose-desc">内容変更・停止・再開</span></a>
