@@ -122,10 +122,14 @@ body,main,main section.hero-section,main section.pickup-section,main section.cat
  background-color:#F3F7FA!important;
  background-image:none!important;
 }
+
+/* Reading mascot beside the title, slightly larger */
+.hero-title-row .hero-mascot{width:83px!important;height:103px!important;transform:translateY(3px)!important}
+@media(max-width:700px){.hero-title-row .hero-mascot{width:58px!important;height:76px!important}.hero-title-row{gap:9px!important}}
 </style></head><body>
 <header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
-<section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="" aria-hidden="true"></div><p class="hero-tagline">あなたのニナビジネスをサポート！</p></div>
+<section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1><img class="hero-mascot" src="./assets/mitochondria/12_read.svg" alt="" aria-hidden="true"></div><p class="hero-tagline">あなたのニナビジネスをサポート！</p></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
 <div id="results" aria-live="polite"></div>
 <div class="quick-keywords" aria-label="よく検索されるキーワード"><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></div>
