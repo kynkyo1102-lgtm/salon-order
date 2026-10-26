@@ -280,8 +280,14 @@ body{padding-bottom:0!important}
 .guide-site-menu .guide-menu-secondary{margin-top:17px;padding-top:13px;border-top:1px solid #e5e5e5}
 .guide-site-menu .guide-menu-secondary a{padding:10px 5px;font-size:13px!important;font-weight:400!important;color:#666!important}
 @media(max-width:420px){.guide-site-menu{right:0;width:min(100vw,380px);border-radius:0 0 14px 14px;padding:20px 25px 24px}}
+
+/* Category-driven menu sections */
+.guide-menu-categories .guide-menu-group{margin:0;padding:10px 0 12px;border-top:1px solid #e5e5e5;border-bottom:0}
+.guide-menu-categories .guide-menu-group-title{padding:4px 5px 6px;font-size:15px;font-weight:700;color:#004AAD}
+.guide-menu-categories .guide-menu-sub{padding:7px 8px;margin-left:10px;font-size:14px!important;line-height:1.5}
+.guide-site-menu .guide-menu-secondary{margin-top:7px}
 </style></head><body id="top">
-<header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><button class="guide-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="guide-site-menu"><span class="guide-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button><nav id="guide-site-menu" class="guide-site-menu" aria-label="サイトメニュー" hidden><a class="guide-menu-primary" href="./ninaguide-layout-a.html">メンバーズガイド トップ</a><div class="guide-menu-group"><span class="guide-menu-group-title">新規登録</span><a class="guide-menu-sub" href="./guide-a-compare.html">登録方法を比較</a><a class="guide-menu-sub" href="./guide-a-web.html">WEB登録の流れ</a><a class="guide-menu-sub" href="./guide-a-paper.html">郵送登録の流れ</a></div><a class="guide-menu-primary" href="./guide-d.html">手続き・申請</a><a class="guide-menu-primary" href="./ninaguide-salons.html">全国のサロンを探す</a><div class="guide-menu-secondary"><a href="./check.html">ボーナス診断</a><a href="https://kynkyo1102-lgtm.github.io/mksalon-order/">サロンページへ</a></div></nav></header>
+<header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><button class="guide-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="guide-site-menu"><span class="guide-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button><nav id="guide-site-menu" class="guide-site-menu" aria-label="サイトメニュー" hidden><a class="guide-menu-primary" href="./ninaguide-layout-a.html">メンバーズガイド トップ</a><div class="guide-menu-categories" id="guide-menu-categories"></div><div class="guide-menu-secondary"><a href="./ninaguide-salons.html">全国のサロンを探す</a><a href="https://kynkyo1102-lgtm.github.io/mksalon-order/">サロンページへ</a></div></nav></header>
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1></div><div class="hero-intro hero-intro-card"><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="案内するミトコンドリアちゃん"><div class="hero-intro-copy"><span class="hero-intro-kicker">はじめての方も、いつもの方も</span><p>登録方法やボーナスのことなど、<br>知りたい情報をここから探せます！</p></div></div></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
@@ -309,6 +315,19 @@ body{padding-bottom:0!important}
 <nav class="guide-floating-banners" aria-label="便利なリンク"><a class="guide-floating-banner guide-floating-banner-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer"><span class="guide-floating-banner-title">E-Service</span></a><a class="guide-floating-banner guide-floating-banner-diagnosis" href="./check.html"><span class="guide-floating-banner-title">ボーナス診断</span></a></nav>
 <footer><p>当サイトはプラッス ドゥ ニナ 南熊本店が制作した非公式ガイドです。正式な内容は公式資料をご確認ください。</p></footer>
 <script>
+/* Build the menu from the actual category cards so labels and destinations stay synchronized. */
+const guideMenuCategories=document.getElementById('guide-menu-categories');
+if(guideMenuCategories){
+ document.querySelectorAll('.category-grid .category-block').forEach(block=>{
+  const group=document.createElement('div');group.className='guide-menu-group';
+  const heading=document.createElement('span');heading.className='guide-menu-group-title';heading.textContent=block.querySelector('h3')?.textContent||'';
+  group.append(heading);
+  block.querySelectorAll('a[href]').forEach(link=>{
+   const item=document.createElement('a');item.className='guide-menu-sub';item.href=link.getAttribute('href');item.textContent=link.textContent.trim();group.append(item);
+  });
+  guideMenuCategories.append(group);
+ });
+}
 const guideMenuToggle=document.querySelector('.guide-menu-toggle');
 const guideSiteMenu=document.getElementById('guide-site-menu');
 if(guideMenuToggle&&guideSiteMenu){
