@@ -65,14 +65,15 @@ const pickupTrack=document.getElementById('pickup-track');
 const pickupPrev=document.getElementById('pickup-prev');
 const pickupNext=document.getElementById('pickup-next');
 const originalCards=Array.from(pickupTrack.querySelectorAll('.pickup-card'));
+originalCards.forEach((card,index)=>card.dataset.cardType=String(index+1));
 const cloneCard=(card)=>{const clone=card.cloneNode(true);clone.setAttribute('data-clone','');return clone};
 originalCards.forEach(card=>pickupTrack.appendChild(cloneCard(card)));
 originalCards.slice().reverse().forEach(card=>pickupTrack.insertBefore(cloneCard(card),pickupTrack.firstChild));
 const cardStep=()=>{const card=pickupTrack.querySelector('.pickup-card');return card.getBoundingClientRect().width+(parseFloat(getComputedStyle(pickupTrack).gap)||14)};
 const cycleWidth=()=>cardStep()*originalCards.length;
 let pickupBusy=false;
-function normalizePickup(){const width=cycleWidth();if(!width)return;const x=pickupTrack.scrollLeft;if(x<width*.5){pickupTrack.scrollLeft=x+width}else if(x>=width*1.5){pickupTrack.scrollLeft=x-width}}
-pickupTrack.scrollLeft=cycleWidth();
+function normalizePickup(){const width=cycleWidth();if(!width)return;const x=pickupTrack.scrollLeft;let target=null;if(x<width*.5)target=x+width;else if(x>=width*1.5)target=x-width;if(target!==null){pickupTrack.style.scrollSnapType='none';pickupTrack.scrollLeft=target;requestAnimationFrame(()=>{pickupTrack.style.scrollSnapType=''})}}
+pickupTrack.style.scrollSnapType='none';pickupTrack.scrollLeft=cycleWidth();requestAnimationFrame(()=>pickupTrack.style.scrollSnapType='');
 function movePickup(dir){if(pickupBusy)return;pickupBusy=true;normalizePickup();pickupTrack.scrollBy({left:dir*cardStep(),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});setTimeout(()=>{normalizePickup();pickupBusy=false},420)}
 pickupPrev.addEventListener('click',()=>movePickup(-1));
 pickupNext.addEventListener('click',()=>movePickup(1));
