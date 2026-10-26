@@ -168,7 +168,24 @@ main section.pickup-section{background:#fff!important;background-image:none!impo
 .hero-section .hero-intro-copy p{font-weight:400!important}
 .category-section .category-block h3{font-size:clamp(19px,2.2vw,23px)!important;line-height:1.4!important;font-weight:700!important}
 @media(max-width:700px){.category-section .category-block h3{font-size:20px!important}}
-</style></head><body>
+
+/* Salon finder, top link, footer and persistent mobile shortcuts */
+.salon-feature{max-width:1100px;margin:22px auto 0;padding:0 22px 12px}
+.salon-banner{display:flex;align-items:center;gap:18px;padding:25px 28px;border:1px solid #d5e1ed;border-radius:24px;background:linear-gradient(110deg,#edf4fd,#f8fbff);text-decoration:none;color:#193f68;box-shadow:0 2px 8px rgba(20,65,110,.025)}
+.salon-banner-copy{display:flex;flex-direction:column;gap:12px;flex:1;min-width:0}
+.salon-banner-kicker{font-size:13px;font-weight:800;letter-spacing:.14em;color:#4775a5}
+.salon-banner-title{font-size:clamp(21px,2.5vw,27px);font-weight:800}
+.salon-banner-desc{font-size:15px;color:#62778a}
+.salon-banner-visual{font-size:46px;line-height:1}.salon-banner-arrow{font-size:32px;color:#00529e}
+.back-to-top{display:block;width:max-content;margin:30px auto 65px;padding:15px 25px;border:2px solid #cddff1;border-radius:99px;background:#fff;color:#242b36;font-weight:700;text-decoration:none}
+.guide-floating-actions{position:fixed;bottom:0;left:0;right:0;z-index:1000;display:flex;gap:14px;padding:13px max(20px,env(safe-area-inset-right)) calc(13px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);box-shadow:0 -5px 18px rgba(0,0,0,.08)}
+.guide-floating-actions a{flex:1;display:flex;justify-content:center;align-items:center;gap:10px;min-width:0;min-height:55px;border-radius:999px;color:#fff;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 5px 15px rgba(0,0,0,.12)}
+.guide-float-eservice{background:#2a5388}.diagnosis-float{background:#42947c}
+footer{padding:25px 25px 35px!important;text-align:left!important}
+footer p{max-width:1080px;margin:0 auto!important;font-size:14px;line-height:1.9}
+body{padding-bottom:95px}
+@media(max-width:700px){.salon-feature{padding:0 20px 10px}.salon-banner{padding:23px 20px;gap:10px}.salon-banner-kicker{font-size:11px}.salon-banner-title{font-size:20px}.salon-banner-desc{font-size:13px}.salon-banner-visual{font-size:35px}.salon-banner-arrow{font-size:25px}.guide-floating-actions{gap:12px;padding:12px 20px calc(12px + env(safe-area-inset-bottom))}.guide-floating-actions a{font-size:14px;min-height:52px}.back-to-top{margin-bottom:52px}}
+</style></head><body id="top">
 <header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1></div><div class="hero-intro hero-intro-card"><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="案内するミトコンドリアちゃん"><div class="hero-intro-copy"><span class="hero-intro-kicker">はじめての方も、いつもの方も</span><p>登録方法やボーナスのことなど、<br>知りたい情報をここから探せます！</p></div></div></div>
@@ -191,8 +208,11 @@ main section.pickup-section{background:#fff!important;background-image:none!impo
 <div class="category-block"><h3>ボーナスプラン</h3><ul><li><a href="./guide-c-basic.html">基本条件</a></li><li><a href="./guide-c-bonus.html">ボーナスプラン</a></li><li><a href="./guide-c-title.html">タイトル昇格条件</a></li><li><a href="./guide-c-branch.html">ブランチ</a></li><li><a href="./check.html">ボーナス・タイトル診断</a></li></ul></div>
 <div class="category-block"><h3>手続き・申請</h3><p><a href="./guide-d.html">各種手続き</a></p></div>
 <div class="category-block"><h3>こんなときどうする？</h3><p><a href="./guide-e.html">よくある困りごと</a></p></div>
-</div></section></main>
-<footer><p>南熊本店プレゼンツ｜メンバーズガイド</p><p>非公式の補助ガイドです。正確な情報は公式サイトをご確認ください。</p><p><a href="./ninaguide-preview.html">以前のプレビューを見る</a></p></footer>
+</div></section>
+<section class="salon-feature" aria-labelledby="salonFeatureHeading"><a class="salon-banner" href="./ninaguide-salons.html"><span class="salon-banner-copy"><span class="salon-banner-kicker">SALON GUIDE</span><strong class="salon-banner-title" id="salonFeatureHeading">全国のサロンを探す</strong><span class="salon-banner-desc">地図から全国のサロンを探せます</span></span><span class="salon-banner-visual" aria-hidden="true">🗾</span><span class="salon-banner-arrow" aria-hidden="true">›</span></a></section>
+<a class="back-to-top" href="#top">↑　ページの先頭へ戻る</a></main>
+<nav class="guide-floating-actions" aria-label="便利なリンク"><a class="guide-float-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> E-Service</a><a class="diagnosis-float" href="./check.html"><span aria-hidden="true">✦</span> ボーナス診断</a></nav>
+<footer><p>当サイトはプラッス ドゥ ニナ 南熊本店が制作した非公式ガイドです。正式な内容は公式資料をご確認ください。</p></footer>
 <script>
 const entries=Array.from(document.querySelectorAll('main a[href]'));
 function search(q){const box=document.getElementById('results');box.replaceChildren();if(!q.trim())return;const found=entries.filter(a=>a.textContent.includes(q.trim()));const h=document.createElement('p');h.textContent=found.length+'件の候補';box.append(h);const ul=document.createElement('ul');found.forEach(a=>{const li=document.createElement('li');li.append(a.cloneNode(true));ul.append(li)});box.append(ul)}
