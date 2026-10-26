@@ -8,7 +8,7 @@ main section.pickup-section{padding-top:45px;padding-bottom:40px}.pickup-heading
 .pickup-track{gap:14px;padding-bottom:17px;scrollbar-width:none}.pickup-track::-webkit-scrollbar{display:none}
 .pickup-card{flex:0 0 clamp(205px,24%,245px);min-height:258px;padding:16px 16px 13px;border-radius:18px;box-shadow:4px 5px 0 #0055A4}
 .pickup-art{height:95px;margin:0 0 5px}.pickup-art img{max-width:155px}
-.pickup-card:first-child .pickup-art img{clip-path:polygon(0 0,100% 0,100% 85%,85% 85%,85% 100%,0 100%)}
+
 .pickup-card:has(.pickup-art) .pickup-card-title{margin:4px 0 7px}.pickup-card-title{font-size:17px;letter-spacing:-.04em}
 .pickup-description{font-size:12px;line-height:1.65;display:flex;flex-direction:column;align-items:flex-start}
 .pickup-bottom{padding-top:10px;font-size:22px}.pickup-accent{width:32px;height:4px}
@@ -16,8 +16,8 @@ main section.pickup-section{padding-top:45px;padding-bottom:40px}.pickup-heading
 @media(max-width:700px){.pickup-card{flex-basis:72%;max-width:235px;min-height:252px}.pickup-art{height:92px}.pickup-main-title{font-size:22px}}
 .hero-brand{text-align:center;margin:0 auto 34px}
 .hero-title-row{display:flex;align-items:center;justify-content:center;gap:10px}
-.hero-title-row h1{margin:0}
-.hero-mascot{width:50px;height:60px;object-fit:contain;flex-shrink:0}
+.hero-title-row h1{margin:0;font-size:clamp(44px,6.7vw,76px)}
+.hero-mascot{width:57px;height:78px;object-fit:contain;flex-shrink:0}
 .hero-brand>p:first-child{font-size:12px;font-weight:700;letter-spacing:.18em;color:#0055A4;margin:0 0 8px}
 .hero-brand .hero-tagline{font-size:16px;color:#556777;margin:8px 0 0}
 .hero-section #search,.hero-section #results{margin-left:auto;margin-right:auto}
@@ -29,12 +29,12 @@ main section.pickup-section{padding-top:45px;padding-bottom:40px}.pickup-heading
 .pickup-card[data-card-type="2"]{background:#f3f6db;border-radius:18px}
 .pickup-card[data-card-type="3"]{background:#edf0fa;border-radius:18px}
 .pickup-card[data-card-type="4"]{background:#e7f4ef;border-radius:18px}
-.pickup-card:first-child .pickup-art img{clip-path:inset(0 0 12% 0)}
-@media(max-width:700px){.hero-title-row{gap:6px}.hero-title-row h1{font-size:clamp(27px,7vw,38px)}.hero-mascot{width:38px;height:46px}.hero-brand .hero-tagline{font-size:13px}}
+
+@media(max-width:700px){.hero-title-row{gap:6px}.hero-title-row h1{font-size:clamp(31px,7.5vw,44px)}.hero-mascot{width:40px;height:59px}.hero-brand .hero-tagline{font-size:13px}}
 </style></head><body>
 <header><p><a href="./index.html">サロンページへ</a></p><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
-<section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1><img class="hero-mascot" src="./assets/mitochondria/07_guide.svg" alt="" aria-hidden="true"></div><p class="hero-tagline">あなたのニナビジネスをサポート！</p></div>
+<section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="" aria-hidden="true"></div><p class="hero-tagline">あなたのニナビジネスをサポート！</p></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
 <div id="results" aria-live="polite"></div>
 <p>よく検索されるキーワード</p><p><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></p>
@@ -42,7 +42,7 @@ main section.pickup-section{padding-top:45px;padding-bottom:40px}.pickup-heading
 <section class="pickup-section" aria-labelledby="pickup-title">
 <div class="pickup-heading"><div><h2 id="pickup-title" class="pickup-main-title">PICKUP CONTENTS</h2></div><div class="pickup-controls"><button type="button" class="pickup-arrow" id="pickup-prev" aria-label="前のカードへ">←</button><button type="button" class="pickup-arrow" id="pickup-next" aria-label="次のカードへ">→</button></div></div>
 <div class="pickup-track" id="pickup-track" tabindex="0" aria-label="ピックアップコンテンツ。横にスクロールできます">
-<a class="pickup-card" href="./guide-a-compare.html"><span class="pickup-art"><img src="./assets/mitochondria/07_guide.svg" alt="" loading="lazy"></span><span class="pickup-card-title">新規登録の流れ</span><span class="pickup-description">このページから登録の流れをご案内します</span><span class="pickup-bottom"><span aria-hidden="true">↗</span></span></a>
+<a class="pickup-card" href="./guide-a-compare.html"><span class="pickup-art"><img src="./assets/preview/mitochondria-guide-cropped.svg" alt="" loading="lazy"></span><span class="pickup-card-title">新規登録の流れ</span><span class="pickup-description">このページから登録の流れをご案内します</span><span class="pickup-bottom"><span aria-hidden="true">↗</span></span></a>
 <a class="pickup-card" href="./guide-d.html#category=2"><span class="pickup-art"><img src="./assets/preview/subscription-procedure.svg" alt="" loading="lazy"></span><span class="pickup-card-title">定期購入の変更</span><span class="pickup-description"><span>・定期購入の商品変更</span><span>・停止</span><span>・再開</span></span><span class="pickup-bottom"><span aria-hidden="true">↗</span></span></a>
 <a class="pickup-card" href="./guide-d.html#category=1&item=0"><span class="pickup-art"><img src="./assets/preview/credit-card-registration.svg" alt="" loading="lazy"></span><span class="pickup-card-title">クレジットカードの変更</span><span class="pickup-description"><span>・カードの登録</span><span>・登録カードの変更</span></span><span class="pickup-bottom"><span aria-hidden="true">↗</span></span></a>
 <a class="pickup-card" href="./guide-c-bonus.html#bonus-list"><span class="pickup-art"><img src="./assets/preview/bonus-plan.svg" alt="" loading="lazy"></span><span class="pickup-card-title">ボーナスプランを知る</span><span class="pickup-description"><span>・ボーナスプランの種類</span><span>・仕組み</span></span><span class="pickup-bottom"><span aria-hidden="true">↗</span></span></a>
