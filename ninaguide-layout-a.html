@@ -63,6 +63,29 @@ main section:nth-child(3) a{color:var(--navy)}
 main section:nth-child(3) a:hover,main section:nth-child(2) a:hover{color:var(--blue)}
 footer{background:#fff;color:var(--muted);border-top:1px solid #E0E5EA}footer a{color:var(--blue)}
 @media(max-width:700px){main section:first-child{padding:44px 0 52px!important}main section:nth-child(2){padding:44px 0 50px}main section:nth-child(3){padding:38px 0 20px;margin-bottom:40px}main section:nth-child(2) li{min-height:112px}}
+</style><style id="pickup-carousel-style">
+main section.pickup-section{position:relative;background:#F3F7FA;border:0;margin:0 calc(50% - 50vw);padding:65px max(22px,calc((100vw - 1000px)/2)) 54px;overflow:hidden}
+.pickup-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:25px}
+.pickup-eyebrow{color:#0055A4;font-family:Montserrat,"Noto Sans JP",sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;margin:0 0 9px}
+.pickup-heading h2{font-size:clamp(25px,3.5vw,32px);font-weight:700;margin:0 0 8px}
+.pickup-heading h2:before{content:none!important}
+.pickup-lead{font-size:14px;color:#657281;margin:0}
+.pickup-controls{display:flex;gap:8px;flex-shrink:0}
+.pickup-arrow{width:42px;height:42px;border:1px solid #9BB1C6;background:#fff;border-radius:50%;color:#0055A4;font-size:19px;line-height:1;cursor:pointer}
+.pickup-arrow:hover{background:#0055A4;color:#fff}
+.pickup-arrow:disabled{opacity:.35;cursor:default;background:#fff;color:#0055A4}
+.pickup-track{display:flex;gap:16px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-padding-inline:1px;padding:2px 2px 16px;scrollbar-width:thin;scrollbar-color:#A8B8C8 transparent}
+.pickup-card{flex:0 0 calc((100% - 32px)/3);min-width:0;min-height:244px;display:flex;flex-direction:column;padding:23px;background:#fff;border:1px solid #C9D4DE;border-radius:7px;text-decoration:none;color:#273544;scroll-snap-align:start;transition:border-color .2s,transform .2s}
+.pickup-card:hover,.pickup-card:focus-visible{border-color:#0055A4;transform:translateY(-2px)}
+.pickup-number{font-size:11px;letter-spacing:.08em;color:#0055A4;font-weight:700}
+.pickup-card-title{font-size:19px;font-weight:700;line-height:1.55;margin:30px 0 9px;color:#273544}
+.pickup-description{font-size:13px;color:#657281;line-height:1.8}
+.pickup-bottom{margin-top:auto;padding-top:20px;display:flex;justify-content:space-between;align-items:center;color:#0055A4;font-size:25px}
+.pickup-accent{width:34px;height:3px;background:#C6D900;border-radius:3px}
+.pickup-hint{font-size:12px;color:#657281;text-align:right;margin:9px 0 0}
+@media(max-width:850px){.pickup-card{flex-basis:calc((100% - 16px)/2.25)}}
+@media(max-width:600px){main section.pickup-section{padding:45px 17px 37px}.pickup-card{flex-basis:82%;min-height:220px;padding:20px}.pickup-card-title{font-size:18px;margin-top:25px}.pickup-heading{align-items:flex-end}.pickup-arrow{width:35px;height:35px}.pickup-lead{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.pickup-card{transition:none}}
 </style></head>
 <body>
 <header><p><a href="./index.html">サロンページへ</a></p><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
@@ -72,13 +95,15 @@ footer{background:#fff;color:var(--muted);border-top:1px solid #E0E5EA}footer a{
 <div id="results" aria-live="polite"></div>
 <p>よく検索されるキーワード</p><p><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></p>
 </section>
-<section><h2>知りたいことから探す</h2><p>目的に合わせて選んでください。</p><ul>
-<li><a href="./guide-a-compare.html">新規登録について</a></li>
-<li><a href="./guide-b-cost.html">定期購入について</a></li>
-<li><a href="./guide-c-basic.html">ボーナスプランについて</a></li>
-<li><a href="./guide-d.html">手続き・申請について</a></li>
-<li><a href="./guide-e.html">こんなときどうする？</a></li>
-</ul></section>
+<section class="pickup-section" aria-labelledby="pickup-title">
+<div class="pickup-heading"><div><p class="pickup-eyebrow">PICK UP CONTENTS</p><h2 id="pickup-title">知りたいことから探す</h2><p class="pickup-lead">よく使うガイドや手続きをピックアップしました。</p></div><div class="pickup-controls"><button type="button" class="pickup-arrow" id="pickup-prev" aria-label="前のカードへ">←</button><button type="button" class="pickup-arrow" id="pickup-next" aria-label="次のカードへ">→</button></div></div>
+<div class="pickup-track" id="pickup-track" tabindex="0" aria-label="ピックアップコンテンツ。横にスクロールできます">
+<a class="pickup-card" href="./guide-a-compare.html"><span class="pickup-number">PICK UP 01</span><span class="pickup-card-title">新規登録ガイド</span><span class="pickup-description">ミトコンドリアちゃんと一緒に、登録方法を確認。</span><span class="pickup-bottom"><span class="pickup-accent"></span><span aria-hidden="true">↗</span></span></a>
+<a class="pickup-card" href="./guide-d.html#category=2"><span class="pickup-number">PICK UP 02</span><span class="pickup-card-title">定期購入の変更</span><span class="pickup-description">定期購入の内容変更・停止・再開などの手続きへ。</span><span class="pickup-bottom"><span class="pickup-accent"></span><span aria-hidden="true">↗</span></span></a>
+<a class="pickup-card" href="./guide-d.html#category=1&item=0"><span class="pickup-number">PICK UP 03</span><span class="pickup-card-title">クレジットカードの変更</span><span class="pickup-description">カード情報の登録・変更手続きを直接確認。</span><span class="pickup-bottom"><span class="pickup-accent"></span><span aria-hidden="true">↗</span></span></a>
+<a class="pickup-card" href="./guide-c-bonus.html#bonus-list"><span class="pickup-number">PICK UP 04</span><span class="pickup-card-title">ボーナスプランを知る</span><span class="pickup-description">ボーナスプランの種類と仕組みを一覧で確認。</span><span class="pickup-bottom"><span class="pickup-accent"></span><span aria-hidden="true">↗</span></span></a>
+</div><p class="pickup-hint">横にスクロールして見る <span aria-hidden="true">↔</span></p>
+</section>
 <section><h2>カテゴリから探す</h2>
 <h3>新規登録</h3><ul><li><a href="./guide-a-compare.html">登録方法を比較</a></li><li><a href="./guide-a-web.html">WEB登録の流れ</a></li><li><a href="./guide-a-paper.html">郵送登録の流れ</a></li><li><a href="./guide-a-cost.html">初回費用</a></li></ul>
 <h3>定期購入</h3><ul><li><a href="./guide-b-cost.html">毎月の商品購入</a></li><li><a href="./guide-b-schedule.html">お届けスケジュール</a></li><li><a href="./guide-b-payment.html">お支払方法</a></li><li><a href="./guide-b-deadline.html">締め日について</a></li><li><a href="./guide-b-stop.html">定期購入の停止</a></li><li><a href="./guide-b-bonus.html">６か月連続購入特典</a></li></ul>
@@ -92,4 +117,5 @@ const entries=Array.from(document.querySelectorAll('main a[href]'));
 function search(q){const box=document.getElementById('results');box.replaceChildren();if(!q.trim())return;const found=entries.filter(a=>a.textContent.includes(q.trim()));const h=document.createElement('p');h.textContent=found.length+'件の候補';box.append(h);const ul=document.createElement('ul');found.forEach(a=>{const li=document.createElement('li');li.append(a.cloneNode(true));ul.append(li)});box.append(ul)}
 document.getElementById('search').addEventListener('submit',e=>{e.preventDefault();search(document.getElementById('q').value)});
 document.querySelectorAll('[data-query]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('q').value=b.dataset.query;search(b.dataset.query)}));
+const pickupTrack=document.getElementById('pickup-track');const pickupPrev=document.getElementById('pickup-prev');const pickupNext=document.getElementById('pickup-next');function updatePickupArrows(){pickupPrev.disabled=pickupTrack.scrollLeft<=2;pickupNext.disabled=pickupTrack.scrollLeft+pickupTrack.clientWidth>=pickupTrack.scrollWidth-2}function movePickup(dir){const card=pickupTrack.querySelector('.pickup-card');if(!card)return;const gap=parseFloat(getComputedStyle(pickupTrack).gap)||16;pickupTrack.scrollBy({left:dir*(card.getBoundingClientRect().width+gap),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}pickupPrev.addEventListener('click',()=>movePickup(-1));pickupNext.addEventListener('click',()=>movePickup(1));pickupTrack.addEventListener('scroll',updatePickupArrows,{passive:true});window.addEventListener('resize',updatePickupArrows);updatePickupArrows();
 </script></body></html>
