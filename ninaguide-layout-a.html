@@ -47,8 +47,17 @@ main section.hero-section{padding-bottom:52px}
 .hero-brand .hero-tagline{font-size:14px;letter-spacing:.035em;margin-top:6px}
 .hero-section #search label{color:#64798a;font-size:13px;font-weight:500;letter-spacing:.015em;margin-bottom:8px}
 @media(max-width:700px){.hero-title-row{gap:10px}.hero-title-row h1{font-size:clamp(30px,7.4vw,43px)}.hero-mascot{width:34px;height:51px}.hero-brand .hero-tagline{font-size:12px}}
+/* Salon-header structural alignment and compact hero spacing */
+header.guide-header{padding:15px max(20px,calc((100vw - 1060px)/2));min-height:76px}
+.guide-header-brand{display:flex;flex-direction:column;gap:1px;align-items:flex-start;justify-content:center}
+header .guide-header-logo{font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:19px;line-height:1.1;letter-spacing:.02em;color:#0055A4}
+header .guide-header-name{font-size:12px;line-height:1.5;font-weight:700;color:#0055A4}
+main section.hero-section{padding-top:34px;padding-bottom:45px}
+.hero-brand{margin-bottom:16px}
+.hero-title-row h1{letter-spacing:-.055em}
+@media(max-width:700px){header.guide-header{padding:12px 18px;min-height:66px}.guide-header-logo{font-size:17px}header .guide-header-name{font-size:10px}main section.hero-section{padding-top:26px;padding-bottom:40px}}
 </style></head><body>
-<header><p><a href="./index.html">サロンページへ</a></p><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
+<header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="./index.html">Place de Nina</a><a class="guide-header-name" href="./index.html">プラッス ドゥ ニナ 南熊本店</a></div><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="" aria-hidden="true"></div><p class="hero-tagline">あなたのニナビジネスをサポート！</p></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
