@@ -126,6 +126,13 @@ body,main,main section.hero-section,main section.pickup-section,main section.cat
 /* Reading mascot beside the title, slightly larger */
 .hero-title-row .hero-mascot{width:83px!important;height:103px!important;transform:translateY(3px)!important}
 @media(max-width:700px){.hero-title-row .hero-mascot{width:58px!important;height:76px!important}.hero-title-row{gap:9px!important}}
+
+/* White pickup area; keep title exactly centered independently of mascot */
+main section.pickup-section{background:#fff!important;background-image:none!important}
+.hero-title-row{position:relative!important;display:flex!important;justify-content:center!important;align-items:center!important;width:max-content;max-width:100%;margin:0 auto!important}
+.hero-title-row h1{flex:none!important;text-align:center!important}
+.hero-title-row .hero-mascot{position:absolute!important;left:calc(100% + 12px)!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important}
+@media(max-width:700px){.hero-title-row .hero-mascot{left:calc(100% + 5px)!important;width:46px!important;height:65px!important}.hero-title-row h1{font-size:clamp(27px,6.7vw,42px)!important}}
 </style></head><body>
 <header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
