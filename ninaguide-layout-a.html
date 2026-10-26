@@ -33,20 +33,36 @@ main section:nth-child(3) a:hover,main section:nth-child(2) a:hover{color:var(--
 footer{max-width:none;background:var(--navy);color:#fff;border:0;padding:27px max(22px,calc((100vw - 1000px)/2));font-size:12px}footer a{color:#fff}
 @media(max-width:700px){header{padding:15px 18px}main{padding:23px 17px 70px;gap:43px}main section:first-child{padding:20px 0 27px}main section:nth-child(2)>ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}main section:nth-child(2) li{min-height:112px}main section:nth-child(2) li a{font-size:14px;padding:14px}main section:nth-child(3){padding:21px 17px}main section:nth-child(3) ul{grid-template-columns:1fr}#search button{padding:10px 14px}footer{padding:24px 17px}}
 </style><style id="hero-band-design">
-/* A distinct hero zone containing title, search and keywords */
+:root{--beige:#fff;--blue:#004AAD;--navy:#202B39;--muted:#596574}
+body{background:#fff;color:var(--navy)}
+header{background:#202B39;border-bottom:1px solid #657080;padding-top:19px;padding-bottom:19px}
+header a{font-weight:500}
 main{gap:0!important;padding-top:0!important}
-main section:first-child{position:relative;isolation:isolate;margin:0 calc(50% - 50vw) 0!important;padding:76px max(22px,calc((100vw - 950px)/2)) 80px!important;border:0!important;background:#e8e4db!important;overflow:hidden}
-main section:first-child:before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse 38% 68% at 88% 20%,#d5dfeb 0%,transparent 100%),radial-gradient(ellipse 45% 75% at 4% 100%,#f6f2e9 0%,transparent 100%);pointer-events:none}
-main section:first-child:after{content:"";position:absolute;z-index:-1;right:-90px;top:-160px;width:380px;height:380px;border:1px solid #004aad26;border-radius:50%;box-shadow:0 0 0 45px #004aad08,0 0 0 100px #004aad05;pointer-events:none}
-main section:first-child>p:first-child{display:inline-block;border-left:4px solid #004aad;padding-left:10px}
-main section:first-child h1{max-width:850px}
-main section:first-child>p:nth-of-type(2){font-weight:600}
-#search{max-width:720px}
-main section:first-child>p:nth-last-child(2){margin-top:25px}
-main section:nth-child(2){padding:65px 0 65px}
-main section:nth-child(3){margin:0 0 75px}
-main section:nth-child(2)>h2:before,main section:nth-child(3)>h2:before{content:"GUIDE / ";display:block;color:#004aad;font-size:11px;font-weight:800;letter-spacing:.16em;margin-bottom:7px}
-@media(max-width:700px){main section:first-child{padding:49px 18px 55px!important}main section:first-child:after{right:-250px;top:-230px}main section:nth-child(2){padding:45px 0}main section:nth-child(3){margin-bottom:45px}}
+main section:first-child{margin:0 calc(50% - 50vw)!important;padding:72px max(22px,calc((100vw - 950px)/2)) 77px!important;background:#202B39!important;color:#fff;border:0!important;text-align:left}
+main section:first-child>p:first-child{font-size:11px;letter-spacing:.17em;color:#A9C6FF;font-weight:600}
+main section:first-child h1{color:#fff;font-weight:700;letter-spacing:-.035em}
+main section:first-child>p:nth-of-type(2){color:#E1E6EC;font-weight:400}
+#search{max-width:720px;margin:36px 0 0}
+#search label{color:#fff;font-size:15px;font-weight:600}
+#search input{border:1px solid #fff;border-radius:4px}
+#search button{border-radius:4px;background:#004AAD;color:#fff;border-color:#004AAD}
+main section:first-child>p:nth-last-child(2){color:#CAD3DF;font-weight:400;margin-top:24px}
+main section:first-child>p:last-child button{color:#fff;background:transparent;border:1px solid #AAB4C2;border-radius:999px;font-weight:500;padding:6px 14px}
+main section:first-child>p:last-child button:hover{background:#fff;color:#202B39}
+#results:not(:empty){color:#202B39;background:#fff;border-radius:4px}
+h2{font-weight:700}h3{font-weight:600}
+main section:nth-child(2){padding:72px 0 68px}
+main section:nth-child(2)>h2:before{content:"01 / FIND YOUR GUIDE";display:block;color:#004AAD;font-size:11px;font-weight:600;letter-spacing:.13em;margin-bottom:12px}
+main section:nth-child(3)>h2:before{content:"02 / CATEGORY";display:block;color:#004AAD;font-size:11px;font-weight:600;letter-spacing:.13em;margin-bottom:12px}
+main section:nth-child(2) li{background:#fff;border:1px solid #202B39;border-radius:5px;min-height:135px}
+main section:nth-child(2) li a{font-size:16px;font-weight:600;gap:12px}
+main section:nth-child(2) li a:before{content:"↗";font-size:24px;color:#004AAD}
+main section:nth-child(3){background:#fff;border:0;border-top:1px solid #D6DBE2;border-radius:0;padding:54px 0 35px;margin:0 0 65px}
+main section:nth-child(3)>h3{border-color:#D6DBE2}
+main section:nth-child(3) a{color:#202B39}
+main section:nth-child(3) a:hover,main section:nth-child(2) a:hover{color:#004AAD}
+footer{background:#202B39}
+@media(max-width:700px){main section:first-child{padding:48px 18px 56px!important}main section:nth-child(2){padding:50px 0}main section:nth-child(3){padding:38px 0 20px;margin-bottom:40px}main section:nth-child(2) li{min-height:112px}}
 </style></head>
 <body>
 <header><p><a href="./index.html">サロンページへ</a></p><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
