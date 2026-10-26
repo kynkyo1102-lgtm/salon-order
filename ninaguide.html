@@ -286,8 +286,8 @@ body{padding-bottom:0!important}
 .guide-menu-categories .guide-menu-group-title{padding:4px 5px 6px;font-size:15px;font-weight:700;color:#004AAD}
 .guide-menu-categories .guide-menu-sub{padding:7px 8px;margin-left:10px;font-size:14px!important;line-height:1.5}
 .guide-site-menu .guide-menu-secondary{margin-top:7px}
-.salon-feature .salon-banner-icon{width:60px!important;height:60px!important;flex:0 0 60px!important;background:transparent!important;border-radius:0!important}.salon-feature .salon-banner-icon img{display:block;width:100%;height:100%;object-fit:contain}@media(max-width:700px){.salon-feature .salon-banner-icon{width:54px!important;height:54px!important;flex-basis:54px!important}}</style></head><body id="top">
-<header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><button class="guide-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="guide-site-menu"><span class="guide-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button><nav id="guide-site-menu" class="guide-site-menu" aria-label="サイトメニュー" hidden><a class="guide-menu-primary" href="./ninaguide.html">メンバーズガイド トップ</a><div class="guide-menu-categories" id="guide-menu-categories"></div><div class="guide-menu-secondary"><a href="./ninaguide-salons.html">全国のサロンを探す</a><a href="https://kynkyo1102-lgtm.github.io/mksalon-order/">サロンページへ</a></div></nav></header>
+.salon-feature .salon-banner-icon{width:60px!important;height:60px!important;flex:0 0 60px!important;background:transparent!important;border-radius:0!important}.salon-feature .salon-banner-icon img{display:block;width:100%;height:100%;object-fit:contain}@media(max-width:700px){.salon-feature .salon-banner-icon{width:54px!important;height:54px!important;flex-basis:54px!important}}</style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head><body id="top">
+
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1></div><div class="hero-intro hero-intro-card"><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="案内するミトコンドリアちゃん"><div class="hero-intro-copy"><span class="hero-intro-kicker">はじめての方も、いつもの方も</span><p>登録方法やボーナスのことなど、<br>知りたい情報をここから探せます！</p></div></div></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
@@ -312,8 +312,8 @@ body{padding-bottom:0!important}
 </div></section>
 <section class="salon-feature" aria-labelledby="salonFeatureHeading"><h2 class="salon-section-heading">その他のコンテンツ</h2><a class="salon-banner" href="./ninaguide-salons.html"><span class="salon-banner-icon" aria-hidden="true"><img src="./assets/preview/japan-salon-map.svg" alt=""></span><span class="salon-banner-copy"><strong class="salon-banner-title" id="salonFeatureHeading">全国のサロンを探す</strong><span class="salon-banner-desc">お近くのサロンをご案内します</span></span><span class="salon-banner-arrow" aria-hidden="true">→</span></a></section>
 <a class="back-to-top" href="#top">↑　ページの先頭へ戻る</a></main>
-<nav class="guide-floating-banners" aria-label="便利なリンク"><a class="guide-floating-banner guide-floating-banner-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer"><span class="guide-floating-banner-title">E-Service</span></a><a class="guide-floating-banner guide-floating-banner-diagnosis" href="./check.html"><span class="guide-floating-banner-title">ボーナス診断</span></a></nav>
-<footer><p>当サイトはプラッス ドゥ ニナ 南熊本店が制作した非公式ガイドです。正式な内容は公式資料をご確認ください。</p></footer>
+
+
 <script>
 /* Build the menu from the actual category cards so labels and destinations stay synchronized. */
 const guideMenuCategories=document.getElementById('guide-menu-categories');
@@ -360,4 +360,4 @@ let pickupScrollTimer;
 pickupTrack.addEventListener('scroll',()=>{clearTimeout(pickupScrollTimer);pickupScrollTimer=setTimeout(()=>{if(!pickupBusy)normalizePickup()},130)},{passive:true});
 window.addEventListener('resize',()=>{normalizePickup()});
 const floatingBanners=document.querySelector('.guide-floating-banners');const guideFooter=document.querySelector('footer');if(floatingBanners&&guideFooter){const positionFloating=()=>{const footerTop=guideFooter.getBoundingClientRect().top;const safeBottom=12;const overlap=window.innerHeight-safeBottom-footerTop+12;floatingBanners.style.transform=overlap>0?'translateY(-'+overlap+'px)':''};window.addEventListener('scroll',positionFloating,{passive:true});window.addEventListener('resize',positionFloating);positionFloating()}
-</script></body></html>
+</script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body></html>
