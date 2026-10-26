@@ -56,6 +56,27 @@ main section.hero-section{padding-top:34px;padding-bottom:45px}
 .hero-brand{margin-bottom:16px}
 .hero-title-row h1{letter-spacing:-.055em}
 @media(max-width:700px){header.guide-header{padding:12px 18px;min-height:66px}.guide-header-logo{font-size:17px}header .guide-header-name{font-size:10px}main section.hero-section{padding-top:26px;padding-bottom:40px}}
+
+/* Visual concept preview: distinct colored surfaces, overlapping search and elevated cards */
+body{background:#fff}
+main{overflow:visible}
+main section.hero-section{position:relative;isolation:isolate;background:#e8f2fc;padding:55px 28px 95px;margin:0 calc(50% - 50vw);max-width:none;border-bottom:0}
+main section.hero-section:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 87% 18%,#c6d90045 0 95px,transparent 96px),radial-gradient(circle at 8% 85%,#c4dff470 0 140px,transparent 141px);z-index:-1}
+main section.hero-section:after{content:"";position:absolute;bottom:-22px;left:0;right:0;height:44px;background:#fff;border-radius:50% 50% 0 0 / 60% 60% 0 0;pointer-events:none}
+.hero-brand{margin-bottom:30px}
+.hero-brand>p:first-child{color:#0055A4}
+.hero-title-row h1{color:#004AAD}
+.hero-brand .hero-tagline{color:#345777}
+.hero-section #search{position:relative;background:#fff;border:1px solid #d1e3f0;border-radius:20px;padding:20px 22px;box-shadow:0 12px 30px #174a8024;max-width:750px}
+.hero-section .quick-keywords{max-width:750px;margin-top:17px}
+main section.pickup-section{background:#fff7e9;margin:0 calc(50% - 50vw);padding:70px max(22px,calc((100vw - 1016px)/2)) 65px;position:relative}
+main section.pickup-section:before{content:"";display:block;position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 100% 10%,#f2d99b40 0 190px,transparent 191px);z-index:0}
+.pickup-heading,.pickup-track,.pickup-hint{position:relative;z-index:1}
+.pickup-card{box-shadow:0 8px 0 #0055A4,0 18px 25px #143d681b}
+.pickup-card:hover,.pickup-card:focus-visible{transform:translateY(-3px);box-shadow:0 11px 0 #0055A4,0 22px 30px #143d6825}
+main section.category-section{padding-top:77px;padding-bottom:75px;background:#fff}
+.category-block{box-shadow:0 9px 22px #174a8014,4px 5px 0 #d8e8f2;border-color:#c6d9e7}
+@media(max-width:700px){main section.hero-section{padding:37px 18px 74px}main section.hero-section:after{bottom:-12px;height:24px}.hero-brand{margin-bottom:24px}.hero-section #search{padding:15px 15px 17px;border-radius:16px}main section.pickup-section{padding:57px 17px 52px}main section.category-section{padding-top:58px;padding-bottom:48px}}
 </style></head><body>
 <header class="guide-header"><div class="guide-header-brand"><a class="guide-header-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-header-name">南熊本店</span></div><nav aria-label="ページメニュー"><details><summary>メニュー</summary><p><a href="./ninaguide.html">現在のメンバーズガイド</a></p><p><a href="./guide-a-compare.html">登録方法を比較</a></p><p><a href="./guide-a-web.html">WEB登録の流れ</a></p><p><a href="./guide-a-paper.html">郵送登録の流れ</a></p><p><a href="./check.html">ボーナス診断</a></p></details></nav></header>
 <main>
