@@ -144,26 +144,47 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 .registration-guide .chat-choice{border-width:2px}
 }
 
-/* Illustrated speech bubble, shared by the welcome and question scenes. */
+/* Organic CSS speech bubbles: no image background. */
 .registration-guide .welcome-dialogue,
 .registration-guide .chat-bubble{
-  position:relative;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-  background:transparent url("./assets/mitochondria/speech-bubble.svg") center / 100% 100% no-repeat;
-  padding:30px 35px 31px 47px;
+ position:relative;
+ background:#fff;
+ border:2px solid #a6baca;
+ border-radius:35px 47px 38px 43px / 38px 34px 43px 39px;
+ box-shadow:none;
+ transform:rotate(-.35deg);
 }
+.registration-guide .welcome-dialogue > *,
+.registration-guide .chat-bubble > *{transform:rotate(.35deg)}
 .registration-guide .welcome-dialogue:before,
-.registration-guide .chat-bubble:before{content:none}
-.registration-guide .welcome-scene{gap:0}
-.registration-guide .welcome-mito{position:relative;z-index:1;margin-right:-12px}
-.registration-guide .chat-message{gap:0}
-.registration-guide .chat-avatar{margin-right:-10px}
-.registration-guide .chat-bubble{padding:31px 34px 32px 45px;min-height:120px}
+.registration-guide .chat-bubble:before{
+ content:"";position:absolute;z-index:0;
+ left:-14px;bottom:27px;width:28px;height:24px;
+ background:#fff;border:0;border-left:2px solid #a6baca;border-bottom:2px solid #a6baca;
+ border-radius:0 0 0 95%;transform:skew(-22deg) rotate(24deg);
+}
+.registration-guide .welcome-dialogue:after,
+.registration-guide .chat-bubble:after{
+ content:"";position:absolute;left:0;bottom:22px;width:13px;height:21px;background:#fff;
+}
+.registration-guide .welcome-scene{gap:9px}
+.registration-guide .welcome-mito{position:relative;z-index:1;margin-right:0}
+.registration-guide .welcome-dialogue{padding:26px 29px}
+.registration-guide .chat-message{gap:15px;margin-bottom:48px}
+.registration-guide .chat-avatar{margin-right:0}
+.registration-guide .chat-bubble{padding:27px 29px;min-height:0}
+.registration-guide .guide-steps{margin-bottom:46px}
+.registration-guide .chat-progress{margin:0 0 27px;font-size:14px}
+.registration-guide .chat-choices{gap:16px}
+.registration-guide .chat-choice{min-height:75px}
+.registration-guide .chat-cost-link{margin-top:25px}
+.registration-guide .chat-controls{margin-top:37px}
 @media(max-width:600px){
-.registration-guide .welcome-mito{margin-right:-7px}
-.registration-guide .welcome-dialogue{padding:23px 19px 24px 27px}
-.registration-guide .chat-avatar{margin-right:-7px}
-.registration-guide .chat-bubble{padding:24px 19px 25px 29px;min-height:104px}
+ .registration-guide .welcome-scene{gap:7px}
+ .registration-guide .welcome-dialogue{padding:18px 18px}
+ .registration-guide .chat-message{gap:10px;margin-bottom:37px}
+ .registration-guide .chat-bubble{padding:21px 19px}
+ .registration-guide .guide-steps{margin-bottom:35px}
+ .registration-guide .chat-progress{margin-bottom:22px}
+ .registration-guide .chat-choice{min-height:68px}
 }
