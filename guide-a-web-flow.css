@@ -5,26 +5,19 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide button,.registration-guide a{font:inherit}
 .registration-guide button{cursor:pointer}
 .registration-guide [hidden]{display:none!important}
-.registration-guide .intro{margin:0 0 25px;color:var(--guide-muted)}
-.registration-guide .guide-progress{margin:0 0 26px}
 .registration-guide .progress-top{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--guide-primary);font-weight:700;font-size:14px;margin-bottom:11px}
 .registration-guide .progress-count{color:var(--guide-muted);font-weight:500;font-size:12px}
 .registration-guide .progress-track{height:5px;background:#e6edf3;border-radius:9px;overflow:hidden}
 .registration-guide .progress-fill{height:100%;background:var(--guide-primary);border-radius:9px;transition:width .2s}
-.registration-guide .guide-scene{display:flex;align-items:flex-start;gap:18px;margin:24px 0}
-.registration-guide .guide-content{padding:6px 0 14px}
-.registration-guide .guide-content h2{font-size:22px;line-height:1.5;margin:0 0 15px;color:var(--guide-text)}
 .registration-guide .guide-content p{margin:0 0 14px}
 .registration-guide .guide-content ul,.registration-guide .guide-content ol{padding-left:1.5em;margin:0 0 15px}
 .registration-guide .guide-content li{margin:6px 0}
-.registration-guide .guide-note{background:var(--guide-surface);border-radius:var(--guide-radius-info);padding:17px 19px;margin:18px 0;color:var(--guide-text);font-size:14px}
 .registration-guide .guide-note p:last-child{margin-bottom:0}
 .registration-guide .guide-note strong{color:var(--guide-primary)}
-.registration-guide .guide-choices{display:grid;gap:12px;margin-top:24px}
-.registration-guide .guide-choices button{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:61px;width:100%;padding:16px 19px;background:#fff;color:var(--guide-text);text-align:left;font-size:15px;font-weight:600;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control)}
+.registration-guide .guide-choices{display:grid;gap:12px}
+.registration-guide .guide-choices button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:#fff;color:var(--guide-text);text-align:left;font-weight:600;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control)}
 .registration-guide .guide-choices button:after{content:"›";color:var(--guide-primary);font-size:23px}
 .registration-guide .guide-choices button:hover{background:var(--guide-surface);border-color:var(--guide-primary)}
-.registration-guide .guide-controls{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--guide-border);padding-top:19px;margin-top:34px}
 .registration-guide .guide-controls button{border:0;background:transparent;color:#657281;font-size:13px;padding:8px 2px}
 .registration-guide .guide-controls button:disabled{opacity:.3;cursor:default}
 .registration-guide .guide-controls button:hover:not(:disabled){color:var(--guide-primary);text-decoration:underline}
@@ -35,20 +28,13 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.registration-guide .progress-fill{transition:none}}
 
 /* Checklist-driven conversational layout */
-.registration-guide .guide-content{padding:0 0 8px}
-.registration-guide .guide-content h2{display:none}
 .registration-guide .checklist{list-style:none;padding:0;margin:10px 0 18px}
 .registration-guide .checklist li{margin:0;border-bottom:1px solid var(--guide-border)}
-.registration-guide .check-item{display:flex;align-items:flex-start;gap:13px;padding:14px 3px;cursor:pointer;font-size:15px;line-height:1.7}
 .registration-guide .check-item input{appearance:none;flex:0 0 23px;width:23px;height:23px;border:1.5px solid var(--guide-primary);border-radius:6px;margin:2px 0 0;background:#fff;cursor:pointer}
 .registration-guide .check-item input:checked{background:var(--guide-primary)}
 .registration-guide .check-item input:checked:after{content:"✓";display:block;color:#fff;font-size:17px;line-height:21px;text-align:center}
 .registration-guide .check-item input:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}
 .registration-guide .checklist li.is-checked .check-item{color:var(--guide-muted)}
-.registration-guide .guide-choices{margin-top:15px}
-.registration-guide .guide-scene{margin-bottom:14px}
-
-/* Match the title-to-guide spacing of the registration method guide. */
 
 /* Airier rhythm, matched to the completed method-selection guide. */
 .registration-guide .web-guide{--guide-title-gap:44px}
@@ -56,13 +42,12 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide .progress-top{margin-bottom:17px}
 .registration-guide .guide-scene{margin:0 0 37px}
 .registration-guide .guide-content{padding:0 0 16px}
-.registration-guide .guide-note{padding:21px 22px;margin:24px 0;font-size:15px;line-height:1.9}
-.registration-guide .check-item{padding:19px 5px;font-size:16px;line-height:1.8}
+.registration-guide .guide-note{background:var(--guide-surface);border-radius:var(--guide-radius-info);padding:21px 22px;margin:24px 0;color:var(--guide-text);font-size:15px;line-height:1.9}
+.registration-guide .check-item{display:flex;align-items:flex-start;gap:13px;padding:19px 5px;cursor:pointer;font-size:16px;line-height:1.8}
 .registration-guide .guide-choices{margin-top:28px}
 .registration-guide .guide-choices button{min-height:var(--guide-choice-min-height);padding:20px 22px;font-size:17px;border-width:2px;box-shadow:0 3px 0 var(--guide-border)}
-.registration-guide .guide-controls{margin-top:40px;padding-top:20px}
+.registration-guide .guide-controls{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--guide-border);margin-top:40px;padding-top:20px}
 .registration-guide .guide-foot{margin-top:52px}
-.registration-guide .guide-action{margin-top:25px}
 @media(max-width:600px){
  .registration-guide .web-guide{--guide-title-gap:34px}
  .registration-guide .guide-progress{margin-bottom:31px}
@@ -72,13 +57,6 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
  .registration-guide .guide-choices button{font-size:16px;padding:17px 15px}
 }
 
-/* Quiet footer-style document link and a celebratory closing scene. */
+/* Document submission link matches the footer link style. */
 .registration-guide .guide-inline-link{margin:18px 0 0}
 .registration-guide .guide-inline-link a{color:var(--guide-primary);font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
-.registration-guide .guide-finish{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;padding:25px 12px 12px}
-.registration-guide .guide-finish img{display:block;width:110px;height:auto;transform-origin:50% 90%;animation:guide-finish-cheer 1.3s ease-in-out infinite alternate}
-.registration-guide .guide-finish-sparkle{color:#b6a331;font-size:27px;letter-spacing:14px}
-.registration-guide .guide-finish strong{margin-top:8px;font-size:25px;color:var(--guide-primary)}
-.registration-guide .guide-finish p{margin:0;font-size:16px;color:var(--guide-muted)}
-@keyframes guide-finish-cheer{from{transform:rotate(-6deg) translateY(0)}to{transform:rotate(6deg) translateY(-7px)}}
-@media(prefers-reduced-motion:reduce){.registration-guide .guide-finish img{animation:none}}
