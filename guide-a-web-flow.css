@@ -43,3 +43,17 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide button:focus-visible,.registration-guide a:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}
 @media(max-width:600px){.registration-guide .web-guide{padding:32px 16px 110px}.registration-guide .guide-scene{gap:11px}.registration-guide .mascot{width:64px;flex-basis:64px}.registration-guide .speech{font-size:15px;padding:16px}.registration-guide .guide-content h2{font-size:20px}.registration-guide .guide-choices button{font-size:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.registration-guide .progress-fill{transition:none}}
+
+/* Checklist-driven conversational layout */
+.registration-guide .guide-content{padding:0 0 8px}
+.registration-guide .guide-content h2{display:none}
+.registration-guide .checklist{list-style:none;padding:0;margin:10px 0 18px}
+.registration-guide .checklist li{margin:0;border-bottom:1px solid var(--guide-border)}
+.registration-guide .check-item{display:flex;align-items:flex-start;gap:13px;padding:14px 3px;cursor:pointer;font-size:15px;line-height:1.7}
+.registration-guide .check-item input{appearance:none;flex:0 0 23px;width:23px;height:23px;border:1.5px solid var(--guide-primary);border-radius:6px;margin:2px 0 0;background:#fff;cursor:pointer}
+.registration-guide .check-item input:checked{background:var(--guide-primary)}
+.registration-guide .check-item input:checked:after{content:"✓";display:block;color:#fff;font-size:17px;line-height:21px;text-align:center}
+.registration-guide .check-item input:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}
+.registration-guide .checklist li.is-checked .check-item{color:var(--guide-muted)}
+.registration-guide .guide-choices{margin-top:15px}
+.registration-guide .guide-scene{margin-bottom:14px}
