@@ -1,0 +1,128 @@
+/* WEB registration walkthrough — approved registration guide visual language.
+   Scoped to WEB only; postal guide and shared chrome are not affected. */
+body.registration-page.registration-walkthrough[data-registration-type="web"]{
+ --guide-primary:#004AAD;--guide-primary-hover:#003b8a;
+ --guide-text:#273544;--guide-muted:#556777;
+ --guide-surface:#f2f7fb;--guide-border:#d9e5ed;
+ --guide-mascot-border:#d5e2a2;--guide-focus:#80b9ff;
+ background:#fff;color:var(--guide-text);
+ font-family:"Noto Sans JP",sans-serif;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .container{
+ max-width:850px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .page-header{
+ background:transparent;border:0;box-shadow:none;border-radius:0;
+ padding:0;margin:0 0 20px;text-align:left;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .page-category{
+ color:var(--guide-primary);font-size:12px;letter-spacing:.06em;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .page-title{
+ color:var(--guide-primary);font-size:clamp(29px,5vw,39px);
+ font-weight:800;letter-spacing:-.045em;line-height:1.45;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-intro{
+ color:var(--guide-muted);font-size:15px;line-height:1.85;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-tools{
+ border-color:#e6edf3;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-print{
+ background:#fff;border:1px solid var(--guide-border);border-radius:10px;
+ color:var(--guide-primary);box-shadow:none;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat{
+ margin:24px 0 20px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-head{
+ color:var(--guide-muted);font-size:13px;font-weight:600;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-track{
+ height:4px;background:#e6edf3;margin-bottom:25px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-fill{
+ background:var(--guide-primary);transition:width .5s ease;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-message{
+ align-items:center;gap:16px;margin-bottom:26px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-bubble{
+ background:#fff;border:1.5px solid var(--guide-mascot-border);
+ border-radius:15px;color:var(--guide-text);box-shadow:none;
+ padding:19px 21px;font-size:16px;line-height:1.85;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-bubble:before{
+ background:#fff;border-left-color:var(--guide-mascot-border);
+ border-bottom-color:var(--guide-mascot-border);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-current{
+ border-top:0;margin-top:0;padding-top:0;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-current .section-card-title{
+ color:var(--guide-text);font-size:19px!important;font-weight:700;line-height:1.6;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-action{
+ background:#fff;border:1px solid var(--guide-border);
+ border-radius:13px;box-shadow:none;padding:16px 18px;
+ color:var(--guide-text);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-action:has(input:checked){
+ border-color:var(--guide-primary);background:var(--guide-surface);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-action input,
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-check input{
+ accent-color:var(--guide-primary);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-more{
+ border-top:1px solid #e6edf3;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-more>summary{
+ color:var(--guide-primary);text-underline-offset:3px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-navigation{
+ margin-top:28px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-navigation button{
+ min-height:54px;border-radius:12px;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-back{
+ background:transparent;border:0;box-shadow:none;color:#657281;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-next{
+ background:var(--guide-primary);border:0;color:#fff;font-weight:700;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-next:hover{
+ background:var(--guide-primary-hover);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-more-body .info-box,
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-more-body .alert-box,
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-more-body .cooling-off{
+ background:var(--guide-surface);border:0;border-radius:14px;box-shadow:none;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .btn-official-link{
+ background:var(--guide-primary);border:0;border-radius:12px;color:#fff;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-happy-speech{
+ background:#fff;border:1.5px solid var(--guide-mascot-border);
+ color:var(--guide-text);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-completion>h2{
+ color:var(--guide-primary);
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"] a:focus-visible,
+body.registration-page.registration-walkthrough[data-registration-type="web"] button:focus-visible,
+body.registration-page.registration-walkthrough[data-registration-type="web"] summary:focus-visible{
+ outline:3px solid var(--guide-focus);outline-offset:3px;
+}
+@media(max-width:600px){
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .page-header{padding:0}
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .page-title{font-size:29px}
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-message{gap:10px}
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat-bubble{padding:16px 14px;font-size:14px}
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-action{padding:15px 14px}
+}
+@media print{
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat,
+ body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-completion{display:none!important}
+}
