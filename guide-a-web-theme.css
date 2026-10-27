@@ -1,10 +1,6 @@
 /* WEB registration walkthrough — approved registration guide visual language.
    Scoped to WEB only; postal guide and shared chrome are not affected. */
 body.registration-page.registration-walkthrough[data-registration-type="web"]{
- --guide-primary:#004AAD;--guide-primary-hover:#003b8a;
- --guide-text:#273544;--guide-muted:#556777;
- --guide-surface:#f2f7fb;--guide-border:#d9e5ed;
- --guide-mascot-border:#d5e2a2;--guide-focus:#80b9ff;
  background:#fff;color:var(--guide-text);
  font-family:"Noto Sans JP",sans-serif;
 }
