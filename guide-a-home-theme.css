@@ -143,3 +143,27 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 .registration-guide .chat-message{margin-bottom:28px}
 .registration-guide .chat-choice{border-width:2px}
 }
+
+/* Illustrated speech bubble, shared by the welcome and question scenes. */
+.registration-guide .welcome-dialogue,
+.registration-guide .chat-bubble{
+  position:relative;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent url("./assets/mitochondria/speech-bubble.svg") center / 100% 100% no-repeat;
+  padding:30px 35px 31px 47px;
+}
+.registration-guide .welcome-dialogue:before,
+.registration-guide .chat-bubble:before{content:none}
+.registration-guide .welcome-scene{gap:0}
+.registration-guide .welcome-mito{position:relative;z-index:1;margin-right:-12px}
+.registration-guide .chat-message{gap:0}
+.registration-guide .chat-avatar{margin-right:-10px}
+.registration-guide .chat-bubble{padding:31px 34px 32px 45px;min-height:120px}
+@media(max-width:600px){
+.registration-guide .welcome-mito{margin-right:-7px}
+.registration-guide .welcome-dialogue{padding:23px 19px 24px 27px}
+.registration-guide .chat-avatar{margin-right:-7px}
+.registration-guide .chat-bubble{padding:24px 19px 25px 29px;min-height:104px}
+}
