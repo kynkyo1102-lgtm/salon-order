@@ -263,3 +263,41 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
  .registration-guide .welcome-mito{height:225px}
  .registration-guide .welcome-dialogue{min-height:205px;padding-left:25%;padding-right:10px}
 }
+
+/* Restrained guide palette: blue for actions, pale blue for surfaces,
+   white for content, lime only for the mascot's speech. */
+.registration-guide .guide-steps span{
+ background:transparent;border:1px solid #d9e5ed;
+ color:#657281;box-shadow:none;
+}
+.registration-guide .guide-steps span.active{
+ background:transparent;border:1px solid #004AAD;
+ color:#004AAD;font-weight:700;
+}
+.registration-guide .chat-choice{
+ background:#fff;border:1px solid #d9e5ed;
+ box-shadow:none;color:#273544;
+}
+.registration-guide .chat-choice:hover,
+.registration-guide .chat-choice:focus-visible{
+ background:#f2f7fb;border-color:#004AAD;box-shadow:none;
+}
+.registration-guide .chat-cost-link,
+.registration-guide .chat-result{
+ background:#f2f7fb;border-color:#d9e5ed;box-shadow:none;
+}
+.registration-guide .welcome-dialogue{
+ background:#fff;border-color:#05376f;box-shadow:none;
+}
+.registration-guide .chat-bubble{
+ background:#fff;border:1.5px solid #d5e2a2;box-shadow:none;
+}
+.registration-guide .chat-bubble:before{
+ border-left:1.5px solid #d5e2a2;
+ border-bottom:1.5px solid #d5e2a2;
+}
+.registration-guide .chat-progress,
+.registration-guide .chat-result strong,
+.registration-guide .chat-cost-link a,
+.registration-guide .guide-links a,
+.registration-guide .chat-controls button{color:#004AAD}
