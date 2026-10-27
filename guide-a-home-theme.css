@@ -228,3 +228,38 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 @media(prefers-reduced-motion:reduce){
  .registration-guide .welcome-mito{animation:none}
 }
+
+/* Presentation-board composition: mascot stands in front of a large board. */
+.registration-guide .welcome-scene{
+ position:relative;display:flex;align-items:flex-end;justify-content:flex-end;
+ width:100%;min-height:345px;margin:0 auto 26px;gap:0;
+}
+.registration-guide .welcome-dialogue{
+ flex:0 0 79%;width:79%;min-height:290px;
+ display:flex;flex-direction:column;justify-content:center;
+ margin:0 0 25px;padding:42px 40px 42px 105px;
+ border:3px solid #05376f;border-radius:3px;
+ box-shadow:none;background:#fff;
+}
+.registration-guide .welcome-mito{
+ position:absolute;z-index:2;left:0;bottom:0;
+ width:33%;height:340px;max-height:100%;object-fit:contain;object-position:bottom left;
+ margin:0;flex:none;
+}
+.registration-guide .welcome-dialogue h2{font-size:clamp(19px,2.5vw,25px);line-height:1.65}
+.registration-guide .welcome-dialogue p{font-size:16px;line-height:1.9}
+@media(max-width:600px){
+ .registration-guide .welcome-scene{min-height:250px;margin-bottom:22px}
+ .registration-guide .welcome-mito{width:36%;height:248px}
+ .registration-guide .welcome-dialogue{
+  flex-basis:83%;width:83%;min-height:220px;margin-bottom:12px;
+  padding:24px 14px 24px 26%;border-width:2px;border-radius:2px;
+ }
+ .registration-guide .welcome-dialogue h2{font-size:clamp(15px,3.7vw,19px);line-height:1.55;margin-bottom:12px}
+ .registration-guide .welcome-dialogue p{font-size:13px;line-height:1.75}
+}
+@media(max-width:380px){
+ .registration-guide .welcome-scene{min-height:230px}
+ .registration-guide .welcome-mito{height:225px}
+ .registration-guide .welcome-dialogue{min-height:205px;padding-left:25%;padding-right:10px}
+}
