@@ -510,9 +510,6 @@ body.registration-guide{background:#fff}
 .registration-guide .guide-steps .guide-steps-track span.active{
  background:var(--guide-primary);
 }
-.registration-guide .guide-steps .guide-steps-track span:not(.active){
- background:#e6edf3;
-}
 @media(max-width:600px){
  .registration-guide .guide-steps .guide-steps-heading .guide-steps-current{font-size:13px}
  .registration-guide .guide-steps .guide-steps-heading .guide-steps-total{font-size:11px}
