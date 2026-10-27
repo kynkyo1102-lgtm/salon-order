@@ -57,3 +57,7 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide .checklist li.is-checked .check-item{color:var(--guide-muted)}
 .registration-guide .guide-choices{margin-top:15px}
 .registration-guide .guide-scene{margin-bottom:14px}
+
+/* Match the title-to-guide spacing of the registration method guide. */
+.registration-guide .web-guide>h1{margin-bottom:30px}
+@media(max-width:600px){.registration-guide .web-guide>h1{margin-bottom:25px}}
