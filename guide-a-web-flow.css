@@ -15,7 +15,7 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide .guide-note p:last-child{margin-bottom:0}
 .registration-guide .guide-note strong{color:var(--guide-primary)}
 .registration-guide .guide-choices{display:grid;gap:12px;margin-top:28px}
-.registration-guide .guide-choices button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:#fff;color:var(--guide-text);text-align:left;font-weight:600;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control)}
+.registration-guide .guide-choices button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:var(--guide-choice-min-height);padding:20px 22px;background:#fff;color:var(--guide-text);text-align:left;font-size:17px;font-weight:600;border:2px solid var(--guide-border);border-radius:var(--guide-radius-control);box-shadow:0 3px 0 var(--guide-border)}
 .registration-guide .guide-choices button:after{content:"›";color:var(--guide-primary);font-size:23px}
 .registration-guide .guide-choices button:hover{background:var(--guide-surface);border-color:var(--guide-primary)}
 .registration-guide .guide-controls button{border:0;background:transparent;color:#657281;font-size:13px;padding:8px 2px}
@@ -43,7 +43,6 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide .guide-content{padding:0 0 16px}
 .registration-guide .guide-note{background:var(--guide-surface);border-radius:var(--guide-radius-info);padding:21px 22px;margin:24px 0;color:var(--guide-text);font-size:15px;line-height:1.9}
 .registration-guide .check-item{display:flex;align-items:flex-start;gap:13px;padding:19px 5px;cursor:pointer;font-size:16px;line-height:1.8}
-.registration-guide .guide-choices button{min-height:var(--guide-choice-min-height);padding:20px 22px;font-size:17px;border-width:2px;box-shadow:0 3px 0 var(--guide-border)}
 .registration-guide .guide-controls{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--guide-border);margin-top:40px;padding-top:20px}
 .registration-guide .guide-foot{margin-top:52px}
 @media(max-width:600px){
