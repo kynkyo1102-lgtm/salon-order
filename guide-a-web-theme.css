@@ -122,3 +122,20 @@ body.registration-page.registration-walkthrough[data-registration-type="web"] su
  body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-chat,
  body.registration-page.registration-walkthrough[data-registration-type="web"] .walkthrough-completion{display:none!important}
 }
+
+/* Explicitly separate the shared site chrome from legacy article rules. */
+body.registration-page.registration-walkthrough[data-registration-type="web"]>.guide-shared-header{
+ display:flex!important;position:relative!important;visibility:visible!important;
+ background:#004AAD!important;border:0!important;box-shadow:none!important;
+ margin:0!important;width:100%!important;max-width:none!important;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"]>.guide-shared-header .guide-shared-logo,
+body.registration-page.registration-walkthrough[data-registration-type="web"]>.guide-shared-header .guide-shared-shop{
+ color:#fff!important;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"]>.guide-shared-footer{
+ display:block!important;visibility:visible!important;
+}
+body.registration-page.registration-walkthrough[data-registration-type="web"]>.guide-shared-floating{
+ visibility:visible!important;
+}
