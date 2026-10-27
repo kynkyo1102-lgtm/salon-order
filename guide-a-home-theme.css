@@ -99,3 +99,55 @@ body.registration-guide{background:linear-gradient(180deg,#f1f9f6 0%,#fffaf0 65%
 .registration-guide #journeyStartBtn:hover{background:#1b696d;transform:translateY(-2px)}
 .registration-guide #journeyStartBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #185d61}
 @media(max-width:600px){.registration-guide .journey-welcome{flex-direction:column;gap:12px;min-height:0;margin:7px 0 22px;padding:28px 20px 30px;text-align:center;box-shadow:5px 7px 0 #e1efea}.registration-guide .journey-welcome-mascot{width:105px;max-width:none}.registration-guide .journey-welcome h2{font-size:23px}.registration-guide .journey-welcome p{margin-bottom:23px}.registration-guide #journeyStartBtn{width:100%;min-height:60px}}
+
+/* Story-like welcome: dialogue is the hero, scenery signals the journey. */
+.registration-guide .journey-welcome{position:relative;isolation:isolate;overflow:hidden;align-items:flex-end;min-height:410px;gap:20px;padding:56px 38px 38px;background:linear-gradient(180deg,#e0f4f3 0%,#f4f9eb 67%,#fff9e9 100%)}
+.registration-guide .journey-scenery{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.registration-guide .journey-cloud{position:absolute;display:block;width:98px;height:31px;border-radius:50px;background:#ffffffa8;filter:blur(.3px);animation:journey-drift 9s ease-in-out infinite alternate}
+.registration-guide .journey-cloud:before,.registration-guide .journey-cloud:after{content:"";position:absolute;bottom:8px;border-radius:50%;background:inherit}
+.registration-guide .journey-cloud:before{left:18px;width:43px;height:43px}.registration-guide .journey-cloud:after{left:47px;width:36px;height:36px}
+.registration-guide .cloud-one{top:45px;left:9%}.registration-guide .cloud-two{top:80px;right:7%;transform:scale(.7);animation-delay:-4s}
+.registration-guide .journey-hill{position:absolute;bottom:-80px;width:115%;height:185px;border-radius:50% 50% 0 0}
+.registration-guide .hill-back{left:-26%;bottom:-97px;background:#d1ebdc;transform:rotate(-7deg)}
+.registration-guide .hill-front{right:-29%;bottom:-107px;background:#c2e4d6;transform:rotate(7deg)}
+.registration-guide .journey-trail{position:absolute;left:7%;bottom:-94px;width:170px;height:185px;border:15px solid #fff5d8;border-radius:50%;transform:rotate(-32deg);opacity:.8}
+.registration-guide .journey-spark{position:absolute;color:#e5bc59;font-size:27px;animation:journey-twinkle 3s ease-in-out infinite}
+.registration-guide .spark-one{left:28%;top:28%}.registration-guide .spark-two{right:13%;top:13%;animation-delay:1s}
+.registration-guide .journey-welcome-mascot{position:relative;z-index:1;width:205px;max-width:32%;transform-origin:center bottom;animation:journey-bob 3.6s ease-in-out infinite}
+.registration-guide .journey-welcome-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start}
+.registration-guide .journey-welcome-label{background:#ffffffc9;padding:4px 12px;border-radius:100px;letter-spacing:.03em}
+.registration-guide .journey-dialogue{position:relative;width:100%;padding:21px 25px 17px;margin:0 0 21px;background:#fff;border:2px solid #b6dfd2;border-radius:24px 24px 24px 7px;box-shadow:5px 6px 0 #b9ded3}
+.registration-guide .journey-dialogue:after{content:"";position:absolute;bottom:30px;left:-12px;width:19px;height:19px;background:#fff;border-left:2px solid #b6dfd2;border-bottom:2px solid #b6dfd2;transform:rotate(45deg)}
+.registration-guide .journey-speaker{display:block;margin-bottom:6px;color:#328a7c;font-size:11px;font-weight:800}
+.registration-guide .journey-dialogue h2{margin-bottom:8px;font-size:clamp(22px,3.2vw,29px)}
+.registration-guide .journey-dialogue p{margin-bottom:0;font-size:14px}
+.registration-guide #journeyStartBtn{align-self:center;min-width:240px;animation:journey-appear .5s ease-out both}
+.registration-guide .journey-chapter{display:flex;align-items:center;gap:13px;margin:26px 0 17px}
+.registration-guide .journey-chapter-tag{flex-shrink:0;padding:7px 12px;border-radius:100px;background:#287e7b;color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em}
+.registration-guide .journey-chapter strong{color:#245a67;font-size:19px;letter-spacing:-.03em}
+.registration-guide .journey-chapter-spark{margin-left:auto;color:#b5c94a;font-size:24px}
+.registration-guide .journey-path span.is-complete{background:#e0f5ea;border-color:#92d0b2;color:#24734d}
+.registration-guide .journey-path span.is-current{background:#e1f2f9;border-color:#9ccadf;color:#226b91}
+.registration-guide .chat-panel.scene-enter .chat-message{animation:journey-appear .36s ease-out both}
+.registration-guide .chat-panel.scene-enter .chat-choices,.registration-guide .chat-panel.scene-enter .chat-result{animation:journey-appear .4s .12s ease-out both}
+.registration-guide .chat-avatar img{transform-origin:center bottom;animation:journey-bob 3.6s ease-in-out infinite}
+.registration-guide .chat-bubble{box-shadow:4px 5px 0 #e1f0ea}
+.registration-guide .chat-choice:active{transform:scale(.985)}
+@keyframes journey-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes journey-drift{from{translate:-10px 0}to{translate:18px 0}}
+@keyframes journey-twinkle{0%,100%{opacity:.5;scale:.9}50%{opacity:1;scale:1.15}}
+@keyframes journey-appear{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+.registration-guide .journey-welcome{padding:36px 19px 29px;min-height:0;gap:5px;align-items:center}
+.registration-guide .journey-welcome-mascot{width:116px;max-width:none;align-self:center}
+.registration-guide .journey-welcome-copy{align-items:stretch;width:100%}
+.registration-guide .journey-welcome-label{align-self:center;margin:0 0 12px}
+.registration-guide .journey-dialogue{padding:20px 17px 17px;margin-bottom:24px;text-align:left}
+.registration-guide .journey-dialogue:after{top:-10px;left:50%;bottom:auto;transform:translateX(-50%) rotate(135deg)}
+.registration-guide .journey-dialogue h2{font-size:23px}
+.registration-guide .journey-dialogue p{font-size:13px}
+.registration-guide #journeyStartBtn{width:100%;min-width:0}
+.registration-guide .journey-chapter{gap:9px}
+.registration-guide .journey-chapter strong{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.registration-guide .journey-cloud,.registration-guide .journey-spark,.registration-guide .journey-welcome-mascot,.registration-guide .chat-avatar img,.registration-guide #journeyStartBtn,.registration-guide .chat-panel.scene-enter .chat-message,.registration-guide .chat-panel.scene-enter .chat-choices,.registration-guide .chat-panel.scene-enter .chat-result{animation:none!important}}
