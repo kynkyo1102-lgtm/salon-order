@@ -514,3 +514,40 @@ body.registration-guide{background:#fff}
  .registration-guide .guide-steps-current{font-size:13px}
  .registration-guide .guide-steps-total{font-size:11px}
 }
+
+/* Reset legacy step-card styles for the new compact progress strip. */
+.registration-guide .guide-steps .guide-steps-heading{
+ display:flex;flex-direction:row;align-items:center;justify-content:space-between;
+ gap:12px;width:100%;margin:0 0 12px;padding:0;
+}
+.registration-guide .guide-steps .guide-steps-heading .guide-steps-current{
+ display:inline-flex;flex-direction:row;align-items:baseline;justify-content:flex-start;
+ flex:0 1 auto;gap:9px;width:auto;min-height:0;margin:0;padding:0;
+ background:none;border:0;border-radius:0;box-shadow:none;
+ color:#004AAD;font-size:14px;font-weight:700;text-align:left;
+}
+.registration-guide .guide-steps .guide-steps-heading .guide-steps-current span{
+ display:inline;flex:none;width:auto;min-height:0;margin:0;padding:0;
+ background:none;border:0;border-radius:0;box-shadow:none;
+ color:inherit;font-size:inherit;font-weight:inherit;text-align:left;
+}
+.registration-guide .guide-steps .guide-steps-heading .guide-steps-total{
+ display:inline;flex:none;width:auto;min-height:0;margin:0;padding:0;
+ background:none;border:0;border-radius:0;box-shadow:none;
+ color:#718092;font-size:12px;font-weight:500;text-align:right;
+}
+.registration-guide .guide-steps .guide-steps-track{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;
+ width:100%;margin:0;padding:0;
+}
+.registration-guide .guide-steps .guide-steps-track span,
+.registration-guide .guide-steps .guide-steps-track span.active{
+ display:block;flex:none;width:100%;height:4px;min-height:0;
+ margin:0;padding:0;border:0;border-radius:10px;box-shadow:none;
+ background:#e6edf3;
+}
+.registration-guide .guide-steps .guide-steps-track span.active{background:#004AAD}
+@media(max-width:600px){
+ .registration-guide .guide-steps .guide-steps-heading .guide-steps-current{font-size:13px}
+ .registration-guide .guide-steps .guide-steps-heading .guide-steps-total{font-size:11px}
+}
