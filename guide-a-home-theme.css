@@ -86,3 +86,16 @@ body.registration-guide{background:linear-gradient(180deg,#f1f9f6 0%,#fffaf0 65%
 .registration-guide .chat-choice{min-height:62px}
 }
 @media(prefers-reduced-motion:reduce){.registration-guide .chat-choice,.registration-guide .chat-progress-fill{transition:none}}
+
+/* Standalone welcome screen before the first question */
+.registration-guide #journeyQuestions[hidden],.registration-guide #journeyWelcome[hidden]{display:none!important}
+.registration-guide .journey-welcome{display:flex;align-items:center;gap:29px;min-height:340px;margin:10px 0 24px;padding:36px 39px;background:linear-gradient(130deg,#e8f7f0,#f7fbf7 63%,#fff9e9);border:2px solid #cfe6df;border-radius:29px 29px 29px 12px;box-shadow:9px 10px 0 #e1efea}
+.registration-guide .journey-welcome-mascot{display:block;width:150px;max-width:30%;height:auto;flex-shrink:0;align-self:center}
+.registration-guide .journey-welcome-copy{flex:1;min-width:0}
+.registration-guide .journey-welcome-label{display:inline-block;margin-bottom:12px;color:#337b70;font-size:12px;font-weight:800;letter-spacing:.16em}
+.registration-guide .journey-welcome h2{margin:0 0 12px;color:#184b6e;font-size:clamp(22px,3.5vw,30px);font-weight:800;line-height:1.5;letter-spacing:-.025em}
+.registration-guide .journey-welcome p{margin:0 0 25px;color:#4b6770;font-size:14px;line-height:1.9}
+.registration-guide #journeyStartBtn{display:inline-flex;align-items:center;justify-content:center;gap:24px;min-height:58px;padding:14px 26px;border:0;border-radius:14px;background:#257f82;color:#fff;font-size:16px;font-weight:800;box-shadow:0 5px 0 #185d61;transition:transform .15s,box-shadow .15s}
+.registration-guide #journeyStartBtn:hover{background:#1b696d;transform:translateY(-2px)}
+.registration-guide #journeyStartBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #185d61}
+@media(max-width:600px){.registration-guide .journey-welcome{flex-direction:column;gap:12px;min-height:0;margin:7px 0 22px;padding:28px 20px 30px;text-align:center;box-shadow:5px 7px 0 #e1efea}.registration-guide .journey-welcome-mascot{width:105px;max-width:none}.registration-guide .journey-welcome h2{font-size:23px}.registration-guide .journey-welcome p{margin-bottom:23px}.registration-guide #journeyStartBtn{width:100%;min-height:60px}}
