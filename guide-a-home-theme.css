@@ -225,3 +225,81 @@ body.registration-guide{background:linear-gradient(180deg,#edf7f6 0%,#fff9e8 70%
 .registration-guide .chat-choice{padding:14px 12px}
 }
 @media(prefers-reduced-motion:reduce){.registration-guide .game-title-screen #journeyStartBtn{animation:none!important}}
+
+/* Visual novel redesign — scene, modest character sprite, lower dialogue window. */
+body.registration-guide{background:#f5f3f7}
+.registration-guide .reg-chat{max-width:970px;padding-top:28px}
+.registration-guide .journey-kicker{font-size:11px;color:#74678e}
+.registration-guide .game-title-screen,.registration-guide .journey-welcome{display:block;position:relative;min-height:540px;padding:0!important;border:1px solid #d5cedf;border-radius:18px;overflow:hidden;background:linear-gradient(155deg,#d8e7f7 0%,#f1e5f3 55%,#fff4eb 100%);box-shadow:0 14px 35px #35304a1c}
+.registration-guide .game-title-hud{position:absolute;top:0;left:0;right:0;z-index:4;padding:15px 23px;background:#ffffffa8;color:#4c4468;border-radius:0;font-size:11px;letter-spacing:.06em;backdrop-filter:blur(8px)}
+.registration-guide .journey-scenery{z-index:0;opacity:.48}
+.registration-guide .journey-cloud,.registration-guide .journey-hill,.registration-guide .journey-trail,.registration-guide .journey-spark{display:none}
+.registration-guide .game-title-screen .journey-welcome-mascot{position:absolute;z-index:2;top:87px;left:50%;width:155px;max-width:none;height:230px;object-fit:contain;transform:translateX(-50%);animation:novel-character-in .55s ease-out both;filter:drop-shadow(0 10px 12px #72638b38)}
+.registration-guide .game-title-screen .journey-welcome-copy{position:absolute;z-index:3;left:5%;right:5%;bottom:24px;width:auto;max-width:none;display:flex;align-items:stretch;gap:0}
+.registration-guide .game-title-screen .journey-welcome-label{display:none}
+.registration-guide .game-title-screen .journey-dialogue{margin:0 0 17px;padding:19px 25px 21px;border:1px solid #ffffffde;border-radius:13px;background:#2b2b49e8;color:#fff;box-shadow:0 9px 28px #25203a32;backdrop-filter:blur(8px)}
+.registration-guide .game-title-screen .journey-dialogue:after{display:none}
+.registration-guide .game-title-screen .journey-speaker{display:inline-block;margin:-37px 0 9px;padding:6px 18px;border:1px solid #ffffffd9;border-radius:9px;background:#fff;color:#514878;font-size:12px}
+.registration-guide .game-title-screen .journey-dialogue h2{margin:0 0 5px;color:#fff;font-size:clamp(19px,3vw,26px);line-height:1.55}
+.registration-guide .game-title-screen .journey-dialogue p{color:#f1edf7;font-size:14px}
+.registration-guide .game-title-screen #journeyStartBtn{align-self:center;width:min(290px,100%);min-height:54px;padding:11px 22px;border:1px solid #fff;border-radius:28px;background:#7662a6;color:#fff;font-size:15px;box-shadow:0 5px 16px #51487844;animation:none;transition:background .2s,transform .2s}
+.registration-guide .game-title-screen #journeyStartBtn:hover{background:#5d4c8c}
+.registration-guide .game-title-hint{margin-top:7px;color:#5c5477;font-size:11px;font-weight:500}
+.registration-guide .journey-path{margin:18px 0 15px;max-width:none}
+.registration-guide .journey-path span{border-color:#e5deee;background:#fff;color:#706781}
+.registration-guide .journey-path span:first-child{background:#eee8f6;border-color:#d4c8e6;color:#63518d}
+.registration-guide .game-stage-hud{margin:0 0 14px;padding:10px 17px;border:1px solid #e4ddec;border-radius:11px;background:#fff;color:#605677;box-shadow:none}
+.registration-guide .game-hud-symbol{font-size:12px;color:#9a85bd}
+.registration-guide .game-stage-hud small{color:#857b9a}
+.registration-guide .game-hud-stars{color:#71658d;font-size:12px;letter-spacing:.02em}
+.registration-guide .journey-chapter{margin:10px 0 12px}
+.registration-guide .journey-chapter-tag{background:#7565a2;color:#fff;border-radius:6px}
+.registration-guide .journey-chapter strong{color:#544d6e;font-size:15px}
+.registration-guide .chat-panel{padding:0 0 20px;border:1px solid #ddd5e7;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 12px 32px #35304a12}
+.registration-guide .chat-progress{padding:12px 18px 6px;color:#6b5b8b}
+.registration-guide .chat-progress-bar{height:4px;margin:0 18px 0;background:#eee8f4}
+.registration-guide .chat-progress-fill{background:#9c8bc2}
+.registration-guide .game-scene{position:relative;min-height:395px;margin:0;padding:0 20px 20px;border:0;border-radius:0;background:linear-gradient(155deg,#dceaf7,#f0e6f2 64%,#f8eae3);overflow:hidden}
+.registration-guide .game-scene-ground{display:none}
+.registration-guide .game-scene .chat-message{display:block;position:relative;min-height:375px;margin:0}
+.registration-guide .game-scene .chat-avatar{position:absolute;top:23px;left:50%;width:145px;max-width:none;transform:translateX(-50%);text-align:center}
+.registration-guide .game-scene .chat-avatar img{width:100%!important;height:215px!important;object-fit:contain;animation:novel-character-in .45s ease-out both;filter:drop-shadow(0 8px 12px #72638b35)}
+.registration-guide .game-scene .chat-avatar small{display:none}
+.registration-guide .game-scene .chat-bubble{position:absolute;bottom:0;left:0;right:0;margin:0;min-height:112px;padding:24px 23px 20px;border:1px solid #ffffffc9;border-radius:13px;background:#2b2b49e8;color:#fff;font-size:15px;font-weight:500;line-height:1.85;box-shadow:0 7px 25px #25203a27;animation:novel-dialogue-in .3s ease-out both;backdrop-filter:blur(8px)}
+.registration-guide .game-scene .chat-bubble:before{display:none}
+.registration-guide .game-scene .chat-bubble:after{content:"ミトコンドリアちゃん";position:absolute;top:-15px;left:16px;padding:3px 13px;border-radius:7px;background:#fff;color:#55487a;font-size:11px;font-weight:800;box-shadow:0 2px 8px #27213d20}
+.registration-guide .game-command-title{margin:17px 20px 10px}
+.registration-guide .game-command-title span{background:#7565a2}
+.registration-guide .game-command-title strong{color:#62577c}
+.registration-guide .chat-choices{padding:0 20px}
+.registration-guide .chat-choice{min-height:57px;border:1px solid #e0d8eb;border-radius:11px;background:#faf8fd;color:#48405d;box-shadow:none;font-weight:600;transition:background .15s,transform .15s}
+.registration-guide .chat-choice:before{content:"";margin:0}
+.registration-guide .chat-choice:after{color:#8974ad}
+.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:#a897c8;background:#eee8f8}
+.registration-guide .chat-answers,.registration-guide .chat-cost-link,.registration-guide #result,.registration-guide .chat-controls{margin-left:20px;margin-right:20px}
+.registration-guide .chat-action{background:#7565a2;color:#fff;box-shadow:none}
+.registration-guide .chat-action:hover{background:#5b4b8b}
+.registration-guide .chat-result{background:#f5f0fa;border-color:#d9cce9}
+.registration-guide .chat-result strong{color:#65548d}
+.registration-guide .chat-result strong:before{content:""}
+@keyframes novel-character-in{from{opacity:0;translate:0 12px}to{opacity:1;translate:0 0}}
+@keyframes novel-dialogue-in{from{opacity:0;translate:0 9px}to{opacity:1;translate:0 0}}
+@media(max-width:600px){
+.registration-guide .reg-chat{padding:22px 12px 95px}
+.registration-guide .game-title-screen,.registration-guide .journey-welcome{min-height:515px}
+.registration-guide .game-title-hud{font-size:9px;padding:13px 12px}
+.registration-guide .game-title-screen .journey-welcome-mascot{top:85px;width:130px;height:200px}
+.registration-guide .game-title-screen .journey-welcome-copy{left:12px;right:12px;bottom:20px}
+.registration-guide .game-title-screen .journey-dialogue{padding:19px 16px 15px;text-align:left}
+.registration-guide .game-title-screen .journey-dialogue h2{font-size:20px}
+.registration-guide .game-title-screen .journey-dialogue p{font-size:12px}
+.registration-guide .game-scene{min-height:375px;padding:0 12px 13px}
+.registration-guide .game-scene .chat-message{min-height:360px}
+.registration-guide .game-scene .chat-avatar{top:23px;width:118px}
+.registration-guide .game-scene .chat-avatar img{height:175px!important}
+.registration-guide .game-scene .chat-bubble{min-height:125px;padding:24px 14px 15px;font-size:14px}
+.registration-guide .game-command-title{margin:14px 12px 10px}
+.registration-guide .chat-choices{padding:0 12px}
+.registration-guide .chat-answers,.registration-guide .chat-cost-link,.registration-guide #result,.registration-guide .chat-controls{margin-left:12px;margin-right:12px}
+}
+@media(prefers-reduced-motion:reduce){.registration-guide .game-title-screen .journey-welcome-mascot,.registration-guide .game-scene .chat-avatar img,.registration-guide .game-scene .chat-bubble{animation:none!important}}
