@@ -423,3 +423,37 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 @media(max-width:600px){
  .registration-guide .guide-links a{font-size:15px}
 }
+
+/* Subtle feedback for the start transition and each new question. */
+.registration-guide #guideConversation:not([hidden]){
+ animation:guide-conversation-appear .32s ease-out both;
+}
+.registration-guide .guide-question-enter .chat-progress,
+.registration-guide .guide-question-enter .chat-message,
+.registration-guide .guide-question-enter .chat-choices,
+.registration-guide .guide-question-enter .chat-answers,
+.registration-guide .guide-question-enter .chat-result,
+.registration-guide .guide-question-enter #result:not([hidden]),
+.registration-guide .guide-question-enter .chat-cost-link:not([hidden]){
+ animation:guide-question-appear .26s ease-out both;
+}
+@keyframes guide-conversation-appear{
+ from{opacity:0;transform:translateY(7px)}
+ to{opacity:1;transform:translateY(0)}
+}
+@keyframes guide-question-appear{
+ from{opacity:0;transform:translateY(6px)}
+ to{opacity:1;transform:translateY(0)}
+}
+@media(prefers-reduced-motion:reduce){
+ .registration-guide #guideConversation:not([hidden]),
+ .registration-guide .guide-question-enter .chat-progress,
+ .registration-guide .guide-question-enter .chat-message,
+ .registration-guide .guide-question-enter .chat-choices,
+ .registration-guide .guide-question-enter .chat-answers,
+ .registration-guide .guide-question-enter .chat-result,
+ .registration-guide .guide-question-enter #result:not([hidden]),
+ .registration-guide .guide-question-enter .chat-cost-link:not([hidden]){
+  animation:none;
+ }
+}
