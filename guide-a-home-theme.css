@@ -301,3 +301,32 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 .registration-guide .chat-cost-link a,
 .registration-guide .guide-links a,
 .registration-guide .chat-controls button{color:#004AAD}
+
+/* Restore the earlier soft-edged board frame; scale copy with the larger board. */
+.registration-guide .welcome-dialogue{
+ border:3px solid #a6baca;
+ border-radius:9px;
+ box-shadow:0 0 0 6px #f2f7fb,0 6px 0 #d9e5ed;
+}
+.registration-guide .welcome-dialogue h2{
+ font-size:clamp(25px,3.5vw,32px);
+ line-height:1.55;
+ font-weight:700;
+ margin-bottom:20px;
+}
+.registration-guide .welcome-dialogue p{
+ font-size:clamp(18px,2.3vw,21px);
+ line-height:1.75;
+}
+@media(max-width:600px){
+ .registration-guide .welcome-dialogue{
+  border-width:2px;border-radius:9px;
+  box-shadow:0 0 0 4px #f2f7fb,0 4px 0 #d9e5ed;
+ }
+ .registration-guide .welcome-dialogue h2{
+  font-size:clamp(19px,4.7vw,24px);line-height:1.5;margin-bottom:13px;
+ }
+ .registration-guide .welcome-dialogue p{
+  font-size:clamp(15px,3.8vw,18px);line-height:1.7;
+ }
+}
