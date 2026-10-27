@@ -191,11 +191,6 @@ body.registration-guide{background:var(--guide-surface);font-size:17px}
 }
 
 
-.registration-guide .welcome-dialogue{
-
-
- transform:none;
-}
 .registration-guide .welcome-dialogue:before,
 .registration-guide .welcome-dialogue:after{content:none}
 .registration-guide .welcome-dialogue h2{margin-bottom:16px}
@@ -258,8 +253,7 @@ body.registration-guide{background:var(--guide-surface);font-size:17px}
 
 .registration-guide .chat-choice{
 
- color:var(--guide-text);
-}
+ }
 .registration-guide .chat-choice:hover,
 .registration-guide .chat-choice:focus-visible{
  box-shadow:none;
@@ -272,8 +266,7 @@ body.registration-guide{background:var(--guide-surface);font-size:17px}
  background:#fff;border-color:#05376f;
 }
 .registration-guide .chat-bubble{
- box-shadow:none;
-}
+ }
 .registration-guide .chat-bubble:before{
  border-left:1.5px solid var(--guide-mascot-border);
  border-bottom:1.5px solid var(--guide-mascot-border);
