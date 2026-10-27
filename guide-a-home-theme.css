@@ -184,3 +184,7 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
  .registration-guide .chat-progress{margin-bottom:22px}
  .registration-guide .chat-choice{min-height:68px}
 }
+
+.registration-guide{font-family:"BIZ UDPGothic",sans-serif}
+.registration-guide .welcome-dialogue,.registration-guide .chat-bubble{border-color:#b4ca3d}
+.registration-guide .welcome-dialogue:before,.registration-guide .chat-bubble:before{border-left-color:#b4ca3d;border-bottom-color:#b4ca3d}
