@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1">
 <link rel="stylesheet" href="./guide-design-system.css?v=20261027-4">
-<link rel="stylesheet" href="./guide-a-web-flow.css?v=20261027-4">
+<link rel="stylesheet" href="./guide-a-web-flow.css?v=20261027-5">
 </head><body class="registration-guide">
 <main class="web-guide guide-common-page">
 <h1 class="guide-common-title">WEB登録ガイド</h1>
@@ -25,9 +25,9 @@ const steps=[
 {stage:"メール認証",say:"メールが届いたら、本文にあるURLを開いてください。そこから登録情報の入力へ進みます。",title:"",html:`<div class="guide-note">メール本文のURLは、ご自身に届いたものを使用してください。</div>`},
 {stage:"登録情報の入力",say:"ここから必要事項を入力します。概要書面や紹介者の情報を手元に置いて、画面の順番に進めてくださいね。",title:"",html:`<ol class="checklist"><li>規約等への同意</li><li>概要書面番号・会員番号</li><li>紹介者・上位者の情報</li><li>氏名などの個人情報</li></ol><div class="guide-note">番号や氏名は、手元の書面と照らし合わせて確認しましょう。</div>`},
 {stage:"商品・決済",say:"次は初回の登録内容とお支払いです。選んだ内容を確認してから決済に進みましょう。",title:"",html:`<ol class="checklist"><li>初回登録ポジションを選択</li><li>必要に応じて追加商品を選択</li><li>定期購入の内容を確認</li><li>クレジットカード決済を行う</li></ol><div class="guide-note">決済前に、商品・金額・定期購入の内容をよく確認してください。</div>`},
-{stage:"受付完了",say:"ここまでで申請の受付です。受付完了メールが届いているか確認してくださいね。",title:"",html:`<div class="guide-note"><strong>必要書類の提出がある方</strong><p>25歳未満の方、外国籍の方は、案内に従って本人確認書類などの写真データを添付して送信してください。</p><p><a href="./guide-d.html#category=0&amp;item=3">本人確認書類を提出したい →</a></p></div>`},
+{stage:"受付完了",say:"ここまでで申請の受付です。受付完了メールが届いているか確認してくださいね。",title:"",html:`<div class="guide-note"><strong>必要書類の提出がある方</strong><p>25歳未満の方、外国籍の方は、案内に従って本人確認書類などの写真データを添付して送信してください。</p><p class="guide-inline-link"><a href="./guide-d.html#category=0&amp;item=3">本人確認書類を提出したい ↗</a></p></div>`},
 {stage:"登録審査",say:"申請後はニナファームジャポンで審査と登録処理が行われます。結果を待ちましょう。",title:"",html:`<div class="guide-note">審査の結果、登録をお断りする場合があります。</div>`},
-{stage:"登録後の流れ",say:"登録処理が完了すると、商品と契約書面が届きます。最後に契約内容を確認してくださいね。",title:"",html:`<div class="guide-note"><strong>クーリングオフについて</strong><p>商品および契約書面を受け取ってからの20日間については、概要書面・契約書面に記載された条件を必ずご確認ください。</p></div><p>これでWEB登録の流れの確認は終了です。</p><a class="guide-action" href="./guide-a-registration-steps.html#web">手順一覧を確認する →</a>`}
+{stage:"登録後の流れ",say:"ここまでおつかれさまでした！登録処理が完了すると、商品と契約書面が届きます。最後に契約内容も確認してくださいね。",title:"",html:`<div class="guide-note"><strong>クーリングオフについて</strong><p>商品および契約書面を受け取ってからの20日間については、概要書面・契約書面に記載された条件を必ずご確認ください。</p></div><div class="guide-finish"><span class="guide-finish-sparkle" aria-hidden="true">✦ ✧ ✦</span><img src="./assets/mitochondria-chan.svg" alt="お祝いするミトコンドリアちゃん" width="110" height="165"><strong>手続き完了です！</strong><p>おつかれさまでした！</p></div>`}
 ];
 let index=0;const checked={};const $=id=>document.getElementById(id);
 function render(){const s=steps[index];$("stage").textContent=s.stage;$("count").textContent=(index+1)+" / "+steps.length;$("fill").style.width=((index+1)/steps.length*100)+"%";$("speech").textContent=s.say;$("content").innerHTML=s.html;document.querySelectorAll("#content .checklist li").forEach((li,i)=>{const label=document.createElement("label");label.className="check-item";const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!checked[index+":"+i];cb.addEventListener("change",()=>{checked[index+":"+i]=cb.checked;li.classList.toggle("is-checked",cb.checked)});while(li.firstChild)label.append(li.firstChild);label.prepend(cb);li.append(label);li.classList.toggle("is-checked",cb.checked)});$("choices").replaceChildren();const b=document.createElement("button");b.type="button";b.textContent=index===steps.length-1?"最初から確認する":"次へ進む";b.addEventListener("click",()=>{index=index===steps.length-1?0:index+1;render();window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"})});$("choices").append(b);$("prev").disabled=index===0}
