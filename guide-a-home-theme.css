@@ -457,3 +457,60 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
   animation:none;
  }
 }
+
+/* Unified restrained visual system: white canvas, soft surfaces, and quiet progress. */
+body.registration-guide{background:#fff}
+.registration-guide .reg-chat{background:#fff}
+.registration-guide .guide-welcome{background:#fff;box-shadow:none}
+.registration-guide .chat-panel{
+ background:#fff;border:0;border-radius:0;box-shadow:none;
+ padding:18px 0 22px;
+}
+.registration-guide .guide-steps{
+ display:block;background:transparent;border:0;border-radius:0;
+ box-shadow:none;padding:0;margin:28px 0 12px;
+}
+.registration-guide .guide-steps-heading{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;margin:0 0 12px;
+}
+.registration-guide .guide-steps-current{
+ display:inline-flex;align-items:baseline;gap:10px;
+ padding:0;border:0;background:transparent;
+ color:#004AAD;font-size:14px;font-weight:700;letter-spacing:.02em;
+}
+.registration-guide .guide-steps-current span{
+ padding:0;border:0;background:transparent;color:inherit;
+ font-size:inherit;font-weight:inherit;
+}
+.registration-guide .guide-steps-total{
+ color:#718092;font-size:12px;font-weight:500;
+}
+.registration-guide .guide-steps-track{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;
+}
+.registration-guide .guide-steps-track span{
+ display:block;height:4px;padding:0;margin:0;
+ background:#e6edf3;border:0;border-radius:10px;box-shadow:none;
+}
+.registration-guide .guide-steps-track span.active{background:#004AAD;border:0}
+.registration-guide .chat-choice{
+ background:#fff;border:1px solid #d9e5ed;box-shadow:none;
+}
+.registration-guide .chat-choice:hover,
+.registration-guide .chat-choice:focus-visible{
+ background:#f2f7fb;border-color:#004AAD;
+}
+.registration-guide .chat-cost-link,
+.registration-guide .chat-result{
+ background:#f2f7fb;border:0;box-shadow:none;
+}
+.registration-guide .chat-bubble{
+ background:#fff;border:1.5px solid #d5e2a2;
+}
+@media(max-width:600px){
+ .registration-guide .guide-steps{margin:24px 0 12px;padding:0}
+ .registration-guide .chat-panel{padding:14px 0 20px}
+ .registration-guide .guide-steps-current{font-size:13px}
+ .registration-guide .guide-steps-total{font-size:11px}
+}
