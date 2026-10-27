@@ -47,3 +47,39 @@
  border:0;
  border-radius:var(--guide-radius-info);
 }
+
+/* Shared layout and conversational UI for mascot-led registration guides.
+   Opt-in classes; legacy approved guide selectors retain precedence. */
+.registration-guide{
+ --guide-page-width:860px;
+ --guide-page-padding-x:22px;
+ --guide-page-padding-top:52px;
+ --guide-page-padding-bottom:110px;
+ --guide-title-size:30px;
+ --guide-title-gap:26px;
+ --guide-space-sm:16px;
+ --guide-space-md:26px;
+ --guide-space-lg:38px;
+ --guide-bubble-padding:27px 29px;
+ --guide-choice-min-height:72px;
+}
+.registration-guide .guide-common-page{width:100%;max-width:var(--guide-page-width);margin:0 auto;padding:var(--guide-page-padding-top) var(--guide-page-padding-x) var(--guide-page-padding-bottom)}
+.registration-guide .guide-common-title{margin:0 0 var(--guide-title-gap);font-size:var(--guide-title-size);line-height:1.5;font-weight:800;letter-spacing:-.045em;color:#0055A4}
+.registration-guide .guide-common-mascot-row{display:flex;align-items:center;gap:17px}
+.registration-guide .guide-common-mascot{width:100px;flex:0 0 100px;text-align:center}
+.registration-guide .guide-common-mascot img{max-width:100%;height:auto}
+.registration-guide .guide-common-mascot small{display:block;margin-top:3px;color:var(--guide-muted);font-size:11px;line-height:1.4}
+.registration-guide .guide-common-speech{position:relative;flex:1;min-width:0;padding:var(--guide-bubble-padding);border:2px solid var(--guide-mascot-border);border-radius:18px;background:#fff;color:var(--guide-text);font-size:18px;font-weight:500;line-height:1.9;white-space:pre-line}
+.registration-guide .guide-common-speech:before{content:"";position:absolute;left:-9px;bottom:30px;width:16px;height:16px;background:#fff;border-left:2px solid var(--guide-mascot-border);border-bottom:2px solid var(--guide-mascot-border);border-radius:0 0 0 3px;transform:rotate(45deg)}
+.registration-guide .guide-common-primary{display:block;width:100%;min-height:var(--guide-choice-min-height);padding:18px 22px;border:0;border-radius:12px;background:var(--guide-primary);color:#fff;text-align:center;text-decoration:none;font-size:17px;font-weight:700}
+.registration-guide .guide-common-primary:hover{background:var(--guide-primary-hover)}
+.registration-guide .guide-common-progress{margin-bottom:var(--guide-space-lg)}
+.registration-guide .guide-common-progress-label{color:var(--guide-primary);font-size:14px;font-weight:700}
+.registration-guide .guide-common-footer{margin-top:42px;padding-top:20px;border-top:1px solid var(--guide-border)}
+@media(max-width:600px){
+ .registration-guide{--guide-page-padding-x:17px;--guide-page-padding-top:30px;--guide-page-padding-bottom:95px;--guide-title-size:26px;--guide-title-gap:18px;--guide-bubble-padding:21px 19px;--guide-choice-min-height:68px}
+ .registration-guide .guide-common-mascot-row{gap:11px}
+ .registration-guide .guide-common-mascot{width:72px;flex-basis:72px}
+ .registration-guide .guide-common-speech{font-size:16px}
+ .registration-guide .guide-common-primary{font-size:16px;padding:17px 15px}
+}
