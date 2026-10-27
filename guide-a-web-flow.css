@@ -71,3 +71,14 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
  .registration-guide .check-item{padding:17px 3px;font-size:15px}
  .registration-guide .guide-choices button{font-size:16px;padding:17px 15px}
 }
+
+/* Quiet footer-style document link and a celebratory closing scene. */
+.registration-guide .guide-inline-link{margin:18px 0 0}
+.registration-guide .guide-inline-link a{color:var(--guide-primary);font-size:15px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.registration-guide .guide-finish{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;padding:25px 12px 12px}
+.registration-guide .guide-finish img{display:block;width:110px;height:auto;transform-origin:50% 90%;animation:guide-finish-cheer 1.3s ease-in-out infinite alternate}
+.registration-guide .guide-finish-sparkle{color:#b6a331;font-size:27px;letter-spacing:14px}
+.registration-guide .guide-finish strong{margin-top:8px;font-size:25px;color:var(--guide-primary)}
+.registration-guide .guide-finish p{margin:0;font-size:16px;color:var(--guide-muted)}
+@keyframes guide-finish-cheer{from{transform:rotate(-6deg) translateY(0)}to{transform:rotate(6deg) translateY(-7px)}}
+@media(prefers-reduced-motion:reduce){.registration-guide .guide-finish img{animation:none}}
