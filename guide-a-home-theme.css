@@ -108,3 +108,38 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 .registration-guide .welcome-speaker{font-size:11px}
 .registration-guide .welcome-explain{font-size:14px!important;line-height:1.8!important}
 }
+
+/* Clearer hierarchy: compact progress, distinct speech and actions. */
+.registration-guide .guide-welcome{padding:38px 38px 36px}
+.registration-guide .welcome-scene{gap:30px;align-items:center;margin-bottom:20px}
+.registration-guide .welcome-mito{flex:0 0 145px;width:145px;height:215px}
+.registration-guide .welcome-dialogue{margin:0;padding:26px 27px}
+.registration-guide .welcome-dialogue h2{font-size:24px;line-height:1.55;margin:0 0 13px}
+.registration-guide .welcome-dialogue p{font-size:16px;line-height:1.85}
+.registration-guide .welcome-explain{margin:4px auto 26px!important}
+.registration-guide .guide-steps{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap;gap:10px;margin:0 auto 36px}
+.registration-guide .guide-steps span{flex:0 0 auto;width:auto;min-height:0;padding:11px 17px;font-size:14px;background:transparent;border:2px solid #d9e5ed;border-radius:10px}
+.registration-guide .guide-steps span.active{border:2px solid #004AAD;background:#fff}
+.registration-guide .chat-panel{padding:0 0 18px}
+.registration-guide .chat-progress{margin-bottom:10px}
+.registration-guide .chat-progress-bar{margin-bottom:32px}
+.registration-guide .chat-message{margin-bottom:36px;align-items:center}
+.registration-guide .chat-bubble{background:#fff;border:1px solid #d9e5ed;box-shadow:0 3px 12px rgba(0,74,173,.035)}
+.registration-guide .chat-choices{gap:13px;margin:0 0 8px}
+.registration-guide .chat-choice{border:2px solid #a6baca;background:#fff;box-shadow:0 3px 0 #d9e5ed;border-radius:12px}
+.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:#004AAD;box-shadow:0 3px 0 #a6baca}
+.registration-guide .guide-links{margin-top:36px;padding-top:22px}
+.registration-guide .chat-footnote{margin-top:42px;padding-top:17px;border-top:1px solid #e1eaf0;color:#657281;font-size:12px}
+@media(max-width:600px){
+.registration-guide .guide-welcome{padding:24px 16px 29px}
+.registration-guide .welcome-scene{gap:12px;margin-bottom:17px;align-items:center}
+.registration-guide .welcome-mito{flex-basis:88px;width:88px;height:150px}
+.registration-guide .welcome-dialogue{padding:17px 15px}
+.registration-guide .welcome-dialogue h2{font-size:18px;margin-bottom:9px}
+.registration-guide .welcome-dialogue p{font-size:14px}
+.registration-guide .guide-steps{gap:6px;margin-bottom:26px}
+.registration-guide .guide-steps span{padding:10px 9px;font-size:12px;min-height:0}
+.registration-guide .chat-progress-bar{margin-bottom:25px}
+.registration-guide .chat-message{margin-bottom:28px}
+.registration-guide .chat-choice{border-width:2px}
+}
