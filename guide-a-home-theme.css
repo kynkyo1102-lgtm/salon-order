@@ -185,6 +185,46 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
  .registration-guide .chat-choice{min-height:68px}
 }
 
-.registration-guide{font-family:"BIZ UDPGothic",sans-serif}
+.registration-guide{font-family:"Noto Sans JP",sans-serif}
 .registration-guide .welcome-dialogue,.registration-guide .chat-bubble{border-color:#b4ca3d}
 .registration-guide .welcome-dialogue:before,.registration-guide .chat-bubble:before{border-left-color:#b4ca3d;border-bottom-color:#b4ca3d}
+
+/* Welcome board, gentle mascot movement and quieter step navigation. */
+.registration-guide .welcome-dialogue{
+ border:3px solid #a6baca;
+ border-radius:9px;
+ background:#fff;
+ box-shadow:0 0 0 6px #f2f7fb,0 6px 0 #d9e5ed;
+ padding:30px 30px;
+ transform:none;
+}
+.registration-guide .welcome-dialogue:before,
+.registration-guide .welcome-dialogue:after{content:none}
+.registration-guide .welcome-dialogue h2{font-size:clamp(18px,2.6vw,23px);line-height:1.55;margin-bottom:16px}
+.registration-guide .welcome-dialogue p{line-height:1.75}
+.registration-guide .welcome-mito{
+ transform-origin:50% 90%;
+ animation:guide-mito-sway 3.8s ease-in-out infinite;
+}
+@keyframes guide-mito-sway{
+ 0%,100%{transform:rotate(-2deg) translateY(0)}
+ 50%{transform:rotate(2deg) translateY(-5px)}
+}
+.registration-guide .chat-bubble{border-color:#d5e2a2}
+.registration-guide .chat-bubble:before{border-left-color:#d5e2a2;border-bottom-color:#d5e2a2}
+.registration-guide .guide-steps span{
+ background:#eaf2f8;border:1px solid #d9e5ed;
+ border-radius:8px;color:#657281;
+}
+.registration-guide .guide-steps span.active{
+ background:#eaf2f8;border:1px solid #004AAD;
+ color:#004AAD;font-weight:700;
+}
+@media(max-width:600px){
+ .registration-guide .welcome-dialogue{padding:18px 15px;border-width:2px;box-shadow:0 0 0 4px #f2f7fb,0 4px 0 #d9e5ed}
+ .registration-guide .welcome-dialogue h2{font-size:17px}
+ .registration-guide .welcome-dialogue p{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+ .registration-guide .welcome-mito{animation:none}
+}
