@@ -19,7 +19,7 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 .registration-guide .reg-chat{width:100%;max-width:850px;margin:0 auto;padding:52px 22px 110px}
 .registration-guide .reg-chat h1{margin:0 0 10px;color:#0055A4;font-weight:800;letter-spacing:-.045em;line-height:1.45}
 
-.registration-guide .chat-panel{box-shadow:0 5px 22px rgba(0,74,173,.045)}
+
 .registration-guide .chat-progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;color:#0055A4;font-weight:700}
 
 .registration-guide .chat-message{display:flex;margin-bottom:26px}
