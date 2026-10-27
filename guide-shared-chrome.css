@@ -1,6 +1,5 @@
 /* Shared guide chrome — one source for all article pages */
 :root{--guide-chrome-blue:#004AAD}
-body{padding-bottom:95px!important}
 body>.guide-shared-header{position:relative!important;z-index:1000!important;display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:66px!important;padding:12px max(18px,calc((100vw - 1060px)/2))!important;background:#004AAD!important;border:0!important;max-width:none!important;width:100%!important;margin:0!important;box-sizing:border-box!important;box-shadow:none!important}
 .guide-shared-brand{display:flex;align-items:baseline;gap:7px;white-space:nowrap}
 .guide-shared-logo{font-family:Georgia,serif!important;font-size:21px!important;font-weight:400!important;color:#fff!important;text-decoration:none!important;line-height:1.2!important}
