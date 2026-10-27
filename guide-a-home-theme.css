@@ -65,7 +65,7 @@ body.registration-guide{background:var(--guide-surface);font-size:17px}
 .registration-guide .chat-message{align-items:center;margin-bottom:32px}
 .registration-guide .chat-avatar{width:100px;flex-basis:100px}
 .registration-guide .chat-avatar small{font-size:11px}
-.registration-guide .chat-bubble{font-size:18px;line-height:1.9;border-color:var(--guide-border);background:#fff}
+.registration-guide .chat-bubble{font-size:18px;line-height:1.9;background:#fff}
 .registration-guide .chat-bubble:before{background:#fff}
 .registration-guide .chat-progress{font-size:15px;color:var(--guide-primary)}
 
