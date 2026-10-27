@@ -79,3 +79,11 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 .registration-guide .chat-bubble{font-size:16px;padding:18px 16px}
 .registration-guide .chat-choice{font-size:16px;padding:17px 15px;min-height:66px}
 }
+
+/* Refine hierarchy: smaller title, outlined current step, distinct answer buttons. */
+.registration-guide .reg-chat h1{font-size:30px;line-height:1.5;margin-bottom:22px}
+.registration-guide .guide-steps span{border:2px solid transparent}
+.registration-guide .guide-steps span.active{border-color:#004AAD;background:#f2f7fb;color:#0055A4}
+.registration-guide .chat-choice{border:2px solid #d7e5ef}
+.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:#004AAD}
+@media(max-width:600px){.registration-guide .reg-chat h1{font-size:26px;margin-bottom:18px}}
