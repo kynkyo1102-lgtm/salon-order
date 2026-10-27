@@ -87,3 +87,24 @@ body.registration-guide{background:#f2f7fb;font-size:17px}
 .registration-guide .chat-choice{border:2px solid #d7e5ef}
 .registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:#004AAD}
 @media(max-width:600px){.registration-guide .reg-chat h1{font-size:26px;margin-bottom:18px}}
+
+/* Welcome illustration: reuse the existing mascot and homepage palette. */
+.registration-guide .guide-welcome{padding:35px 34px 36px;background:#f2f7fb}
+.registration-guide .welcome-scene{display:flex;align-items:flex-end;gap:25px;margin:0 0 20px}
+.registration-guide .welcome-mito{display:block;flex:0 0 130px;width:130px;height:195px;object-fit:contain}
+.registration-guide .welcome-dialogue{position:relative;flex:1;min-width:0;margin-bottom:18px;padding:22px 24px;background:#fff;border:1px solid #d9e5ed;border-radius:16px}
+.registration-guide .welcome-dialogue:before{content:"";position:absolute;left:-8px;bottom:34px;width:14px;height:14px;transform:rotate(45deg);background:#fff;border-left:1px solid #d9e5ed;border-bottom:1px solid #d9e5ed}
+.registration-guide .welcome-speaker{display:block;margin-bottom:7px;font-size:12px;font-weight:700;color:#0055A4}
+.registration-guide .welcome-dialogue h2{margin:0 0 10px;font-size:clamp(20px,3vw,25px);line-height:1.6}
+.registration-guide .welcome-dialogue p{margin:0;font-size:16px;line-height:1.85}
+.registration-guide .welcome-explain{max-width:650px;margin:0 auto 25px!important;text-align:center;font-size:16px!important}
+@media(max-width:600px){
+.registration-guide .guide-welcome{padding:25px 17px 29px}
+.registration-guide .welcome-scene{gap:10px;align-items:flex-end}
+.registration-guide .welcome-mito{flex-basis:82px;width:82px;height:140px}
+.registration-guide .welcome-dialogue{margin-bottom:6px;padding:15px 14px}
+.registration-guide .welcome-dialogue h2{font-size:18px;line-height:1.5}
+.registration-guide .welcome-dialogue p{font-size:14px;line-height:1.7}
+.registration-guide .welcome-speaker{font-size:11px}
+.registration-guide .welcome-explain{font-size:14px!important;line-height:1.8!important}
+}
