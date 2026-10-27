@@ -2,7 +2,8 @@
    Load after guide-shared-chrome.css and before each page's own stylesheet.
    Tokens and opt-in components only: no global header/footer or page layout rules.
    Keep existing guide appearance unchanged during migration. */
-.registration-guide{
+.registration-guide,
+.guide-design-context{
  --guide-primary:#004AAD;
  --guide-primary-hover:#003b8a;
  --guide-text:#273544;
