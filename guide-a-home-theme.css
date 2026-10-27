@@ -507,7 +507,10 @@ body.registration-guide{background:#fff}
  display:block;flex:none;width:100%;height:4px;min-height:0;
  margin:0;padding:0;border:0;border-radius:10px;box-shadow:none;
  background:#e6edf3;
-background:var(--guide-primary)}
+}
+.registration-guide .guide-steps .guide-steps-track span.active{
+ background:var(--guide-primary);
+}
 @media(max-width:600px){
  .registration-guide .guide-steps .guide-steps-heading .guide-steps-current{font-size:13px}
  .registration-guide .guide-steps .guide-steps-heading .guide-steps-total{font-size:11px}
