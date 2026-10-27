@@ -104,7 +104,7 @@ body.registration-guide{background:var(--guide-surface);font-size:17px}
 .registration-guide .welcome-scene{margin:0 0 20px}
 .registration-guide .welcome-mito{display:block;object-fit:contain}
 .registration-guide .welcome-dialogue{position:relative;min-width:0;margin-bottom:18px;border-radius:16px}
-.registration-guide .welcome-dialogue:before{content:"";position:absolute;left:-8px;bottom:34px;width:14px;height:14px;transform:rotate(45deg);background:#fff;border-left:1px solid var(--guide-border);border-bottom:1px solid var(--guide-border)}
+
 
 .registration-guide .welcome-dialogue h2{margin:0 0 10px;line-height:1.6}
 .registration-guide .welcome-dialogue p{margin:0;line-height:1.85}
@@ -161,7 +161,6 @@ body.registration-guide{background:var(--guide-surface);font-size:17px}
  position:relative;transform:none;background:#fff;
  border:2px solid #05376f;border-radius:18px;box-shadow:none;
 }
-.registration-guide .welcome-dialogue:before,
 .registration-guide .chat-bubble:before{
  content:"";position:absolute;left:-9px;bottom:30px;
  width:16px;height:16px;background:#fff;
