@@ -40,3 +40,49 @@ body.registration-guide{margin:0;background:#fff;color:#273544;font:400 15px/1.8
 .registration-guide a:focus-visible,.registration-guide button:focus-visible{outline:3px solid #80b9ff;outline-offset:3px}
 .registration-guide [hidden]{display:none!important}
 @media(max-width:600px){.registration-guide .reg-chat{padding:32px 16px 110px}.registration-guide .reg-chat h1{font-size:29px}.registration-guide .chat-panel{padding:21px 15px}.registration-guide .chat-message{gap:10px}.registration-guide .chat-avatar{width:62px;flex-basis:62px}.registration-guide .chat-avatar small{font-size:9px}.registration-guide .chat-bubble{padding:16px 14px;font-size:14px}.registration-guide .chat-choice{min-height:61px;padding:17px 15px;font-size:14px}}
+
+/* Journey concept B: a calm, playful path guided by Mitochondria-chan. */
+body.registration-guide{background:radial-gradient(ellipse 75% 300px at 90% 130px,#e7f6f1 0%,transparent 80%),linear-gradient(180deg,#f6faf8 0%,#fff9ee 58%,#fff 100%)}
+.registration-guide .reg-chat{max-width:840px;padding-top:54px}
+.registration-guide .journey-kicker{display:inline-flex;align-items:center;gap:9px;margin-bottom:16px;color:#326c70;font-size:12px;font-weight:800;letter-spacing:.14em}
+.registration-guide .journey-kicker:before{content:"";display:block;width:25px;height:6px;border-radius:20px;background:#bfd900;transform:rotate(-12deg)}
+.registration-guide .reg-chat h1{color:#184b6e;font-size:clamp(30px,5vw,43px);letter-spacing:-.045em}
+.registration-guide .lead{max-width:610px;color:#536d76}
+.registration-guide .journey-path{display:flex;align-items:center;gap:8px;margin:3px 0 24px;max-width:510px}
+.registration-guide .journey-path span{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 7px;border:1px solid #dceae6;border-radius:999px;background:#ffffffb8;color:#557479;font-size:11px;font-weight:700;white-space:nowrap}
+.registration-guide .journey-path span:first-child{background:#e3f3eb;border-color:#bddfcb;color:#256b59}
+.registration-guide .journey-path i{width:15px;height:2px;flex:0 0 15px;background:#b7d6d0;position:relative}
+.registration-guide .journey-path i:after{content:"";position:absolute;right:0;top:-3px;width:6px;height:6px;border-top:2px solid #b7d6d0;border-right:2px solid #b7d6d0;transform:rotate(45deg)}
+.registration-guide .chat-panel{position:relative;border:2px solid #d0e5e2;border-radius:27px 27px 27px 12px;padding:32px 31px 29px;background:#fff;box-shadow:9px 10px 0 #e3f0ed,0 14px 32px #235d6420}
+.registration-guide .chat-panel:before{content:"";position:absolute;left:30px;top:-6px;width:82px;height:10px;background:#bfd900;border-radius:0 0 12px 12px}
+.registration-guide .chat-progress{color:#31736b}
+.registration-guide .chat-progress-bar{height:7px;background:#e9f2ed;border-radius:20px}
+.registration-guide .chat-progress-fill{background:linear-gradient(90deg,#6cbfa6,#4e96bd);border-radius:20px}
+.registration-guide .chat-message{align-items:flex-end;gap:19px;margin-bottom:29px}
+.registration-guide .chat-avatar{width:97px;flex-basis:97px}
+.registration-guide .chat-bubble{background:#eaf7f3;border:1.5px solid #c8e7dc;border-radius:20px 20px 20px 5px;padding:23px 24px;color:#284d55;box-shadow:0 4px 0 #e1f0ea;font-size:16px}
+.registration-guide .chat-bubble:before{background:#eaf7f3;border-color:#c8e7dc}
+.registration-guide .chat-choice{border:1.5px solid #d8e8e5;border-radius:15px;background:#fff;box-shadow:0 3px 0 #eef4f1;color:#254b58;transition:transform .15s,background .15s,border-color .15s}
+.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{background:#eff9f5;border-color:#63a999;transform:translateY(-2px)}
+.registration-guide .chat-choice:after{color:#368d8a}
+.registration-guide .chat-result{background:#eaf7f3;border-color:#c8e7dc}
+.registration-guide .chat-result strong{color:#267468}
+.registration-guide .chat-action{background:#257f82}
+.registration-guide .chat-action:hover{background:#1b6669}
+.registration-guide .chat-cost-link{background:#f6faf5;border-color:#dce9dc}
+.registration-guide .chat-answers span{background:#eaf7f3;color:#31736b}
+.registration-guide .chat-footnote{margin-top:27px}
+@media(max-width:600px){
+body.registration-guide{background:linear-gradient(180deg,#f1f9f6 0%,#fffaf0 65%,#fff 100%)}
+.registration-guide .reg-chat{padding-top:34px}
+.registration-guide .journey-path{gap:5px;margin-bottom:24px}
+.registration-guide .journey-path span{font-size:10px;padding:7px 5px}
+.registration-guide .journey-path i{width:8px;flex-basis:8px}
+.registration-guide .chat-panel{padding:24px 15px 23px;border-radius:21px 21px 21px 10px;box-shadow:5px 7px 0 #e3f0ed}
+.registration-guide .chat-panel:before{left:23px;width:65px}
+.registration-guide .chat-avatar{width:67px;flex-basis:67px}
+.registration-guide .chat-message{gap:9px}
+.registration-guide .chat-bubble{padding:17px 14px;font-size:14px}
+.registration-guide .chat-choice{min-height:62px}
+}
+@media(prefers-reduced-motion:reduce){.registration-guide .chat-choice,.registration-guide .chat-progress-fill{transition:none}}
