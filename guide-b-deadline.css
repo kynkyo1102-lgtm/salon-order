@@ -1,0 +1,22 @@
+/* Deadline guide: one prominent deadline, simple follow-up explanation. */
+.deadline-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.deadline-guide *{box-sizing:border-box}
+.deadline-guide .page-intro{margin:0 0 42px;color:var(--guide-muted)}
+.deadline-guide .deadline-section{margin:0 0 68px}
+.deadline-guide .deadline-section h2{margin:0 0 24px;padding:0 0 15px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+.deadline-guide .deadline-section>p{margin:0;line-height:1.95}
+.deadline-guide .deadline-section strong{color:var(--guide-primary)}
+.deadline-guide .deadline-highlight{padding:26px 24px;text-align:center;background:#eef5fb;border-radius:12px}
+.deadline-guide .deadline-eyebrow{display:block;color:var(--guide-primary);font-size:14px;font-weight:700}
+.deadline-guide .deadline-date{margin:3px 0 9px;color:var(--guide-primary);font-size:56px;font-weight:800;line-height:1.35}
+.deadline-guide .deadline-date span{margin-left:7px;font-size:21px}
+.deadline-guide .deadline-subtext{margin:0;font-size:14px;line-height:1.8}
+.deadline-guide .deadline-alert{margin-top:25px;border-top:1px solid var(--guide-border);border-bottom:1px solid var(--guide-border);background:#f8fafc}
+.deadline-guide .deadline-alert summary{display:flex;align-items:center;padding:17px 12px;color:#526273;font-size:14px;font-weight:600;cursor:pointer;list-style:none}
+.deadline-guide .deadline-alert summary::-webkit-details-marker{display:none}
+.deadline-guide .deadline-alert summary:after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg)}
+.deadline-guide .deadline-alert[open] summary:after{transform:rotate(225deg)}
+.deadline-guide .deadline-alert-body{padding:0 12px 18px;line-height:1.9}
+.deadline-guide .deadline-alert-body p{margin:10px 0 0}
+.deadline-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
+@media(max-width:600px){.deadline-guide .page-intro{margin-bottom:32px}.deadline-guide .deadline-section{margin-bottom:56px}.deadline-guide .deadline-highlight{padding:24px 14px}.deadline-guide .deadline-date{font-size:48px}}
