@@ -25,3 +25,6 @@ body>.guide-shared-footer{display:block!important;width:100%!important;max-width
 .guide-shared-floating .guide-shared-eservice{color:#004AAD!important;background:#fff!important;border:2px solid #004AAD!important}
 .guide-shared-floating .guide-shared-diagnosis{color:#fff!important;background:#004AAD!important;border:2px solid #004AAD!important}
 @media(max-width:420px){.guide-shared-menu{right:0;width:min(100vw,380px);border-radius:0 0 14px 14px;padding:20px 25px 24px}.guide-shared-floating{left:12px;right:12px;gap:8px}.guide-shared-floating a{flex:1;min-width:0;padding:10px 6px;font-size:13px}}
+
+/* Manual page locator, provisionally set to 1P until checked against print. */
+.guide-manual-reference{margin:38px 0 0;padding-top:14px;border-top:1px solid #e2e9ef;color:#66788a;font:400 12px/1.7 "Noto Sans JP",sans-serif;text-align:right}
