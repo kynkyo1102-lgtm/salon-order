@@ -17,7 +17,7 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 .registration-guide button,.registration-guide a{font:inherit}
 .registration-guide button{cursor:pointer}
 .registration-guide .reg-chat{width:100%;margin:0 auto;padding:52px 22px 110px}
-.registration-guide .reg-chat h1{margin:0 0 10px;color:#0055A4;font-weight:800;letter-spacing:-.045em;line-height:1.45}
+.registration-guide .reg-chat h1{margin:0 0 22px;color:#0055A4;font-size:30px;font-weight:800;letter-spacing:-.045em;line-height:1.5}
 
 
 .registration-guide .chat-progress{display:flex;align-items:center;justify-content:space-between;margin:0 0 27px;color:var(--guide-primary);font-size:14px;font-weight:700}
@@ -49,7 +49,6 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 
 body.registration-guide{font-size:17px}
 .registration-guide .reg-chat{max-width:860px}
-.registration-guide .reg-chat h1{margin-bottom:26px}
 .registration-guide .guide-welcome{border-radius:19px}
 .registration-guide .guide-welcome h2{margin:0 0 18px;font-size:clamp(23px,3vw,29px);line-height:1.5;color:#0055A4}
 .registration-guide .guide-welcome p{margin:0 0 28px;font-size:17px;line-height:2;color:var(--guide-muted)}
@@ -77,7 +76,6 @@ body.registration-guide{font-size:17px}
 .registration-guide .chat-choice{font-size:16px;padding:17px 15px;min-height:68px}
 }
 
-.registration-guide .reg-chat h1{font-size:30px;line-height:1.5;margin-bottom:22px}
 
 .registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:var(--guide-primary)}
 @media(max-width:600px){.registration-guide .reg-chat h1{font-size:26px;margin-bottom:18px}}
