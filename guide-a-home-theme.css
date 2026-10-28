@@ -16,7 +16,7 @@ html{scroll-behavior:smooth}
 body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
 .registration-guide button,.registration-guide a{font:inherit}
 .registration-guide button{cursor:pointer}
-.registration-guide .reg-chat{width:100%;margin:0 auto;padding:52px 22px 110px}
+.registration-guide .reg-chat{width:100%;max-width:860px;margin:0 auto;padding:52px 22px 110px;background:#fff}
 .registration-guide .reg-chat h1{margin:0 0 22px;color:#0055A4;font-size:30px;font-weight:800;letter-spacing:-.045em;line-height:1.5}
 
 
@@ -48,7 +48,6 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 .registration-guide [hidden]{display:none!important}
 
 body.registration-guide{font-size:17px}
-.registration-guide .reg-chat{max-width:860px}
 .registration-guide .guide-welcome{border-radius:19px}
 .registration-guide .guide-welcome h2{margin:0 0 18px;font-size:clamp(23px,3vw,29px);line-height:1.5;color:#0055A4}
 .registration-guide .guide-welcome p{margin:0 0 28px;font-size:17px;line-height:2;color:var(--guide-muted)}
@@ -354,7 +353,6 @@ body.registration-guide{font-size:17px}
 }
 
 body.registration-guide{background:#fff}
-.registration-guide .reg-chat{background:#fff}
 .registration-guide .guide-welcome{background:#fff;box-shadow:none}
 .registration-guide .chat-panel{
  background:#fff;border:0;border-radius:0;box-shadow:none;
