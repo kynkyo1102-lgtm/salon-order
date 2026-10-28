@@ -32,6 +32,8 @@
  font-weight:700;
 }
 .registration-guide .guide-ui-action:hover{background:var(--guide-primary-hover)}
+/* Shared choice-button fundamentals; page-specific dimensions remain local. */
+.registration-guide .guide-common-choice{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:#fff;color:var(--guide-text);text-align:left;font-weight:600}
 .registration-guide .guide-ui-option{
  background:#fff;
  border:1px solid var(--guide-border);
