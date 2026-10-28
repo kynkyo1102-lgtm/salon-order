@@ -1,0 +1,19 @@
+/* Monthly purchase costs — shared registration guide design. */
+.monthly-cost-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.monthly-cost-guide *{box-sizing:border-box}
+.monthly-cost-guide .monthly-cost-page{--guide-title-gap:10px}
+.monthly-cost-guide .page-intro{margin:0 0 38px;color:var(--guide-muted)}
+.monthly-cost-guide .monthly-section{margin:0 0 40px}
+.monthly-cost-guide .monthly-section h2{margin:0 0 19px;padding:0 0 13px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+.monthly-cost-guide .monthly-cost-list{display:grid;gap:14px}
+.monthly-cost-guide .monthly-cost-item{padding:20px 22px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-info);background:#fff}
+.monthly-cost-guide .monthly-cost-label{margin-bottom:5px;color:var(--guide-text);font-size:15px;font-weight:700}
+.monthly-cost-guide .monthly-cost-price{color:var(--guide-primary);font-size:25px;font-weight:800;line-height:1.5;font-variant-numeric:tabular-nums}
+.monthly-cost-guide .monthly-cost-note{margin:5px 0 0;color:var(--guide-muted);font-size:13px}
+.monthly-cost-guide .monthly-cost-total{background:var(--guide-surface);border-color:#bfd5e9}
+.monthly-cost-guide .monthly-cost-total .monthly-cost-price{font-size:30px}
+.monthly-cost-guide .shipping-info{padding:20px 22px;border-radius:var(--guide-radius-info);background:var(--guide-surface);line-height:1.9}
+.monthly-cost-guide .shipping-info p{margin:0}
+.monthly-cost-guide .shipping-info strong{color:var(--guide-primary)}
+.monthly-cost-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
+@media(max-width:600px){.monthly-cost-guide .page-intro{margin-bottom:30px}.monthly-cost-guide .monthly-section{margin-bottom:32px}.monthly-cost-guide .monthly-cost-item{padding:17px 18px}.monthly-cost-guide .monthly-cost-price{font-size:23px}.monthly-cost-guide .monthly-cost-total .monthly-cost-price{font-size:28px}.monthly-cost-guide .shipping-info{padding:18px}}
