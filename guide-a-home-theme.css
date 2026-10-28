@@ -20,10 +20,10 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 .registration-guide .reg-chat h1{margin:0 0 10px;color:#0055A4;font-weight:800;letter-spacing:-.045em;line-height:1.45}
 
 
-.registration-guide .chat-progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;color:#0055A4;font-weight:700}
+.registration-guide .chat-progress{display:flex;align-items:center;justify-content:space-between;margin:0 0 27px;color:var(--guide-primary);font-size:14px;font-weight:700}
 
 .registration-guide .chat-message{display:flex;align-items:center;gap:17px;margin-bottom:48px}
-.registration-guide .chat-avatar{position:relative;z-index:1;text-align:center}
+.registration-guide .chat-avatar{position:relative;z-index:1;text-align:center;width:100px;flex-basis:100px}
 .registration-guide .chat-avatar img{display:block;width:100%;height:auto;max-width:100%}
 
 
@@ -58,10 +58,8 @@ body.registration-guide{font-size:17px}
 .registration-guide .guide-steps{grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 30px}
 
 .registration-guide .chat-panel{padding:15px 0 25px}
-.registration-guide .chat-avatar{width:100px;flex-basis:100px}
 
 
-.registration-guide .chat-progress{font-size:15px;color:var(--guide-primary)}
 
 .registration-guide .chat-choice{font-size:17px;min-height:75px;padding:20px 22px;background:#fff;border:1px solid var(--guide-border);border-radius:12px;box-shadow:none}
 .registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{background:var(--guide-surface)}
@@ -114,7 +112,6 @@ body.registration-guide{font-size:17px}
 .registration-guide .welcome-explain{margin:4px auto 26px!important}
 .registration-guide .guide-steps{align-items:stretch;flex-wrap:wrap;gap:10px;margin:0 auto 36px}
 
-.registration-guide .chat-progress{margin-bottom:10px}
 
 
 .registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:var(--guide-primary);box-shadow:0 3px 0 #a6baca}
@@ -141,7 +138,6 @@ body.registration-guide{font-size:17px}
 .registration-guide .guide-steps{
  justify-content:flex-start;
 }
-.registration-guide .chat-progress{margin:0 0 27px;font-size:14px}
 .registration-guide .chat-cost-link{margin-top:25px}
 .registration-guide .chat-controls{margin-top:37px}
 @media(max-width:600px){
