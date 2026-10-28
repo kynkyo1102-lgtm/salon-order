@@ -22,12 +22,12 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 
 .registration-guide .chat-progress{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;color:#0055A4;font-weight:700}
 
-.registration-guide .chat-message{display:flex}
+.registration-guide .chat-message{display:flex;align-items:center;gap:17px;margin-bottom:48px}
 .registration-guide .chat-avatar{position:relative;z-index:1;text-align:center}
 .registration-guide .chat-avatar img{display:block;width:100%;height:auto;max-width:100%}
 
 
-.registration-guide .chat-choices{display:grid}
+.registration-guide .chat-choices{display:grid;gap:16px;margin:0 0 8px}
 .registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{background:var(--guide-surface);border-color:var(--guide-primary)}
 
 .registration-guide .chat-cost-link{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:15px;padding:13px 16px;border:1px solid var(--guide-border);border-radius:10px;background:var(--guide-surface);color:var(--guide-muted);font-size:13px}
@@ -58,7 +58,6 @@ body.registration-guide{font-size:17px}
 .registration-guide .guide-steps{grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 30px}
 
 .registration-guide .chat-panel{padding:15px 0 25px}
-.registration-guide .chat-message{align-items:center;margin-bottom:32px}
 .registration-guide .chat-avatar{width:100px;flex-basis:100px}
 
 
@@ -117,9 +116,7 @@ body.registration-guide{font-size:17px}
 
 .registration-guide .chat-progress{margin-bottom:10px}
 
-.registration-guide .chat-message{margin-bottom:36px;align-items:center}
 
-.registration-guide .chat-choices{gap:13px;margin:0 0 8px}
 .registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:var(--guide-primary);box-shadow:0 3px 0 #a6baca}
 .registration-guide .guide-links{padding-top:22px}
 .registration-guide .chat-footnote{margin-top:42px;padding-top:17px;border-top:1px solid #e1eaf0;color:#657281;font-size:12px}
@@ -140,13 +137,11 @@ body.registration-guide{font-size:17px}
 
 .registration-guide .welcome-scene{gap:16px}
 .registration-guide .welcome-dialogue{padding:26px 29px}
-.registration-guide .chat-message{gap:17px;margin-bottom:48px}
 .registration-guide .chat-bubble{padding:27px 29px;min-height:0}
 .registration-guide .guide-steps{
  justify-content:flex-start;
 }
 .registration-guide .chat-progress{margin:0 0 27px;font-size:14px}
-.registration-guide .chat-choices{gap:16px}
 .registration-guide .chat-cost-link{margin-top:25px}
 .registration-guide .chat-controls{margin-top:37px}
 @media(max-width:600px){
