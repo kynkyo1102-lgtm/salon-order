@@ -1,0 +1,34 @@
+/* Initial registration costs — page-specific layout only.
+   Shared typography, page width, title and colors come from guide-design-system.css. */
+.registration-guide.cost-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.cost-guide *{box-sizing:border-box}
+.cost-guide .cost-page{--guide-title-gap:44px}
+.cost-guide .cost-section{margin:0 0 40px}
+.cost-guide .cost-section-title{margin:0 0 17px;color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+.cost-guide .section-desc{margin:0 0 22px;color:var(--guide-text);line-height:1.9}
+.cost-guide .product-list,.cost-guide .cost-list{display:grid;gap:14px}
+.cost-guide .product-item{display:flex;align-items:center;gap:15px;padding:18px 20px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff}
+.cost-guide .product-number{display:flex;align-items:center;justify-content:center;flex:0 0 36px;height:36px;border-radius:50%;background:var(--guide-primary);color:#fff;font-weight:800}
+.cost-guide .product-info{flex:1;min-width:0}
+.cost-guide .product-type{color:var(--guide-muted);font-size:13px}
+.cost-guide .product-name{color:var(--guide-primary);font-size:18px;font-weight:800}
+.cost-guide .product-quantity{color:var(--guide-muted);font-weight:600;white-space:nowrap}
+.cost-guide .cost-item{padding:20px 22px;background:var(--guide-surface);border-radius:var(--guide-radius-info)}
+.cost-guide .cost-item-title{margin-bottom:14px;color:var(--guide-primary);font-size:17px;font-weight:800}
+.cost-guide .cost-row,.cost-guide .cost-total{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.cost-guide .cost-row{padding:8px 0;border-bottom:1px solid var(--guide-border)}
+.cost-guide .cost-price{font-weight:700;white-space:nowrap}
+.cost-guide .cost-total{margin-top:12px;padding-top:12px;border-top:1px solid var(--guide-border);font-weight:800}
+.cost-guide .cost-total-price{color:var(--guide-primary);font-size:21px;white-space:nowrap}
+.cost-guide .free-price{color:var(--guide-primary);font-size:19px;font-weight:800}
+.cost-guide .cost-subtext{display:block;margin-top:8px;color:var(--guide-muted);font-size:13px}
+.cost-guide .manual-ref{margin-top:42px;padding:20px 0;border-top:1px solid var(--guide-border);color:var(--guide-muted);font-size:13px;line-height:1.8}
+@media(max-width:600px){
+ .cost-guide .cost-page{--guide-title-gap:34px}
+ .cost-guide .cost-section{margin-bottom:34px}
+ .cost-guide .cost-section-title{font-size:19px}
+ .cost-guide .product-item{padding:15px}
+ .cost-guide .cost-item{padding:18px}
+ .cost-guide .cost-item-title{font-size:16px}
+ .cost-guide .cost-total-price{font-size:19px}
+}
