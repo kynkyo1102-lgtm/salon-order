@@ -43,7 +43,6 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 .registration-guide .chat-controls button:disabled{opacity:.3;cursor:default}
 .registration-guide .chat-footnote{font-size:12px;line-height:1.8;margin-top:42px;padding-top:17px;border-top:1px solid #e1eaf0;color:#657281}
 .registration-guide .guide-links{font-size:14px}
-.registration-guide .guide-links a{text-decoration:underline}
 .registration-guide a:focus-visible,.registration-guide button:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}
 .registration-guide [hidden]{display:none!important}
 
@@ -200,9 +199,6 @@ body.registration-guide{font-size:17px}
  box-shadow:none;
 }
 .registration-guide .chat-cost-link,
-.registration-guide .chat-result{
- border-color:var(--guide-border);
-}
 .registration-guide .welcome-dialogue{
  background:#fff;border-color:#05376f;
 }
