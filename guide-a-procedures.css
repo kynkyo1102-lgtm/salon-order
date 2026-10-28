@@ -38,26 +38,23 @@ html{scroll-behavior:smooth}
 .steps-guide .closing p{margin:0 0 9px}
 @media(max-width:600px){.steps-guide .method-nav{gap:9px;margin-bottom:36px}.steps-guide .method-nav a{padding:14px 12px;font-size:13px}.steps-guide .method{margin-bottom:46px}.steps-guide .method-head h2{font-size:21px}.steps-guide .preparation{padding:19px 17px}.steps-guide .steps>li{grid-template-columns:36px minmax(0,1fr);gap:11px;padding:15px 12px}.steps-guide .steps>li:before{width:36px;height:36px;font-size:12px}}
 
-/* One action per expandable step */
-.steps-guide .overview-hint{margin:0 0 15px;color:var(--guide-muted);font-size:14px}
-.steps-guide .overview-steps{list-style:none;counter-reset:step;margin:0;padding:0}
-.steps-guide .overview-steps>li{counter-increment:step;margin:0 0 11px;scroll-margin-top:28px}
+/* Collapsible five-phase overview */
+.steps-guide .overview-hint{margin:0 0 14px;color:var(--guide-muted);font-size:14px}
+.steps-guide .overview-steps{list-style:none;counter-reset:phase;margin:0;padding:0}
+.steps-guide .overview-steps>li{counter-increment:phase;margin:0 0 12px;scroll-margin-top:30px}
 .steps-guide .overview-steps details{border:1px solid var(--guide-border);border-radius:14px;background:#fff;overflow:hidden}
-.steps-guide .overview-steps summary{display:grid;grid-template-columns:40px minmax(0,1fr) 22px;gap:13px;align-items:center;cursor:pointer;padding:16px;list-style:none}
+.steps-guide .overview-steps summary{display:grid;grid-template-columns:40px minmax(0,1fr) 22px;gap:13px;align-items:center;cursor:pointer;padding:17px;list-style:none}
 .steps-guide .overview-steps summary::-webkit-details-marker{display:none}
-.steps-guide .overview-steps summary:before{content:counter(step,decimal-leading-zero);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--guide-primary);color:#fff;font-size:14px;font-weight:800}
+.steps-guide .overview-steps summary:before{content:counter(phase,decimal-leading-zero);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--guide-primary);color:#fff;font-size:14px;font-weight:800}
 .steps-guide .overview-steps summary strong{display:block;color:var(--guide-primary);font-size:16px;line-height:1.5}
-.steps-guide .overview-steps summary small{display:block;margin-top:3px;color:var(--guide-muted);font-size:12px}
-.steps-guide .overview-steps summary:after{content:"＋";color:var(--guide-primary);font-size:21px}
+.steps-guide .overview-steps summary small{display:block;margin-top:3px;color:var(--guide-muted);font-size:13px;line-height:1.6}
+.steps-guide .overview-steps summary:after{content:"＋";color:var(--guide-primary);font-size:21px;font-weight:500}
 .steps-guide .overview-steps details[open] summary:after{content:"−"}
 .steps-guide .overview-steps details[open] summary{background:var(--guide-surface)}
-.steps-guide .overview-detail{padding:12px 17px 18px}
-.steps-guide .overview-detail>p:not(.note){margin:0 0 8px}
-.steps-guide .overview-detail>ol{list-style:none;margin:0;padding:0}
-.steps-guide .overview-detail>ol>li{margin:0 0 8px}
-.steps-guide .overview-detail .check-line{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;background:#f6f9fc;cursor:pointer;font-size:14px;line-height:1.75}
-.steps-guide .check-line input{flex:none;width:19px;height:19px;margin:3px 0 0;accent-color:#28704c}
-.steps-guide .check-line input:checked+.check-line-text{color:var(--guide-muted);text-decoration:line-through;text-decoration-color:#a1b5aa}
-.steps-guide .overview-detail .note{margin:10px 0 12px;padding:10px 12px;border-left:3px solid #d5e3ee;background:#f7fafd}
-.steps-guide .overview-detail .bank-details{margin:12px 0 0}
-@media(max-width:600px){.steps-guide .overview-steps summary{grid-template-columns:36px minmax(0,1fr) 20px;gap:10px;padding:13px 12px}.steps-guide .overview-steps summary:before{width:36px;height:36px;font-size:12px}.steps-guide .overview-detail{padding:11px 12px 15px}}
+.steps-guide .overview-detail{padding:14px 18px 18px}
+.steps-guide .detail-steps{margin:0;padding-left:1.4em}
+.steps-guide .detail-steps>li{padding:10px 0;border-bottom:1px solid var(--guide-border)}
+.steps-guide .detail-steps>li:last-child{border-bottom:0}
+.steps-guide .detail-steps .step-title{font-size:15px}
+.steps-guide .detail-steps .step-body p{font-size:14px}
+@media(max-width:600px){.steps-guide .overview-steps summary{grid-template-columns:36px minmax(0,1fr) 20px;gap:10px;padding:14px 12px}.steps-guide .overview-steps summary:before{width:36px;height:36px;font-size:12px}.steps-guide .overview-detail{padding:12px 15px 16px}}
