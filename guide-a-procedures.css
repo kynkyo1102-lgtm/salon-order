@@ -54,3 +54,18 @@ html{scroll-behavior:smooth}
 .steps-guide .detail-steps .step-title{font-size:15px}
 .steps-guide .detail-steps .step-body p{font-size:14px}
 @media(max-width:600px){.steps-guide .overview-steps summary{grid-template-columns:36px minmax(0,1fr) 20px;gap:10px;padding:14px 12px}.steps-guide .overview-steps summary:before{width:36px;height:36px;font-size:12px}.steps-guide .overview-detail{padding:12px 15px 16px}}
+
+/* Expandable preparation lists for both registration methods */
+.steps-guide .preparation-accordion{padding:0;overflow:hidden}
+.steps-guide .preparation-accordion>summary{display:flex;align-items:center;gap:12px;padding:19px 22px;cursor:pointer;list-style:none;color:#28704c}
+.steps-guide .preparation-accordion>summary::-webkit-details-marker{display:none}
+.steps-guide .preparation-accordion .preparation-summary-icon{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#d9eee0;font-weight:800}
+.steps-guide .preparation-accordion .preparation-summary-text{flex:1;min-width:0}
+.steps-guide .preparation-accordion .preparation-summary-text strong{display:block;font-size:17px;line-height:1.5}
+.steps-guide .preparation-accordion .preparation-summary-text small{display:block;color:#507260;font-size:12px;font-weight:400}
+.steps-guide .preparation-accordion>summary:after{content:"＋";font-size:23px;line-height:1}
+.steps-guide .preparation-accordion[open]>summary:after{content:"−"}
+.steps-guide .preparation-accordion[open]>summary{border-bottom:1px solid #d6e9db}
+.steps-guide .preparation-accordion .preparation-content{padding:16px 22px 20px}
+.steps-guide .preparation-accordion .preparation-content .note{margin:12px 0 0}
+@media(max-width:600px){.steps-guide .preparation-accordion>summary{padding:16px 17px}.steps-guide .preparation-accordion .preparation-content{padding:14px 17px 18px}}
