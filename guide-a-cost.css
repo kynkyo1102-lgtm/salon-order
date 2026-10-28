@@ -8,9 +8,8 @@
 .cost-guide .section-desc{margin:0 0 22px;color:var(--guide-text);line-height:1.9}
 .cost-guide .product-list,.cost-guide .cost-list{display:grid;gap:14px}
 .cost-guide .product-item{display:flex;align-items:center;gap:15px;padding:18px 20px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff}
-.cost-guide .product-number{display:flex;align-items:center;justify-content:center;flex:0 0 36px;height:36px;border-radius:50%;background:var(--guide-primary);color:#fff;font-weight:800}
 .cost-guide .product-info{flex:1;min-width:0}
-.cost-guide .product-type{color:var(--guide-muted);font-size:13px}
+.cost-guide .product-type{color:var(--guide-primary);font-size:17px;font-weight:800;line-height:1.5}
 .cost-guide .product-name{color:var(--guide-primary);font-size:18px;font-weight:800}
 .cost-guide .product-quantity{color:var(--guide-muted);font-weight:600;white-space:nowrap}
 .cost-guide .cost-item{padding:20px 22px;background:var(--guide-surface);border-radius:var(--guide-radius-info)}
@@ -28,6 +27,7 @@
  .cost-guide .cost-section{margin-bottom:34px}
  .cost-guide .cost-section-title{font-size:19px}
  .cost-guide .product-item{padding:15px}
+ .cost-guide .product-type{font-size:16px}
  .cost-guide .cost-item{padding:18px}
  .cost-guide .cost-item-title{font-size:16px}
  .cost-guide .cost-total-price{font-size:19px}
