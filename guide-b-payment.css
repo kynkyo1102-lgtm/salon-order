@@ -1,0 +1,21 @@
+/* Monthly payment methods — shared guide design system. */
+.monthly-payment-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.monthly-payment-guide *{box-sizing:border-box}
+.monthly-payment-guide .monthly-payment-page{--guide-title-gap:10px}
+.monthly-payment-guide .page-intro{margin:0 0 38px;color:var(--guide-muted)}
+.monthly-payment-guide .payment-section{margin:0 0 40px}
+.monthly-payment-guide .payment-section h2{margin:0 0 19px;padding:0 0 13px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+.monthly-payment-guide .payment-details{display:grid;gap:12px}
+.monthly-payment-guide .payment-detail{padding:19px 22px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-info);background:#fff}
+.monthly-payment-guide .payment-label{margin-bottom:5px;color:var(--guide-text);font-size:15px;font-weight:800}
+.monthly-payment-guide .payment-detail p{margin:0;line-height:1.9}
+.monthly-payment-guide .payment-detail strong{color:var(--guide-primary)}
+.monthly-payment-guide .payment-alert{margin-top:16px;border:1px solid #f0dfb7;border-radius:var(--guide-radius-info);background:#fffaf0;overflow:hidden}
+.monthly-payment-guide .payment-alert summary{display:flex;align-items:center;gap:10px;padding:17px 19px;cursor:pointer;color:#795318;font-weight:700;list-style:none}
+.monthly-payment-guide .payment-alert summary::-webkit-details-marker{display:none}
+.monthly-payment-guide .payment-alert summary:before{content:"";order:2;margin-left:auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s}
+.monthly-payment-guide .payment-alert[open] summary:before{transform:rotate(225deg)}
+.monthly-payment-guide .payment-alert summary span{display:inline-grid;place-items:center;width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:#f5e2b5;font-weight:800}
+.monthly-payment-guide .payment-alert-body{padding:0 19px 19px;color:#5b4c33;line-height:1.9}
+.monthly-payment-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
+@media(max-width:600px){.monthly-payment-guide .page-intro{margin-bottom:30px}.monthly-payment-guide .payment-section{margin-bottom:32px}.monthly-payment-guide .payment-detail{padding:17px 18px}.monthly-payment-guide .payment-alert summary{padding:15px}.monthly-payment-guide .payment-alert-body{padding:0 15px 17px}}
