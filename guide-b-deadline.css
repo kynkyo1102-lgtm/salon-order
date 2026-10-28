@@ -66,3 +66,9 @@
 .deadline-guide .deadline-timing-result strong{color:#07539c;font-size:23px;font-weight:800}
 .deadline-guide .deadline-timing-result span{color:#526273;font-size:14px;font-weight:400}
 @media(max-width:600px){.deadline-guide .deadline-section h2{font-size:18px}.deadline-guide .deadline-timing-result strong{font-size:23px}}
+
+/* Restore blue section heading; make outcomes distinct through a subtle highlight. */
+.deadline-guide .deadline-section h2{color:var(--guide-primary);font-size:21px;font-weight:800}
+.deadline-guide .deadline-timing-result strong{color:#183e5b;background:#e9f3ed;border-radius:5px;padding:2px 6px;font-size:21px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.deadline-guide .deadline-timing-result span{color:#526273;font-size:14px}
+@media(max-width:600px){.deadline-guide .deadline-section h2{font-size:21px}.deadline-guide .deadline-timing-result strong{font-size:21px}}
