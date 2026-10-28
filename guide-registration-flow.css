@@ -20,7 +20,6 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide .guide-controls button{border:0;background:transparent;color:#657281;font-size:13px;padding:8px 2px}
 .registration-guide .guide-controls button:disabled{opacity:.3;cursor:default}
 .registration-guide .guide-controls button:hover:not(:disabled){color:var(--guide-primary);text-decoration:underline}
-.registration-guide .guide-foot a,
 .registration-guide .guide-inline-link a{color:var(--guide-primary);font-weight:700;text-underline-offset:3px}
 .registration-guide .guide-foot p{font-size:12px;color:var(--guide-muted);margin:16px 0 0}
 .registration-guide button:focus-visible,.registration-guide a:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}
