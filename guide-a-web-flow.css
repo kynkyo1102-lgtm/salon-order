@@ -15,7 +15,7 @@ body.registration-guide{margin:0;background:#fff;color:var(--guide-text);font:40
 .registration-guide .guide-note p:last-child{margin-bottom:0}
 .registration-guide .guide-note strong{color:var(--guide-primary)}
 .registration-guide .guide-choices{display:grid;gap:12px;margin-top:28px}
-.registration-guide .guide-choices button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:var(--guide-choice-min-height);padding:20px 22px;background:#fff;color:var(--guide-text);text-align:left;font-size:17px;font-weight:600;border:2px solid var(--guide-border);border-radius:var(--guide-radius-control);box-shadow:0 3px 0 var(--guide-border)}
+.registration-guide .guide-choices button{min-height:var(--guide-choice-min-height);padding:20px 22px;font-size:17px;border:2px solid var(--guide-border);border-radius:var(--guide-radius-control);box-shadow:0 3px 0 var(--guide-border)}
 .registration-guide .guide-choices button:after{content:"›";color:var(--guide-primary);font-size:23px}
 .registration-guide .guide-choices button:hover{background:var(--guide-surface);border-color:var(--guide-primary)}
 .registration-guide .guide-controls button{border:0;background:transparent;color:#657281;font-size:13px;padding:8px 2px}
