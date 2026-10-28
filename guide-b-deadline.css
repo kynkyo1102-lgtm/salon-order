@@ -20,3 +20,13 @@
 .deadline-guide .deadline-alert-body p{margin:10px 0 0}
 .deadline-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
 @media(max-width:600px){.deadline-guide .page-intro{margin-bottom:32px}.deadline-guide .deadline-section{margin-bottom:56px}.deadline-guide .deadline-highlight{padding:24px 14px}.deadline-guide .deadline-date{font-size:48px}}
+
+/* Clear before/after cutoff comparison */
+.deadline-guide .deadline-timing{border-top:1px solid var(--guide-border)}
+.deadline-guide .deadline-timing-row{display:grid;grid-template-columns:42% 1fr;gap:18px;align-items:center;padding:21px 12px;border-bottom:1px solid var(--guide-border)}
+.deadline-guide .deadline-timing-when{font-size:16px}
+.deadline-guide .deadline-timing-when strong{display:inline-block;margin-left:4px;color:var(--guide-primary);font-size:21px}
+.deadline-guide .deadline-timing-result{font-size:15px}
+.deadline-guide .deadline-timing-result strong{color:var(--guide-primary)}
+.deadline-guide .deadline-footnote{margin-top:20px!important;color:var(--guide-muted);font-size:14px}
+@media(max-width:600px){.deadline-guide .deadline-timing-row{grid-template-columns:1fr;gap:4px;padding:19px 8px}.deadline-guide .deadline-timing-when strong{font-size:20px}}
