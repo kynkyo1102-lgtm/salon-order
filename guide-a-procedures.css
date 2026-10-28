@@ -1,31 +1,39 @@
-/* Registration procedure page — shared visual language with mascot guide.
-   Page-specific layout; global chrome and design tokens remain untouched. */
-
-*{box-sizing:border-box}html{scroll-behavior:smooth}body.registration-guide{margin:0;background:#fff;color:#243449;font:400 15px/1.85 "Noto Sans JP",sans-serif}.registration-guide a{color:#004aad}.registration-guide .registration-main{max-width:900px;margin:auto;padding:46px 22px 110px}.registration-guide h1{font-size:clamp(29px,5vw,40px);color:#0055a4;letter-spacing:-.04em;margin:0 0 10px}.registration-guide .intro{color:#526477;margin:0 0 32px}.registration-guide .method-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 48px}.registration-guide .method-nav a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 22px;border:1px solid #cad9e8;border-radius:12px;text-decoration:none;font-weight:700;background:#f7fafd}.registration-guide .method-nav a span{font-size:22px}.registration-guide .method{margin:0 0 64px;scroll-margin-top:30px}.registration-guide .method-head{border-bottom:2px solid #004aad;padding-bottom:15px;margin-bottom:26px}.registration-guide .method-tag{font-size:12px;color:#0055a4;font-weight:700;letter-spacing:.09em}.registration-guide h2{font-size:clamp(23px,4vw,29px);line-height:1.5;margin:5px 0 7px;color:#004aad}.registration-guide .method-head p{margin:0;color:#526477}.registration-guide h3{font-size:18px;margin:0 0 14px;color:#243449}.registration-guide .preparation{background:#f2f7fb;padding:24px 26px;border-radius:12px;margin-bottom:30px}.registration-guide .preparation ul{margin:0;padding-left:1.4em}.registration-guide .preparation li{margin:5px 0}.registration-guide .steps{list-style:none;padding:0;margin:0;counter-reset:step}.registration-guide .steps>li{counter-increment:step;display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px;padding:20px 0;border-bottom:1px solid #e1e8ef}.registration-guide .steps>li:first-child{border-top:1px solid #e1e8ef}.registration-guide .steps>li:before{content:counter(step,decimal-leading-zero);font-size:15px;font-weight:800;color:#004aad;background:#eef4fb;border-radius:50%;width:42px;height:42px;display:grid;place-items:center}.registration-guide .step-title{display:block;font-size:16px;font-weight:700;margin:0 0 5px}.registration-guide .step-body p{margin:0 0 7px}.registration-guide .step-body p:last-child{margin-bottom:0}.registration-guide .step-body ul,.registration-guide .step-body ol{padding-left:1.45em;margin:8px 0}.registration-guide .step-body li{margin:3px 0}.registration-guide .note{font-size:13px;color:#5c6875}.registration-guide .notice{border-left:3px solid #9db9d8;background:#f6f9fc;padding:17px 19px;margin:22px 0;font-size:14px}.registration-guide .notice p{margin:0 0 8px}.registration-guide .notice p:last-child{margin-bottom:0}.registration-guide .action-link{display:inline-block;background:#004aad;color:white;text-decoration:none;border-radius:9px;padding:12px 19px;font-weight:700;margin-top:12px}.registration-guide .closing{border-top:1px solid #dfe7ee;padding-top:22px;color:#5b6978;font-size:13px}.registration-guide .closing p{margin:0 0 9px}@media(max-width:600px){.registration-guide .registration-main{padding:30px 18px 100px}.registration-guide .method-nav{gap:9px;margin-bottom:36px}.registration-guide .method-nav a{padding:15px 12px;font-size:14px}.registration-guide .preparation{padding:20px 19px}.registration-guide .steps>li{grid-template-columns:36px minmax(0,1fr);gap:12px}.registration-guide .steps>li:before{width:36px;height:36px;font-size:13px}.registration-guide .method{margin-bottom:48px}}
-
-
-/* Harmonize typography, palette and controls with guide-a-mito.html. */
-body.registration-guide{color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
-.registration-guide .registration-main{max-width:850px;padding-top:52px}
-.registration-guide h1{color:var(--guide-primary);font-size:clamp(29px,5vw,39px);font-weight:800;line-height:1.45}
-.registration-guide .intro{color:var(--guide-muted);font-size:15px;line-height:1.8}
-.registration-guide a{color:var(--guide-primary);text-underline-offset:3px}
-.registration-guide .method-nav a{border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff;color:var(--guide-primary);font-size:15px;transition:background .15s,border-color .15s}
-.registration-guide .method-nav a:hover,.registration-guide .method-nav a:focus-visible{background:var(--guide-surface);border-color:var(--guide-primary)}
-.registration-guide .method-head{border-bottom:1px solid var(--guide-border)}
-.registration-guide .method-tag{color:var(--guide-primary)}
-.registration-guide h2{color:var(--guide-primary);font-weight:700}
-.registration-guide .method-head p{color:var(--guide-muted)}
-.registration-guide h3{color:var(--guide-text)}
-.registration-guide .preparation{background:var(--guide-surface);border-radius:var(--guide-radius-info)}
-.registration-guide .steps>li{border-bottom:1px solid var(--guide-border)}
-.registration-guide .steps>li:first-child{border-top:1px solid var(--guide-border)}
-.registration-guide .steps>li:before{color:var(--guide-primary);background:var(--guide-surface)}
-.registration-guide .step-title{color:var(--guide-text);font-weight:700}
-.registration-guide .note,.registration-guide .closing{color:var(--guide-muted)}
-.registration-guide .notice{background:var(--guide-surface);border-left:3px solid var(--guide-border);border-radius:0 10px 10px 0}
-.registration-guide .action-link{background:var(--guide-primary);color:#fff;border-radius:12px;padding:16px 20px;text-align:center}
-.registration-guide .action-link:hover,.registration-guide .action-link:focus-visible{background:var(--guide-primary-hover);color:#fff}
-.registration-guide a:focus-visible{outline:2px solid var(--guide-focus);outline-offset:3px}
-.registration-guide .closing{border-top:1px solid var(--guide-border)}
-@media(max-width:600px){.registration-guide .registration-main{padding:32px 18px 110px}.registration-guide .method-nav a{font-size:14px}}
+/* Registration steps overview — page-specific layout. Shared tokens and typography are in guide-design-system.css. */
+html{scroll-behavior:smooth}
+.registration-guide.steps-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.steps-guide *{box-sizing:border-box}
+.steps-guide .registration-main{--guide-title-gap:10px}
+.steps-guide a{color:var(--guide-primary);text-underline-offset:3px}
+.steps-guide .intro{margin:0 0 30px;color:var(--guide-muted)}
+.steps-guide .method-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 48px}
+.steps-guide .method-nav a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:17px 19px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;font-weight:700}
+.steps-guide .method-nav a:hover,.steps-guide .method-nav a:focus-visible{background:var(--guide-surface);border-color:var(--guide-primary)}
+.steps-guide .method-nav a span{font-size:21px}
+.steps-guide .method{margin:0 0 60px;scroll-margin-top:30px}
+.steps-guide .method-head{padding:0 0 17px;margin:0 0 25px;border-bottom:1px solid var(--guide-border)}
+.steps-guide .method-tag{color:var(--guide-primary);font-size:11px;font-weight:700;letter-spacing:.08em}
+.steps-guide .method-head h2{margin:5px 0 7px;color:var(--guide-primary);font-size:24px;line-height:1.5;font-weight:800}
+.steps-guide .method-head p{margin:0;color:var(--guide-muted)}
+.steps-guide h3{margin:0 0 13px;font-size:17px;font-weight:800}
+.steps-guide .preparation{margin-bottom:28px;padding:22px 24px;border-radius:var(--guide-radius-info);background:var(--guide-surface)}
+.steps-guide .preparation ul{margin:0;padding-left:1.4em}
+.steps-guide .preparation li{margin:5px 0}
+.steps-guide .steps{list-style:none;margin:0;padding:0;counter-reset:step}
+.steps-guide .steps>li{counter-increment:step;display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;padding:19px 0;border-bottom:1px solid var(--guide-border)}
+.steps-guide .steps>li:first-child{border-top:1px solid var(--guide-border)}
+.steps-guide .steps>li:before{content:counter(step,decimal-leading-zero);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--guide-surface);color:var(--guide-primary);font-size:14px;font-weight:800}
+.steps-guide .step-title{display:block;margin:0 0 5px;color:var(--guide-text);font-size:16px;font-weight:800}
+.steps-guide .step-body p{margin:0 0 8px}
+.steps-guide .step-body p:last-child{margin-bottom:0}
+.steps-guide .step-body ul,.steps-guide .step-body ol{margin:8px 0;padding-left:1.5em}
+.steps-guide .step-body li{margin:3px 0}
+.steps-guide .note{color:var(--guide-muted);font-size:13px}
+.steps-guide .notice{margin:22px 0;padding:17px 19px;border-radius:var(--guide-radius-info);background:var(--guide-surface);font-size:14px}
+.steps-guide .notice p{margin:0 0 8px}
+.steps-guide .notice p:last-child{margin:0}
+.steps-guide .action-link{display:inline-block;margin-top:12px;padding:15px 20px;border-radius:12px;background:var(--guide-primary);color:#fff;text-align:center;text-decoration:none;font-weight:700}
+.steps-guide .action-link:hover,.steps-guide .action-link:focus-visible{background:var(--guide-primary-hover);color:#fff}
+.steps-guide a:focus-visible{outline:2px solid var(--guide-focus);outline-offset:3px}
+.steps-guide .closing{padding-top:20px;border-top:1px solid var(--guide-border);color:var(--guide-muted);font-size:13px}
+.steps-guide .closing p{margin:0 0 9px}
+@media(max-width:600px){.steps-guide .method-nav{gap:9px;margin-bottom:36px}.steps-guide .method-nav a{padding:14px 12px;font-size:13px}.steps-guide .method{margin-bottom:46px}.steps-guide .method-head h2{font-size:21px}.steps-guide .preparation{padding:19px 17px}.steps-guide .steps>li{grid-template-columns:36px minmax(0,1fr);gap:11px}.steps-guide .steps>li:before{width:36px;height:36px;font-size:12px}}
