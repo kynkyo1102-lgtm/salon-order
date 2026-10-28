@@ -13,8 +13,8 @@
 .compare-guide .registration-next-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
 .compare-guide .registration-next-grid a{display:flex;justify-content:space-between;gap:8px;padding:17px;border:1px solid var(--guide-primary);border-radius:var(--guide-radius-control);color:var(--guide-primary);font-weight:700;text-decoration:none}
 .compare-guide .registration-next-grid a:hover{background:var(--guide-surface)}
-.compare-guide .compare-help{margin:30px 0 0;padding:22px;background:var(--guide-surface);border-radius:var(--guide-radius-info)}
-.compare-guide .compare-help h2{margin:0 0 9px;color:var(--guide-primary);font-size:18px}
+.compare-guide .compare-help{margin:30px 0 0;padding:22px;background:#eff8f2;border:1px solid #d6e9db;border-radius:var(--guide-radius-info)}
+.compare-guide .compare-help h2{margin:0 0 9px;color:#28704c;font-size:18px}
 .compare-guide .compare-help p{margin:0 0 16px}
-.compare-guide .compare-help a{color:var(--guide-primary);font-weight:700;text-underline-offset:3px}
+.compare-guide .compare-help a{color:#28704c;font-weight:700;text-underline-offset:3px}
 @media(max-width:600px){.compare-guide .compare-page{--guide-title-gap:34px}.compare-guide .compare-section-title{font-size:19px}.compare-guide .comparison-pair{gap:9px}.compare-guide .comparison-option{padding:15px 12px}.compare-guide .comparison-option strong{font-size:15px}.compare-guide .registration-next-grid{grid-template-columns:1fr}}
