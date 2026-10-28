@@ -46,3 +46,16 @@
 .deadline-guide .deadline-timing-arrow{color:#8ca0b5;font-size:22px;text-align:center}
 .deadline-guide .deadline-timing-result strong{font-size:25px}
 @media(max-width:600px){.deadline-guide .deadline-timing-row{grid-template-columns:1fr;gap:3px}.deadline-guide .deadline-timing-arrow{font-size:19px;text-align:left;line-height:1.2}.deadline-guide .deadline-timing-result{padding-left:16px}.deadline-guide .deadline-timing-result strong{font-size:24px}}
+
+/* Keep phrases together; avoid forced breaks inside the result. */
+.deadline-guide .deadline-timing-result strong{display:inline;font-size:22px;white-space:nowrap}
+.deadline-guide .deadline-timing-result span{display:inline;margin:0 0 0 3px;white-space:nowrap}
+.deadline-guide .deadline-timing-when{white-space:nowrap}
+@media(max-width:600px){
+ .deadline-guide .deadline-timing-row{grid-template-columns:1fr;gap:5px;padding:20px 8px}
+ .deadline-guide .deadline-timing-when{font-size:14px;white-space:normal}
+ .deadline-guide .deadline-timing-when strong{font-size:16px}
+ .deadline-guide .deadline-timing-arrow{display:none}
+ .deadline-guide .deadline-timing-result{padding-left:0;line-height:1.65}
+ .deadline-guide .deadline-timing-result strong{font-size:22px}
+}
