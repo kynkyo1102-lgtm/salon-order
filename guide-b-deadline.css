@@ -30,3 +30,11 @@
 .deadline-guide .deadline-timing-result strong{color:var(--guide-primary)}
 .deadline-guide .deadline-footnote{margin-top:20px!important;color:var(--guide-muted);font-size:14px}
 @media(max-width:600px){.deadline-guide .deadline-timing-row{grid-template-columns:1fr;gap:4px;padding:19px 8px}.deadline-guide .deadline-timing-when strong{font-size:20px}}
+
+/* Lead with the outcome, not the cutoff date. */
+.deadline-guide .deadline-timing-row{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;padding:25px 12px}
+.deadline-guide .deadline-timing-result{font-size:14px;color:var(--guide-muted)}
+.deadline-guide .deadline-timing-result strong{display:block;font-size:26px;font-weight:800;line-height:1.45;color:var(--guide-primary)}
+.deadline-guide .deadline-timing-result span{display:block;margin-top:2px}
+.deadline-guide .deadline-timing-when{font-size:14px;color:var(--guide-text)}
+@media(max-width:600px){.deadline-guide .deadline-timing-row{grid-template-columns:1fr;gap:10px;padding:23px 8px}.deadline-guide .deadline-timing-result strong{font-size:25px}}
