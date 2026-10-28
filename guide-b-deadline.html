@@ -1,152 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <title>締め日について - メンバーズWebガイド</title>
-
-  <link rel="stylesheet" href="common.css?v=20261023-nav3">
-
-  <style>
-    .deadline-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .deadline-card {
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 11px;
-      padding: 16px;
-    }
-
-    .deadline-card-title {
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-bottom: 7px;
-      line-height: 1.5;
-    }
-
-    .deadline-card-text {
-      font-size: 0.84rem;
-      color: #334155;
-      line-height: 1.7;
-    }
-
-    .deadline-main {
-      border-color: rgba(27, 78, 168, 0.25);
-      background: #f8faff;
-    }
-
-    .deadline-main .deadline-card-title {
-      color: var(--primary);
-    }
-
-    @media (max-width: 700px) {
-      .deadline-card {
-        padding: 14px;
-      }
-
-      .deadline-card-title {
-        font-size: 0.86rem;
-      }
-
-      .deadline-card-text {
-        font-size: 0.82rem;
-      }
-    }
-  </style>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head>
-
-<body>
-
-  <!-- ヘッダー -->
-  
-
-
-  <!-- メインコンテナ -->
-  <div class="container">
-
-    <!-- ページタイトル -->
-    <div class="page-header">
-      <div class="page-category">GUIDE B / 04</div>
-      <h1 class="page-title">締め日について</h1>
-    </div>
-
-
-    <!-- 締め日 -->
-    <div class="section-card">
-
-      <div class="section-card-title">
-        定期購入の変更・停止には締め日があります
-      </div>
-
-      <p class="section-desc">
-        定期購入の内容変更や停止をする場合は、各月の締め日までに手続きを完了する必要があります。
-      </p>
-
-
-      <div class="deadline-list">
-
-        <!-- 締切 -->
-        <div class="deadline-card deadline-main">
-
-          <div class="deadline-card-title">
-            変更・停止の締切
-          </div>
-
-          <div class="deadline-card-text">
-            各月 <b>10日必着</b><br>
-            E-Serviceまたは書面にて手続きを行ってください。
-          </div>
-
-        </div>
-
-
-        <!-- 翌月反映 -->
-        <div class="deadline-card">
-
-          <div class="deadline-card-title">
-            翌月発送分から反映
-          </div>
-
-          <div class="deadline-card-text">
-            10日までに手続きが完了した場合は、
-            <b>翌月発送分から反映</b>されます。
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- 10日を過ぎた場合 -->
-      <details class="alert-box">
-        <summary>⚠️ 10日を過ぎた場合</summary>
-
-        <div class="alert-box-content">
-          10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。<br>
-          10日を過ぎての申請は、<b>翌々月からの反映</b>となりますので十分ご注意ください。
-        </div>
-
-      </details>
-
-
-      <div class="manual-ref">
-        メンバーズマニュアル1P参照
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- フッター -->
-  
-
-  
-<script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>締め日について｜メンバーズWebガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1">
+<link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
+<link rel="stylesheet" href="./guide-b-deadline.css?v=20261028-1">
+</head>
+<body class="registration-guide deadline-guide">
+<main class="guide-common-page deadline-page">
+<h1 class="guide-common-title">締め日について</h1>
+<p class="page-intro">定期購入の内容変更や停止をする場合は、各月の締め日までに手続きを完了する必要があります。</p>
+<section class="deadline-section" aria-labelledby="deadline-title">
+<h2 id="deadline-title">変更・停止の締切</h2>
+<div class="deadline-highlight">
+<span class="deadline-eyebrow">毎月の締め日</span>
+<p class="deadline-date">10日<span>必着</span></p>
+<p class="deadline-subtext">E-Serviceまたは書面にて手続きを行ってください。</p>
+</div>
+</section>
+<section class="deadline-section" aria-labelledby="reflect-title">
+<h2 id="reflect-title">変更が反映されるタイミング</h2>
+<p>10日までに手続きが完了した場合は、<strong>翌月発送分から反映</strong>されます。</p>
+<details class="deadline-alert"><summary>10日を過ぎた場合</summary><div class="deadline-alert-body">10日を経過した後は、翌月分の発送・引き落としを止めることは一切できません。<p>10日を過ぎての申請は、<strong>翌々月からの反映</strong>となりますので十分ご注意ください。</p></div></details>
+</section>
+<p class="manual-ref">メンバーズマニュアル1P参照</p>
+</main>
+<script src="./guide-shared-chrome.js?v=20261026-1" defer></script>
+</body>
 </html>
