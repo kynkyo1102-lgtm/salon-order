@@ -49,6 +49,9 @@ document.querySelectorAll('.steps-guide .overview-detail').forEach((panel)=>{
     node.appendChild(label);
   });
 });
+function openTargetStep(){const target=document.getElementById(location.hash.slice(1));if(target){const details=target.querySelector('details');if(details)details.open=true;}}
+window.addEventListener('hashchange',openTargetStep);
+openTargetStep();
 </script>
 <script src="./guide-shared-chrome.js?v=20261026-1" defer></script>
 </body></html>
