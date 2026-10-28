@@ -33,5 +33,22 @@
 </section>
 <footer class="closing"><p>お手続きの際は、お手元の概要書面・会員登録申請書・契約書面をご確認ください。</p></footer>
 </main>
+<script>
+document.querySelectorAll('.steps-guide .overview-detail').forEach((panel)=>{
+  const lines=panel.querySelectorAll(':scope > p:not(.note), :scope > ol > li');
+  lines.forEach((node)=>{
+    const label=document.createElement('label');
+    label.className='check-line';
+    const check=document.createElement('input');
+    check.type='checkbox';
+    check.setAttribute('aria-label','確認済みにする');
+    const text=document.createElement('span');
+    text.className='check-line-text';
+    while(node.firstChild)text.appendChild(node.firstChild);
+    label.append(check,text);
+    node.appendChild(label);
+  });
+});
+</script>
 <script src="./guide-shared-chrome.js?v=20261026-1" defer></script>
 </body></html>
