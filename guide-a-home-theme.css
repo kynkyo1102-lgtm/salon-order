@@ -60,7 +60,6 @@ body.registration-guide{font-size:17px}
 
 
 .registration-guide .chat-choice{font-size:17px;min-height:75px;padding:20px 22px;background:#fff;border:1px solid var(--guide-border);border-radius:12px;box-shadow:none}
-.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{background:var(--guide-surface)}
 .registration-guide .chat-cost-link,.registration-guide .chat-result{font-size:15px}
 .registration-guide .chat-controls button,.registration-guide .guide-links{font-size:15px}
 @media(max-width:600px){
@@ -76,7 +75,6 @@ body.registration-guide{font-size:17px}
 }
 
 
-.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:var(--guide-primary)}
 @media(max-width:600px){.registration-guide .reg-chat h1{font-size:26px;margin-bottom:18px}}
 
 .registration-guide .guide-welcome{padding:35px 34px 36px;background:var(--guide-surface)}
@@ -109,7 +107,7 @@ body.registration-guide{font-size:17px}
 
 
 
-.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{border-color:var(--guide-primary);box-shadow:0 3px 0 #a6baca}
+.registration-guide .chat-choice:hover,.registration-guide .chat-choice:focus-visible{box-shadow:0 3px 0 #a6baca}
 .registration-guide .guide-links{padding-top:22px}
 @media(max-width:600px){
 .registration-guide .guide-welcome{padding:24px 16px 29px}
