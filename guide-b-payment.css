@@ -2,7 +2,7 @@
 .monthly-payment-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
 .monthly-payment-guide *{box-sizing:border-box}
 .monthly-payment-guide .page-intro{margin:0 0 38px;color:var(--guide-muted)}
-.monthly-payment-guide .payment-section{margin:0 0 56px}
+.monthly-payment-guide .payment-section{margin:0 0 72px}
 .monthly-payment-guide .payment-section h2{margin:0 0 24px;padding:0 0 15px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
 .monthly-payment-guide .payment-table-wrap{width:100%;overflow-x:auto}
 .monthly-payment-guide .payment-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.65}
@@ -13,11 +13,11 @@
 .monthly-payment-guide .payment-table td strong{color:var(--guide-primary);font-size:16px}
 .monthly-payment-guide .payment-text{margin:0 0 13px;line-height:1.9}
 .monthly-payment-guide .payment-text strong{color:var(--guide-primary)}
-.monthly-payment-guide .payment-alert{margin-top:18px;border-top:1px solid var(--guide-border);border-bottom:1px solid var(--guide-border)}
-.monthly-payment-guide .payment-alert summary{display:flex;align-items:center;gap:10px;padding:15px 4px;cursor:pointer;color:var(--guide-primary);font-weight:700;list-style:none}
+.monthly-payment-guide .payment-alert{margin-top:18px;border-top:1px solid var(--guide-border);border-bottom:1px solid var(--guide-border);background:#f8fafc}
+.monthly-payment-guide .payment-alert summary{display:flex;align-items:center;gap:10px;padding:17px 12px;cursor:pointer;color:#526273;font-size:14px;font-weight:600;line-height:1.7;list-style:none}
 .monthly-payment-guide .payment-alert summary::-webkit-details-marker{display:none}
 .monthly-payment-guide .payment-alert summary:after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s;flex-shrink:0}
 .monthly-payment-guide .payment-alert[open] summary:after{transform:rotate(225deg)}
-.monthly-payment-guide .payment-alert-body{padding:0 4px 18px;color:var(--guide-text);line-height:1.9}
+.monthly-payment-guide .payment-alert-body{padding:0 12px 18px;color:var(--guide-text);line-height:1.9}
 .monthly-payment-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
-@media(max-width:600px){.monthly-payment-guide .page-intro{margin-bottom:30px}.monthly-payment-guide .payment-section{margin-bottom:44px}.monthly-payment-guide .payment-table{font-size:12px}.monthly-payment-guide .payment-table th,.monthly-payment-guide .payment-table td{padding:12px 8px}.monthly-payment-guide .payment-table td strong{font-size:14px}}
+@media(max-width:600px){.monthly-payment-guide .page-intro{margin-bottom:30px}.monthly-payment-guide .payment-section{margin-bottom:56px}.monthly-payment-guide .payment-table{font-size:12px}.monthly-payment-guide .payment-table th,.monthly-payment-guide .payment-table td{padding:12px 8px}.monthly-payment-guide .payment-table td strong{font-size:14px}}
