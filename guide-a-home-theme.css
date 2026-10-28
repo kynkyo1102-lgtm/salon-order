@@ -25,7 +25,6 @@ body.registration-guide{margin:0;color:var(--guide-text);font:400 15px/1.8 "Noto
 .registration-guide .chat-message{display:flex}
 .registration-guide .chat-avatar{position:relative;z-index:1;text-align:center}
 .registration-guide .chat-avatar img{display:block;width:100%;height:auto;max-width:100%}
-.registration-guide .chat-avatar small{display:block;margin-top:3px;color:var(--guide-muted);font-size:10px;line-height:1.4}
 .registration-guide .chat-bubble{position:relative;flex:1;min-width:0;border-radius:13px;color:var(--guide-text);font-weight:500;white-space:pre-line}
 .registration-guide .chat-bubble:before{content:"";position:absolute;left:-7px;bottom:28px;width:12px;height:12px;transform:rotate(45deg)}
 .registration-guide .chat-choices{display:grid}
@@ -61,7 +60,6 @@ body.registration-guide{font-size:17px}
 .registration-guide .chat-panel{padding:15px 0 25px}
 .registration-guide .chat-message{align-items:center;margin-bottom:32px}
 .registration-guide .chat-avatar{width:100px;flex-basis:100px}
-.registration-guide .chat-avatar small{font-size:11px}
 .registration-guide .chat-bubble{font-size:18px;line-height:1.9;background:#fff}
 .registration-guide .chat-bubble:before{background:#fff}
 .registration-guide .chat-progress{font-size:15px;color:var(--guide-primary)}
