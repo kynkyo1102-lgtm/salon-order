@@ -59,3 +59,10 @@
  .deadline-guide .deadline-timing-result{padding-left:0;line-height:1.65}
  .deadline-guide .deadline-timing-result strong{font-size:22px}
 }
+
+/* Establish a quieter heading and a single primary blue emphasis. */
+.deadline-guide .deadline-section h2{color:#40576b;font-size:18px;font-weight:700;border-bottom-color:#dce4eb}
+.deadline-guide .deadline-timing-when strong{color:#253443;font-weight:700}
+.deadline-guide .deadline-timing-result strong{color:#07539c;font-size:23px;font-weight:800}
+.deadline-guide .deadline-timing-result span{color:#526273;font-size:14px;font-weight:400}
+@media(max-width:600px){.deadline-guide .deadline-section h2{font-size:18px}.deadline-guide .deadline-timing-result strong{font-size:23px}}
