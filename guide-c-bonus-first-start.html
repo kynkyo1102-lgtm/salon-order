@@ -8,7 +8,7 @@
   <title>ファーストスタートボーナス - ニナファームジャポン メンバーズWebガイド</title>
   <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3">
 <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
-<link rel="stylesheet" href="./guide-c-bonus-first-start.css?v=20261029-2">
+<link rel="stylesheet" href="./guide-c-bonus-first-start.css?v=20261029-3">
 <link rel="stylesheet" href="./guide-section-layout.css?v=20261029-2">
   
 </head>
@@ -34,7 +34,7 @@
 <h3 class="walkthrough-title" aria-live="polite">まずは、あなたから</h3>
 <p class="walkthrough-description" aria-live="polite">最初は自分だけ。ここから直接紹介が始まります。</p>
 <div class="walkthrough-result" hidden>新規会員2人の金額例：<strong>6,000円</strong><small>3,000円 × 2人。実際の支給には取得条件があります。</small></div>
-<div class="walkthrough-buttons"><button type="button" data-back disabled>← 戻る</button><button type="button" data-next>次へ →</button></div>
+<div class="walkthrough-buttons"><button type="button" data-toggle aria-pressed="false">一時停止</button><button type="button" data-replay>もう一度見る ↻</button></div>
 </div>
     </section>
 
@@ -75,11 +75,18 @@
   
   
 <script src="./guide-shared-chrome.js?v=20261029-3" defer></script><script>
-(()=>{const root=document.getElementById('first-start-walkthrough');if(!root)return;
+(()=>{
+const root=document.getElementById('first-start-walkthrough');if(!root)return;
 const titles=['まずは、あなたから','新規会員を1人、直接紹介','もう1人、直接紹介','金額の例を確認'];
 const descriptions=['最初は自分だけ。','新規会員を1人直接紹介しました。','直接紹介した新規会員が2人になりました。','1人につき3,000円の計算例です。'];
-let step=0;const back=root.querySelector('[data-back]'),next=root.querySelector('[data-next]');
-function draw(){root.querySelector('.walkthrough-title').textContent=titles[step];root.querySelector('.walkthrough-description').textContent=descriptions[step];root.querySelectorAll('[data-step]').forEach(e=>e.classList.toggle('visible',step>=Number(e.dataset.step)));root.querySelectorAll('.walkthrough-progress span').forEach((e,i)=>e.classList.toggle('active',i<=step));root.querySelector('.walkthrough-result').hidden=step!==3;back.disabled=step===0;next.textContent=step===3?'最初から見る':'次へ →'}
-back.addEventListener('click',()=>{step=Math.max(0,step-1);draw()});next.addEventListener('click',()=>{step=(step+1)%4;draw()});draw()})();
-</script></body>
-</html>
+let step=0,playing=!window.matchMedia('(prefers-reduced-motion: reduce)').matches,timer=null;
+const toggle=root.querySelector('[data-toggle]'),replay=root.querySelector('[data-replay]');
+function draw(){root.querySelector('.walkthrough-title').textContent=titles[step];root.querySelector('.walkthrough-description').textContent=descriptions[step];root.querySelectorAll('[data-step]').forEach(e=>e.classList.toggle('visible',step>=Number(e.dataset.step)));root.querySelectorAll('.walkthrough-progress span').forEach((e,i)=>e.classList.toggle('active',i<=step));root.querySelector('.walkthrough-result').hidden=step!==3;toggle.textContent=playing?'一時停止':'再生する';toggle.setAttribute('aria-pressed',String(!playing))}
+function clear(){if(timer!==null){clearTimeout(timer);timer=null}}
+function schedule(){clear();if(!playing||document.hidden)return;timer=setTimeout(()=>{if(step<3){step++;draw();schedule()}else{playing=false;draw()}},step===0?2300:step===1?3000:step===2?3300:0)}
+toggle.addEventListener('click',()=>{playing=!playing;draw();schedule()});
+replay.addEventListener('click',()=>{step=0;playing=true;draw();schedule()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clear();else schedule()});
+draw();schedule();
+})();
+</script></body></html>
