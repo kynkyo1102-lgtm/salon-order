@@ -21,3 +21,14 @@
 .first-start-page .walkthrough-person{padding:7px 5px 9px;background:#fff;border:1px solid #d9e5ed;border-radius:14px;font-weight:400}
 @media(max-width:420px){.first-start-page .first-start-walkthrough{padding:14px}.first-start-page .walkthrough-avatar{width:100px}.first-start-page .walkthrough-avatar img{width:70px;height:70px}.first-start-page .walkthrough-people .walkthrough-avatar{width:100px}}
 @media(prefers-reduced-motion:reduce){.first-start-page .walkthrough-branch{transition:none}}
+
+/* Borderless illustrated sequence: keep the section but remove nested cards. */
+.first-start-page .first-start-walkthrough{border:0;border-radius:0;background:transparent;box-shadow:none;padding:8px 0 0;max-width:600px}
+.first-start-page .walkthrough-avatar,.first-start-page .walkthrough-people .walkthrough-avatar,.first-start-page .walkthrough-main,.first-start-page .walkthrough-person{background:transparent;border:0;box-shadow:none;border-radius:0;padding:0}
+.first-start-page .walkthrough-avatar img{width:94px;height:94px}
+.first-start-page .walkthrough-people .walkthrough-avatar{width:125px}
+.first-start-page .walkthrough-avatar strong{margin-top:3px}
+.first-start-page .walkthrough-buttons{justify-content:center;flex-wrap:wrap}
+.first-start-page .walkthrough-buttons button{min-width:120px}
+.first-start-page .walkthrough-buttons button:first-child{background:#fff;color:#0055a4}
+@media(max-width:420px){.first-start-page .first-start-walkthrough{padding:8px 0}.first-start-page .walkthrough-avatar img{width:82px;height:82px}.first-start-page .walkthrough-people .walkthrough-avatar{width:110px}}
