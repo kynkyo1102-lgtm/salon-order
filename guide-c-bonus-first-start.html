@@ -104,7 +104,8 @@
       .bonus-flow-arrow { transform: rotate(90deg); }
       .section-card { padding: 22px 17px; }
     }
-  </style>
+  .first-start-walkthrough{max-width:560px;padding:22px;background:#f8fbff}.walkthrough-progress{display:flex;gap:6px}.walkthrough-progress span{height:5px;flex:1;border-radius:8px;background:#dce7f2}.walkthrough-progress span.active{background:#0055a4}.walkthrough-visual{min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}.walkthrough-people{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}.walkthrough-person{padding:12px 18px;border:1px solid #b7d4ed;border-radius:14px;background:#eaf4ff;color:#123b78;font-weight:800;text-align:center;transition:opacity .4s,transform .4s}.walkthrough-person[data-step]{opacity:0;transform:translateY(12px);visibility:hidden}.walkthrough-person.visible{opacity:1;transform:none;visibility:visible}.walkthrough-title{color:#123b78;font-size:18px;margin:8px 0}.walkthrough-description{min-height:60px;color:#475569;line-height:1.8}.walkthrough-result{padding:12px;background:#edf5ff;border-radius:12px;text-align:center}.walkthrough-result strong{display:block;font-size:30px;color:#123b78}.walkthrough-result small{display:block;color:#475569}.walkthrough-buttons{display:flex;justify-content:space-between;gap:10px;margin-top:15px}.walkthrough-buttons button{border:1px solid #0055a4;border-radius:10px;background:#0055a4;color:#fff;font:inherit;font-weight:700;padding:10px 16px}.walkthrough-buttons button:first-child{background:white;color:#0055a4}.walkthrough-buttons button:disabled{opacity:.4}@media(prefers-reduced-motion:reduce){.walkthrough-person{transition:none}}
+</style>
 <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head>
 <body>
   
@@ -121,23 +122,17 @@
         新規会員を直接紹介すると、紹介した人数に応じて取得できるボーナスです。
       </div>
 
-<div class="bonus-diagram">
-        <svg viewBox="0 0 340 220" role="img" aria-labelledby="first-start-diagram-title first-start-diagram-desc" xmlns="http://www.w3.org/2000/svg">
-          <title id="first-start-diagram-title">直接紹介のイメージ</title>
-          <desc id="first-start-diagram-desc">わたしが新規会員を直接紹介すると、1人につき3,000円のボーナスが発生するイメージです。</desc>
-          <image href="./assets/illustration-test-02.svg" x="8" y="12" width="124" height="124"/>
-          <image href="./assets/illustration-test-01.svg" x="208" y="12" width="124" height="124"/>
-          <path d="M139 76 H198" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M191 69 L200 76 L191 83" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <text class="person-label" x="170" y="58" style="font-size:12px">直接紹介</text>
-          <text class="person-label" x="70" y="149">わたし</text>
-          <text class="person-label" x="270" y="149">新規会員</text>
-          <path d="M82 166 H258" stroke="#111" stroke-width="1" opacity=".18"/>
-          <text class="person-label" x="170" y="186" style="font-size:12px;font-weight:500">新規会員1人につき</text>
-          <text x="170" y="213" text-anchor="middle" fill="#111" font-size="24" font-weight="800">3,000円</text>
-        </svg>
-        <p class="bonus-diagram-caption">新規会員を直接紹介すると、ボーナスの対象になります。</p>
-      </div>
+<div class="bonus-diagram first-start-walkthrough" id="first-start-walkthrough">
+<div class="walkthrough-progress" aria-label="説明の進み具合"><span></span><span></span><span></span><span></span></div>
+<div class="walkthrough-visual" aria-label="直接紹介の人数が段階的に増える説明図">
+<div class="walkthrough-person">あなた</div>
+<div class="walkthrough-people"><div class="walkthrough-person" data-step="1">新規会員 A</div><div class="walkthrough-person" data-step="2">新規会員 B</div></div>
+</div>
+<h3 class="walkthrough-title" aria-live="polite">まずは、あなたから</h3>
+<p class="walkthrough-description" aria-live="polite">最初は自分だけ。ここから直接紹介が始まります。</p>
+<div class="walkthrough-result" hidden>新規会員2人の金額例：<strong>6,000円</strong><small>3,000円 × 2人。実際の支給には取得条件があります。</small></div>
+<div class="walkthrough-buttons"><button type="button" data-back disabled>← 戻る</button><button type="button" data-next>次へ →</button></div>
+</div>
     </section>
 
     <section class="section-card" aria-labelledby="conditions">
@@ -176,5 +171,5 @@
 
   
   
-<script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body>
+<script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script><script src="./guide-c-bonus-first-start-walkthrough.js?v=20261029-1" defer></script></body>
 </html>
