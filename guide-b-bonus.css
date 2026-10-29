@@ -48,3 +48,8 @@
 .bonus-guide .bonus-condition-copy{flex:1;min-width:0}
 .bonus-guide .bonus-condition-copy h3{margin:0 0 5px}
 @media(max-width:600px){.bonus-guide .bonus-condition{gap:11px}.bonus-guide .bonus-condition-marker{flex-basis:29px;width:29px;height:29px;font-size:17px}}
+
+/* Checklist styling for the three eligibility conditions */
+.bonus-guide .bonus-condition{position:relative;padding-left:48px}
+.bonus-guide .bonus-condition::before{content:'✓';position:absolute;left:0;top:1px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#eaf4ef;border:1px solid #bdd9c8;color:#287351;font-size:19px;font-weight:900;line-height:1}
+@media(max-width:600px){.bonus-guide .bonus-condition{padding-left:42px}.bonus-guide .bonus-condition::before{width:29px;height:29px;font-size:17px}}
