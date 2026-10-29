@@ -99,3 +99,8 @@
 .bonus-guide .bonus-condition{margin-bottom:28px;padding-bottom:25px}
 .bonus-guide .bonus-detail{margin-top:38px}
 @media(max-width:600px){.bonus-guide .bonus-section{margin-bottom:88px}.bonus-guide .bonus-section h2{margin-bottom:29px;padding-bottom:17px}.bonus-guide #bonus-flow .bonus-intro{margin-bottom:28px}.bonus-guide .bonus-condition{margin-bottom:26px;padding-bottom:23px}.bonus-guide .bonus-detail{margin-top:34px}}
+
+/* Give the page title, jump-link contents, and first section distinct vertical space. */
+.bonus-guide .bonus-page>.guide-common-title{margin-bottom:38px}
+.bonus-guide .bonus-toc{margin-top:0;margin-bottom:76px}
+@media(max-width:600px){.bonus-guide .bonus-page>.guide-common-title{margin-bottom:34px}.bonus-guide .bonus-toc{margin-top:0;margin-bottom:68px}}
