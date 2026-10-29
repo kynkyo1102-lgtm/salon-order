@@ -1,0 +1,16 @@
+/* Bonus plan index — page-specific components only. */
+.registration-guide.bonus-index-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.bonus-index-guide *{box-sizing:border-box}
+.bonus-index-guide .bonus-intro{margin:0 0 26px;color:var(--guide-muted);line-height:1.9}
+.bonus-index-guide .bonus-index{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.bonus-index-guide .bonus-card{display:flex;align-items:center;gap:14px;min-width:0;min-height:104px;padding:18px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff;color:inherit;text-decoration:none;transition:background .15s,border-color .15s}
+.bonus-index-guide .bonus-card:hover{background:var(--guide-surface);border-color:var(--guide-primary)}
+.bonus-index-guide .bonus-number{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:var(--guide-surface);color:var(--guide-primary);font-size:17px;font-weight:800}
+.bonus-index-guide .bonus-card-text{flex:1;min-width:0}
+.bonus-index-guide .bonus-card-title{display:block;color:var(--guide-primary);font-weight:800;line-height:1.5;overflow-wrap:anywhere}
+.bonus-index-guide .bonus-card-desc{display:block;margin-top:5px;color:var(--guide-muted);font-size:13px;line-height:1.65}
+.bonus-index-guide .bonus-arrow{color:var(--guide-primary);font-size:23px;font-weight:800}
+.bonus-index-guide .quick-links{display:grid;gap:10px}
+.bonus-index-guide .quick-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);color:var(--guide-primary);text-decoration:none;font-weight:700;background:#fff}
+.bonus-index-guide .quick-link:hover{background:var(--guide-surface);border-color:var(--guide-primary)}
+@media(max-width:700px){.bonus-index-guide .bonus-index{grid-template-columns:1fr;gap:11px}.bonus-index-guide .bonus-card{min-height:0;padding:16px}}
