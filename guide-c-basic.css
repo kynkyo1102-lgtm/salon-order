@@ -1,4 +1,8 @@
 /* Bonus basic conditions: page-specific components only. */
+.registration-guide.bonus-basic-guide{margin:0;width:100%;max-width:100%;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.bonus-basic-guide,.bonus-basic-guide *{box-sizing:border-box}
+.bonus-basic-page .bonus-basic-condition{min-width:0}
+.bonus-basic-page .bonus-basic-condition span{overflow-wrap:anywhere}
 .bonus-basic-page .bonus-basic-conditions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .bonus-basic-page .bonus-basic-condition{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 12px;text-align:center;background:#f5f9fd;border:1px solid #dce7f2;border-radius:15px}
 .bonus-basic-page .bonus-basic-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:#e5f0fa;color:#0055a4}
