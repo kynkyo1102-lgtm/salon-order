@@ -12,3 +12,19 @@
 @media(max-width:600px){.bonus-guide .bonus-progress-track:before{top:12px}.bonus-guide .bonus-progress-track span{font-size:10px;letter-spacing:-.03em;gap:8px}.bonus-guide .bonus-progress-track span:before{width:26px;height:26px;border-width:2px}.bonus-guide .bonus-progress-caption{margin-top:13px;font-size:12px}}
 
 .bonus-guide .bonus-monthly-purchase{display:flex;justify-content:center;align-items:center;gap:10px;margin:18px auto 2px;color:#455a6d;font-size:14px;font-weight:700}.bonus-guide .bonus-monthly-purchase img{width:30px;height:44px;object-fit:contain;flex-shrink:0}@media(max-width:600px){.bonus-guide .bonus-monthly-purchase{margin-top:16px;font-size:13px}}
+
+/* Six purchases represented by the existing ivory product SVG, with a gift on month six. */
+.bonus-guide .bonus-purchase-illustration{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:28px;align-items:start}
+.bonus-guide .bonus-purchase-step{position:relative;display:flex;align-items:center;flex-direction:column;gap:7px;text-align:center;min-width:0;padding:9px 3px 12px;border-radius:12px}
+.bonus-guide .bonus-purchase-step:not(:last-child):after{content:"›";position:absolute;right:-10px;top:44px;font-size:22px;color:#9aafc1;font-weight:700;z-index:1}
+.bonus-guide .bonus-step-label{font-weight:800;font-size:13px;color:#405b70;white-space:nowrap}
+.bonus-guide .bonus-purchase-step img{width:48px;height:72px;object-fit:contain}
+.bonus-guide .bonus-step-caption{font-size:11px;color:#6c7c88;white-space:nowrap}
+.bonus-guide .bonus-purchase-step.is-final{background:#eef5fb}
+.bonus-guide .bonus-purchase-step.is-final .bonus-step-label{color:var(--guide-primary)}
+.bonus-guide .bonus-gift{font-size:30px;line-height:1.2;margin-top:5px}
+.bonus-guide .bonus-gift-label{font-size:12px;line-height:1.4;color:var(--guide-primary)}
+.bonus-guide .bonus-breadcrumb{display:flex;flex-wrap:wrap;align-items:center;gap:7px;font-size:12px;line-height:1.6;color:#64788a;margin-bottom:22px}
+.bonus-guide .bonus-breadcrumb a{color:var(--guide-primary);text-decoration:none}
+.bonus-guide .bonus-breadcrumb a:hover{text-decoration:underline}
+@media(max-width:600px){.bonus-guide .bonus-purchase-illustration{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 8px}.bonus-guide .bonus-purchase-step:not(:last-child):after{right:-9px;top:43px}.bonus-guide .bonus-purchase-step:nth-child(3):after{display:none}.bonus-guide .bonus-purchase-step img{width:45px;height:66px}.bonus-guide .bonus-step-label{font-size:12px}.bonus-guide .bonus-gift{font-size:26px}.bonus-guide .bonus-gift-label{font-size:11px}}
