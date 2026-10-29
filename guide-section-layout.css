@@ -1,5 +1,5 @@
 /* Shared section navigation and vertical rhythm for completed guide pages.
-   Load after page-specific styles. Step-by-step guides opt out of this layout. */
+   Load after page-specific styles; only marked sections are affected. */
 .registration-guide .guide-common-page>.guide-common-title:has(+ .guide-section-nav){margin-bottom:34px}
 .registration-guide .guide-common-page .guide-section-nav{display:flex;flex-direction:column;align-items:flex-start;gap:13px;margin:0 0 68px;padding:0;border:0;background:transparent}
 .registration-guide .guide-common-page .guide-section-nav a{display:inline-flex;align-items:center;justify-content:flex-start;align-self:flex-start;flex:0 0 auto;width:auto;max-width:100%;padding:11px 16px;border:0;border-radius:999px;background:#e9e9f1;box-shadow:0 3px 0 #c8c8d0;color:#183b5d;font-size:14px;font-weight:650;line-height:1.5;text-decoration:none;box-sizing:border-box}
@@ -9,8 +9,6 @@
 .registration-guide .guide-common-page .guide-section>h2{margin-bottom:32px;padding-bottom:18px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
 .registration-guide .guide-common-page .guide-section>.cost-section-title,.registration-guide .guide-common-page .guide-section>.compare-section-title{margin-top:0}
 @media(max-width:600px){
- .registration-guide .guide-common-page>.guide-common-title:has(+ .guide-section-nav){margin-bottom:34px}
- .registration-guide .guide-common-page .guide-section-nav{gap:13px;margin-bottom:68px}
  .registration-guide .guide-common-page .guide-section{margin-bottom:88px;scroll-margin-top:80px}
  .registration-guide .guide-common-page .guide-section>h2{margin-bottom:29px;padding-bottom:17px}
 }
@@ -21,4 +19,4 @@
 .registration-guide .guide-common-page>.guide-common-title:has(+ .intro){margin-bottom:20px}
 .registration-guide .guide-common-page>.page-intro:has(+ .guide-section-nav),
 .registration-guide .guide-common-page>.stop-intro:has(+ .guide-section-nav),
-.registration-guide .guide-common-page>.intro:has(+ .guide-section-nav){margin:0 0 34px;color:var(--guide-muted);line-height:1.9}
+.registration-guide .guide-common-page>.intro:has(+ .guide-section-nav){margin:0 0 34px;color:var(--guide-muted,#52677a);line-height:1.9}
