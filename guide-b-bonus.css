@@ -54,53 +54,13 @@
 .bonus-guide .bonus-condition::before{content:'✓';position:absolute;left:0;top:1px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#eaf4ef;border:1px solid #bdd9c8;color:#287351;font-size:19px;font-weight:900;line-height:1}
 @media(max-width:600px){.bonus-guide .bonus-condition{padding-left:42px}.bonus-guide .bonus-condition::before{width:29px;height:29px;font-size:17px}}
 
-/* Trial: compact in-page table of contents directly under the page title. */
-.bonus-guide .bonus-toc{display:grid;gap:0;margin:16px 0 34px;padding:14px 18px;border:1px solid #dce6ee;border-radius:11px;background:#f8fbfd}
-.bonus-guide .bonus-toc-heading{font-size:12px;font-weight:800;color:#627588;letter-spacing:.02em;margin-bottom:5px}
-.bonus-guide .bonus-toc a{display:block;padding:7px 0;color:var(--guide-primary);font-size:14px;font-weight:650;text-decoration:none;line-height:1.6}
-.bonus-guide .bonus-toc a:before{content:"›";margin-right:9px;color:#789ab8;font-weight:800}
-.bonus-guide .bonus-toc a:hover{text-decoration:underline}
-.bonus-guide .bonus-section{scroll-margin-top:95px}
-@media(max-width:600px){.bonus-guide .bonus-toc{padding:12px 15px;margin:14px 0 28px}.bonus-guide .bonus-toc a{font-size:13px;padding:7px 0}.bonus-guide .bonus-section{scroll-margin-top:80px}}
-
-/* Light-weight contents links, without a surrounding card. */
-.bonus-guide .bonus-toc{display:block;margin:16px 0 44px;padding:0 0 14px;border:0;border-bottom:1px solid var(--guide-border);border-radius:0;background:transparent}
-.bonus-guide .bonus-toc-heading{display:block;margin:0 0 6px}
-.bonus-guide .bonus-toc a{padding:6px 0}
 .bonus-guide #bonus-flow .bonus-intro{margin:0 0 22px}
-@media(max-width:600px){.bonus-guide .bonus-toc{margin:14px 0 36px;padding:0 0 12px}.bonus-guide #bonus-flow .bonus-intro{margin-bottom:18px}}
-
-/* Shibuya-style compact inline section links: no card or contents heading. */
-.bonus-guide .bonus-toc{display:flex;flex-wrap:wrap;align-items:center;column-gap:20px;row-gap:9px;margin:18px 0 42px;padding:0 0 18px;border:0;border-bottom:1px solid var(--guide-border);border-radius:0;background:transparent}
-.bonus-guide .bonus-toc a{display:inline-block;padding:0;font-size:14px;font-weight:700;line-height:1.6;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
-.bonus-guide .bonus-toc a:before{content:"";display:none}
-@media(max-width:600px){.bonus-guide .bonus-toc{column-gap:15px;row-gap:9px;margin:15px 0 34px;padding-bottom:15px}.bonus-guide .bonus-toc a{font-size:13px}}
-
-/* Outlined button-like jump links, in the style of municipal page navigation. */
-.bonus-guide .bonus-toc{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:18px 0 36px;padding:0;border:0;background:transparent}
-.bonus-guide .bonus-toc a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #a8bfd2;border-radius:5px;background:#fff;color:#07549b;font-size:14px;font-weight:700;text-decoration:none;line-height:1.5;text-align:center;box-sizing:border-box}
-.bonus-guide .bonus-toc a:before{display:none}
-.bonus-guide .bonus-toc a:after{content:"↓";margin-left:9px;font-size:14px;font-weight:700;color:#07549b}
-.bonus-guide .bonus-toc a:hover,.bonus-guide .bonus-toc a:focus-visible{background:#eef6fd;border-color:#07549b;text-decoration:none}
-@media(max-width:600px){.bonus-guide .bonus-toc{gap:9px;margin:15px 0 30px;padding:0}.bonus-guide .bonus-toc a{flex:1 1 100%;justify-content:space-between;font-size:14px;padding:10px 14px}}
-
-/* Compact content-width pill links, matching the provided municipal example. */
-.bonus-guide .bonus-toc{display:flex;flex-direction:column;align-items:flex-start;gap:13px;margin:18px 0 40px;padding:0;border:0;background:transparent}
-.bonus-guide .bonus-toc a{display:inline-flex;flex:0 0 auto;align-items:center;justify-content:flex-start;align-self:flex-start;width:auto;max-width:100%;min-height:0;padding:12px 17px;border:0;border-radius:999px;background:#e9e9f1;box-shadow:0 3px 0 #c8c8d0;color:#183b5d;font-size:14px;font-weight:650;text-align:left;line-height:1.5;text-decoration:none;box-sizing:border-box}
-.bonus-guide .bonus-toc a:before{display:none}
-.bonus-guide .bonus-toc a:after{content:"↓";margin-left:11px;font-size:19px;font-weight:500;color:#183b5d;line-height:1}
-.bonus-guide .bonus-toc a:hover,.bonus-guide .bonus-toc a:focus-visible{background:#dfe7f0;border:0;text-decoration:none}
-@media(max-width:600px){.bonus-guide .bonus-toc{align-items:flex-start;gap:13px;margin:16px 0 35px}.bonus-guide .bonus-toc a{display:inline-flex;flex:0 0 auto;align-self:flex-start;width:auto;max-width:100%;min-height:0;padding:11px 16px;font-size:14px;justify-content:flex-start}}
-
+@media(max-width:600px){.bonus-guide #bonus-flow .bonus-intro{margin-bottom:18px}}
 /* More breathing room between the major sections and their headings. */
-.bonus-guide .bonus-section{margin-bottom:100px}
-.bonus-guide .bonus-section h2{margin-bottom:32px;padding-bottom:18px}
+
+
 .bonus-guide #bonus-flow .bonus-intro{margin-bottom:34px}
 .bonus-guide .bonus-condition{margin-bottom:28px;padding-bottom:25px}
 .bonus-guide .bonus-detail{margin-top:38px}
-@media(max-width:600px){.bonus-guide .bonus-section{margin-bottom:88px}.bonus-guide .bonus-section h2{margin-bottom:29px;padding-bottom:17px}.bonus-guide #bonus-flow .bonus-intro{margin-bottom:28px}.bonus-guide .bonus-condition{margin-bottom:26px;padding-bottom:23px}.bonus-guide .bonus-detail{margin-top:34px}}
+@media(max-width:600px){.bonus-guide #bonus-flow .bonus-intro{margin-bottom:28px}.bonus-guide .bonus-condition{margin-bottom:26px;padding-bottom:23px}.bonus-guide .bonus-detail{margin-top:34px}}
 
-/* Give the page title, jump-link contents, and first section distinct vertical space. */
-.bonus-guide .bonus-page>.guide-common-title{margin-bottom:38px}
-.bonus-guide .bonus-toc{margin-top:0;margin-bottom:76px}
-@media(max-width:600px){.bonus-guide .bonus-page>.guide-common-title{margin-bottom:34px}.bonus-guide .bonus-toc{margin-top:0;margin-bottom:68px}}
