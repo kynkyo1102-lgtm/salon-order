@@ -3,8 +3,8 @@
 .delivery-schedule-guide *{box-sizing:border-box}
 .delivery-schedule-guide .delivery-schedule-page{--guide-title-gap:10px}
 .delivery-schedule-guide .page-intro{margin:0 0 38px;color:var(--guide-muted)}
-.delivery-schedule-guide .schedule-section{margin:0 0 40px}
-.delivery-schedule-guide .schedule-section h2{margin:0 0 19px;padding:0 0 13px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+
+
 .delivery-schedule-guide .section-intro{margin:0 0 20px;color:var(--guide-muted)}
 .delivery-schedule-guide .schedule-list{display:grid;gap:12px}
 .delivery-schedule-guide .schedule-card{display:grid;grid-template-columns:minmax(0,1fr) 26px minmax(0,1fr);align-items:center;gap:12px;padding:19px 22px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-info);background:#fff}
@@ -17,4 +17,4 @@
 .delivery-schedule-guide .schedule-info{padding:20px 22px;border-radius:var(--guide-radius-info);background:var(--guide-surface);line-height:1.9}
 .delivery-schedule-guide .schedule-info strong{color:var(--guide-primary)}
 .delivery-schedule-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
-@media(max-width:600px){.delivery-schedule-guide .page-intro{margin-bottom:30px}.delivery-schedule-guide .schedule-section{margin-bottom:32px}.delivery-schedule-guide .schedule-card{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;padding:16px 13px}.delivery-schedule-guide .schedule-date,.delivery-schedule-guide .schedule-shipping{font-size:15px}.delivery-schedule-guide .schedule-arrow{font-size:18px}.delivery-schedule-guide .schedule-info{padding:18px}}
+@media(max-width:600px){.delivery-schedule-guide .page-intro{margin-bottom:30px}.delivery-schedule-guide .schedule-card{grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;padding:16px 13px}.delivery-schedule-guide .schedule-date,.delivery-schedule-guide .schedule-shipping{font-size:15px}.delivery-schedule-guide .schedule-arrow{font-size:18px}.delivery-schedule-guide .schedule-info{padding:18px}}
