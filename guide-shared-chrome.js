@@ -35,6 +35,25 @@ function addManualReference(){
  note.textContent='メンバーズマニュアル'+page+'参照（ページ番号は仮）';
  main.append(note);
 }
+function addCategoryBreadcrumb(){
+ const filename=decodeURIComponent(location.pathname.split('/').pop());
+ const category=filename.startsWith('guide-a-')?'新規登録':filename.startsWith('guide-b-')&&filename!=='guide-b.html'?'定期購入':null;
+ if(!category)return;
+ const main=document.querySelector('main');
+ if(!main||main.querySelector('.guide-category-breadcrumb,.bonus-breadcrumb'))return;
+ const title=main.querySelector('h1');
+ if(!title)return;
+ const nav=document.createElement('nav');
+ nav.className='guide-category-breadcrumb';
+ nav.setAttribute('aria-label','パンくずリスト');
+ const home=document.createElement('a');home.href='./ninaguide.html';home.textContent='メンバーズガイド';
+ const sep1=document.createElement('span');sep1.setAttribute('aria-hidden','true');sep1.textContent='›';
+ const group=document.createElement('a');group.href='./ninaguide.html#'+(category==='新規登録'?'registration':'regular');group.textContent=category;
+ const sep2=document.createElement('span');sep2.setAttribute('aria-hidden','true');sep2.textContent='›';
+ const current=document.createElement('span');current.setAttribute('aria-current','page');current.textContent=title.textContent.trim();
+ nav.append(home,sep1,group,sep2,current);
+ main.insertBefore(nav,main.firstChild);
+}
 function init(){
  const header=document.createElement('header');header.className='guide-shared-header';
  header.innerHTML='<div class="guide-shared-brand"><a class="guide-shared-logo" href="https://kynkyo1102-lgtm.github.io/mksalon-order/">Place de Nina</a><span class="guide-shared-shop">南熊本店</span></div><button class="guide-shared-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="guide-shared-site-menu"><span class="guide-shared-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button><nav class="guide-shared-menu" id="guide-shared-site-menu" aria-label="サイトメニュー" hidden><a class="guide-shared-primary" href="./ninaguide.html">メンバーズガイド トップ</a><div id="guide-shared-groups"></div><div class="guide-shared-secondary"><a href="./ninaguide-salons.html">全国のサロンを探す</a><a href="https://kynkyo1102-lgtm.github.io/mksalon-order/">サロンページへ</a></div></nav>';
@@ -46,6 +65,7 @@ function init(){
  toggle.addEventListener('click',()=>setOpen(menu.hidden));
  document.addEventListener('click',e=>{if(!menu.hidden&&!header.contains(e.target))setOpen(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){setOpen(false);toggle.focus()}});
+ addCategoryBreadcrumb();
  addManualReference();
  const footer=document.createElement('footer');footer.className='guide-shared-footer';footer.innerHTML='<p>当サイトはプラッス ドゥ ニナ 南熊本店が制作した非公式ガイドです。正式な内容は公式資料をご確認ください。</p>';document.body.append(footer);
  const floating=document.createElement('nav');floating.className='guide-shared-floating';floating.setAttribute('aria-label','便利なリンク');floating.innerHTML='<a class="guide-shared-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer">E-Service</a><a class="guide-shared-diagnosis" href="./check.html">ボーナス診断</a>';document.body.append(floating);
