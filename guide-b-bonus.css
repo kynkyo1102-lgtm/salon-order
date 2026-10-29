@@ -91,3 +91,11 @@
 .bonus-guide .bonus-toc a:after{content:"↓";margin-left:11px;font-size:19px;font-weight:500;color:#183b5d;line-height:1}
 .bonus-guide .bonus-toc a:hover,.bonus-guide .bonus-toc a:focus-visible{background:#dfe7f0;border:0;text-decoration:none}
 @media(max-width:600px){.bonus-guide .bonus-toc{align-items:flex-start;gap:13px;margin:16px 0 35px}.bonus-guide .bonus-toc a{display:inline-flex;flex:0 0 auto;align-self:flex-start;width:auto;max-width:100%;min-height:0;padding:11px 16px;font-size:14px;justify-content:flex-start}}
+
+/* More breathing room between the major sections and their headings. */
+.bonus-guide .bonus-section{margin-bottom:100px}
+.bonus-guide .bonus-section h2{margin-bottom:32px;padding-bottom:18px}
+.bonus-guide #bonus-flow .bonus-intro{margin-bottom:34px}
+.bonus-guide .bonus-condition{margin-bottom:28px;padding-bottom:25px}
+.bonus-guide .bonus-detail{margin-top:38px}
+@media(max-width:600px){.bonus-guide .bonus-section{margin-bottom:88px}.bonus-guide .bonus-section h2{margin-bottom:29px;padding-bottom:17px}.bonus-guide #bonus-flow .bonus-intro{margin-bottom:28px}.bonus-guide .bonus-condition{margin-bottom:26px;padding-bottom:23px}.bonus-guide .bonus-detail{margin-top:34px}}
