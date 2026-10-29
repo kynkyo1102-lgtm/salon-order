@@ -10,3 +10,5 @@
 .bonus-guide .bonus-progress-caption{display:flex;justify-content:space-between;align-items:center;margin:15px 0 0;color:#697989;font-size:13px}
 .bonus-guide .bonus-progress-caption strong{color:var(--guide-primary);font-size:15px}
 @media(max-width:600px){.bonus-guide .bonus-progress-track:before{top:12px}.bonus-guide .bonus-progress-track span{font-size:10px;letter-spacing:-.03em;gap:8px}.bonus-guide .bonus-progress-track span:before{width:26px;height:26px;border-width:2px}.bonus-guide .bonus-progress-caption{margin-top:13px;font-size:12px}}
+
+.bonus-guide .bonus-monthly-purchase{display:flex;justify-content:center;align-items:center;gap:10px;margin:18px auto 2px;color:#455a6d;font-size:14px;font-weight:700}.bonus-guide .bonus-monthly-purchase img{width:30px;height:44px;object-fit:contain;flex-shrink:0}@media(max-width:600px){.bonus-guide .bonus-monthly-purchase{margin-top:16px;font-size:13px}}
