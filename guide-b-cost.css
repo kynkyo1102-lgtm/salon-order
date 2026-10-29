@@ -3,8 +3,8 @@
 .monthly-cost-guide *{box-sizing:border-box}
 .monthly-cost-guide .monthly-cost-page{--guide-title-gap:10px}
 .monthly-cost-guide .page-intro{margin:0 0 38px;color:var(--guide-muted)}
-.monthly-cost-guide .monthly-section{margin:0 0 40px}
-.monthly-cost-guide .monthly-section h2{margin:0 0 19px;padding:0 0 13px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+
+
 .monthly-cost-guide .monthly-cost-list{display:grid;gap:14px}
 .monthly-cost-guide .monthly-cost-item{padding:20px 22px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-info);background:#fff}
 .monthly-cost-guide .monthly-cost-label{margin-bottom:5px;color:var(--guide-text);font-size:15px;font-weight:700}
@@ -16,4 +16,4 @@
 .monthly-cost-guide .shipping-info p{margin:0}
 .monthly-cost-guide .shipping-info strong{color:var(--guide-primary)}
 .monthly-cost-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
-@media(max-width:600px){.monthly-cost-guide .page-intro{margin-bottom:30px}.monthly-cost-guide .monthly-section{margin-bottom:32px}.monthly-cost-guide .monthly-cost-item{padding:17px 18px}.monthly-cost-guide .monthly-cost-price{font-size:23px}.monthly-cost-guide .monthly-cost-total .monthly-cost-price{font-size:28px}.monthly-cost-guide .shipping-info{padding:18px}}
+@media(max-width:600px){.monthly-cost-guide .page-intro{margin-bottom:30px}.monthly-cost-guide .monthly-cost-item{padding:17px 18px}.monthly-cost-guide .monthly-cost-price{font-size:23px}.monthly-cost-guide .monthly-cost-total .monthly-cost-price{font-size:28px}.monthly-cost-guide .shipping-info{padding:18px}}
