@@ -14,3 +14,11 @@
  .registration-guide .guide-common-page .guide-section{margin-bottom:88px;scroll-margin-top:80px}
  .registration-guide .guide-common-page .guide-section>h2{margin-bottom:29px;padding-bottom:17px}
 }
+
+/* Page introduction precedes the contents links when present. */
+.registration-guide .guide-common-page>.guide-common-title:has(+ .page-intro),
+.registration-guide .guide-common-page>.guide-common-title:has(+ .stop-intro),
+.registration-guide .guide-common-page>.guide-common-title:has(+ .intro){margin-bottom:20px}
+.registration-guide .guide-common-page>.page-intro:has(+ .guide-section-nav),
+.registration-guide .guide-common-page>.stop-intro:has(+ .guide-section-nav),
+.registration-guide .guide-common-page>.intro:has(+ .guide-section-nav){margin:0 0 34px;color:var(--guide-muted);line-height:1.9}
