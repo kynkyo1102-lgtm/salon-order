@@ -41,3 +41,10 @@
 .bonus-guide .bonus-purchase-step.is-final .bonus-gift{font-size:35px;margin-top:3px}
 .bonus-guide .bonus-purchase-step.is-final .bonus-gift-label{font-weight:900}
 @media(max-width:600px){.bonus-guide .bonus-purchase-step{gap:5px}.bonus-guide .bonus-purchase-step.is-final .bonus-gift{font-size:26px;margin-top:2px}}
+
+/* Conditions read as a three-item checklist, without interactive controls. */
+.bonus-guide .bonus-condition{display:flex;align-items:flex-start;gap:14px;padding:0 0 21px;margin-bottom:22px}
+.bonus-guide .bonus-condition-marker{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;margin-top:1px;border-radius:50%;background:#eaf4ef;border:1px solid #bdd9c8;color:#287351;font-size:19px;font-weight:900;line-height:1}
+.bonus-guide .bonus-condition-copy{flex:1;min-width:0}
+.bonus-guide .bonus-condition-copy h3{margin:0 0 5px}
+@media(max-width:600px){.bonus-guide .bonus-condition{gap:11px}.bonus-guide .bonus-condition-marker{flex-basis:29px;width:29px;height:29px;font-size:17px}}
