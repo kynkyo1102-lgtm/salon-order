@@ -2,8 +2,8 @@
 .deadline-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
 .deadline-guide *{box-sizing:border-box}
 .deadline-guide .page-intro{margin:0 0 42px;color:var(--guide-muted)}
-.deadline-guide .deadline-section{margin:0 0 68px}
-.deadline-guide .deadline-section h2{margin:0 0 24px;padding:0 0 15px;border-bottom:1px solid var(--guide-border);color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+
+
 .deadline-guide .deadline-section>p{margin:0;line-height:1.95}
 .deadline-guide .deadline-section strong{color:var(--guide-primary)}
 .deadline-guide .deadline-highlight{padding:26px 24px;text-align:center;background:#eef5fb;border-radius:12px}
@@ -19,7 +19,7 @@
 .deadline-guide .deadline-alert-body{padding:0 12px 18px;line-height:1.9}
 .deadline-guide .deadline-alert-body p{margin:10px 0 0}
 .deadline-guide .manual-ref{margin:0;color:var(--guide-muted);font-size:12px}
-@media(max-width:600px){.deadline-guide .page-intro{margin-bottom:32px}.deadline-guide .deadline-section{margin-bottom:56px}.deadline-guide .deadline-highlight{padding:24px 14px}.deadline-guide .deadline-date{font-size:48px}}
+@media(max-width:600px){.deadline-guide .page-intro{margin-bottom:32px}.deadline-guide .deadline-highlight{padding:24px 14px}.deadline-guide .deadline-date{font-size:48px}}
 
 /* Clear before/after cutoff comparison */
 .deadline-guide .deadline-timing{border-top:1px solid var(--guide-border)}
@@ -61,17 +61,17 @@
 }
 
 /* Establish a quieter heading and a single primary blue emphasis. */
-.deadline-guide .deadline-section h2{color:#40576b;font-size:18px;font-weight:700;border-bottom-color:#dce4eb}
+
 .deadline-guide .deadline-timing-when strong{color:#253443;font-weight:700}
 .deadline-guide .deadline-timing-result strong{color:#07539c;font-size:23px;font-weight:800}
 .deadline-guide .deadline-timing-result span{color:#526273;font-size:14px;font-weight:400}
-@media(max-width:600px){.deadline-guide .deadline-section h2{font-size:18px}.deadline-guide .deadline-timing-result strong{font-size:23px}}
+@media(max-width:600px){.deadline-guide .deadline-timing-result strong{font-size:23px}}
 
 /* Restore blue section heading; make outcomes distinct through a subtle highlight. */
-.deadline-guide .deadline-section h2{color:var(--guide-primary);font-size:21px;font-weight:800}
+
 .deadline-guide .deadline-timing-result strong{color:#183e5b;background:#e9f3ed;border-radius:5px;padding:2px 6px;font-size:21px;font-weight:800;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .deadline-guide .deadline-timing-result span{color:#526273;font-size:14px}
-@media(max-width:600px){.deadline-guide .deadline-section h2{font-size:21px}.deadline-guide .deadline-timing-result strong{font-size:21px}}
+@media(max-width:600px){.deadline-guide .deadline-timing-result strong{font-size:21px}}
 
 /* Outcome labels: blue again, slightly smaller than the section heading. */
 .deadline-guide .deadline-timing-result strong{color:var(--guide-primary);background:none;border-radius:0;padding:0;font-size:19px;font-weight:800;box-decoration-break:slice;-webkit-box-decoration-break:slice}
