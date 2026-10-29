@@ -6,38 +6,24 @@
   <meta name="theme-color" content="#123b78">
   <meta name="description" content="8つに大きく分けたボーナスプランの一覧です。それぞれの仕組みや取得条件を確認できます。">
   <title>ボーナスプラン一覧 - メンバーズWebガイド</title>
-  <link rel="stylesheet" href="./common.css?v=20261023-nav3">
-  <style>
-    .bonus-intro{margin-bottom:22px;padding:17px 19px;border:1px solid #d9e8f8;border-radius:12px;background:linear-gradient(135deg,#edf5ff 0%,#fff 100%);line-height:1.8;color:#334155}
-    .bonus-index{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .bonus-card{display:flex;align-items:center;gap:14px;min-height:104px;padding:18px;border:1px solid var(--border-color);border-radius:12px;background:#fff;color:inherit;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s ease,border-color .15s ease}
-    .bonus-card:hover{transform:translateY(-2px);border-color:#b9d2f0}
-    .bonus-number{display:flex;align-items:center;justify-content:center;flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#edf5ff;color:var(--primary-dark);font-weight:900;font-size:1.05rem}
-    .bonus-card-text{flex:1;min-width:0}
-    .bonus-card-title{display:block;color:var(--primary-dark);font-weight:800;line-height:1.5}
-    .bonus-card-desc{display:block;margin-top:5px;color:#687386;font-size:.82rem;line-height:1.55}
-    .bonus-arrow{color:var(--primary);font-size:1.35rem;font-weight:800}
-    .quick-links{display:grid;gap:10px}
-    .quick-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--border-color);border-radius:10px;color:var(--primary-dark);text-decoration:none;font-weight:800;background:#fff}
-    .quick-link:hover{background:var(--blue-pale);border-color:#b9d2f0}
-    @media(max-width:700px){.bonus-index{grid-template-columns:1fr;gap:11px}.bonus-card{min-height:0;padding:16px}.section-card{padding:22px 17px}}
-  </style>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head>
-<body>
+  <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3">\n<link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">\n<link rel="stylesheet" href="./guide-c-bonus.css?v=20261029-1">\n<link rel="stylesheet" href="./guide-section-layout.css?v=20261029-2">
+  
+</head>
+<body class="registration-guide bonus-index-guide">
   
 
-  <main class="container">
+  <main class="guide-common-page bonus-index-page">
     <div class="page-header">
       <div class="page-category">GUIDE C｜ボーナス・タイトル</div>
       <h1 class="page-title">ボーナスプラン一覧</h1>
     </div>
 
-    <div class="bonus-intro">
+    <p class="bonus-intro">
       ボーナスプランは大きく分けて8つあります。気になるボーナスを選ぶと、仕組みや取得条件、計算例を確認できます。
     </div>
 
-    <section class="section-card" aria-labelledby="bonus-list">
-      <h2 class="section-card-title" id="bonus-list">8つのボーナスプラン</h2>
+    <nav class="guide-section-nav" aria-label="このページの目次"><a href="#bonus-list">8つのボーナスプラン</a><a href="#related">あわせて確認</a></nav>\n<section class="guide-section" id="bonus-list">
+      <h2>8つのボーナスプラン</h2>
       <div class="bonus-index">
         <a class="bonus-card" href="./guide-c-bonus-first-start.html"><span class="bonus-number">1</span><span class="bonus-card-text"><span class="bonus-card-title">ファーストスタートボーナス</span><span class="bonus-card-desc">新規会員の直接紹介に関するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
         <a class="bonus-card" href="./guide-c-bonus-5-active.html"><span class="bonus-number">2</span><span class="bonus-card-text"><span class="bonus-card-title">5アクティブボーナス</span><span class="bonus-card-desc">アクティブ紹介者5人に関するボーナス</span></span><span class="bonus-arrow" aria-hidden="true">›</span></a>
@@ -51,8 +37,8 @@
       </div>
     </section>
 
-    <section class="section-card" aria-labelledby="related">
-      <h2 class="section-card-title" id="related">あわせて確認</h2>
+    <section class="guide-section" id="related">
+      <h2>あわせて確認</h2>
       <div class="quick-links">
         <a class="quick-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span aria-hidden="true">›</span></a>
         <a class="quick-link" href="./check.html"><span>ボーナス・タイトル診断</span><span aria-hidden="true">›</span></a>
@@ -63,5 +49,5 @@
 
   
   
-<script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body>
+<script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body>
 </html>
