@@ -1,7 +1,7 @@
 .registration-guide.compare-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
 .compare-guide *{box-sizing:border-box}
 .compare-guide .compare-page{--guide-title-gap:44px}
-.compare-guide .compare-section-title{margin:0 0 17px;color:var(--guide-primary);font-size:21px;font-weight:800}
+
 .compare-guide .section-desc{margin:0 0 22px;line-height:1.9}
 .compare-guide .comparison-group{margin:0 0 25px}
 .compare-guide .comparison-label{margin:0 0 10px;font-size:16px;font-weight:800;color:var(--guide-text)}
@@ -17,4 +17,4 @@
 .compare-guide .compare-help h2{margin:0 0 9px;color:#28704c;font-size:18px}
 .compare-guide .compare-help p{margin:0 0 16px}
 .compare-guide .compare-help a{color:#28704c;font-weight:700;text-underline-offset:3px}
-@media(max-width:600px){.compare-guide .compare-page{--guide-title-gap:34px}.compare-guide .compare-section-title{font-size:19px}.compare-guide .comparison-pair{gap:9px}.compare-guide .comparison-option{padding:15px 12px}.compare-guide .comparison-option strong{font-size:15px}.compare-guide .registration-next-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.compare-guide .compare-page{--guide-title-gap:34px}.compare-guide .comparison-pair{gap:9px}.compare-guide .comparison-option{padding:15px 12px}.compare-guide .comparison-option strong{font-size:15px}.compare-guide .registration-next-grid{grid-template-columns:1fr}}
