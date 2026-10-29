@@ -11,4 +11,12 @@
 .bonus-basic-page .bonus-basic-condition span{color:#263f55;font-size:15px;font-weight:700;line-height:1.6}
 .bonus-basic-page .bonus-basic-check p{margin:0 0 20px;line-height:1.9;color:#475569}
 .bonus-basic-page .bonus-basic-action{display:inline-block;padding:13px 20px;border-radius:12px;font-weight:750;line-height:1.6}
-@media(max-width:600px){.bonus-basic-page .bonus-basic-conditions{gap:9px}.bonus-basic-page .bonus-basic-condition{padding:17px 7px;gap:8px}.bonus-basic-page .bonus-basic-icon{width:46px;height:46px;border-radius:13px}.bonus-basic-page .bonus-basic-icon svg{width:28px;height:28px}.bonus-basic-page .bonus-basic-condition strong{font-size:13px}.bonus-basic-page .bonus-basic-condition span{font-size:13px}.bonus-basic-page .bonus-basic-action{width:100%;text-align:center}}
+@media(max-width:600px){
+.bonus-basic-page .bonus-basic-conditions{grid-template-columns:1fr;gap:12px}
+.bonus-basic-page .bonus-basic-condition{display:grid;grid-template-columns:52px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;justify-items:start;column-gap:14px;row-gap:2px;padding:16px;text-align:left}
+.bonus-basic-page .bonus-basic-icon{grid-column:1;grid-row:1 / 3;width:52px;height:52px;border-radius:13px}
+.bonus-basic-page .bonus-basic-icon svg{width:30px;height:30px}
+.bonus-basic-page .bonus-basic-condition strong{grid-column:2;grid-row:1;font-size:16px}
+.bonus-basic-page .bonus-basic-condition span{grid-column:2;grid-row:2;font-size:15px}
+.bonus-basic-page .bonus-basic-action{width:100%;text-align:center}
+}
