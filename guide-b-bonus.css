@@ -75,3 +75,11 @@
 .bonus-guide .bonus-toc a{display:inline-block;padding:0;font-size:14px;font-weight:700;line-height:1.6;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 .bonus-guide .bonus-toc a:before{content:"";display:none}
 @media(max-width:600px){.bonus-guide .bonus-toc{column-gap:15px;row-gap:9px;margin:15px 0 34px;padding-bottom:15px}.bonus-guide .bonus-toc a{font-size:13px}}
+
+/* Outlined button-like jump links, in the style of municipal page navigation. */
+.bonus-guide .bonus-toc{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:18px 0 36px;padding:0;border:0;background:transparent}
+.bonus-guide .bonus-toc a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #a8bfd2;border-radius:5px;background:#fff;color:#07549b;font-size:14px;font-weight:700;text-decoration:none;line-height:1.5;text-align:center;box-sizing:border-box}
+.bonus-guide .bonus-toc a:before{display:none}
+.bonus-guide .bonus-toc a:after{content:"↓";margin-left:9px;font-size:14px;font-weight:700;color:#07549b}
+.bonus-guide .bonus-toc a:hover,.bonus-guide .bonus-toc a:focus-visible{background:#eef6fd;border-color:#07549b;text-decoration:none}
+@media(max-width:600px){.bonus-guide .bonus-toc{gap:9px;margin:15px 0 30px;padding:0}.bonus-guide .bonus-toc a{flex:1 1 100%;justify-content:space-between;font-size:14px;padding:10px 14px}}
