@@ -34,3 +34,10 @@
 .bonus-guide .bonus-purchase-step{padding:8px 0 10px;gap:5px}
 .bonus-guide .bonus-purchase-step:not(:last-child):after{right:-7px;top:43px}
 @media(max-width:600px){.bonus-guide .bonus-purchase-illustration{grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;margin-top:20px}.bonus-guide .bonus-purchase-step{gap:4px;padding:7px 0 9px}.bonus-guide .bonus-purchase-step:nth-child(3):after{display:block}.bonus-guide .bonus-purchase-step:not(:last-child):after{right:-6px;top:37px;font-size:14px}.bonus-guide .bonus-purchase-step img{width:100%;max-width:35px;height:52px}.bonus-guide .bonus-step-label{font-size:clamp(9px,2.2vw,12px);letter-spacing:-.06em}.bonus-guide .bonus-step-caption{font-size:9px;letter-spacing:-.06em}.bonus-guide .bonus-gift{font-size:22px;margin-top:2px}.bonus-guide .bonus-gift-label{font-size:10px;line-height:1.3;overflow-wrap:anywhere}}
+
+/* Simplify monthly markers and emphasize the reward without enlarging the row. */
+.bonus-guide .bonus-purchase-step{gap:6px}
+.bonus-guide .bonus-purchase-step.is-final{background:#e8f3ff;box-shadow:inset 0 0 0 1px #c9dff2}
+.bonus-guide .bonus-purchase-step.is-final .bonus-gift{font-size:35px;margin-top:3px}
+.bonus-guide .bonus-purchase-step.is-final .bonus-gift-label{font-weight:900}
+@media(max-width:600px){.bonus-guide .bonus-purchase-step{gap:5px}.bonus-guide .bonus-purchase-step.is-final .bonus-gift{font-size:26px;margin-top:2px}}
