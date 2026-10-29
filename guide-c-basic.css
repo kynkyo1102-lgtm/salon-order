@@ -1,0 +1,11 @@
+/* Bonus basic conditions: page-specific components only. */
+.bonus-basic-page .bonus-basic-conditions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.bonus-basic-page .bonus-basic-condition{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 12px;text-align:center;background:#f5f9fd;border:1px solid #dce7f2;border-radius:15px}
+.bonus-basic-page .bonus-basic-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:#e5f0fa;color:#0055a4}
+.bonus-basic-page .bonus-basic-icon svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.bonus-basic-page .bonus-basic-condition strong{color:#123b78;font-size:16px}
+.bonus-basic-page .bonus-basic-condition span{color:#263f55;font-size:15px;font-weight:700;line-height:1.6}
+.bonus-basic-page .bonus-basic-check p{margin:0 0 20px;line-height:1.9;color:#475569}
+.bonus-basic-page .bonus-basic-action{display:inline-block;padding:13px 20px;border-radius:12px;background:#004aad;color:#fff;text-decoration:none;font-weight:750;line-height:1.6}
+.bonus-basic-page .bonus-basic-action:hover{background:#003b8a}
+@media(max-width:600px){.bonus-basic-page .bonus-basic-conditions{gap:9px}.bonus-basic-page .bonus-basic-condition{padding:17px 7px;gap:8px}.bonus-basic-page .bonus-basic-icon{width:46px;height:46px;border-radius:13px}.bonus-basic-page .bonus-basic-icon svg{width:28px;height:28px}.bonus-basic-page .bonus-basic-condition strong{font-size:13px}.bonus-basic-page .bonus-basic-condition span{font-size:13px}.bonus-basic-page .bonus-basic-action{width:100%;text-align:center}}
