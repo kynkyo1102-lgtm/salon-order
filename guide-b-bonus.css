@@ -53,3 +53,12 @@
 .bonus-guide .bonus-condition{position:relative;padding-left:48px}
 .bonus-guide .bonus-condition::before{content:'✓';position:absolute;left:0;top:1px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#eaf4ef;border:1px solid #bdd9c8;color:#287351;font-size:19px;font-weight:900;line-height:1}
 @media(max-width:600px){.bonus-guide .bonus-condition{padding-left:42px}.bonus-guide .bonus-condition::before{width:29px;height:29px;font-size:17px}}
+
+/* Trial: compact in-page table of contents directly under the page title. */
+.bonus-guide .bonus-toc{display:grid;gap:0;margin:16px 0 34px;padding:14px 18px;border:1px solid #dce6ee;border-radius:11px;background:#f8fbfd}
+.bonus-guide .bonus-toc-heading{font-size:12px;font-weight:800;color:#627588;letter-spacing:.02em;margin-bottom:5px}
+.bonus-guide .bonus-toc a{display:block;padding:7px 0;color:var(--guide-primary);font-size:14px;font-weight:650;text-decoration:none;line-height:1.6}
+.bonus-guide .bonus-toc a:before{content:"›";margin-right:9px;color:#789ab8;font-weight:800}
+.bonus-guide .bonus-toc a:hover{text-decoration:underline}
+.bonus-guide .bonus-section{scroll-margin-top:95px}
+@media(max-width:600px){.bonus-guide .bonus-toc{padding:12px 15px;margin:14px 0 28px}.bonus-guide .bonus-toc a{font-size:13px;padding:7px 0}.bonus-guide .bonus-section{scroll-margin-top:80px}}
