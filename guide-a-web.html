@@ -3,7 +3,7 @@
 <title>ミトコンドリアちゃんと進めるWEB登録｜メンバーズガイド</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1">
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3">
 <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
 <link rel="stylesheet" href="./guide-registration-flow.css?v=20261028-1">
 </head><body class="registration-guide">
@@ -34,5 +34,5 @@ function render(){const s=steps[index];$("stage").textContent=s.stage;$("count")
 $("prev").addEventListener("click",()=>{if(index>0){index--;render()}});$("reset").addEventListener("click",()=>{index=0;Object.keys(checked).forEach(k=>delete checked[k]);render()});render();
 })();
 </script>
-<script src="./guide-shared-chrome.js?v=20261026-1" defer></script>
+<script src="./guide-shared-chrome.js?v=20261029-3" defer></script>
 </body></html>
