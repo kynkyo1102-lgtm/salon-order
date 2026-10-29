@@ -28,3 +28,10 @@ body>.guide-shared-footer{display:block!important;width:100%!important;max-width
 
 /* Manual page locator, provisionally set to 1P until checked against print. */
 .guide-manual-reference{margin:38px 0 0;padding-top:14px;border-top:1px solid #e2e9ef;color:#66788a;font:400 12px/1.7 "Noto Sans JP",sans-serif;text-align:right}
+
+/* Breadcrumbs link directly to the matching category on the guide home. */
+.guide-category-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 24px;color:#64748b;font-size:12px;line-height:1.7}
+.guide-category-breadcrumb a{color:#496b89;text-decoration:none}
+.guide-category-breadcrumb a:hover{text-decoration:underline}
+.guide-category-breadcrumb [aria-current="page"]{color:#536475}
+#registration,#regular{scroll-margin-top:85px}
