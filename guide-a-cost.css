@@ -3,8 +3,8 @@
 .registration-guide.cost-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
 .cost-guide *{box-sizing:border-box}
 .cost-guide .cost-page{--guide-title-gap:44px}
-.cost-guide .cost-section{margin:0 0 40px}
-.cost-guide .cost-section-title{margin:0 0 17px;color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+
+
 .cost-guide .section-desc{margin:0 0 22px;color:var(--guide-text);line-height:1.9}
 .cost-guide .product-list,.cost-guide .cost-list{display:grid;gap:14px}
 .cost-guide .product-item{padding:18px 20px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff}
@@ -23,8 +23,8 @@
 .cost-guide .manual-ref{margin-top:42px;padding:20px 0;border-top:1px solid var(--guide-border);color:var(--guide-muted);font-size:13px;line-height:1.8}
 @media(max-width:600px){
  .cost-guide .cost-page{--guide-title-gap:34px}
- .cost-guide .cost-section{margin-bottom:34px}
- .cost-guide .cost-section-title{font-size:19px}
+ 
+ 
  .cost-guide .product-item{padding:15px}
  .cost-guide .product-type{font-size:16px}
  .cost-guide .cost-item{padding:18px}
