@@ -3,7 +3,7 @@
 <title>ミトコンドリアちゃんと進める郵送登録｜メンバーズガイド</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1">
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3">
 <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
 <link rel="stylesheet" href="./guide-registration-flow.css?v=20261028-1">
 </head><body class="registration-guide">
@@ -24,5 +24,5 @@ function scrollToProgress(){const el=document.querySelector(".guide-progress");w
 function render(){const [stage,say,html]=steps[index];$("stage").textContent=stage;$("count").textContent=(index+1)+" / "+steps.length;$("fill").style.width=((index+1)/steps.length*100)+"%";$("speech").textContent=say;$("guideMascotImage").src=index===steps.length-1?"./assets/mitochondria/05_happy.svg":"./assets/mitochondria-chan.svg";$("content").innerHTML=html;document.querySelectorAll("#content .checklist li").forEach((li,i)=>{const label=document.createElement("label");label.className="check-item";const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!checked[index+":"+i];cb.addEventListener("change",()=>{checked[index+":"+i]=cb.checked;li.classList.toggle("is-checked",cb.checked)});while(li.firstChild)label.append(li.firstChild);label.prepend(cb);li.append(label);li.classList.toggle("is-checked",cb.checked)});$("choices").replaceChildren();const b=document.createElement("button");b.className="guide-common-choice";b.type="button";b.textContent=index===steps.length-1?"最初から確認する":"次へ進む";b.addEventListener("click",()=>{index=index===steps.length-1?0:index+1;render();scrollToProgress()});$("choices").append(b);$("prev").disabled=index===0}
 $("prev").addEventListener("click",()=>{if(index>0){index--;render();scrollToProgress()}});$("reset").addEventListener("click",()=>{index=0;Object.keys(checked).forEach(k=>delete checked[k]);render();scrollToProgress()});render();
 })();
-</script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script>
+</script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script>
 </body></html>
