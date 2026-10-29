@@ -171,5 +171,12 @@
 
   
   
-<script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script><script src="./guide-c-bonus-first-start-walkthrough.js?v=20261029-1" defer></script></body>
+<script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script><script>
+(()=>{const root=document.getElementById('first-start-walkthrough');if(!root)return;
+const titles=['まずは、あなたから','新規会員を1人、直接紹介','もう1人、直接紹介','金額の例を確認'];
+const descriptions=['最初は自分だけ。','新規会員を1人直接紹介しました。','直接紹介した新規会員が2人になりました。','1人につき3,000円の計算例です。'];
+let step=0;const back=root.querySelector('[data-back]'),next=root.querySelector('[data-next]');
+function draw(){root.querySelector('.walkthrough-title').textContent=titles[step];root.querySelector('.walkthrough-description').textContent=descriptions[step];root.querySelectorAll('[data-step]').forEach(e=>e.classList.toggle('visible',step>=Number(e.dataset.step)));root.querySelectorAll('.walkthrough-progress span').forEach((e,i)=>e.classList.toggle('active',i<=step));root.querySelector('.walkthrough-result').hidden=step!==3;back.disabled=step===0;next.textContent=step===3?'最初から見る':'次へ →'}
+back.addEventListener('click',()=>{step=Math.max(0,step-1);draw()});next.addEventListener('click',()=>{step=(step+1)%4;draw()});draw()})();
+</script></body>
 </html>
