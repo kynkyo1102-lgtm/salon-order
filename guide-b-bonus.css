@@ -62,3 +62,10 @@
 .bonus-guide .bonus-toc a:hover{text-decoration:underline}
 .bonus-guide .bonus-section{scroll-margin-top:95px}
 @media(max-width:600px){.bonus-guide .bonus-toc{padding:12px 15px;margin:14px 0 28px}.bonus-guide .bonus-toc a{font-size:13px;padding:7px 0}.bonus-guide .bonus-section{scroll-margin-top:80px}}
+
+/* Light-weight contents links, without a surrounding card. */
+.bonus-guide .bonus-toc{display:block;margin:16px 0 44px;padding:0 0 14px;border:0;border-bottom:1px solid var(--guide-border);border-radius:0;background:transparent}
+.bonus-guide .bonus-toc-heading{display:block;margin:0 0 6px}
+.bonus-guide .bonus-toc a{padding:6px 0}
+.bonus-guide #bonus-flow .bonus-intro{margin:0 0 22px}
+@media(max-width:600px){.bonus-guide .bonus-toc{margin:14px 0 36px;padding:0 0 12px}.bonus-guide #bonus-flow .bonus-intro{margin-bottom:18px}}
