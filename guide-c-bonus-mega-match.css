@@ -8,7 +8,7 @@
 .mega-person img{width:90px;height:105px;object-fit:contain}
 .mega-person span{font-size:14px}
 .mega-arrow{text-align:center;font-size:25px;color:#0055a4;line-height:1.5}
-.mega-direct-arrow{display:flex;align-items:center;justify-content:center;gap:10px}
+.mega-direct-arrow{position:relative;display:flex;align-items:center;justify-content:center;min-height:44px}.mega-direct-arrow small{position:absolute;left:calc(50% + 17px);top:50%;transform:translateY(-50%);white-space:nowrap}
 .mega-direct-arrow small{font-size:13px;font-weight:700;color:#174b78}
 .mega-example{max-width:620px;margin:24px auto;text-align:center}
 .mega-triangle-svg{display:block;width:100%;max-width:600px;height:auto;margin:8px auto 0}
