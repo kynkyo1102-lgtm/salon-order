@@ -1,18 +1,26 @@
-/* Motion is progressive enhancement: content remains readable without JavaScript. */
+/* Reveal each step when the reader reaches it, not on a fixed page-wide timer. */
 (() => {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion || !('IntersectionObserver' in window)) return;
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const network = document.querySelector('[data-reward-sequence]');
   const speeches = [...document.querySelectorAll('.reward-scroll-reveal')];
-  if (!network && !speeches.length) return;
-  document.documentElement.classList.add('reward-motion-ready');
-  const observer = new IntersectionObserver((entries) => {
+  const members = network ? [...network.querySelectorAll('.reward-member-points')] : [];
+  const branches = network ? [...network.querySelectorAll(':scope > .reward-simple-branch')] : [];
+  const stages = network ? [branches[1],network.querySelector('.reward-simple-month'),branches[2],network.querySelector('.reward-simple-result')].filter(Boolean) : [];
+  const targets = [...members,...stages,...speeches];
+  if (!targets.length) return;
+  document.documentElement.classList.add('reward-motion-scroll');
+  const observer = new IntersectionObserver(entries => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
-      entry.target.classList.add('reward-in-view');
-      observer.unobserve(entry.target);
+      const el = entry.target;
+      if (members.includes(el)) {
+        const i = members.indexOf(el);
+        el.style.transitionDelay = (i * 0.3) + 's';
+      }
+      el.classList.add('reward-step-visible');
+      observer.unobserve(el);
     }
-  }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
-  if (network) observer.observe(network);
-  speeches.forEach(el => observer.observe(el));
+  }, { threshold: 0.18, rootMargin: '0px 0px -75px 0px' });
+  targets.forEach(el => observer.observe(el));
 })();
