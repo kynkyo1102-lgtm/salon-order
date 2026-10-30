@@ -21,15 +21,10 @@
 .registration-guide .guide-common-page>.stop-intro:has(+ .guide-section-nav),
 .registration-guide .guide-common-page>.intro:has(+ .guide-section-nav){margin:0 0 34px;color:var(--guide-muted,#52677a);line-height:1.9}
 
-/* Bonus-specific eligibility: clearly separate title, counting, and common rules. */
-.registration-guide .guide-common-page .active-conditions-title{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding:18px 20px;border-radius:14px;background:#eef5fd;border:1px solid #b9d3eb;margin:22px 0 18px}
-.registration-guide .guide-common-page .active-conditions-title span{font-weight:700;color:#315a7a}
-.registration-guide .guide-common-page .active-conditions-title strong{font-size:clamp(20px,4vw,25px);color:#004a91}
-.registration-guide .guide-common-page .active-conditions-details{padding:18px 20px;border:1px solid var(--guide-border,#d4e3f2);border-radius:14px}
-.registration-guide .guide-common-page .active-conditions-details h3{font-size:17px;margin:0 0 9px;color:var(--guide-primary)}
-.registration-guide .guide-common-page .active-conditions-details p{margin:0 0 15px}
-.registration-guide .guide-common-page .active-conditions-count{display:flex;flex-wrap:wrap;align-items:center;gap:7px 16px;padding:12px 16px;border-radius:10px;background:#f4f9fe}
-.registration-guide .guide-common-page .active-conditions-count strong{font-size:20px;color:#004a91}
-.registration-guide .guide-common-page .active-conditions-count span{font-size:14px;color:var(--guide-muted,#52677a)}
+/* Bonus eligibility checklist. */
+.registration-guide .guide-common-page .active-conditions-checklist{list-style:none;margin:22px 0 18px;padding:0;display:grid;gap:12px}
+.registration-guide .guide-common-page .active-conditions-checklist li{position:relative;margin:0;padding:15px 18px 15px 52px;border:1px solid var(--guide-border,#d4e3f2);border-radius:12px;background:#f7fafc;line-height:1.7}
+.registration-guide .guide-common-page .active-conditions-checklist li::before{content:"✓";position:absolute;left:16px;top:17px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#e0f1e8;color:#176846;font-size:17px;font-weight:800;line-height:1}
+.registration-guide .guide-common-page .active-conditions-checklist strong{display:block;font-size:16px;color:var(--guide-primary)}
+.registration-guide .guide-common-page .active-conditions-checklist span{display:block;margin-top:4px;color:var(--guide-muted,#52677a);font-size:14px}
 .registration-guide .guide-common-page .active-conditions-guide{margin:22px 0 12px}
-@media(max-width:600px){.registration-guide .guide-common-page .active-conditions-title,.registration-guide .guide-common-page .active-conditions-details{padding:15px}}
