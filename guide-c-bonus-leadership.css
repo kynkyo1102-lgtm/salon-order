@@ -87,3 +87,12 @@
 .leader-example{width:100%;max-width:700px;margin:18px auto}
 .leader-interactive .leader-triangles{display:block;width:100%;max-width:560px;height:auto;margin:0 auto;overflow:hidden}
 @media(max-width:600px){.leader-interactive .leader-triangles{max-width:100%}}
+
+/* Match Mega Match's vertical avatar + split-triangle visual language. */
+.leader-example{max-width:620px;margin:24px auto;text-align:center}
+.leader-example .leader-person{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:100%;max-width:none;margin:0 auto}
+.leader-example .leader-person img{display:block;width:74px;height:90px;object-fit:contain;margin:0 auto}
+.leader-example .leader-person strong{display:block;text-align:center}
+.leader-example .leader-person .leader-title{margin:4px auto 0}
+.leader-interactive .leader-triangles{display:block;width:100%;max-width:600px;height:auto;margin:8px auto 0;overflow:hidden}
+@media(max-width:600px){.leader-example .leader-person img{width:64px;height:78px}.leader-interactive .leader-triangles{max-width:100%}}
