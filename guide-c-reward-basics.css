@@ -104,3 +104,36 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
 .reward-summary-section p{font-size:21px;line-height:1.9;font-weight:500}
 .reward-summary-section h2{font-size:21px}
 @media(max-width:600px){.reward-summary-section p{font-size:18px;line-height:1.85}.reward-summary-section h2{font-size:19px}}
+
+/* Consistent, friendly takeaway and guided visual reading */
+.reward-summary-section{border:1px solid #d6e4ef;border-radius:15px;background:#f6faff;box-shadow:none;padding:22px 24px}
+.reward-summary-section h2{font-size:19px;margin-bottom:10px}
+.reward-summary-section p{font-size:19px;line-height:1.85;font-weight:400}
+@media(max-width:600px){.reward-summary-section{padding:18px 16px}.reward-summary-section h2{font-size:18px}.reward-summary-section p{font-size:17px;line-height:1.85}}
+@media(prefers-reduced-motion:no-preference){
+  .reward-motion-ready .reward-simple-network .reward-member-points,
+  .reward-motion-ready .reward-simple-network>.reward-simple-branch,
+  .reward-motion-ready .reward-simple-network>.reward-simple-month,
+  .reward-motion-ready .reward-simple-network>.reward-simple-result,
+  .reward-motion-ready .reward-scroll-reveal{
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity .42s ease,transform .42s ease;
+  }
+  .reward-motion-ready .reward-simple-network.reward-in-view .reward-member-points,
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-branch,
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-month,
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-result,
+  .reward-motion-ready .reward-scroll-reveal.reward-in-view{
+    opacity:1;transform:translateY(0);
+  }
+  .reward-motion-ready .reward-simple-network.reward-in-view .reward-member-points{animation:reward-pop .43s both}
+  .reward-motion-ready .reward-simple-network.reward-in-view .reward-simple-members>div:nth-child(1) .reward-member-points{animation-delay:.2s;transition-delay:.2s}
+  .reward-motion-ready .reward-simple-network.reward-in-view .reward-simple-members>div:nth-child(2) .reward-member-points{animation-delay:.48s;transition-delay:.48s}
+  .reward-motion-ready .reward-simple-network.reward-in-view .reward-simple-members>div:nth-child(3) .reward-member-points{animation-delay:.76s;transition-delay:.76s}
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-branch:nth-of-type(4){transition-delay:1.13s}
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-month{transition-delay:1.45s}
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-branch:nth-of-type(6){transition-delay:1.85s}
+  .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-result{transition-delay:2.13s}
+  @keyframes reward-pop{0%{opacity:0;transform:scale(.72)}65%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
+}
