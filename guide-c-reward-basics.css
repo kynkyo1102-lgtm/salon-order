@@ -95,3 +95,7 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
 .reward-summary-section p{font-size:16px;line-height:2}
 .reward-summary-section strong{font-weight:800;color:#0055a4}
 @media(max-width:600px){.reward-member-points{font-size:10px;padding:4px 5px}.reward-simple-result{padding:15px 9px}.reward-simple-result>span{font-size:15px}.reward-simple-result small{font-size:10px}.reward-summary-section{padding:18px 15px}.reward-summary-section h2{font-size:18px}.reward-summary-section p{font-size:14px}}
+
+/* Slightly larger takeaway copy */
+.reward-summary-section p{font-size:18px;line-height:1.95}
+@media(max-width:600px){.reward-summary-section p{font-size:16px;line-height:1.9}}
