@@ -30,3 +30,5 @@
 .leader-table th{background:#edf5ff;color:#234b70}
 .leader-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;color:var(--guide-primary);font-weight:700}
 @media(max-width:600px){.leader-person img{width:74px;height:90px}.leader-step{padding:15px 11px}.leader-compare{gap:7px}.leader-value{padding:12px 5px}}
+
+.leader-conditions{list-style:none;margin:12px 0 22px;padding:0}.leader-conditions li{padding:15px 17px;border:1px solid #c8dceb;border-radius:12px;background:#f4f9fe;color:#174b78;line-height:1.75}.leader-conditions li::before{content:"✓";display:inline-block;margin-right:10px;color:#0055a4;font-weight:900}
