@@ -1,0 +1,32 @@
+/* Leadership bonus: progressive explanation, shared guide structure */
+.leader-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.85 "Noto Sans JP",sans-serif}
+.leader-guide *{box-sizing:border-box}
+.leader-page{width:100%;min-width:0}
+.leader-intro{margin:25px 0 24px}
+.leader-example{max-width:620px;margin:25px auto;text-align:center}
+.leader-person{display:flex;flex-direction:column;align-items:center;font-weight:800;color:#174b78}
+.leader-person img{width:90px;height:105px;object-fit:contain}
+.leader-title{display:inline-block;margin:7px auto 0;padding:4px 13px;border:1px solid #9cc5e7;border-radius:999px;background:#eaf4ff;color:#174b78;font-size:13px;font-weight:700}
+.leader-triangles{display:block;width:100%;height:auto;max-width:600px;margin:10px auto 0}
+.leader-step{margin:20px auto;padding:18px 15px;border:1px solid #c8dceb;border-radius:14px;background:#f8fbff;text-align:left}
+.leader-step h3{margin:0 0 12px;color:#174b78;font-size:17px;line-height:1.55}
+.leader-number{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;margin-right:9px;border-radius:50%;background:#0055a4;color:#fff;font-weight:800}
+.leader-step p{margin:7px 0;line-height:1.8}
+.leader-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.leader-value{padding:13px 8px;border:1px solid #c8dceb;border-radius:11px;background:#fff;text-align:center;min-width:0}
+.leader-value small{display:block;color:#52677a;font-size:12px}
+.leader-value strong{display:block;color:#0055a4;font-size:clamp(20px,5vw,28px);line-height:1.5}
+.leader-value.chosen{border:2px solid #0055a4;background:#eaf4ff}
+.leader-equation{text-align:center;color:#004a91;font-size:clamp(19px,4.7vw,25px);font-weight:800;overflow-wrap:anywhere}
+.leader-step[hidden]{display:none}
+.leader-next{display:block;width:100%;max-width:400px;margin:20px auto 0;padding:13px 18px;border:0;border-radius:11px;background:#0055a4;color:#fff;font:inherit;font-weight:800;cursor:pointer}
+.leader-next:focus-visible{outline:3px solid #e2aa28;outline-offset:3px}
+.leader-final{background:#eaf4ff;border:2px solid #0055a4}
+.leader-final .leader-equation{font-size:clamp(22px,5vw,29px)}
+.leader-note{font-size:13px;color:var(--guide-muted)}
+.leader-table{max-width:680px;margin:20px auto;overflow-x:auto}
+.leader-table table{width:100%;border-collapse:collapse;text-align:center}
+.leader-table th,.leader-table td{padding:12px 9px;border:1px solid #c8dceb}
+.leader-table th{background:#edf5ff;color:#234b70}
+.leader-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;color:var(--guide-primary);font-weight:700}
+@media(max-width:600px){.leader-person img{width:74px;height:90px}.leader-step{padding:15px 11px}.leader-compare{gap:7px}.leader-value{padding:12px 5px}}
