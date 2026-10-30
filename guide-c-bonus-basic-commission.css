@@ -14,7 +14,8 @@
 .basic-flow>div{padding:16px 12px;border:2px solid #c8dceb;border-radius:14px;background:#fff;font-weight:700;color:#234b70}
 .basic-flow>span{padding:8px 0;color:var(--guide-primary);font-size:19px;font-weight:800}
 .basic-limit-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:650px;margin:24px auto}
-.basic-limit-grid>div{padding:20px 14px;border:2px solid #c8dceb;border-radius:14px;text-align:center}
+.basic-limit-grid>div{padding:20px 14px;border:2px solid #c8dceb;border-radius:14px;text-align:center;background:#f7fbff;box-shadow:0 2px 0 rgba(0,85,164,.04)}
+.basic-limit-grid>div:first-child{border-color:#9cc5e7}
 .basic-limit-grid span{display:block;font-weight:800;color:#234b70}
 .basic-limit-grid strong{display:block;font-size:clamp(23px,5vw,30px);color:#004a91}
 .basic-limit-grid p{font-size:14px;margin:10px 0 0}
@@ -25,7 +26,3 @@
 .basic-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;color:var(--guide-primary);font-weight:700}
 @media(max-width:600px){.basic-commission-page .guide-section-nav{margin-bottom:32px}.basic-triangle-self img{width:75px;height:92px}.basic-limit-grid{gap:9px}.basic-limit-grid>div{padding:15px 7px}.basic-summary{padding:16px}.basic-summary p strong{font-size:17px}}
 
-/* Keep the limit figures as distinct, consistent guide cards. */
-.basic-limit-grid>div{background:#f7fbff;box-shadow:0 2px 0 rgba(0,85,164,.04)}
-.basic-limit-grid>div:first-child{border-color:#9cc5e7}
-.basic-limit-grid>div:last-child{border-color:#c8dceb}
