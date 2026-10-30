@@ -78,3 +78,8 @@
 .leader-controls .leader-next,.leader-back{padding:10px 11px;font-size:14px}
 .leader-interactive .leader-triangles{margin:0 auto}
 }
+
+/* Keep both triangles and labels within a fixed, compact SVG coordinate system. */
+.leader-interactive .leader-triangles{display:block;width:100%;max-width:440px;height:auto;margin:4px auto 0;overflow:visible}
+.leader-interactive #leader-right-shape{transition:d .35s ease}
+@media(max-width:600px){.leader-interactive .leader-triangles{max-width:360px}}
