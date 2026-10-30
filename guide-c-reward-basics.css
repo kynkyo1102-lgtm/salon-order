@@ -60,3 +60,21 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
 .reward-point-formula{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;max-width:760px;margin:0 auto 25px;padding:17px 12px;background:#eef6fc;border-radius:12px;color:#34556f;font-size:14px;line-height:1.5;text-align:center}
 .reward-point-formula strong{color:#0055a4}
 @media(max-width:420px){.reward-point-formula{gap:6px;font-size:12px;padding:13px 7px}}
+
+/* Larger new people illustrations and readable diagram labels */
+.reward-simple-network{padding:26px 18px}
+.reward-simple-network .reward-person-avatar{display:block;width:84px;height:115px;max-width:100%;object-fit:contain;margin:0 auto 5px}
+.reward-simple-network strong{font-size:18px;line-height:1.45}
+.reward-simple-network small{font-size:13px;line-height:1.6}
+.reward-simple-you{gap:4px}
+.reward-simple-members{max-width:610px;gap:12px}
+.reward-simple-members>div{padding:14px 8px;gap:6px}
+.reward-simple-month{max-width:610px;padding:19px 12px}
+.reward-simple-month strong{font-size:18px}
+.reward-simple-month span{font-size:14px}
+.reward-mascot-figure img{margin-bottom:0}
+.reward-summary-section{max-width:760px;margin:30px auto 20px;padding:25px 27px;border-radius:15px;background:#eef6fc}
+.reward-summary-section h2{font-size:21px;line-height:1.55;color:#0055a4;margin:0 0 14px}
+.reward-summary-section p{font-size:16px;line-height:1.9;margin:0 0 12px}
+.reward-summary-section p:last-child{margin-bottom:0}
+@media(max-width:600px){.reward-simple-network{padding:18px 7px}.reward-simple-network .reward-person-avatar{width:65px;height:89px}.reward-simple-network strong{font-size:15px}.reward-simple-network small{font-size:11px}.reward-simple-members{gap:6px}.reward-simple-members>div{padding:10px 3px}.reward-simple-month strong{font-size:15px}.reward-simple-month span{font-size:12px}.reward-summary-section{padding:19px 17px}.reward-summary-section h2{font-size:18px}.reward-summary-section p{font-size:14px}}
