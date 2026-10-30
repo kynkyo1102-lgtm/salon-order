@@ -84,3 +84,14 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
 .reward-summary-section h2{font-size:16px;margin:0 0 7px;color:#0055a4}
 .reward-summary-section p{font-size:15px;line-height:1.85;margin:0}
 @media(max-width:600px){.reward-summary-section{padding:13px 14px}.reward-summary-section h2{font-size:15px}.reward-summary-section p{font-size:14px}}
+
+/* Explicit point generation and bonus destination */
+.reward-member-points{display:block;margin-top:5px;padding:4px 8px;border-radius:20px;background:#e6f2fd;color:#0055a4;font-size:12px;font-weight:800;line-height:1.4;white-space:nowrap}
+.reward-simple-result{display:flex;flex-direction:column;gap:5px;max-width:610px;margin:0 auto;padding:18px 12px;border-radius:12px;background:#0055a4;color:white}
+.reward-simple-result>span{font-size:18px;font-weight:800;line-height:1.55}
+.reward-simple-result small{color:#e8f1fa;font-size:12px;line-height:1.6}
+.reward-summary-section{margin:30px auto 25px;padding:23px 25px;background:#e7f1fb;border:2px solid #7fa9d4;border-radius:13px;box-shadow:0 3px 12px rgba(0,85,164,.07)}
+.reward-summary-section h2{font-size:19px;margin:0 0 12px}
+.reward-summary-section p{font-size:16px;line-height:2}
+.reward-summary-section strong{font-weight:800;color:#0055a4}
+@media(max-width:600px){.reward-member-points{font-size:10px;padding:4px 5px}.reward-simple-result{padding:15px 9px}.reward-simple-result>span{font-size:15px}.reward-simple-result small{font-size:10px}.reward-summary-section{padding:18px 15px}.reward-summary-section h2{font-size:18px}.reward-summary-section p{font-size:14px}}
