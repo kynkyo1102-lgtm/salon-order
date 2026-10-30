@@ -24,3 +24,12 @@
 .five-summary p strong{font-size:19px;color:#004a91}
 .five-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;color:var(--guide-primary);font-weight:700}
 @media(max-width:600px){.five-people{gap:3px}.five-network{padding:18px 8px}.five-network figure img{height:80px}.five-network figcaption{font-size:12px}.five-network>figure img{height:115px}.five-money>div{font-size:16px}.five-summary{padding:16px}.five-summary p strong{font-size:17px}.five-active-page .guide-section-nav{margin-bottom:32px}}
+
+/* Worked example */
+.five-example{max-width:580px;margin:24px auto;display:flex;flex-direction:column;align-items:stretch;text-align:center}
+.five-example-line{padding:17px 12px;border:2px solid #c8dceb;border-radius:15px;background:#fff;display:flex;flex-direction:column;gap:4px}
+.five-example-line span{font-size:15px;color:#52677a}
+.five-example-line strong{font-size:clamp(22px,5vw,30px);color:#004a91;line-height:1.5}
+.five-example-arrow{padding:8px 0;color:var(--guide-primary);font-size:17px;font-weight:800}
+.five-example-result{background:#f4f9fe;border-color:#9cc5e7}
+.five-example-result strong{font-size:clamp(30px,7vw,40px)}
