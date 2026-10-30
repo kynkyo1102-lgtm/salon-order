@@ -1,0 +1,27 @@
+/* Double Mega Match: shared guide layout with dedicated diagrams. */
+.double-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.85 "Noto Sans JP",sans-serif}
+.double-guide *{box-sizing:border-box}
+.double-page .guide-section-nav{margin-bottom:40px}
+.double-intro{margin:25px 0 24px}
+.double-person{display:flex;flex-direction:column;align-items:center;color:#174b78;font-weight:800}
+.double-person img{width:90px;height:105px;object-fit:contain}
+.double-arrow{position:relative;display:flex;align-items:center;justify-content:center;min-height:46px;color:#0055a4;font-size:25px;line-height:1.4}
+.double-arrow small{position:absolute;left:calc(50% + 18px);top:50%;transform:translateY(-50%);white-space:nowrap;font-size:13px;font-weight:700;color:#174b78}
+.double-example{max-width:620px;margin:24px auto;text-align:center}
+.double-triangle{display:block;width:100%;max-width:600px;height:auto;margin:8px auto 0}
+.double-calc{margin:16px auto;padding:16px 12px;max-width:550px;border:2px solid #9cc5e7;border-radius:14px;background:#f4f9fe;text-align:center}
+.double-calc span{display:block;color:#52677a;font-size:13px}
+.double-calc strong{display:block;color:#004a91;font-size:clamp(20px,4.6vw,28px)}
+.double-calc.final{background:#eaf4ff;border-color:#0055a4}
+.double-people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:600px;margin:18px auto}
+.double-people>div{min-width:0;padding:14px 6px;border:1px solid #c8dceb;border-radius:14px;background:#f7fbff;text-align:center}
+.double-people .double-person img{width:75px;height:88px}
+.double-people span{display:block;font-size:12px;color:#52677a}
+.double-people b{display:block;font-size:20px;color:#0055a4}
+.double-table{max-width:680px;margin:20px auto;overflow-x:auto}
+.double-table table{width:100%;border-collapse:collapse;text-align:center}
+.double-table th,.double-table td{padding:12px 9px;border:1px solid #c8dceb}
+.double-table th{background:#edf5ff;color:#234b70}
+.double-note{font-size:13px;color:var(--guide-muted)}
+.double-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;color:var(--guide-primary);font-weight:700}
+@media(max-width:600px){.double-page .guide-section-nav{margin-bottom:32px}.double-person img{width:74px;height:90px}.double-people{gap:6px}.double-people>div{padding:10px 3px}.double-people .double-person img{width:58px;height:70px}.double-people b{font-size:17px}}
