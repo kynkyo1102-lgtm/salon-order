@@ -1,7 +1,7 @@
 /* Shared section navigation and vertical rhythm for completed guide pages.
    Load after page-specific styles; only marked sections are affected. */
 .registration-guide .guide-common-page>.guide-common-title:has(+ .guide-section-nav){margin-bottom:34px}
-.registration-guide .guide-common-page .guide-section-nav{display:flex;flex-direction:column;align-items:flex-start;gap:13px;margin:0 0 68px;padding:0;border:0;background:transparent}
+.registration-guide .guide-common-page .guide-section-nav{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;gap:13px;margin:0 0 68px;padding:0;border:0;background:transparent}
 .registration-guide .guide-common-page .guide-section-nav a{display:inline-flex;align-items:center;justify-content:flex-start;align-self:flex-start;flex:0 0 auto;width:auto;max-width:100%;padding:11px 16px;border:0;border-radius:999px;background:#e9e9f1;box-shadow:0 3px 0 #c8c8d0;color:#183b5d;font-size:14px;font-weight:650;line-height:1.5;text-decoration:none;box-sizing:border-box}
 .registration-guide .guide-common-page .guide-section-nav a::after{content:"↓";margin-left:11px;font-size:19px;font-weight:500;line-height:1}
 .registration-guide .guide-common-page .guide-section-nav a:hover,.registration-guide .guide-common-page .guide-section-nav a:focus-visible{background:#dfe7f0;text-decoration:none}
