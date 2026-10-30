@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0055A4"><meta name="description" content="リーダーシップボーナスの計算方法を順番に学べるガイドです。"><title>リーダーシップボーナス - メンバーズWebガイド</title>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-bonus-leadership.css?v=20261030-9"><link rel="stylesheet" href="./guide-section-layout.css?v=20261030-4"></head>
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-bonus-leadership.css?v=20261030-10"><link rel="stylesheet" href="./guide-section-layout.css?v=20261030-4"></head>
 <body class="registration-guide leader-guide"><main class="guide-common-page leader-page">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><a href="./ninaguide.html#bonus">ボーナスプラン</a><span aria-hidden="true">›</span><a href="./guide-c-bonus.html">ボーナスプラン一覧</a><span aria-hidden="true">›</span><span aria-current="page">リーダーシップボーナス</span></nav>
 <h1 class="guide-common-title">リーダーシップボーナス</h1><p class="leader-intro">左右のグループの売上Pを使って計算するボーナスです。タイトルによって、計算に使う倍率と割合が変わります。</p>
@@ -8,20 +8,18 @@
 <section class="guide-section" aria-labelledby="what"><h2 id="what">どんなボーナス？</h2><p><strong>エメラルド以上</strong>のタイトルが対象です。左右の売上Pを比べ、少ない側の売上Pにタイトルごとの倍率をかけて、もう一度比べます。</p><p>言葉だけだと難しいので、実際の数字を使って見てみましょう。</p></section>
 <section class="guide-section" aria-labelledby="example"><h2 id="example">順番に計算してみよう</h2><p>あなたが<strong>エメラルド</strong>の場合の例です。まずは左右のグループを見てください。</p>
 <div class="leader-example"><div class="leader-interactive">
-<svg class="leader-triangles" viewBox="0 0 380 350" role="img" aria-labelledby="leader-visual-title leader-visual-description">
-<title id="leader-visual-title">あなたの下にある左右のグループ</title>
-<desc id="leader-visual-description">中央のあなたから左右に組織が分かれています。左500万P、右300万P。右の計算用ポイントを2倍にすると600万Pになり、左より大きくなります。</desc>
-<image href="./assets/avatar_01.svg" x="163" y="0" width="54" height="62" preserveAspectRatio="xMidYMid meet"/>
-<text x="190" y="78" text-anchor="middle" font-size="15" font-weight="800" fill="#174b78">あなた</text>
-<text x="190" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#174b78">エメラルド</text>
-<path d="M190 103 L95 138" fill="none" stroke="#8ba9c0" stroke-width="2.5" stroke-linecap="round"/>
-<path id="leader-right-connector" d="M190 103 L285 190" fill="none" stroke="#8ba9c0" stroke-width="2.5" stroke-linecap="round"/>
-<path id="leader-left-shape" d="M95 145 L16 290 L174 290 Z" fill="#0055a4"/>
-<path id="leader-right-shape" d="M285 190 L232 290 L338 290 Z" fill="#73b6e5"/>
-<text x="95" y="317" text-anchor="middle" font-size="14" font-weight="700" fill="#174b78">左グループ</text>
-<text x="95" y="343" text-anchor="middle" font-size="22" font-weight="800" fill="#0055a4">500万P</text>
-<text x="285" y="317" text-anchor="middle" font-size="14" font-weight="700" fill="#174b78">右グループ</text>
-<text id="leader-right-points" x="285" y="343" text-anchor="middle" font-size="22" font-weight="800" fill="#0055a4">300万P</text>
+<svg class="leader-triangles" viewBox="0 0 380 310" role="img" aria-labelledby="leader-visual-title leader-visual-description">
+<title id="leader-visual-title">あなたの下に広がる左右のグループ</title>
+<desc id="leader-visual-description">中央のあなたの下に左右の三角形があります。左は500万P、右は300万Pです。計算上、右を2倍にすると600万Pになり、左より大きく表示されます。</desc>
+<image href="./assets/avatar_01.svg" x="165" y="0" width="50" height="54" preserveAspectRatio="xMidYMid meet"/>
+<text x="190" y="69" text-anchor="middle" font-size="15" font-weight="800" fill="#174b78">あなた</text>
+<text x="190" y="87" text-anchor="middle" font-size="12" font-weight="700" fill="#174b78">エメラルド</text>
+<path id="leader-left-shape" d="M95 100 L14 253 L176 253 Z" fill="#0055a4"/>
+<path id="leader-right-shape" d="M285 159 L235 253 L335 253 Z" fill="#73b6e5"/>
+<text x="95" y="278" text-anchor="middle" font-size="14" font-weight="700" fill="#174b78">左グループ</text>
+<text x="95" y="304" text-anchor="middle" font-size="22" font-weight="800" fill="#0055a4">500万P</text>
+<text x="285" y="278" text-anchor="middle" font-size="14" font-weight="700" fill="#174b78">右グループ</text>
+<text id="leader-right-points" x="285" y="304" text-anchor="middle" font-size="22" font-weight="800" fill="#0055a4">300万P</text>
 </svg>
 <p id="leader-calculation-note" class="leader-calculation-note" hidden>※右の600万Pは<strong>計算用の数字</strong>です。実際の売上が増えたわけではありません。</p>
 <div class="leader-controls"><button type="button" class="leader-back" id="leader-back" disabled>戻る</button><button type="button" class="leader-next" id="leader-next">次へ：2倍にする</button></div>
@@ -33,14 +31,14 @@
 </main>
 <script>
 (function(){
-const next=document.getElementById('leader-next'),back=document.getElementById('leader-back'),shape=document.getElementById('leader-right-shape'),connector=document.getElementById('leader-right-connector'),points=document.getElementById('leader-right-points'),note=document.getElementById('leader-calculation-note'),count=document.getElementById('leader-stage-count'),title=document.getElementById('leader-stage-title'),body=document.getElementById('leader-stage-text'),equation=document.getElementById('leader-stage-equation');
+const next=document.getElementById('leader-next'),back=document.getElementById('leader-back'),shape=document.getElementById('leader-right-shape'),points=document.getElementById('leader-right-points'),note=document.getElementById('leader-calculation-note'),count=document.getElementById('leader-stage-count'),title=document.getElementById('leader-stage-title'),body=document.getElementById('leader-stage-text'),equation=document.getElementById('leader-stage-equation');
 const states=[
 {title:'① 少ない方を見つける',body:'左500万Pと右300万P。最初は<strong>右の300万P</strong>が少ないことがわかります。',formula:'',next:'次へ：2倍にする'},
 {title:'② 右の300万Pを2倍にする',body:'エメラルドは、少ない方のポイントを<strong>2倍</strong>にして計算します。右の三角形が大きくなる様子をご覧ください。',formula:'300万P × 2 ＝ 600万P',next:'次へ：もう一度比べる'},
 {title:'③ もう一度、左右を比べる',body:'左は500万P、右は計算用の600万P。今度は<strong>左の500万P</strong>が少ないことがわかります。そのため、左の500万Pを使います。',formula:'500万P ＜ 600万P',next:'次へ：金額を計算する'},
 {title:'④ ボーナス金額を計算する',body:'エメラルドの割合は<strong>1.5％</strong>。少ない方の500万Pにかけます。',formula:'500万P × 1.5％ ＝ 75,000円',next:'最初から見る'}
 ];let stage=0;
-function render(){const state=states[stage],expanded=stage>=1;shape.setAttribute('d',expanded?'M285 115 L192 290 L378 290 Z':'M285 190 L232 290 L338 290 Z');connector.setAttribute('d',expanded?'M190 103 L285 115':'M190 103 L285 190');points.textContent=expanded?'600万P':'300万P';note.hidden=!expanded;count.textContent='ステップ '+(stage+1)+' / 4';title.textContent=state.title;body.innerHTML=state.body;equation.textContent=state.formula;equation.hidden=!state.formula;back.disabled=stage===0;next.textContent=state.next;}
+function render(){const state=states[stage],expanded=stage>=1;shape.setAttribute('d',expanded?'M285 76 L192 253 L378 253 Z':'M285 159 L235 253 L335 253 Z');points.textContent=expanded?'600万P':'300万P';note.hidden=!expanded;count.textContent='ステップ '+(stage+1)+' / 4';title.textContent=state.title;body.innerHTML=state.body;equation.textContent=state.formula;equation.hidden=!state.formula;back.disabled=stage===0;next.textContent=state.next;}
 next.addEventListener('click',function(){stage=stage===3?0:stage+1;render()});back.addEventListener('click',function(){if(stage>0){stage--;render()}});render();
 })();
 </script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
