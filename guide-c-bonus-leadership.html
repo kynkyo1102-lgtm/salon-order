@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0055A4"><meta name="description" content="リーダーシップボーナスの計算方法を順番に学べるガイドです。"><title>リーダーシップボーナス - メンバーズWebガイド</title>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-bonus-leadership.css?v=20261030-4"><link rel="stylesheet" href="./guide-section-layout.css?v=20261030-4"></head>
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-bonus-leadership.css?v=20261030-5"><link rel="stylesheet" href="./guide-section-layout.css?v=20261030-4"></head>
 <body class="registration-guide leader-guide"><main class="guide-common-page leader-page">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><a href="./ninaguide.html#bonus">ボーナスプラン</a><span aria-hidden="true">›</span><a href="./guide-c-bonus.html">ボーナスプラン一覧</a><span aria-hidden="true">›</span><span aria-current="page">リーダーシップボーナス</span></nav>
 <h1 class="guide-common-title">リーダーシップボーナス</h1><p class="leader-intro">左右のグループの売上Pを使って計算するボーナスです。タイトルによって、計算に使う倍率と割合が変わります。</p>
@@ -9,16 +9,16 @@
 <section class="guide-section" aria-labelledby="example"><h2 id="example">順番に計算してみよう</h2><p>あなたが<strong>エメラルド</strong>の場合の例です。まずは左右のグループを見てください。</p>
 <div class="leader-example"><div class="leader-person"><img src="./assets/avatar_01.svg" alt=""><strong>あなた</strong><span class="leader-title">エメラルド</span></div>
 <div class="leader-interactive">
-<svg class="leader-triangles" viewBox="0 0 600 335" role="img" aria-labelledby="leader-visual-title leader-visual-description"><title id="leader-visual-title">左右グループの売上Pの比較</title><desc id="leader-visual-description">最初は左500万P、右300万P。次へを押すと右の計算用ポイントが600万Pになり、少ない左500万Pが計算対象になります。</desc>
-<path id="leader-left-shape" d="M292 10 L12 272 L292 272 Z" fill="#0055a4"/>
-<path id="leader-right-original" d="M308 10 L466 211 L308 211 Z" fill="none" stroke="#3d84ba" stroke-width="2.5" stroke-dasharray="7 6" visibility="hidden"/>
-<path id="leader-right-shape" d="M308 10 L466 211 L308 211 Z" fill="#73b6e5"/>
-<text x="151" y="309" fill="#174b78" text-anchor="middle"><tspan font-size="16" font-weight="700">左グループ </tspan><tspan font-size="25" font-weight="800" fill="#0055a4">500万P</tspan></text>
-<text id="leader-right-text" x="387" y="247" fill="#174b78" text-anchor="middle"><tspan id="leader-right-caption" font-size="16" font-weight="700">右グループ </tspan><tspan id="leader-right-points" font-size="25" font-weight="800" fill="#0055a4">300万P</tspan></text>
+<svg class="leader-triangles" viewBox="0 0 600 265" role="img" aria-labelledby="leader-visual-title leader-visual-description"><title id="leader-visual-title">左右グループの売上Pの比較</title><desc id="leader-visual-description">同じ高さの基準で比較します。左は500万P、右は300万P。右を2倍にすると計算用の600万Pとなり、左より大きく表示されます。</desc>
+<path id="leader-left-shape" d="M290 30 L60 205 L290 205 Z" fill="#0055a4"/>
+<path id="leader-right-original" d="M310 100 L448 205 L310 205 Z" fill="none" stroke="#3d84ba" stroke-width="2.5" stroke-dasharray="7 6" visibility="hidden"/>
+<path id="leader-right-shape" d="M310 100 L448 205 L310 205 Z" fill="#73b6e5"/>
+<text x="175" y="232" fill="#174b78" text-anchor="middle"><tspan font-size="16" font-weight="700">左グループ </tspan><tspan font-size="24" font-weight="800" fill="#0055a4">500万P</tspan></text>
+<text x="448" y="232" fill="#174b78" text-anchor="middle"><tspan id="leader-right-caption" font-size="16" font-weight="700">右グループ </tspan><tspan id="leader-right-points" font-size="24" font-weight="800" fill="#0055a4">300万P</tspan></text>
 </svg>
 <p id="leader-calculation-note" class="leader-calculation-note" hidden>※右の600万Pは<strong>計算用の数字</strong>です。実際の売上が増えたわけではありません。</p>
-<div class="leader-live-step" aria-live="polite" aria-atomic="true"><p class="leader-stage-count" id="leader-stage-count">ステップ 1 / 4</p><h3 id="leader-stage-title">① 少ない方を見つける</h3><p id="leader-stage-text">左500万Pと右300万P。最初は<strong>右の300万P</strong>が少ないね。</p><p id="leader-stage-equation" class="leader-stage-equation" hidden></p></div>
 <div class="leader-controls"><button type="button" class="leader-back" id="leader-back" disabled>戻る</button><button type="button" class="leader-next" id="leader-next">次へ：2倍にする</button></div>
+<div class="leader-live-step" aria-live="polite" aria-atomic="true"><p class="leader-stage-count" id="leader-stage-count">ステップ 1 / 4</p><h3 id="leader-stage-title">① 少ない方を見つける</h3><p id="leader-stage-text">左500万Pと右300万P。最初は<strong>右の300万P</strong>が少ないね。</p><p id="leader-stage-equation" class="leader-stage-equation" hidden></p></div>
 <p class="leader-note">※仕組みを理解するための計算例です。</p>
 </div></div></section>
 <section class="guide-section" aria-labelledby="rates"><h2 id="rates">タイトル別の計算</h2><p>タイトルによって、<strong>何倍にするか</strong>と<strong>何％で計算するか</strong>が変わります。</p><div class="leader-table"><table><thead><tr><th>タイトル</th><th>少ない側の倍率</th><th>ボーナスの割合</th></tr></thead><tbody><tr><td>エメラルド</td><td>2倍</td><td>1.5％</td></tr><tr><td>ゴールド</td><td>3倍</td><td>2.0％</td></tr><tr><td>プラチナ</td><td>3倍</td><td>2.5％</td></tr><tr><td>ダイヤモンド</td><td>4倍</td><td>3.0％</td></tr><tr><td>ロワイヤルダイヤモンド</td><td>4倍</td><td>3.0％</td></tr><tr><td>カリナンロワイヤルダイヤモンド</td><td>4倍</td><td>3.0％</td></tr></tbody></table></div></section>
@@ -33,7 +33,7 @@ const states=[
 {title:'③ もう一度、左右を比べる',body:'左は500万P、右は計算用の600万P。今度は<strong>左の500万P</strong>が少ないね。だから左を使うよ。',formula:'500万P ＜ 600万P',next:'次へ：金額を計算する'},
 {title:'④ ボーナス金額を計算する',body:'エメラルドの割合は<strong>1.5％</strong>。少ない方の500万Pにかけるよ。',formula:'500万P × 1.5％ ＝ 75,000円',next:'最初から見る'}
 ];let stage=0;
-function render(){const state=states[stage],expanded=stage>=1;shape.setAttribute('d',expanded?'M308 10 L466 272 L308 272 Z':'M308 10 L466 211 L308 211 Z');original.setAttribute('visibility',expanded?'visible':'hidden');points.textContent=expanded?'600万P':'300万P';caption.textContent=expanded?'右グループ（計算用） ':'右グループ ';rightText.setAttribute('y',expanded?'309':'247');note.hidden=!expanded;count.textContent='ステップ '+(stage+1)+' / 4';title.textContent=state.title;body.innerHTML=state.body;equation.textContent=state.formula;equation.hidden=!state.formula;back.disabled=stage===0;next.textContent=state.next;}
+function render(){const state=states[stage],expanded=stage>=1;shape.setAttribute('d',expanded?'M310 0 L586 205 L310 205 Z':'M310 100 L448 205 L310 205 Z');original.setAttribute('visibility',expanded?'visible':'hidden');points.textContent=expanded?'600万P':'300万P';caption.textContent='右グループ ';rightText.setAttribute('y','232');note.hidden=!expanded;count.textContent='ステップ '+(stage+1)+' / 4';title.textContent=state.title;body.innerHTML=state.body;equation.textContent=state.formula;equation.hidden=!state.formula;back.disabled=stage===0;next.textContent=state.next;}
 next.addEventListener('click',function(){stage=stage===3?0:stage+1;render()});back.addEventListener('click',function(){if(stage>0){stage--;render()}});render();
 })();
 </script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
