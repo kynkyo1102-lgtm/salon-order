@@ -1,78 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#123b78"><meta name="description" content="リーダーシップボーナスの概要と取得条件を確認できます。"><title>リーダーシップボーナス - メンバーズWebガイド</title><link rel="stylesheet" href="./common.css?v=20261023-nav3">
-<style>.bonus-lead{padding:18px;border:1px solid #d9e8f8;border-radius:12px;background:linear-gradient(135deg,#edf5ff,#fff);line-height:1.8}.example-box{margin-top:14px;padding:16px;border:1px solid #d9e4ef;border-radius:12px;background:#f8fbff;line-height:1.85}.note-box{margin-top:14px;padding:13px 15px;border-left:4px solid #d6a23a;border-radius:6px;background:#fff9e9;color:#5e4a1b;font-size:.88rem;line-height:1.8}.related-links{display:grid;gap:10px}.related-link{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--border-color);border-radius:10px;color:var(--primary-dark);text-decoration:none;font-weight:800;background:#fff}@media(max-width:560px){.section-card{padding:22px 17px}}</style>
-<style>
-.bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid #dbe5f0;border-radius:12px;background:#f8fbff;text-align:center;line-height:1.6}
-.diagram-node,.diagram-result{display:inline-block;max-width:100%;padding:10px 15px;border:1px solid #cbd9ea;border-radius:9px;background:#fff;color:#23466f;font-weight:800}
-.diagram-result{background:#edf5ff;border-color:#b9d2f0}
-.diagram-arrow{margin:7px 0;color:#55769b;font-weight:800}
-.diagram-people{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;max-width:310px;margin:0 auto}
-.diagram-person{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;color:#3570a8}
-.diagram-split{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.diagram-branch{display:flex;flex-direction:column;gap:5px;min-width:125px;padding:12px;border:1px solid #cbd9ea;border-radius:9px;background:#fff}
-.diagram-branch span{font-size:1.1rem;font-weight:900;color:#23466f}
-.diagram-months{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
-.diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
-@media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
-</style>
-<style>
-.leader-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid #dbe5f0;border-radius:12px;background:#f8fbff;text-align:center;line-height:1.6}
-.leader-diagram svg{display:block;width:100%;max-width:400px;margin:0 auto;overflow:visible}
-.leader-toggle{display:block;margin:14px auto 0;padding:12px 22px;border:0;border-radius:10px;background:#034CAE;color:white;font:inherit;font-weight:800;cursor:pointer}
-.leader-toggle:focus-visible{outline:3px solid #e2aa28;outline-offset:3px}
-.leader-explain{margin:14px auto 0;max-width:430px;padding:14px;border-radius:10px;background:#fff;border:1px solid #dbe5f0}
-.leader-explain strong{color:#034CAE}
-.leader-right-triangle{transition:all .45s ease}
-@media(prefers-reduced-motion:reduce){.leader-right-triangle{transition:none}}
-</style>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head>
-<body>
-<main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">リーダーシップボーナス</h1></div>
-<section class="section-card"><h2 class="section-card-title">このボーナスの概要</h2>
-<div class="bonus-lead">エメラルド以上のタイトルを達成すると、左右のグループ売上Pをもとにリーダーシップボーナスを計算します。少ない側の売上にタイトル別の倍率を適用し、左右を比較して計算対象のボリュームを決めます。</div>
-<h3 style="margin:18px 0 0;font-size:1rem;color:var(--primary-dark)">仕組みのイメージ</h3>
-<p style="margin:12px 0 0;line-height:1.85">まず左右のグループ売上を比較します。リーダーシップボーナスでは、<strong>少ない側の売上にタイトルごとに決められた倍率をかけて</strong>、計算用のボリュームを求めます。</p><p style="margin:10px 0 0;line-height:1.85">この例は<strong>エメラルド</strong>なので、少ない側の売上を<strong>2倍</strong>にして比較します。</p>
-<div class="leader-diagram">
-<svg viewBox="0 0 400 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="エメラルドの例。左グループ500万P、右グループ300万P。ボタンを押すと右グループの計算用ボリュームが600万Pになり、少ない側の500万Pを基準に計算します">
-<image href="./assets/illustration-basic-commission-vector.svg" x="147" y="0" width="106" height="106"/>
-<rect x="159" y="81" width="82" height="27" rx="14" fill="#171717" stroke="#fff" stroke-width="1.4"/><text x="200" y="100" font-size="17" font-weight="800" fill="#fff" text-anchor="middle">あなた</text>
-<text x="200" y="132" text-anchor="middle" font-size="14" font-weight="700" fill="#23466f">エメラルド</text>
-<path d="M200 147 L15 280 L200 280 Z" fill="#FEDD59" stroke="#034CAE" stroke-width="1.3" stroke-linejoin="round"/>
-<path id="leader-right-triangle" class="leader-right-triangle" d="M200 147 L385 236 L200 236 Z" fill="#034CAE" stroke="#034CAE" stroke-width="1.3" stroke-linejoin="round"/>
-<g id="leader-original-ghost" visibility="hidden" aria-hidden="true"><path d="M200 147 L385 236 L200 236 Z" fill="none" stroke="#FEDD59" stroke-width="3.2" stroke-dasharray="7 5" stroke-linejoin="round"/><text x="287" y="217" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" stroke="#034CAE" stroke-width="3.5" stroke-linejoin="round" paint-order="stroke">元の300万P</text></g>
-<text x="105" y="304" text-anchor="middle" font-size="15" font-weight="800" fill="#171717">左グループ</text><text x="105" y="326" text-anchor="middle" font-size="17" font-weight="800" fill="#171717">500万P</text>
-<text id="leader-right-label" x="295" y="260" text-anchor="middle" font-size="15" font-weight="800" fill="#171717">右グループ</text><text id="leader-right-value" x="295" y="282" text-anchor="middle" font-size="17" font-weight="800" fill="#171717">300万P</text>
-</svg>
-<button type="button" id="leader-toggle" class="leader-toggle" aria-pressed="false">エメラルドの計算を見てみる</button>
-<div id="leader-explain" class="leader-explain" aria-live="polite">右グループの300万Pが少ないため、エメラルドの倍率「2倍」を適用します。</div>
-</div></section>
-<section class="section-card"><h2 class="section-card-title">仕組み・条件</h2><div class="table-container"><table><tbody>
-<tr><th scope="row">対象タイトル</th><td>エメラルド以上</td></tr>
-<tr><th scope="row">基本の考え方</th><td>少ない側のグループ売上Pにタイトル別の倍率を適用し、左右を比較して少ない方を計算対象とする</td></tr>
-</tbody></table></div>
-<div class="note-box"><strong>ご確認ください</strong><br>正式な支給条件・計算式は、概要書面・メンバーズマニュアルを優先してください。</div></section>
-<section class="section-card"><h2 class="section-card-title">タイトル別の条件・上限</h2><div class="table-container"><table><thead><tr><th>タイトル</th><th>分配率</th><th>対象ボリューム</th></tr></thead><tbody><tr><td>エメラルド</td><td>1.5%</td><td>少ない側のポイント × 2</td></tr><tr><td>ゴールド</td><td>2.0%</td><td>少ない側のポイント × 3</td></tr><tr><td>プラチナ</td><td>2.5%</td><td>少ない側のポイント × 3</td></tr><tr><td>ダイヤモンド</td><td>3.0%</td><td>少ない側のポイント × 4</td></tr><tr><td>ロワイヤルダイヤモンド</td><td>3.0%</td><td>少ない側のポイント × 4</td></tr><tr><td>カリナンロワイヤルダイヤモンド</td><td>3.0%</td><td>少ない側のポイント × 4</td></tr></tbody></table></div></section>
-<section class="section-card"><h2 class="section-card-title">あわせて確認</h2><div class="related-links"><a class="related-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span>›</span></a><a class="related-link" href="./check.html"><span>ボーナス・タイトル診断</span><span>›</span></a><a class="related-link" href="./guide-list.html?category=%E3%83%9C%E3%83%BC%E3%83%8A%E3%82%B9%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB"><span>ボーナス・タイトルの記事一覧</span><span>›</span></a></div></section></main>
-  
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0055A4"><meta name="description" content="リーダーシップボーナスの計算方法を順番に学べるガイドです。"><title>リーダーシップボーナス - メンバーズWebガイド</title>
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-bonus-leadership.css?v=20261030-1"><link rel="stylesheet" href="./guide-section-layout.css?v=20261030-4"></head>
+<body class="registration-guide leader-guide"><main class="guide-common-page leader-page">
+<nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><a href="./ninaguide.html#bonus">ボーナスプラン</a><span aria-hidden="true">›</span><a href="./guide-c-bonus.html">ボーナスプラン一覧</a><span aria-hidden="true">›</span><span aria-current="page">リーダーシップボーナス</span></nav>
+<h1 class="guide-common-title">リーダーシップボーナス</h1><p class="leader-intro">左右のグループの売上Pを使って計算するボーナスです。タイトルによって、計算に使う倍率と割合が変わります。</p>
+<nav class="guide-section-nav" aria-label="このページの目次"><a href="#what">どんなボーナス？</a><a href="#example">順番に計算してみよう</a><a href="#rates">タイトル別の計算</a><a href="#conditions">取得条件について</a></nav>
+<section class="guide-section" aria-labelledby="what"><h2 id="what">どんなボーナス？</h2><p><strong>エメラルド以上</strong>のタイトルが対象です。左右の売上Pを比べ、少ない側の売上Pにタイトルごとの倍率をかけて、もう一度比べます。</p><p>言葉だけだと難しいので、実際の数字を使って見てみましょう。</p></section>
+<section class="guide-section" aria-labelledby="example"><h2 id="example">順番に計算してみよう</h2><p>あなたが<strong>エメラルド</strong>の場合の例です。まずは左右のグループを見てください。</p>
+<div class="leader-example"><div class="leader-person"><img src="./assets/avatar_01.svg" alt=""><strong>あなた</strong><span class="leader-title">エメラルド</span></div>
+<svg class="leader-triangles" viewBox="0 0 600 330" role="img" aria-label="左グループ500万Pの大きな三角形と、右グループ300万Pの小さな三角形"><path d="M292 10 L12 272 L292 272 Z" fill="#0055a4"/><path d="M308 10 L466 211 L308 211 Z" fill="#73b6e5"/><text x="151" y="309" fill="#174b78" text-anchor="middle"><tspan font-size="16" font-weight="700">左グループ </tspan><tspan font-size="25" font-weight="800" fill="#0055a4">500万P</tspan></text><text x="387" y="247" fill="#174b78" text-anchor="middle"><tspan font-size="16" font-weight="700">右グループ </tspan><tspan font-size="25" font-weight="800" fill="#0055a4">300万P</tspan></text></svg>
+<div class="leader-step"><h3><span class="leader-number">1</span>少ない方を見つける</h3><div class="leader-compare"><div class="leader-value"><small>左グループ</small><strong>500万P</strong></div><div class="leader-value chosen"><small>右グループ（少ない方）</small><strong>300万P</strong></div></div><p>少ないのは<strong>右グループの300万P</strong>です。</p></div>
+<div class="leader-step" id="leader-step-2" hidden><h3><span class="leader-number">2</span>少ない方を2倍にする</h3><p>エメラルドでは、少ない方のポイントを<strong>2倍</strong>にして計算します。</p><div class="leader-equation">300万P × 2 ＝ 600万P</div><p>※右グループの実際の売上が増えるわけではありません。計算のための数字です。</p></div>
+<div class="leader-step" id="leader-step-3" hidden><h3><span class="leader-number">3</span>もう一度、左右を比べる</h3><div class="leader-compare"><div class="leader-value chosen"><small>左グループ</small><strong>500万P</strong></div><div class="leader-value"><small>右グループ（計算用）</small><strong>600万P</strong></div></div><p>今度は<strong>左の500万P</strong>が少なくなりました。この500万Pを使います。</p></div>
+<div class="leader-step leader-final" id="leader-step-4" hidden><h3><span class="leader-number">4</span>ボーナス金額を計算する</h3><p>エメラルドの割合は<strong>1.5％</strong>です。</p><div class="leader-equation">500万P × 1.5％ ＝ 75,000円</div><p>この例のリーダーシップボーナスは<strong>75,000円</strong>です。</p></div>
+<button type="button" class="leader-next" id="leader-next" aria-controls="leader-step-2 leader-step-3 leader-step-4">次へ：2倍にしてみる</button><p class="leader-note">※仕組みを理解するための計算例です。</p></div></section>
+<section class="guide-section" aria-labelledby="rates"><h2 id="rates">タイトル別の計算</h2><p>タイトルによって、<strong>何倍にするか</strong>と<strong>何％で計算するか</strong>が変わります。</p><div class="leader-table"><table><thead><tr><th>タイトル</th><th>少ない側の倍率</th><th>ボーナスの割合</th></tr></thead><tbody><tr><td>エメラルド</td><td>2倍</td><td>1.5％</td></tr><tr><td>ゴールド</td><td>3倍</td><td>2.0％</td></tr><tr><td>プラチナ</td><td>3倍</td><td>2.5％</td></tr><tr><td>ダイヤモンド</td><td>4倍</td><td>3.0％</td></tr><tr><td>ロワイヤルダイヤモンド</td><td>4倍</td><td>3.0％</td></tr><tr><td>カリナンロワイヤルダイヤモンド</td><td>4倍</td><td>3.0％</td></tr></tbody></table></div></section>
+<section class="guide-section" aria-labelledby="conditions"><h2 id="conditions">取得条件について</h2><p>対象タイトルは<strong>エメラルド以上</strong>です。ボーナス取得に必要な共通条件もあわせて確認してください。</p><a class="leader-link" href="./guide-c-basic.html">ボーナス取得の基本条件を確認する <span aria-hidden="true">›</span></a><p class="leader-note">※正式な支給条件・計算式は、概要書面・メンバーズマニュアルを確認してください。</p></section>
+</main>
 <script>
-(function(){
- const button=document.getElementById('leader-toggle');
- const triangle=document.getElementById('leader-right-triangle');
- const label=document.getElementById('leader-right-label');
- const value=document.getElementById('leader-right-value');
- const explanation=document.getElementById('leader-explain');
- const ghost=document.getElementById('leader-original-ghost');
- let doubled=false;
- button.addEventListener('click',function(){
-   doubled=!doubled;
-   triangle.setAttribute('d',doubled?'M200 147 L385 326 L200 326 Z':'M200 147 L385 236 L200 236 Z');
-   ghost.setAttribute('visibility',doubled?'visible':'hidden');
-   label.setAttribute('y',doubled?'352':'260');
-   value.setAttribute('y',doubled?'375':'282');
-   value.textContent=doubled?'600万P':'300万P';
-   button.textContent=doubled?'元の売上に戻す':'エメラルドの計算を見てみる';
-   button.setAttribute('aria-pressed',String(doubled));
-   explanation.innerHTML=doubled?'右グループ：300万P × 2 ＝ <strong>600万P</strong><br>左500万Pと右600万Pを比較し、少ない方の<strong>500万P</strong>が計算対象です。<br><strong>500万P × 1.5% ＝ 75,000円</strong>':'右グループの300万Pが少ないため、エメラルドの倍率「2倍」を適用します。';
- });
-})();
-</script><script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body></html>
+(function(){const button=document.getElementById('leader-next');const steps=[document.getElementById('leader-step-2'),document.getElementById('leader-step-3'),document.getElementById('leader-step-4')];const labels=['次へ：2倍にしてみる','次へ：もう一度比べる','次へ：金額を計算する','最初から見る'];let stage=0;button.addEventListener('click',function(){if(stage===3){stage=0;steps.forEach(function(step){step.hidden=true});button.textContent=labels[0];document.getElementById('example').scrollIntoView({behavior:'smooth',block:'start'});return}steps[stage].hidden=false;steps[stage].scrollIntoView({behavior:'smooth',block:'center'});stage++;button.textContent=labels[stage]})})();
+</script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
