@@ -16,11 +16,11 @@
       const el = entry.target;
       if (members.includes(el)) {
         const i = members.indexOf(el);
-        el.style.transitionDelay = (i * 0.3) + 's';
+        el.style.setProperty('--reward-stagger', (i * 0.9) + 's');
       }
       el.classList.add('reward-step-visible');
       observer.unobserve(el);
     }
-  }, { threshold: 0.18, rootMargin: '0px 0px -75px 0px' });
+  }, { threshold: 0.18, rootMargin: '0px 0px -135px 0px' });
   targets.forEach(el => observer.observe(el));
 })();
