@@ -55,3 +55,8 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
 .reward-simple-month span{font-size:12px;color:#506d86}
 .reward-simple-note{max-width:760px;margin:0 auto 45px;font-size:13px;color:#5a7185;line-height:1.8}
 @media(max-width:600px){.reward-simple-network{padding:17px 8px}.reward-simple-icon{width:41px;height:41px;font-size:25px}.reward-simple-network strong{font-size:13px}.reward-simple-network small{font-size:10px}.reward-simple-members{gap:5px}.reward-simple-members>div{padding:10px 3px}.reward-simple-month strong{font-size:14px}}
+
+/* Points introduction, responsive on narrow phones */
+.reward-point-formula{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:9px;max-width:760px;margin:0 auto 25px;padding:17px 12px;background:#eef6fc;border-radius:12px;color:#34556f;font-size:14px;line-height:1.5;text-align:center}
+.reward-point-formula strong{color:#0055a4}
+@media(max-width:420px){.reward-point-formula{gap:6px;font-size:12px;padding:13px 7px}}
