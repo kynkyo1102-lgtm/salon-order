@@ -78,3 +78,9 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
 .reward-summary-section p{font-size:16px;line-height:1.9;margin:0 0 12px}
 .reward-summary-section p:last-child{margin-bottom:0}
 @media(max-width:600px){.reward-simple-network{padding:18px 7px}.reward-simple-network .reward-person-avatar{width:65px;height:89px}.reward-simple-network strong{font-size:15px}.reward-simple-network small{font-size:11px}.reward-simple-members{gap:6px}.reward-simple-members>div{padding:10px 3px}.reward-simple-month strong{font-size:15px}.reward-simple-month span{font-size:12px}.reward-summary-section{padding:19px 17px}.reward-summary-section h2{font-size:18px}.reward-summary-section p{font-size:14px}}
+
+/* Compact subordinate summary instead of a large standalone panel */
+.reward-summary-section{max-width:760px;margin:22px auto 18px;padding:15px 19px;background:#f4f8fc;border-left:3px solid #7fa9d4;border-radius:0 9px 9px 0}
+.reward-summary-section h2{font-size:16px;margin:0 0 7px;color:#0055a4}
+.reward-summary-section p{font-size:15px;line-height:1.85;margin:0}
+@media(max-width:600px){.reward-summary-section{padding:13px 14px}.reward-summary-section h2{font-size:15px}.reward-summary-section p{font-size:14px}}
