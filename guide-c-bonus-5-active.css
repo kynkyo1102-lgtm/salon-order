@@ -1,0 +1,26 @@
+/* Five-active bonus: page-only styles; shared layout lives in guide stylesheets. */
+.registration-guide.five-active-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.85 "Noto Sans JP",sans-serif}
+.five-active-guide *{box-sizing:border-box}
+.five-intro{margin:25px 0 24px;line-height:1.85}
+.five-active-page .guide-section-nav{margin-bottom:40px}
+.five-active-page .guide-section p{line-height:1.85}
+.five-network{max-width:720px;margin:24px auto;padding:24px 15px;border:2px solid #c8dceb;border-radius:17px;text-align:center}
+.five-network figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:3px}
+.five-network figure img{width:100%;height:105px;object-fit:contain}
+.five-network>figure img{width:125px;height:140px}
+.five-network figcaption{font-size:15px;font-weight:700;color:#234b70}
+.five-arrow{padding:10px 0;font-size:18px;font-weight:800;color:var(--guide-primary)}
+.five-people{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0 16px}
+.five-network>strong{display:block;font-size:19px;color:var(--guide-primary)}
+.five-money{display:flex;flex-direction:column;align-items:center;max-width:560px;margin:25px auto;text-align:center}
+.five-money>div{width:100%;padding:18px 12px;border:2px solid #c8dceb;border-radius:15px;background:#fff;font-size:18px;font-weight:700;color:#234b70}
+.five-money>span{font-size:27px;font-weight:800;color:var(--guide-primary);line-height:1.5}
+.five-money>div:nth-of-type(2),.five-money .five-result{background:#f4f9fe;border-color:#9cc5e7}
+.five-money .five-result{display:flex;align-items:center;justify-content:center;gap:14px}
+.five-result img{width:75px;height:90px;object-fit:contain}
+.five-note{font-size:14px;color:var(--guide-muted)}
+.five-summary{padding:20px 22px;border:1px solid #c8dceb;border-radius:16px;background:#f4f9fe}
+.five-summary h2{margin-top:0}
+.five-summary p strong{font-size:19px;color:#004a91}
+.five-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-decoration:none;color:var(--guide-primary);font-weight:700}
+@media(max-width:600px){.five-people{gap:3px}.five-network{padding:18px 8px}.five-network figure img{height:80px}.five-network figcaption{font-size:12px}.five-network>figure img{height:115px}.five-money>div{font-size:16px}.five-summary{padding:16px}.five-summary p strong{font-size:17px}.five-active-page .guide-section-nav{margin-bottom:32px}}
