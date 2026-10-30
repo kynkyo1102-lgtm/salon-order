@@ -33,6 +33,3 @@
 .ten-example-arrow{padding:8px 0;color:var(--guide-primary);font-size:17px;font-weight:800}
 .ten-example-result{background:#f4f9fe;border-color:#9cc5e7}
 .ten-example-result strong{font-size:clamp(30px,7vw,40px)}
-
-/* Ten members: two rows of five on narrow screens. */
-.ten-people{grid-template-columns:repeat(5,minmax(0,1fr))}
