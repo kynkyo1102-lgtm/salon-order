@@ -1,25 +1,21 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0055A4"><meta name="description" content="ボーナスプランを読む前に知っておきたい、商品流通・ポイント・報酬の基本的な考え方をやさしく説明します。"><title>報酬の基本的な考え方｜メンバーズWebガイド</title>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-reward-basics.css?v=20261030-3"><link rel="stylesheet" href="./guide-section-layout.css?v=20261029-2"></head>
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-reward-basics.css?v=20261030-4"><link rel="stylesheet" href="./guide-section-layout.css?v=20261029-2"></head>
 <body class="registration-guide reward-basics-guide"><main class="guide-common-page reward-basics-page">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><a href="./ninaguide.html#bonus">ボーナスプラン</a><span aria-hidden="true">›</span><span aria-current="page">報酬の基本的な考え方</span></nav>
 <h1 class="guide-common-title">報酬の基本的な考え方</h1>
-<p class="reward-lead">ミトコンドリアちゃんと会話しながら、報酬の仕組みをひとつずつ見ていきましょう。</p>
-<section class="reward-conversation" aria-label="ミトコンドリアちゃんと学ぶ報酬の仕組み">
-<div class="reward-progress"><span id="rewardStepCount">1 / 4</span><div class="reward-progress-track"><span id="rewardProgressBar"></span></div></div>
-<div class="reward-mascot-guide"><div class="reward-mascot-figure"><img id="rewardMascot" src="./assets/mitochondria/02_explain.svg" alt=""><small>ミトコンドリアちゃん</small></div><div class="reward-mascot-speech" id="rewardSpeech" aria-live="polite"></div></div>
-<div id="rewardChoices" class="reward-choices"></div>
-<div id="rewardExplanation" class="reward-explanation" hidden></div>
-<div class="reward-controls"><button type="button" id="rewardBack" disabled>← ひとつ戻る</button><button type="button" id="rewardRestart">最初から見る</button></div>
+<p class="reward-lead">ボーナスがどのような仕組みで計算されるのか、まずは基本から見てみましょう。</p>
+<section class="reward-simple-guide" aria-label="ミトコンドリアちゃんと学ぶ報酬の基本">
+<div class="reward-mascot-guide"><div class="reward-mascot-figure"><img src="./assets/mitochondria/02_explain.svg" alt=""><small>ミトコンドリアちゃん</small></div><div class="reward-mascot-speech">ボーナスを考えるときに大切なのは、<strong>あなた自身と、あなたにつながる会員さんたちの商品流通</strong>なんだよ。</div></div>
+<div class="reward-simple-network" aria-label="あなたと、あなたにつながる会員の商品購入の例">
+<div class="reward-simple-you"><span class="reward-simple-icon" aria-hidden="true">☺</span><strong>あなた</strong><small>商品を購入</small></div>
+<div class="reward-simple-branch" aria-hidden="true">↓</div>
+<div class="reward-simple-members"><div><span class="reward-simple-icon" aria-hidden="true">☺</span><strong>Aさん</strong><small>新規登録に伴う<br>商品購入</small></div><div><span class="reward-simple-icon" aria-hidden="true">☺</span><strong>Bさん</strong><small>毎月の商品購入</small></div><div><span class="reward-simple-icon" aria-hidden="true">☺</span><strong>Cさん</strong><small>毎月の商品購入</small></div></div>
+<div class="reward-simple-branch" aria-hidden="true">↓</div><div class="reward-simple-month"><strong>その月度の商品流通・ポイント</strong><span>ボーナスごとのルールに沿って計算</span></div>
+</div>
+<div class="reward-mascot-guide"><div class="reward-mascot-figure"><img src="./assets/mitochondria/02_explain.svg" alt=""><small>ミトコンドリアちゃん</small></div><div class="reward-mascot-speech">新規登録に伴う商品購入も、毎月の商品購入も、商品流通につながるよ。<strong>自分の購入も含めて考える</strong>んだ。</div></div>
+<div class="reward-mascot-guide"><div class="reward-mascot-figure"><img src="./assets/mitochondria/05_happy.svg" alt=""><small>ミトコンドリアちゃん</small></div><div class="reward-mascot-speech">そして、商品流通の実績は<strong>月度ごと</strong>に区切って計算するよ。会員さんとのつながりが毎月なくなるわけではないんだ。</div></div>
 </section>
-<script>
-(()=>{const steps=[
-{say:"こんにちは！ まず質問だよ。会員がたくさん増えたら、それだけでボーナスがもらえると思う？",choices:["うん、人数が多ければもらえそう！","商品を買うことも関係するのかな？"],answer:"大事なのは、人数だけじゃなくて商品流通があること。会員が増えるだけで報酬が決まるわけじゃないんだよ。"},
-{say:"じゃあ、商品流通ってどんなときに生まれると思う？",choices:["新規登録時の商品購入や、毎月の商品購入","紹介した人の名前を登録しただけ"],answer:"そう！ 新規登録に伴う商品購入や、その後の商品購入が商品流通につながるよ。商品に応じたポイント（PT）が発生するんだ。"},
-{say:"あなたがAさんを紹介して、AさんがBさんを紹介したとするね。AさんやBさんが商品を買ったら？",choices:["つながりの中で商品流通が生まれる","人数が2人だから必ず報酬が2倍になる"],answer:"AさんやBさんの購入で商品流通が生まれるね。ただし、そのポイントがどのボーナスの計算対象になるかは、制度ごとに違うよ。"},
-{say:"最後の確認！ ポイントが発生したら、必ずボーナスが受け取れる？",choices:["必ず受け取れる","ボーナスごとの取得条件も必要"],answer:"そのとおり！ 商品流通とポイントは報酬の土台。実際に受け取るには、ボーナスごとの計算ルールや取得条件も確認する必要があるんだ。"}
-];let index=0,answered=false;const $=id=>document.getElementById(id);function render(){const s=steps[index];$("rewardStepCount").textContent=(index+1)+" / "+steps.length;$("rewardProgressBar").style.width=((index+1)/steps.length*100)+"%";$("rewardSpeech").textContent=s.say;$("rewardMascot").src="./assets/mitochondria/"+(index===3?"05_happy.svg":"02_explain.svg");$("rewardChoices").replaceChildren();$("rewardExplanation").hidden=!answered;$("rewardExplanation").textContent=answered?s.answer:"";$("rewardBack").disabled=index===0;if(!answered){s.choices.forEach(choice=>{const b=document.createElement("button");b.type="button";b.className="reward-choice-button";b.textContent=choice;b.addEventListener("click",()=>{answered=true;render()});$("rewardChoices").append(b)})}else{const b=document.createElement("button");b.type="button";b.className="reward-next-step";b.textContent=index===steps.length-1?"もう一度、最初から見る":"次へ進む →";b.addEventListener("click",()=>{if(index===steps.length-1){index=0}else{index++}answered=false;render();$("rewardStepCount").scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"})});$("rewardChoices").append(b)}}$("rewardBack").addEventListener("click",()=>{if(index>0){index--;answered=false;render()}});$("rewardRestart").addEventListener("click",()=>{index=0;answered=false;render()});render()})();
-</script>
-<div class="reward-takeaway"><h2>ここだけ覚えておこう</h2><p><strong>人が増えるだけで報酬が発生するわけではありません。</strong> 新規登録に伴う商品購入や、その後の商品購入によって商品が流通し、ポイントが生まれます。そのポイントと紹介関係などをもとに、各ボーナスのルールに従って計算されます。</p><p class="reward-caution">※すべての購入ポイントが、そのまま自分の報酬になるわけではありません。</p></div>
+<p class="reward-simple-note">※どのポイントが計算対象になるか、どんな条件でボーナスを受け取れるかは、ボーナスの種類によって異なります。</p>
 <section class="guide-section"><h2>次は、ボーナスを受け取るための条件へ</h2><p>仕組みがわかったら、次は「報酬を受け取るには何が必要か」を確認しましょう。</p><a class="reward-next" href="./guide-c-basic.html"><span>ボーナス取得の基本条件を見る</span><span aria-hidden="true">›</span></a></section>
 </main><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
