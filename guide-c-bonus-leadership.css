@@ -39,3 +39,21 @@
 .leader-mito-speech{flex:1;min-width:0}
 .leader-mito-speech strong{font-size:13px;color:#0055a4}
 .leader-mito-speech p{margin:4px 0 0;font-weight:700;line-height:1.65}
+
+/* Interactive diagram and synchronized explanation */
+.leader-interactive{padding:12px 0 5px}
+.leader-interactive .leader-triangles{max-width:600px;margin:12px auto 0}
+.leader-interactive #leader-right-shape{transition:all .4s ease}
+.leader-calculation-note{margin:3px auto 12px;max-width:520px;font-size:13px;line-height:1.7;color:#315977}
+.leader-live-step{margin:16px auto 0;padding:17px 18px;border:1px solid #c8dceb;border-radius:13px;background:#f8fbff;text-align:left;min-height:165px}
+.leader-stage-count{margin:0 0 7px;color:#47718e;font-size:12px;font-weight:800}
+.leader-live-step h3{margin:0 0 10px;color:#174b78;font-size:18px;line-height:1.55}
+.leader-live-step p{margin:7px 0;line-height:1.75}
+.leader-stage-equation{font-size:clamp(18px,4.5vw,25px);font-weight:800;color:#0055a4;text-align:center;overflow-wrap:anywhere}
+.leader-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto 0}
+.leader-controls .leader-next{flex:1;max-width:350px;margin:0}
+.leader-back{flex:0 0 auto;padding:13px 17px;border:1px solid #9ebcd5;border-radius:11px;background:#fff;color:#174b78;font:inherit;font-weight:800;cursor:pointer}
+.leader-back:disabled{opacity:.4;cursor:default}
+.leader-back:focus-visible{outline:3px solid #e2aa28;outline-offset:3px}
+@media(max-width:600px){.leader-live-step{padding:14px 12px;min-height:180px}.leader-controls .leader-next{padding:13px 9px}.leader-back{padding:13px 12px}}
+@media(prefers-reduced-motion:reduce){.leader-interactive #leader-right-shape{transition:none}}
