@@ -137,3 +137,32 @@ body.reward-basics-guide>.guide-shared-header,body.reward-basics-guide>.guide-sh
   .reward-motion-ready .reward-simple-network.reward-in-view>.reward-simple-result{transition-delay:2.13s}
   @keyframes reward-pop{0%{opacity:0;transform:scale(.72)}65%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
 }
+
+/* Scroll-paced steps: each item appears when actually reached */
+@media(prefers-reduced-motion:no-preference){
+.reward-motion-scroll .reward-simple-network .reward-member-points,
+.reward-motion-scroll .reward-simple-network>.reward-simple-branch:nth-of-type(4),
+.reward-motion-scroll .reward-simple-network>.reward-simple-branch:nth-of-type(6),
+.reward-motion-scroll .reward-simple-network>.reward-simple-month,
+.reward-motion-scroll .reward-simple-network>.reward-simple-result,
+.reward-motion-scroll .reward-scroll-reveal{
+ opacity:0;transform:translateY(22px) scale(.97);
+ transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);
+}
+.reward-motion-scroll .reward-simple-network .reward-member-points.reward-step-visible,
+.reward-motion-scroll .reward-simple-network>.reward-simple-branch.reward-step-visible,
+.reward-motion-scroll .reward-simple-network>.reward-simple-month.reward-step-visible,
+.reward-motion-scroll .reward-simple-network>.reward-simple-result.reward-step-visible,
+.reward-motion-scroll .reward-scroll-reveal.reward-step-visible{
+ opacity:1;transform:translateY(0) scale(1);
+}
+.reward-motion-scroll .reward-simple-network .reward-member-points.reward-step-visible{
+ animation:reward-pop-slow .75s both;
+ animation-delay:inherit;
+}
+@keyframes reward-pop-slow{
+ 0%{opacity:0;transform:scale(.7)}
+ 65%{opacity:1;transform:scale(1.09)}
+ 100%{opacity:1;transform:scale(1)}
+}
+}
