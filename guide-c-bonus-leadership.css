@@ -47,3 +47,6 @@
 /* Step numerals are plain blue text, without a filled circle. */
 .leader-calc-number{background:transparent;color:#0055a4;border-radius:0;width:auto;height:auto;flex:0 0 auto;display:inline-block;font-size:23px;line-height:1.35}
 @media(max-width:600px){.leader-calc-number{width:auto;height:auto;flex-basis:auto;font-size:21px}}
+
+/* Match step numerals to the heading text color. */
+.leader-calc-number{color:#174b78}
