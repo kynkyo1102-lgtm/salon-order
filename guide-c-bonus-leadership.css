@@ -35,3 +35,11 @@
 .leader-conditions li{padding:15px 17px;border:1px solid #c8dceb;border-radius:12px;background:#f4f9fe;color:#174b78;line-height:1.75}
 .leader-conditions li::before{content:"✓";display:inline-block;margin-right:10px;color:#0055a4;font-weight:900}
 @media(max-width:600px){.leader-person img{width:64px;height:78px}.leader-visual-panel{padding:10px 5px 12px}.leader-visual-panel h3{font-size:15px}.leader-calc-step{padding:12px 10px;gap:9px}.leader-calc-step h3{font-size:16px}.leader-calc-number{flex-basis:30px;width:30px;height:30px}}
+
+/* One heading system for steps 1–4. */
+.leader-step-heading{display:flex;align-items:center;gap:12px;text-align:left;margin-bottom:8px}
+.leader-step-heading h3{margin:0;color:#174b78;font-size:17px;line-height:1.55}
+.leader-visual-panel,.leader-calc-step{border:1px solid #c8dceb;background:#f8fbff}
+.leader-visual-panel-after{background:#f8fbff}
+.leader-calc-final{border:2px solid #0055a4;background:#eaf4ff}
+@media(max-width:600px){.leader-step-heading{gap:9px}.leader-step-heading h3{font-size:16px}}
