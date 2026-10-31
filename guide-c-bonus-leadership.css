@@ -43,3 +43,7 @@
 .leader-visual-panel-after{background:#f8fbff}
 .leader-calc-final{border:2px solid #0055a4;background:#eaf4ff}
 @media(max-width:600px){.leader-step-heading{gap:9px}.leader-step-heading h3{font-size:16px}}
+
+/* Step numerals are plain blue text, without a filled circle. */
+.leader-calc-number{background:transparent;color:#0055a4;border-radius:0;width:auto;height:auto;flex:0 0 auto;display:inline-block;font-size:23px;line-height:1.35}
+@media(max-width:600px){.leader-calc-number{width:auto;height:auto;flex-basis:auto;font-size:21px}}
