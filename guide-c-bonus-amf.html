@@ -1,109 +1,20 @@
-<!DOCTYPE html>
-<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#123b78"><meta name="description" content="アニュアルマネジメントフィー（AMF）の概要と取得条件を確認できます。"><title>アニュアルマネジメントフィー（AMF） - メンバーズWebガイド</title><link rel="stylesheet" href="./common.css?v=20261023-nav3">
-<style>.bonus-lead{padding:18px;border:1px solid #d9e8f8;border-radius:12px;background:linear-gradient(135deg,#edf5ff,#fff);line-height:1.8}.example-box{margin-top:14px;padding:16px;border:1px solid #d9e4ef;border-radius:12px;background:#f8fbff;line-height:1.85}.note-box{margin-top:14px;padding:13px 15px;border-left:4px solid #d6a23a;border-radius:6px;background:#fff9e9;color:#5e4a1b;font-size:.88rem;line-height:1.8}.related-links{display:grid;gap:10px}.related-link{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--border-color);border-radius:10px;color:var(--primary-dark);text-decoration:none;font-weight:800;background:#fff}@media(max-width:560px){.section-card{padding:22px 17px}}</style>
-<style>
-.bonus-diagram{margin:20px 0 4px;padding:18px 14px;border:1px solid #dbe5f0;border-radius:12px;background:#f8fbff;text-align:center;line-height:1.6}
-.diagram-node,.diagram-result{display:inline-block;max-width:100%;padding:10px 15px;border:1px solid #cbd9ea;border-radius:9px;background:#fff;color:#23466f;font-weight:800}
-.diagram-result{background:#edf5ff;border-color:#b9d2f0}
-.diagram-arrow{margin:7px 0;color:#55769b;font-weight:800}
-.diagram-people{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;max-width:310px;margin:0 auto}
-.diagram-person{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;color:#3570a8}
-.diagram-split{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.diagram-branch{display:flex;flex-direction:column;gap:5px;min-width:125px;padding:12px;border:1px solid #cbd9ea;border-radius:9px;background:#fff}
-.diagram-branch span{font-size:1.1rem;font-weight:900;color:#23466f}
-.diagram-months{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
-.diagram-month{padding:8px 9px;border:1px solid #cbd9ea;border-radius:7px;background:#fff;font-weight:800;color:#315f37}
-@media(max-width:560px){.bonus-diagram{padding:15px 10px}.diagram-node,.diagram-result{font-size:.9rem;padding:9px 11px}.diagram-month{font-size:.82rem;padding:7px}}
-</style>
-<style>
-.amf-flow{display:grid;gap:10px;margin:18px 0}.amf-step{padding:17px 14px;border:1px solid #d7e4f1;border-radius:12px;background:#f8fbff;text-align:center}.amf-step small{display:block;color:#5d7188;font-size:.82rem;margin-bottom:5px}.amf-step strong{font-size:clamp(1.05rem,3.4vw,1.45rem);color:#174776}.amf-flow-arrow{text-align:center;color:#53769a;font-weight:800}.amf-result{background:#eaf4ff;border-color:#b6d4f0}.amf-sim{padding:20px;border:1px solid #d7e4f1;border-radius:13px;background:#f8fbff}.amf-sim label{display:block;font-weight:800;color:#23466f;margin:15px 0 8px}.amf-sim input[type=range]{width:100%;accent-color:#2462a0}.amf-sim select{width:100%;max-width:280px;padding:10px;border:1px solid #b8ccdf;border-radius:8px;background:white;font-size:1rem}.amf-sim-output{text-align:center;padding:20px 10px;margin-top:18px;border-radius:10px;background:#eaf4ff}.amf-sim-output strong{display:block;font-size:clamp(1.6rem,5vw,2.2rem);color:#164e88}.amf-muted{color:#61748a;font-size:.85rem;line-height:1.7}.amf-sim-output .amf-muted{display:block;margin-top:7px}.amf-key{font-weight:800;color:#174776}.amf-table-note{margin-top:8px}
-</style><style>
-.amf-story{padding:20px 16px;border:1px solid #d7e4f1;border-radius:14px;background:#f8fbff;text-align:center;margin:18px 0}
-.amf-story-total,.amf-story-pool{display:grid;gap:5px;justify-items:center;padding:18px 12px;border-radius:12px;background:#fff;border:1px solid #d7e4f1}
-.amf-story-total span,.amf-story-pool span{font-size:.85rem;color:#526e8d;font-weight:700}
-.amf-story-total strong,.amf-story-pool strong{font-size:clamp(1.35rem,4.4vw,1.9rem);color:#174776}
-.amf-story-pool{background:#e8f3ff;border-color:#b7d3ef}
-.amf-story-arrow{padding:11px 0;color:#4975a1;font-weight:900}.amf-story-arrow span{font-size:.84rem;font-weight:700}
-.amf-share-bar{display:flex;width:100%;height:52px;overflow:hidden;border-radius:9px;color:#fff;font-weight:800}
-.amf-share-a,.amf-share-b{display:flex;align-items:center;justify-content:center;min-width:0;font-size:.9rem}
-.amf-share-a{width:33.333%;background:#2d69a9}.amf-share-b{width:66.667%;background:#77a6d2;color:#143e69}
-.amf-share-legend{display:grid;gap:10px;margin-top:14px;text-align:left}
-.amf-share-legend>div{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:11px 13px;background:white;border:1px solid #d7e4f1;border-radius:9px}
-.amf-share-legend b{font-size:.88rem;color:#23466f}.amf-share-legend strong{margin-left:auto;color:#174776}
-.amf-dot{width:12px;height:12px;border-radius:3px;flex:none}.amf-dot-a{background:#2d69a9}.amf-dot-b{background:#77a6d2}
-.amf-takeaway{padding:13px 15px;background:#edf5ff;border-left:4px solid #3e78b2;border-radius:6px;line-height:1.8}
-.amf-formula{padding:20px 12px;text-align:center;background:#f8fbff;border:1px solid #d7e4f1;border-radius:12px;overflow-x:auto}
-.amf-formula-caption{color:#526e8d;font-size:.85rem;margin-bottom:12px}
-.amf-formula-main{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;color:#174776;font-weight:800;font-size:clamp(.95rem,3vw,1.2rem)}
-.amf-fraction{display:inline-flex;flex-direction:column;gap:6px;align-items:stretch;text-align:center;max-width:100%}
-.amf-fraction span{display:block;padding:3px 6px}.amf-fraction span:first-child{border-bottom:2px solid #174776}
-@media(max-width:560px){.amf-share-legend>div{align-items:flex-start}.amf-share-legend strong{width:100%;margin-left:21px}.amf-story{padding:15px 10px}}
-</style><style>
-.amf-chart-wrap{margin-top:18px;background:white;border:1px solid #dbe6f0;border-radius:10px;padding:8px}
-.amf-chart-legend{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:12px 0;font-size:.88rem;font-weight:800;color:#23466f}
-.amf-chart-legend span{display:flex;align-items:center;gap:8px}.amf-line-key{display:inline-block;width:25px;height:0;border-top:4px solid}.amf-line-one{border-color:#2469ae}.amf-line-eight{border-color:#e28b3c}
-.amf-dual-result{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
-.amf-dual-result>div{padding:12px 5px;border-radius:9px;background:white}.amf-dual-result span{display:block;font-weight:800;font-size:.85rem;color:#426487}
-.amf-dual-result strong{font-size:clamp(1.1rem,3.7vw,1.8rem);overflow-wrap:anywhere}
-.amf-dual-result>div:nth-child(2) strong{color:#bc6c28}
-</style><style>.amf-sim-controls{display:grid;gap:10px}.amf-sim-controls label{font-weight:700;color:#23466f}.amf-sim-controls input{width:100%;accent-color:#2469ae}.amf-sim-controls input:nth-of-type(2){accent-color:#e28b3c}.amf-sim-totals{margin:12px 0;text-align:center;color:#426487;font-size:.95rem}.amf-sim-totals strong{color:#174776}</style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head>
-<body>
-<main class="container"><div class="page-header"><div class="page-category">GUIDE C｜ボーナス・タイトル</div><h1 class="page-title">アニュアルマネジメントフィー（AMF）</h1></div>
-<section class="section-card"><h2 class="section-card-title">計算式を確認する</h2>
-<p>仕組みを数字で確認したい方はこちら。分配原資を総達成AMFで割り、自分の獲得AMFを掛けます。</p>
-<div class="amf-formula"><div class="amf-formula-caption">自分のAMFボーナス</div><div class="amf-formula-main">獲得AMF × <span class="amf-fraction"><span>対象月の売上総ポイント × 0.5%</span><span>総達成AMF</span></span></div></div>
-<p class="amf-muted">獲得AMFの上限は3AMFです。実際の計算・支給条件は公式資料をご確認ください。</p></section>
-<section class="section-card"><h2 class="section-card-title">分配の仕組み（例）</h2>
-<p>全体の売上総ポイントの<strong>0.5%</strong>を原資にして、対象者の<strong>獲得AMFに応じて分配</strong>します。以下は説明用の例です。</p>
-<h3 style="margin:18px 0 8px;color:var(--primary-dark);font-size:1rem">（例）達成者がAさんとBさんの2人の場合</h3><div class="amf-story" aria-label="3億ポイントの0.5%を、1AMFのAさんと2AMFのBさんで分ける例">
-<div class="amf-story-total"><span>全体の売上総ポイント</span><strong>3億ポイント</strong></div>
-<div class="amf-story-arrow">↓ <span>そのうち0.5%が分配原資に</span></div>
-<div class="amf-story-pool"><span>分配原資（例）</span><strong>150万ポイント相当</strong></div>
-<div class="amf-story-arrow">↓ <span>AMFの持ち分に応じて分ける</span></div>
-<div class="amf-share-bar" role="img" aria-label="Aさん1AMFが3分の1、Bさん2AMFが3分の2"><div class="amf-share-a">Aさん 1/3</div><div class="amf-share-b">Bさん 2/3</div></div>
-<div class="amf-share-legend"><div><span class="amf-dot amf-dot-a"></span><b>Aさん：1 AMF</b><strong>50万ポイント相当</strong></div><div><span class="amf-dot amf-dot-b"></span><b>Bさん：2 AMF</b><strong>100万ポイント相当</strong></div></div>
-</div>
-<p class="amf-muted">※これは対象者がAさん・Bさんの2人だけで、総達成AMFが3の場合の説明用イメージです。円での支給額を表すものではありません。</p>
-<p class="amf-takeaway"><strong>ポイント：</strong>分配原資が同じなら、総達成AMFが少ないほど1AMFあたりの取り分は大きくなります。</p></section>
-<section class="section-card"><h2 class="section-card-title">AMF分配シミュレーション（例）</h2>
-<p>売上総ポイント<strong>3億ポイント</strong>、分配原資<strong>150万ポイント相当</strong>を、1AMFの達成者と0.8AMFの達成者で分け合う例です。</p>
-<div class="amf-sim">
-<div class="amf-sim-controls">
-<label for="amf-one-count">1AMFの達成者：<output id="amf-one-value">10</output>人</label>
-<input id="amf-one-count" type="range" min="0" max="30" step="1" value="10">
-<label for="amf-eight-count">0.8AMFの達成者：<output id="amf-eight-value">10</output>人</label>
-<input id="amf-eight-count" type="range" min="0" max="30" step="1" value="10">
-</div>
-<div class="amf-sim-output" aria-live="polite">
-<div class="amf-sim-totals">対象者 <strong id="amf-total-people">20</strong>人 ／ 総達成AMF <strong id="amf-total-units">18</strong></div>
-<div class="amf-dual-result"><div><span>1AMFの人・1人あたり</span><strong id="amf-payout-one">83,333</strong></div><div><span>0.8AMFの人・1人あたり</span><strong id="amf-payout-eight">66,667</strong></div></div>
-<span class="amf-muted">単位：ポイント相当（例）</span>
-</div>
-<p class="amf-muted">※両グループは同じ分配原資を共有します。人数が0人のグループは「—」と表示します。両方0人の場合は計算できません。円への換算は行っていません。</p>
-</div></section><section class="section-card"><h2 class="section-card-title">取得条件</h2>
-<div class="table-container"><table><tbody><tr><th scope="row">タイトル</th><td>ロワイヤルダイヤモンドを達成していること</td></tr><tr><th scope="row">左右ポイント</th><td>少ない側が6,000万ポイント以上</td></tr><tr><th scope="row">系列条件</th><td>プラチナ以上を育成しているメガ（直紹介）系列が3系列</td></tr></tbody></table></div>
-<h3 style="margin:22px 0 10px;font-size:1rem;color:var(--primary-dark)">獲得AMFの基準</h3>
-<div class="table-container"><table><thead><tr><th>達成・育成内容</th><th>AMF</th></tr></thead><tbody><tr><td>メガ・Wメガでプラチナを達成した場合</td><td>1 AMF</td></tr><tr><td>ユニ系列でプラチナを育成した場合</td><td>0.8 AMF</td></tr></tbody></table></div>
-<p class="amf-muted amf-table-note">獲得AMFの上限は3AMFです。</p></section>
-<section class="section-card"><h2 class="section-card-title">支給時期</h2>
-<div class="table-container"><table><thead><tr><th>カウント期間</th><th>支給時期</th></tr></thead><tbody><tr><td>上期：4〜9月度</td><td>9月度のボーナスと一緒に支給</td></tr><tr><td>下期：10〜3月度</td><td>3月度のボーナスと一緒に支給</td></tr></tbody></table></div>
-<div class="note-box">正式な支給条件・計算式・ポイントの取扱いは、概要書面・メンバーズマニュアルをご確認ください。</div></section>
-<section class="section-card"><h2 class="section-card-title">カリナンAMFについて</h2><p>ロワイヤルダイヤモンドを6つの月度連続で達成すると、カリナンロワイヤルダイヤモンドとなり、カリナンAMFの対象になります。</p><div class="related-links"><a class="related-link" href="./guide-c-bonus-cullinan-amf.html"><span>カリナンAMFについて詳しく見る</span><span>›</span></a></div></section>
-<section class="section-card"><h2 class="section-card-title">あわせて確認</h2><div class="related-links"><a class="related-link" href="./guide-c-basic.html"><span>ボーナス取得の基本条件</span><span>›</span></a><a class="related-link" href="./check.html"><span>ボーナス・タイトル診断</span><span>›</span></a><a class="related-link" href="./guide-list.html?category=%E3%83%9C%E3%83%BC%E3%83%8A%E3%82%B9%E3%83%BB%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB"><span>ボーナス・タイトルの記事一覧</span><span>›</span></a></div></section></main>
-  
-<script>
-(function(){
-const one=document.getElementById('amf-one-count'),eight=document.getElementById('amf-eight-count');
-function fmt(n){return Math.round(n).toLocaleString('ja-JP')}
-function update(){
-const n1=Number(one.value),n8=Number(eight.value),units=n1+.8*n8,total=n1+n8;
-document.getElementById('amf-one-value').textContent=n1;
-document.getElementById('amf-eight-value').textContent=n8;
-document.getElementById('amf-total-people').textContent=total;
-document.getElementById('amf-total-units').textContent=Number(units.toFixed(1)).toLocaleString('ja-JP');
-document.getElementById('amf-payout-one').textContent=n1&&units?fmt(1500000/units):'—';
-document.getElementById('amf-payout-eight').textContent=n8&&units?fmt(1200000/units):'—';
-}
-one.addEventListener('input',update);eight.addEventListener('input',update);update();
-})();
-</script><script src="./breadcrumbs.js"></script><script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body></html>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0055A4"><meta name="description" content="アニュアルマネジメントフィーの仕組み・取得条件・分配方法・支給時期を図で説明します。"><title>アニュアルマネジメントフィー（AMF） - メンバーズWebガイド</title>
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3"><link rel="stylesheet" href="./guide-design-system.css?v=20261028-2"><link rel="stylesheet" href="./guide-c-bonus-amf.css?v=20261031-1"><link rel="stylesheet" href="./guide-section-layout.css?v=20261030-4"></head>
+<body class="registration-guide amf-guide"><main class="guide-common-page amf-page">
+<nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><a href="./ninaguide.html#bonus">ボーナスプラン</a><span aria-hidden="true">›</span><a href="./guide-c-bonus.html">ボーナスプラン一覧</a><span aria-hidden="true">›</span><span aria-current="page">アニュアルマネジメントフィー</span></nav>
+<h1 class="guide-common-title">アニュアルマネジメントフィー（AMF）</h1><p class="amf-intro">ロワイヤルダイヤモンドの条件を達成した方が対象となる、分配型のボーナスです。達成者の獲得AMFに応じて、ボーナスの原資を分け合います。</p>
+<nav class="guide-section-nav" aria-label="このページの目次"><a href="#what">どんなボーナス？</a><a href="#conditions">取得条件</a><a href="#example">図で分配を見てみよう</a><a href="#timing">支給時期</a><a href="#summary">まとめ</a></nav>
+<section class="guide-section" aria-labelledby="what"><h2 id="what">どんなボーナス？</h2><p>達成者が出た月の<strong>売上総ポイントの0.5％</strong>を、ボーナスの原資として用意します。その原資を、条件を満たした方の<strong>獲得AMF</strong>に応じて分配します。</p>
+<div class="amf-overview"><div><span>達成月の売上総ポイント</span><strong>全体の売上P</strong></div><span class="amf-down">↓ <small>0.5％を原資に</small></span><div class="amf-pool"><span>ボーナスの原資</span><strong>達成者で分配</strong></div></div>
+<p><strong>AMF</strong>は、分配するときの「持ち分」を表す数字です。獲得AMFが大きいほど、同じ原資から受け取る割合が大きくなります。</p></section>
+<section class="guide-section" aria-labelledby="conditions"><h2 id="conditions">取得条件</h2><p>ロワイヤルダイヤモンドの昇格条件を達成し、条件を満たした月が対象です。</p><div class="amf-requirements"><div><strong>① 左右の売上P</strong><p>少ない側が<strong>6,000万P以上</strong></p></div><div><strong>② 育成した系列</strong><p>プラチナ以上を育成した<strong>メガ（直接紹介）系列が3系列</strong></p></div></div>
+<h3 class="amf-subtitle">獲得AMFはどう決まる？</h3><p>プラチナの達成・育成の形によって、獲得AMFが変わります。</p><div class="amf-table"><table><thead><tr><th>達成・育成の形</th><th>獲得AMF</th></tr></thead><tbody><tr><td>メガ・Wメガでプラチナを達成</td><td><strong>1 AMF</strong></td></tr><tr><td>ユニ系列でプラチナを育成</td><td><strong>0.8 AMF</strong></td></tr></tbody></table></div><p class="amf-small">※獲得AMFの上限は3AMFです。</p></section>
+<section class="guide-section" aria-labelledby="example"><h2 id="example">図で分配を見てみよう</h2><p>例えば、達成月の売上総ポイントが<strong>3億P</strong>で、分配対象がAさん（1AMF）とBさん（0.8AMF）の2人だけだったとします。</p>
+<div class="amf-example"><div class="amf-stage"><span class="amf-number">①</span><div><h3>ボーナスの原資を計算します</h3><p>3億P × 0.5％</p><strong class="amf-figure">150万P相当</strong></div></div><div class="amf-down">↓</div>
+<div class="amf-stage"><span class="amf-number">②</span><div><h3>達成者のAMFを合計します</h3><div class="amf-people"><div><span>Aさん</span><strong>1 AMF</strong></div><span>＋</span><div><span>Bさん</span><strong>0.8 AMF</strong></div></div><p class="amf-formula">合計 1.8 AMF</p></div></div><div class="amf-down">↓</div>
+<div class="amf-stage"><span class="amf-number">③</span><div><h3>AMFの割合に応じて分けます</h3><div class="amf-share" role="img" aria-label="Aさんは1AMFで全体の約55.6％、Bさんは0.8AMFで約44.4％"><div class="amf-share-a">Aさん<br>約55.6％</div><div class="amf-share-b">Bさん<br>約44.4％</div></div><div class="amf-results"><div><span>Aさん（1AMF）</span><strong>約83.3万P相当</strong></div><div><span>Bさん（0.8AMF）</span><strong>約66.7万P相当</strong></div></div></div></div></div>
+<p class="amf-small">※仕組みを理解するための仮の数字です。表示はポイント相当の計算イメージであり、実際の円での支給額を示すものではありません。</p>
+<h3 class="amf-subtitle">計算式</h3><div class="amf-equation"><strong>獲得AMF × （達成月の売上総P × 0.5％ ÷ 総達成AMF）</strong></div><p>つまり、同じ原資でも、達成者全体のAMF合計によって1AMFあたりの分配額は変わります。</p></section>
+<section class="guide-section" aria-labelledby="timing"><h2 id="timing">いつ支給されるの？</h2><p>半年ごとにまとめて、期末のボーナスと一緒に支給されます。</p><div class="amf-periods"><div><strong>上期</strong><span>4〜9月度</span><b>9月度のボーナスと一緒に支給</b></div><div><strong>下期</strong><span>10〜3月度</span><b>3月度のボーナスと一緒に支給</b></div></div></section>
+<section class="guide-section" aria-labelledby="summary"><h2 id="summary">まとめ</h2><p>アニュアルマネジメントフィーは、<strong>ロワイヤルダイヤモンドの条件を達成した方</strong>を対象に、達成月の売上総ポイントから用意された原資を、<strong>獲得AMFに応じて分配する</strong>ボーナスです。対象月の分を半年ごとにまとめて支給します。</p><a class="amf-link" href="./guide-c-basic.html">ボーナス取得の基本条件を確認する <span aria-hidden="true">›</span></a></section>
+</main><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
