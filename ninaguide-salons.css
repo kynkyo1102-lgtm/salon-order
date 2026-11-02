@@ -2,7 +2,7 @@
 .salon-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
 .salon-guide,.salon-guide *{box-sizing:border-box}
 .salon-guide-page{--guide-page-width:860px;--guide-page-padding-top:52px;--guide-page-padding-bottom:110px}
-.salon-intro{margin:0 0 32px;color:var(--guide-muted);font-size:15px;line-height:1.9}
+.salon-intro{margin:0;color:var(--guide-muted);font-size:15px;line-height:1.9}
 .salon-finder{padding:26px;border:1px solid var(--guide-border);border-radius:16px;background:#fff}
 .salon-select-label{display:block;margin-bottom:10px;color:var(--guide-primary);font-weight:800;font-size:15px}
 .salon-select{display:block;width:100%;min-height:54px;padding:12px 16px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff;color:var(--guide-text);font:inherit;cursor:pointer}
@@ -31,21 +31,9 @@
 .salon-results .store-back{margin:0 0 15px;padding:11px 15px;border:1px solid var(--guide-border);border-radius:11px;background:var(--guide-surface);color:var(--guide-primary);font:inherit;font-weight:700;cursor:pointer}
 @media(max-width:600px){.salon-guide-page{--guide-page-padding-top:30px;--guide-page-padding-bottom:85px}.salon-finder{padding:16px}.salon-results{margin-top:24px}.salon-results .store-detail-row{grid-template-columns:76px minmax(0,1fr);gap:9px}.salon-results .store-detail-body{padding:8px 14px 18px}.salon-results .store-card{padding:14px}}
 
-/* Gentle visual accents without changing the search workflow */
-.salon-hero{position:relative;margin:0 0 30px;padding:28px 30px 26px;border-radius:18px;background:linear-gradient(115deg,#f1f7fd 0%,#fff 75%);border:1px solid var(--guide-border);border-left:5px solid var(--guide-primary)}
-.salon-hero-eyebrow{display:block;margin:0 0 9px;color:var(--guide-primary);font-size:11px;font-weight:800;letter-spacing:.13em}
-.salon-hero .guide-common-title{margin:0 0 13px}
-.salon-hero-lead{margin:0 0 7px;font-size:18px;font-weight:800;line-height:1.6;color:var(--guide-text)}
-.salon-hero .salon-intro{margin:0;color:var(--guide-muted);font-size:14px}
-.salon-search-heading{display:flex;align-items:center;gap:13px;margin:0 0 23px}
-.salon-search-icon{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:14px;background:#e5f0fa;color:var(--guide-primary);font-size:32px;line-height:1}
-.salon-search-heading h2{margin:0;color:var(--guide-primary);font-size:18px;font-weight:800}
-.salon-search-heading p{margin:3px 0 0;color:var(--guide-muted);font-size:13px}
-.salon-footnote{margin:22px 0 0;color:var(--guide-muted);font-size:13px;text-align:center;line-height:1.8}
-@media(max-width:600px){.salon-hero{padding:22px 19px;margin-bottom:19px}.salon-hero-lead{font-size:16px}.salon-search-heading{gap:10px}.salon-search-icon{width:43px;height:43px;flex-basis:43px}}
 
-/* Mascot uses the existing guide illustration, not a new visual system. */
-.salon-hero{display:flex;align-items:center;justify-content:space-between;gap:20px}
-.salon-hero-copy{min-width:0;flex:1}
-.salon-hero-mito{display:block;flex:0 0 auto;width:105px;max-width:25%;height:auto;max-height:145px;object-fit:contain;align-self:flex-end}
-@media(max-width:600px){.salon-hero{gap:9px}.salon-hero-mito{width:75px;max-width:27%;max-height:110px}.salon-hero-lead{font-size:15px}}
+/* Keep the shared page title untouched; mascot only accompanies the instructions. */
+.salon-intro-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 24px}
+.salon-intro-row .salon-intro{flex:1;min-width:0}
+.salon-intro-mito{display:block;width:90px;max-width:25%;height:auto;flex-shrink:0;object-fit:contain}
+@media(max-width:600px){.salon-intro-row{gap:10px;margin-bottom:18px}.salon-intro-mito{width:70px}}
