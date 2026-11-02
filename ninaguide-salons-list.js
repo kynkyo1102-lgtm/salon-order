@@ -23,17 +23,17 @@ const salonMapPositions={
 function renderSalonMap(){
  const host=document.getElementById('salon-map');if(!host)return;
  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
- svg.setAttribute('viewBox','0 0 610 630');svg.setAttribute('role','img');svg.setAttribute('aria-label','都道府県ごとのサロン分布を示す簡略化地図');
- const cell=39,offsetX=8,offsetY=8;
+ svg.setAttribute('viewBox','0 0 710 760');svg.setAttribute('role','img');svg.setAttribute('aria-label','都道府県ごとのサロン分布を示す簡略化地図');
+ const cell=46,offsetX=12,offsetY=12;
  for(const p of prefectures){
   const pos=salonMapPositions[p];if(!pos)continue;
   const [x,y]=pos,n=(groups[p]||[]).length;
   const g=document.createElementNS(ns,'g');g.setAttribute('transform','translate('+(offsetX+x*cell)+','+(offsetY+y*cell)+')');
   g.setAttribute('class','salon-map-pref'+(n?' has-salon':'')+(active===p?' is-active':''));
   g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',p+'、'+n+'店舗');
-  const rect=document.createElementNS(ns,'rect');rect.setAttribute('x','1');rect.setAttribute('y','1');rect.setAttribute('width','37');rect.setAttribute('height','37');rect.setAttribute('rx','5');g.append(rect);
-  const label=document.createElementNS(ns,'text');label.setAttribute('x','19.5');label.setAttribute('y','17');label.setAttribute('text-anchor','middle');label.setAttribute('class','pref-label');label.textContent=p.replace(/[都府県]$/,'');g.append(label);
-  if(n){const count=document.createElementNS(ns,'text');count.setAttribute('x','19.5');count.setAttribute('y','31');count.setAttribute('text-anchor','middle');count.setAttribute('class','pref-count');count.textContent=n+'店';g.append(count)}
+  const shape=document.createElementNS(ns,'polygon');shape.setAttribute('points','23,1 44,12 44,34 23,45 2,34 2,12');g.append(shape);
+  const label=document.createElementNS(ns,'text');label.setAttribute('x','23');label.setAttribute('y','20');label.setAttribute('text-anchor','middle');label.setAttribute('class','pref-label');label.textContent=p.replace(/[都府県]$/,'');g.append(label);
+  if(n){const count=document.createElementNS(ns,'text');count.setAttribute('x','23');count.setAttribute('y','34');count.setAttribute('text-anchor','middle');count.setAttribute('class','pref-count');count.textContent=n+'店';g.append(count)}
   const choose=()=>{if(!n)return;select.value=p;active=p;showList();renderSalonMap();document.querySelector('.salon-results').scrollIntoView({behavior:'smooth',block:'start'})};
   g.addEventListener('click',choose);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
   svg.append(g);
