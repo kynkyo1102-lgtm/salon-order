@@ -6,18 +6,18 @@
 <title>全国のサロンを探す｜ニナガイド</title>
 <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261029-3">
 <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
-<link rel="stylesheet" href="./ninaguide-salons.css?v=20261102-7">
+<link rel="stylesheet" href="./ninaguide-salons.css?v=20261102-8">
 </head>
 <body class="registration-guide salon-guide">
 <main class="guide-common-page salon-guide-page">
 <h1 class="guide-common-title">全国のサロンを探す</h1>
 <div class="salon-intro-row"><p class="salon-intro">都道府県を選ぶと、その地域のサロンを探せます。</p><img class="salon-intro-mito" src="./assets/mitochondria/13_magnifying-glass.svg" alt="虫眼鏡を持ったミトコンドリアちゃん" width="96" height="88"></div>
-<section class="salon-finder" aria-label="サロン検索"><label class="salon-select-label" for="salon-pref-select">都道府県を選択</label>
+<section class="salon-map-section" aria-label="全国のサロン分布"><h2>全国のサロン分布</h2><p class="salon-map-help">色のついた都道府県にサロンがあります。選択すると店舗一覧が表示されます。</p><div id="salon-map" class="salon-map" aria-label="都道府県別サロン分布図"></div><p class="salon-map-legend"><span class="salon-legend-on"></span>サロンあり <span class="salon-legend-off"></span>サロンなし</p></section><section class="salon-finder" aria-label="サロン検索"><label class="salon-select-label" for="salon-pref-select">都道府県を選択</label>
 <select id="salon-pref-select" class="salon-select"><option value="">都道府県を選んでください</option></select>
 <div class="salon-results"><h2 id="selected" class="title">都道府県を選択してください</h2><div id="list" class="empty">都道府県を選ぶとサロン一覧が表示されます。</div></div>
 </section>
 </main>
-<script src="./ninaguide-salons-list.js?v=2" defer></script>
+<script src="./ninaguide-salons-list.js?v=3" defer></script>
 <script src="./guide-shared-chrome.js?v=20261029-3" defer></script>
 </body>
 </html>
