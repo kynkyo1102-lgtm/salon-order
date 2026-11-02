@@ -1,27 +1,32 @@
-/* 全国のサロンを探す — ニナガイド共通CSSの補助スタイル
-   カラー・角丸・影は common.css のデザイントークンを使用。 */
-body{background:var(--bg-color);color:var(--text-color)}
-.wrap{width:min(100%,1120px);margin-inline:auto;padding:28px 20px 52px}
-.salon-page-title{margin:0 0 12px;font-size:clamp(1.55rem,4vw,2rem);font-weight:900;line-height:1.4;color:var(--primary-dark)}
-.intro{margin:0 0 22px;font-size:15px;line-height:1.85;color:var(--muted-text)}
-.salon-finder{width:min(100%,760px);margin:0 auto}.salon-select-label{display:block;font-size:15px;font-weight:800;color:var(--primary-dark);margin-bottom:10px}.salon-select{display:block;width:100%;min-height:52px;padding:12px 15px;border:1px solid var(--border-color);border-radius:var(--radius);background:var(--card-bg);color:var(--text-color);font-size:16px;cursor:pointer}.salon-select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.salon-results{margin-top:25px;padding-top:20px;border-top:1px solid var(--border-color)}.panel{min-width:0;background:var(--card-bg);border:1px solid var(--border-color);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-.title{margin:0 0 14px;color:var(--primary-dark);font-size:21px;font-weight:800}
-.empty,.citycaption{font-size:14px;line-height:1.75;color:var(--muted-text)}
-.citycaption{margin-bottom:12px}
-.store-grid{display:grid;gap:10px}
-.store-card{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:15px;text-align:left;cursor:pointer;background:#fff;color:var(--text-color);border:1px solid var(--border-color);border-left:4px solid var(--primary);border-radius:var(--radius)}
-.store-card:hover,.store-card:focus-visible{background:var(--blue-pale);outline:2px solid var(--primary);outline-offset:1px}
-.store-card-main{display:grid;gap:5px;min-width:0}.store-card-main strong{font-size:16px;line-height:1.5;color:var(--primary-dark)}
-.store-address{font-size:13px;line-height:1.65;color:var(--muted-text)}.store-card-arrow{flex-shrink:0;color:var(--primary);font-size:25px}
-.store-detail{overflow:hidden;border:1px solid var(--border-color);border-radius:var(--radius);background:#fff}
-.store-detail-heading{padding:19px;background:var(--blue-pale);border-bottom:1px solid var(--border-color)}
-.store-detail-kicker{font-size:11px;letter-spacing:.1em;font-weight:800;color:var(--primary)}
-.store-detail-heading h3{margin:7px 0 0;font-size:20px;line-height:1.5;color:var(--primary-dark)}
-.store-detail-body{padding:8px 18px 20px}
-.store-detail-row{display:grid;grid-template-columns:90px minmax(0,1fr);gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--border-color)}
-.store-detail-label{font-size:13px;font-weight:800;color:var(--primary-dark);background:var(--blue-pale);padding:6px;border-radius:7px;text-align:center}
-.store-detail-value{font-size:15px;line-height:1.8;overflow-wrap:anywhere}
-.store-map-link{display:block;margin-top:20px;padding:14px;text-align:center;text-decoration:none;background:var(--primary-dark);color:#fff;border-radius:10px;font-size:15px;font-weight:800}
-.store-map-link:hover{background:var(--primary)}
-.store-back{margin-bottom:14px;padding:11px 14px;cursor:pointer;border:1px solid var(--border-color);border-radius:10px;background:var(--blue-pale);color:var(--primary-dark);font-weight:700}
-@media(max-width:750px){.wrap{padding:18px 12px 38px}.salon-finder{width:100%}.panel{padding:13px}.title{font-size:19px}#selected{scroll-margin-top:20px}.store-detail-row{grid-template-columns:80px minmax(0,1fr);gap:8px}.store-detail-body{padding:8px 13px 17px}}
+/* Salon finder — built on guide-design-system.css and guide-shared-chrome.css */
+.salon-guide{margin:0;background:#fff;color:var(--guide-text);font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.salon-guide,.salon-guide *{box-sizing:border-box}
+.salon-guide-page{--guide-page-width:860px;--guide-page-padding-top:52px;--guide-page-padding-bottom:110px}
+.salon-intro{margin:0 0 32px;color:var(--guide-muted);font-size:15px;line-height:1.9}
+.salon-finder{padding:26px;border:1px solid var(--guide-border);border-radius:16px;background:#fff}
+.salon-select-label{display:block;margin-bottom:10px;color:var(--guide-primary);font-weight:800;font-size:15px}
+.salon-select{display:block;width:100%;min-height:54px;padding:12px 16px;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);background:#fff;color:var(--guide-text);font:inherit;cursor:pointer}
+.salon-select:focus-visible{outline:3px solid var(--guide-focus);outline-offset:2px}
+.salon-results{margin-top:28px;padding-top:23px;border-top:1px solid var(--guide-border)}
+.salon-results .title{margin:0 0 18px;color:var(--guide-primary);font-size:21px;font-weight:800;line-height:1.5}
+.salon-results .empty,.salon-results .citycaption{color:var(--guide-muted);font-size:14px;line-height:1.8}
+.salon-results .citycaption{margin:0 0 15px}
+.salon-results .store-grid{display:grid;gap:11px}
+.salon-results .store-card{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:76px;padding:17px;background:#fff;border:1px solid var(--guide-border);border-radius:var(--guide-radius-control);text-align:left;cursor:pointer;color:var(--guide-text);font:inherit}
+.salon-results .store-card:hover,.salon-results .store-card:focus-visible{background:var(--guide-surface);border-color:var(--guide-primary)}
+.salon-results .store-card-main{display:grid;gap:5px;min-width:0}
+.salon-results .store-card-main strong{font-size:16px;color:var(--guide-primary);line-height:1.5}
+.salon-results .store-address{font-size:13px;color:var(--guide-muted);line-height:1.7}
+.salon-results .store-card-arrow{flex-shrink:0;color:var(--guide-primary);font-size:25px}
+.salon-results .store-detail{overflow:hidden;border:1px solid var(--guide-border);border-radius:15px;background:#fff}
+.salon-results .store-detail-heading{padding:21px;background:var(--guide-surface)}
+.salon-results .store-detail-kicker{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--guide-primary)}
+.salon-results .store-detail-heading h3{margin:6px 0 0;color:var(--guide-primary);font-size:21px;line-height:1.5}
+.salon-results .store-detail-body{padding:10px 20px 22px}
+.salon-results .store-detail-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--guide-border)}
+.salon-results .store-detail-label{font-size:13px;font-weight:800;color:var(--guide-primary)}
+.salon-results .store-detail-value{min-width:0;overflow-wrap:anywhere;font-size:15px;line-height:1.8}
+.salon-results .store-map-link{display:block;margin-top:22px;padding:14px;border-radius:12px;background:var(--guide-primary);color:#fff;text-align:center;text-decoration:none;font-weight:800}
+.salon-results .store-map-link:hover{background:var(--guide-primary-hover)}
+.salon-results .store-back{margin:0 0 15px;padding:11px 15px;border:1px solid var(--guide-border);border-radius:11px;background:var(--guide-surface);color:var(--guide-primary);font:inherit;font-weight:700;cursor:pointer}
+@media(max-width:600px){.salon-guide-page{--guide-page-padding-top:30px;--guide-page-padding-bottom:85px}.salon-finder{padding:16px}.salon-results{margin-top:24px}.salon-results .store-detail-row{grid-template-columns:76px minmax(0,1fr);gap:9px}.salon-results .store-detail-body{padding:8px 14px 18px}.salon-results .store-card{padding:14px}}
