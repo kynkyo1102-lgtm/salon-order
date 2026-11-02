@@ -8,3 +8,37 @@ let active='';
 function showList(){const stores=groups[active]||[];selected.textContent=active+'（'+stores.length+'店舗）';list.innerHTML='<p class="citycaption">サロンを選ぶと、営業時間や住所などの詳細が表示されます。</p><div class="store-grid">'+stores.map((s,i)=>'<button type="button" class="store-card" data-store="'+i+'"><span class="store-card-main"><strong>'+esc(s.name)+'</strong><span class="store-address">'+esc(s.address)+'</span></span><span class="store-card-arrow" aria-hidden="true">›</span></button>').join('')+'</div>';list.querySelectorAll('[data-store]').forEach(b=>b.addEventListener('click',()=>showStore(stores[Number(b.dataset.store)])))}
 function showStore(s){selected.textContent='サロン情報';const fields=[['住所',s.address],['営業時間',s.hours||'要確認'],['定休日',s.closed||'要確認']];if(s.owner)fields.push(['オーナー',s.owner]);if(s.notes)fields.push(['備考',s.notes]);list.innerHTML='<button type="button" id="backStores" class="store-back">← '+esc(active)+'のサロン一覧に戻る</button><article class="store-detail"><div class="store-detail-heading"><span class="store-detail-kicker">SALON INFORMATION</span><h3>'+esc(s.name)+'</h3></div><div class="store-detail-body">'+fields.map(([label,value])=>'<div class="store-detail-row"><span class="store-detail-label">'+esc(label)+'</span><span class="store-detail-value">'+esc(value)+'</span></div>').join('')+'<a class="store-map-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(s.address)+'">Googleマップで場所を確認 ↗</a></div></article>';document.getElementById('backStores').addEventListener('click',showList);if(matchMedia('(max-width:750px)').matches)selected.scrollIntoView({behavior:'smooth',block:'start'})}
 select.addEventListener('change',()=>{active=select.value;if(active)showList();else{selected.textContent='都道府県を選択してください';list.textContent='都道府県を選ぶとサロン一覧が表示されます。'}});
+
+
+/* Simplified geographic tile map. Each prefecture is selectable and uses the same salon data as the dropdown. */
+const salonMapPositions={
+'北海道':[13,0],'青森県':[12,2],'秋田県':[11,3],'岩手県':[12,3],'山形県':[11,4],'宮城県':[12,4],'新潟県':[10,5],'福島県':[12,5],
+'富山県':[9,6],'石川県':[8,6],'福井県':[8,7],'長野県':[10,6],'群馬県':[11,6],'栃木県':[12,6],'茨城県':[13,6],
+'岐阜県':[9,7],'山梨県':[11,7],'埼玉県':[12,7],'千葉県':[13,8],'東京都':[12,8],'神奈川県':[11,8],
+'静岡県':[10,8],'愛知県':[9,8],'三重県':[8,8],'滋賀県':[7,7],'京都府':[7,8],'大阪府':[7,9],'兵庫県':[6,8],'奈良県':[8,9],'和歌山県':[7,10],
+'鳥取県':[5,7],'島根県':[4,7],'岡山県':[5,8],'広島県':[4,8],'山口県':[3,8],
+'香川県':[5,9],'徳島県':[6,10],'愛媛県':[4,9],'高知県':[4,10],
+'福岡県':[2,9],'佐賀県':[1,10],'長崎県':[0,10],'大分県':[3,10],'熊本県':[2,11],'宮崎県':[3,12],'鹿児島県':[2,13],'沖縄県':[0,14]
+};
+function renderSalonMap(){
+ const host=document.getElementById('salon-map');if(!host)return;
+ const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+ svg.setAttribute('viewBox','0 0 610 630');svg.setAttribute('role','img');svg.setAttribute('aria-label','都道府県ごとのサロン分布を示す簡略化地図');
+ const cell=39,offsetX=8,offsetY=8;
+ for(const p of prefectures){
+  const pos=salonMapPositions[p];if(!pos)continue;
+  const [x,y]=pos,n=(groups[p]||[]).length;
+  const g=document.createElementNS(ns,'g');g.setAttribute('transform','translate('+(offsetX+x*cell)+','+(offsetY+y*cell)+')');
+  g.setAttribute('class','salon-map-pref'+(n?' has-salon':'')+(active===p?' is-active':''));
+  g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',p+'、'+n+'店舗');
+  const rect=document.createElementNS(ns,'rect');rect.setAttribute('x','1');rect.setAttribute('y','1');rect.setAttribute('width','37');rect.setAttribute('height','37');rect.setAttribute('rx','5');g.append(rect);
+  const label=document.createElementNS(ns,'text');label.setAttribute('x','19.5');label.setAttribute('y','17');label.setAttribute('text-anchor','middle');label.setAttribute('class','pref-label');label.textContent=p.replace(/[都府県]$/,'');g.append(label);
+  if(n){const count=document.createElementNS(ns,'text');count.setAttribute('x','19.5');count.setAttribute('y','31');count.setAttribute('text-anchor','middle');count.setAttribute('class','pref-count');count.textContent=n+'店';g.append(count)}
+  const choose=()=>{if(!n)return;select.value=p;active=p;showList();renderSalonMap();document.querySelector('.salon-results').scrollIntoView({behavior:'smooth',block:'start'})};
+  g.addEventListener('click',choose);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
+  svg.append(g);
+ }
+ host.replaceChildren(svg);
+}
+renderSalonMap();
+select.addEventListener('change',renderSalonMap);
