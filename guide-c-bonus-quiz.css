@@ -10,3 +10,14 @@
 .quiz-triangle-wrap{max-width:600px}
 .quiz-triangle{min-height:180px}
 @media(max-width:480px){.quiz-avatar{width:70px;height:86px}.quiz-node{font-size:14px}.quiz-triangle{min-height:0}}
+
+/* Match the standard member-guide page width and eliminate mobile overflow. */
+html{width:100%;overflow-x:clip}
+body.registration-guide{margin:0;width:100%;min-width:0;background:#fff;color:var(--guide-text);font:400 15px/1.85 "Noto Sans JP",sans-serif}
+body.registration-guide,body.registration-guide *{box-sizing:border-box}
+.registration-guide .guide-common-page.bonus-quiz{width:100%;max-width:var(--guide-page-width,860px);margin:0 auto;padding:var(--guide-page-padding-top,52px) var(--guide-page-padding-x,22px) var(--guide-page-padding-bottom,110px)}
+.bonus-quiz .guide-section,.bonus-quiz .quiz-diagram,.bonus-quiz .quiz-answers,.bonus-quiz .quiz-triangle-wrap{min-width:0;max-width:100%}
+.bonus-quiz .quiz-triangle{width:100%;max-width:100%;height:auto;min-height:0}
+.bonus-quiz .quiz-branches{min-width:0}
+.bonus-quiz .quiz-steps button{flex:0 1 auto}
+@media(max-width:600px){.registration-guide .guide-common-page.bonus-quiz{padding:var(--guide-page-padding-top,30px) var(--guide-page-padding-x,17px) var(--guide-page-padding-bottom,95px)}.bonus-quiz .quiz-diagram{padding:14px 7px}.bonus-quiz .quiz-triangle-wrap{margin:8px auto;width:100%}.bonus-quiz .quiz-steps{gap:7px}.bonus-quiz .quiz-steps button{padding:9px 12px}}
