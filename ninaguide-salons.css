@@ -54,3 +54,18 @@
 .salon-legend-on,.salon-legend-off{display:inline-block;width:13px;height:13px;border-radius:3px;background:#a8cce8}
 .salon-legend-off{background:#edf0f2;margin-left:12px}
 @media(max-width:600px){.salon-map-section h2{font-size:18px}.salon-map-help{font-size:13px}.salon-map-section{margin-bottom:22px}}
+
+/* Salon directory cards: quiet editorial hierarchy within the shared guide system. */
+.salon-results .store-grid{gap:14px}
+.salon-results .store-card{display:flex;flex-direction:column;align-items:stretch;gap:0;min-height:0;padding:0;overflow:hidden;border-radius:14px;background:#fff;border:1px solid var(--guide-border);box-shadow:0 2px 9px rgba(28,58,88,.045);transition:border-color .18s,box-shadow .18s,transform .18s}
+.salon-results .store-card:hover,.salon-results .store-card:focus-visible{background:#fff;border-color:var(--guide-primary);box-shadow:0 7px 20px rgba(28,58,88,.1);transform:translateY(-1px)}
+.salon-results .store-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 19px 0}
+.salon-results .store-card-index{color:#7c8c9b;font-size:10px;font-weight:800;letter-spacing:.14em}
+.salon-results .store-card-pref{font-size:11px;font-weight:700;color:var(--guide-primary);background:var(--guide-surface);padding:3px 9px;border-radius:20px}
+.salon-results .store-card-main{padding:8px 19px 17px;gap:9px}
+.salon-results .store-card-main strong{font-size:18px;line-height:1.5;color:var(--guide-text);font-weight:800}
+.salon-results .store-address{font-size:13px;line-height:1.65;color:var(--guide-muted)}
+.salon-results .store-card-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--guide-border);padding:12px 19px;background:#fafcfe}
+.salon-results .store-card-hours{font-size:12px;color:var(--guide-muted);line-height:1.5}
+.salon-results .store-card-action{white-space:nowrap;font-size:12px;font-weight:800;color:var(--guide-primary)}
+@media(max-width:600px){.salon-results .store-card{padding:0}.salon-results .store-card-top{padding:12px 14px 0}.salon-results .store-card-main{padding:8px 14px 14px}.salon-results .store-card-main strong{font-size:16px}.salon-results .store-card-bottom{padding:12px 14px;align-items:flex-start}.salon-results .store-card-hours{font-size:11px}.salon-results .store-card-action{font-size:11px}}
