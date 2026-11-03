@@ -33,3 +33,18 @@
 .procedure-guide .category-grid,.procedure-guide .submit-options{min-width:0}
 .procedure-guide .mail-steps{padding-left:0;list-style:none}
 .procedure-guide .mail-steps li,.procedure-guide .document-highlight,.procedure-guide .postal-address{max-width:100%;overflow-wrap:anywhere}
+
+/* Accordion navigation */
+.procedure-accordion{display:grid;gap:12px;min-width:0}
+.procedure-category{min-width:0;border:1px solid var(--guide-border);border-radius:13px;overflow:hidden;background:#fff}
+.procedure-category-trigger{display:flex;align-items:center;gap:14px;width:100%;padding:16px;border:0;background:#fff;color:var(--guide-primary);text-align:left;font:inherit;font-weight:800;cursor:pointer}
+.procedure-category-trigger:hover,.procedure-category-trigger[aria-expanded="true"]{background:var(--guide-surface)}
+.procedure-category-trigger .category-icon{display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border-radius:12px;background:var(--guide-surface)}
+.procedure-category-trigger .category-icon svg{width:31px;height:31px;fill:none;stroke:var(--guide-primary);stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
+.procedure-category-trigger .category-text{flex:1;min-width:0;overflow-wrap:anywhere}
+.procedure-category-trigger .chevron{font-size:1.5rem;transition:transform .15s}
+.procedure-category-trigger[aria-expanded="true"] .chevron{transform:rotate(180deg)}
+.procedure-category-panel{padding:0 16px 8px;border-top:1px solid var(--guide-border)}
+.procedure-category-panel[hidden]{display:none}
+.procedure-category-panel .procedure-link{padding:15px 4px;min-height:52px}
+@media(max-width:600px){.procedure-accordion{gap:10px}.procedure-category-trigger{padding:12px;gap:12px}.procedure-category-trigger .category-icon{width:42px;height:42px;flex-basis:42px}.procedure-category-trigger .category-icon svg{width:28px;height:28px}.procedure-category-panel{padding:0 12px 6px}}
