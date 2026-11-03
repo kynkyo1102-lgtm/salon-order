@@ -24,3 +24,12 @@
 .procedure-guide .category-button,.procedure-guide .procedure-link,.procedure-guide .submit-option{overflow-wrap:anywhere;min-width:0}
 @media(max-width:700px){.procedure-guide .procedure-page{padding-left:18px;padding-right:18px}.procedure-guide .procedure-section{padding:18px 15px}.procedure-guide .category-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:420px){.procedure-guide .submit-options{grid-template-columns:minmax(0,1fr)}.procedure-guide .eservice-link{max-width:100%;overflow-wrap:anywhere}.procedure-guide .mail-steps li{min-width:0}}
+
+/* Viewport width fix: common.css previously supplied border-box globally. */
+.procedure-guide,.procedure-guide *,.procedure-guide *::before,.procedure-guide *::after{box-sizing:border-box}
+.procedure-guide{width:100%;max-width:100%;min-width:0;overflow-x:clip}
+.procedure-guide .guide-common-page{width:100%;max-width:860px;min-width:0}
+.procedure-guide .procedure-area,.procedure-guide .procedure-section,.procedure-guide #app{width:100%;max-width:100%;min-width:0}
+.procedure-guide .category-grid,.procedure-guide .submit-options{min-width:0}
+.procedure-guide .mail-steps{padding-left:0;list-style:none}
+.procedure-guide .mail-steps li,.procedure-guide .document-highlight,.procedure-guide .postal-address{max-width:100%;overflow-wrap:anywhere}
