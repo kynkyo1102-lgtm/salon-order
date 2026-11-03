@@ -27,7 +27,7 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 </style></head><body class="registration-guide"><main class="myplan">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><span aria-current="page">マイプラン検索</span></nav>
 <span class="tag">目標から組織をイメージ</span><h1>マイプラン検索</h1><p class="lead">「この金額帯を目指すなら、どんな配置が考えられる？」公式マニュアルの計算例と追加試算を比較します。</p>
-<section class="panel"><h2>目標のボーナス金額帯</h2><label for="goal">月間の計算額</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="50000" selected>5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select><p class="hint">左右のポイント配分を変え、計算額が選択範囲に入る例を自動生成します。</p></section>
+<section class="panel"><h2>目標のボーナス金額帯</h2><label for="goal">月間の計算額</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="50000" selected>5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select><p class="hint">左右差を原則1.5倍以内に抑え、目標金額帯に入る組織例を自動生成します。</p></section>
 <section class="panel"><h2>組織モデルを比較</h2><div id="patterns" class="pattern-tabs" role="group" aria-label="組織モデル"></div><h3 id="model-title"></h3><p id="model-lead" class="muted"></p>
 <div class="summary"><div class="metric"><small>本人・左グループ</small><strong id="left"></strong></div><div class="metric"><small>本人・右グループ</small><strong id="right"></strong></div><div class="metric"><small>計算額合計</small><strong id="total"></strong></div></div>
 <div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div><p class="hint">三角形は左右グループの合計PTです。支店01・02は個別表示しません。</p></div>
@@ -43,21 +43,21 @@ function generate(goal){
  const found=[],seen=new Set();
  // A/B each have their own two group totals; the parent's side also includes A/B's own 00 position.
  // Each scenario assumes 2 active direct referrals and a 10% basic rate.
- const modes=goal===10000?["流通均等","流通左右差","片側重点"]:["ベーシック重視","メガマッチ重視","左右バランス","片側重点"];
+ const modes=goal===10000?["左右均等型","緩やかな左右差型","紹介者育成型"]:["左右均等型","緩やかな左右差型","紹介者育成型","メガマッチ活用型"];
  for(const mode of modes){
   let best=null,dist=Infinity;
   const step=goal>=300000?10000:5000;
   const max=goal>=600000?6500000:goal>=300000?3500000:650000;
   for(let a=30000;a<=max;a+=step){
    // A and B each have at least 30,000 PT on the smaller side.
-   for(const fraction of [0.5,0.7,0.9,1,1.2,1.5,2,2.5,3]){
+   for(const fraction of [0.8,0.9,1,1.1,1.2]){
     const b=Math.max(30000,Math.round(a*fraction/step)*step);
     if(b>max)continue;
     // A/B own basic uses their respective smaller group PT.
     const abasic=Math.round(a*.1),bbasic=Math.round(b*.1);
-    for(const extra of [0,0.25,0.6,1,1.5,2,3]){
+    for(const extra of [0,0.1,0.2,0.3,0.4]){
      const ax=a,ar=a+Math.round(a*extra/step)*step;
-     const bl=b,br=b+Math.round(b*(mode==="片側重点"?2:extra)/step)*step;
+     const bl=b,br=b+Math.round(b*(mode==="緩やかな左右差型"?Math.min(0.5,extra+0.1):extra)/step)*step;
      const left=7000+ax+ar,right=7000+bl+br;
      const own=Math.round(Math.min(left,right)*.1);
      // Mega Match applies only for Crystal+; its eligibility is assumed in 5万円+ scenarios.
@@ -65,8 +65,8 @@ function generate(goal){
      const total=own+mega;
      if(total<goal||total>=goal+(goal===10000?10000:10000))continue;
      const ratio=mega/(total||1),balance=Math.min(left,right)/Math.max(left,right);
-     const objective=mode==="ベーシック重視"?Math.abs(ratio-.2):mode==="メガマッチ重視"?Math.abs(ratio-.48):mode==="左右バランス"?Math.abs(balance-1):mode==="片側重点"?Math.abs(balance-.42):mode==="流通均等"?Math.abs(balance-1):mode==="流通左右差"?Math.abs(balance-.65):Math.abs(balance-.35);
-     const key=[ax,ar,bl,br].join("/");
+     const objective=mode==="左右均等型"?Math.abs(balance-1)+Math.abs(fraction-1)*.05:mode==="緩やかな左右差型"?Math.abs(balance-.78)+Math.abs(fraction-.9)*.02:mode==="紹介者育成型"?Math.abs(ratio-.38)+Math.abs(balance-.9)*.1:Math.abs(ratio-.48)+Math.abs(balance-.88)*.1;
+     if(Math.max(ax,ar)/Math.min(ax,ar)>1.5||Math.max(bl,br)/Math.min(bl,br)>1.5)continue;const key=[ax,ar,bl,br].join("/");
      if(!seen.has(key)&&objective<dist){dist=objective;best={mode,ax,ar,bl,br,left,right,abasic,bbasic,own,mega,total,key}}
     }
    }
