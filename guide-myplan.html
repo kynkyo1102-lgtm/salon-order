@@ -27,67 +27,89 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 </style></head><body class="registration-guide"><main class="myplan">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><span aria-current="page">マイプラン検索</span></nav>
 <span class="tag">目標から組織をイメージ</span><h1>マイプラン検索</h1><p class="lead">「この金額帯を目指すなら、どんな配置が考えられる？」公式マニュアルの計算例と追加試算を比較します。</p>
-<section class="panel" aria-labelledby="search-title"><h2 id="search-title">目標金額を選ぶ</h2><label for="goal">月間ボーナスの目標帯</label><div class="formrow"><select id="goal"><option value="10000">月1万円台（1万〜2万円未満）</option><option value="50000" selected>月5万円台（5万〜6万円未満）</option><option value="300000">月30万円台（30万〜31万円未満）</option><option value="600000">月60万円台（60万〜61万円未満）</option></select><span class="hint">各金額帯の計算例を比較</span></div><p class="hint">3万円・10万円・20万円・50万円などの追加モデルは、計算条件の検証後に対応予定です。</p></section>
-<section class="panel" aria-labelledby="model-title"><div id="patterns" class="pattern-tabs" role="group" aria-label="組織モデルを選択"></div><span class="tag" id="model-rank"></span><h2 id="model-title" style="margin-top:10px"></h2><p id="model-lead" class="muted"></p><div class="summary"><div class="metric"><small>左グループ</small><strong id="left"></strong></div><div class="metric"><small>右グループ</small><strong id="right"></strong></div><div class="metric"><small>ボーナス合計</small><strong id="total"></strong></div></div>
-<h3>組織のイメージ</h3><div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="左右に分かれるバイナリー組織図"></div><p class="hint" id="diagram-note"></p></div>
-<h3 style="margin-top:24px">ボーナスの内訳</h3><table class="bonus-table"><thead><tr><th scope="col">ボーナス</th><th scope="col">計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th scope="row" class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table><p class="hint" id="model-note"></p></section>
-<section class="panel"><h2>今後追加するモデル</h2><div class="more"><span>月3万円</span><span>月10万円</span><span>月20万円</span><span>月50万円</span></div><p class="hint">月1万円の例から複数パターンの比較を試しています。今後は他の金額にも拡大予定です。未検証の計算例は掲載しません。</p></section>
-<div class="caution"><strong>ご利用にあたって</strong><p>このページは公式マニュアルの掲載例と、条件付きの追加試算を区別して表示する学習用資料です。3点登録は本店00・左支店01・右支店02の各7,000 PTで計算し、図では支店を省略しています。ポイント条件が適用される月を想定しています。掲載当時の制度に基づくシミュレーションであり、現在のボーナス制度で同額が支給されることや、実際にその収入を得られることを保証しません。会員資格・取得条件・ポイント換算などは現行資料でご確認ください。購入や紹介を推奨するものではありません。</p></div>
+<section class="panel"><h2>目標のボーナス金額帯</h2><label for="goal">月間の計算額</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="50000" selected>5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select><p class="hint">左右のポイント配分を変え、計算額が選択範囲に入る例を自動生成します。</p></section>
+<section class="panel"><h2>組織モデルを比較</h2><div id="patterns" class="pattern-tabs" role="group" aria-label="組織モデル"></div><h3 id="model-title"></h3><p id="model-lead" class="muted"></p>
+<div class="summary"><div class="metric"><small>本人・左グループ</small><strong id="left"></strong></div><div class="metric"><small>本人・右グループ</small><strong id="right"></strong></div><div class="metric"><small>計算額合計</small><strong id="total"></strong></div></div>
+<div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div><p class="hint">三角形は左右グループの合計PTです。支店01・02は個別表示しません。</p></div>
+<h3>Aさん・Bさんの計算根拠</h3><div id="person-details"></div>
+<h3 style="margin-top:24px">本人のボーナス内訳</h3><table class="bonus-table"><thead><tr><th>ボーナス</th><th>計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table><p class="hint" id="model-note"></p></section>
+<div class="caution"><strong>ご利用にあたって</strong><p>このページは公式マニュアルの組織図を再現するものではなく、仮定した条件による自動生成の学習用試算です。3点登録は本店00・左支店01・右支店02の各7,000 PTで計算し、図では支店を省略しています。ポイント条件が適用される月を想定しています。掲載当時の制度に基づくシミュレーションであり、現在のボーナス制度で同額が支給されることや、実際にその収入を得られることを保証しません。会員資格・取得条件・ポイント換算などは現行資料でご確認ください。購入や紹介を推奨するものではありません。</p></div>
 <p><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
 </main><script>
-const models={
-10000:{rank:"メンバーの例",title:"月1万円のモデル",lead:"マニュアル Step 2：左右の実績からベーシックコミッションを計算する例。",left:120000,right:100000,bonuses:[["ベーシックコミッション",10000]],note:"マニュアルでは、左右のうち小さいグループの10万P × 10% = 10,000円として説明されています。",diagram:"※Aさん・Bさんのそれぞれに左と右の2グループがあります。4つの三角形へのPT配分は未設定です。"},
-50000:{rank:"クリスタル",title:"月5万円のモデル",lead:"マニュアル Step 3：ベーシック、メガマッチ、ダブルメガマッチを組み合わせた例。",left:280000,right:320000,bonuses:[["ベーシックコミッション",28000],["メガマッチ",20000],["ダブルメガマッチ",2000]],note:"左28万P・右32万Pの例。各紹介者のボーナス実績も計算に含まれています。",diagram:"※Aさん・Bさんのそれぞれに左と右の2グループがあります。4つの三角形へのPT配分は未設定です。各ポジションのボーナス額やポイント内訳はマニュアル原図をご確認ください。"},
-300000:{rank:"サファイア",title:"月30万円のモデル",lead:"マニュアル Step 4：直接紹介者・二次紹介者の実績を含む例。",left:3000000,right:1100000,bonuses:[["ベーシックコミッション",110000],["メガマッチ",175000],["ダブルメガマッチ",15000]],note:"左300万P・右110万Pの例。マニュアルに示された内訳を掲載しています。",diagram:"※三角形は左右のポイント規模を表します。A・Bさんの配置は説明用の例示です。実際のタイトル取得条件やボーナス計算の詳細は別途確認が必要です。"},
-600000:{rank:"エメラルド",title:"月60万円のモデル",lead:"マニュアル Step 5：リーダーシップボーナスを含めた例。",left:4000000,right:3000000,bonuses:[["ベーシックコミッション",300000],["メガマッチ",220000],["ダブルメガマッチ",20000],["リーダーシップ",60000]],note:"左400万P・右300万Pの例。リーダーシップは資料中の1.5%計算例を採用しています。",diagram:"※三角形は左右のポイント規模を表します。A・Bさんの配置は説明用の例示です。実際のタイトル取得条件やボーナス計算の詳細は別途確認が必要です。"}
-};
-const extraPatterns={10000:[
-{rank:"紹介中心型",title:"4人を直接紹介する例",lead:"新規会員4人を直接紹介し、全員が3点登録（1人21,000 PT）で、ファーストスタートボーナスの条件を満たす場合。",left:0,right:0,direct:4,bonuses:[["ファーストスタート（3,000円 × 4人）",12000]],note:"4人分の紹介ボーナスを合算した12,000円の例です。新規登録に伴う84,000 PTは配置先のグループ売上に含まれますが、この例ではベーシックコミッションを加算していません。新規登録時の一時的なボーナスで、毎月継続する収入ではありません。",diagram:"※直接紹介4人は全員3点登録（各21,000 PT）。紹介関係と配置関係は別です。各ポジションから左右2方向に広がります。"},
-{rank:"紹介＋流通型",title:"紹介と商品流通を組み合わせる例",lead:"3点登録の新規会員を左右に1人ずつ直接紹介し、各21,000 PTを含む左右各5万Pのグループ売上を組み合わせた試算。",left:50000,right:50000,direct:2,bonuses:[["ファーストスタート（3,000円 × 2人）",6000],["ベーシックコミッション（5万P × 10％）",5000]],note:"合計11,000円の算術例です。左右各5万Pには新規登録21,000 PTずつを含み、二重加算はしません。アクティブ紹介者2人・必要な共通取得条件を満たす場合に限ります。公式マニュアルに掲載された組織例ではありません。",diagram:"※A・Bさんは3点登録（各21,000 PT）。左右の合計各5万Pには登録分を含みます。各人の下の左右三角形への個別配分は表示せず、あなたから見た左右合計を示します。"}]};
-let selectedPattern=0;
-const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP")+"万P";
-function renderBinary(m){
- const root=document.getElementById("binary-diagram"),ns="http://www.w3.org/2000/svg";
- const four=m.direct===4;
- const svg=document.createElementNS(ns,"svg");
- svg.setAttribute("viewBox",four?"0 0 900 700":"0 0 900 530");
- svg.setAttribute("class","binary-svg");
- const el=(tag,attrs={},txt)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(txt!==undefined)e.textContent=txt;svg.append(e);return e};
- const line=(x1,y1,x2,y2)=>el("line",{x1,y1,x2,y2,class:"binary-line"});
- const avatar=(x,y,n,label,direct=false)=>{el("image",{href:"./assets/avatar_"+String(n).padStart(2,"0")+".svg",x:x-30,y:y-30,width:60,height:60,class:"binary-avatar"});el("text",{x,y:y+49,class:"binary-name"},label);if(direct)el("text",{x,y:y+66,class:"binary-direct"},"直接紹介")};
- // Each wedge starts at its person's position. No extra line connects a person to a group.
- const wedge=(x,y,side,pt,w=185,h=170)=>{
-   const left=side==="left", tip=x,outer=tip+(left?-w:w);
-   el("polygon",{points:`${tip},${y} ${outer},${y+h} ${tip},${y+h}`,fill:left?"#73b6e5":"#0055a4",opacity:".94"});
-   const tx=(tip+outer)/2;
-   if(pt!==undefined)el("text",{x:tx,y:y+h-20,class:"binary-pt",fill:left?"#103f65":"#fff"},pts(pt));
- };
- avatar(450,45,1,"あなた");
- line(427,72,245,157);line(473,72,655,157);
- avatar(225,180,2,"Aさん",true);avatar(675,180,3,"Bさん",true);
- if(four){
-   line(203,207,132,335);line(697,207,768,335);
-   avatar(112,358,4,"Cさん",true);avatar(788,358,5,"Dさん",true);
-   // A and B each have one occupied placement branch; C and D are still directly referred by you.
-   wedge(225,256,"right",undefined,125,135);
-   wedge(675,256,"left",undefined,125,135);
-   wedge(112,430,"left",undefined,92,115);wedge(112,430,"right",undefined,92,115);
-   wedge(788,430,"left",undefined,92,115);wedge(788,430,"right",undefined,92,115);
-   el("text",{x:450,y:615,class:"binary-pt",fill:"#0055a4"},"3点登録 × 4人 ＝ 84,000 PT");
-   el("text",{x:450,y:647,class:"binary-caption"},"4人ともあなたの直接紹介。配置はAの下にC、Bの下にD。");
- }else{
-   wedge(225,256,"left");wedge(225,256,"right");
-   wedge(675,256,"left");wedge(675,256,"right");
-   el("text",{x:225,y:470,class:"binary-pt",fill:"#0055a4"},m.left?"左合計 "+pts(m.left):"左：内訳省略");
-   el("text",{x:675,y:470,class:"binary-pt",fill:"#0055a4"},m.right?"右合計 "+pts(m.right):"右：内訳省略");
-   el("text",{x:450,y:510,class:"binary-caption"},"三角形は各人の左右グループを省略した表現です。");
+const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP",{maximumFractionDigits:1})+"万PT";
+const ranges=[10000,50000,300000,600000];
+let selected=0, candidates=[];
+function generate(goal){
+ const found=[],seen=new Set();
+ // A/B each have their own two group totals; the parent's side also includes A/B's own 00 position.
+ // Each scenario assumes 2 active direct referrals and a 10% basic rate.
+ const modes=goal===10000?["流通均等","流通左右差","片側重点"]:["ベーシック重視","メガマッチ重視","左右バランス","片側重点"];
+ for(const mode of modes){
+  let best=null,dist=Infinity;
+  const step=goal>=300000?10000:5000;
+  const max=goal>=600000?6500000:goal>=300000?3500000:650000;
+  for(let a=30000;a<=max;a+=step){
+   // A and B each have at least 30,000 PT on the smaller side.
+   for(const fraction of [0.5,0.7,0.9,1,1.2,1.5,2,2.5,3]){
+    const b=Math.max(30000,Math.round(a*fraction/step)*step);
+    if(b>max)continue;
+    // A/B own basic uses their respective smaller group PT.
+    const abasic=Math.round(a*.1),bbasic=Math.round(b*.1);
+    for(const extra of [0,0.25,0.6,1,1.5,2,3]){
+     const ax=a,ar=a+Math.round(a*extra/step)*step;
+     const bl=b,br=b+Math.round(b*(mode==="片側重点"?2:extra)/step)*step;
+     const left=7000+ax+ar,right=7000+bl+br;
+     const own=Math.round(Math.min(left,right)*.1);
+     // Mega Match applies only for Crystal+; its eligibility is assumed in 5万円+ scenarios.
+     const mega=goal===10000?0:abasic+bbasic;
+     const total=own+mega;
+     if(total<goal||total>=goal+(goal===10000?10000:10000))continue;
+     const ratio=mega/(total||1),balance=Math.min(left,right)/Math.max(left,right);
+     const objective=mode==="ベーシック重視"?Math.abs(ratio-.2):mode==="メガマッチ重視"?Math.abs(ratio-.48):mode==="左右バランス"?Math.abs(balance-1):mode==="片側重点"?Math.abs(balance-.42):mode==="流通均等"?Math.abs(balance-1):mode==="流通左右差"?Math.abs(balance-.65):Math.abs(balance-.35);
+     const key=[ax,ar,bl,br].join("/");
+     if(!seen.has(key)&&objective<dist){dist=objective;best={mode,ax,ar,bl,br,left,right,abasic,bbasic,own,mega,total,key}}
+    }
+   }
+  }
+  if(best){seen.add(best.key);found.push(best)}
  }
+ return found;
+}
+function diagram(m){
+ const root=document.getElementById("binary-diagram"),ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");
+ svg.setAttribute("viewBox","0 0 900 545");svg.setAttribute("class","binary-svg");
+ const el=(tag,attrs={},txt)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(txt!==undefined)e.textContent=txt;svg.append(e)};
+ const person=(x,y,num,label)=>{el("image",{href:"./assets/avatar_"+String(num).padStart(2,"0")+".svg",x:x-30,y:y-30,width:60,height:60});el("text",{x,y:y+47,class:"binary-name"},label)};
+ const wedge=(x,y,w,h,side,p)=>{const end=x+(side==="left"?-w:w);el("polygon",{points:`${x},${y} ${end},${y+h} ${x},${y+h}`,fill:side==="left"?"#73b6e5":"#f2b451"});el("text",{x:(x+end)/2,y:y+h-18,class:"binary-pt",fill:"#123f60"},pts(p))};
+ el("line",{x1:430,y1:71,x2:243,y2:151,class:"binary-line"});el("line",{x1:470,y1:71,x2:657,y2:151,class:"binary-line"});
+ person(450,43,1,"あなた");person(225,178,2,"Aさん");person(675,178,3,"Bさん");
+ wedge(225,260,185,155,"left",m.ax);wedge(225,260,185,155,"right",m.ar);
+ wedge(675,260,185,155,"left",m.bl);wedge(675,260,185,155,"right",m.br);
+ el("text",{x:225,y:450,class:"binary-caption"},"Aさんの小さい側 "+pts(Math.min(m.ax,m.ar)));
+ el("text",{x:675,y:450,class:"binary-caption"},"Bさんの小さい側 "+pts(Math.min(m.bl,m.br)));
+ el("text",{x:450,y:497,class:"binary-caption"},"A・Bはあなたの直接紹介者／2人ともアクティブと仮定");
+ el("text",{x:450,y:526,class:"binary-caption"},"本人の左右PTにはA・Bの本店00各7,000 PTを含みます");
  root.replaceChildren(svg);
 }
-function render(){const goal=document.getElementById("goal").value;const choices=[models[goal],...(extraPatterns[goal]||[])];if(selectedPattern>=choices.length)selectedPattern=0;const tabs=document.getElementById("patterns");tabs.replaceChildren();choices.forEach((m,i)=>{const b=document.createElement("button");b.type="button";b.textContent=i===0?"公式マニュアル":m.rank;b.setAttribute("aria-pressed",String(i===selectedPattern));b.addEventListener("click",()=>{selectedPattern=i;render()});tabs.append(b)});tabs.hidden=choices.length===1;
-const m=choices[selectedPattern];document.getElementById("model-rank").textContent=m.rank;document.getElementById("model-title").textContent=m.title;document.getElementById("model-lead").textContent=m.lead;document.getElementById("left").textContent=m.left?pts(m.left):"—";document.getElementById("right").textContent=m.right?pts(m.right):"—";
-const total=m.bonuses.reduce((n,x)=>n+x[1],0);document.getElementById("total").textContent=yen(total);document.getElementById("diagram-note").textContent=m.diagram;document.getElementById("model-note").textContent=m.note;document.getElementById("sum").textContent=yen(total);
-renderBinary(m);
-const tbody=document.getElementById("breakdown");tbody.replaceChildren();m.bonuses.forEach(([name,value])=>{const tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=name;td.textContent=yen(value);tr.append(th,td);tbody.append(tr)})}
-document.getElementById("goal").addEventListener("change",()=>{selectedPattern=0;render()});render();
+function render(){
+ const goal=Number(document.getElementById("goal").value);candidates=generate(goal);selected=Math.min(selected,Math.max(0,candidates.length-1));
+ const tabs=document.getElementById("patterns");tabs.replaceChildren();
+ candidates.forEach((m,i)=>{const btn=document.createElement("button");btn.type="button";btn.textContent=m.mode+" "+yen(m.total);btn.setAttribute("aria-pressed",String(i===selected));btn.addEventListener("click",()=>{selected=i;render()});tabs.append(btn)});
+ const m=candidates[selected];if(!m){document.getElementById("model-title").textContent="条件内のモデルが見つかりません";return}
+ document.getElementById("model-title").textContent=m.mode+"の組織モデル";
+ document.getElementById("model-lead").textContent="Aさん・Bさんの左右PTを変えて計算したモデルです。";
+ document.getElementById("left").textContent=pts(m.left);document.getElementById("right").textContent=pts(m.right);document.getElementById("total").textContent=yen(m.total);
+ diagram(m);
+ const detail=document.getElementById("person-details");detail.replaceChildren();
+ for(const [label,l,r,basic] of [["Aさん",m.ax,m.ar,m.abasic],["Bさん",m.bl,m.br,m.bbasic]]){
+  const p=document.createElement("p");p.textContent=label+"：左 "+pts(l)+" ／ 右 "+pts(r)+" → 少ない側 "+pts(Math.min(l,r))+" × 10% = "+yen(basic);detail.append(p)
+ }
+ const body=document.getElementById("breakdown");body.replaceChildren();
+ for(const [name,value,formula] of [["ベーシックコミッション",m.own,pts(Math.min(m.left,m.right))+" × 10%"],...(m.mega?[["メガマッチ",m.mega,yen(m.abasic)+" ＋ "+yen(m.bbasic)]]:[])]){
+  const tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=name+"（"+formula+"）";td.textContent=yen(value);tr.append(th,td);body.append(tr)
+ }
+ document.getElementById("sum").textContent=yen(m.total);
+ document.getElementById("model-note").textContent="計算上の例です。A・Bはアクティブな直接紹介者で、それぞれベーシック取得条件を満たすと仮定。メガマッチは本人がクリスタル以上で所定条件を満たす場合のみ。タイトル昇格・取得条件の成立や支給を保証するものではありません。";
+}
+document.getElementById("goal").addEventListener("change",()=>{selected=0;render()});render();
 </script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
