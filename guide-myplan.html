@@ -94,9 +94,9 @@ function diagram(m){
 function render(){
  const goal=Number(document.getElementById("goal").value);candidates=generate(goal);selected=Math.min(selected,Math.max(0,candidates.length-1));
  const tabs=document.getElementById("patterns");tabs.replaceChildren();
- candidates.forEach((m,i)=>{const btn=document.createElement("button");btn.type="button";btn.textContent=m.mode+"｜"+yen(m.total);btn.setAttribute("aria-pressed",String(i===selected));btn.addEventListener("click",()=>{selected=i;render()});tabs.append(btn)});
+ candidates.forEach((m,i)=>{const btn=document.createElement("button");btn.type="button";btn.textContent="パターン"+(i+1)+"｜"+yen(m.total);btn.setAttribute("aria-pressed",String(i===selected));btn.addEventListener("click",()=>{selected=i;render()});tabs.append(btn)});
  const m=candidates[selected];if(!m){document.getElementById("model-title").textContent="条件内のモデルが見つかりません";return}
- document.getElementById("model-title").textContent=m.mode+"場合";
+ document.getElementById("model-title").textContent="パターン"+(selected+1)+"｜"+yen(m.total);
  document.getElementById("model-lead").textContent="本人のベーシック："+yen(m.own)+" ／ "+(m.mega?"メガマッチ："+yen(m.mega):"メガマッチは計算に含めません")+"。下の図でそれぞれの左右PTを確認できます。";
  document.getElementById("left").textContent=pts(m.left);document.getElementById("right").textContent=pts(m.right);document.getElementById("total").textContent=yen(m.total);
  diagram(m);
