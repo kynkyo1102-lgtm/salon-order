@@ -63,3 +63,8 @@ body.procedure-guide .procedure-section,body.procedure-guide .procedure-accordio
 .procedure-guide .procedure-category-trigger .accordion-toggle::after{transform:translate(-50%,-50%) rotate(90deg);transition:opacity .15s}
 .procedure-guide .procedure-category-trigger[aria-expanded="true"] .accordion-toggle::after{opacity:0}
 .procedure-guide .procedure-category-trigger[aria-expanded="true"] .accordion-toggle{background:var(--guide-primary);border-color:var(--guide-primary);color:#fff}
+
+/* Procedure names inside expanded categories: avoid legacy black bold style. */
+.procedure-guide .procedure-category-panel .procedure-link{color:var(--guide-primary);font-weight:500;font-size:.97rem;line-height:1.6}
+.procedure-guide .procedure-category-panel .procedure-link .chevron{color:var(--guide-muted);font-weight:400;font-size:1.25rem}
+.procedure-guide .procedure-category-panel .procedure-link:hover,.procedure-guide .procedure-category-panel .procedure-link:focus-visible{color:var(--guide-primary);background:var(--guide-surface)}
