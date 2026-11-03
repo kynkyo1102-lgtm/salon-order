@@ -57,7 +57,7 @@ function renderBinary(m){
  const avatar=(x,y,n,label,direct=false)=>{el("image",{href:"./assets/avatar_"+String(n).padStart(2,"0")+".svg",x:x-30,y:y-30,width:60,height:60,class:"binary-avatar"});el("text",{x,y:y+49,class:"binary-name"},label);if(direct)el("text",{x,y:y+66,class:"binary-direct"},"直接紹介")};
  // Each wedge starts at its person's position. No extra line connects a person to a group.
  const wedge=(x,y,side,pt,w=185,h=170)=>{
-   const left=side==="left", tip=x+(left?-18:18),outer=tip+(left?-w:w);
+   const left=side==="left", tip=x,outer=tip+(left?-w:w);
    el("polygon",{points:`${tip},${y} ${outer},${y+h} ${tip},${y+h}`,fill:left?"#73b6e5":"#0055a4",opacity:".94"});
    const tx=(tip+outer)/2;
    if(pt!==undefined)el("text",{x:tx,y:y+h-20,class:"binary-pt",fill:left?"#103f65":"#fff"},pts(pt));
