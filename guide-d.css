@@ -78,3 +78,12 @@ body.procedure-guide .procedure-section,body.procedure-guide .procedure-accordio
 .procedure-step .submit-content{min-width:0}
 .procedure-step .method-title{margin-top:0}
 @media(max-width:600px){.procedure-step{padding:17px 15px;margin-bottom:16px}.procedure-step-title{font-size:1.02rem}}
+
+/* Pilot: sections separated by whitespace rather than nested cards. */
+.procedure-guide .procedure-step{margin:0 0 28px;padding:0 0 23px;border:0;border-bottom:1px solid var(--guide-border);border-radius:0;background:transparent;box-shadow:none}
+.procedure-guide .procedure-step:last-of-type{border-bottom:0}
+.procedure-guide .procedure-step-title{margin:0 0 14px;color:var(--guide-primary);font-size:1.13rem;font-weight:750}
+.procedure-guide .procedure-step .submit-options{margin:8px 0 0}
+.procedure-guide .procedure-step .submit-option{font-weight:650}
+.procedure-guide .procedure-step .submit-content{padding-top:0}
+@media(max-width:600px){.procedure-guide .procedure-step{padding:0 0 20px;margin-bottom:24px}}
