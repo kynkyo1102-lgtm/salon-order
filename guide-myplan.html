@@ -15,31 +15,45 @@
 <p><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
 </main><script>
 const models={
-10000:{rank:"メンバーの例",title:"月1万円のモデル",lead:"マニュアル Step 2：左右の実績からベーシックコミッションを計算する例。",left:120000,right:100000,bonuses:[["ベーシックコミッション",10000]],note:"マニュアルでは、左右のうち小さいグループの10万P × 10% = 10,000円として説明されています。",diagram:"※三角形は左右のポイント規模を表します。A・Bさんの配置は説明用の例示で、公式資料の紹介関係を再現したものではありません。"},
-50000:{rank:"クリスタル",title:"月5万円のモデル",lead:"マニュアル Step 3：ベーシック、メガマッチ、ダブルメガマッチを組み合わせた例。",left:280000,right:320000,bonuses:[["ベーシックコミッション",28000],["メガマッチ",20000],["ダブルメガマッチ",2000]],note:"左28万P・右32万Pの例。各紹介者のボーナス実績も計算に含まれています。",diagram:"※三角形は左右のポイント規模を表します。A・Bさんの配置は説明用の例示です。各ポジションのボーナス額やポイント内訳はマニュアル原図をご確認ください。"},
+10000:{rank:"メンバーの例",title:"月1万円のモデル",lead:"マニュアル Step 2：左右の実績からベーシックコミッションを計算する例。",left:120000,right:100000,bonuses:[["ベーシックコミッション",10000]],note:"マニュアルでは、左右のうち小さいグループの10万P × 10% = 10,000円として説明されています。",diagram:"※Aさん・Bさんのそれぞれに左と右の2グループがあります。4つの三角形へのPT配分は未設定です。"},
+50000:{rank:"クリスタル",title:"月5万円のモデル",lead:"マニュアル Step 3：ベーシック、メガマッチ、ダブルメガマッチを組み合わせた例。",left:280000,right:320000,bonuses:[["ベーシックコミッション",28000],["メガマッチ",20000],["ダブルメガマッチ",2000]],note:"左28万P・右32万Pの例。各紹介者のボーナス実績も計算に含まれています。",diagram:"※Aさん・Bさんのそれぞれに左と右の2グループがあります。4つの三角形へのPT配分は未設定です。各ポジションのボーナス額やポイント内訳はマニュアル原図をご確認ください。"},
 300000:{rank:"サファイア",title:"月30万円のモデル",lead:"マニュアル Step 4：直接紹介者・二次紹介者の実績を含む例。",left:3000000,right:1100000,bonuses:[["ベーシックコミッション",110000],["メガマッチ",175000],["ダブルメガマッチ",15000]],note:"左300万P・右110万Pの例。マニュアルに示された内訳を掲載しています。",diagram:"※三角形は左右のポイント規模を表します。A・Bさんの配置は説明用の例示です。実際のタイトル取得条件やボーナス計算の詳細は別途確認が必要です。"},
 600000:{rank:"エメラルド",title:"月60万円のモデル",lead:"マニュアル Step 5：リーダーシップボーナスを含めた例。",left:4000000,right:3000000,bonuses:[["ベーシックコミッション",300000],["メガマッチ",220000],["ダブルメガマッチ",20000],["リーダーシップ",60000]],note:"左400万P・右300万Pの例。リーダーシップは資料中の1.5%計算例を採用しています。",diagram:"※三角形は左右のポイント規模を表します。A・Bさんの配置は説明用の例示です。実際のタイトル取得条件やボーナス計算の詳細は別途確認が必要です。"}
 };
 const extraPatterns={10000:[
 {rank:"紹介中心型",title:"4人を直接紹介する例",lead:"新規会員4人を直接紹介し、全員が3点登録（1人21,000 PT）で、ファーストスタートボーナスの条件を満たす場合。",left:0,right:0,direct:4,bonuses:[["ファーストスタート（3,000円 × 4人）",12000]],note:"4人分の紹介ボーナスを合算した12,000円の例です。新規登録に伴う84,000 PTは配置先のグループ売上に含まれますが、この例ではベーシックコミッションを加算していません。新規登録時の一時的なボーナスで、毎月継続する収入ではありません。",diagram:"※直接紹介4人は全員3点登録（各21,000 PT）。紹介関係と配置関係は別です。各ポジションから左右2方向に広がります。"},
-{rank:"紹介＋流通型",title:"紹介と商品流通を組み合わせる例",lead:"3点登録の新規会員を左右に1人ずつ直接紹介し、各21,000 PTを含む左右各5万Pのグループ売上を組み合わせた試算。",left:50000,right:50000,direct:2,bonuses:[["ファーストスタート（3,000円 × 2人）",6000],["ベーシックコミッション（5万P × 10％）",5000]],note:"合計11,000円の算術例です。左右各5万Pには新規登録21,000 PTずつを含み、二重加算はしません。アクティブ紹介者2人・必要な共通取得条件を満たす場合に限ります。公式マニュアルに掲載された組織例ではありません。",diagram:"※A・Bさんは3点登録（各21,000 PT）。三角形の各5万Pにはその21,000 PTを含みます。残り29,000 PTの発生源は問いません。"}]};
+{rank:"紹介＋流通型",title:"紹介と商品流通を組み合わせる例",lead:"3点登録の新規会員を左右に1人ずつ直接紹介し、各21,000 PTを含む左右各5万Pのグループ売上を組み合わせた試算。",left:50000,right:50000,direct:2,bonuses:[["ファーストスタート（3,000円 × 2人）",6000],["ベーシックコミッション（5万P × 10％）",5000]],note:"合計11,000円の算術例です。左右各5万Pには新規登録21,000 PTずつを含み、二重加算はしません。アクティブ紹介者2人・必要な共通取得条件を満たす場合に限ります。公式マニュアルに掲載された組織例ではありません。",diagram:"※A・Bさんは3点登録（各21,000 PT）。左右の合計各5万Pには登録分を含みます。各人の下の左右三角形への配分は未設定です。"}]};
 let selectedPattern=0;
 const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP")+"万P";
 function renderBinary(m){
  const root=document.getElementById("binary-diagram"),ns="http://www.w3.org/2000/svg";
- const svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox","0 0 700 590");svg.setAttribute("class","binary-svg");
+ const four=m.direct===4;
+ const svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox",four?"0 0 900 810":"0 0 900 560");svg.setAttribute("class","binary-svg");
  const el=(tag,attrs={},txt)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(txt!==undefined)e.textContent=txt;svg.append(e);return e};
  const line=(x1,y1,x2,y2)=>el("line",{x1,y1,x2,y2,class:"binary-line"});
- const avatar=(x,y,n,label,direct=false)=>{el("image",{href:"./assets/avatar_"+String(n).padStart(2,"0")+".svg",x:x-27,y:y-30,width:54,height:54,class:"binary-avatar"});el("text",{x,y:y+42,class:"binary-name"},label);if(direct)el("text",{x,y:y+59,class:"binary-direct"},"あなたの直接紹介")};
- const triangle=(x,y,w,h,side,pt)=>{const color=side==="left"?"#73b6e5":"#0055a4";el("polygon",{points:`${x},${y} ${x-w/2},${y+h} ${x+w/2},${y+h}`,fill:color});el("text",{x,y:y+h*.76,class:"binary-pt",fill:side==="left"?"#103f65":"#fff"},pts(pt));el("text",{x,y:y+h+23,class:"binary-caption"},side==="left"?"左グループ":"右グループ")};
- const empty=(x,y)=>{el("circle",{cx:x,cy:y,r:17,class:"binary-empty"});el("text",{x,y:y+4,class:"binary-placeholder"},"空")};
- avatar(350,48,1,"あなた");
- if(m.direct===4){line(350,75,175,168);line(350,75,525,168);avatar(175,176,2,"Aさん",true);avatar(525,176,3,"Bさん",true);line(175,205,87,313);line(175,205,263,313);line(525,205,437,313);line(525,205,613,313);avatar(87,322,4,"Cさん",true);avatar(613,322,5,"Dさん",true);empty(263,322);empty(437,322);el("text",{x:350,y:485,class:"binary-caption"},"4人全員があなたの直接紹介者（配置上は2段）");el("text",{x:350,y:510,class:"binary-pt",fill:"#0055a4"},"3点登録 × 4人 = 84,000 PT");el("text",{x:350,y:535,class:"binary-caption"},"各21,000 PTは実際の配置先のグループに加算");}
- else{line(350,75,175,168);line(350,75,525,168);avatar(175,176,2,"Aさん",true);avatar(525,176,3,"Bさん",true);
- const max=Math.max(m.left,m.right,1);const wL=115+90*Math.sqrt(m.left/max),wR=115+90*Math.sqrt(m.right/max);const hL=110+100*Math.sqrt(m.left/max),hR=110+100*Math.sqrt(m.right/max);
- line(175,205,100,263);line(175,205,250,263);line(525,205,450,263);line(525,205,600,263);
- triangle(175,269,wL,hL,"left",m.left);triangle(525,269,wR,hR,"right",m.right);
- el("text",{x:350,y:555,class:"binary-caption"},"三角形は各グループの合計PT。ポイントの発生源は問いません。");
+ const avatar=(x,y,n,label,direct=false)=>{el("image",{href:"./assets/avatar_"+String(n).padStart(2,"0")+".svg",x:x-30,y:y-30,width:60,height:60,class:"binary-avatar"});el("text",{x,y:y+47,class:"binary-name"},label);if(direct)el("text",{x,y:y+65,class:"binary-direct"},"直紹介")};
+ const triangle=(x,y,w,h,side,pt)=>{const color=side==="left"?"#73b6e5":"#0055a4";el("polygon",{points:`${x},${y} ${x-w/2},${y+h} ${x+w/2},${y+h}`,fill:color});el("text",{x,y:y+h*.78,class:"binary-pt",fill:side==="left"?"#103f65":"#fff"},pt===null?"—":pts(pt));el("text",{x,y:y+h+22,class:"binary-caption"},side==="left"?"左":"右")};
+ const empty=(x,y)=>{el("circle",{cx:x,cy:y,r:23,class:"binary-empty"});el("text",{x,y:y+4,class:"binary-placeholder"},"空き")};
+ // All connectors end before avatar circles and text labels; never draw through a node.
+ avatar(450,45,1,"あなた");
+ line(429,72,245,163);line(471,72,655,163);
+ avatar(225,185,2,"Aさん",true);avatar(675,185,3,"Bさん",true);
+ if(four){
+  line(207,217,112,336);line(243,217,338,336);line(657,217,562,336);line(693,217,788,336);
+  avatar(112,363,4,"Cさん",true);empty(338,363);empty(562,363);avatar(788,363,5,"Dさん",true);
+  // Each occupied position always has two branches.
+  [[112,363,46,184],[788,363,716,854]].forEach(([x,y,l,r])=>{line(x-15,y+35,l,498);line(x+15,y+35,r,498);triangle(l,505,85,105,"left",null);triangle(r,505,85,105,"right",null)});
+  el("text",{x:450,y:665,class:"binary-caption"},"A・B・C・Dの4人全員があなたの直接紹介者");
+  el("text",{x:450,y:697,class:"binary-pt",fill:"#0055a4"},"3点登録 × 4人 ＝ 84,000 PT");
+  el("text",{x:450,y:729,class:"binary-caption"},"図の「—」はポイント未設定。紹介関係と配置関係は別です。");
+ }else{
+  // Two left/right branches under A and another two under B.
+  const positions=[[100,"left"],[350,"right"],[550,"left"],[800,"right"]];
+  line(207,218,100,290);line(243,218,350,290);line(657,218,550,290);line(693,218,800,290);
+  positions.forEach(([x,side])=>triangle(x,300,165,145,side,null));
+  el("text",{x:225,y:502,class:"binary-pt",fill:"#0055a4"},"左合計 "+pts(m.left));
+  el("text",{x:675,y:502,class:"binary-pt",fill:"#0055a4"},"右合計 "+pts(m.right));
+  el("text",{x:450,y:535,class:"binary-caption"},"4つの三角形の内訳は未設定。左右合計PTのみ確定。");
  }
  root.replaceChildren(svg);
 }
