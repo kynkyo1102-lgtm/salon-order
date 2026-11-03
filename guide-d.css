@@ -48,3 +48,9 @@
 .procedure-category-panel[hidden]{display:none}
 .procedure-category-panel .procedure-link{padding:15px 4px;min-height:52px}
 @media(max-width:600px){.procedure-accordion{gap:10px}.procedure-category-trigger{padding:12px;gap:12px}.procedure-category-trigger .category-icon{width:42px;height:42px;flex-basis:42px}.procedure-category-trigger .category-icon svg{width:28px;height:28px}.procedure-category-panel{padding:0 12px 6px}}
+
+/* Viewport alignment: restore the reset lost when legacy common.css was removed. */
+html{width:100%;margin:0;padding:0;overflow-x:clip}
+body.registration-guide.procedure-guide{display:block;width:100%;max-width:none;min-width:0;margin:0;padding:0;overflow-x:clip}
+body.procedure-guide .guide-common-page{width:100%;max-width:860px;margin-left:auto;margin-right:auto}
+body.procedure-guide .procedure-section,body.procedure-guide .procedure-accordion{max-width:100%}
