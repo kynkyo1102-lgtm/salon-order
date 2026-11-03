@@ -24,14 +24,14 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
  .myplan .bonus-table td:last-child{white-space:normal}
  .myplan .myplan-diagram{padding:12px 4px}
 }
-</style></head><body class="registration-guide"><main class="myplan">
+.myplan .myplan-diagram{max-width:100%;padding:20px 14px}.myplan .binary-diagram{max-width:900px}.myplan .diagram-heading{text-align:center;font-size:19px;font-weight:800;color:#0055a4}.myplan .person-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}.myplan .person-detail-card{border:2px solid #d5e5ee;border-radius:16px;padding:14px;background:#f8fbfe;min-width:0}.myplan .person-detail-card h4{font-size:21px;color:#0055a4;margin:0 0 8px}.myplan .person-detail-card svg{display:block;width:100%;height:auto}.myplan .person-detail-card .pt-summary{font-size:16px;font-weight:700;line-height:1.8}.myplan .calc-step{padding:16px;margin:12px 0;border:1px solid #d7e5ed;border-radius:14px;background:#fff}.myplan .calc-step h4{font-size:19px;color:#0055a4;margin:0 0 8px}.myplan .calc-step .formula{font-size:clamp(17px,3.2vw,23px);font-weight:800;color:#0055a4;background:#eef6fc;padding:12px;border-radius:10px;overflow-wrap:anywhere}.myplan .calc-step p{font-size:15px}.myplan .calc-step .result{font-weight:800;font-size:21px}.myplan .binary-svg .binary-pt{font-size:23px}.myplan .binary-svg .binary-name{font-size:20px}@media(max-width:650px){.myplan .person-detail-grid{grid-template-columns:1fr}.myplan .person-detail-card{padding:16px}.myplan .binary-diagram{min-width:580px}.myplan .myplan-diagram{overflow-x:auto;overscroll-behavior-x:contain}.myplan .binary-svg .binary-pt{font-size:24px}.myplan .myplan-diagram .hint{font-size:13px}.myplan .calc-step{padding:13px}}</style></head><body class="registration-guide"><main class="myplan">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><span aria-current="page">マイプラン検索</span></nav>
-<span class="tag">目標から組織をイメージ</span><h1>マイプラン検索</h1><p class="lead">「この金額帯を目指すなら、どんな配置が考えられる？」公式マニュアルの計算例と追加試算を比較します。</p>
+<span class="tag">目標から組織をイメージ</span><h1>マイプラン検索</h1><p class="lead">「この金額帯を目指すなら、どんな配置が考えられる？」組織の左右PTとボーナスの計算過程を、順番に確認できます。</p>
 <section class="panel"><h2>目標のボーナス金額帯</h2><label for="goal">月間の計算額</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="50000" selected>5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select><p class="hint">左右差を原則1.5倍以内に抑え、目標金額帯に入る組織例を自動生成します。</p></section>
 <section class="panel"><h2>組織モデルを比較</h2><div id="patterns" class="pattern-tabs" role="group" aria-label="組織モデル"></div><h3 id="model-title"></h3><p id="model-lead" class="muted"></p>
 <div class="summary"><div class="metric"><small>本人・左グループ</small><strong id="left"></strong></div><div class="metric"><small>本人・右グループ</small><strong id="right"></strong></div><div class="metric"><small>計算額合計</small><strong id="total"></strong></div></div>
-<div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div><p class="hint">三角形は左右グループの合計PTです。支店01・02は個別表示しません。</p></div>
-<h3>Aさん・Bさんの計算根拠</h3><div id="person-details"></div>
+<div class="myplan-diagram"><p class="diagram-heading">組織全体の位置関係</p><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div><p class="hint">三角形は左右グループの合計PTです。支店01・02は個別表示しません。</p></div>
+<h3>まずAさん・Bさんの左右を確認</h3><p>それぞれの左右グループを大きな図で確認します。<strong>ベーシックコミッションは、左右のうち少ない側のPT</strong>を使って計算します。</p><div id="person-details"></div><div id="calculation-steps"></div>
 <h3 style="margin-top:24px">本人のボーナス内訳</h3><table class="bonus-table"><thead><tr><th>ボーナス</th><th>計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table><p class="hint" id="model-note"></p></section>
 <div class="caution"><strong>ご利用にあたって</strong><p>このページは公式マニュアルの組織図を再現するものではなく、仮定した条件による自動生成の学習用試算です。3点登録は本店00・左支店01・右支店02の各7,000 PTで計算し、図では支店を省略しています。ポイント条件が適用される月を想定しています。掲載当時の制度に基づくシミュレーションであり、現在のボーナス制度で同額が支給されることや、実際にその収入を得られることを保証しません。会員資格・取得条件・ポイント換算などは現行資料でご確認ください。購入や紹介を推奨するものではありません。</p></div>
 <p><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
@@ -100,10 +100,25 @@ function render(){
  document.getElementById("model-lead").textContent="Aさん・Bさんの左右PTを変えて計算したモデルです。";
  document.getElementById("left").textContent=pts(m.left);document.getElementById("right").textContent=pts(m.right);document.getElementById("total").textContent=yen(m.total);
  diagram(m);
- const detail=document.getElementById("person-details");detail.replaceChildren();
- for(const [label,l,r,basic] of [["Aさん",m.ax,m.ar,m.abasic],["Bさん",m.bl,m.br,m.bbasic]]){
-  const p=document.createElement("p");p.textContent=label+"：左 "+pts(l)+" ／ 右 "+pts(r)+" → 少ない側 "+pts(Math.min(l,r))+" × 10% = "+yen(basic);detail.append(p)
+ const detail=document.getElementById("person-details");detail.replaceChildren();detail.className="person-detail-grid";
+ const people=[["Aさん",m.ax,m.ar,m.abasic],["Bさん",m.bl,m.br,m.bbasic]];
+ for(const [label,l,r,basic] of people){
+  const card=document.createElement("section");card.className="person-detail-card";
+  const h=document.createElement("h4");h.textContent=label+"のグループ";card.append(h);
+  const ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox","0 0 440 285");svg.setAttribute("role","img");svg.setAttribute("aria-label",label+"：左"+pts(l)+"、右"+pts(r));
+  const poly=(side,value)=>{const p=document.createElementNS(ns,"polygon");p.setAttribute("points",side==="left"?"220,8 12,220 220,220":"220,8 428,220 220,220");p.setAttribute("fill",side==="left"?"#73b6e5":"#f2b451");svg.append(p);const t=document.createElementNS(ns,"text");t.setAttribute("x",side==="left"?"115":"325");t.setAttribute("y","198");t.setAttribute("font-size","29");t.setAttribute("font-weight","800");t.setAttribute("text-anchor","middle");t.setAttribute("fill","#173f5e");t.textContent=pts(value);svg.append(t)};
+  poly("left",l);poly("right",r);
+  for(const [x,txt] of [[115,"左グループ"],[325,"右グループ"]]){const t=document.createElementNS(ns,"text");t.setAttribute("x",x);t.setAttribute("y","254");t.setAttribute("font-size","19");t.setAttribute("text-anchor","middle");t.setAttribute("fill","#174b78");t.textContent=txt;svg.append(t)}
+  card.append(svg);
+  const p=document.createElement("p");p.className="pt-summary";p.textContent="少ない側は "+pts(Math.min(l,r))+"。";card.append(p);detail.append(card);
  }
+ const steps=document.getElementById("calculation-steps");steps.replaceChildren();
+ const addStep=(heading,description,formula,result)=>{const card=document.createElement("section");card.className="calc-step";const h=document.createElement("h4");h.textContent=heading;const p=document.createElement("p");p.textContent=description;const f=document.createElement("div");f.className="formula";f.textContent=formula;const out=document.createElement("p");out.className="result";out.textContent="計算結果："+yen(result);card.append(h,p,f,out);steps.append(card)};
+ addStep("STEP 1｜Aさんのベーシック","Aさんの左右のうち少ない側のPTに、例示の10％を掛けます。",pts(Math.min(m.ax,m.ar))+" × 10％ = "+yen(m.abasic),m.abasic);
+ addStep("STEP 2｜Bさんのベーシック","Bさんも同じように、少ない側のPTから計算します。",pts(Math.min(m.bl,m.br))+" × 10％ = "+yen(m.bbasic),m.bbasic);
+ addStep("STEP 3｜あなたのベーシック","あなた自身の左・右グループを比べて、少ない側のPTで計算します。",pts(Math.min(m.left,m.right))+" × 10％ = "+yen(m.own),m.own);
+ if(m.mega){addStep("STEP 4｜あなたのメガマッチ","この試算では、AさんとBさんのベーシック計算額を合算します。実際の取得には本人のタイトルなど所定条件が必要です。",yen(m.abasic)+" ＋ "+yen(m.bbasic)+" = "+yen(m.mega),m.mega)}
+ addStep("最後に｜合計を確認",m.mega?"あなたのベーシックと、Aさん・Bさんから計算したメガマッチを足します。":"あなたのベーシックの計算額です。",m.mega?yen(m.own)+" ＋ "+yen(m.mega)+" = "+yen(m.total):yen(m.own),m.total);
  const body=document.getElementById("breakdown");body.replaceChildren();
  for(const [name,value,formula] of [["ベーシックコミッション",m.own,pts(Math.min(m.left,m.right))+" × 10%"],...(m.mega?[["メガマッチ",m.mega,yen(m.abasic)+" ＋ "+yen(m.bbasic)]]:[])]){
   const tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=name+"（"+formula+"）";td.textContent=yen(value);tr.append(th,td);body.append(tr)
