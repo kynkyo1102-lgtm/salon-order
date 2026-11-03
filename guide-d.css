@@ -87,3 +87,6 @@ body.procedure-guide .procedure-section,body.procedure-guide .procedure-accordio
 .procedure-guide .procedure-step .submit-option{font-weight:650}
 .procedure-guide .procedure-step .submit-content{padding-top:0}
 @media(max-width:600px){.procedure-guide .procedure-step{padding:0 0 20px;margin-bottom:24px}}
+
+/* Remove redundant outer frame around the entire procedures experience. */
+body.procedure-guide .procedure-section{background:transparent;border:0;border-radius:0;box-shadow:none;padding:0}
