@@ -40,7 +40,7 @@ const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja
 const ranges=[10000,40000,50000,300000,600000];
 let selected=0, candidates=[];
 function generate(goal){
- if(goal===40000){const ax=100000,ar=100000,bl=100000,br=100000,left=210000,right=210000,abasic=10000,bbasic=10000,own=21000,mega=20000,doubleMega=1600;return [{ax,ar,bl,br,left,right,abasic,bbasic,own,mega,doubleMega,total:own+mega+doubleMega}];}
+ if(goal===40000){const ax=100000,ar=100000,bl=100000,br=100000,left=210000,right=210000,abasic=10000,bbasic=10000,own=21000,mega=20000,doubleMega=0;return [{ax,ar,bl,br,left,right,abasic,bbasic,own,mega,doubleMega,total:own+mega}];}
 
  const found=[],seen=new Set();
  // A/B each have their own two group totals; the parent's side also includes A/B's own 00 position.
