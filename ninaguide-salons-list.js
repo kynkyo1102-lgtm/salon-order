@@ -35,7 +35,7 @@ async function renderSalonMap(){
    path.addEventListener('click',choose);
    path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
   });
-  host.replaceChildren(document.importNode(svg,true));
+  host.replaceChildren(document.adoptNode(svg));
   updateSalonMapActive();
  }catch(err){
   host.textContent='地図を読み込めませんでした。下の都道府県検索をご利用ください。';
