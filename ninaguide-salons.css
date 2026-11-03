@@ -69,3 +69,8 @@
 .salon-results .store-card-hours{font-size:12px;color:var(--guide-muted);line-height:1.5}
 .salon-results .store-card-action{white-space:nowrap;font-size:12px;font-weight:800;color:var(--guide-primary)}
 @media(max-width:600px){.salon-results .store-card{padding:0}.salon-results .store-card-top{padding:12px 14px 0}.salon-results .store-card-main{padding:8px 14px 14px}.salon-results .store-card-main strong{font-size:16px}.salon-results .store-card-bottom{padding:12px 14px;align-items:flex-start}.salon-results .store-card-hours{font-size:11px}.salon-results .store-card-action{font-size:11px}}
+
+/* Map-to-search handoff, especially on narrow screens. */
+.salon-map-next{margin:15px 0 0;padding:12px 15px;border-top:1px solid var(--guide-border);font-size:13px;line-height:1.7;color:var(--guide-muted);text-align:center}
+.salon-map-next span{display:inline-block;margin-left:5px;font-size:17px;font-weight:800;color:var(--guide-primary)}
+@media(max-width:600px){.salon-map-section{margin-bottom:14px}.salon-map-next{margin-top:10px;padding:11px 6px 2px}.salon-finder{padding-top:18px}.salon-select-label{margin-bottom:8px}.salon-map-legend{margin-top:8px}}
