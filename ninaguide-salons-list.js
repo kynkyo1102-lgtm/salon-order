@@ -10,35 +10,41 @@ function showStore(s){selected.textContent='サロン情報';const fields=[['住
 select.addEventListener('change',()=>{active=select.value;if(active)showList();else{selected.textContent='都道府県を選択してください';list.textContent='都道府県を選ぶとサロン一覧が表示されます。'}});
 
 
-/* Simplified geographic tile map. Each prefecture is selectable and uses the same salon data as the dropdown. */
-const salonMapPositions={
-'北海道':[13,0],'青森県':[12,2],'秋田県':[11,3],'岩手県':[12,3],'山形県':[11,4],'宮城県':[12,4],'新潟県':[10,5],'福島県':[12,5],
-'富山県':[9,6],'石川県':[8,6],'福井県':[8,7],'長野県':[10,6],'群馬県':[11,6],'栃木県':[12,6],'茨城県':[13,6],
-'岐阜県':[9,7],'山梨県':[11,7],'埼玉県':[12,7],'千葉県':[13,8],'東京都':[12,8],'神奈川県':[11,8],
-'静岡県':[10,8],'愛知県':[9,8],'三重県':[8,8],'滋賀県':[7,7],'京都府':[7,8],'大阪府':[7,9],'兵庫県':[6,8],'奈良県':[8,9],'和歌山県':[7,10],
-'鳥取県':[5,7],'島根県':[4,7],'岡山県':[5,8],'広島県':[4,8],'山口県':[3,8],
-'香川県':[5,9],'徳島県':[6,10],'愛媛県':[4,9],'高知県':[4,10],
-'福岡県':[2,9],'佐賀県':[1,10],'長崎県':[0,10],'大分県':[3,10],'熊本県':[2,11],'宮崎県':[3,12],'鹿児島県':[2,13],'沖縄県':[0,14]
-};
-function renderSalonMap(){
+
+/* Prefecture-shaped map based on the locally hosted CC0 simplified Japan SVG. */
+async function renderSalonMap(){
  const host=document.getElementById('salon-map');if(!host)return;
- const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
- svg.setAttribute('viewBox','0 0 710 760');svg.setAttribute('role','img');svg.setAttribute('aria-label','都道府県ごとのサロン分布を示す簡略化地図');
- const cell=46,offsetX=12,offsetY=12;
- for(const p of prefectures){
-  const pos=salonMapPositions[p];if(!pos)continue;
-  const [x,y]=pos,n=(groups[p]||[]).length;
-  const g=document.createElementNS(ns,'g');g.setAttribute('transform','translate('+(offsetX+x*cell)+','+(offsetY+y*cell)+')');
-  g.setAttribute('class','salon-map-pref'+(n?' has-salon':'')+(active===p?' is-active':''));
-  g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',p+'、'+n+'店舗');
-  const shape=document.createElementNS(ns,'polygon');shape.setAttribute('points','23,1 44,12 44,34 23,45 2,34 2,12');g.append(shape);
-  const label=document.createElementNS(ns,'text');label.setAttribute('x','23');label.setAttribute('y','20');label.setAttribute('text-anchor','middle');label.setAttribute('class','pref-label');label.textContent=p.replace(/[都府県]$/,'');g.append(label);
-  if(n){const count=document.createElementNS(ns,'text');count.setAttribute('x','23');count.setAttribute('y','34');count.setAttribute('text-anchor','middle');count.setAttribute('class','pref-count');count.textContent=n+'店';g.append(count)}
-  const choose=()=>{if(!n)return;select.value=p;active=p;showList();renderSalonMap();document.querySelector('.salon-results').scrollIntoView({behavior:'smooth',block:'start'})};
-  g.addEventListener('click',choose);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
-  svg.append(g);
+ try{
+  const response=await fetch('./assets/japan-prefectures-deformed.svg');
+  if(!response.ok)throw new Error('Map unavailable');
+  const raw=await response.text();
+  const doc=new DOMParser().parseFromString(raw,'image/svg+xml');
+  if(doc.querySelector('parsererror'))throw new Error('Invalid map');
+  const svg=doc.documentElement;
+  svg.removeAttribute('width');svg.removeAttribute('height');
+  svg.setAttribute('role','img');svg.setAttribute('aria-label','都道府県別のサロン分布図');
+  svg.querySelectorAll('#prefecture-fills path[data-name]').forEach(path=>{
+   const p=path.getAttribute('data-name'),n=(groups[p]||[]).length;
+   path.setAttribute('class','salon-map-pref'+(n?' has-salon':''));
+   path.setAttribute('tabindex',n?'0':'-1');
+   path.setAttribute('role','button');
+   path.setAttribute('aria-label',p+'、'+n+'店舗');
+   const title=doc.createElementNS('http://www.w3.org/2000/svg','title');
+   title.textContent=p+'：'+n+'店舗';path.prepend(title);
+   const choose=()=>{if(!n)return;select.value=p;active=p;showList();updateSalonMapActive();document.querySelector('.salon-results').scrollIntoView({behavior:'smooth',block:'start'})};
+   path.addEventListener('click',choose);
+   path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
+  });
+  host.replaceChildren(document.importNode(svg,true));
+  updateSalonMapActive();
+ }catch(err){
+  host.textContent='地図を読み込めませんでした。下の都道府県検索をご利用ください。';
  }
- host.replaceChildren(svg);
+}
+function updateSalonMapActive(){
+ document.querySelectorAll('#salon-map .salon-map-pref').forEach(path=>{
+  path.classList.toggle('is-active',path.getAttribute('data-name')===active);
+ });
 }
 renderSalonMap();
-select.addEventListener('change',renderSalonMap);
+select.addEventListener('change',updateSalonMapActive);
