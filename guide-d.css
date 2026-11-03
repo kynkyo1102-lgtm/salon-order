@@ -54,3 +54,12 @@ html{width:100%;margin:0;padding:0;overflow-x:clip}
 body.registration-guide.procedure-guide{display:block;width:100%;max-width:none;min-width:0;margin:0;padding:0;overflow-x:clip}
 body.procedure-guide .guide-common-page{width:100%;max-width:860px;margin-left:auto;margin-right:auto}
 body.procedure-guide .procedure-section,body.procedure-guide .procedure-accordion{max-width:100%}
+
+/* Softer guide-style accordion headings and clear open/close affordance. */
+.procedure-guide .procedure-category-trigger{color:var(--guide-primary);font-weight:650;font-size:1rem;letter-spacing:.005em}
+.procedure-guide .procedure-category-trigger .category-text{color:var(--guide-primary);font-weight:650}
+.procedure-guide .procedure-category-trigger .accordion-toggle{position:relative;display:block;flex:0 0 30px;width:30px;height:30px;border:1px solid var(--guide-border);border-radius:50%;background:#fff;color:var(--guide-primary)}
+.procedure-guide .procedure-category-trigger .accordion-toggle::before,.procedure-guide .procedure-category-trigger .accordion-toggle::after{content:"";position:absolute;top:50%;left:50%;width:12px;height:2px;border-radius:2px;background:currentColor;transform:translate(-50%,-50%)}
+.procedure-guide .procedure-category-trigger .accordion-toggle::after{transform:translate(-50%,-50%) rotate(90deg);transition:opacity .15s}
+.procedure-guide .procedure-category-trigger[aria-expanded="true"] .accordion-toggle::after{opacity:0}
+.procedure-guide .procedure-category-trigger[aria-expanded="true"] .accordion-toggle{background:var(--guide-primary);border-color:var(--guide-primary);color:#fff}
