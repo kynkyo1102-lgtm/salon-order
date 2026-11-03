@@ -43,7 +43,7 @@ function generate(goal){
  const found=[],seen=new Set();
  // A/B each have their own two group totals; the parent's side also includes A/B's own 00 position.
  // Each scenario assumes 2 active direct referrals and a 10% basic rate.
- const modes=goal===10000?["左右均等型","緩やかな左右差型","紹介者育成型"]:["左右均等型","緩やかな左右差型","紹介者育成型","メガマッチ活用型"];
+ const modes=goal===10000?["Aさん・Bさんが同じくらい育つ","片方のグループが少し大きい","紹介した2人もボーナスを受け取る"]:["Aさん・Bさんが同じくらい育つ","片方のグループが少し大きい","紹介した2人もボーナスを受け取る","Aさん・Bさんの実績を伸ばす"];
  for(const mode of modes){
   let best=null,dist=Infinity;
   const step=goal>=300000?10000:5000;
@@ -57,7 +57,7 @@ function generate(goal){
     const abasic=Math.round(a*.1),bbasic=Math.round(b*.1);
     for(const extra of [0,0.1,0.2,0.3,0.4]){
      const ax=a,ar=a+Math.round(a*extra/step)*step;
-     const bl=b,br=b+Math.round(b*(mode==="緩やかな左右差型"?Math.min(0.5,extra+0.1):extra)/step)*step;
+     const bl=b,br=b+Math.round(b*(mode==="片方のグループが少し大きい"?Math.min(0.5,extra+0.1):extra)/step)*step;
      const left=7000+ax+ar,right=7000+bl+br;
      const own=Math.round(Math.min(left,right)*.1);
      // Mega Match applies only for Crystal+; its eligibility is assumed in 5万円+ scenarios.
@@ -65,7 +65,7 @@ function generate(goal){
      const total=own+mega;
      if(total<goal||total>=goal+(goal===10000?10000:10000))continue;
      const ratio=mega/(total||1),balance=Math.min(left,right)/Math.max(left,right);
-     const objective=mode==="左右均等型"?Math.abs(balance-1)+Math.abs(fraction-1)*.05:mode==="緩やかな左右差型"?Math.abs(balance-.78)+Math.abs(fraction-.9)*.02:mode==="紹介者育成型"?Math.abs(ratio-.38)+Math.abs(balance-.9)*.1:Math.abs(ratio-.48)+Math.abs(balance-.88)*.1;
+     const objective=mode==="Aさん・Bさんが同じくらい育つ"?Math.abs(balance-1)+Math.abs(fraction-1)*.05:mode==="緩やかな左右差型"?Math.abs(balance-.78)+Math.abs(fraction-.9)*.02:mode==="紹介した2人もボーナスを受け取る"?Math.abs(ratio-.38)+Math.abs(balance-.9)*.1:Math.abs(ratio-.48)+Math.abs(balance-.88)*.1;
      if(Math.max(ax,ar)/Math.min(ax,ar)>1.5||Math.max(bl,br)/Math.min(bl,br)>1.5)continue;const key=[ax,ar,bl,br].join("/");
      if(!seen.has(key)&&objective<dist){dist=objective;best={mode,ax,ar,bl,br,left,right,abasic,bbasic,own,mega,total,key}}
     }
@@ -94,10 +94,10 @@ function diagram(m){
 function render(){
  const goal=Number(document.getElementById("goal").value);candidates=generate(goal);selected=Math.min(selected,Math.max(0,candidates.length-1));
  const tabs=document.getElementById("patterns");tabs.replaceChildren();
- candidates.forEach((m,i)=>{const btn=document.createElement("button");btn.type="button";btn.textContent=m.mode+" "+yen(m.total);btn.setAttribute("aria-pressed",String(i===selected));btn.addEventListener("click",()=>{selected=i;render()});tabs.append(btn)});
+ candidates.forEach((m,i)=>{const btn=document.createElement("button");btn.type="button";btn.textContent=m.mode+"｜"+yen(m.total);btn.setAttribute("aria-pressed",String(i===selected));btn.addEventListener("click",()=>{selected=i;render()});tabs.append(btn)});
  const m=candidates[selected];if(!m){document.getElementById("model-title").textContent="条件内のモデルが見つかりません";return}
- document.getElementById("model-title").textContent=m.mode+"の組織モデル";
- document.getElementById("model-lead").textContent="Aさん・Bさんの左右PTを変えて計算したモデルです。";
+ document.getElementById("model-title").textContent=m.mode+"場合";
+ document.getElementById("model-lead").textContent="本人のベーシック："+yen(m.own)+" ／ "+(m.mega?"メガマッチ："+yen(m.mega):"メガマッチは計算に含めません")+"。下の図でそれぞれの左右PTを確認できます。";
  document.getElementById("left").textContent=pts(m.left);document.getElementById("right").textContent=pts(m.right);document.getElementById("total").textContent=yen(m.total);
  diagram(m);
  const detail=document.getElementById("person-details");detail.replaceChildren();detail.className="person-detail-grid";
