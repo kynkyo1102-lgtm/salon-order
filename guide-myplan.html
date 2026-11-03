@@ -26,18 +26,18 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 }
 .myplan .myplan-diagram{max-width:100%;padding:20px 14px}.myplan .binary-diagram{max-width:900px}.myplan .diagram-heading{text-align:center;font-size:19px;font-weight:800;color:#0055a4}.myplan .person-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}.myplan .person-detail-card{border:2px solid #d5e5ee;border-radius:16px;padding:14px;background:#f8fbfe;min-width:0}.myplan .person-detail-card h4{font-size:21px;color:#0055a4;margin:0 0 8px}.myplan .person-detail-card svg{display:block;width:100%;height:auto}.myplan .person-detail-card .pt-summary{font-size:16px;font-weight:700;line-height:1.8}.myplan .calc-step{padding:16px;margin:12px 0;border:1px solid #d7e5ed;border-radius:14px;background:#fff}.myplan .calc-step h4{font-size:19px;color:#0055a4;margin:0 0 8px}.myplan .calc-step .formula{font-size:clamp(17px,3.2vw,23px);font-weight:800;color:#0055a4;background:#eef6fc;padding:12px;border-radius:10px;overflow-wrap:anywhere}.myplan .calc-step p{font-size:15px}.myplan .calc-step .result{font-weight:800;font-size:21px}.myplan .binary-svg .binary-pt{font-size:23px}.myplan .binary-svg .binary-name{font-size:20px}@media(max-width:650px){.myplan .person-detail-grid{grid-template-columns:1fr}.myplan .person-detail-card{padding:16px}.myplan .binary-diagram{min-width:0}.myplan .myplan-diagram{overflow-x:visible}.myplan .binary-svg .binary-pt{font-size:24px}.myplan .myplan-diagram .hint{font-size:13px}.myplan .calc-step{padding:13px}}.myplan .binary-diagram{min-width:0!important;max-width:100%}.myplan .myplan-diagram{overflow-x:visible!important}.myplan .binary-svg{width:100%;height:auto}.myplan .person-detail-card{padding:10px}.myplan .person-detail-card svg{max-height:190px}.myplan .person-detail-card .pt-summary{font-size:14px}.myplan .myplan-diagram{padding:10px 2px!important;margin:8px auto 12px}.myplan .binary-diagram{max-width:600px!important;width:100%}.myplan .binary-svg .binary-pt{font-size:22px}.myplan .binary-svg .binary-caption{font-size:15px}.myplan .brief-calculation{padding:9px 12px;background:#f2f7fb;border-radius:10px}.myplan .brief-calculation p{font-size:14px;font-weight:650;margin:5px 0}@media(max-width:600px){.myplan .myplan-diagram{padding:8px 0!important}.myplan .binary-svg .binary-pt{font-size:23px}.myplan .binary-svg .binary-caption{font-size:17px}.myplan .brief-calculation p{font-size:13px}}.myplan .binary-diagram{max-width:100%!important;overflow:visible!important}.myplan .plan-top,.myplan .plan-person{display:flex;flex-direction:column;align-items:center;gap:2px;color:#0055a4;font-weight:800}.myplan .plan-top img{width:66px;height:66px}.myplan .plan-person img{width:58px;height:58px}.myplan .plan-top{position:relative;margin-bottom:24px}.myplan .plan-branches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;position:relative}.myplan .plan-branches:before,.myplan .plan-branches:after{content:"";position:absolute;top:-20px;width:2px;height:29px;background:#94b5c9;transform-origin:top}.myplan .plan-branches:before{left:50%;transform:rotate(55deg)}.myplan .plan-branches:after{left:50%;transform:rotate(-55deg)}.myplan .plan-branch{min-width:0;text-align:center}.myplan .plan-triangles{width:100%;height:auto;display:block;margin:6px auto 0}.myplan .plan-smaller{font-size:clamp(12px,2.8vw,16px);font-weight:800;color:#0055a4}.myplan .myplan-diagram{padding:12px 2px!important}.myplan .plan-branch .plan-person strong{font-size:17px}@media(max-width:600px){.myplan .plan-top img{width:56px;height:56px}.myplan .plan-person img{width:48px;height:48px}.myplan .plan-branches{gap:0}.myplan .plan-branch .plan-person strong{font-size:15px}}</style></head><body class="registration-guide"><main class="myplan">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><span aria-current="page">マイプラン検索</span></nav>
-<span class="tag">目標から組織をイメージ</span><h1>マイプラン検索</h1><p class="lead">「この金額帯を目指すなら、どんな配置が考えられる？」組織の左右PTとボーナスの計算過程を、順番に確認できます。</p>
-<section class="panel"><h2>目標のボーナス金額帯</h2><label for="goal">月間の計算額</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="40000" selected>4万円台（4万〜5万円未満）</option><option value="50000">5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select><p class="hint">4万円台はクリスタルの取得PTを基準に組み立てた例です。その他の金額帯は従来の試算例です。</p></section>
-<section class="panel"><h2>組織モデルを比較</h2><div id="patterns" class="pattern-tabs" role="group" aria-label="組織モデル"></div><h3 id="model-title"></h3><p id="model-lead" class="muted"></p>
+<h1>マイプラン検索</h1><p class="lead">目標金額から、組織とボーナスの例を見てみましょう。</p>
+<section class="panel"><h2>目標金額を選ぶ</h2><label for="goal">月間ボーナス</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="40000" selected>4万円台（4万〜5万円未満）</option><option value="50000">5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select></section>
+<section class="panel"><h2>組織の例</h2>
 <div class="summary"><div class="metric"><small>本人・左グループ</small><strong id="left"></strong></div><div class="metric"><small>本人・右グループ</small><strong id="right"></strong></div><div class="metric"><small>計算額合計</small><strong id="total"></strong></div></div>
-<div class="myplan-diagram"><p class="diagram-heading">組織全体の位置関係</p><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div><p class="hint">三角形は各人の左右グループ合計PTです。二次紹介者以下は三角形にまとめて表示しています。</p></div>
-<div id="person-details" class="brief-calculation"></div>
-<h3 style="margin-top:24px">本人のボーナス内訳</h3><table class="bonus-table"><thead><tr><th>ボーナス</th><th>計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table><p class="hint" id="model-note"></p></section>
-<div class="caution"><strong>ご利用にあたって</strong><p>このページは公式マニュアルの組織図を再現するものではなく、仮定した条件による自動生成の学習用試算です。本人は1点登録、アイコンで表す会員は1人10,000PTとして計算しています。ポイント条件が適用される月を想定しています。掲載当時の制度に基づくシミュレーションであり、現在のボーナス制度で同額が支給されることや、実際にその収入を得られることを保証しません。会員資格・取得条件・ポイント換算などは現行資料でご確認ください。購入や紹介を推奨するものではありません。</p></div>
+<div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div></div>
+
+<h3 style="margin-top:24px">ボーナス内訳</h3><table class="bonus-table"><thead><tr><th>ボーナス</th><th>計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table></section>
+<div class="caution"><strong>ご利用にあたって</strong><p>本人は1点登録、会員は1人10,000PTとして計算した例です。取得条件や上限は現行資料をご確認ください。実際の支給額を保証するものではありません。</p></div>
 <p><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
 </main><script>
 const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP",{maximumFractionDigits:1})+"万PT";
-const ranges=[10000,50000,300000,600000];
+const ranges=[10000,40000,50000,300000,600000];
 let selected=0, candidates=[];
 function generate(goal){
  if(goal===40000){const ax=100000,ar=100000,bl=100000,br=100000,left=210000,right=210000,abasic=10000,bbasic=10000,own=21000,mega=20000,doubleMega=1600;return [{ax,ar,bl,br,left,right,abasic,bbasic,own,mega,doubleMega,total:own+mega+doubleMega}];}
@@ -98,24 +98,17 @@ function diagram(m){
  root.replaceChildren(top,branches)
 }
 function render(){
- const goal=Number(document.getElementById("goal").value);candidates=generate(goal);selected=Math.min(selected,Math.max(0,candidates.length-1));
- const tabs=document.getElementById("patterns");tabs.replaceChildren();
- candidates.forEach((m,i)=>{const btn=document.createElement("button");btn.type="button";btn.textContent="パターン"+(i+1)+"｜"+yen(m.total);btn.setAttribute("aria-pressed",String(i===selected));btn.addEventListener("click",()=>{selected=i;render()});tabs.append(btn)});
- const m=candidates[selected];if(!m){document.getElementById("model-title").textContent="条件内のモデルが見つかりません";return}
- document.getElementById("model-title").textContent="パターン"+(selected+1)+"｜"+yen(m.total);
- document.getElementById("model-lead").textContent=goal===40000?"クリスタルの少ない側20万PTを基準に、紹介が2人ずつ広がる組織から計算した例です。":"本人のベーシック："+yen(m.own)+" ／ "+(m.mega?"メガマッチ："+yen(m.mega):"メガマッチは計算に含めません");
- document.getElementById("left").textContent=pts(m.left);document.getElementById("right").textContent=pts(m.right);document.getElementById("total").textContent=yen(m.total);
+ const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
+ if(!m)return;
+ document.getElementById("left").textContent=pts(m.left);
+ document.getElementById("right").textContent=pts(m.right);
+ document.getElementById("total").textContent=yen(m.total);
  diagram(m);
- const detail=document.getElementById("person-details");detail.replaceChildren();
- for(const [label,l,r,basic] of [["Aさん",m.ax,m.ar,m.abasic],["Bさん",m.bl,m.br,m.bbasic]]){const p=document.createElement("p");p.textContent=label+"：少ない側 "+pts(Math.min(l,r))+" × 10％ ＝ "+yen(basic);detail.append(p)}
- if(m.mega){const p=document.createElement("p");p.textContent="メガマッチ：Aさん "+yen(m.abasic)+" ＋ Bさん "+yen(m.bbasic)+" ＝ "+yen(m.mega);detail.append(p)}
- if(m.doubleMega){const p=document.createElement("p");p.textContent="ダブルメガ：二次紹介者4人 × ベーシック4,000円 × 10％ ＝ "+yen(m.doubleMega);detail.append(p)}
  const body=document.getElementById("breakdown");body.replaceChildren();
- for(const [name,value,formula] of [["ベーシックコミッション",m.own,pts(Math.min(m.left,m.right))+" × 10%"],...(m.mega?[["メガマッチ",m.mega,yen(m.abasic)+" ＋ "+yen(m.bbasic)]]:[]),...(m.doubleMega?[["ダブルメガマッチ",m.doubleMega,"二次紹介者4人のベーシック合計 × 10%"]]:[])]){
-  const tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=name+"（"+formula+"）";td.textContent=yen(value);tr.append(th,td);body.append(tr)
- }
+ const rows=[["ベーシック",m.own],...(m.mega?[["メガマッチ",m.mega]]:[]),...(m.doubleMega?[["ダブルメガマッチ",m.doubleMega]]:[])];
+ for(const [name,value] of rows){const tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=name;td.textContent=yen(value);tr.append(th,td);body.append(tr)}
  document.getElementById("sum").textContent=yen(m.total);
- document.getElementById("model-note").textContent="計算上の例です。A・Bはアクティブな直接紹介者で、それぞれベーシック取得条件を満たすと仮定。メガマッチは本人がクリスタル以上で所定条件を満たす場合のみ。タイトル昇格・取得条件の成立や支給を保証するものではありません。";
 }
+
 document.getElementById("goal").addEventListener("change",()=>{selected=0;render()});render();
 </script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
