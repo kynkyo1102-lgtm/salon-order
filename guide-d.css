@@ -68,3 +68,13 @@ body.procedure-guide .procedure-section,body.procedure-guide .procedure-accordio
 .procedure-guide .procedure-category-panel .procedure-link{color:var(--guide-primary);font-weight:500;font-size:.97rem;line-height:1.6}
 .procedure-guide .procedure-category-panel .procedure-link .chevron{color:var(--guide-muted);font-weight:400;font-size:1.25rem}
 .procedure-guide .procedure-category-panel .procedure-link:hover,.procedure-guide .procedure-category-panel .procedure-link:focus-visible{color:var(--guide-primary);background:var(--guide-surface)}
+
+/* Single-page pilot: address and contact details procedure */
+.procedure-pilot-lead{color:var(--guide-muted);font-size:1rem;line-height:1.8;margin:0 0 24px}
+.procedure-step{min-width:0;margin:0 0 22px;padding:22px;border:1px solid var(--guide-border);border-radius:14px;background:#fff}
+.procedure-step-title{margin:0 0 16px;color:var(--guide-primary);font-size:1.1rem;line-height:1.5;font-weight:750}
+.procedure-step .method-note{line-height:1.8}
+.procedure-step .submit-options{margin:0}
+.procedure-step .submit-content{min-width:0}
+.procedure-step .method-title{margin-top:0}
+@media(max-width:600px){.procedure-step{padding:17px 15px;margin-bottom:16px}.procedure-step-title{font-size:1.02rem}}
