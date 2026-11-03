@@ -33,7 +33,7 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 <div class="myplan-diagram"><p class="diagram-heading">組織全体の位置関係</p><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人・Aさん・Bさんの左右ポイントを示す組織図"></div><p class="hint">三角形は左右グループの合計PTです。支店01・02は個別表示しません。</p></div>
 <div id="person-details" class="brief-calculation"></div>
 <h3 style="margin-top:24px">本人のボーナス内訳</h3><table class="bonus-table"><thead><tr><th>ボーナス</th><th>計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table><p class="hint" id="model-note"></p></section>
-<div class="caution"><strong>ご利用にあたって</strong><p>このページは公式マニュアルの組織図を再現するものではなく、仮定した条件による自動生成の学習用試算です。3点登録は本店00・左支店01・右支店02の各7,000 PTで計算し、図では支店を省略しています。ポイント条件が適用される月を想定しています。掲載当時の制度に基づくシミュレーションであり、現在のボーナス制度で同額が支給されることや、実際にその収入を得られることを保証しません。会員資格・取得条件・ポイント換算などは現行資料でご確認ください。購入や紹介を推奨するものではありません。</p></div>
+<div class="caution"><strong>ご利用にあたって</strong><p>このページは公式マニュアルの組織図を再現するものではなく、仮定した条件による自動生成の学習用試算です。本人は1点登録、アイコンで表す会員は1人10,000PTとして計算しています。ポイント条件が適用される月を想定しています。掲載当時の制度に基づくシミュレーションであり、現在のボーナス制度で同額が支給されることや、実際にその収入を得られることを保証しません。会員資格・取得条件・ポイント換算などは現行資料でご確認ください。購入や紹介を推奨するものではありません。</p></div>
 <p><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
 </main><script>
 const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP",{maximumFractionDigits:1})+"万PT";
@@ -58,7 +58,7 @@ function generate(goal){
     for(const extra of [0,0.1,0.2,0.3,0.4]){
      const ax=a,ar=a+Math.round(a*extra/step)*step;
      const bl=b,br=b+Math.round(b*(mode==="片方のグループが少し大きい"?Math.min(0.5,extra+0.1):extra)/step)*step;
-     const left=7000+ax+ar,right=7000+bl+br;
+     const left=10000+ax+ar,right=10000+bl+br;
      const own=Math.round(Math.min(left,right)*.1);
      // Mega Match applies only for Crystal+; its eligibility is assumed in 5万円+ scenarios.
      const mega=goal===10000?0:abasic+bbasic;
