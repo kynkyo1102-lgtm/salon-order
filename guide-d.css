@@ -202,3 +202,9 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .family-shipping-guide .family-shipping-title:nth-of-type(2)~.procedure-notice{margin-top:14px}
 .procedure-guide .family-shipping-guide+.procedure-notice{margin-top:0}
 .procedure-guide .family-shipping-guide{margin-bottom:16px}
+
+/* Subtle navigation for procedure detail pages */
+.inner-back{font-size:.82rem;font-weight:600;color:var(--guide-primary);opacity:.78;padding:6px 0;margin:2px 0 18px}
+.inner-back:hover,.inner-back:focus-visible{opacity:1;text-decoration:underline}
+.procedure-bottom-back{display:flex;justify-content:flex-end;margin-top:32px;padding-top:18px;border-top:1px solid rgba(100,120,105,.15)}
+.procedure-bottom-back .inner-back{margin:0}
