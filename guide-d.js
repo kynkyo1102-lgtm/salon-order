@@ -14,9 +14,9 @@ function mailSteps(panel,doc,mode,purpose){
  const list=el("ol","mail-steps");panel.append(list);
  function step(title,description){const li=el("li");li.append(el("strong","",title));if(description)li.append(el("p","method-note",description));list.append(li);return li}
  if(mode==="attach"){const li=step("申請書を準備する");documentSteps(li,doc,false)}
- const li=step(mode==="body"?"メールアプリを開く":"メールアプリを開く",mode==="body"?"宛先・件名・本文が入力されたメールが開きます。":"申請書を添付してください。");
+ const li=step(mode==="body"?"申請メールを作成する":"メールアプリを開く",mode==="body"?"件名と、申請に必要な項目があらかじめ入力されたメールが開きます。":"申請書を添付してください。");
  li.append(el("p","method-note","宛先："+email));
- const a=el("a","secondary-action","メールアプリを開く ↗");
+ const a=el("a","secondary-action",mode==="body"?"申請メールを作成する ↗":"メールアプリを開く ↗");
  a.href="mailto:"+email+"?subject="+encodeURIComponent(subject)+(mode==="body"&&template?"&body="+encodeURIComponent(template.body):"");
  li.append(a);
  if(mode==="body"&&template){
@@ -27,7 +27,7 @@ function mailSteps(panel,doc,mode,purpose){
   const bodyButton=el("button","secondary-action","本文をコピー");bodyButton.type="button";bodyButton.onclick=()=>copyText(template.body,bodyButton);
   actions.append(subjectButton,bodyButton);details.append(summary,actions);li.append(details);
  }
- step("内容を確認して送信する",mode==="body"?"必要事項を記入してから送信してください。":"申請書の添付を確認して送信してください。");
+ step("内容を確認して送信する",mode==="body"?"各項目に必要事項を記入し、内容を確認して送信してください。":"申請書の添付を確認して送信してください。");
 }
 function emailUI(panel,doc,purpose){if(!mailTemplates[purpose]){mailSteps(panel,doc,"attach",purpose);return}const choices=el("div","method-choices"),steps=el("div","mail-instructions");panel.append(choices,steps);[["body","メール本文に必要事項を記入する"],["attach","記入済みの申請書を添付する"]].forEach(([v,t],i)=>{const label=el("label","method-choice"),radio=el("input");radio.type="radio";radio.name="mail-method";radio.value=v;radio.checked=i===0;radio.onchange=()=>mailSteps(steps,doc,v,purpose);label.append(radio,document.createTextNode(t));choices.append(label)});mailSteps(steps,doc,"body",purpose)}
 function postalUI(doc){add("h3","method-title","郵送で提出する");const panel=add("div","submit-content");const ol=el("ol","mail-steps");panel.append(ol);const first=el("li");first.append(el("strong","","申請書を準備する"));documentSteps(first,doc,true);ol.append(first);const second=el("li");second.append(el("strong","","郵送する"),el("p","method-note","記入した書類を以下の宛先に郵送してください。"));const address=el("address","postal-address",postal);second.append(address,el("p","method-note","※郵送料はお客さま負担となります。"));ol.append(second)}
