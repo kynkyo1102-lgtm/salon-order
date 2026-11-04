@@ -37,18 +37,6 @@ function returnRefundGuide(purpose){if(purpose!=="クーリングオフしたい
 function pilotAddress(doc,purpose){add("p","procedure-pilot-lead","申請方法を選ぶと、その方法の手順を表示します。");const choices=add("div","submit-options");const result=add("section","procedure-action");const postalOnly=purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい";const methods=postalOnly?[["postal","郵送で申請"]]:[["email","メールで申請"],["fax","FAXで申請"]];const buttons=[];methods.forEach(([id,label])=>{const button=el("button","submit-option",label);button.type="button";button.setAttribute("aria-pressed","false");button.onclick=()=>{buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===button)));result.replaceChildren();result.append(el("h3","procedure-step-title",id==="email"?"メールで申請する手順":id==="fax"?"FAXで申請する手順":"郵送で申請する手順"));const panel=el("div","submit-content");result.append(panel);if(id==="email")mailSteps(panel,doc,mailTemplates[purpose]?"body":"attach",purpose);else if(id==="fax")faxUI(panel,doc);else{const ol=el("ol","mail-steps");panel.append(ol);const first=el("li");first.append(el("strong","","申請書を準備する"));documentSteps(first,doc,true);ol.append(first);const second=el("li");second.append(el("strong","","郵送する"),el("p","method-note","記入した書類を以下の宛先に郵送してください。"),el("address","postal-address",postal),el("p","method-note","※郵送料はお客さま負担となります。"));ol.append(second)}};choices.append(button);buttons.push(button)});buttons[0].click();if(purpose==="氏名などを変更したい")procedureNotice(app,"氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。","check");returnRefundGuide(purpose);if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"申請前に、最新の公式案内で必要書類と提出方法をご確認ください。")}
 function identityDocumentsGuide(doc,purpose){
  add("p","procedure-pilot-lead","本人確認書類は、会員登録後でもメールで提出できます。必要な書類を画像またはPDFでご用意ください。");
- const section=add("section","family-shipping-guide");
- section.append(el("h3","family-shipping-title","対象者と必要書類"));
- const list=el("div","family-shipping-conditions");section.append(list);
- [
- ["満25歳未満の方","本人確認書類と、署名・捺印した本人確認書類貼付用紙が必要です。"],
- ["外国籍の方","在留カードまたは特別永住者証明書のコピーが必要です。"],
- ["法人登録の方","登記事項証明書（登記簿謄本）のコピーなど、公式申請書に指定された書類が必要です。"]
- ].forEach(([title,description])=>{const item=el("div","family-shipping-condition");item.append(el("strong","",title),el("p","",description));list.append(item)});
- section.append(el("h3","family-shipping-title","本人確認書類の例"));
- section.append(el("p","method-note","運転免許証、マイナンバーカードの表面、住民票など。生年月日と住所を確認できる書類をご用意ください。"));
- procedureNotice(section,"従来の健康保険証は2025年12月2日以降使用できません。パスポートには発行時期による制限があります。","check");
- procedureNotice(section,"申請書の住所と本人確認書類の住所が異なる場合は、公共料金の領収書も必要です。最新の公式申請書でご確認ください。");
  add("p","procedure-pilot-lead","申請方法を選ぶと、その方法の手順を表示します。");
  const choices=add("div","submit-options"),result=add("section","procedure-action"),buttons=[];
  [["email","メールで申請"]].forEach(([id,label])=>{
@@ -68,6 +56,18 @@ function identityDocumentsGuide(doc,purpose){
  const third=el("li");third.append(el("strong","","添付を確認して送信する"),el("p","method-note","会員番号・氏名を記入し、必要書類を添付したことを確認して送信してください。"));ol.append(third);
  };choices.append(button);buttons.push(button)
  });buttons[0].click();
+ const section=add("section","family-shipping-guide");
+ section.append(el("h3","family-shipping-title","対象者と必要書類"));
+ const list=el("div","family-shipping-conditions");section.append(list);
+ [
+ ["満25歳未満の方","本人確認書類と、署名・捺印した本人確認書類貼付用紙が必要です。"],
+ ["外国籍の方","在留カードまたは特別永住者証明書のコピーが必要です。"],
+ ["法人登録の方","登記事項証明書（登記簿謄本）のコピーなど、公式申請書に指定された書類が必要です。"]
+ ].forEach(([title,description])=>{const item=el("div","family-shipping-condition");item.append(el("strong","",title),el("p","",description));list.append(item)});
+ section.append(el("h3","family-shipping-title","本人確認書類の例"));
+ section.append(el("p","method-note","運転免許証、マイナンバーカードの表面、住民票など。生年月日と住所を確認できる書類をご用意ください。"));
+ procedureNotice(section,"従来の健康保険証は2025年12月2日以降使用できません。パスポートには発行時期による制限があります。","check");
+ procedureNotice(section,"申請書の住所と本人確認書類の住所が異なる場合は、公共料金の領収書も必要です。最新の公式申請書でご確認ください。");
  procedureNotice(app,"申請前に、最新の本人確認書類貼付用紙の条件と注意事項を必ずご確認ください。");
 }
 function familyShippingGuide(){
