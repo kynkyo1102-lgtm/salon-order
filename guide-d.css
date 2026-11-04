@@ -97,3 +97,21 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .procedure-action .mail-steps{margin-top:10px}
 .procedure-guide .procedure-action .secondary-action{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 18px;border-radius:10px;background:var(--guide-primary);color:#fff;font-weight:700;text-decoration:none}
 .procedure-guide .procedure-action .secondary-action:hover{background:var(--guide-primary-hover);color:#fff}
+
+/* Spacious, scannable steps for the method-first pilot only. */
+.procedure-guide .procedure-action{margin-top:36px;padding-top:28px}
+.procedure-guide .procedure-action>.procedure-step-title{font-size:clamp(1.25rem,3.2vw,1.5rem);margin-bottom:24px;line-height:1.5}
+.procedure-guide .procedure-action .mail-steps{display:grid;gap:0;margin:12px 0 24px;padding:0;counter-reset:step}
+.procedure-guide .procedure-action .mail-steps>li{position:relative;min-width:0;padding:3px 0 30px 64px;margin:0;counter-increment:step}
+.procedure-guide .procedure-action .mail-steps>li:not(:last-child)::after{content:"";position:absolute;top:47px;bottom:7px;left:21px;width:2px;background:var(--guide-border)}
+.procedure-guide .procedure-action .mail-steps>li::before{content:counter(step);position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--guide-primary);color:#fff;font-size:1.12rem;font-weight:800}
+.procedure-guide .procedure-action .mail-steps>li>strong{font-size:1.12rem;line-height:1.55;color:var(--guide-text);margin:4px 0 10px;font-weight:750}
+.procedure-guide .procedure-action .mail-steps .method-note{font-size:1rem;line-height:1.85;margin:8px 0 16px}
+.procedure-guide .procedure-action .secondary-action{font-size:1rem;min-height:50px;padding:13px 22px;line-height:1.5}
+.procedure-guide .procedure-action .mail-fallback{font-size:.93rem;line-height:1.7;margin-top:18px}
+.procedure-guide .procedure-action .fallback-actions{gap:10px}
+.procedure-guide .procedure-action .fax-number{font-size:1.25rem;line-height:1.6}
+.procedure-guide .procedure-action .document-highlight{padding:18px;margin:16px 0}
+.procedure-guide .procedure-action .method-title{font-size:1.12rem;line-height:1.6;margin:24px 0 12px}
+.procedure-guide .procedure-action .submit-content{font-size:1rem;line-height:1.8}
+@media(max-width:600px){.procedure-guide .procedure-action{margin-top:28px;padding-top:24px}.procedure-guide .procedure-action .mail-steps>li{padding-left:53px;padding-bottom:29px}.procedure-guide .procedure-action .mail-steps>li::before{width:38px;height:38px;font-size:1rem}.procedure-guide .procedure-action .mail-steps>li:not(:last-child)::after{left:18px;top:42px}.procedure-guide .procedure-action .mail-steps>li>strong{font-size:1.06rem}.procedure-guide .procedure-action .mail-steps .method-note{font-size:.97rem}.procedure-guide .procedure-action .secondary-action{width:100%;max-width:100%}}
