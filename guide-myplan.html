@@ -113,13 +113,11 @@ function render(){
  if(!m)return;
  diagram(m);
  const body=document.getElementById("breakdown");body.replaceChildren();
- const rows=[["ベーシック",m.own],...(m.mega?[["メガマッチ",m.mega]]:[]),...(m.doubleMega?[["ダブルメガマッチ",m.doubleMega]]:[])];
- for(const [name,value] of rows){
- const tr=document.createElement("tr"),th=document.createElement("th"),td=document.createElement("td");th.scope="row";th.textContent=name;
- if(name==="メガマッチ"){const amount=document.createElement("strong");amount.textContent=yen(value);const detail=document.createElement("span");detail.className="bonus-inline-detail";detail.textContent="Aさん "+yen(m.abasic)+" ／ Bさん "+yen(m.bbasic);td.append(amount,detail)}
- else td.textContent=yen(value);
- tr.append(th,td);body.append(tr)
-}
+ const add=(name,value,lines)=>{const card=document.createElement("div");card.className="breakdown-card";const head=document.createElement("div");head.className="breakdown-card-head";const title=document.createElement("strong");title.textContent=name;const amount=document.createElement("strong");amount.textContent=yen(value);head.append(title,amount);card.append(head);if(lines.length){const details=document.createElement("div");details.className="breakdown-calcs";for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}card.append(details)}body.append(card)};
+ add("ベーシックコミッション",m.own,[["左右の少ない側",pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
+ if(m.mega)add("メガマッチ",m.mega,[["Aさん",pts(Math.min(m.ax,m.ar))+" × 10％ ＝ "+yen(m.abasic)],["Bさん",pts(Math.min(m.bl,m.br))+" × 10％ ＝ "+yen(m.bbasic)]]);
+ if(m.doubleMega)add("ダブルメガマッチ",m.doubleMega,[]);
+
  document.getElementById("sum").textContent=yen(m.total);
 }
 
