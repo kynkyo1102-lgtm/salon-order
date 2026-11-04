@@ -185,12 +185,13 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
  .procedure-guide .procedure-area{padding-bottom:48px}
 }
 
-/* Family consolidated shipping: concise conditions without large cards */
-.procedure-guide .family-shipping-guide{margin:46px 0 42px;padding-top:28px;border-top:1px solid var(--guide-border)}
-.procedure-guide .family-shipping-title{margin:0 0 21px;font-size:1.15rem;line-height:1.55;color:var(--guide-primary)}
-.procedure-guide .family-shipping-conditions{display:grid;gap:0}
-.procedure-guide .family-shipping-condition{display:grid;grid-template-columns:minmax(115px,28%) minmax(0,1fr);gap:14px 22px;padding:17px 2px;border-bottom:1px solid var(--guide-border);align-items:start}
-.procedure-guide .family-shipping-condition strong{font-size:.94rem;line-height:1.75;color:var(--guide-primary);font-weight:650}
-.procedure-guide .family-shipping-condition p{margin:0;font-size:.92rem;line-height:1.9;color:var(--guide-text)}
-.procedure-guide .family-shipping-guide>.procedure-notice{margin-top:20px}
-@media(max-width:600px){.procedure-guide .family-shipping-guide{margin-top:38px;padding-top:25px}.procedure-guide .family-shipping-condition{grid-template-columns:minmax(0,1fr);gap:5px;padding:15px 0}}
+/* Shared concise condition layout: family shipping and identity documents */
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide){margin:46px 0 42px;padding-top:28px;border-top:1px solid var(--guide-border)}
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-title{margin:0 0 21px;font-size:1.15rem;line-height:1.55;color:var(--guide-primary)}
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-conditions{display:grid;gap:0}
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition{display:grid;grid-template-columns:minmax(115px,28%) minmax(0,1fr);gap:14px 22px;padding:17px 2px;border-bottom:1px solid var(--guide-border);align-items:start}
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition strong{font-size:.94rem;line-height:1.75;color:var(--guide-primary);font-weight:650}
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition p{margin:0;font-size:.92rem;line-height:1.9;color:var(--guide-text)}
+.procedure-guide :is(.family-shipping-guide,.identity-documents-guide)>.procedure-notice{margin-top:20px}
+.procedure-guide .identity-documents-guide .family-shipping-title:not(:first-child){margin-top:30px}
+@media(max-width:600px){.procedure-guide :is(.family-shipping-guide,.identity-documents-guide){margin-top:38px;padding-top:25px}.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition{grid-template-columns:minmax(0,1fr);gap:5px;padding:15px 0}}
