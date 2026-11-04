@@ -41,9 +41,9 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 
 <div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人からAさん・Bさんにつながる組織図"></div></div>
 
-<h3 style="margin-top:24px">ボーナス内訳</h3><table class="bonus-table"><thead><tr><th>ボーナス</th><th>計算例</th></tr></thead><tbody id="breakdown"></tbody><tfoot><tr><th class="total">合計</th><td class="total" id="sum"></td></tr></tfoot></table></section>
-<div class="caution"><strong>ご利用にあたって</strong><p>本人は1点登録、会員は1人10,000PTとして計算した例です。取得条件や上限は現行資料をご確認ください。実際の支給時には振込手数料が差し引かれ、キャップ調整が適用される場合があります。表示額は振込額を保証するものではありません。<a class="link" href="./guide-cap-adjustment.html">キャップ調整について詳しく見る ›</a></p></div>
-<p><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
+<h3 class="breakdown-heading">ボーナス内訳</h3><div id="breakdown" class="breakdown-cards"></div><div class="breakdown-total"><strong>ボーナス合計</strong><strong id="sum"></strong></div></section>
+<aside class="caution"><strong>この計算例について</strong><p>本人は1点登録、会員は1人10,000PTとして計算しています。実際の取得条件・上限は現行資料をご確認ください。</p><p>表示額は振込額ではありません。振込手数料やキャップ調整により、支給額が変わる場合があります。</p><a class="link" href="./guide-cap-adjustment.html">キャップ調整について詳しく見る ›</a></aside>
+<p class="myplan-bottom-link"><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
 </main><script>
 const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP",{maximumFractionDigits:1})+"万PT";
 const ranges=[10000,40000,50000,300000,600000];
