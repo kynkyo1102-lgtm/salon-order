@@ -195,3 +195,10 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide :is(.family-shipping-guide,.identity-documents-guide)>.procedure-notice{margin-top:20px}
 .procedure-guide .identity-documents-guide .family-shipping-title:not(:first-child){margin-top:30px}
 @media(max-width:600px){.procedure-guide :is(.family-shipping-guide,.identity-documents-guide){margin-top:38px;padding-top:25px}.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition{grid-template-columns:minmax(0,1fr);gap:5px;padding:15px 0}}
+
+/* Identity document details: compact, consistent rhythm */
+.procedure-guide .family-shipping-guide .family-shipping-title:nth-of-type(2){font-size:.94rem;line-height:1.75;font-weight:650;margin:16px 0 6px}
+.procedure-guide .family-shipping-guide .family-shipping-title:nth-of-type(2)+.method-note{margin:0;font-size:.92rem;line-height:1.9}
+.procedure-guide .family-shipping-guide .family-shipping-title:nth-of-type(2)~.procedure-notice{margin-top:14px}
+.procedure-guide .family-shipping-guide+.procedure-notice{margin-top:0}
+.procedure-guide .family-shipping-guide{margin-bottom:16px}
