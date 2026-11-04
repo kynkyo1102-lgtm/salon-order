@@ -84,6 +84,28 @@ function familyShippingGuide(){
  conditions.forEach(([label,description])=>{const row=el("div","family-shipping-condition");row.append(el("strong","",label),el("p","",description));list.append(row)});
  procedureNotice(section,"申請前に、公式申請書の注意事項と最新の条件を必ずご確認ください。");
 }
+function creditCardGuide(doc){
+ add("p","procedure-pilot-lead","クレジットカード情報の登録・変更・更新は、E-Serviceからのお手続きがおすすめです。");
+ const primary=add("section","subscription-primary");
+ primary.append(el("h3","procedure-step-title","E-Serviceで手続きする"));
+ primary.append(el("p","method-note","ログイン後、カード情報の登録・更新へお進みください。"));
+ const a=el("a","eservice-link","E-Serviceにログインする ↗");a.href=login;a.target="_blank";a.rel="noopener noreferrer";primary.append(a);
+ procedureNotice(primary,"ニナファームカードの登録・変更はE-Serviceからお手続きください。");
+ const secondary=add("details","subscription-alternative");
+ secondary.append(el("summary","subscription-alternative-toggle","書面で申請したい方はこちら"));
+ const content=el("div","subscription-alternative-content");secondary.append(content);
+ content.append(el("p","method-note","書面の場合は、電話で7桁の決済番号を取得し、「クレジット決済番号届出書」に記入して提出します。"));
+ const ol=el("ol","mail-steps");content.append(ol);
+ function step(title,description){const li=el("li");li.append(el("strong","",title));if(description)li.append(el("p","method-note",description));ol.append(li);return li}
+ step("クレジットカードとメモを準備する","対応カードや利用条件は公式案内をご確認ください。");
+ const phone=step("電話で決済番号を取得する","決済番号取得用電話番号：050-3185-6867 ／ 事業者コード：1271。登録申請書に記載した固定電話またはご自身の携帯電話からおかけください。音声案内に沿ってカード番号・有効期限を入力し、案内される7桁の決済番号を控えてください。");
+ procedureNotice(phone,"カード番号・有効期限・セキュリティコードをメール本文に記入しないでください。","check");
+ const form=step("申請書に記入する","取得した決済番号と必要な登録情報を「"+doc+"」に記入してください。");
+ documentSteps(form,doc,true);
+ step("FAXで提出する","記入した申請書をFAX 03-6550-8991へ送信し、送信結果を確認してください。");
+ procedureNotice(content,"書面での登録はE-Serviceでの登録と特典・NiNA付与の扱いが異なります。特典を希望する方はE-Serviceをご利用ください。","check");
+ procedureNotice(app,"手続き前に、最新の公式申請書とカード登録案内をご確認ください。");
+}
 function subscriptionGuide(purpose,doc){
  add("p","procedure-pilot-lead","定期購入の変更・停止・再開は、E-Serviceからお手続きいただけます。");
  const primary=add("section","subscription-primary");
@@ -105,7 +127,7 @@ function subscriptionGuide(purpose,doc){
  const special=el("div","subscription-deadline-item");special.append(el("span","","カード・代引きの停止のみ"),el("strong","","当月末の2営業日前まで"));dates.append(special);
  procedureNotice(deadline,"上記は翌月度から反映させるための書面申請の受付期限です。E-Serviceの期限は別途ご確認ください。年末年始などは受付日が異なる場合があります。");
 }
-function detail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();back("手続き一覧に戻る",()=>home(i));heading(purpose);if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){add("h3","method-title","購入方法");note("各サロン（プラッスドゥニナ）からお買い求めいただけます。");note("また、E-Serviceの【ショッピング】からご注文いただけます。");link("E-Serviceにログインする");const sec=add("section","detail-divider");add("p","method-note","注文書を利用する場合： "+doc,sec)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"手続きによって必要な書類が異なります。申請書の記載内容を必ず確認してください。","check")}
+function detail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();back("手続き一覧に戻る",()=>home(i));heading(purpose);if(type==="card"){creditCardGuide(doc);return}if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){add("h3","method-title","購入方法");note("各サロン（プラッスドゥニナ）からお買い求めいただけます。");note("また、E-Serviceの【ショッピング】からご注文いただけます。");link("E-Serviceにログインする");const sec=add("section","detail-divider");add("p","method-note","注文書を利用する場合： "+doc,sec)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"手続きによって必要な書類が異なります。申請書の記載内容を必ず確認してください。","check")}
 function openInitialCategory(){const match=location.hash.match(/^#category=([0-9]+)(?:&item=([0-9]+))?$/);if(match){const i=Number(match[1]),j=match[2]===undefined?null:Number(match[2]);if(Number.isInteger(i)&&i>=0&&i<groups.length){if(j!==null&&Number.isInteger(j)&&j>=0&&j<groups[i].items.length){detail(i,j);return}category(i);return}}home()}
 window.addEventListener("hashchange",openInitialCategory);
 openInitialCategory();
