@@ -152,9 +152,8 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 
 @media(max-width:600px){.procedure-guide .subscription-alternative-toggle{padding:18px 45px 18px 16px}.procedure-guide .subscription-alternative-content{padding:18px 15px}.procedure-guide .subscription-deadline-grid{grid-template-columns:minmax(0,1fr)}.procedure-guide .subscription-deadline-item{padding:17px}}
 
-/* Shared notice patterns for all procedure types */
-.procedure-guide .procedure-notice{margin:18px 0 0;padding:0;font-size:.87rem;line-height:1.85;color:var(--guide-muted);overflow-wrap:anywhere}
+/* Shared, compact procedure notices */
+.procedure-guide .procedure-notice{margin:14px 0 0;font-size:.85rem;line-height:1.8;color:var(--guide-muted);overflow-wrap:anywhere}
 .procedure-guide .procedure-notice.is-info{padding:0;border:0;background:transparent}
-.procedure-guide .procedure-notice.is-check{padding:15px 18px;border:1px solid var(--guide-border);border-radius:10px;background:var(--guide-surface);color:var(--guide-text)}
-.procedure-guide .procedure-notice.is-warning{padding:15px 18px;border:1px solid #d8ac62;border-radius:10px;background:#fffaf1;color:#704d19}
-@media(max-width:600px){.procedure-guide .procedure-notice.is-check,.procedure-guide .procedure-notice.is-warning{padding:14px 15px}}
+.procedure-guide .procedure-notice.is-check{padding:3px 0 3px 12px;border:0;border-left:3px solid var(--guide-border);border-radius:0;background:transparent;color:var(--guide-text)}
+.procedure-guide .procedure-notice.is-warning{padding:9px 12px;border:0;border-left:3px solid #d8ac62;border-radius:5px;background:#fffaf1;color:#704d19}
