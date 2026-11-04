@@ -36,32 +36,39 @@ function submitSelector(doc,purpose){add("h3","method-title","提出方法を選
 function returnRefundGuide(purpose){if(purpose!=="クーリングオフしたい"&&purpose!=="解約したい")return;const cooling=purpose==="クーリングオフしたい";const section=add("section","return-refund-guide");section.append(el("h3","return-refund-title","申請後の返品・返金について"));const cards=el("div","return-refund-cards");section.append(cards);function item(title,description){const card=el("div","return-refund-card");card.append(el("h4","",title),el("p","",description));cards.append(card)}if(cooling){item("申請できる期間","契約書面または初回商品の受領日のうち、遅い日を起算日として20日間です。");item("商品の返品","商品がある場合は、ニナファームジャポン宛に着払いで返送してください。");item("返金","商品代金（税・配送手数料込）は、原則として登録口座へ速やかに返金されます。");}else{item("返品できる商品の条件","退会に伴う返品は、会員登録日から1年以内の解約、商品の引渡しから90日以内、未使用・未開封で再販売できる状態など、申請書に記載された条件をすべて満たす場合に限られます。");item("返品時の送料","返品送料は会員負担です。商品に同梱されていた納品書も一緒に返送してください。");item("返金","返品商品を本社が確認した後、配送手数料を除く商品代金（税込）から振込事務手数料700円（税込）を差し引き、登録口座へ返金されます。");item("定期購入について","解約（退会）に伴い定期購入も停止されます。発送の締切日により、解約後に商品が届く場合があります。")}procedureNotice(section,"2025年12月1日版の公式申請書に基づく概要です。条件や手続きの詳細は最新の公式申請書・会員規約をご確認ください。")}
 function pilotAddress(doc,purpose){add("p","procedure-pilot-lead","申請方法を選ぶと、その方法の手順を表示します。");const choices=add("div","submit-options");const result=add("section","procedure-action");const postalOnly=purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい";const methods=postalOnly?[["postal","郵送で申請"]]:[["email","メールで申請"],["fax","FAXで申請"]];const buttons=[];methods.forEach(([id,label])=>{const button=el("button","submit-option",label);button.type="button";button.setAttribute("aria-pressed","false");button.onclick=()=>{buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===button)));result.replaceChildren();result.append(el("h3","procedure-step-title",id==="email"?"メールで申請する手順":id==="fax"?"FAXで申請する手順":"郵送で申請する手順"));const panel=el("div","submit-content");result.append(panel);if(id==="email")mailSteps(panel,doc,mailTemplates[purpose]?"body":"attach",purpose);else if(id==="fax")faxUI(panel,doc);else{const ol=el("ol","mail-steps");panel.append(ol);const first=el("li");first.append(el("strong","","申請書を準備する"));documentSteps(first,doc,true);ol.append(first);const second=el("li");second.append(el("strong","","郵送する"),el("p","method-note","記入した書類を以下の宛先に郵送してください。"),el("address","postal-address",postal),el("p","method-note","※郵送料はお客さま負担となります。"));ol.append(second)}};choices.append(button);buttons.push(button)});buttons[0].click();if(purpose==="氏名などを変更したい")procedureNotice(app,"氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。","check");returnRefundGuide(purpose);if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"申請前に、最新の公式案内で必要書類と提出方法をご確認ください。")}
 function identityDocumentsGuide(doc,purpose){
- add("p","procedure-pilot-lead","本人確認書類は、会員登録後でもメールで提出できます。必要な書類を撮影するかPDFにして添付してください。");
- const section=add("section","identity-documents-guide");
- section.append(el("h3","family-shipping-title","対象者と必要な書類"));
+ add("p","procedure-pilot-lead","本人確認書類は、会員登録後でもメールで提出できます。必要な書類を画像またはPDFでご用意ください。");
+ const section=add("section","family-shipping-guide");
+ section.append(el("h3","family-shipping-title","対象者と必要書類"));
  const list=el("div","family-shipping-conditions");section.append(list);
  [
- ["満25歳未満の方","本人確認書類に加え、本人確認書類貼付用紙に署名・捺印して提出してください。"],
- ["外国籍の方","在留カードまたは特別永住者証明書のコピーを提出してください。"],
- ["法人登録の方","登記事項証明書（登記簿謄本）のコピーなど、申請書指定の書類が必要です。"]
+ ["満25歳未満の方","本人確認書類と、署名・捺印した本人確認書類貼付用紙が必要です。"],
+ ["外国籍の方","在留カードまたは特別永住者証明書のコピーが必要です。"],
+ ["法人登録の方","登記事項証明書（登記簿謄本）のコピーなど、公式申請書に指定された書類が必要です。"]
  ].forEach(([title,description])=>{const item=el("div","family-shipping-condition");item.append(el("strong","",title),el("p","",description));list.append(item)});
  section.append(el("h3","family-shipping-title","本人確認書類の例"));
- section.append(el("p","method-note","運転免許証、マイナンバーカード（表面のみ）、住民票など。生年月日と住所が確認できる面を用意してください。"));
- procedureNotice(section,"2025年12月2日以降、従来の健康保険証は本人確認書類として使用できません。パスポートにも発行時期による制限があります。","check");
- procedureNotice(section,"申請書と登録住所が異なる場合は、公共料金の領収書も必要です。書類の種類・有効性は公式申請書でご確認ください。");
- add("h3","method-title","メールで提出する");
- const panel=add("div","submit-content");
+ section.append(el("p","method-note","運転免許証、マイナンバーカードの表面、住民票など。生年月日と住所を確認できる書類をご用意ください。"));
+ procedureNotice(section,"従来の健康保険証は2025年12月2日以降使用できません。パスポートには発行時期による制限があります。","check");
+ procedureNotice(section,"申請書の住所と本人確認書類の住所が異なる場合は、公共料金の領収書も必要です。最新の公式申請書でご確認ください。");
+ add("p","procedure-pilot-lead","申請方法を選ぶと、その方法の手順を表示します。");
+ const choices=add("div","submit-options"),result=add("section","procedure-action"),buttons=[];
+ [["email","メールで申請"],["fax","FAXで申請"]].forEach(([id,label])=>{
+ const button=el("button","submit-option",label);button.type="button";button.setAttribute("aria-pressed","false");
+ button.onclick=()=>{
+ buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===button)));result.replaceChildren();
+ result.append(el("h3","procedure-step-title",id==="email"?"メールで申請する手順":"FAXで申請する手順"));
+ const panel=el("div","submit-content");result.append(panel);
+ if(id==="fax"){faxUI(panel,doc);return}
  const ol=el("ol","mail-steps");panel.append(ol);
  const first=el("li");first.append(el("strong","","必要書類を準備する"),el("p","method-note","本人確認書類の画像またはPDFを用意してください。満25歳未満の方は、署名・捺印した貼付用紙も添付してください。"));ol.append(first);
- const second=el("li");second.append(el("strong","","申請メールを作成する"),el("p","method-note","メール本文に会員番号・氏名を記入し、必要書類を添付してください。"),el("p","method-note","宛先："+email));ol.append(second);
+ const second=el("li");second.append(el("strong","","申請メールを作成する"),el("p","method-note","宛先："+email));ol.append(second);
  const template=mailTemplates[purpose],a=el("a","secondary-action","申請メールを作成する ↗");
  a.href="mailto:"+email+"?subject="+encodeURIComponent(template.subject)+"&body="+encodeURIComponent(template.body);second.append(a);
  const details=el("details","mail-fallback");details.append(el("summary","","本文がコピーされない場合はこちら"));
- const actions=el("div","fallback-actions");
- [["件名をコピー",template.subject],["本文をコピー",template.body]].forEach(([label,value])=>{const b=el("button","secondary-action",label);b.type="button";b.onclick=()=>copyText(value,b);actions.append(b)});
- details.append(actions);second.append(details);
- const third=el("li");third.append(el("strong","","添付を確認して送信する"),el("p","method-note","必要書類が添付されていることを確認して送信してください。"));ol.append(third);
- procedureNotice(app,"手続き前に、本人確認書類貼付用紙の最新の条件と注意事項をご確認ください。");
+ const actions=el("div","fallback-actions");[["件名をコピー",template.subject],["本文をコピー",template.body]].forEach(([label,value])=>{const b=el("button","secondary-action",label);b.type="button";b.onclick=()=>copyText(value,b);actions.append(b)});details.append(actions);second.append(details);
+ const third=el("li");third.append(el("strong","","添付を確認して送信する"),el("p","method-note","会員番号・氏名を記入し、必要書類を添付したことを確認して送信してください。"));ol.append(third);
+ };choices.append(button);buttons.push(button)
+ });buttons[0].click();
+ procedureNotice(app,"申請前に、最新の本人確認書類貼付用紙の条件と注意事項を必ずご確認ください。");
 }
 function familyShippingGuide(){
  const section=add("section","family-shipping-guide");
