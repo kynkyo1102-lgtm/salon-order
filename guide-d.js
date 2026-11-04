@@ -90,12 +90,12 @@ function creditCardGuide(doc){
  primary.append(el("h3","procedure-step-title","E-Serviceで手続きする"));
  primary.append(el("p","method-note","ログイン後、カード情報の登録・更新へお進みください。"));
  const a=el("a","eservice-link","E-Serviceにログインする ↗");a.href=login;a.target="_blank";a.rel="noopener noreferrer";primary.append(a);
- procedureNotice(primary,"ニナファームカードの登録・変更はE-Serviceからお手続きください。");
+ procedureNotice(primary,"ニナファームカードをご利用の方へ：カードの登録・変更はE-Serviceからお手続きください。NiNAはニナファームカード独自のポイントです。");
  const secondary=add("details","subscription-alternative");
  secondary.append(el("summary","subscription-alternative-toggle","書面で申請したい方はこちら"));
  const content=el("div","subscription-alternative-content");secondary.append(content);
  content.append(el("p","method-note","書面で手続きする場合は、「"+doc+"」をご確認のうえ、記載された手順に従って申請してください。"));
- procedureNotice(content,"書面での登録はE-Serviceでの登録と特典・NiNA付与の扱いが異なります。特典を希望する方はE-Serviceをご利用ください。","check");
+
  procedureNotice(app,"手続き前に、最新の公式申請書とカード登録案内をご確認ください。");
 }
 function subscriptionGuide(purpose,doc){
