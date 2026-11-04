@@ -51,7 +51,7 @@ function identityDocumentsGuide(doc,purpose){
  procedureNotice(section,"申請書の住所と本人確認書類の住所が異なる場合は、公共料金の領収書も必要です。最新の公式申請書でご確認ください。");
  add("p","procedure-pilot-lead","申請方法を選ぶと、その方法の手順を表示します。");
  const choices=add("div","submit-options"),result=add("section","procedure-action"),buttons=[];
- [["email","メールで申請"],["fax","FAXで申請"]].forEach(([id,label])=>{
+ [["email","メールで申請"]].forEach(([id,label])=>{
  const button=el("button","submit-option",label);button.type="button";button.setAttribute("aria-pressed","false");
  button.onclick=()=>{
  buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===button)));result.replaceChildren();
