@@ -208,3 +208,8 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .inner-back:hover,.inner-back:focus-visible{opacity:1;text-decoration:underline}
 .procedure-bottom-back{display:flex;justify-content:flex-end;margin-top:32px;padding-top:18px;border-top:1px solid rgba(100,120,105,.15)}
 .procedure-bottom-back .inner-back{margin:0}
+
+.procedure-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;font-size:.78rem;color:var(--guide-primary)}
+.procedure-breadcrumb-link{border:0;background:transparent;padding:3px 0;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px;opacity:.8}
+.procedure-breadcrumb-separator{opacity:.5}
+.procedure-breadcrumb-current{opacity:.7}
