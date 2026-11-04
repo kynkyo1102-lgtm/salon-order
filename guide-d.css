@@ -134,3 +134,20 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .subscription-alternative>.procedure-step-title{color:var(--guide-primary);font-size:1.15rem}
 .procedure-guide .subscription-alternative .mail-steps{padding-left:0}
 @media(max-width:600px){.procedure-guide .subscription-primary{padding:18px 16px}.procedure-guide .subscription-primary .eservice-link{width:100%;justify-content:center}}
+
+/* Compact subscription alternatives and clear deadline summary */
+.procedure-guide details.subscription-alternative{border:1px solid var(--guide-border);border-radius:13px;background:#fff;padding:0;margin:0 0 30px;overflow:hidden}
+.procedure-guide .subscription-alternative-toggle{position:relative;cursor:pointer;padding:21px 50px 21px 22px;color:var(--guide-primary);font-size:1rem;font-weight:750;line-height:1.6;list-style:none}
+.procedure-guide .subscription-alternative-toggle::-webkit-details-marker{display:none}
+.procedure-guide .subscription-alternative-toggle::after{content:"＋";position:absolute;right:21px;top:50%;transform:translateY(-50%);font-size:1.35rem;font-weight:400}
+.procedure-guide .subscription-alternative[open] .subscription-alternative-toggle::after{content:"−"}
+.procedure-guide .subscription-alternative-content{border-top:1px solid var(--guide-border);padding:22px}
+.procedure-guide .subscription-alternative-content>.method-note{margin:0 0 17px;line-height:1.8}
+.procedure-guide .subscription-deadline{margin:32px 0 16px;padding-top:27px;border-top:1px solid var(--guide-border)}
+.procedure-guide .subscription-deadline h3{margin:0 0 18px;color:var(--guide-primary);font-size:1.14rem}
+.procedure-guide .subscription-deadline-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.procedure-guide .subscription-deadline-item{display:grid;gap:10px;align-content:center;padding:20px;border:1px solid var(--guide-border);border-radius:12px;background:#fff}
+.procedure-guide .subscription-deadline-item span{font-size:.87rem;line-height:1.55;color:var(--guide-muted)}
+.procedure-guide .subscription-deadline-item strong{font-size:1.25rem;line-height:1.4;color:var(--guide-primary)}
+.procedure-guide .subscription-deadline-note{margin:17px 0 0;color:var(--guide-muted);font-size:.84rem;line-height:1.8}
+@media(max-width:600px){.procedure-guide .subscription-alternative-toggle{padding:18px 45px 18px 16px}.procedure-guide .subscription-alternative-content{padding:18px 15px}.procedure-guide .subscription-deadline-grid{grid-template-columns:minmax(0,1fr)}.procedure-guide .subscription-deadline-item{padding:17px}}
