@@ -94,15 +94,7 @@ function creditCardGuide(doc){
  const secondary=add("details","subscription-alternative");
  secondary.append(el("summary","subscription-alternative-toggle","書面で申請したい方はこちら"));
  const content=el("div","subscription-alternative-content");secondary.append(content);
- content.append(el("p","method-note","書面の場合は、電話で7桁の決済番号を取得し、「クレジット決済番号届出書」に記入して提出します。"));
- const ol=el("ol","mail-steps");content.append(ol);
- function step(title,description){const li=el("li");li.append(el("strong","",title));if(description)li.append(el("p","method-note",description));ol.append(li);return li}
- step("クレジットカードとメモを準備する","対応カードや利用条件は公式案内をご確認ください。");
- const phone=step("電話で決済番号を取得する","決済番号取得用電話番号：050-3185-6867 ／ 事業者コード：1271。登録申請書に記載した固定電話またはご自身の携帯電話からおかけください。音声案内に沿ってカード番号・有効期限を入力し、案内される7桁の決済番号を控えてください。");
- procedureNotice(phone,"カード番号・有効期限・セキュリティコードをメール本文に記入しないでください。","check");
- const form=step("申請書に記入する","取得した決済番号と必要な登録情報を「"+doc+"」に記入してください。");
- documentSteps(form,doc,true);
- step("FAXで提出する","記入した申請書をFAX 03-6550-8991へ送信し、送信結果を確認してください。");
+ content.append(el("p","method-note","書面で手続きする場合は、「"+doc+"」をご確認のうえ、記載された手順に従って申請してください。"));
  procedureNotice(content,"書面での登録はE-Serviceでの登録と特典・NiNA付与の扱いが異なります。特典を希望する方はE-Serviceをご利用ください。","check");
  procedureNotice(app,"手続き前に、最新の公式申請書とカード登録案内をご確認ください。");
 }
