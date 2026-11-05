@@ -51,7 +51,27 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 .myplan .caution a{display:inline-block;margin-top:6px}
 .myplan .myplan-bottom-link{margin:30px 0 42px;padding:18px 0;font-size:15px}
 @media(max-width:600px){.myplan .breakdown-heading{margin-top:38px!important}.myplan .breakdown-card{padding:17px 15px}.myplan .breakdown-card-head{font-size:15px;gap:8px}.myplan .breakdown-card-head strong:last-child{font-size:21px}.myplan .breakdown-calcs{padding:13px 12px}.myplan .breakdown-calc{display:block;font-size:13px}.myplan .breakdown-calc span{display:block}.myplan .breakdown-calc span:last-child{text-align:left;margin-top:3px}.myplan .breakdown-total{font-size:17px}.myplan .breakdown-total strong:last-child{font-size:25px}.myplan .caution{padding:20px 17px;margin-top:35px}}
-.myplan .payout-note{margin:21px 0 6px;padding:20px 22px;border-radius:13px;background:#f2f7fb;border:1px solid #d9e7ef;line-height:1.8}.myplan .payout-note>strong{display:block;font-size:17px;color:#0055a4;margin-bottom:7px}.myplan .payout-note p{margin:0 0 8px;font-size:14px}.myplan .payout-note small{display:block;font-size:12px;color:#617587}.myplan .payout-note a{display:inline-block;margin-top:12px;font-size:13px}.myplan .caution{margin-top:34px}@media(max-width:600px){.myplan .payout-note{padding:17px 16px}.myplan .payout-note>strong{font-size:16px}} </style></head><body class="registration-guide"><main class="myplan">
+.myplan .payout-note{margin:21px 0 6px;padding:20px 22px;border-radius:13px;background:#f2f7fb;border:1px solid #d9e7ef;line-height:1.8}.myplan .payout-note>strong{display:block;font-size:17px;color:#0055a4;margin-bottom:7px}.myplan .payout-note p{margin:0 0 8px;font-size:14px}.myplan .payout-note small{display:block;font-size:12px;color:#617587}.myplan .payout-note a{display:inline-block;margin-top:12px;font-size:13px}.myplan .caution{margin-top:34px}@media(max-width:600px){.myplan .payout-note{padding:17px 16px}.myplan .payout-note>strong{font-size:16px}} 
+.myplan .lapis-diagram{padding:12px 4px 6px;text-align:center}
+.myplan .lapis-person{display:flex;align-items:center;flex-direction:column;gap:3px;color:#0055a4;font-size:14px}
+.myplan .lapis-person img{width:54px;height:54px;object-fit:contain}
+.myplan .lapis-self .lapis-person img{width:68px;height:68px}
+.myplan .lapis-self>span{display:block;font-size:13px;color:#47677d;margin-top:8px;font-weight:700}
+.myplan .lapis-direct-label,.myplan .lapis-second-label{font-size:12px;font-weight:700;color:#47677d;margin:15px auto 10px;position:relative}
+.myplan .lapis-direct-label:before,.myplan .lapis-second-label:before{content:"";display:block;width:2px;height:22px;background:#9bbbd0;margin:0 auto 5px}
+.myplan .lapis-branches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.myplan .lapis-branch{background:white;border:1px solid #d5e5ee;border-radius:15px;padding:16px 10px;min-width:0}
+.myplan .lapis-tri{display:block;width:100%;height:auto;max-width:260px;margin:4px auto}
+.myplan .lapis-tri text{font-size:18px;font-weight:800;fill:#174b78}
+.myplan .lapis-branch-caption{font-size:12px;color:#526777;line-height:1.6;margin:4px 0 12px}
+.myplan .lapis-secondaries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.myplan .lapis-secondary{min-width:0;background:#f2f7fb;border-radius:12px;padding:10px 3px}
+.myplan .lapis-secondary .lapis-person img{width:39px;height:39px}
+.myplan .lapis-secondary .lapis-person{font-size:12px}
+.myplan .lapis-secondary .lapis-tri text{font-size:25px}
+.myplan .lapis-diagram-note{font-size:12px;color:#617587;line-height:1.8;margin:17px auto 0}
+@media(max-width:600px){.myplan .lapis-branches{gap:7px}.myplan .lapis-branch{padding:12px 4px}.myplan .lapis-tri text{font-size:21px}.myplan .lapis-secondary{padding:8px 1px}.myplan .lapis-secondary .lapis-tri text{font-size:32px}.myplan .lapis-branch-caption{font-size:11px}.myplan .lapis-self>span{font-size:12px}}
+</style></head><body class="registration-guide"><main class="myplan">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><span aria-current="page">マイプラン検索</span></nav>
 <h1>マイプラン検索</h1><p class="lead">目標金額から、組織とボーナスの例を見てみましょう。</p>
 <section class="panel"><h2>目標金額を選ぶ</h2><label for="goal">月間ボーナス</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="40000" selected>4万円台（4万〜5万円未満）</option><option value="100000">10万円台（ラピスのモデル）</option></select></section>
