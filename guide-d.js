@@ -80,10 +80,11 @@ function familyShippingGuide(){
  ["対象となるご家族","代表者と同居し、登録住所が同じご家族が対象です。"],
  ["お支払い方法","クレジットカード決済のみ対象です。口座振替・代金引換、支店・ブランチのおまとめ配送は対象外です。"],
  ["送料","代表者に配送手数料1,000円（税込）がかかります。おまとめ配送の代金合計が30,000円（税込）以上の場合は無料です。"],
- ["反映時期","翌月の配送分から反映したい場合、書類の受付期限は毎月10日です。"],
+ 
  ["解除について","代表者の定期購入が停止すると、おまとめ配送も解除されます。"]
  ];
  conditions.forEach(([label,description])=>{const row=el("div","family-shipping-condition");row.append(el("strong","",label),el("p","",description));list.append(row)});
+ requirementSection("提出期限",[["毎月10日まで","翌月の配送分から反映したい場合の書類受付期限です。"]]).classList.add("invoice-simple");
  requirementSection("添付書類",[["名字が異なる場合","続柄を確認できる住民票を提出してください。"]]);
 }
 function creditCardGuide(doc){
@@ -137,7 +138,7 @@ function reactivationConditions(){
 }
 function requirementSection(title,items){
  const section=add("section","family-shipping-guide requirement-section requirement-visual");
- section.classList.add(/書類|記入事項/.test(title)?"requirement-documents":"requirement-eligibility");
+ section.classList.add(/書類|添付/.test(title)?"requirement-documents":"requirement-eligibility");
  section.append(el("h3","family-shipping-title",title));
  const list=el("div","family-shipping-conditions");section.append(list);
  items.forEach(([label,description])=>{const row=el("div","family-shipping-condition");row.append(el("strong","",label),el("p","",description));list.append(row)});
