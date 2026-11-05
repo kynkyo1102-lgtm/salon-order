@@ -254,17 +254,20 @@ function myNumberGuide(doc){
 function invoiceRegistrationGuide(doc,purpose){
  add("p","procedure-pilot-lead","適格請求書発行事業者の登録番号を取得した方は、登録番号届出書と登録通知書をメールまたはFAXでご提出ください。");
  pilotAddress(doc,purpose);
- const conditions=requirementSection("提出条件・期限",[
-  ["対象となる方","適格請求書発行事業者として登録し、登録番号を取得した方が対象です。"],
-  ["提出期限","当月度のボーナス振込分から適用したい場合は、翌月10日までに提出してください。番号が確認できた場合、当月度のボーナス振込分から適用されます。"],
+ const conditions=requirementSection("申請条件",[
+  ["対象となる方","適格請求書発行事業者として登録し、登録番号を取得した方"]
+ ]);
+ conditions.classList.add("invoice-simple");
+ const deadline=requirementSection("提出期限",[
+  ["翌月10日まで","当月度のボーナス振込分から適用する場合。登録番号の確認後に適用されます。"],
   ["期限を過ぎた場合","翌々月度のボーナス振込分から適用されます。"]
  ]);
- const documents=requirementSection("必要書類・記入事項",[
-  ["登録番号届出書","届出日・会員番号・氏名または法人名・連絡先・Tから始まる登録番号を記入してください。"],
-  ["登録通知書","税務署から届いた適格請求書発行事業者の登録通知書の画像またはコピーを添付してください。登録番号が記載された面をご用意ください。"]
+ deadline.classList.add("invoice-simple","invoice-deadline");
+ const documents=requirementSection("必要書類",[
+  ["登録番号届出書",""],
+  ["登録通知書","税務署から届いた通知書の画像またはコピー"]
  ]);
- conditions.classList.add("invoice-visual");
- documents.classList.add("invoice-visual");
+ documents.classList.add("invoice-simple","invoice-documents");
  procedureNotice(app,"登録番号の届出がない場合、会社の案内ではボーナスから消費税相当額を差し引いた金額が支払われるとされています。");
 }
 function renderDetail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();updateProcedureBreadcrumb(i);heading(purpose);if(type==="card"){creditCardGuide(doc);return}if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="会員資格を復活したい"){pilotAddress(doc,purpose);reactivationConditions();return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(purpose==="ブランチを申請したい"){branchApplicationGuide(doc,purpose);return}if(purpose==="名刺を注文したい"){nameCardOrderGuide(doc,purpose);return}if(purpose==="マイナンバーを届け出たい"){myNumberGuide(doc);return}if(purpose==="適格請求書発行事業者登録番号を届け出たい"){invoiceRegistrationGuide(doc,purpose);return}if(purpose==="ポジションを譲渡・相続したい"||purpose==="法人登録したい"||purpose==="法人から個人登録へ変更したい"){pilotAddress(doc,purpose);transferAndEntityGuide(purpose);return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){salonShoppingGuide(purpose)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"申請前に、公式申請書の注意事項と最新の条件を必ずご確認ください。","check")}
