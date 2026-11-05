@@ -197,5 +197,20 @@ function render(){
  document.getElementById("sum").textContent=yen(m.total);
 }
 
+
+function showPersonBonus(name){
+ const m=generate(Number(document.getElementById("goal").value))[0];
+ if(!m || !m.lapis)return;
+ let kind,description,formula,amount;
+ if(name==="あなた"){kind="ベーシックコミッション";description="あなたの左右の少ない側を基準に計算します。";formula=pts(Math.min(m.left,m.right))+" × 10％";amount=m.own}
+ else if(name==="Aさん"||name==="Bさん"){const basic=name==="Aさん"?m.abasic:m.bbasic;kind="メガマッチ";description=name+"はあなたの直接紹介者。"+name+"のベーシックコミッションの100％が、あなたのメガマッチになります。";formula=yen(basic)+" × 100％";amount=basic}
+ else{const s=m.secondary.find(x=>x.name===name);if(!s)return;kind="ダブルメガマッチ";description=name+"は"+s.parent+"が紹介した二次紹介者。"+name+"のベーシックコミッションの10％が、あなたのダブルメガマッチになります。";formula=yen(s.basic)+" × 10％";amount=s.basic*.1}
+ let dialog=document.getElementById("lapis-bonus-dialog");
+ if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
+ dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'｜'+kind+'</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div><p>'+description+'</p><div class="lapis-dialog-formula">'+formula+' ＝ '+yen(amount)+'</div>';
+ dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
+}
+document.getElementById("binary-diagram").addEventListener("click",e=>{const p=e.target.closest(".lapis-tap-person");if(p)showPersonBonus(p.dataset.person)});
+document.getElementById("binary-diagram").addEventListener("keydown",e=>{const p=e.target.closest(".lapis-tap-person");if(p&&(e.key==="Enter"||e.key===" ")){e.preventDefault();showPersonBonus(p.dataset.person)}});
 document.getElementById("goal").addEventListener("change",()=>{selected=0;render()});render();
 </script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
