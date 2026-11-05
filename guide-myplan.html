@@ -111,7 +111,7 @@ const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja
 const ranges=[10000,40000,100000];
 let selected=0, candidates=[];
 function generate(goal){
- if(goal===500000){return [{lapis:true,large:true,ax:2000000,ar:1000000,bl:2000000,br:1000000,left:3010000,right:3010000,abasic:100000,bbasic:100000,own:301000,mega:200000,doubleMega:30000,total:531000,secondary:[{name:"Cさん",parent:"Aさん",left:1000000,right:1000000,basic:100000,title:"サファイア"},{name:"Dさん",parent:"Aさん",left:500000,right:500000,basic:50000,title:"ラピス"},{name:"Eさん",parent:"Bさん",left:1000000,right:1000000,basic:100000,title:"サファイア"},{name:"Fさん",parent:"Bさん",left:500000,right:500000,basic:50000,title:"ラピス"}]}];}
+ if(goal===500000){return [{lapis:true,large:true,ax:2000000,ar:1000000,bl:2000000,br:1000000,left:3010000,right:3010000,abasic:100000,bbasic:100000,own:301000,mega:200000,doubleMega:30000,leadership:45150,total:576150,secondary:[{name:"Cさん",parent:"Aさん",left:1000000,right:1000000,basic:100000,title:"サファイア"},{name:"Dさん",parent:"Aさん",left:500000,right:500000,basic:50000,title:"ラピス"},{name:"Eさん",parent:"Bさん",left:1000000,right:1000000,basic:100000,title:"サファイア"},{name:"Fさん",parent:"Bさん",left:500000,right:500000,basic:50000,title:"ラピス"}]}];}
 
  if(goal===200000){return [{lapis:true,sapphire:true,ax:500000,ar:500000,bl:500000,br:500000,left:1010000,right:1010000,abasic:50000,bbasic:50000,own:101000,mega:100000,doubleMega:10000,total:211000,secondary:[{name:"Cさん",parent:"Aさん",left:250000,right:250000,basic:25000},{name:"Dさん",parent:"Aさん",left:250000,right:250000,basic:25000},{name:"Eさん",parent:"Bさん",left:250000,right:250000,basic:25000},{name:"Fさん",parent:"Bさん",left:250000,right:250000,basic:25000}]}];}
  if(goal===100000){return [{lapis:true,ax:250000,ar:250000,bl:250000,br:250000,left:510000,right:510000,abasic:25000,bbasic:25000,own:51000,mega:50000,doubleMega:4800,total:105800,secondary:[{name:"Cさん",parent:"Aさん",left:120000,right:120000,basic:12000},{name:"Dさん",parent:"Aさん",left:120000,right:120000,basic:12000},{name:"Eさん",parent:"Bさん",left:120000,right:120000,basic:12000},{name:"Fさん",parent:"Bさん",left:120000,right:120000,basic:12000}]}];}
@@ -203,6 +203,7 @@ function render(){
  if(m.mega)add("メガマッチ（直接紹介者のベーシックの100％）",m.mega,[["Aさんのベーシック",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],["Bさんのベーシック",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)]]);
  if(m.doubleMega)add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.map(s=>[s.name+"（"+s.parent+"の紹介）のベーシック",yen(s.basic)+" × 10％ ＝ "+yen(s.basic*.1)]));
 
+ if(m.leadership){const smaller=Math.min(m.left,m.right),larger=Math.max(m.left,m.right),target=Math.min(larger,smaller*2);add("リーダーシップボーナス（エメラルド 1.5％）",m.leadership,[["少ない側を2倍にして再比較",pts(smaller)+" × 2 ＝ "+pts(smaller*2)],["計算対象ポイント",pts(target)+" × 1.5％ ＝ "+yen(m.leadership)]]);}
  document.getElementById("sum").textContent=yen(m.total);
 }
 
@@ -218,7 +219,7 @@ function showPersonBonus(name){
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const base='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％</div></div>';
  const match=bonusName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+bonusName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate===1?'100％':'10％')+' ＝ <strong>'+yen(basic*rate)+'</strong></div></div>':'';
- const titleNote=m.large&&m.secondary.some(s=>s.name===name)?'<p class="lapis-dialog-relation">タイトル：'+m.secondary.find(s=>s.name===name).title+'</p>':m.lapis&&((name==="Aさん"||name==="Bさん")||(m.sapphire&&["Cさん","Dさん","Eさん","Fさん"].includes(name)))?'<p class="lapis-dialog-relation">タイトル：'+(name==="Aさん"||name==="Bさん"?(m.sapphire?"ラピス":"クリスタル"):"クリスタル")+'（左右の少ない側が'+(name==="Aさん"||name==="Bさん"&&m.sapphire?"50万PT":"20万PT")+'以上）</p>':"";
+ const titleNote=m.large&&(name==="あなた"||name==="Aさん"||name==="Bさん")?'<p class="lapis-dialog-relation">タイトル：'+(name==="あなた"?"エメラルド":"サファイア")+'</p>':m.large&&m.secondary.some(s=>s.name===name)?'<p class="lapis-dialog-relation">タイトル：'+m.secondary.find(s=>s.name===name).title+'</p>':m.lapis&&((name==="Aさん"||name==="Bさん")||(m.sapphire&&["Cさん","Dさん","Eさん","Fさん"].includes(name)))?'<p class="lapis-dialog-relation">タイトル：'+(name==="Aさん"||name==="Bさん"?(m.sapphire?"ラピス":"クリスタル"):"クリスタル")+'（左右の少ない側が'+(name==="Aさん"||name==="Bさん"&&m.sapphire?"50万PT":"20万PT")+'以上）</p>':"";
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+titleNote+base+match;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
