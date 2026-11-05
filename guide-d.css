@@ -255,5 +255,8 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .invoice-simple .family-shipping-condition strong{font-size:1.02rem;line-height:1.5}
 .procedure-guide .invoice-simple .family-shipping-condition p{margin:5px 0 0;font-size:.91rem;line-height:1.7}
 .procedure-guide .invoice-simple .family-shipping-condition p:empty{display:none}
-.procedure-guide .invoice-deadline .family-shipping-condition:first-child strong{font-size:1.45rem}
+.procedure-guide .invoice-deadline .family-shipping-condition:first-child strong{font-size:1.02rem}
+.procedure-guide .invoice-deadline .family-shipping-condition:nth-child(2){padding-top:10px}
+.procedure-guide .invoice-deadline .family-shipping-condition:nth-child(2) strong{font-size:.88rem;font-weight:600}
+.procedure-guide .invoice-deadline .family-shipping-condition:nth-child(2) p{font-size:.84rem}
 .procedure-guide .invoice-documents .family-shipping-condition{padding:14px 0}
