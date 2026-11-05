@@ -249,14 +249,11 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .salon-shopping-choice .eservice-link{margin-top:2px}
 @media(max-width:600px){.procedure-guide .salon-shopping-choice{padding:18px 16px}}
 
-/* Invoice prototype: emphasize key facts, retain existing submission steps */
-.procedure-guide .invoice-visual .family-shipping-condition{padding:17px 4px}
-.procedure-guide .invoice-visual .family-shipping-condition strong{font-size:1.06rem}
-.procedure-guide .invoice-visual .family-shipping-condition p{font-size:.88rem;color:var(--guide-text);line-height:1.75}
-
-.procedure-guide .invoice-visual.requirement-eligibility .family-shipping-conditions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.procedure-guide .invoice-visual.requirement-eligibility .family-shipping-condition{padding:16px;background:var(--guide-surface);border:0;border-radius:11px}
-.procedure-guide .invoice-visual.requirement-eligibility .family-shipping-condition:nth-child(2) strong{font-size:1.25rem;font-weight:800}
-.procedure-guide .invoice-visual.requirement-eligibility .family-shipping-condition:nth-child(3){grid-column:1/-1;padding:12px 16px;background:transparent;border-left:3px solid var(--guide-border);border-radius:0}
-.procedure-guide .invoice-visual.requirement-documents .family-shipping-condition strong{font-size:1.08rem}
-@media(max-width:520px){.procedure-guide .invoice-visual.requirement-eligibility .family-shipping-conditions{grid-template-columns:minmax(0,1fr)}.procedure-guide .invoice-visual.requirement-eligibility .family-shipping-condition:nth-child(3){grid-column:auto}}
+/* Invoice: three independent, concise sections */
+.procedure-guide .invoice-simple .family-shipping-conditions{display:block}
+.procedure-guide .invoice-simple .family-shipping-condition{padding:13px 0}
+.procedure-guide .invoice-simple .family-shipping-condition strong{font-size:1.02rem;line-height:1.5}
+.procedure-guide .invoice-simple .family-shipping-condition p{margin:5px 0 0;font-size:.91rem;line-height:1.7}
+.procedure-guide .invoice-simple .family-shipping-condition p:empty{display:none}
+.procedure-guide .invoice-deadline .family-shipping-condition:first-child strong{font-size:1.45rem}
+.procedure-guide .invoice-documents .family-shipping-condition{padding:14px 0}
