@@ -316,6 +316,10 @@ body{padding-bottom:0!important}
 .guide-search-result-arrow{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:22px;color:#5e83aa}
 .guide-search-empty{margin:8px 3px;color:#5f7182;font-size:13px}
 @media(max-width:600px){.guide-search-result-list{grid-template-columns:1fr;max-height:360px}#results:not([hidden]){padding:12px}}
+
+/* Keep a single visible focus border on search field and result links. */
+#search input:focus,#search input:focus-visible{outline:none!important;box-shadow:none!important;border-color:#0055a4!important}
+#results .guide-search-result:focus,#results .guide-search-result:focus-visible{outline:none!important;box-shadow:none!important;border-color:#0055a4!important}
 </style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-3"></head><body id="top">
 
 <main>
