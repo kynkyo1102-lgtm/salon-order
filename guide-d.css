@@ -220,9 +220,8 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .requirement-visual .family-shipping-title::before{content:"✓";display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:10px;background:var(--guide-surface);color:var(--guide-primary);font-size:1rem}
 .procedure-guide .requirement-documents .family-shipping-title::before{content:"▤"}
 .procedure-guide .requirement-visual .family-shipping-conditions{gap:0}
-.procedure-guide .requirement-visual .family-shipping-condition{display:block;position:relative;padding:16px 4px 16px 43px;border-bottom:1px solid var(--guide-border)}
-.procedure-guide .requirement-visual .family-shipping-condition::before{content:"✓";position:absolute;top:17px;left:4px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--guide-surface);color:var(--guide-primary);font-size:.85rem;font-weight:800}
-.procedure-guide .requirement-documents .family-shipping-condition::before{content:"▤";border-radius:8px}
+.procedure-guide .requirement-visual .family-shipping-condition{display:block;padding:16px 4px;border-bottom:1px solid var(--guide-border)}
+
 .procedure-guide .requirement-visual .family-shipping-condition strong{display:block;margin-bottom:5px;font-size:.98rem}
 .procedure-guide .requirement-visual .family-shipping-condition p{font-size:.9rem;line-height:1.8}
 .requirement-document-filter{margin-top:21px}
@@ -234,4 +233,4 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .requirement-filter-detail strong,.requirement-extra strong{font-size:.93rem;color:var(--guide-primary)}
 .requirement-filter-detail p,.requirement-extra p{margin:6px 0 0;font-size:.89rem;line-height:1.8}
 .requirement-extra{margin-top:17px;padding:15px 17px;border-left:3px solid var(--guide-border);background:#f8fafc;border-radius:0 9px 9px 0}
-@media(max-width:600px){.procedure-guide .requirement-visual{padding:19px 16px;margin:26px 0 18px}.procedure-guide .requirement-visual .family-shipping-condition{padding:15px 2px 15px 39px}.requirement-filter-button{padding:11px 7px}}
+@media(max-width:600px){.procedure-guide .requirement-visual{padding:19px 16px;margin:26px 0 18px}.procedure-guide .requirement-visual .family-shipping-condition{padding:15px 2px}.requirement-filter-button{padding:11px 7px}}
