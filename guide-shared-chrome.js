@@ -1,5 +1,13 @@
 /* Shared guide header, navigation, footer and shortcuts */
 (()=>{'use strict';
+// Reset scroll only for ordinary document navigation. Hash targets (including
+// guided steps and procedure selections) keep their native/custom positioning.
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+window.addEventListener('pageshow',()=>{
+ if(location.hash)return;
+ window.scrollTo({top:0,left:0,behavior:'instant'});
+});
+
 const groups=[
 ['新規登録',[['登録ガイド','guide-a-chat.html'],['WEB登録ガイド','guide-a-web.html'],['郵送登録ガイド','guide-a-paper.html'],['初回費用','guide-a-cost.html']]],
 ['定期購入',[['毎月の商品購入','guide-b-cost.html'],['お届けスケジュール','guide-b-schedule.html'],['お支払方法','guide-b-payment.html'],['締め日について','guide-b-deadline.html'],['定期購入の停止','guide-b-stop.html'],['６か月連続購入特典','guide-b-bonus.html']]],
