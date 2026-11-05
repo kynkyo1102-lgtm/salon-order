@@ -231,4 +231,4 @@ document.getElementById("binary-diagram").addEventListener("click",e=>{const p=e
 document.getElementById("binary-diagram").addEventListener("keydown",e=>{const p=e.target.closest(".lapis-tap-person");if(p&&(e.key==="Enter"||e.key===" ")){e.preventDefault();showPersonBonus(p.dataset.person)}});
 document.getElementById("binary-diagram").addEventListener("click",e=>{const btn=e.target.closest("[data-diagram-mode]");if(btn){largeDiagramMode=btn.dataset.diagramMode;diagramLapis(generate(Number(document.getElementById("goal").value))[0])}});
 document.getElementById("goal").addEventListener("change",()=>{selected=0;largeDiagramMode="pt";render()});render();
-</script><script src="./guide-shared-chrome.js?v=20261029-3" defer></script></body></html>
+</script><script src="./guide-shared-chrome.js?v=20261105-1" defer></script></body></html>
