@@ -54,7 +54,7 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 .myplan .payout-note{margin:21px 0 6px;padding:20px 22px;border-radius:13px;background:#f2f7fb;border:1px solid #d9e7ef;line-height:1.8}.myplan .payout-note>strong{display:block;font-size:17px;color:#0055a4;margin-bottom:7px}.myplan .payout-note p{margin:0 0 8px;font-size:14px}.myplan .payout-note small{display:block;font-size:12px;color:#617587}.myplan .payout-note a{display:inline-block;margin-top:12px;font-size:13px}.myplan .caution{margin-top:34px}@media(max-width:600px){.myplan .payout-note{padding:17px 16px}.myplan .payout-note>strong{font-size:16px}} </style></head><body class="registration-guide"><main class="myplan">
 <nav class="guide-category-breadcrumb" aria-label="パンくずリスト"><a href="./ninaguide.html">メンバーズガイド</a><span aria-hidden="true">›</span><span aria-current="page">マイプラン検索</span></nav>
 <h1>マイプラン検索</h1><p class="lead">目標金額から、組織とボーナスの例を見てみましょう。</p>
-<section class="panel"><h2>目標金額を選ぶ</h2><label for="goal">月間ボーナス</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="40000" selected>4万円台（4万〜5万円未満）</option><option value="50000">5万円台（5万〜6万円未満）</option><option value="300000">30万円台（30万〜31万円未満）</option><option value="600000">60万円台（60万〜61万円未満）</option></select></section>
+<section class="panel"><h2>目標金額を選ぶ</h2><label for="goal">月間ボーナス</label><select id="goal"><option value="10000">1万円台（1万〜2万円未満）</option><option value="40000" selected>4万円台（4万〜5万円未満）</option></select></section>
 <section class="panel"><h2>組織の例</h2>
 
 <div class="myplan-diagram"><div id="binary-diagram" class="binary-diagram" role="img" aria-label="本人からAさん・Bさんにつながる組織図"></div></div>
@@ -64,7 +64,7 @@ body.registration-guide{width:100%;max-width:100%;margin:0;overflow-x:clip}
 <p class="myplan-bottom-link"><a class="link" href="./guide-c-bonus.html">ボーナスプラン一覧で仕組みを確認する ›</a></p>
 </main><script>
 const yen=n=>n.toLocaleString("ja-JP")+"円",pts=n=>(n/10000).toLocaleString("ja-JP",{maximumFractionDigits:1})+"万PT";
-const ranges=[10000,40000,50000,300000,600000];
+const ranges=[10000,40000];
 let selected=0, candidates=[];
 function generate(goal){
  if(goal===40000){const ax=100000,ar=100000,bl=100000,br=100000,left=210000,right=210000,abasic=10000,bbasic=10000,own=21000,mega=20000,doubleMega=0;return [{ax,ar,bl,br,left,right,abasic,bbasic,own,mega,doubleMega,total:own+mega}];}
