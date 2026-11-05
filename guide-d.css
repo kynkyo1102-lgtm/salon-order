@@ -239,3 +239,12 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .requirement-visual .family-shipping-title:nth-of-type(2){display:flex;align-items:center;gap:10px;margin:26px 0 12px;font-size:1.03rem;line-height:1.55;font-weight:700}
 .procedure-guide .requirement-visual .family-shipping-title:nth-of-type(2)::before{content:"▤"}
 .procedure-guide .requirement-visual .family-shipping-condition:last-child{border-bottom:0}
+
+/* Shopping: salon first, then E-Service */
+.procedure-guide .salon-shopping-guide{display:grid;gap:14px;margin:26px 0 36px}
+.procedure-guide .salon-shopping-guide>.method-title{margin:0 0 3px}
+.procedure-guide .salon-shopping-choice{padding:21px 23px;border:1px solid var(--guide-border);border-radius:14px;background:#fff}
+.procedure-guide .salon-shopping-choice strong{display:block;font-size:1.03rem;color:var(--guide-primary);margin-bottom:7px}
+.procedure-guide .salon-shopping-choice .method-note{margin:0 0 13px;font-size:.91rem;line-height:1.8}
+.procedure-guide .salon-shopping-choice .eservice-link{margin-top:2px}
+@media(max-width:600px){.procedure-guide .salon-shopping-choice{padding:18px 16px}}
