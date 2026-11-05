@@ -163,15 +163,13 @@ function diagram(m){
 }
 function diagramLapis(m){
  const root=document.getElementById("binary-diagram");
- const people=[{name:"あなた",id:1,x:380,y:58},{name:"Aさん",id:2,x:190,y:202},{name:"Bさん",id:3,x:570,y:202},{name:"Cさん",id:4,x:95,y:356},{name:"Dさん",id:5,x:285,y:356},{name:"Eさん",id:6,x:475,y:356},{name:"Fさん",id:7,x:665,y:356}];
+ const people=[{name:"あなた",id:1,x:380,y:74},{name:"Aさん",id:2,x:190,y:275},{name:"Bさん",id:3,x:570,y:275},{name:"Cさん",id:4,x:95,y:490},{name:"Dさん",id:5,x:285,y:490},{name:"Eさん",id:6,x:475,y:490},{name:"Fさん",id:7,x:665,y:490}];
  const edges=[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]];
- const lines=edges.map(([a,b])=>'<line x1="'+people[a].x+'" y1="'+(people[a].y+25)+'" x2="'+people[b].x+'" y2="'+(people[b].y-25)+'" stroke="#9ab7c9" stroke-width="3" stroke-linecap="round"/>').join("");
- const nodes=people.map(p=>'<image href="./assets/avatar_0'+p.id+'.svg" x="'+(p.x-25)+'" y="'+(p.y-28)+'" width="50" height="50"/><text x="'+p.x+'" y="'+(p.y+39)+'" text-anchor="middle" class="lapis-svg-name">'+p.name+'</text>').join("");
- const leaves=people.slice(3).map(p=>{
-  const x=p.x;
-  return '<path d="M'+x+' 410 L'+(x-80)+' 535 L'+x+' 535 Z" fill="#73b6e5"/><path d="M'+x+' 410 L'+(x+80)+' 535 L'+x+' 535 Z" fill="#0055a4"/><text x="'+(x-42)+'" y="558" text-anchor="middle" class="lapis-svg-pt">12万PT</text><text x="'+(x+42)+'" y="558" text-anchor="middle" class="lapis-svg-pt">12万PT</text>';
- }).join("");
- root.innerHTML='<div class="lapis-tree"><p class="lapis-tree-summary">あなたの左右 各51万PT <span>（ラピス条件：少ない側50万PT以上）</span></p><svg class="lapis-tree-svg" viewBox="0 0 760 580" role="img" aria-label="あなたから直接紹介したAさんとBさんへ、AさんからCさんとDさんへ、BさんからEさんとFさんへ線でつながる紹介組織図。CさんからFさんの各人の下に左右12万PTずつの三角形"><g>'+lines+'</g><text x="380" y="119" text-anchor="middle" class="lapis-svg-relation">あなたの直接紹介</text><text x="190" y="275" text-anchor="middle" class="lapis-svg-relation">Aさんの直接紹介</text><text x="570" y="275" text-anchor="middle" class="lapis-svg-relation">Bさんの直接紹介</text>'+nodes+leaves+'</svg><div class="lapis-tree-detail"><span>Aさん・Bさん：左右 各25万PT</span><span>C〜Fさん：左右 各12万PT</span></div><p class="lapis-diagram-note">※本人・Aさん・Bさんの自己購入は各1万PT。各二次紹介者の左右グループを合算した組織例です。</p></div>';
+ const lines=edges.map(([a,b])=>'<line x1="'+people[a].x+'" y1="'+(people[a].y+57)+'" x2="'+people[b].x+'" y2="'+(people[b].y-50)+'" stroke="#9ab7c9" stroke-width="3" stroke-linecap="round"/>').join("");
+ const nodes=people.map(p=>'<image href="./assets/avatar_0'+p.id+'.svg" x="'+(p.x-35)+'" y="'+(p.y-38)+'" width="70" height="70"/><text x="'+p.x+'" y="'+(p.y+54)+'" text-anchor="middle" class="lapis-svg-name">'+p.name+'</text>').join("");
+ const leaves=people.slice(3).map(p=>{const x=p.x;return '<path d="M'+x+' 566 L'+(x-87)+' 805 L'+x+' 805 Z" fill="#73b6e5"/><path d="M'+x+' 566 L'+(x+87)+' 805 L'+x+' 805 Z" fill="#0055a4"/><text x="'+(x-43)+'" y="831" text-anchor="middle" class="lapis-svg-pt">12万PT</text><text x="'+(x+43)+'" y="831" text-anchor="middle" class="lapis-svg-pt">12万PT</text>'}).join("");
+ const label=(x,y,t)=>'<rect x="'+(x-85)+'" y="'+(y-17)+'" width="170" height="32" rx="16" fill="#edf6fb"/><text x="'+x+'" y="'+(y+5)+'" text-anchor="middle" class="lapis-svg-relation">'+t+'</text>';
+ root.innerHTML='<div class="lapis-tree"><p class="lapis-tree-summary">あなたの左右 各51万PT <span>（ラピス条件：少ない側50万PT以上）</span></p><svg class="lapis-tree-svg" viewBox="0 0 760 855" role="img" aria-label="あなたがAさんとBさんを直接紹介。AさんがCさんとDさんを紹介し、BさんがEさんとFさんを紹介。CさんからFさんの下に左右各12万PTの三角形。"><g>'+lines+'</g>'+label(380,174,"あなたの直接紹介")+label(190,390,"Aさんの直接紹介")+label(570,390,"Bさんの直接紹介")+nodes+leaves+'</svg><div class="lapis-tree-detail"><span>Aさん・Bさん：左右 各25万PT</span><span>C〜Fさん：左右 各12万PT</span></div><p class="lapis-diagram-note">※本人・Aさん・Bさんの自己購入は各1万PT。各二次紹介者の左右グループを合算した組織例です。</p></div>';
 }
 function render(){
  const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
