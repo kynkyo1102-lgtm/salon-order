@@ -59,7 +59,7 @@ function identityDocumentsGuide(doc,purpose){
  };choices.append(button);buttons.push(button)
  });buttons[0].click();
  const section=add("section","family-shipping-guide requirement-visual requirement-documents");
- section.append(el("h3","family-shipping-title","必要書類"));
+ section.append(el("h3","family-shipping-title","添付書類"));
  const list=el("div","family-shipping-conditions");section.append(list);
  [
  ["満25歳未満の方","本人確認書類と、署名・捺印した本人確認書類貼付用紙が必要です。"],
@@ -84,7 +84,7 @@ function familyShippingGuide(){
  ["解除について","代表者の定期購入が停止すると、おまとめ配送も解除されます。"]
  ];
  conditions.forEach(([label,description])=>{const row=el("div","family-shipping-condition");row.append(el("strong","",label),el("p","",description));list.append(row)});
- requirementSection("必要書類",[["名字が異なる場合","続柄を確認できる住民票を提出してください。"]]);
+ requirementSection("添付書類",[["名字が異なる場合","続柄を確認できる住民票を提出してください。"]]);
 }
 function creditCardGuide(doc){
  add("p","procedure-pilot-lead","クレジットカード情報の登録・変更・更新は、E-Serviceからのお手続きがおすすめです。");
@@ -147,13 +147,13 @@ function transferAndEntityGuide(purpose){
  if(purpose==="ポジションを譲渡・相続したい"){
   const conditions=requirementSection("申請条件",[
    ["対象者","個人名義の譲渡・相続は、二親等以内の血縁関係に限られます。"],
-   ["相続の期限","死亡による相続は、当該会員の死亡日から3か月以内に手続きを完了する必要があります。"],
+   
    ["再登録の制限","譲渡・相続後の再登録は6か月経過しなければ登録できません。審査結果によっては変更できない場合があります。"]
   ]);
   conditions.classList.add("requirement-visual","requirement-eligibility");
-  const docs=requirementSection("必要書類・記入事項",[
-   ["申請書","「譲渡・相続」欄にチェックを入れ、譲渡・相続理由を記入してください。"],
-   ["会員登録申請書","譲渡・相続する方は新たな会員番号となるため、会員登録申請書に必要事項をすべて記入して提出してください。"]
+  requirementSection("提出期限",[["相続の期限","死亡による相続は、当該会員の死亡日から3か月以内に手続きを完了する必要があります。"]]).classList.add("invoice-simple");
+  const docs=requirementSection("添付書類",[
+   ["会員登録申請書","譲渡・相続する方は新たな会員番号となるため、別途提出が必要です。"]
   ]);
   docs.classList.add("requirement-visual","requirement-documents");
   const selector=el("div","requirement-document-filter");
@@ -172,14 +172,12 @@ function transferAndEntityGuide(purpose){
   selector.append(options,details);docs.append(selector);buttons[0].click();
   const extra=el("div","requirement-extra");extra.append(el("strong","","満25歳未満の方"),el("p","","本人確認書類貼付用紙と本人確認書類も提出してください。"));docs.append(extra);
  }else if(purpose==="法人登録したい"){
-  requirementSection("必要書類・記入事項",[
-   ["申請書","「法人・個人変更」欄にチェックを入れ、変更後の法人名・住所・連絡先を記入してください。"],
+  requirementSection("添付書類",[
    ["登記事項証明書","登記事項証明書（登記簿謄本・コピー可）。証明書に名前が記載されていない場合は、社員であることを証明できる公の書面も必要です。"],
    ["口座振替依頼書","個人登録から法人登録へ変更する場合は、口座振替依頼書も提出してください。"]
   ]);
  }else{
-  requirementSection("必要書類・記入事項",[
-   ["申請書","「法人・個人変更」欄にチェックを入れ、変更後の個人名・住所・連絡先を記入してください。"],
+  requirementSection("添付書類",[
    ["口座振替依頼書","登録者個人の口座振替依頼書を提出してください。"]
   ]);
  }
@@ -191,9 +189,10 @@ function branchApplicationGuide(doc,purpose){
   ["申請できる時期","タイトルを達成し、確定した月度の翌月度から、既定の配置数まで申請できます。"],
   ["紹介者と配置","ブランチの紹介者は本店となります。上位者を指定した場合は、その会員を基点とした自動配置になります。"]
  ]);
- requirementSection("必要書類・記入事項",[
-  ["ブランチ申請書","申請日、今回申請する新しい会員番号、氏名・法人名、連絡先、支払方法、上位者指定欄、配送希望時間帯などを記入してください。"],
-  ["お支払い方法","クレジットカード決済・前振込・代金引換から選択します。カード決済は事前のカード登録、前振込は事前の振込が必要です。"],
+ requirementSection("お支払い方法",[
+  ["選択できる方法","クレジットカード決済・前振込・代金引換から選択します。カード決済は事前のカード登録、前振込は事前の振込が必要です。"]
+ ]);
+ requirementSection("添付書類",[
   ["前振込の場合","振込明細書を添付してください。申請書の案内に従い、申込者と同じ名義で振り込んでください。"]
  ]);
 }
@@ -222,10 +221,7 @@ function nameCardOrderGuide(doc,purpose){
   ["お支払い","代金引換でのお届けです。配送手数料1,000円（税込）、代金引換手数料350円（税込）が別途かかります。"],
   ["お届け","受注後10日前後が目安です。登録住所へお届けします。"]
  ]);
- requirementSection("必要書類・記入事項",[
-  ["会員用名刺注文書","注文日・会員番号・数量と、名刺に印刷する氏名、ローマ字氏名、住所、会社名・グループ名、電話番号、FAX番号、携帯電話番号、メールアドレスなどを記入してください。"],
-  ["印刷内容の確認","記入した内容がそのまま黒一色で印刷されます。誤字・脱字や記入漏れがないか、送信前にご確認ください。"]
- ]);
+
  const section=add("section","family-shipping-guide requirement-visual requirement-eligibility");
  section.append(el("h3","family-shipping-title","ご注文前の確認"));
  const list=el("div","family-shipping-conditions");section.append(list);
@@ -233,13 +229,14 @@ function nameCardOrderGuide(doc,purpose){
 }
 function myNumberGuide(doc){
  add("p","procedure-pilot-lead","クリスタル以上への昇格には、マイナンバー（個人番号）の届出が必要です。個人情報を含むため、届出書と確認書類は必ず郵送で提出してください。");
- requirementSection("提出条件・期限",[
-  ["提出が必要な方","クリスタル以上へ昇格する方が対象です。"],
-  ["提出期限","昇格する月度の翌々月10日までに提出してください。"],
-  ["未提出の場合","マイナンバーが未提出の場合、クリスタル以上に昇格することで計算されるボーナスを取得できません。"]
+ requirementSection("申請条件",[
+  ["提出が必要な方","クリスタル以上へ昇格する方が対象です。"]
  ]);
- const docs=requirementSection("必要書類",[
-  ["マイナンバー届出書","提出日・会員番号・氏名または法人名・日中連絡の取れる電話番号を記入してください。"],
+ requirementSection("提出期限",[
+  ["昇格する月度の翌々月10日まで","期限までに届出書と確認書類を提出してください。"],
+  ["未提出の場合","クリスタル以上に昇格することで計算されるボーナスを取得できません。"]
+ ]).classList.add("invoice-simple","invoice-deadline");
+ const docs=requirementSection("添付書類",[
   ["マイナンバーカードをお持ちの方","マイナンバーカードの表面・裏面のコピーを貼付してください。別途の本人確認書類は不要です。"],
   ["通知カードなどをお持ちの方","個人番号の記載面のコピーと、本人確認書類を添付してください。顔写真付きの指定書類なら1点、該当書類がない場合は指定された書類を2点ご用意ください。"],
   ["法人登録扱いの方","法人番号を確認できる書類のコピーを添付してください。法人番号の記載がある登記事項証明書（発行日から6か月以内）や法人番号指定通知書などが対象です。"]
