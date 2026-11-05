@@ -134,7 +134,31 @@ function reactivationConditions(){
  procedureNotice(section,"例えば4月に購入し6月に申請が受理された場合、復活は6月からで、4月・5月の権利は戻りません。","check");
  procedureNotice(section,"支店・ブランチの復活には本店の会員資格が有効であることなど、追加条件があります。公式申請書をご確認ください。");
 }
-function renderDetail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();updateProcedureBreadcrumb(i);heading(purpose);if(type==="card"){creditCardGuide(doc);return}if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="会員資格を復活したい"){pilotAddress(doc,purpose);reactivationConditions();return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){add("h3","method-title","購入方法");note("各サロン（プラッスドゥニナ）からお買い求めいただけます。");note("また、E-Serviceの【ショッピング】からご注文いただけます。");link("E-Serviceにログインする");const sec=add("section","detail-divider");add("p","method-note","注文書を利用する場合： "+doc,sec)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"手続きによって必要な書類が異なります。申請書の記載内容を必ず確認してください。","check")}
+function transferAndEntityGuide(purpose){
+ const section=add("section","family-shipping-guide");
+ section.append(el("h3","family-shipping-title","手続きの条件・必要書類"));
+ const list=el("div","family-shipping-conditions");section.append(list);
+ const item=(title,description)=>{const row=el("div","family-shipping-condition");row.append(el("strong","",title),el("p","",description));list.append(row)};
+ if(purpose==="ポジションを譲渡・相続したい"){
+  item("申請する内容","申請書の「譲渡・相続」欄にチェックを入れ、譲渡・相続理由を必ず記入してください。");
+  item("会員登録申請書","譲渡・相続する方は新たな会員番号となるため、会員登録申請書に必要事項をすべて記入して提出してください。満25歳未満の場合は、本人確認書類貼付用紙への本人確認書類の提出も必要です。");
+  item("個人名義の場合","二親等以内の血縁関係がわかる書類を提出してください。戸籍全部事項証明書（戸籍謄本・コピー可）または続柄記載の住民票（コピー可）が記載されています。");
+  item("法人名義の場合","登記事項証明書（登記簿謄本・コピー可）を提出してください。登記事項証明書に名前がない方は、社員であることを証明できる公の書面も必要です。");
+  item("相続の期限","死亡による相続は、当該会員の死亡日から3か月以内に手続きを完了する必要があります。");
+  item("再登録の制限","譲渡・相続後の再登録は6か月経過しなければ登録できません。審査結果によっては変更できない場合があります。");
+ }else{
+  const toCorporation=purpose==="法人登録したい";
+  item("申請する内容","申請書の「法人・個人変更」欄にチェックを入れ、変更後の法人名・個人名、住所、連絡先を記入してください。");
+  if(toCorporation){
+   item("登記事項証明書","登記事項証明書（登記簿謄本・コピー可）を提出してください。証明書に名前が記載されていない場合は、社員であることを証明できる公の書面（健康保険証のコピーなど）も必要です。");
+   item("口座振替依頼書","個人登録から法人登録へ変更する場合は、口座振替依頼書も必要です。");
+  }else{
+   item("口座振替依頼書","法人登録から個人登録へ変更する場合は、登録者個人の口座振替依頼書を提出してください。");
+  }
+ }
+ procedureNotice(section,"2025年12月1日版（Ver.2.1）の公式申請書に基づく内容です。申請前に最新の申請書をご確認ください。");
+}
+function renderDetail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();updateProcedureBreadcrumb(i);heading(purpose);if(type==="card"){creditCardGuide(doc);return}if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="会員資格を復活したい"){pilotAddress(doc,purpose);reactivationConditions();return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(purpose==="ポジションを譲渡・相続したい"||purpose==="法人登録したい"||purpose==="法人から個人登録へ変更したい"){pilotAddress(doc,purpose);transferAndEntityGuide(purpose);return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){add("h3","method-title","購入方法");note("各サロン（プラッスドゥニナ）からお買い求めいただけます。");note("また、E-Serviceの【ショッピング】からご注文いただけます。");link("E-Serviceにログインする");const sec=add("section","detail-divider");add("p","method-note","注文書を利用する場合： "+doc,sec)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"手続きによって必要な書類が異なります。申請書の記載内容を必ず確認してください。","check")}
 function detail(i,j){renderDetail(i,j);const footer=add("div","procedure-bottom-back");const b=el("button","inner-back","← 手続き一覧に戻る");b.type="button";b.onclick=()=>home(i);footer.append(b)}
 function openInitialCategory(){const match=location.hash.match(/^#category=([0-9]+)(?:&item=([0-9]+))?$/);if(match){const i=Number(match[1]),j=match[2]===undefined?null:Number(match[2]);if(Number.isInteger(i)&&i>=0&&i<groups.length){if(j!==null&&Number.isInteger(j)&&j>=0&&j<groups[i].items.length){detail(i,j);return}category(i);return}}home()}
 window.addEventListener("hashchange",openInitialCategory);
