@@ -298,6 +298,9 @@ body{padding-bottom:0!important}
 .salon-feature .salon-banner-salons .salon-banner-title,.salon-feature .salon-banner-myplan .salon-banner-title{font-size:clamp(18px,2.4vw,22px)!important;font-weight:800!important;color:#243b53!important}
 .salon-feature .salon-banner-myplan .salon-banner-arrow{color:#b66b20!important}
 @media(max-width:520px){.salon-feature .salon-banner-salons,.salon-feature .salon-banner-myplan{min-height:110px!important;padding:14px!important;gap:12px!important}.salon-feature .salon-banner-salons .salon-banner-icon,.salon-feature .salon-banner-myplan .salon-banner-icon{width:64px!important;height:64px!important;flex-basis:64px!important;padding:5px!important}.salon-feature .salon-banner-salons .salon-banner-title,.salon-feature .salon-banner-myplan .salon-banner-title{font-size:17px!important}}
+
+/* Touch devices can keep :hover after tapping; preserve each card's original color. */
+@media(hover:none){.salon-feature .salon-banner-salons:hover{background:linear-gradient(110deg,#eaf5ff 0%,#f7fbff 100%)!important;border-color:#b9daf5!important;transform:none!important;box-shadow:0 5px 0 rgba(35,80,115,.045)!important}.salon-feature .salon-banner-myplan:hover{background:linear-gradient(110deg,#fff0db 0%,#fffaf0 100%)!important;border-color:#f1c991!important;transform:none!important;box-shadow:0 5px 0 rgba(35,80,115,.045)!important}}
 </style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261027-2"></head><body id="top">
 
 <main>
