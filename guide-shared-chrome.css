@@ -35,3 +35,15 @@ body>.guide-shared-footer{display:block!important;width:100%!important;max-width
 .guide-category-breadcrumb a:hover{text-decoration:underline}
 .guide-category-breadcrumb [aria-current="page"]{color:#536475}
 #registration,#regular{scroll-margin-top:85px}
+
+/* Flat, minimal navigation instead of rounded card-like rows. */
+.guide-shared-menu{border-radius:4px!important;box-shadow:0 8px 22px rgba(20,40,60,.12)!important;padding:10px 18px 16px!important}
+.guide-shared-menu a{border-radius:0!important;background:transparent!important}
+.guide-shared-menu .guide-shared-primary{font-weight:600!important;padding:13px 5px!important}
+.guide-shared-menu .guide-shared-sub,.guide-shared-menu .guide-shared-secondary a{border-radius:0!important;background:transparent!important}
+.guide-shared-menu a:hover{text-decoration:underline!important;background:transparent!important}
+.guide-shared-accordion{border-radius:0!important;background:transparent!important;box-shadow:none!important;border-left:0!important;border-right:0!important;border-bottom:0!important}
+.guide-shared-accordion>summary{border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#283e53!important;font-weight:600!important;padding:12px 5px!important}
+.guide-shared-accordion>summary:hover{background:transparent!important;color:#004AAD!important}
+.guide-shared-accordion-content{background:transparent!important;padding-bottom:7px!important}
+.guide-shared-accordion-content a{padding:7px 6px!important;margin-left:12px!important}
