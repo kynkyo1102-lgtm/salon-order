@@ -42,6 +42,69 @@ const aliases=[['支払','決済','お支払','引落'],['登録','入会','申�
 const norm=s=>String(s).normalize('NFKC').toLowerCase().replace(/[\s　・／\/\-ー_!！?？。、（）()]+/g,'');
 const terms=q=>q.trim().split(/[\s　]+/).filter(Boolean).map(norm);
 const expand=t=>{const out=new Set([t]);for(const group of aliases){if(group.some(w=>norm(w)===t))group.forEach(w=>out.add(norm(w)))}return [...out]};
+
+/* Read the actual published pages, not just a hand-maintained keyword list.
+   Only public guide pages are indexed; no user-entered information is sent anywhere. */
+const contentPaths=[
+'guide-a-chat.html','guide-a-compare.html','guide-a-cost.html','guide-a-paper.html','guide-a-registration-steps.html','guide-a-web.html',
+'guide-b-bonus.html','guide-b-cost.html','guide-b-deadline.html','guide-b-payment.html','guide-b-schedule.html','guide-b-stop.html',
+'guide-c-basic.html','guide-c-bonus.html','guide-c-bonus-first-start.html','guide-c-bonus-5-active.html','guide-c-bonus-10-active.html',
+'guide-c-bonus-basic-commission.html','guide-c-bonus-mega-match.html','guide-c-bonus-double-mega-match.html','guide-c-bonus-leadership.html',
+'guide-c-bonus-amf.html','guide-c-bonus-cullinan-amf.html','guide-c-branch.html','guide-c-reward-basics.html','guide-c-title.html',
+'guide-cap-adjustment.html','guide-myplan.html','guide-e.html','guide-e-extra-points.html','ninaguide-salons.html','check.html'
+];
+const categoryFor=path=>path.startsWith('guide-a-')?'新規登録':path.startsWith('guide-b-')?'定期購入':path.startsWith('guide-c-')||path==='guide-cap-adjustment.html'?'ボーナスプラン':path.startsWith('guide-e-')||path==='guide-e.html'?'こんなときどうする？':'その他のコンテンツ';
+const contentRecords=[];
+let loading=null,loaded=false;
+function loadIndex(){
+ if(loading)return loading;
+ loading=(async()=>{
+  // Limit parallel requests to avoid overloading mobile browsers.
+  for(let i=0;i<contentPaths.length;i+=6){
+   await Promise.all(contentPaths.slice(i,i+6).map(async path=>{
+    try{
+     const res=await fetch('./'+path,{cache:'force-cache'});
+     if(!res.ok)return;
+     const doc=new DOMParser().parseFromString(await res.text(),'text/html');
+     doc.querySelectorAll('script,style,nav,header,footer,form,svg,template,.guide-shared-header,.guide-shared-footer').forEach(el=>el.remove());
+     const main=doc.querySelector('main')||doc.body;
+     const heading=main.querySelector('h1')?.textContent?.trim()||doc.title.split(/[｜|–-]/)[0].trim();
+     const headings=[...main.querySelectorAll('h2,h3,h4')].map(el=>el.textContent.trim()).filter(Boolean);
+     const body=main.textContent.replace(/\s+/g,' ').trim().slice(0,24000);
+     const desc=doc.querySelector('meta[name="description"]')?.content||headings.slice(0,3).join('・')||'ページの内容を見る';
+     contentRecords.push({title:heading||path,category:categoryFor(path),description:desc.slice(0,110),url:path,
+      titleN:norm(heading),catN:norm(categoryFor(path)),descN:norm(desc),keyN:norm(headings.join(' ')),
+      bodyN:norm(body),isContent:true});
+    }catch(e){/* A failed page should not prevent searching other pages. */}
+   }));
+  }
+  // Procedure content is rendered by JS, so index its published data source.
+  try{
+   const response=await fetch('./guide-d-data.js',{cache:'force-cache'});
+   if(response.ok){
+    const source=await response.text();
+    const groupSource=source.match(/const groups=\[([\s\S]*?)\];/);
+    if(groupSource){
+     const chunks=groupSource[1].split(/\},\s*\{/);
+     chunks.forEach((chunk,index)=>{
+      const name=chunk.match(/name:"([^"]+)"/)?.[1]||'手続き・申請';
+      const items=[...chunk.matchAll(/\["([^"]+)","([^"]+)"/g)];
+      items.forEach((match,itemIndex)=>{
+       const title=match[1],docName=match[2];
+       contentRecords.push({title,category:'手続き・申請',description:docName,url:'guide-d.html#category='+index+'&item='+itemIndex,
+        titleN:norm(title),catN:norm('手続き・申請'),descN:norm(docName),keyN:norm(name+' '+docName),
+        bodyN:'',isContent:true,isProcedure:true});
+      });
+     });
+    }
+   }
+  }catch(e){}
+  loaded=true;
+  if(input.value.trim())render(input.value);
+ })();
+ return loading;
+}
+
 const records=pages.map(([title,category,description,url,keywords])=>({title,category,description,url,keywords,titleN:norm(title),catN:norm(category),descN:norm(description),keyN:norm(keywords)}));
 const escapeHTML=s=>s.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 let lastQuery='';
@@ -51,7 +114,7 @@ function render(query){
  const q=query.trim();if(!q){box.hidden=true;return}
  box.hidden=false;
  const words=terms(q),full=norm(q);
- const ranked=records.map(item=>{
+ const ranked=[...records,...contentRecords].map(item=>{
   let score=0,matched=0;
   for(const word of words){
    const variants=expand(word);
@@ -64,6 +127,7 @@ function render(query){
     if(item.catN.includes(t))best=Math.max(best,exact?22:12);
     if(item.keyN.includes(t))best=Math.max(best,exact?28:18);
     if(item.descN.includes(t))best=Math.max(best,exact?14:8);
+    if(item.bodyN&&item.bodyN.includes(t))best=Math.max(best,exact?7:4);
    }
    if(best){matched++;score+=best}
   }
@@ -71,12 +135,14 @@ function render(query){
   if(item.titleN.includes(full))score+=35;
   if(matched!==words.length)score=0;
   return {...item,score};
- }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,'ja')).slice(0,12);
+ }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,'ja'));
+ const unique=new Map();for(const item of results){if(!unique.has(item.url))unique.set(item.url,item)}
+ const results=[...unique.values()].slice(0,15);
  const heading=document.createElement('div');heading.className='guide-search-result-heading';
- const count=document.createElement('strong');count.textContent=ranked.length?('検索結果 '+ranked.length+'件'):'該当するページが見つかりませんでした';
+ const count=document.createElement('strong');count.textContent=results.length?('検索結果 '+results.length+'件'):'該当するページが見つかりませんでした';
  const clear=document.createElement('button');clear.type='button';clear.className='guide-search-clear';clear.textContent='閉じる';clear.addEventListener('click',()=>{input.value='';render('')});
  heading.append(count,clear);box.append(heading);
- if(!ranked.length){const p=document.createElement('p');p.className='guide-search-empty';p.textContent='別の言葉で試してみてください。例：住所変更、クレジットカード、ボーナス、解約';box.append(p);return}
+ if(!results.length){const p=document.createElement('p');p.className='guide-search-empty';p.textContent='別の言葉で試してみてください。例：住所変更、クレジットカード、ボーナス、解約';box.append(p);return}
  const list=document.createElement('div');list.className='guide-search-result-list';
  for(const item of ranked){const a=document.createElement('a');a.className='guide-search-result';a.href='./'+item.url;
  const category=document.createElement('span');category.className='guide-search-result-category';category.textContent=item.category;
@@ -86,7 +152,9 @@ function render(query){
  a.append(category,title,desc,arrow);list.append(a)}
  box.append(list);
 }
-form.addEventListener('submit',e=>{e.preventDefault();render(input.value)});
+form.addEventListener('submit',e=>{e.preventDefault();loadIndex();render(input.value)});
+input.addEventListener('focus',loadIndex,{once:true});
+if('requestIdleCallback' in window)requestIdleCallback(loadIndex,{timeout:2500});else setTimeout(loadIndex,800);
 let debounce;input.addEventListener('input',()=>{clearTimeout(debounce);debounce=setTimeout(()=>render(input.value),180)});
 document.querySelectorAll('[data-query]').forEach(button=>button.addEventListener('click',()=>{input.value=button.dataset.query;render(input.value)}));
 })();
