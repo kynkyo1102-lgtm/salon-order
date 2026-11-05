@@ -248,3 +248,8 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 .procedure-guide .salon-shopping-choice .method-note{margin:0 0 13px;font-size:.91rem;line-height:1.8}
 .procedure-guide .salon-shopping-choice .eservice-link{margin-top:2px}
 @media(max-width:600px){.procedure-guide .salon-shopping-choice{padding:18px 16px}}
+
+/* Invoice prototype: emphasize key facts, retain existing submission steps */
+.procedure-guide .invoice-visual .family-shipping-condition{padding:17px 4px}
+.procedure-guide .invoice-visual .family-shipping-condition strong{font-size:1.06rem}
+.procedure-guide .invoice-visual .family-shipping-condition p{font-size:.88rem;color:var(--guide-text);line-height:1.75}
