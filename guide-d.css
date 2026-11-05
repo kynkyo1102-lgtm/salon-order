@@ -213,3 +213,25 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 /* One shared breadcrumb, with a return action on detail pages */
 .guide-category-breadcrumb .procedure-crumb-link{border:0;background:transparent;padding:0;color:#496b89;font:inherit;cursor:pointer;text-decoration:none}
 .guide-category-breadcrumb .procedure-crumb-link:hover,.guide-category-breadcrumb .procedure-crumb-link:focus-visible{text-decoration:underline}
+
+/* Visual requirements prototype: transfer and inheritance only */
+.procedure-guide .requirement-visual{margin:32px 0 20px;padding:23px 23px 25px;border:1px solid var(--guide-border);border-radius:16px;background:#fff;box-shadow:0 4px 16px rgba(0,74,173,.045)}
+.procedure-guide .requirement-visual .family-shipping-title{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:1.13rem}
+.procedure-guide .requirement-visual .family-shipping-title::before{content:"✓";display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:10px;background:var(--guide-surface);color:var(--guide-primary);font-size:1rem}
+.procedure-guide .requirement-documents .family-shipping-title::before{content:"▤"}
+.procedure-guide .requirement-visual .family-shipping-conditions{gap:0}
+.procedure-guide .requirement-visual .family-shipping-condition{display:block;position:relative;padding:16px 4px 16px 43px;border-bottom:1px solid var(--guide-border)}
+.procedure-guide .requirement-visual .family-shipping-condition::before{content:"✓";position:absolute;top:17px;left:4px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--guide-surface);color:var(--guide-primary);font-size:.85rem;font-weight:800}
+.procedure-guide .requirement-documents .family-shipping-condition::before{content:"▤";border-radius:8px}
+.procedure-guide .requirement-visual .family-shipping-condition strong{display:block;margin-bottom:5px;font-size:.98rem}
+.procedure-guide .requirement-visual .family-shipping-condition p{font-size:.9rem;line-height:1.8}
+.requirement-document-filter{margin-top:21px}
+.requirement-filter-title{font-size:.94rem;font-weight:750;color:var(--guide-primary);margin:0 0 12px}
+.requirement-filter-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.requirement-filter-button{padding:12px 10px;border:1px solid var(--guide-border);border-radius:10px;background:#fff;color:var(--guide-primary);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+.requirement-filter-button[aria-pressed="true"]{background:var(--guide-surface);border-color:var(--guide-primary);box-shadow:inset 0 0 0 1px var(--guide-primary)}
+.requirement-filter-result{margin-top:12px;padding:16px 17px;background:var(--guide-surface);border-radius:11px}
+.requirement-filter-detail strong,.requirement-extra strong{font-size:.93rem;color:var(--guide-primary)}
+.requirement-filter-detail p,.requirement-extra p{margin:6px 0 0;font-size:.89rem;line-height:1.8}
+.requirement-extra{margin-top:17px;padding:15px 17px;border-left:3px solid var(--guide-border);background:#f8fafc;border-radius:0 9px 9px 0}
+@media(max-width:600px){.procedure-guide .requirement-visual{padding:19px 16px;margin:26px 0 18px}.procedure-guide .requirement-visual .family-shipping-condition{padding:15px 2px 15px 39px}.requirement-filter-button{padding:11px 7px}}
