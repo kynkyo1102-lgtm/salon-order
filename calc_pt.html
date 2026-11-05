@@ -7,195 +7,52 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- 共通CSSの読み込み -->
-  <link rel="stylesheet" href="style.css">
   
-  <style>
-    .calc-select, .calc-input {
-      width: 100%;
-      padding: 10px 12px;
-      font-size: 0.88rem;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background-color: #fcfcfc;
-      box-sizing: border-box;
-      color: var(--text-main);
+  
+  
+  <link rel="stylesheet" href="css/app-shell.css?v=shared-footer-20261022"><link rel="stylesheet" href="css/robot-calc-clean.css?v=header-cleanup-1">
+  
+  <script>
+    if (new URLSearchParams(location.search).get('theme') === 'blue') {
+      const themeSheet = document.createElement('link');
+      themeSheet.rel = 'stylesheet';
+      themeSheet.href = 'css/arcade-blue-preview.css?v=1';
+      document.head.appendChild(themeSheet);
+      document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
     }
-    .calc-select:focus, .calc-input:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background-color: #fff;
-    }
-    .product-list-box {
-      max-height: 280px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 8px;
-      margin-bottom: 12px;
-      background: #fff;
-    }
-    .product-item {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 6px;
-      border-bottom: 1px dashed var(--border-color);
-      font-size: 0.85rem;
-      gap: 8px;
-    }
-    .product-item:last-child {
-      border-bottom: none;
-    }
-    .product-info {
-      flex: 1;
-      min-width: 130px;
-    }
-    .product-controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
-    .product-controls label {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .product-controls select.mandatory-qty-select {
-      width: 60px;
-      padding: 4px;
-      text-align: center;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      font-size: 0.82rem;
-      background-color: #fff;
-    }
-    .result-container {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--border-color);
-      scroll-margin-top: 20px; /* スクロール位置の余白調整 */
-    }
-    .plan-card {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-    .plan-card.best {
-      border: 1.5px solid var(--accent-gold);
-      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
-    }
-    .plan-title {
-      font-weight: bold;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-      color: var(--wood-dark);
-    }
-    .mandatory-item-badge {
-      display: inline-block;
-      background-color: rgba(201, 75, 75, 0.12);
-      color: #c94b4b;
-      font-size: 0.72rem;
-      font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-    .nav-link {
-      display: inline-block;
-      margin-bottom: 14px;
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      text-decoration: none;
-    }
-    .nav-link:hover {
-      text-decoration: underline;
-    }
-    .guide-toggle-btn {
-      width: 100%;
-      background: rgba(200, 162, 97, 0.12);
-      border: 1px solid var(--accent-gold);
-      color: var(--wood-medium);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: bold;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .guide-toggle-btn:hover {
-      background: rgba(200, 162, 97, 0.2);
-    }
-    .guide-content {
-      display: none;
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 14px;
-      margin-top: -10px;
-      margin-bottom: 16px;
-      font-size: 0.8rem;
-      line-height: 1.6;
-      color: var(--text-main);
-    }
-    /* リセットボタン用のスタイル */
-    .btn-reset {
-      background: none;
-      border: 1px solid var(--border-color);
-      color: var(--text-sub);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
-    }
-    .btn-reset:hover {
-      background-color: #f0f0f0;
-      color: var(--text-main);
-    }
-  </style>
+  </script>
+  
+  
+  
+  
+  <link rel="stylesheet" href="css/calc-navigation.css?v=1">
 </head>
-<body>
+<body class="app-page calc-pt-page">
 
-  <header>
-    <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>購入PT最適化ツール</h1>
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文ツール</span><a class="app-menu-sub" href="single.html">テキスト注文</a><a class="app-menu-sub" href="bulk.html">画像注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
   </header>
 
-  <main>
-    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
+  <main class="app-main">
     
-    <div class="card-box">
-      <div class="section-title">ポイント最適化シミュレーター</div>
-      
-      <button type="button" class="guide-toggle-btn" onclick="toggleGuide()">
-        <span>使い方・詳細な設定方法を見る</span>
-        <span id="guideArrow">▼</span>
-      </button>
-      <div id="guideContent" class="guide-content">
-        指定した目標ポイントに対して、最適な商品の組み合わせを自動で計算します。<br><br>
-        <strong>(1) 対象月度・目標PTを入力</strong><br>
-        <strong>(2) 商品ごとの条件設定</strong><br>
-        <div style="padding-left: 10px; margin-top: 4px;">
-          ・例① 商品を含めない場合：<strong>「除外」</strong>にチェック<br>
-          ・例② 商品を必ず含める場合：<strong>「必須個数」</strong>を指定<br>
-          ・例③ 商品を1個だけ含めたい場合：<strong>「除外」にチェックを入れ、かつ「必須個数」に「1」を入力</strong>
-        </div>
-      </div>
+    <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
+    
+    <h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">購入ポイントと商品条件から、最適な組み合わせを計算します。</p>
+    <div class="robot-guide"><img src="assets/retro-guide-robot.svg" alt="案内ロボット"><div class="robot-dialogue"><strong id="robotMessage">目標ポイントを教えてください！</strong><span>条件を決めたら、ぼくが計算するよ。</span></div></div><div class="calc-page-layout">
+      <section class="calc-steps" aria-label="使い方"><h2>計算の流れ <span class="quest-mini">HOW TO USE</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
+      <div class="calc-workspace"><section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>STEP 1</span> 目標を決める</h2>
       <div class="form-group">
         <label class="label-accent">対象月度</label>
         <select id="monthSelect" class="calc-select" onchange="renderProductSettings()"></select>
@@ -206,43 +63,141 @@
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
-      <div style="margin-top: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <label class="label-accent" style="margin-bottom: 0;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
-          <button type="button" class="btn-reset" onclick="resetProductSettings()">🔄 条件設定をリセット</button>
+      </section>
+
+      <section class="calc-product-section" aria-labelledby="product-condition-title">
+        <div class="calc-conditions-toolbar"><h2 id="product-condition-title"><span class="calc-section-number">STEP 2</span> <span class="product-heading-text">アイテムの条件設定 <small>任意</small></span></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
+        <p class="calc-product-help">指定したい商品だけ選択してください。未指定の商品は通常どおり計算されます。</p>
+        <label for="conditionProductSelect" class="label-accent">商品を選択</label>
+        <select id="conditionProductSelect" class="calc-select" onchange="showProductConditionEditor()"><option value="">商品を選択してください</option></select>
+        <div id="conditionEditor" class="calc-condition-editor" hidden>
+          <p id="conditionProductInfo" class="calc-selected-info"></p>
+          <fieldset class="calc-condition-fieldset"><legend>条件を選択</legend>
+            <label><input type="radio" name="conditionMode" value="exclude" checked onchange="updateConditionQuantity()"> 除外する</label>
+            <label><input type="radio" name="conditionMode" value="minimum" onchange="updateConditionQuantity()"> 必ず含める（追加購入もOK）</label>
+            <label><input type="radio" name="conditionMode" value="exact" onchange="updateConditionQuantity()"> 指定した個数だけ含める</label>
+          </fieldset>
+          <div id="conditionQuantityRow" class="calc-condition-quantity" hidden><label for="conditionQuantity">個数</label><select id="conditionQuantity" class="calc-select"></select></div>
+          <p id="conditionExplanation" class="calc-condition-explanation">この商品を計算に含めません。</p>
+          <button type="button" class="calc-add-condition" onclick="saveProductCondition()">この条件を追加する</button>
         </div>
-        <div id="productSettingsList" class="product-list-box">
-          <!-- JSで動的生成 -->
-        </div>
+        <div id="selectedConditions" class="calc-selected-conditions" aria-live="polite"></div>
+      </section>
+      </div>
+      <div class="calc-run-area"><p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
+      <button id="calcRunButton" class="btn-copy robot-calc-button" onclick="calculateBestCombos()"><span class="robot-button-icon" aria-hidden="true"><img src="assets/retro-guide-robot.svg" alt=""></span><span class="robot-button-label">ロボットに計算してもらう</span><span class="robot-button-arrow" aria-hidden="true">›</span></button>
+      <div id="calcProgress" class="calc-progress" role="status" aria-live="polite" hidden><div class="calc-progress-line"><span></span></div><p>ロボットが組み合わせを計算中…</p></div>
+      <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
       </div>
 
-      <div style="background: rgba(200, 162, 97, 0.08); border: 1px dashed var(--accent-gold); border-radius: 8px; padding: 12px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--wood-dark); text-align: center;">
-        設定したら、下の <span style="display: inline-block; background-color: var(--accent-gold); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">おすすめ購入パターンを計算</span> ボタンを押してください。
-      </div>
-
-      <button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
-
-      <div id="comboResult" class="result-container" style="display:none;"></div>
+      <section id="robotResultView" hidden role="dialog" aria-modal="true" aria-label="計算結果"><div class="robot-result-topbar"><div class="robot-result-shared-header"></div></div><div class="robot-result-screen"><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><span class="robot-result-eyebrow">CALCULATION COMPLETE</span><strong>計算できました！</strong><p>おすすめの組み合わせを見てみよう。</p></div></div><div class="robot-result-actions"><p>まずはおすすめの組み合わせから確認してね。</p><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button></div><div id="comboResult" class="result-container" style="display:none;"></div><div class="robot-result-bottom"><button type="button" id="robotEditConditionsBottom" class="robot-edit-button">← 条件を変更して再計算</button></div></div></section>
     </div>
   </main>
 
-  <footer>
-    &copy; Place de Nina Order Support System
-  </footer>
+  <footer class="site-unified-footer"><a href="privacy.html">プライバシーポリシー</a><span class="site-footer-copy">&copy; PLACE DE NINA MINAMIKUMAMOTO</span></footer>
 
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded',()=>{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const title=document.querySelector('.neural-type-title');
+    if(!title)return;
+    const full=title.dataset.typeText;
+    title.textContent='';
+    title.classList.add('typing-now');
+    let index=0;
+    setTimeout(()=>{
+      const timer=setInterval(()=>{
+        title.textContent=full.slice(0,++index);
+        if(index>=full.length){clearInterval(timer);title.classList.remove('typing-now');title.classList.add('typing-done')}
+      },56);
+    },440);
+  });
+  </script>
   <script>
     let configData = null;
+    let revealTimer = null;
+    function cancelResultAnimation() {
+      if (revealTimer !== null) clearTimeout(revealTimer);
+      revealTimer = null;
+      document.getElementById("calcRunButton").disabled = false;
+      document.getElementById("calcRunButton").classList.remove("is-calculating");
+      document.querySelector("#calcRunButton .robot-button-label").textContent = "ロボットに計算してもらう";
+      document.getElementById("calcProgress").hidden = true;
+      document.getElementById("calcComplete").hidden = true;
+    }
 
-    function toggleGuide() {
-      const content = document.getElementById('guideContent');
-      const arrow = document.getElementById('guideArrow');
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        arrow.textContent = '▼';
-      } else {
-        content.style.display = 'block';
-        arrow.textContent = '▲';
-      }
+    const productConditions = new Map();
+    function showProductConditionEditor() {
+      const select = document.getElementById('conditionProductSelect');
+      const editor = document.getElementById('conditionEditor');
+      editor.hidden = !select.value;
+      if (!select.value || !configData) return;
+      const index = Number(select.value);
+      const p = configData.products[index];
+      const month = document.getElementById('monthSelect').value;
+      document.getElementById('conditionProductInfo').textContent = p.price.toLocaleString() + '円 / ' + (p.pts[month] || 0).toLocaleString() + 'PT';
+      const saved = productConditions.get(index);
+      document.querySelector('input[name="conditionMode"][value="' + (saved?.mode || 'exclude') + '"]').checked = true;
+      document.getElementById('conditionQuantity').value = String(saved?.qty || 1);
+      updateConditionQuantity();
+    }
+    function updateConditionQuantity() {
+      const mode = document.querySelector('input[name="conditionMode"]:checked').value;
+      const row = document.getElementById('conditionQuantityRow');
+      row.hidden = mode === 'exclude';
+      const qty = document.getElementById('conditionQuantity').value;
+      document.getElementById('conditionExplanation').textContent = mode === 'exclude'
+        ? 'この商品を計算に含めません。'
+        : mode === 'minimum' ? 'この商品を最低' + qty + '個含めます。計算結果によっては追加されます。'
+        : 'この商品をちょうど' + qty + '個だけ含めます。追加されません。';
+    }
+    function saveProductCondition() {
+      const index = Number(document.getElementById('conditionProductSelect').value);
+      const mode = document.querySelector('input[name="conditionMode"]:checked').value;
+      const qty = mode === 'exclude' ? 0 : Number(document.getElementById('conditionQuantity').value);
+      productConditions.set(index, { mode, qty });
+      renderSelectedConditions();
+      document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionQuantity').value = '1';
+      document.getElementById('conditionEditor').hidden = true;
+      clearCalculationResult();
+    }
+    function removeProductCondition(index) {
+      productConditions.delete(index);
+      renderSelectedConditions();
+      clearCalculationResult();
+    }
+    function renderSelectedConditions() {
+      const list = document.getElementById('selectedConditions');
+      list.replaceChildren();
+      if (!productConditions.size) return;
+      const heading = document.createElement('h3');
+      heading.textContent = '設定済みの商品';
+      list.appendChild(heading);
+      productConditions.forEach((setting, index) => {
+        const row = document.createElement('div');
+        row.className = 'calc-selected-condition';
+        const info = document.createElement('span');
+        const suffix = setting.mode === 'exclude' ? '除外' : setting.mode === 'minimum' ? '最低' + setting.qty + '個' : 'ちょうど' + setting.qty + '個';
+        info.textContent = configData.products[index].name + ' ・ ' + suffix;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = '削除';
+        button.setAttribute('aria-label', configData.products[index].name + 'の条件を削除');
+        button.addEventListener('click', () => removeProductCondition(index));
+        row.append(info, button);
+        list.appendChild(row);
+      });
+    }
+    function clearCalculationResult() {
+      cancelResultAnimation();
+      const result = document.getElementById('comboResult');
+      result.style.display = 'none';
+      result.innerHTML = '';
+      document.body.classList.remove('robot-show-result');
+      document.getElementById('robotResultView').hidden = true;
+      document.getElementById('robotMessage').textContent='目標ポイントを教えてください！';
     }
 
     async function loadConfig() {
@@ -258,6 +213,14 @@
           monthSelect.appendChild(opt);
         });
 
+        const qtySelect = document.getElementById('conditionQuantity');
+        for (let i = 1; i <= 30; i++) {
+          const opt = document.createElement('option');
+          opt.value = String(i);
+          opt.textContent = i + '個';
+          qtySelect.appendChild(opt);
+        }
+        qtySelect.addEventListener('change', updateConditionQuantity);
         renderProductSettings();
       } catch (e) {
         alert('month_config.json の読み込みに失敗しました。');
@@ -265,62 +228,34 @@
     }
 
     function renderProductSettings() {
-      const month = document.getElementById('monthSelect').value;
-      const container = document.getElementById('productSettingsList');
-      container.innerHTML = '';
-
+      const select = document.getElementById('conditionProductSelect');
+      const oldValue = select.value;
+      select.innerHTML = '<option value="">商品を選択してください</option>';
       if (!configData) return;
-
       configData.products.forEach((p, index) => {
         if (p.name === 'リペアセラム') return;
-
-        const pt = p.pts[month] || 0;
-        
-        let optionsHtml = '';
-        for (let i = 0; i <= 30; i++) {
-          optionsHtml += `<option value="${i}">${i}</option>`;
-        }
-
-        const div = document.createElement('div');
-        div.className = 'product-item';
-        div.innerHTML = `
-          <div class="product-info">
-            <strong>${p.name}</strong><br>
-            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
-          </div>
-          <div class="product-controls">
-            <label><input type="checkbox" class="exclude-chk" data-index="${index}"> 除外</label>
-            <label>必須個数: 
-              <select class="mandatory-qty-select" data-index="${index}">
-                ${optionsHtml}
-              </select>
-            </label>
-          </div>
-        `;
-        container.appendChild(div);
+        const option = document.createElement('option');
+        option.value = String(index);
+        option.textContent = p.name;
+        select.appendChild(option);
       });
+      select.value = oldValue;
+      showProductConditionEditor();
+      clearCalculationResult();
     }
-
-    // 条件設定のリセット関数
     function resetProductSettings() {
-      // 目標PTを初期値に戻す
       document.getElementById('targetPt').value = 10000;
-
-      // 除外チェックをすべて解除
-      const checkboxes = document.querySelectorAll('.exclude-chk');
-      checkboxes.forEach(chk => chk.checked = false);
-
-      // 必須個数をすべて 0 にセット
-      const selects = document.querySelectorAll('.mandatory-qty-select');
-      selects.forEach(sel => sel.value = '0');
-
-      // 計算結果を非表示にする
-      const resDiv = document.getElementById('comboResult');
-      resDiv.style.display = 'none';
-      resDiv.innerHTML = '';
+      productConditions.clear();
+      document.getElementById('conditionQuantity').value = '1';
+      document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionEditor').hidden = true;
+      renderSelectedConditions();
+      clearCalculationResult();
     }
 
+    function copyOptimizerOrderData(index){const plan=window.lastOptimizerPlans?.[index];if(!plan)return;NinaOrderTransfer.copy([{label:'最適化プラン '+(index+1),items:plan.items.filter(i=>i.count>0).map(i=>({name:i.name,qty:i.count}))}]);}
     function calculateBestCombos() {
+      cancelResultAnimation();
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
 
@@ -340,11 +275,9 @@
         const pt = p.pts[month] || 0;
         if (pt <= 0) return;
 
-        const chk = document.querySelector(`.exclude-chk[data-index="${index}"]`);
-        const qtySelect = document.querySelector(`.mandatory-qty-select[data-index="${index}"]`);
-
-        const isExcluded = chk ? chk.checked : false;
-        const mandatoryQty = qtySelect ? parseInt(qtySelect.value) || 0 : 0;
+        const condition = productConditions.get(index);
+        const isExcluded = condition?.mode === 'exclude' || condition?.mode === 'exact';
+        const mandatoryQty = condition?.qty || 0;
 
         if (mandatoryQty > 0) {
           mandatoryFixedPt += pt * mandatoryQty;
@@ -359,7 +292,7 @@
 
       let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
 
-      // 1. 最適プラン（目標PTに一番近く、最安）
+      // 1. 最適プラン（目標PT以上で差が最小、同じPTなら最安）
       let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
       
       // 2. パターンA（最適プランで一番使われた動的商品を1つ除外）
@@ -392,41 +325,77 @@
         }
       ];
 
+      // Deduplicate only identical product-and-quantity combinations.
+      // Preserve the original order so the recommended plan stays first.
+      const seenCombinations = new Set();
+      plans = plans.filter(plan => {
+        const key = JSON.stringify(plan.items
+          .filter(item => item.count > 0)
+          .map(item => [item.name, item.count])
+          .sort((a, b) => a[0].localeCompare(b[0], 'ja')));
+        if (seenCombinations.has(key)) return false;
+        seenCombinations.add(key);
+        return true;
+      });
       const resDiv = document.getElementById('comboResult');
-      resDiv.style.display = 'block';
-      let html = '';
+      resDiv.style.display = 'none';
+      let html = '<div class="quest-result-heading"><span>計算結果</span></div>';
 
-      plans.forEach((plan) => {
-        let displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
-
-        let diffPt = plan.totalPt - targetPt;
-        let diffStr = diffPt === 0 ? "(±0)" : (diffPt > 0 ? `(+${diffPt.toLocaleString()})` : `(${diffPt.toLocaleString()})`);
-
+      window.lastOptimizerPlans=plans;
+      plans.forEach((plan, index) => {
+        const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
+        const diffPt = plan.totalPt - targetPt;
+        const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
+        const planLabel = index === 0 ? 'おすすめの組み合わせ' : index === 1 ? '別の組み合わせ ②' : '別の組み合わせ ③';
         html += `
-          <div class="plan-card ${plan.isBest ? 'best' : ''}">
-            <div class="plan-title">${plan.title}</div>
-            <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
-              ${displayItems.map(i => {
-                let badgeHtml = i.isMandatory ? `<span class="mandatory-item-badge">必須</span>` : '';
-                return `<li>${i.displayName} × ${i.count}個 ${badgeHtml} (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`;
-              }).join('')}
-            </ul>
-            <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
-              合計ポイント: <strong style="color:#c94b4b;">${plan.totalPt.toLocaleString()} PT</strong> 
-              <span style="color:var(--text-sub); font-size:0.78rem;">${diffStr}</span><br>
-              合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
+          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">ROBOT RECOMMENDATION</div>' : ''}
+            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">おすすめ</span>' : '<span class="plan-variation-label">比較用</span>'}</div>
+            <div class="plan-summary">
+              <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
+              <div class="plan-summary-item"><span>合計金額</span><strong>${plan.totalCost.toLocaleString()} <small>円</small></strong></div>
             </div>
-          </div>
+            <button type="button" class="btn-copy" style="margin:12px 0;padding:10px 14px" onclick="copyOptimizerOrderData(${index})">この組み合わせを注文用にコピー</button>
+            <h3 class="plan-items-heading">購入する商品</h3>
+            <div class="plan-items-list">
+              ${displayItems.length ? displayItems.map(i => `
+                <div class="plan-item-row">
+                  <div class="plan-item-name"><strong>${i.displayName}</strong>${i.isMandatory ? '<span class="mandatory-item-badge">必須</span>' : ''}</div>
+                  <div class="plan-item-meta"><span class="plan-item-qty">${i.count}個</span><span>${(i.pt * i.count).toLocaleString()} PT</span><span>${(i.price * i.count).toLocaleString()} 円</span></div>
+                </div>`).join('') : '<p class="plan-empty">対象の商品がありません。</p>'}
+            </div>
+          </section>
         `;
       });
 
       resDiv.innerHTML = html;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const button = document.getElementById('calcRunButton');
+      button.disabled = true;
+      button.classList.add('is-calculating');button.querySelector('.robot-button-label').textContent = '計算中…';
+      document.getElementById('calcProgress').hidden = reducedMotion;
+      const reveal = () => {
+        revealTimer = null;
+        button.disabled = false;
+        button.classList.remove('is-calculating');
+        button.querySelector('.robot-button-label').textContent = 'ロボットに計算してもらう';
+        document.getElementById('calcProgress').hidden = true;
+        const completion = document.getElementById('calcComplete');
+        const difference = bestPlan.totalPt - targetPt;
+        const nearLimit = Math.max(1, targetPt * 0.05);
+        completion.hidden = true;
+        completion.replaceChildren();
 
-      // 結果が表示された後、結果エリアへスムーズに自動スクロール
-      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        resDiv.style.display = 'block';
+        if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
+        else resDiv.classList.remove('calc-result-reveal');
+        document.body.classList.add('robot-show-result');
+        document.getElementById('robotResultView').hidden=false;
+        
+      };
+      revealTimer = setTimeout(reveal, reducedMotion ? 0 : 850);
     }
 
-    // 目標PT以上で「最もオーバー分が少なく」「金額が最安」の構成を探す関数
+    // 目標PT以上で超過PTが最小、同じPTなら金額最安の構成を探す関数
     function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames = []) {
       let filteredProducts = products;
       if (excludeProdNames && excludeProdNames.length > 0) {
@@ -456,18 +425,13 @@
         }
       }
 
+      // First minimize PT overage (never below target); then minimize cost at that exact PT.
+      // dp[pt] already stores the lowest cost for each achievable PT.
       let bestPt = -1;
-      let minScore = Infinity;
-
       for (let pt = remainingTarget; pt <= limit; pt++) {
         if (dp[pt] !== Infinity) {
-          let overPt = pt - remainingTarget;
-          // 超過PTに100倍の強固なペナルティを課し、「目標に一番近い（オーバーが最小）」かつ「安さ」を優先
-          let score = dp[pt] + (overPt * 100);
-          if (score < minScore) {
-            minScore = score;
-            bestPt = pt;
-          }
+          bestPt = pt;
+          break;
         }
       }
 
@@ -539,7 +503,18 @@
       });
     }
 
+    function returnToConditions(){document.body.classList.remove("robot-show-result");document.getElementById("robotResultView").hidden=true;}
+    document.getElementById("robotEditConditions").addEventListener("click",returnToConditions);
+    document.getElementById("robotEditConditionsBottom").addEventListener("click",returnToConditions);
+    document.querySelector(".robot-result-shared-header").appendChild(document.querySelector(".app-header").cloneNode(true));
+    const resultMenu = document.querySelector(".robot-result-shared-header .app-menu");
+    if(resultMenu){resultMenu.id="app-site-menu-result";resultMenu.hidden=true;}
+    const resultToggle=document.querySelector(".robot-result-shared-header .app-menu-toggle");
+    if(resultToggle){resultToggle.setAttribute("aria-controls","app-site-menu-result");resultToggle.addEventListener("click",()=>{const open=resultToggle.getAttribute("aria-expanded")==="true";resultToggle.setAttribute("aria-expanded",String(!open));resultMenu.hidden=open;});}
     window.onload = loadConfig;
   </script>
+
+
+<script src="js/order-transfer.js?v=3"></script>
 </body>
 </html>
