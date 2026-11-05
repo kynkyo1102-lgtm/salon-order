@@ -263,8 +263,7 @@ function invoiceRegistrationGuide(doc,purpose){
   ["期限を過ぎた場合","翌々月度のボーナス振込分から適用されます。"]
  ]);
  deadline.classList.add("invoice-simple","invoice-deadline");
- const documents=requirementSection("必要書類",[
-  ["登録番号届出書",""],
+ const documents=requirementSection("添付書類",[
   ["登録通知書","税務署から届いた通知書の画像またはコピー"]
  ]);
  documents.classList.add("invoice-simple","invoice-documents");
