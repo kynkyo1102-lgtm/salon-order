@@ -47,3 +47,7 @@ body>.guide-shared-footer{display:block!important;width:100%!important;max-width
 .guide-shared-accordion>summary:hover{background:transparent!important;color:#004AAD!important}
 .guide-shared-accordion-content{background:transparent!important;padding-bottom:7px!important}
 .guide-shared-accordion-content a{padding:7px 6px!important;margin-left:12px!important}
+
+.guide-bottom-return{margin:34px 0 4px;padding:14px 0 0;border-top:1px solid #e7edf3;text-align:left}
+.guide-bottom-return a{font-size:12px;font-weight:400;color:#647b91;text-decoration:none;border:0;background:transparent;box-shadow:none}
+.guide-bottom-return a:hover{text-decoration:underline;color:#004AAD}
