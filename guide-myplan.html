@@ -209,7 +209,8 @@ function showPersonBonus(name){
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const base='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％</div></div>';
  const match=bonusName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+bonusName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate===1?'100％':'10％')+' ＝ <strong>'+yen(basic*rate)+'</strong></div></div>':'';
- dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+base+match;
+ const titleNote=m.lapis&&(name==="Aさん"||name==="Bさん")?'<p class="lapis-dialog-relation">タイトル：クリスタル（左右の少ない側が20万PT以上）</p>':"";
+ dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+titleNote+base+match;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
 document.getElementById("binary-diagram").addEventListener("click",e=>{const p=e.target.closest(".lapis-tap-person");if(p)showPersonBonus(p.dataset.person)});
