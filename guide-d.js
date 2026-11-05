@@ -57,7 +57,7 @@ function identityDocumentsGuide(doc,purpose){
  const third=el("li");third.append(el("strong","","添付を確認して送信する"),el("p","method-note","会員番号・氏名を記入し、必要書類を添付したことを確認して送信してください。"));ol.append(third);
  };choices.append(button);buttons.push(button)
  });buttons[0].click();
- const section=add("section","family-shipping-guide");
+ const section=add("section","family-shipping-guide requirement-visual requirement-documents");
  section.append(el("h3","family-shipping-title","必要書類"));
  const list=el("div","family-shipping-conditions");section.append(list);
  [
@@ -72,8 +72,8 @@ function identityDocumentsGuide(doc,purpose){
  procedureNotice(app,"申請前に、最新の本人確認書類貼付用紙の条件と注意事項を必ずご確認ください。");
 }
 function familyShippingGuide(){
- const section=add("section","family-shipping-guide");
- section.append(el("h3","family-shipping-title","おまとめ配送の利用条件"));
+ const section=add("section","family-shipping-guide requirement-visual requirement-eligibility");
+ section.append(el("h3","family-shipping-title","申請条件"));
  const list=el("div","family-shipping-conditions");section.append(list);
  const conditions=[
  ["対象となるご家族","代表者と同居し、登録住所が同じご家族が対象です。"],
@@ -121,7 +121,7 @@ function subscriptionGuide(purpose,doc){
  procedureNotice(deadline,"上記は翌月度から反映させるための書面申請の受付期限です。E-Serviceの期限は別途ご確認ください。年末年始などは受付日が異なる場合があります。");
 }
 function reactivationConditions(){
- const section=add("section","family-shipping-guide");
+ const section=add("section","family-shipping-guide requirement-visual requirement-eligibility");
  section.append(el("h3","family-shipping-title","申請条件"));
  const list=el("div","family-shipping-conditions");section.append(list);
  const conditions=[
@@ -135,7 +135,8 @@ function reactivationConditions(){
  procedureNotice(section,"支店・ブランチの復活には、本店の会員資格が有効であることなどの追加条件があります。");
 }
 function requirementSection(title,items){
- const section=add("section","family-shipping-guide requirement-section");
+ const section=add("section","family-shipping-guide requirement-section requirement-visual");
+ section.classList.add(/書類|記入事項/.test(title)?"requirement-documents":"requirement-eligibility");
  section.append(el("h3","family-shipping-title",title));
  const list=el("div","family-shipping-conditions");section.append(list);
  items.forEach(([label,description])=>{const row=el("div","family-shipping-condition");row.append(el("strong","",label),el("p","",description));list.append(row)});
