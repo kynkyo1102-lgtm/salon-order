@@ -320,7 +320,7 @@ body{padding-bottom:0!important}
 /* Keep a single visible focus border on search field and result links. */
 #search input:focus,#search input:focus-visible{outline:none!important;box-shadow:none!important;border-color:#0055a4!important}
 #results .guide-search-result:focus,#results .guide-search-result:focus-visible{outline:none!important;box-shadow:none!important;border-color:#0055a4!important}
-</style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-3"></head><body id="top">
+</style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-return1"></head><body id="top">
 
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1></div><div class="hero-intro hero-intro-card"><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="案内するミトコンドリアちゃん"><div class="hero-intro-copy"><span class="hero-intro-kicker">はじめての方も、いつもの方も</span><p>登録方法やボーナスのことなど、<br>知りたい情報をここから探せます！</p></div></div></div>
@@ -391,4 +391,4 @@ let pickupScrollTimer;
 pickupTrack.addEventListener('scroll',()=>{clearTimeout(pickupScrollTimer);pickupScrollTimer=setTimeout(()=>{if(!pickupBusy)normalizePickup()},130)},{passive:true});
 window.addEventListener('resize',()=>{normalizePickup()});
 const floatingBanners=document.querySelector('.guide-floating-banners');const guideFooter=document.querySelector('footer');if(floatingBanners&&guideFooter){const positionFloating=()=>{const footerTop=guideFooter.getBoundingClientRect().top;const safeBottom=12;const overlap=window.innerHeight-safeBottom-footerTop+12;floatingBanners.style.transform=overlap>0?'translateY(-'+overlap+'px)':''};window.addEventListener('scroll',positionFloating,{passive:true});window.addEventListener('resize',positionFloating);positionFloating()}
-</script><script src="./guide-shared-chrome.js?v=20261105-scroll1" defer></script><script src="./guide-search.js?v=20261105-1" defer></script></body></html>
+</script><script src="./guide-shared-chrome.js?v=20261105-return1" defer></script><script src="./guide-search.js?v=20261105-1" defer></script></body></html>
