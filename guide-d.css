@@ -11,14 +11,11 @@
 .procedure-area{max-width:none;width:100%;min-width:0}
 .procedure-section{border:1px solid var(--guide-border);border-radius:15px;box-shadow:0 3px 14px rgba(0,74,173,.045)}
 .procedure-guide button,.procedure-guide a{font-family:inherit}
-.procedure-guide button:focus-visible,.procedure-guide a:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}
-.category-button,.submit-option,.method-choice{transition:background .15s,border-color .15s}
+.procedure-guide button:focus-visible,.procedure-guide a:focus-visible{outline:3px solid var(--guide-focus);outline-offset:3px}.submit-option,.method-choice{transition:background .15s,border-color .15s}
 .procedure-link:hover{background:var(--guide-surface);color:var(--guide-primary)}
 .eservice-link{background:var(--guide-primary)}
 .eservice-link:hover{background:var(--guide-primary-hover)}
-.procedure-guide .inner-title{color:var(--guide-primary)}
-.procedure-guide .procedure-list,.procedure-guide .mail-steps,.procedure-guide .method-choices{min-width:0}
-.procedure-guide .category-button,.procedure-guide .procedure-link,.procedure-guide .submit-option{overflow-wrap:anywhere;min-width:0}
+.procedure-guide .inner-title{color:var(--guide-primary)}.procedure-guide .mail-steps,.procedure-guide .method-choices{min-width:0}.procedure-guide .procedure-link,.procedure-guide .submit-option{overflow-wrap:anywhere;min-width:0}
 @media(max-width:700px){.procedure-guide .procedure-page{padding-left:18px;padding-right:18px}.procedure-guide .procedure-section{padding:18px 15px}.procedure-guide }
 @media(max-width:420px){.procedure-guide .submit-options{grid-template-columns:minmax(0,1fr)}.procedure-guide .eservice-link{max-width:100%;overflow-wrap:anywhere}.procedure-guide .mail-steps li{min-width:0}}
 
@@ -26,8 +23,7 @@
 .procedure-guide,.procedure-guide *,.procedure-guide *::before,.procedure-guide *::after{box-sizing:border-box}
 .procedure-guide{width:100%;max-width:100%;min-width:0;overflow-x:clip}
 .procedure-guide .guide-common-page{width:100%;max-width:860px;min-width:0}
-.procedure-guide .procedure-area,.procedure-guide .procedure-section,.procedure-guide #app{width:100%;max-width:100%;min-width:0}
-.procedure-guide .category-grid,.procedure-guide .submit-options{min-width:0}
+.procedure-guide .procedure-area,.procedure-guide .procedure-section,.procedure-guide #app{width:100%;max-width:100%;min-width:0}.procedure-guide .submit-options{min-width:0}
 .procedure-guide .mail-steps{padding-left:0;list-style:none}
 .procedure-guide .mail-steps li,.procedure-guide .document-highlight,.procedure-guide .postal-address{max-width:100%;overflow-wrap:anywhere}
 
@@ -183,14 +179,14 @@ body.procedure-guide .procedure-section{background:transparent;border:0;border-r
 }
 
 /* Shared concise condition layout: family shipping and identity documents */
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide){margin:46px 0 42px;padding-top:28px;border-top:1px solid var(--guide-border)}
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-title{margin:0 0 21px;font-size:1.15rem;line-height:1.55;color:var(--guide-primary)}
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-conditions{display:grid;gap:0}
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition{display:grid;grid-template-columns:minmax(115px,28%) minmax(0,1fr);gap:14px 22px;padding:17px 2px;border-bottom:1px solid var(--guide-border);align-items:start}
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition strong{font-size:.94rem;line-height:1.75;color:var(--guide-primary);font-weight:650}
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition p{margin:0;font-size:.92rem;line-height:1.9;color:var(--guide-text)}
-.procedure-guide :is(.family-shipping-guide,.identity-documents-guide)>.procedure-notice{margin-top:20px}
-@media(max-width:600px){.procedure-guide :is(.family-shipping-guide,.identity-documents-guide){margin-top:38px;padding-top:25px}.procedure-guide :is(.family-shipping-guide,.identity-documents-guide) .family-shipping-condition{grid-template-columns:minmax(0,1fr);gap:5px;padding:15px 0}}
+.procedure-guide .family-shipping-guide{margin:46px 0 42px;padding-top:28px;border-top:1px solid var(--guide-border)}
+.procedure-guide .family-shipping-guide .family-shipping-title{margin:0 0 21px;font-size:1.15rem;line-height:1.55;color:var(--guide-primary)}
+.procedure-guide .family-shipping-guide .family-shipping-conditions{display:grid;gap:0}
+.procedure-guide .family-shipping-guide .family-shipping-condition{display:grid;grid-template-columns:minmax(115px,28%) minmax(0,1fr);gap:14px 22px;padding:17px 2px;border-bottom:1px solid var(--guide-border);align-items:start}
+.procedure-guide .family-shipping-guide .family-shipping-condition strong{font-size:.94rem;line-height:1.75;color:var(--guide-primary);font-weight:650}
+.procedure-guide .family-shipping-guide .family-shipping-condition p{margin:0;font-size:.92rem;line-height:1.9;color:var(--guide-text)}
+.procedure-guide .family-shipping-guide>.procedure-notice{margin-top:20px}
+@media(max-width:600px){.procedure-guide .family-shipping-guide{margin-top:38px;padding-top:25px}.procedure-guide .family-shipping-guide .family-shipping-condition{grid-template-columns:minmax(0,1fr);gap:5px;padding:15px 0}}
 
 /* Identity document details: compact, consistent rhythm */
 .procedure-guide .family-shipping-guide .family-shipping-title:nth-of-type(2){font-size:.94rem;line-height:1.75;font-weight:650;margin:16px 0 6px}
