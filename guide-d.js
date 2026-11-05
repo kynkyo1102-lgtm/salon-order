@@ -143,18 +143,32 @@ function requirementSection(title,items){
 }
 function transferAndEntityGuide(purpose){
  if(purpose==="ポジションを譲渡・相続したい"){
-  requirementSection("申請条件",[
+  const conditions=requirementSection("申請条件",[
    ["対象者","個人名義の譲渡・相続は、二親等以内の血縁関係に限られます。"],
    ["相続の期限","死亡による相続は、当該会員の死亡日から3か月以内に手続きを完了する必要があります。"],
    ["再登録の制限","譲渡・相続後の再登録は6か月経過しなければ登録できません。審査結果によっては変更できない場合があります。"]
   ]);
-  requirementSection("必要書類・記入事項",[
+  conditions.classList.add("requirement-visual","requirement-eligibility");
+  const docs=requirementSection("必要書類・記入事項",[
    ["申請書","「譲渡・相続」欄にチェックを入れ、譲渡・相続理由を記入してください。"],
-   ["会員登録申請書","譲渡・相続する方は新たな会員番号となるため、会員登録申請書に必要事項をすべて記入して提出してください。"],
-   ["個人名義の場合","二親等以内の血縁関係がわかる書類。戸籍全部事項証明書（戸籍謄本・コピー可）、または続柄記載の住民票（コピー可）。"],
-   ["法人名義の場合","登記事項証明書（登記簿謄本・コピー可）。証明書に名前がない方は、社員であることを証明できる公の書面も必要です。"],
-   ["満25歳未満の場合","本人確認書類貼付用紙と本人確認書類も提出してください。"]
+   ["会員登録申請書","譲渡・相続する方は新たな会員番号となるため、会員登録申請書に必要事項をすべて記入して提出してください。"]
   ]);
+  docs.classList.add("requirement-visual","requirement-documents");
+  const selector=el("div","requirement-document-filter");
+  selector.append(el("p","requirement-filter-title","名義に応じた必要書類"));
+  const options=el("div","requirement-filter-options"),details=el("div","requirement-filter-result");
+  const variants=[
+   ["個人名義","二親等以内の血縁関係がわかる書類を提出してください。戸籍全部事項証明書（戸籍謄本・コピー可）、または続柄記載の住民票（コピー可）。"],
+   ["法人名義","登記事項証明書（登記簿謄本・コピー可）を提出してください。証明書に名前がない方は、社員であることを証明できる公の書面も必要です。"]
+  ];
+  const buttons=[];
+  variants.forEach(([label,description],index)=>{
+   const button=el("button","requirement-filter-button",label);button.type="button";
+   button.onclick=()=>{buttons.forEach(b=>b.setAttribute("aria-pressed",String(b===button)));details.replaceChildren();const row=el("div","requirement-filter-detail");row.append(el("strong","",label+"の場合"),el("p","",description));details.append(row)};
+   options.append(button);buttons.push(button);if(index===0)button.setAttribute("aria-pressed","true");else button.setAttribute("aria-pressed","false");
+  });
+  selector.append(options,details);docs.append(selector);buttons[0].click();
+  const extra=el("div","requirement-extra");extra.append(el("strong","","満25歳未満の方"),el("p","","本人確認書類貼付用紙と本人確認書類も提出してください。"));docs.append(extra);
  }else if(purpose==="法人登録したい"){
   requirementSection("必要書類・記入事項",[
    ["申請書","「法人・個人変更」欄にチェックを入れ、変更後の法人名・住所・連絡先を記入してください。"],
