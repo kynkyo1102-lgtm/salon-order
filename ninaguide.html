@@ -301,12 +301,27 @@ body{padding-bottom:0!important}
 
 /* Touch devices can keep :hover after tapping; preserve each card's original color. */
 @media(hover:none){.salon-feature .salon-banner-salons:hover{background:linear-gradient(110deg,#eaf5ff 0%,#f7fbff 100%)!important;border-color:#b9daf5!important;transform:none!important;box-shadow:0 5px 0 rgba(35,80,115,.045)!important}.salon-feature .salon-banner-myplan:hover{background:linear-gradient(110deg,#fff0db 0%,#fffaf0 100%)!important;border-color:#f1c991!important;transform:none!important;box-shadow:0 5px 0 rgba(35,80,115,.045)!important}}
+
+/* Search results: clean ranked destination list. */
+#results[hidden]{display:none!important}
+#results:not([hidden]){margin:15px 0 10px;padding:15px;background:#fff;border:1px solid #d9e4ef;border-radius:14px;box-shadow:0 8px 25px rgba(27,65,103,.07);text-align:left}
+.guide-search-result-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 3px 9px;color:#25435f;font-size:14px}
+.guide-search-clear{border:0;background:transparent;color:#526b83;font-size:13px;cursor:pointer;padding:5px}
+.guide-search-result-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:410px;overflow-y:auto}
+#results .guide-search-result{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0;padding:12px 28px 12px 13px;border:1px solid #e3ebf2;border-radius:9px;background:#fafdff;text-decoration:none;color:#223b55;line-height:1.5}
+#results .guide-search-result:hover{border-color:#8eb5db;background:#f0f7ff}
+.guide-search-result-category{font-size:11px;color:#4978a6}
+.guide-search-result strong{font-size:14px;font-weight:700}
+.guide-search-result-description{font-size:12px;color:#65798a}
+.guide-search-result-arrow{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:22px;color:#5e83aa}
+.guide-search-empty{margin:8px 3px;color:#5f7182;font-size:13px}
+@media(max-width:600px){.guide-search-result-list{grid-template-columns:1fr;max-height:360px}#results:not([hidden]){padding:12px}}
 </style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-3"></head><body id="top">
 
 <main>
 <section class="hero-section"><div class="hero-brand"><p>NINAPHARM JAPON</p><div class="hero-title-row"><h1>メンバーズガイド</h1></div><div class="hero-intro hero-intro-card"><img class="hero-mascot" src="./assets/mitochondria/02_explain.svg" alt="案内するミトコンドリアちゃん"><div class="hero-intro-copy"><span class="hero-intro-kicker">はじめての方も、いつもの方も</span><p>登録方法やボーナスのことなど、<br>知りたい情報をここから探せます！</p></div></div></div>
 <form id="search"><label for="q">知りたいことを検索</label><p><input type="search" id="q" placeholder="探したいキーワードを入力してください"><button type="submit">検索</button></p></form>
-<div id="results" aria-live="polite"></div>
+<div id="results" aria-live="polite" hidden></div>
 <div class="quick-keywords" aria-label="よく検索されるキーワード"><button type="button" data-query="新規登録">新規登録</button> <button type="button" data-query="定期購入">定期購入</button> <button type="button" data-query="ボーナス">ボーナス</button> <button type="button" data-query="支払い">支払い</button></div>
 </section>
 <section class="pickup-section" aria-labelledby="pickup-title">
@@ -352,10 +367,6 @@ if(guideMenuToggle&&guideSiteMenu){
  document.addEventListener('click',e=>{if(!guideSiteMenu.hidden&&!guideSiteMenu.contains(e.target)&&!guideMenuToggle.contains(e.target))setGuideMenu(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!guideSiteMenu.hidden){setGuideMenu(false);guideMenuToggle.focus()}});
 }
-const entries=Array.from(document.querySelectorAll('main a[href]'));
-function search(q){const box=document.getElementById('results');box.replaceChildren();if(!q.trim())return;const found=entries.filter(a=>a.textContent.includes(q.trim()));const h=document.createElement('p');h.textContent=found.length+'件の候補';box.append(h);const ul=document.createElement('ul');found.forEach(a=>{const li=document.createElement('li');li.append(a.cloneNode(true));ul.append(li)});box.append(ul)}
-document.getElementById('search').addEventListener('submit',e=>{e.preventDefault();search(document.getElementById('q').value)});
-document.querySelectorAll('[data-query]').forEach(b=>b.addEventListener('click',()=>{document.getElementById('q').value=b.dataset.query;search(b.dataset.query)}));
 const pickupTrack=document.getElementById('pickup-track');
 const pickupPrev=document.getElementById('pickup-prev');
 const pickupNext=document.getElementById('pickup-next');
@@ -376,4 +387,4 @@ let pickupScrollTimer;
 pickupTrack.addEventListener('scroll',()=>{clearTimeout(pickupScrollTimer);pickupScrollTimer=setTimeout(()=>{if(!pickupBusy)normalizePickup()},130)},{passive:true});
 window.addEventListener('resize',()=>{normalizePickup()});
 const floatingBanners=document.querySelector('.guide-floating-banners');const guideFooter=document.querySelector('footer');if(floatingBanners&&guideFooter){const positionFloating=()=>{const footerTop=guideFooter.getBoundingClientRect().top;const safeBottom=12;const overlap=window.innerHeight-safeBottom-footerTop+12;floatingBanners.style.transform=overlap>0?'translateY(-'+overlap+'px)':''};window.addEventListener('scroll',positionFloating,{passive:true});window.addEventListener('resize',positionFloating);positionFloating()}
-</script><script src="./guide-shared-chrome.js?v=20261105-2" defer></script></body></html>
+</script><script src="./guide-shared-chrome.js?v=20261105-2" defer></script><script src="./guide-search.js?v=20261105-1" defer></script></body></html>
