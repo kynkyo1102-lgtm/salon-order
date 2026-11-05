@@ -136,7 +136,7 @@ function render(query){
   if(matched!==words.length)score=0;
   return {...item,score};
  }).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,'ja'));
- const unique=new Map();for(const item of results){if(!unique.has(item.url))unique.set(item.url,item)}
+ const unique=new Map();for(const item of ranked){if(!unique.has(item.url))unique.set(item.url,item)}
  const results=[...unique.values()].slice(0,15);
  const heading=document.createElement('div');heading.className='guide-search-result-heading';
  const count=document.createElement('strong');count.textContent=results.length?('検索結果 '+results.length+'件'):'該当するページが見つかりませんでした';
