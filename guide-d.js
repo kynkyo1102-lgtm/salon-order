@@ -14,7 +14,7 @@ function mailSteps(panel,doc,mode,purpose){
  const subject=template?template.subject:"【"+doc+"】の提出";
  const list=el("ol","mail-steps");panel.append(list);
  function step(title,description){const li=el("li");li.append(el("strong","",title));if(description)li.append(el("p","method-note",description));list.append(li);return li}
- if(mode==="attach"){const li=step("申請書を準備する");documentSteps(li,doc,false);if(purpose==="ブランチを申請したい")li.append(el("p","method-note","申請書の必要事項をすべて記入してください。前振込の場合は振込明細書も用意してください。"))}
+ if(mode==="attach"){const li=step("申請書を準備する");documentSteps(li,doc,false);if(purpose==="ブランチを申請したい")li.append(el("p","method-note","申請書の必要事項をすべて記入してください。前振込の場合は振込明細書も用意してください。"));if(purpose==="名刺を注文したい")li.append(el("p","method-note","名刺に印刷する内容を注文書に記入し、誤字・脱字を確認してください。"))}
  const li=step(mode==="body"?"申請メールを作成する":"メールアプリを開く",mode==="body"?"件名と、申請に必要な項目があらかじめ入力されたメールが開きます。":"申請書を添付してください。");
  li.append(el("p","method-note","宛先："+email));
  const a=el("a","secondary-action",mode==="body"?"申請メールを作成する ↗":"メールアプリを開く ↗");
@@ -28,7 +28,7 @@ function mailSteps(panel,doc,mode,purpose){
   const bodyButton=el("button","secondary-action","本文をコピー");bodyButton.type="button";bodyButton.onclick=()=>copyText(template.body,bodyButton);
   actions.append(subjectButton,bodyButton);details.append(summary,actions);li.append(details);
  }
- step("内容を確認して送信する",mode==="body"?"各項目に必要事項を記入し、内容を確認して送信してください。":purpose==="ブランチを申請したい"?"記入済みのブランチ申請書を添付してください。前振込の場合は振込明細書も添付し、確認して送信してください。":"申請書の添付を確認して送信してください。");
+ step("内容を確認して送信する",mode==="body"?"各項目に必要事項を記入し、内容を確認して送信してください。":purpose==="ブランチを申請したい"?"記入済みのブランチ申請書を添付してください。前振込の場合は振込明細書も添付し、確認して送信してください。":purpose==="名刺を注文したい"?"記入済みの会員用名刺注文書を添付し、印刷内容と数量を確認して送信してください。":"申請書の添付を確認して送信してください。");
 }
 function emailUI(panel,doc,purpose){if(!mailTemplates[purpose]){mailSteps(panel,doc,"attach",purpose);return}const choices=el("div","method-choices"),steps=el("div","mail-instructions");panel.append(choices,steps);[["body","メール本文に必要事項を記入する"],["attach","記入済みの申請書を添付する"]].forEach(([v,t],i)=>{const label=el("label","method-choice"),radio=el("input");radio.type="radio";radio.name="mail-method";radio.value=v;radio.checked=i===0;radio.onchange=()=>mailSteps(steps,doc,v,purpose);label.append(radio,document.createTextNode(t));choices.append(label)});mailSteps(steps,doc,"body",purpose)}
 function postalUI(doc){add("h3","method-title","郵送で提出する");const panel=add("div","submit-content");const ol=el("ol","mail-steps");panel.append(ol);const first=el("li");first.append(el("strong","","申請書を準備する"));documentSteps(first,doc,true);ol.append(first);const second=el("li");second.append(el("strong","","郵送する"),el("p","method-note","記入した書類を以下の宛先に郵送してください。"));const address=el("address","postal-address",postal);second.append(address,el("p","method-note","※郵送料はお客さま負担となります。"));ol.append(second)}
@@ -213,7 +213,24 @@ function salonShoppingGuide(purpose){
  online.append(el("p","method-note","E-Serviceの「ショッピング」からもご注文いただけます。"));
  const link=el("a","eservice-link","E-Serviceにログインする ↗");link.href=login;link.target="_blank";link.rel="noopener noreferrer";online.append(link);section.append(online);
 }
-function renderDetail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();updateProcedureBreadcrumb(i);heading(purpose);if(type==="card"){creditCardGuide(doc);return}if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="会員資格を復活したい"){pilotAddress(doc,purpose);reactivationConditions();return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(purpose==="ブランチを申請したい"){branchApplicationGuide(doc,purpose);return}if(purpose==="ポジションを譲渡・相続したい"||purpose==="法人登録したい"||purpose==="法人から個人登録へ変更したい"){pilotAddress(doc,purpose);transferAndEntityGuide(purpose);return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){salonShoppingGuide(purpose)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"申請前に、公式申請書の注意事項と最新の条件を必ずご確認ください。","check")}
+function nameCardOrderGuide(doc,purpose){
+ add("p","procedure-pilot-lead","会員用名刺は、専用の注文書に印刷内容を記入し、メールまたはFAXでご注文ください。メール本文だけでの注文はできません。");
+ pilotAddress(doc,purpose);
+ requirementSection("注文内容",[
+  ["商品・価格","名刺（1ケース100枚）：2,530円（税込）。商品コードは302014です。"],
+  ["お支払い","代金引換でのお届けです。配送手数料1,000円（税込）、代金引換手数料350円（税込）が別途かかります。"],
+  ["お届け","受注後10日前後が目安です。登録住所へお届けします。"]
+ ]);
+ requirementSection("必要書類・記入事項",[
+  ["会員用名刺注文書","注文日・会員番号・数量と、名刺に印刷する氏名、ローマ字氏名、住所、会社名・グループ名、電話番号、FAX番号、携帯電話番号、メールアドレスなどを記入してください。"],
+  ["印刷内容の確認","記入した内容がそのまま黒一色で印刷されます。誤字・脱字や記入漏れがないか、送信前にご確認ください。"]
+ ]);
+ const section=add("section","family-shipping-guide requirement-visual requirement-eligibility");
+ section.append(el("h3","family-shipping-title","ご注文前の確認"));
+ const list=el("div","family-shipping-conditions");section.append(list);
+ [["印刷について","フリガナは印刷されません。書体は明朝体です。注文書に記載された内容以外は印刷できません。"],["返品・交換について","名刺の返品・交換は原則できません。印刷ミスがあった場合は、商品到着後7日以内にご連絡ください。"],["その他","商品・チラシなどとの同梱、おまとめ配送はできません。"]].forEach(([label,description])=>{const row=el("div","family-shipping-condition");row.append(el("strong","",label),el("p","",description));list.append(row)});
+}
+function renderDetail(i,j){const [purpose,doc,type]=groups[i].items[j];app.replaceChildren();updateProcedureBreadcrumb(i);heading(purpose);if(type==="card"){creditCardGuide(doc);return}if(purpose==="定期購入の内容を変更したい"||purpose==="定期購入を停止したい"||purpose==="定期購入を再開したい"){subscriptionGuide(purpose,doc);return}if(purpose==="本人確認書類を提出したい"){identityDocumentsGuide(doc,purpose);return}if(purpose==="会員資格を復活したい"){pilotAddress(doc,purpose);reactivationConditions();return}if(purpose==="家族の定期購入をまとめたい"){pilotAddress(doc,purpose);familyShippingGuide();return}if(purpose==="ブランチを申請したい"){branchApplicationGuide(doc,purpose);return}if(purpose==="名刺を注文したい"){nameCardOrderGuide(doc,purpose);return}if(purpose==="ポジションを譲渡・相続したい"||purpose==="法人登録したい"||purpose==="法人から個人登録へ変更したい"){pilotAddress(doc,purpose);transferAndEntityGuide(purpose);return}if(type!=="card"&&type!=="subscription"&&type!=="shopping"){pilotAddress(doc,purpose);return}if(purpose==="氏名などを変更したい")note("氏名変更では、住民票（コピー可）、戸籍全部事項証明書（戸籍謄本・コピー可）、運転免許証のコピー、マイナンバーカード表面のコピーのいずれかも提出してください。");if(purpose==="クーリングオフしたい")note("クーリングオフは20日以内です。返品する商品は本社へ着払いで返送してください。");if(type==="card"){eservice("カード情報登録・更新へ");note("※「ニナファームカード」の場合は、E-Serviceよりご登録ください。");note("「クレジット決済番号届出書」で登録すると、特典およびNiNAの付与が受けられません。");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="subscription"){eservice("定期購入情報へ");const sec=add("section","detail-divider");add("p","method-note","書面での手続きが必要な場合の書類： "+doc,sec)}else if(type==="shopping"){salonShoppingGuide(purpose)}else{if(purpose==="マイナンバーを届け出たい"||purpose==="口座振替・自動振込を申し込みたい"){postalUI(doc)}else{submitSelector(doc,purpose)}}if(purpose==="法人登録したい"||purpose==="本人確認書類を提出したい")add("p","method-note","本人確認書類の提出が必要となる場合があります。必要書類・提出方法は公式案内をご確認ください。");procedureNotice(app,"申請前に、公式申請書の注意事項と最新の条件を必ずご確認ください。","check")}
 function detail(i,j){renderDetail(i,j);app.querySelectorAll(".procedure-notice").forEach(n=>{if(n.textContent==="申請前に、公式申請書の注意事項と最新の条件を必ずご確認ください。"||n.textContent==="申請前に、最新の本人確認書類貼付用紙の条件と注意事項を必ずご確認ください。")n.remove()});procedureNotice(app,"申請前に、公式申請書の注意事項と最新の条件を必ずご確認ください。");const footer=add("div","procedure-bottom-back");const b=el("button","inner-back","← 手続き一覧に戻る");b.type="button";b.onclick=()=>home(i);footer.append(b)}
 function openInitialCategory(){const match=location.hash.match(/^#category=([0-9]+)(?:&item=([0-9]+))?$/);if(match){const i=Number(match[1]),j=match[2]===undefined?null:Number(match[2]);if(Number.isInteger(i)&&i>=0&&i<groups.length){if(j!==null&&Number.isInteger(j)&&j>=0&&j<groups[i].items.length){detail(i,j);return}category(i);return}}home()}
 window.addEventListener("hashchange",openInitialCategory);
