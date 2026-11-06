@@ -233,13 +233,30 @@ function diagramThree(){
 function renderThree(){
  diagramThree();
  const body=document.getElementById("breakdown");body.replaceChildren();
- const items=[
- ["00のベーシックコミッション",21000,"左右の少ない側21万PT × 10％"],
- ["01のベーシックコミッション",10000,"左右の少ない側10万PT × 10％（アクティブ紹介者なしでも対象）"],
- ["02のベーシックコミッション",10000,"左右の少ない側10万PT × 10％（アクティブ紹介者なしでも対象）"],
- ["00のメガマッチ",20000,"01のベーシック1万円 ＋ 02のベーシック1万円"]
- ];
- for(const [label,value,detail] of items){const card=document.createElement("div");card.className="breakdown-card";const head=document.createElement("div");head.className="breakdown-card-head";const title=document.createElement("strong");title.textContent=label;const amount=document.createElement("strong");amount.textContent=yen(value);head.append(title,amount);const calc=document.createElement("div");calc.className="breakdown-calcs";calc.textContent=detail;card.append(head,calc);body.append(card)}
+ const add=(name,value,lines)=>{
+  const card=document.createElement("div");card.className="breakdown-card";
+  const head=document.createElement("div");head.className="breakdown-card-head";
+  const title=document.createElement("strong");title.textContent=name;
+  const amount=document.createElement("strong");amount.textContent=yen(value);
+  head.append(title,amount);card.append(head);
+  const details=document.createElement("div");details.className="breakdown-calcs";
+  for(const [label,formula] of lines){
+   const line=document.createElement("div");line.className="breakdown-calc";
+   const l=document.createElement("span");l.textContent=label;
+   const f=document.createElement("span");f.textContent=formula;
+   line.append(l,f);details.append(line);
+  }
+  card.append(details);body.append(card);
+ };
+ add("ベーシックコミッション",41000,[
+  ["00","21万PT × 10％ ＝ "+yen(21000)],
+  ["01","10万PT × 10％ ＝ "+yen(10000)],
+  ["02","10万PT × 10％ ＝ "+yen(10000)]
+ ]);
+ add("メガマッチ（直接紹介ポジションのベーシックの100％）",20000,[
+  ["01のベーシック",yen(10000)+" × 100％ ＝ "+yen(10000)],
+  ["02のベーシック",yen(10000)+" × 100％ ＝ "+yen(10000)]
+ ]);
  document.getElementById("sum").textContent=yen(61000);
 }
 function syncRegistration(){
