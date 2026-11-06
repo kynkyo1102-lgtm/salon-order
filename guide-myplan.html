@@ -200,12 +200,39 @@ function diagramLapis(m){
 
 let registrationMode="one";
 function diagramThree(){
+ // Use the exact same layout and triangle dimensions as the 1-position model.
+ const m=generate(40000)[0];
+ diagram(m);
  const root=document.getElementById("binary-diagram");
- const people=[{x:300,y:24,code:"00",label:"あなた"},{x:150,y:210,code:"01",label:"あなたの01"},{x:450,y:210,code:"02",label:"あなたの02"}];
- const edges='<path d="M300 125 L150 207 M300 125 L450 207" stroke="#94b5c9" stroke-width="3" fill="none"/>';
- const icons=people.map(p=>'<g class="three-tap-person" data-three-person="'+p.code+'" role="button" tabindex="0" aria-label="'+p.label+'のボーナス内訳を表示"><image href="./assets/avatar_01.svg" x="'+(p.x-33)+'" y="'+p.y+'" width="66" height="66"/><text x="'+p.x+'" y="'+(p.y+88)+'" font-size="19" text-anchor="middle" font-weight="700" fill="#225678">'+p.label+'</text><rect x="'+(p.x-28)+'" y="'+(p.y+95)+'" width="56" height="27" rx="13" fill="#d9edf9"/><text x="'+p.x+'" y="'+(p.y+114)+'" font-size="17" text-anchor="middle" font-weight="800" fill="#0055a4">'+p.code+'</text></g>').join("");
- const triangles=people.slice(1).map(p=>'<g><path d="M'+p.x+' 355 l-115 165 h115 Z" fill="#73b6e5"/><path d="M'+p.x+' 355 l115 165 h-115 Z" fill="#0055a4"/><text x="'+(p.x-60)+'" y="551" text-anchor="middle" font-size="19" font-weight="700" fill="#225678">10万PT</text><text x="'+(p.x+60)+'" y="551" text-anchor="middle" font-size="19" font-weight="700" fill="#225678">10万PT</text></g>').join("");
- root.innerHTML='<p class="three-plan-caption">人物アイコンをタップすると、それぞれのボーナス内訳を確認できます。00・01・02はすべて自分のポジション。01・02の下は人物を増やさず、左右のグループを三角形で表しています。</p><svg class="three-plan-svg" viewBox="0 0 600 580" role="img" aria-label="あなた00から自分の01と02へ。01と02の左右グループはそれぞれ10万PT。">'+edges+icons+triangles+'</svg><p class="three-plan-caption">00の左右は各21万PT（01・02の各1万PTを含む）</p>';
+ const top=root.querySelector(".plan-top");
+ if(top){
+  top.classList.add("three-tap-person");
+  top.classList.remove("lapis-tap-person");
+  top.dataset.threePerson="00";
+  top.setAttribute("role","button");
+  top.setAttribute("tabindex","0");
+  top.setAttribute("aria-label","あなた00のボーナス内訳を表示");
+  top.querySelector("strong").textContent="あなた（00）";
+ }
+ const branches=root.querySelectorAll(".plan-branch .plan-person");
+ branches.forEach((person,i)=>{
+  const code=i===0?"01":"02";
+  person.classList.add("three-tap-person");
+  person.classList.remove("lapis-tap-person");
+  person.dataset.threePerson=code;
+  person.setAttribute("role","button");
+  person.setAttribute("tabindex","0");
+  person.setAttribute("aria-label","あなたの"+code+"のボーナス内訳を表示");
+  person.querySelector("strong").textContent="あなたの"+code;
+  const avatar=person.querySelector("img");
+  if(avatar)avatar.src="./assets/avatar_01.svg";
+  const label=person.querySelector(".plan-direct-label");
+  if(label)label.textContent="00からの直紹介";
+ });
+ const hint=document.createElement("p");
+ hint.className="lapis-tap-hint";
+ hint.textContent="👆 人物をタップすると、各ポジションのベーシックと00のメガマッチを確認できます";
+ root.prepend(hint);
 }
 function renderThree(){
  diagramThree();
@@ -254,7 +281,7 @@ function showThreePersonBonus(code){
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const basic='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+data.name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(data.basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(data.side)+' × 10％ ＝ '+yen(data.basic)+'</div></div>';
- const match=code==="00"?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00のメガマッチ</div><div class="lapis-dialog-amount">'+yen(data.match)+'</div><div class="lapis-dialog-equation">01のベーシック 10,000円 ＋ 02のベーシック 10,000円</div></div>':'<p class="lapis-dialog-relation">3点登録の01・02は、アクティブ紹介者がいなくてもベーシックコミッションの対象となる例です。</p>';
+ const match=code==="00"?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00が受け取るメガマッチ（合計）</div><div class="lapis-dialog-amount">'+yen(data.match)+'</div><div class="lapis-dialog-equation">01のベーシック 10,000円 ＋ 02のベーシック 10,000円</div></div>':'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に、あなたの00が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(data.basic)+'</div><div class="lapis-dialog-equation">'+yen(data.basic)+' × 100％ ＝ '+yen(data.basic)+'</div></div><p class="lapis-dialog-relation">'+data.name+'のベーシックは'+code+'に、メガマッチは00に入る計算です。3点登録の01・02は、アクティブ紹介者がいなくてもベーシックの対象となる例です。</p>';
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+data.name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+basic+match;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());
  dialog.showModal();
