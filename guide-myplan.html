@@ -288,6 +288,24 @@ function diagramThree100k(){
  const directNote=root.querySelector(".lapis-diagram-note");
  if(directNote)directNote.textContent="🟠 オレンジ枠の01・02・A・Bさんは00の直紹介です。線は組織上の配置を示します。00・01・02はすべて自分のポジションです。";
 }
+function renderThree200k(){
+ diagramThree100k();
+ const m=generate(200000)[0];
+ const body=document.getElementById("breakdown");body.replaceChildren();
+ const add=(name,value,lines)=>{
+  const card=document.createElement("div");card.className="breakdown-card";
+  const head=document.createElement("div");head.className="breakdown-card-head";
+  const title=document.createElement("strong");title.textContent=name;
+  const amount=document.createElement("strong");amount.textContent=yen(value);
+  head.append(title,amount);card.append(head);
+  const details=document.createElement("div");details.className="breakdown-calcs";
+  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
+  card.append(details);body.append(card);
+ };
+ add("ベーシックコミッション",201000,[["00","101万PT × 10％ ＝ "+yen(101000)],["01","50万PT × 10％ ＝ "+yen(50000)],["02","50万PT × 10％ ＝ "+yen(50000)]]);
+ add("メガマッチ（00の直紹介ポジションのベーシックの100％）",150000,[["00：01のベーシック",yen(50000)+" × 100％ ＝ "+yen(50000)],["00：02のベーシック",yen(50000)+" × 100％ ＝ "+yen(50000)],["00：A・Bさんのベーシック",yen(25000)+" × 2 ＝ "+yen(50000)]]);
+ document.getElementById("sum").textContent=yen(351000);
+}
 function renderThree100k(){
  diagramThree100k();
  const body=document.getElementById("breakdown");body.replaceChildren();
@@ -352,7 +370,7 @@ function renderThree(){
  document.getElementById("sum").textContent=yen(61000);
 }
 function syncRegistration(){
- const available=[40000,100000].includes(Number(document.getElementById("goal").value));
+ const available=[40000,100000,200000].includes(Number(document.getElementById("goal").value));
  document.getElementById("registration-reveal").hidden=!available;
  const btn=document.getElementById("registration-reveal-button");
  btn.textContent=registrationMode==="three"?"通常の1点登録の図に戻す":"3点登録の場合を見てみる";
@@ -361,7 +379,7 @@ function syncRegistration(){
 }
 function render(){
  syncRegistration();
- if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
+ if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===200000)renderThree200k();else if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
  const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
  if(!m)return;
  diagram(m);
