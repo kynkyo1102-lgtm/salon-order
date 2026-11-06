@@ -236,10 +236,18 @@ function diagramThree100k(){
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  root.querySelectorAll(".lapis-tap-person").forEach(el=>{
   const old=el.dataset.person;if(!old)return;
-  el.classList.add("three-100k-person");
+  // C/D are placement-only: no personal bonus dialog in this scenario.
+  if(old==="Dさん"||old==="Fさん"){
+   el.classList.remove("lapis-tap-person");
+   el.removeAttribute("role");
+   el.removeAttribute("tabindex");
+   el.removeAttribute("aria-label");
+  }else{
+   el.classList.add("three-100k-person");
+  }
   el.dataset.three100k=old;
   el.classList.remove("lapis-tap-person");
-  el.setAttribute("aria-label",names[old]+"のボーナス計算を表示");
+  if(old!=="Dさん"&&old!=="Fさん")el.setAttribute("aria-label",names[old]+"のボーナス計算を表示");
   el.querySelectorAll("text").forEach(t=>{if(t.textContent===old)t.textContent=names[old]});
   if(["Aさん","Bさん"].includes(old)){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
 
@@ -255,7 +263,7 @@ function diagramThree100k(){
   svg.querySelectorAll("text.lapis-large-relation").forEach(t=>{if(t.textContent==="直接紹介"){const pill=t.previousElementSibling;t.remove();if(pill&&pill.tagName.toLowerCase()==="rect")pill.remove()}});
  }
  // Keep the frame around the entire avatar and label, with extra width for 01/02.
- root.querySelectorAll(".three-100k-person").forEach(el=>{
+ root.querySelectorAll("g[data-three100k]").forEach(el=>{
   const old=el.dataset.three100k;
   if(!["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].includes(old))return;
   const rect=el.querySelector("rect");
@@ -275,6 +283,8 @@ function diagramThree100k(){
   rect.setAttribute("stroke",direct?"#d99b56":"#b5c6d1");
   rect.setAttribute("stroke-width","3");
  });
+ const hint=root.querySelector(".lapis-tap-hint");
+ if(hint)hint.textContent="👆 00・01・02・A・Bさんをタップすると、あなたのボーナス計算を確認できます";
  const directNote=root.querySelector(".lapis-diagram-note");
  if(directNote)directNote.textContent="🟠 オレンジ枠の01・02・A・Bさんは00の直紹介です。線は組織上の配置を示します。00・01・02はすべて自分のポジションです。";
 }
