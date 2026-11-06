@@ -230,6 +230,61 @@ function diagramThree(){
   if(label)label.textContent="00からの直紹介";
  });
 }
+function diagramThree100k(){
+ const m=generate(100000)[0];diagramLapis(m);
+ const root=document.getElementById("binary-diagram");
+ const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Bさん","Eさん":"Cさん","Fさん":"Dさん"};
+ root.querySelectorAll(".lapis-tap-person").forEach(el=>{
+  const old=el.dataset.person;if(!old)return;
+  el.classList.add("three-100k-person");
+  el.dataset.three100k=old;
+  el.classList.remove("lapis-tap-person");
+  el.setAttribute("aria-label",names[old]+"のボーナス計算を表示");
+  el.querySelectorAll("text").forEach(t=>{if(t.textContent===old)t.textContent=names[old]});
+  if(["Aさん","Bさん"].includes(old)){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
+ });
+ const summary=root.querySelector(".lapis-tree-summary");
+ if(summary)summary.innerHTML="00の左右 各"+pts(m.left)+" <span>（01・02の各1万PTを含む）</span>";
+ const note=root.querySelector(".lapis-diagram-note");
+ if(note)note.textContent="00・01・02はすべて自分のポジション。01からA・Bさん、02からC・Dさんへつながる同じ組織例です。各ポジションの自己購入は1万PTとして計算しています。";
+ const extra=root.querySelector(".lapis-title-extra");if(extra)extra.remove();
+ const svg=root.querySelector("svg.lapis-full-tree");
+ if(svg)svg.setAttribute("aria-label","あなた00からあなたの01と02へ。01の下にAさんBさん、02の下にCさんDさん。それぞれの左右グループを三角形で表示");
+}
+function renderThree100k(){
+ diagramThree100k();
+ const body=document.getElementById("breakdown");body.replaceChildren();
+ const add=(name,value,lines)=>{
+  const card=document.createElement("div");card.className="breakdown-card";
+  const head=document.createElement("div");head.className="breakdown-card-head";
+  const title=document.createElement("strong");title.textContent=name;
+  const amount=document.createElement("strong");amount.textContent=yen(value);
+  head.append(title,amount);card.append(head);
+  const details=document.createElement("div");details.className="breakdown-calcs";
+  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
+  card.append(details);body.append(card);
+ };
+ add("ベーシックコミッション",101000,[["00","51万PT × 10％ ＝ "+yen(51000)],["01","25万PT × 10％ ＝ "+yen(25000)],["02","25万PT × 10％ ＝ "+yen(25000)]]);
+ add("メガマッチ（直接紹介ポジションのベーシックの100％）",98000,[["00：01のベーシック",yen(25000)+" × 100％ ＝ "+yen(25000)],["00：02のベーシック",yen(25000)+" × 100％ ＝ "+yen(25000)],["01：A・Bさんのベーシック",yen(12000)+" × 2 ＝ "+yen(24000)],["02：C・Dさんのベーシック",yen(12000)+" × 2 ＝ "+yen(24000)]]);
+ add("ダブルメガマッチ（二次紹介者のベーシックの10％）",4800,[["00：A・B・C・Dさん",yen(12000)+" × 10％ × 4 ＝ "+yen(4800)]]);
+ document.getElementById("sum").textContent=yen(203800);
+}
+function showThree100kBonus(old){
+ const m=generate(100000)[0];
+ const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Bさん","Eさん":"Cさん","Fさん":"Dさん"};
+ const isRoot=old==="あなた",isBranch=old==="Aさん"||old==="Bさん";
+ const side=isRoot?510000:isBranch?250000:120000;
+ const basic=side*.1;
+ let dialog=document.getElementById("lapis-bonus-dialog");
+ if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
+ const base='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+names[old]+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％ ＝ '+yen(basic)+'</div></div>';
+ let extra='';
+ if(isRoot)extra='<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00のメガマッチ</div><div class="lapis-dialog-amount">'+yen(50000)+'</div><div class="lapis-dialog-equation">01・02のベーシック 各25,000円</div></div><div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00のダブルメガマッチ</div><div class="lapis-dialog-amount">'+yen(4800)+'</div><div class="lapis-dialog-equation">A〜Dさんのベーシック 各12,000円 × 10％ × 4</div></div>';
+ else if(isBranch)extra='<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に00が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(25000)+'</div></div><div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+names[old]+'が受け取るメガマッチ（A・BまたはC・Dの分）</div><div class="lapis-dialog-amount">'+yen(24000)+'</div><div class="lapis-dialog-equation">12,000円 × 2</div></div>';
+ else extra='<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に'+(old==="Cさん"||old==="Dさん"?"01":"02")+'が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(12000)+'</div></div><div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00が受け取るダブルメガマッチ</div><div class="lapis-dialog-amount">'+yen(1200)+'</div><div class="lapis-dialog-equation">12,000円 × 10％</div></div>';
+ dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
+ dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
+}
 function renderThree(){
  diagramThree();
  const body=document.getElementById("breakdown");body.replaceChildren();
@@ -260,16 +315,16 @@ function renderThree(){
  document.getElementById("sum").textContent=yen(61000);
 }
 function syncRegistration(){
- const available=Number(document.getElementById("goal").value)===40000;
+ const available=[40000,100000].includes(Number(document.getElementById("goal").value));
  document.getElementById("registration-reveal").hidden=!available;
  const btn=document.getElementById("registration-reveal-button");
  btn.textContent=registrationMode==="three"?"通常の1点登録の図に戻す":"3点登録の場合を見てみる";
  document.getElementById("registration-reveal-lead").textContent=registrationMode==="three"?"同じ組織で3点登録の場合は…？":"同じ組織で3点登録の場合は…？";
- document.getElementById("registration-comparison").hidden=registrationMode!=="three";
+ document.getElementById("registration-comparison").hidden=registrationMode!=="three" || Number(document.getElementById("goal").value)!==40000;
 }
 function render(){
  syncRegistration();
- if(registrationMode==="three"){renderThree();return;}
+ if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
  const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
  if(!m)return;
  diagram(m);
@@ -314,8 +369,8 @@ function showPersonBonus(name){
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+titleNote+base+match;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
-document.getElementById("binary-diagram").addEventListener("click",e=>{const three=e.target.closest(".three-tap-person");if(three){showThreePersonBonus(three.dataset.threePerson);return}const p=e.target.closest(".lapis-tap-person");if(p)showPersonBonus(p.dataset.person)});
-document.getElementById("binary-diagram").addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const three=e.target.closest(".three-tap-person");if(three){e.preventDefault();showThreePersonBonus(three.dataset.threePerson);return}const p=e.target.closest(".lapis-tap-person");if(p){e.preventDefault();showPersonBonus(p.dataset.person)}});
+document.getElementById("binary-diagram").addEventListener("click",e=>{const hundred=e.target.closest(".three-100k-person");if(hundred){showThree100kBonus(hundred.dataset.three100k);return}const three=e.target.closest(".three-tap-person");if(three){showThreePersonBonus(three.dataset.threePerson);return}const p=e.target.closest(".lapis-tap-person");if(p)showPersonBonus(p.dataset.person)});
+document.getElementById("binary-diagram").addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const hundred=e.target.closest(".three-100k-person");if(hundred){e.preventDefault();showThree100kBonus(hundred.dataset.three100k);return}const three=e.target.closest(".three-tap-person");if(three){e.preventDefault();showThreePersonBonus(three.dataset.threePerson);return}const p=e.target.closest(".lapis-tap-person");if(p){e.preventDefault();showPersonBonus(p.dataset.person)}});
 document.getElementById("binary-diagram").addEventListener("click",e=>{const btn=e.target.closest("[data-diagram-mode]");if(btn){largeDiagramMode=btn.dataset.diagramMode;diagramLapis(generate(Number(document.getElementById("goal").value))[0])}});
 document.getElementById("registration-reveal-button").addEventListener("click",()=>{registrationMode=registrationMode==="one"?"three":"one";render();requestAnimationFrame(()=>document.querySelector(".myplan-diagram").scrollIntoView({behavior:"smooth",block:"start"}))});
 document.getElementById("goal").addEventListener("change",()=>{selected=0;registrationMode="one";largeDiagramMode="pt";render()});render();
