@@ -289,25 +289,30 @@ function diagramThree100k(){
  if(directNote)directNote.textContent="🟠 オレンジ枠の01・02・A・Bさんは00の直紹介です。線は組織上の配置を示します。00・01・02はすべて自分のポジションです。";
 }
 function extendThree200kDiagram(){
- const root=document.getElementById("binary-diagram");
- const svg=root.querySelector("svg.lapis-full-tree");
+ const root=document.getElementById("binary-diagram"),svg=root.querySelector("svg.lapis-full-tree");
  if(!svg)return;
  const ns="http://www.w3.org/2000/svg";
- const make=(tag,attrs)=>{const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));return e};
- const old=svg.viewBox.baseVal;
- svg.setAttribute("viewBox","0 0 760 "+Math.max(1500,old.height+320));
- for(const person of [{name:"Eさん",x:95,from:95},{name:"Fさん",x:475,from:475}]){
-  const group=make("g",{"aria-label":person.name+"（A・Bさんからの紹介）"});
-  group.append(make("path",{d:"M"+person.from+" 1190 L"+person.x+" 1255",stroke:"#91a9b9","stroke-width":4,fill:"none"}));
-  group.append(make("rect",{x:person.x-67,y:1260,width:134,height:150,rx:18,fill:"#edf5fb",stroke:"#71a9d0","stroke-width":3}));
-  group.append(make("image",{href:"./assets/avatar_06.svg",x:person.x-42,y:1270,width:84,height:84}));
-  const label=make("text",{x:person.x,y:1383,"text-anchor":"middle",class:"lapis-large-name"});label.textContent=person.name;group.append(label);
-  svg.append(group);
+ const el=(tag,attrs)=>{const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n};
+ svg.setAttribute("viewBox","0 0 760 1250");
+ // Replace the original four wide PT triangles; keep the existing people and connections.
+ Array.from(svg.querySelectorAll("path")).filter(p=>/^M(95|285|475|665) 725 L/.test(p.getAttribute("d")||"")).forEach(p=>p.remove());
+ svg.querySelectorAll(".lapis-leaf-pt").forEach(t=>t.remove());
+ const triangle=(x,y,half,pt)=>{
+  svg.append(el("path",{d:"M"+x+" "+y+" L"+(x-half)+" 1180 L"+x+" 1180 Z",fill:"#73b6e5"}));
+  svg.append(el("path",{d:"M"+x+" "+y+" L"+(x+half)+" 1180 L"+x+" 1180 Z",fill:"#0055a4"}));
+  for(const offset of [-half/2,half/2]){const t=el("text",{x:x+offset,y:1218,"text-anchor":"middle",class:"lapis-large-pt lapis-leaf-pt"});t.textContent=pt;svg.append(t)}
+ };
+ // E is A's referral; F is B's referral, alongside their parent's PT groups.
+ for(const p of [{name:"Eさん",x:65,parent:95},{name:"Fさん",x:445,parent:475}]){
+  svg.append(el("path",{d:"M"+p.parent+" 713 L"+p.x+" 794",stroke:"#91a9b9","stroke-width":"3",fill:"none"}));
+  const g=el("g",{"aria-label":p.name+"（"+(p.name==="Eさん"?"A":"B")+"さんの直紹介）"});
+  g.append(el("rect",{x:p.x-47,y:795,width:94,height:132,rx:15,fill:"#edf5fb",stroke:"#71a9d0","stroke-width":3}));
+  g.append(el("image",{href:"./assets/avatar_06.svg",x:p.x-34,y:801,width:68,height:68}));
+  const name=el("text",{x:p.x,y:906,"text-anchor":"middle",class:"lapis-large-name"});name.textContent=p.name;g.append(name);svg.append(g);
  }
- const hint=root.querySelector(".lapis-tap-hint");
- if(hint)hint.textContent="👆 00・01・02・A・Bさんをタップすると、あなたのボーナス計算を確認できます。E・Fさんは二次紹介の例です";
+ for(const t of [{x:65,y:943,w:37,pt:"12万PT"},{x:170,y:750,w:43,pt:"25万PT"},{x:285,y:750,w:43,pt:"25万PT"},{x:445,y:943,w:37,pt:"12万PT"},{x:550,y:750,w:43,pt:"25万PT"},{x:665,y:750,w:43,pt:"25万PT"}])triangle(t.x,t.y,t.w,t.pt);
  const note=root.querySelector(".lapis-diagram-note");
- if(note)note.textContent+=" E・FさんはそれぞれA・Bさんからの紹介として追加しています。";
+ if(note)note.textContent+=" EさんはAさん、FさんはBさんの直紹介として配置しています。";
 }
 function renderThree200k(){
  diagramThree100k();
