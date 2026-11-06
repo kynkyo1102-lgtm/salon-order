@@ -254,10 +254,25 @@ function diagramThree100k(){
   svg.setAttribute("aria-label","あなた00の下に01と02、その下にAさんBさんCさんDさんを配置。全員00の直紹介でオレンジ枠。線は組織上の配置を示します。");
   svg.querySelectorAll("text.lapis-large-relation").forEach(t=>{if(t.textContent==="直接紹介"){const pill=t.previousElementSibling;t.remove();if(pill&&pill.tagName.toLowerCase()==="rect")pill.remove()}});
  }
+ // Keep the frame around the entire avatar and label, with extra width for 01/02.
  root.querySelectorAll(".three-100k-person").forEach(el=>{
-  if(!["Aさん","Bさん"].includes(el.dataset.three100k))return;
+  const old=el.dataset.three100k;
+  if(!["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].includes(old))return;
   const rect=el.querySelector("rect");
-  if(rect){rect.setAttribute("fill","#fff7eb");rect.setAttribute("stroke","#d99b56");rect.setAttribute("stroke-width","4");rect.setAttribute("rx","18")}
+  const avatar=el.querySelector("image");
+  if(!rect||!avatar)return;
+  const center=Number(avatar.getAttribute("x"))+Number(avatar.getAttribute("width"))/2;
+  const top=Number(avatar.getAttribute("y"));
+  const branch=old==="Aさん"||old==="Bさん";
+  const width=branch?178:136;
+  rect.setAttribute("x",String(center-width/2));
+  rect.setAttribute("y",String(top-14));
+  rect.setAttribute("width",String(width));
+  rect.setAttribute("height","158");
+  rect.setAttribute("rx","19");
+  rect.setAttribute("fill","#fff7eb");
+  rect.setAttribute("stroke","#d99b56");
+  rect.setAttribute("stroke-width","3");
  });
  const directNote=root.querySelector(".lapis-diagram-note");
  if(directNote)directNote.textContent="🟠 オレンジ枠の01・02・A・B・C・Dさんは全員00の直紹介です。線は組織上の配置を示します。00・01・02はすべて自分のポジションです。";
