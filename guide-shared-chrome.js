@@ -95,7 +95,7 @@ function init(){
  addManualReference();
  addBottomReturnLink();
  const footer=document.createElement('footer');footer.className='guide-shared-footer';footer.innerHTML='<p>当サイトはプラッス ドゥ ニナ 南熊本店が制作した非公式ガイドです。正式な内容は公式資料をご確認ください。</p>';document.body.append(footer);
- const floating=document.createElement('nav');floating.className='guide-shared-floating';floating.setAttribute('aria-label','便利なリンク');floating.innerHTML='<a class="guide-shared-eservice" href="https://www.ninapharm.co.jp/e-service/" target="_blank" rel="noopener noreferrer">E-Service</a><a class="guide-shared-diagnosis" href="./check.html">ボーナス診断</a>';document.body.append(floating);
+ const floating=document.createElement('nav');floating.className='guide-shared-floating';floating.setAttribute('aria-label','便利なリンク');floating.innerHTML='<a class="guide-shared-eservice" href="https://share.google/YMkDp6tvydCq1D08A" target="_blank" rel="noopener noreferrer">E-Service</a><a class="guide-shared-diagnosis" href="./check.html">ボーナス診断</a>';document.body.append(floating);
  const position=()=>{const rect=footer.getBoundingClientRect();const overlap=Math.max(0,window.innerHeight-rect.top);floating.style.bottom=(18+overlap)+'px'};
  window.addEventListener('scroll',position,{passive:true});window.addEventListener('resize',position);position();
 }
