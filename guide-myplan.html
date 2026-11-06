@@ -326,17 +326,16 @@ function renderThree100k(){
 function showThree100kBonus(old){
  const m=generate(Number(document.getElementById("goal").value))[0];
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
- const isRoot=old==="あなた",isBranch=old==="Aさん"||old==="Bさん";
- const side=isRoot?m.left:isBranch?m.ax:m.secondary[0].left;
- const basic=side*.1;
+ const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
+ const side=root?m.left:branch?m.ax:m.secondary[0].left;
+ const basic=side*.1,match=m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
- const base='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+names[old]+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％ ＝ '+yen(basic)+'</div></div>';
+ const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
+ const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(isRoot)extra='<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00が受け取るメガマッチ（直紹介4ポジション分）</div><div class="lapis-dialog-amount">'+yen(74000)+'</div><div class="lapis-dialog-equation">01・02 各25,000円 ＋ A・Bさん 各12,000円</div></div>';
- else if(isBranch)extra='<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に00が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(25000)+'</div><div class="lapis-dialog-equation">25,000円 × 100％</div></div><p class="lapis-dialog-relation">01・02は組織上の配置先です。A・Bさんは00の直紹介です。</p>';
- else if(old==="Cさん"||old==="Eさん")extra='<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に00が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(12000)+'</div><div class="lapis-dialog-equation">12,000円 × 100％</div></div>';
- else extra='<p class="lapis-dialog-relation">この組織例では00の直紹介・二次紹介として扱わないため、00のメガマッチ・ダブルメガマッチの計算には含めません。</p>';
+ if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(m.abasic)+' ＋ A・Bさん 各'+yen(m.secondary[0].basic));
+ else if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
