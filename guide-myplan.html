@@ -322,7 +322,7 @@ function extendThree200kDiagram(){
   g.append(el("image",{href:"./assets/avatar_06.svg",x:p.x-34,y:801,width:68,height:68}));
   const name=el("text",{x:p.x,y:906,"text-anchor":"middle",class:"lapis-large-name"});name.textContent=p.name;g.append(name);svg.append(g);
  }
- for(const t of [{x:65,y:943,w:37,pt:"12万PT"},{x:170,y:750,w:43,pt:"25万PT",side:"right"},{x:285,y:750,w:43,pt:"25万PT"},{x:445,y:943,w:37,pt:"12万PT"},{x:550,y:750,w:43,pt:"25万PT",side:"right"},{x:665,y:750,w:43,pt:"25万PT"}])triangle(t.x,t.y,t.w,t.pt,t.side);
+ for(const t of [{x:65,y:943,w:37,pt:"12万PT"},{x:154,y:750,w:43,pt:"25万PT",side:"right"},{x:285,y:750,w:43,pt:"25万PT"},{x:445,y:943,w:37,pt:"12万PT"},{x:534,y:750,w:43,pt:"25万PT",side:"right"},{x:665,y:750,w:43,pt:"25万PT"}])triangle(t.x,t.y,t.w,t.pt,t.side);
  const hint=root.querySelector(".lapis-tap-hint");if(hint)hint.textContent="👆 00・01・02・A・B・E・Fさんをタップすると、あなたのボーナス計算を確認できます";
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" EさんはAさん、FさんはBさんの直紹介として配置しています。";
