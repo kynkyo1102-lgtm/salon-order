@@ -320,17 +320,39 @@ function extendThree200kDiagram(goal=200000){
   g.append(el("image",{href:"./assets/avatar_06.svg",x:p.x-34,y:801,width:68,height:68}));
   const name=el("text",{x:p.x,y:906,"text-anchor":"middle",class:"lapis-large-name"});name.textContent=p.name;g.append(name);svg.append(g);
  }
- for(const t of (goal===500000?[{x:65,y:943,w:37,pt:"50万PT"},{x:154,y:750,w:43,pt:"100万PT",side:"right"},{x:285,y:750,w:43,pt:"50万PT"},{x:445,y:943,w:37,pt:"50万PT"},{x:534,y:750,w:43,pt:"100万PT",side:"right"},{x:665,y:750,w:43,pt:"50万PT"}]:[{x:65,y:943,w:37,pt:["12万PT","11万PT"]},{x:154,y:750,w:43,pt:"24万PT",side:"right"},{x:285,y:750,w:43,pt:["25万PT","24万PT"]},{x:445,y:943,w:37,pt:["12万PT","11万PT"]},{x:534,y:750,w:43,pt:"24万PT",side:"right"},{x:665,y:750,w:43,pt:"24万PT"}]))triangle(t.x,t.y,t.w,t.pt,t.side);
+ for(const t of (goal===1000000?[{x:65,y:943,w:37,pt:["75万PT","74万PT"]},{x:154,y:750,w:43,pt:"150万PT",side:"right"},{x:285,y:750,w:43,pt:"150万PT"},{x:445,y:943,w:37,pt:["75万PT","74万PT"]},{x:534,y:750,w:43,pt:"150万PT",side:"right"},{x:665,y:750,w:43,pt:"150万PT"}]:goal===500000?[{x:65,y:943,w:37,pt:["50万PT","49万PT"]},{x:154,y:750,w:43,pt:"100万PT",side:"right"},{x:285,y:750,w:43,pt:"50万PT"},{x:445,y:943,w:37,pt:["50万PT","49万PT"]},{x:534,y:750,w:43,pt:"100万PT",side:"right"},{x:665,y:750,w:43,pt:"50万PT"}]:[{x:65,y:943,w:37,pt:["12万PT","11万PT"]},{x:154,y:750,w:43,pt:"24万PT",side:"right"},{x:285,y:750,w:43,pt:["25万PT","24万PT"]},{x:445,y:943,w:37,pt:["12万PT","11万PT"]},{x:534,y:750,w:43,pt:"24万PT",side:"right"},{x:665,y:750,w:43,pt:"24万PT"}]))triangle(t.x,t.y,t.w,t.pt,t.side);
  const hint=root.querySelector(".lapis-tap-hint");if(hint)hint.textContent="👆 00・01・02・A・B・E・Fさんをタップすると、あなたのボーナス計算を確認できます";
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" EさんはAさん、FさんはBさんの直紹介として配置しています。";
+}
+function renderThree1000k(){
+ diagramThree100k();
+ extendThree200kDiagram(1000000);
+ const root=document.getElementById("binary-diagram");
+ const summary=root.querySelector(".lapis-tree-summary");
+ if(summary)summary.innerHTML="00の左右 各603万PT <span>（各人物の1万PTを含む）</span>";
+ const body=document.getElementById("breakdown");body.replaceChildren();
+ const add=(name,value,lines)=>{
+  const card=document.createElement("div");card.className="breakdown-card";
+  const head=document.createElement("div");head.className="breakdown-card-head";
+  const title=document.createElement("strong");title.textContent=name;
+  const amount=document.createElement("strong");amount.textContent=yen(value);head.append(title,amount);card.append(head);
+  const details=document.createElement("div");details.className="breakdown-calcs";
+  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
+  body.append(card);card.append(details);
+ };
+ const basic=603000+301000*2,mega=301000*2+150000*2,double=14800;
+ add("ベーシックコミッション",basic,[["00","603万PT × 10％ ＝ "+yen(603000)],["01・02","301万PT × 10％ × 2 ＝ "+yen(602000)]]);
+ add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(301000)+" × 2"],["A・Bさん",yen(150000)+" × 2"]]);
+ add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["E・Fさん","74万PT × 10％ × 10％ × 2 ＝ "+yen(14800)]]);
+ document.getElementById("sum").textContent=yen(basic+mega+double);
 }
 function renderThree500k(){
  diagramThree100k();
  extendThree200kDiagram(500000);
  const m=generate(500000)[0];
  const root=document.getElementById("binary-diagram");
- const summary=root.querySelector(".lapis-tree-summary");if(summary)summary.innerHTML="00の左右 各"+pts(3040000)+" <span>（01・02の各1万PTを含む）</span>";
+ const summary=root.querySelector(".lapis-tree-summary");if(summary)summary.innerHTML="00の左右 各"+pts(3030000)+" <span>（01・02の各1万PTを含む）</span>";
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" ※50万円モデルのPTを表示しています。";
  const body=document.getElementById("breakdown");body.replaceChildren();
@@ -344,12 +366,12 @@ function renderThree500k(){
   for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
   card.append(details);body.append(card);
  };
- const basic=304000+101000*2;
- const mega=101000*2+100000*2;
- const double=10000;
- add("ベーシックコミッション",basic,[["00",pts(3040000)+" × 10％ ＝ "+yen(304000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
+ const basic=303000+100000*2;
+ const mega=100000*2+100000*2;
+ const double=9800;
+ add("ベーシックコミッション",basic,[["00",pts(3040000)+" × 10％ ＝ "+yen(303000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
  add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
- add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(50000)+" × 10％ ＝ "+yen(5000)],["Fさん",yen(50000)+" × 10％ ＝ "+yen(5000)]]);
+ add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(49000)+" × 10％ ＝ "+yen(4900)],["Fさん",yen(50000)+" × 10％ ＝ "+yen(5000)]]);
  document.getElementById("sum").textContent=yen(basic+mega+double);
 }
 function renderThree200k(){
@@ -394,8 +416,8 @@ function showThree100kBonus(old){
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
  const goal=Number(document.getElementById("goal").value);
- const side=root?(goal===200000?1010000:goal===500000?3040000:m.left):branch?(goal===200000?500000:m.ax):(goal===200000?240000:m.secondary[0].left);
- const basic=side*.1,match=goal===200000?148000:goal===500000?402000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
+ const side=root?(goal===200000?1010000:goal===1000000?6030000:goal===500000?3030000:m.left):branch?(goal===200000?500000:goal===1000000?3010000:goal===500000?1000000:m.ax):(goal===200000?240000:goal===1000000?1500000:goal===500000?1000000:m.secondary[0].left);
+ const basic=side*.1,match=goal===200000?148000:goal===1000000?902000:goal===500000?400000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
@@ -436,7 +458,7 @@ function renderThree(){
  document.getElementById("sum").textContent=yen(61000);
 }
 function syncRegistration(){
- const available=[40000,100000,200000,500000].includes(Number(document.getElementById("goal").value));
+ const available=[40000,100000,200000,500000,1000000].includes(Number(document.getElementById("goal").value));
  document.getElementById("registration-reveal").hidden=!available;
  const btn=document.getElementById("registration-reveal-button");
  btn.textContent=registrationMode==="three"?"通常の1点登録の図に戻す":"3点登録の場合を見てみる";
@@ -445,7 +467,7 @@ function syncRegistration(){
 }
 function render(){
  syncRegistration();
- if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===500000)renderThree500k();else if(Number(document.getElementById("goal").value)===200000)renderThree200k();else if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
+ if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===1000000)renderThree1000k();else if(Number(document.getElementById("goal").value)===500000)renderThree500k();else if(Number(document.getElementById("goal").value)===200000)renderThree200k();else if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
  const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
  if(!m)return;
  diagram(m);
@@ -492,7 +514,7 @@ function showPersonBonus(name){
 }
 function showThree200kReferral(name){
  const goal=Number(document.getElementById("goal").value);
- const side=goal===500000?500000:110000;
+ const side=goal===1000000?740000:goal===500000?490000:110000;
  const basic=side*.1,bonus=basic*.1;
  let d=document.getElementById("lapis-bonus-dialog");
  if(!d){d=document.createElement("dialog");d.id="lapis-bonus-dialog";d.className="lapis-bonus-dialog";document.querySelector(".myplan").append(d);d.addEventListener("click",e=>{if(e.target===d)d.close()})}
