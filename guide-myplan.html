@@ -321,6 +321,39 @@ function extendThree200kDiagram(){
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" EさんはAさん、FさんはBさんの直紹介として配置しています。";
 }
+function renderThree500k(){
+ diagramThree100k();
+ extendThree200kDiagram();
+ const m=generate(500000)[0];
+ const svg=document.querySelector("#binary-diagram svg.lapis-full-tree");
+ if(svg){
+  // Update the six PT pairs without changing the mobile-friendly layout.
+  const labels=Array.from(svg.querySelectorAll("text")).filter(t=>t.textContent==="12万"||t.textContent==="25万");
+  const values=["50万","50万","100万","100万","50万","50万","50万","50万","100万","100万","50万","50万"];
+  labels.forEach((t,i)=>{if(values[i])t.textContent=values[i]});
+ }
+ const root=document.getElementById("binary-diagram");
+ const note=root.querySelector(".lapis-diagram-note");
+ if(note)note.textContent+=" ※50万円モデルのPTを表示しています。";
+ const body=document.getElementById("breakdown");body.replaceChildren();
+ const add=(name,value,lines)=>{
+  const card=document.createElement("div");card.className="breakdown-card";
+  const head=document.createElement("div");head.className="breakdown-card-head";
+  const title=document.createElement("strong");title.textContent=name;
+  const amount=document.createElement("strong");amount.textContent=yen(value);
+  head.append(title,amount);card.append(head);
+  const details=document.createElement("div");details.className="breakdown-calcs";
+  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
+  card.append(details);body.append(card);
+ };
+ const basic=m.own+m.abasic+m.bbasic;
+ const mega=m.abasic+m.bbasic+200000;
+ const double=10000;
+ add("ベーシックコミッション",basic,[["00",pts(m.left)+" × 10％ ＝ "+yen(m.own)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
+ add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
+ add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(50000)+" × 10％ ＝ "+yen(5000)],["Fさん",yen(50000)+" × 10％ ＝ "+yen(5000)]]);
+ document.getElementById("sum").textContent=yen(basic+mega+double);
+}
 function renderThree200k(){
  diagramThree100k();
  extendThree200kDiagram();
@@ -404,7 +437,7 @@ function renderThree(){
  document.getElementById("sum").textContent=yen(61000);
 }
 function syncRegistration(){
- const available=[40000,100000,200000].includes(Number(document.getElementById("goal").value));
+ const available=[40000,100000,200000,500000].includes(Number(document.getElementById("goal").value));
  document.getElementById("registration-reveal").hidden=!available;
  const btn=document.getElementById("registration-reveal-button");
  btn.textContent=registrationMode==="three"?"通常の1点登録の図に戻す":"3点登録の場合を見てみる";
@@ -413,7 +446,7 @@ function syncRegistration(){
 }
 function render(){
  syncRegistration();
- if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===200000)renderThree200k();else if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
+ if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===500000)renderThree500k();else if(Number(document.getElementById("goal").value)===200000)renderThree200k();else if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
  const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
  if(!m)return;
  diagram(m);
