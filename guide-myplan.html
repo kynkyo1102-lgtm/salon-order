@@ -286,7 +286,7 @@ function diagramThree100k(){
  const directNote=root.querySelector(".lapis-diagram-note");
  if(directNote)directNote.textContent="🟠 オレンジ枠の01・02・A・Bさんは00の直紹介です。線は組織上の配置を示します。00・01・02はすべて自分のポジションです。";
 }
-function extendThree200kDiagram(){
+function extendThree200kDiagram(goal=200000){
  const root=document.getElementById("binary-diagram"),svg=root.querySelector("svg.lapis-full-tree");
  if(!svg)return;
  const ns="http://www.w3.org/2000/svg";
@@ -320,22 +320,15 @@ function extendThree200kDiagram(){
   g.append(el("image",{href:"./assets/avatar_06.svg",x:p.x-34,y:801,width:68,height:68}));
   const name=el("text",{x:p.x,y:906,"text-anchor":"middle",class:"lapis-large-name"});name.textContent=p.name;g.append(name);svg.append(g);
  }
- for(const t of [{x:65,y:943,w:37,pt:["12万PT","11万PT"]},{x:154,y:750,w:43,pt:"25万PT",side:"right"},{x:285,y:750,w:43,pt:"25万PT"},{x:445,y:943,w:37,pt:["12万PT","11万PT"]},{x:534,y:750,w:43,pt:"25万PT",side:"right"},{x:665,y:750,w:43,pt:"25万PT"}])triangle(t.x,t.y,t.w,t.pt,t.side);
+ for(const t of (goal===500000?[{x:65,y:943,w:37,pt:"50万PT"},{x:154,y:750,w:43,pt:"100万PT",side:"right"},{x:285,y:750,w:43,pt:"50万PT"},{x:445,y:943,w:37,pt:"50万PT"},{x:534,y:750,w:43,pt:"100万PT",side:"right"},{x:665,y:750,w:43,pt:"50万PT"}]:[{x:65,y:943,w:37,pt:["12万PT","11万PT"]},{x:154,y:750,w:43,pt:"24万PT",side:"right"},{x:285,y:750,w:43,pt:["25万PT","24万PT"]},{x:445,y:943,w:37,pt:["12万PT","11万PT"]},{x:534,y:750,w:43,pt:"24万PT",side:"right"},{x:665,y:750,w:43,pt:"24万PT"}]))triangle(t.x,t.y,t.w,t.pt,t.side);
  const hint=root.querySelector(".lapis-tap-hint");if(hint)hint.textContent="👆 00・01・02・A・B・E・Fさんをタップすると、あなたのボーナス計算を確認できます";
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" EさんはAさん、FさんはBさんの直紹介として配置しています。";
 }
 function renderThree500k(){
  diagramThree100k();
- extendThree200kDiagram();
+ extendThree200kDiagram(500000);
  const m=generate(500000)[0];
- const svg=document.querySelector("#binary-diagram svg.lapis-full-tree");
- if(svg){
-  // Update the six PT pairs without changing the mobile-friendly layout.
-  const labels=Array.from(svg.querySelectorAll("text")).filter(t=>t.textContent==="12万"||t.textContent==="11万"||t.textContent==="25万");
-  const values=["50万","50万","100万","50万","50万","50万","50万","100万","50万","50万"];
-  labels.forEach((t,i)=>{if(values[i])t.textContent=values[i]});
- }
  const root=document.getElementById("binary-diagram");
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" ※50万円モデルのPTを表示しています。";
@@ -350,8 +343,8 @@ function renderThree500k(){
   for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
   card.append(details);body.append(card);
  };
- const basic=m.own+m.abasic+m.bbasic;
- const mega=m.abasic+m.bbasic+200000;
+ const basic=303000+101000*2;
+ const mega=101000*2+100000*2;
  const double=10000;
  add("ベーシックコミッション",basic,[["00",pts(m.left)+" × 10％ ＝ "+yen(m.own)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
  add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
@@ -399,14 +392,15 @@ function showThree100kBonus(old){
  const m=generate(Number(document.getElementById("goal").value))[0];
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
- const side=root?m.left:branch?m.ax:m.secondary[0].left;
- const basic=side*.1,match=m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
+ const goal=Number(document.getElementById("goal").value);
+ const side=root?(goal===200000?1010000:m.left):branch?(goal===200000?500000:m.ax):(goal===200000?240000:m.secondary[0].left);
+ const basic=side*.1,match=goal===200000?148000:goal===500000?402000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
  const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(m.abasic)+' ＋ A・Bさん 各'+yen(m.secondary[0].basic));
+ if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
  else if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
