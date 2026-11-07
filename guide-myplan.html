@@ -330,6 +330,7 @@ function renderThree500k(){
  extendThree200kDiagram(500000);
  const m=generate(500000)[0];
  const root=document.getElementById("binary-diagram");
+ const summary=root.querySelector(".lapis-tree-summary");if(summary)summary.innerHTML="00の左右 各"+pts(3040000)+" <span>（01・02の各1万PTを含む）</span>";
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" ※50万円モデルのPTを表示しています。";
  const body=document.getElementById("breakdown");body.replaceChildren();
@@ -343,10 +344,10 @@ function renderThree500k(){
   for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
   card.append(details);body.append(card);
  };
- const basic=303000+101000*2;
+ const basic=304000+101000*2;
  const mega=101000*2+100000*2;
  const double=10000;
- add("ベーシックコミッション",basic,[["00",pts(m.left)+" × 10％ ＝ "+yen(m.own)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
+ add("ベーシックコミッション",basic,[["00",pts(3040000)+" × 10％ ＝ "+yen(304000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
  add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
  add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(50000)+" × 10％ ＝ "+yen(5000)],["Fさん",yen(50000)+" × 10％ ＝ "+yen(5000)]]);
  document.getElementById("sum").textContent=yen(basic+mega+double);
@@ -393,7 +394,7 @@ function showThree100kBonus(old){
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
  const goal=Number(document.getElementById("goal").value);
- const side=root?(goal===200000?1010000:m.left):branch?(goal===200000?500000:m.ax):(goal===200000?240000:m.secondary[0].left);
+ const side=root?(goal===200000?1010000:goal===500000?3040000:m.left):branch?(goal===200000?500000:m.ax):(goal===200000?240000:m.secondary[0].left);
  const basic=side*.1,match=goal===200000?148000:goal===500000?402000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
