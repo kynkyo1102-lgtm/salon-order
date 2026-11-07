@@ -300,11 +300,12 @@ function extendThree200kDiagram(){
  const triangle=(x,y,half,pt)=>{
   svg.append(el("path",{d:"M"+x+" "+y+" L"+(x-half)+" 1180 L"+x+" 1180 Z",fill:"#73b6e5"}));
   svg.append(el("path",{d:"M"+x+" "+y+" L"+(x+half)+" 1180 L"+x+" 1180 Z",fill:"#0055a4"}));
-  for(const offset of [-half/2,half/2]){const t=el("text",{x:x+offset,y:1218,"text-anchor":"middle",class:"lapis-large-pt lapis-leaf-pt"});t.textContent=pt;svg.append(t)}
+  for(const offset of [-half/2,half/2]){const t=el("text",{x:x+offset,y:1132,"text-anchor":"middle",fill:"#ffffff","font-size":"16","font-weight":"800","paint-order":"stroke","stroke":"#195b91","stroke-width":"1.2"});t.textContent=pt.replace("PT","");svg.append(t);const unit=el("text",{x:x+offset,y:1153,"text-anchor":"middle",fill:"#ffffff","font-size":"13","font-weight":"700"});unit.textContent="PT";svg.append(unit)}
  };
  // E is A's referral; F is B's referral, alongside their parent's PT groups.
  for(const p of [{name:"Eさん",x:65,parent:95},{name:"Fさん",x:445,parent:475}]){
   svg.append(el("path",{d:"M"+p.parent+" 713 L"+p.x+" 794",stroke:"#91a9b9","stroke-width":"3",fill:"none"}));
+  const badge=el("g",{});badge.append(el("rect",{x:p.x-47,y:738,width:94,height:34,rx:17,fill:"#e7f2fa",stroke:"#71a9d0","stroke-width":"2"}));const bt=el("text",{x:p.x,y:761,"text-anchor":"middle",fill:"#27638a","font-size":"19","font-weight":"800"});bt.textContent="直紹介";badge.append(bt);svg.append(badge);
   const g=el("g",{"aria-label":p.name+"（"+(p.name==="Eさん"?"A":"B")+"さんの直紹介）"});
   g.append(el("rect",{x:p.x-47,y:795,width:94,height:132,rx:15,fill:"#edf5fb",stroke:"#71a9d0","stroke-width":3}));
   g.append(el("image",{href:"./assets/avatar_06.svg",x:p.x-34,y:801,width:68,height:68}));
