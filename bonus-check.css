@@ -602,54 +602,6 @@ body:has(.bonus-page){background:#f7f7f4}
 .bonus-page #bonus-wizard[hidden],.bonus-page .bonus-hero[hidden],.bonus-page #result-card[hidden],.bonus-page #bonus-reference[hidden],.bonus-page #wizard-edit[hidden]{display:none!important}
 .wizard-edit{display:block;margin:0 auto 22px;background:transparent;border:1px solid #b8cec0;color:#326d57;padding:12px 20px;border-radius:12px;font-weight:750;font-size:.95rem;cursor:pointer}
 
-/* Diagnosis-specific periwinkle-blue palette */
-.bonus-page{--bonus-ink:#343a60;--bonus-muted:#6b718b;--bonus-line:#e5e6f3}
-body:has(.bonus-page){background:#f8f8fd}
-.bonus-kicker{color:#6269b7}
-.bonus-hero h1,.bonus-hero h1 span{color:#343a60}
-.bonus-hero p{color:#6b718b}
-.bonus-wizard .wizard-step{border-color:#e5e6f3;box-shadow:0 4px 18px rgba(65,67,126,.045)}
-.bonus-wizard .bonus-form-label{color:#343a60}
-.bonus-form-control[type="number"]{background:#fafaff;border-color:#c7c9e2;color:#343a60}
-.bonus-form-control[type="number"]:focus{border-color:#737bc8;box-shadow:0 0 0 4px rgba(115,123,200,.14)}
-.wizard-progress{color:#6b70ad}
-.wizard-track{background:#e5e6f5}
-#wizard-fill{background:#777fc9}
-.wizard-next,.bonus-submit{background:#686fbc!important;box-shadow:0 5px 14px rgba(104,111,188,.16)}
-.wizard-back{background:#eaeaf5;color:#555d98}
-.wizard-choices button{border-color:#c9cce8;background:#fafaff;color:#4b559c}
-.wizard-choices button.selected{background:#e9eafa;border-color:#777fc9}
-.wizard-edit{color:#6069b2;border-color:#c5c8e5}
-.bonus-result,.bonus-reference{border-color:#e5e6f3!important}
-.wizard-answers{background:#fff;border:1px solid #e5e6f3;border-radius:18px;padding:20px;margin:18px 0 14px;box-shadow:0 4px 15px rgba(65,67,126,.04)}
-.wizard-answers[hidden]{display:none!important}
-.wizard-answers h2{font-size:1.08rem;color:#343a60;margin:0 0 14px}
-.wizard-answer-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #ececf5}
-.wizard-answer-row span{font-size:.86rem;color:#68718a;line-height:1.55}
-.wizard-answer-row strong{font-size:.96rem;color:#343a60;text-align:right;white-space:nowrap}
-@media(max-width:600px){.wizard-answers{padding:18px 17px}.wizard-answer-row{gap:9px}.wizard-answer-row span{font-size:.83rem}.wizard-answer-row strong{font-size:.9rem}}
-
-/* Clearer lavender accent and relaxed results rhythm */
-body:has(.bonus-page){background:#f5f3fc}
-.bonus-hero{background:#eeeafb;border:1px solid #e4def6;border-radius:20px;padding:25px 23px;margin:8px 0 27px}
-.bonus-kicker{color:#7460b3}
-.bonus-wizard .wizard-step{border:1px solid #e5ddf4}
-.wizard-track{background:#e6ddf5}
-#wizard-fill{background:#8971cf}
-.wizard-next,.bonus-submit{background:#7860bf!important}
-.wizard-choices button.selected{background:#eee8fa;border-color:#8e77cf}
-.bonus-page .bonus-result{margin-bottom:30px;padding:23px}
-.bonus-page .bonus-result-block{margin-bottom:20px;padding:20px}
-.bonus-page .bonus-result-head{margin-bottom:24px}
-.bonus-page .bonus-reference{margin-top:30px!important;padding:24px}
-.bonus-page .wizard-answers{margin:30px 0 24px;padding:23px 22px}
-.bonus-page .wizard-answers h2{font-size:.98rem;margin-bottom:17px}
-.bonus-page .wizard-answer-row{padding:14px 0;gap:18px}
-.bonus-page .wizard-answer-row span{font-size:.78rem;line-height:1.6;font-weight:400}
-.bonus-page .wizard-answer-row strong{font-size:.84rem;line-height:1.55;font-weight:700}
-.bonus-page .wizard-edit{margin-bottom:30px}
-@media(max-width:600px){.bonus-hero{padding:23px 19px;margin-bottom:23px}.bonus-page .bonus-result{padding:19px;margin-bottom:25px}.bonus-page .bonus-result-block{padding:17px;margin-bottom:18px}.bonus-page .wizard-answers{padding:19px 17px;margin:26px 0 22px}.bonus-page .wizard-answer-row{padding:13px 0;gap:13px}.bonus-page .wizard-answer-row span{font-size:.76rem}.bonus-page .wizard-answer-row strong{font-size:.82rem}.bonus-page .bonus-reference{padding:19px;margin-top:28px!important}}
-
 /* Quick-entry helpers for point fields */
 .point-shortcuts{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
 .point-shortcuts button{appearance:none;background:#f0ecfb;border:1px solid #d8d0f1;color:#6753a5;border-radius:999px;padding:10px 16px;font-size:.89rem;font-weight:750;line-height:1.3;min-height:42px;cursor:pointer}
@@ -657,66 +609,6 @@ body:has(.bonus-page){background:#f5f3fc}
 .point-shortcuts button:focus-visible{outline:3px solid #9c8add;outline-offset:2px}
 .point-preview{margin-top:12px;font-size:.86rem;line-height:1.5;color:#6353a3;font-weight:700;font-variant-numeric:tabular-nums}
 .point-preview:empty{display:none}
-
-/* Unified diagnosis palette: question, result and reference */
-.bonus-page{--bonus-accent:#7860bf;--bonus-accent-soft:#f1ecfc;--bonus-accent-border:#ddd3f4;--bonus-ink:#34315a;--bonus-muted:#716c86;--bonus-line:#e6def3}
-.bonus-page .bonus-result{border:1px solid var(--bonus-accent-border)!important;box-shadow:0 5px 20px rgba(86,65,145,.07)!important}
-.bonus-page .bonus-result-head{background:var(--bonus-accent-soft);border-radius:14px;padding:17px 14px;margin-bottom:24px}
-.bonus-page .bonus-result-head .small{color:#8171b0}
-.bonus-page .bonus-result-head h2{color:#51408d}
-.bonus-page .bonus-result-block.commission{background:#faf8ff;border:1px solid #e7ddf8}
-.bonus-page .bonus-result-block.title{background:#faf8ff;border:1px solid #e7ddf8}
-.bonus-page .bonus-result-label{color:#7063a2}
-.bonus-page .bonus-result-status.status-ok{background:#e8f6ec;color:#227642;border-color:#c5e7cf}
-.bonus-page .bonus-result-status.status-ng{background:#f1f0f7;color:#626177;border-color:#dedbea}
-.bonus-page .bonus-next-guide{border-color:#e5def5}
-.bonus-page .bonus-reference{border:1px solid var(--bonus-accent-border)!important;box-shadow:0 5px 20px rgba(86,65,145,.055)!important}
-.bonus-page .bonus-reference-title{color:#51408d}
-.bonus-page .bonus-reference-note{color:#716c86}
-.bonus-page .wizard-answers{border-color:var(--bonus-accent-border)}
-.bonus-page .wizard-answers h2{color:#51408d}
-.bonus-page .wizard-answer-row strong{color:#51408d}
-.bonus-page .point-shortcuts button{background:#f1ecfc;color:#6550a6;border-color:#d9cef3}
-
-/* Pastel mint identity: all diagnosis stages */
-body:has(.bonus-page){background:#f5faf7}
-.bonus-page{--bonus-accent:#438d72;--bonus-accent-soft:#e8f6ec;--bonus-accent-border:#cde8d7;--bonus-ink:#294e3b;--bonus-muted:#637e6f;--bonus-line:#d9ebdf}
-.bonus-hero{background:#e8f6ec;border-color:#cde8d7}
-.bonus-kicker{color:#438d72}
-.bonus-hero h1,.bonus-hero h1 span{color:#294e3b}
-.bonus-hero p{color:#637e6f}
-.bonus-wizard .wizard-step{border-color:#d9ebdf;box-shadow:0 4px 18px rgba(50,110,77,.045)}
-.bonus-wizard .bonus-form-label{color:#294e3b}
-.bonus-form-control[type="number"]{background:#f8fcf9;border-color:#bfdcc9;color:#294e3b}
-.bonus-form-control[type="number"]:focus{border-color:#438d72;box-shadow:0 0 0 4px rgba(67,141,114,.14)}
-.wizard-progress{color:#4c8a6a}
-.wizard-track{background:#d9ecdf}
-#wizard-fill{background:#65b48a}
-.wizard-next,.bonus-submit{background:#438d72!important;box-shadow:0 5px 14px rgba(67,141,114,.16)}
-.wizard-back{background:#e7f2ea;color:#386e52}
-.wizard-choices button{border-color:#c5e2ce;background:#f8fcf9;color:#356c50}
-.wizard-choices button.selected{background:#dff2e5;border-color:#65b48a}
-.wizard-edit{color:#438d72;border-color:#b7dbc5}
-.bonus-page .bonus-result{border-color:#cde8d7!important;box-shadow:0 5px 20px rgba(50,110,77,.055)!important}
-.bonus-page .bonus-result-head{background:#e8f6ec}
-.bonus-page .bonus-result-head .small{color:#68977a}
-.bonus-page .bonus-result-head h2{color:#326d50}
-.bonus-page .bonus-result-block.commission,.bonus-page .bonus-result-block.title{background:#f1faf3;border-color:#d5eedd}
-.bonus-page .bonus-result-label{color:#518166}
-.bonus-page .bonus-result-status.status-ok{background:#e0f4e5;color:#227642;border-color:#bfe3c9}
-.bonus-page .bonus-result-status.status-ng{background:#f0f3f1;color:#63756a;border-color:#dce5de}
-.bonus-page .bonus-next-guide{border-color:#d9ebdf}
-.bonus-page .bonus-reference{border-color:#cde8d7!important;box-shadow:0 5px 20px rgba(50,110,77,.045)!important}
-.bonus-page .bonus-reference-title{color:#326d50}
-.bonus-page .bonus-reference-note{color:#637e6f}
-.bonus-page .wizard-answers{border-color:#cde8d7}
-.bonus-page .wizard-answers h2,.bonus-page .wizard-answer-row strong{color:#326d50}
-.bonus-page .wizard-answer-row{border-color:#e4eee7}
-.bonus-page .wizard-answer-row span{color:#637e6f}
-.bonus-page .point-shortcuts button,.point-shortcuts button{background:#e8f6ec;color:#326d50;border-color:#c5e4cf}
-.point-shortcuts button:active{background:#d5eddd}
-.point-shortcuts button:focus-visible{outline-color:#65b48a}
-.point-preview{color:#438d72}
 
 /* =========================================================
    2026-11-08 | Ninaguide visual alignment
