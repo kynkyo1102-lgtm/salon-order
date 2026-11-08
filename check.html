@@ -93,11 +93,30 @@
         <label class="bonus-form-label" for="ipt-new-member-num">
           ⑤ 今月度紹介した人数（新規会員）
         </label>
-        <input type="number"
-               id="ipt-new-member-num"
-               class="bonus-form-control"
-               placeholder="例：1"
-               min="0">
+        <select id="ipt-new-member-num" class="bonus-form-control" aria-label="今月度紹介した新規会員の人数">
+          <option value="" selected disabled>人数を選択してください</option>
+          <option value="0">0人</option>
+          <option value="1">1人</option>
+          <option value="2">2人</option>
+          <option value="3">3人</option>
+          <option value="4">4人</option>
+          <option value="5">5人</option>
+          <option value="6">6人</option>
+          <option value="7">7人</option>
+          <option value="8">8人</option>
+          <option value="9">9人</option>
+          <option value="10">10人</option>
+          <option value="11">11人</option>
+          <option value="12">12人</option>
+          <option value="13">13人</option>
+          <option value="14">14人</option>
+          <option value="15">15人</option>
+          <option value="16">16人</option>
+          <option value="17">17人</option>
+          <option value="18">18人</option>
+          <option value="19">19人</option>
+          <option value="20">20人</option>
+        </select>
       </div>
 
       <div class="bonus-form-group wizard-step">
@@ -779,10 +798,15 @@
           t => t.name === effectiveTitle
         );
 
-      const nextTarget =
-        currentIndex >= 0
-          ? titleTargets[currentIndex + 1]
-          : titleTargets[0];
+      // When points already qualify for a higher title, show that reachable
+      // title instead of mechanically suggesting the immediately next rank.
+      const higherTargets = titleTargets.slice(currentIndex + 1);
+      const pointsQualifiedTargets = higherTargets.filter(
+        t => weakLegPoints >= t.points
+      );
+      const nextTarget = pointsQualifiedTargets.length
+        ? pointsQualifiedTargets[pointsQualifiedTargets.length - 1]
+        : higherTargets[0];
 
       // 自己購入不足
       if (!selfPurchaseEligible) {
