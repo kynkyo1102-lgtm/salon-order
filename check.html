@@ -513,6 +513,26 @@
 
         const bonusNotes = [];
 
+        if (regularCommissionEligible) {
+          bonusNotes.push('ベーシックコミッション');
+        }
+
+        const leadershipTitles = [
+          'エメラルド', 'ゴールド', 'プラチナ', 'ダイヤモンド',
+          'ロワイヤルダイヤモンド', 'カリナンロワイヤルダイヤモンド'
+        ];
+        const leadershipSeriesUnverified = [
+          'プラチナ', 'ダイヤモンド', 'ロワイヤルダイヤモンド',
+          'カリナンロワイヤルダイヤモンド'
+        ];
+        if (leadershipTitles.includes(effectiveTitle)) {
+          bonusNotes.push(
+            leadershipSeriesUnverified.includes(effectiveTitle)
+              ? 'リーダーシップボーナス（タイトルの系列条件は未判定）'
+              : 'リーダーシップボーナス（タイトル条件による判定）'
+          );
+        }
+
         if (active5Eligible) {
           bonusNotes.push(
             '5アクティブボーナス取得'
