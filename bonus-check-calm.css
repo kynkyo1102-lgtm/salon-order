@@ -92,3 +92,14 @@ body.bonus-modern-quest .bonus-page #result-card.bonus-earned .bonus-celebration
 @keyframes bonusPop{0%{opacity:0;transform:scale(.6)}65%{transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
 @keyframes bonusSparkle{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){body.bonus-modern-quest .bonus-page #result-card.bonus-earned .bonus-celebration span,body.bonus-modern-quest .bonus-page #result-card.bonus-earned .bonus-celebration-mark{animation:none!important}}
+
+/* Simplified diagnosis landing, no separate top bar */
+body.bonus-modern-quest .bonus-app-nav{display:none!important}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover{min-height:100svh!important}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover .journey-cover-content{position:relative}
+body.bonus-modern-quest .bonus-simple-back{position:absolute;top:-46px;left:0;display:inline-flex;align-items:center;text-decoration:none;color:#0055A4;font-size:13px;font-weight:700;padding:8px 2px}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover h1{margin-top:0!important}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover .journey-cover-content:before{content:"";display:block;width:35px;height:5px;background:#C6D900;border-radius:20px;transform:rotate(-7deg);margin:0 auto 30px}
+@keyframes bonusPageEnter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+body.bonus-modern-quest #bonus-journey-cover .journey-cover-content{animation:bonusPageEnter .55s ease-out both}
+@media(prefers-reduced-motion:reduce){body.bonus-modern-quest #bonus-journey-cover .journey-cover-content{animation:none!important}}
