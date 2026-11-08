@@ -65,3 +65,38 @@ body.bonus-immersive{margin:0;min-height:100dvh;background:#d5ebfa;color:#173d63
 .bonus-immersive .bonus-page #bonus-reference{margin-top:18px!important}
 .bonus-immersive .bonus-page #wizard-edit{background:transparent!important;color:#2a628e!important;border:0!important;box-shadow:none!important;font-size:.9rem!important;padding:12px 18px!important}
 @media(max-width:600px){.bonus-immersive .bonus-page #result-card{padding:105px 20px 45px!important}.bonus-immersive .bonus-page #result-card .bonus-result-head{padding-bottom:29px!important}.bonus-immersive .bonus-page #result-card .bonus-result-block{padding:23px 21px!important;margin-bottom:13px!important}.bonus-immersive .bonus-page #wizard-answers,.bonus-immersive .bonus-page #bonus-reference{margin-left:17px!important;margin-right:17px!important}}
+
+/* Result reveal: restrained cloud clearing and staggered content. */
+@keyframes bonusRevealSky{from{opacity:0;filter:blur(12px)}to{opacity:1;filter:blur(0)}}
+@keyframes bonusRevealContent{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+.bonus-immersive .bonus-page #result-card.result-reveal{animation:bonusRevealSky .8s ease-out both!important}
+.bonus-immersive .bonus-page #result-card.result-reveal .bonus-result-head{animation:bonusRevealContent .7s .18s ease-out both}
+.bonus-immersive .bonus-page #result-card.result-reveal .bonus-result-block.commission{animation:bonusRevealContent .7s .36s ease-out both}
+.bonus-immersive .bonus-page #result-card.result-reveal .bonus-result-block.title{animation:bonusRevealContent .7s .52s ease-out both}
+.bonus-immersive .bonus-page #result-card .bonus-earned-list{margin:22px 0 0;padding:18px 0 0;border-top:1px solid #e5edf4;text-align:left;font-size:.9rem;font-weight:500;line-height:1.8;color:#315d7e}
+.bonus-immersive .bonus-page #result-card .bonus-earned-caption{font-size:.74rem;letter-spacing:.08em;color:#6e899c;font-weight:700;margin-bottom:8px}
+.bonus-immersive .bonus-page #result-card .bonus-earned-item{padding:7px 0 7px 19px;position:relative;border:0;background:none}
+.bonus-immersive .bonus-page #result-card .bonus-earned-item::before{content:"";position:absolute;left:2px;top:18px;width:7px;height:7px;border-radius:50%;background:#5ca8ce}
+.bonus-immersive .bonus-page #result-card .bonus-result-status .bonus-next-guide{font-size:.88rem!important;font-weight:500!important;text-align:left!important}
+.bonus-immersive .bonus-page #result-card .bonus-result-status .bonus-result-note{font-size:.84rem!important;line-height:1.8;font-weight:500}
+.bonus-immersive .bonus-page #bonus-reference .table-container{width:100%;overflow-x:visible!important}
+.bonus-immersive .bonus-page #bonus-reference table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.88rem;line-height:1.6}
+.bonus-immersive .bonus-page #bonus-reference thead th{background:#edf5fa!important;color:#315a79!important;border:0!important;border-bottom:1px solid #dbe7ee!important;padding:14px 12px!important;text-align:left!important;font-size:.77rem}
+.bonus-immersive .bonus-page #bonus-reference th:first-child{width:38%}
+.bonus-immersive .bonus-page #bonus-reference th:nth-child(2){width:36%}
+.bonus-immersive .bonus-page #bonus-reference th:nth-child(3){width:26%}
+.bonus-immersive .bonus-page #bonus-reference tbody tr{background:#fff!important}
+.bonus-immersive .bonus-page #bonus-reference tbody tr:nth-child(even){background:#f7fafc!important}
+.bonus-immersive .bonus-page #bonus-reference tbody th,.bonus-immersive .bonus-page #bonus-reference tbody td{padding:14px 12px!important;border:0!important;border-bottom:1px solid #e5edf3!important;color:#264b68!important;text-align:left!important;overflow-wrap:anywhere}
+.bonus-immersive .bonus-page #bonus-reference tbody th{font-weight:750}
+@media(max-width:640px){
+.bonus-immersive .bonus-page #bonus-reference thead{display:none}
+.bonus-immersive .bonus-page #bonus-reference table,.bonus-immersive .bonus-page #bonus-reference tbody{display:block;width:100%}
+.bonus-immersive .bonus-page #bonus-reference tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;padding:16px 0!important;border-bottom:1px solid #e3ebf1;background:transparent!important}
+.bonus-immersive .bonus-page #bonus-reference tbody th{grid-column:1/-1;width:auto!important;font-size:.98rem;font-weight:800;padding:0!important;border:0!important}
+.bonus-immersive .bonus-page #bonus-reference tbody td{padding:0!important;border:0!important;font-size:.83rem}
+.bonus-immersive .bonus-page #bonus-reference tbody td:nth-child(2)::before{content:"少ない側の売上P";display:block;color:#7791a3;font-size:.68rem;margin-bottom:4px}
+.bonus-immersive .bonus-page #bonus-reference tbody td:nth-child(3)::before{content:"アクティブ紹介者";display:block;color:#7791a3;font-size:.68rem;margin-bottom:4px}
+.bonus-immersive .bonus-page #bonus-reference tbody td:nth-child(3){text-align:right;min-width:94px}
+}
+@media(prefers-reduced-motion:reduce){.bonus-immersive .bonus-page #result-card.result-reveal,.bonus-immersive .bonus-page #result-card.result-reveal .bonus-result-head,.bonus-immersive .bonus-page #result-card.result-reveal .bonus-result-block{animation:none!important}}
