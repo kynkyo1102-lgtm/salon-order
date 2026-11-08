@@ -341,11 +341,12 @@ function renderThree1000k(){
   for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
   body.append(card);card.append(details);
  };
- const basic=601000+300000*2,mega=300000*2+149000*2,double=14800;
+ const basic=601000+300000*2,mega=300000*2+149000*2,double=14800,leadership=120200;
  add("ベーシックコミッション",basic,[["00","601万PT × 10％ ＝ "+yen(601000)],["01・02","300万PT × 10％ × 2 ＝ "+yen(600000)]]);
  add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(300000)+" × 2"],["A・Bさん",yen(149000)+" × 2"]]);
  add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["E・Fさん","74万PT × 10％ × 10％ × 2 ＝ "+yen(14800)]]);
- document.getElementById("sum").textContent=yen(basic+mega+double);
+ add("リーダーシップボーナス（ゴールド 2.0％）",leadership,[["計算対象ポイント","601万PT × 2.0％ ＝ "+yen(leadership)]]);
+ document.getElementById("sum").textContent=yen(basic+mega+double+leadership);
 }
 function renderThree500k(){
  diagramThree100k();
