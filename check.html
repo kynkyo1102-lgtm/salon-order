@@ -6,7 +6,7 @@
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
   <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-return1">
   <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
-  <link rel="stylesheet" href="./bonus-check.css?v=20261108-dream1"></head>
+  <link rel="stylesheet" href="./bonus-check.css?v=20261108-path1"></head>
 
 <body class="guide-design-context">
 
@@ -21,16 +21,23 @@
 
   <main class="container bonus-page">
 
-    <div class="bonus-hero">
+    <div class="bonus-hero" id="bonus-journey-cover">
+      <div class="journey-sky" aria-hidden="true"><div class="journey-sun"></div><div class="journey-road"></div><div class="journey-horizon"></div></div>
+      <div class="journey-cover-content">
       <span class="bonus-kicker">ボーナス・タイトル診断</span>
-      <h1>今月の達成状況を<br><span>確認しましょう</span></h1>
+      <h1>あなたの現在地から<br><span>未来へ続く道を。</span></h1>
       <p>
-        今月の数字を入力すると、コミッションとタイトルの達成状況を確認できます。
+        6つの質問に答えて、今の達成状況と次の目標を見つけましょう。
       </p>
+      <button type="button" class="journey-start" id="journey-start" onclick="startBonusJourney()">診断をはじめる <span aria-hidden="true">→</span></button>
+      <span class="journey-cover-note">約1分 ・ 全6問</span>
+      </div>
     </div>
 
     <!-- 入力フォーム -->
-    <div class="bonus-check-form bonus-wizard" id="bonus-wizard">
+    <div class="bonus-check-form bonus-wizard" id="bonus-wizard" hidden>
+      <div class="journey-stage-title"><span>YOUR JOURNEY</span><h2>一歩ずつ、道の先へ。</h2><p>今の状況を、ひとつずつ確かめていきましょう。</p></div>
+      <div class="journey-path" aria-hidden="true"><svg viewBox="0 0 600 125" preserveAspectRatio="none"><defs><linearGradient id="journey-path-gradient"><stop stop-color="#91d8d0"/><stop offset="1" stop-color="#91c5ec"/></linearGradient></defs><path class="journey-path-base" d="M 20 99 Q 90 7 180 61 T 345 54 T 580 19"/><path id="journey-path-lit" class="journey-path-lit" d="M 20 99 Q 90 7 180 61 T 345 54 T 580 19"/></svg><div class="journey-dots"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
       <div class="wizard-progress"><span id="wizard-count">1 / 6</span><div class="wizard-track"><div id="wizard-fill"></div></div></div>
 
       
@@ -923,11 +930,20 @@
   }
   let wizardIndex=0;
   function wizardSteps(){return [...document.querySelectorAll('#bonus-wizard .wizard-step')];}
+  function startBonusJourney(){
+    document.getElementById("bonus-journey-cover").hidden=true;
+    document.getElementById("bonus-wizard").hidden=false;
+    wizardRender();
+    document.getElementById("bonus-wizard").scrollIntoView({behavior:"smooth",block:"start"});
+  }
   function wizardRender(){
     const steps=wizardSteps();
     steps.forEach((el,i)=>{el.hidden=i!==wizardIndex;el.setAttribute('aria-hidden',String(i!==wizardIndex));});
     document.getElementById('wizard-count').textContent=(wizardIndex+1)+' / '+steps.length;
     document.getElementById('wizard-fill').style.width=((wizardIndex+1)/steps.length*100)+'%';
+    const path=document.getElementById('journey-path-lit');
+    if(path)path.style.strokeDasharray=((wizardIndex+1)/steps.length*100)+' 100';
+    document.querySelectorAll('.journey-dots span').forEach((dot,i)=>dot.classList.toggle('lit',i<=wizardIndex));
     document.getElementById('wizard-back').hidden=wizardIndex===0;
     document.getElementById('wizard-next').hidden=wizardIndex===steps.length-1;
     document.querySelector('#bonus-wizard .bonus-submit').hidden=wizardIndex!==steps.length-1;
@@ -978,7 +994,7 @@
   }
   function wizardEdit(){
     document.getElementById("bonus-wizard").hidden=false;
-    document.querySelector(".bonus-hero").hidden=false;
+    document.querySelector(".bonus-hero").hidden=true;
     document.getElementById("result-card").hidden=true;
     document.getElementById("bonus-reference").hidden=true;
     document.getElementById("wizard-answers").hidden=true;
