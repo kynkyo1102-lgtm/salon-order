@@ -6,7 +6,7 @@
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
 
   <link rel="stylesheet" href="./bonus-check.css?v=20261108-cloud1">
-  <link rel="stylesheet" href="./bonus-check-immersive.css?v=20261108-result2">
+  <link rel="stylesheet" href="./bonus-check-immersive.css?v=20261108-result3">
 </head>
 
 <body class="bonus-immersive">
@@ -154,11 +154,11 @@
     <div class="bonus-reference" id="bonus-reference" style="margin-top: 24px;" hidden>
 
       <div class="bonus-reference-title">
-        📊 タイトル昇格条件をざっくり確認
+        タイトル昇格条件一覧
       </div>
 
       <p class="bonus-reference-note">
-        「次はどこを目指せばいい？」というときの目安として見てください。
+        少ない方のグループ売上Pと必要なアクティブ紹介者数の目安です。系列条件などは別途確認してください。
       </p>
 
       <div class="table-container">
@@ -322,7 +322,7 @@
           'bonus-result-status status-ng';
 
         basicStatusEl.innerText =
-          '❌ コミッション発生なし（会員資格が無効）';
+          'コミッション発生なし（会員資格が無効）';
 
         commissionNextGuideEl.innerHTML = '';
 
@@ -481,7 +481,7 @@
           'bonus-result-status status-ng';
 
         basicStatusEl.innerHTML =
-          '🔒 コミッション受取条件を満たしていません' +
+          'コミッション受取条件は未達成' +
           '<div class="bonus-result-note">' +
           '自己購入10,000P以上が必要です。' +
           '</div>';
@@ -492,7 +492,7 @@
           'bonus-result-status status-ok';
 
         let commissionText =
-          '🎉 コミッションあり！';
+          'コミッションあり';
 
         if (
           regularCommissionEligible &&
@@ -508,29 +508,25 @@
 
         if (active5Eligible) {
           bonusNotes.push(
-            '⚡ 5アクティブボーナス取得'
+            '5アクティブボーナス取得'
           );
         }
 
         if (active10Eligible) {
           bonusNotes.push(
-            '⚡ 10アクティブボーナス取得'
+            '10アクティブボーナス取得'
           );
         }
 
         if (firstStartEligible) {
           bonusNotes.push(
-            `🚀 ファーストスタートボーナス${newMemberReferrals}人分取得`
+            `ファーストスタートボーナス${newMemberReferrals}人分取得`
           );
         }
 
         if (bonusNotes.length) {
           commissionText +=
-            `<div class="bonus-next-guide">
-              ${bonusNotes.map(
-                x => `<div>✓ ${x}</div>`
-              ).join('')}
-            </div>`;
+            `<div class="bonus-earned-list"><div class="bonus-earned-caption">対象のボーナス</div>${bonusNotes.map(x => `<div class="bonus-earned-item">${x}</div>`).join('')}</div>`;
         }
 
         basicStatusEl.innerHTML =
@@ -542,7 +538,7 @@
           'bonus-result-status status-ng';
 
         basicStatusEl.innerText =
-          '🌱 もう少し！コミッション条件を確認しよう';
+          'コミッション条件を確認';
       }
 
       // ----------------------------------------------------
@@ -650,7 +646,7 @@
           ? `
             <div class="bonus-next-guide">
               <strong>
-                📌 あとこれをクリアすると、取得できるコミッションが増えます
+                次に確認したい条件
               </strong>
               <ul>
                 ${commissionNeeds
@@ -959,6 +955,9 @@
     document.getElementById("bonus-wizard").hidden=true;
     document.querySelector(".bonus-hero").hidden=true;
     document.getElementById("result-card").hidden=false;
+    document.getElementById("result-card").classList.remove("result-reveal");
+    void document.getElementById("result-card").offsetWidth;
+    document.getElementById("result-card").classList.add("result-reveal");
     document.querySelector(".bonus-page").classList.add("cloud-result-mode");
     document.getElementById("bonus-reference").hidden=false;
     document.getElementById("wizard-answers").hidden=false;
