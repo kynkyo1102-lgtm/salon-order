@@ -85,7 +85,9 @@ function init(){
  const accordions=[...header.querySelectorAll('.guide-shared-accordion')];
  accordions.forEach(item=>item.addEventListener('toggle',()=>{if(item.open)accordions.forEach(other=>{if(other!==item)other.open=false})}));
  const menuStyle=document.createElement('style');menuStyle.textContent='.guide-shared-accordion{padding:0!important;margin:0!important;border-top:1px solid #e5eaf0}.guide-shared-accordion>summary{cursor:pointer;list-style:none;display:flex!important;align-items:center;justify-content:space-between;padding:14px 5px!important;color:#004AAD!important;font-size:15px!important;font-weight:700!important}.guide-shared-accordion>summary::-webkit-details-marker{display:none}.guide-shared-accordion>summary:after{content:"＋";font-size:19px;font-weight:400;color:#6b8298}.guide-shared-accordion[open]>summary:after{content:"−"}.guide-shared-accordion-content{padding:0 0 10px}.guide-shared-accordion-content a{padding:8px 10px!important;margin-left:8px!important;font-size:14px!important}.guide-shared-menu .guide-shared-secondary{margin-top:0!important;padding-top:0!important}.guide-shared-accordion>summary:focus-visible{outline:2px solid #80b9ff;outline-offset:2px}';document.head.append(menuStyle);
- document.body.prepend(header);
+ const fallbackHeader=document.getElementById('bonus-header-fallback');
+ if(fallbackHeader)fallbackHeader.replaceWith(header);
+ else document.body.prepend(header);
  const toggle=header.querySelector('.guide-shared-menu-toggle'),menu=header.querySelector('.guide-shared-menu');
  const setOpen=open=>{menu.hidden=!open;toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く')};
  toggle.addEventListener('click',()=>setOpen(menu.hidden));
