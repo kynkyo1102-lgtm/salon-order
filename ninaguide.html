@@ -391,4 +391,32 @@ let pickupScrollTimer;
 pickupTrack.addEventListener('scroll',()=>{clearTimeout(pickupScrollTimer);pickupScrollTimer=setTimeout(()=>{if(!pickupBusy)normalizePickup()},130)},{passive:true});
 window.addEventListener('resize',()=>{normalizePickup()});
 const floatingBanners=document.querySelector('.guide-floating-banners');const guideFooter=document.querySelector('footer');if(floatingBanners&&guideFooter){const positionFloating=()=>{const footerTop=guideFooter.getBoundingClientRect().top;const safeBottom=12;const overlap=window.innerHeight-safeBottom-footerTop+12;floatingBanners.style.transform=overlap>0?'translateY(-'+overlap+'px)':''};window.addEventListener('scroll',positionFloating,{passive:true});window.addEventListener('resize',positionFloating);positionFloating()}
-</script><script src="./guide-shared-chrome.js?v=20261105-return1" defer></script><script src="./guide-search.js?v=20261105-4" defer></script></body></html>
+</script><script src="./guide-shared-chrome.js?v=20261105-return1" defer></script><script src="./guide-search.js?v=20261105-4" defer></script><style>
+/* Transition into the bonus diagnostic */
+.bonus-nav-transition{position:fixed;inset:0;z-index:99999;pointer-events:none;background:#fff;opacity:0;visibility:hidden;transition:opacity .24s ease,visibility .24s}
+.bonus-nav-transition::before{content:"";position:absolute;top:50%;left:50%;width:0;height:5px;border-radius:99px;background:#C6D900;transform:translate(-50%,-50%) rotate(-5deg);transition:width .38s cubic-bezier(.2,.8,.2,1)}
+.bonus-nav-transition::after{content:"";position:absolute;top:calc(50% + 15px);left:50%;width:0;height:3px;border-radius:99px;background:#0055A4;transform:translate(-50%,-50%);transition:width .38s .06s cubic-bezier(.2,.8,.2,1)}
+.bonus-nav-transition.is-active{opacity:1;visibility:visible}
+.bonus-nav-transition.is-active::before{width:min(180px,55vw)}
+.bonus-nav-transition.is-active::after{width:min(105px,32vw)}
+@media(prefers-reduced-motion:reduce){.bonus-nav-transition,.bonus-nav-transition::before,.bonus-nav-transition::after{transition:none!important}}
+</style>
+<script>
+(function(){
+  const overlay=document.createElement('div');
+  overlay.className='bonus-nav-transition';
+  overlay.setAttribute('aria-hidden','true');
+  document.body.appendChild(overlay);
+  document.addEventListener('click',function(event){
+    const link=event.target.closest('a[href]');
+    if(!link||event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||link.target==='_blank'||link.hasAttribute('download'))return;
+    const url=new URL(link.href,location.href);
+    if(url.origin!==location.origin||!url.pathname.endsWith('/check.html'))return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    event.preventDefault();
+    overlay.classList.add('is-active');
+    setTimeout(function(){location.assign(url.href)},520);
+  });
+  window.addEventListener('pageshow',function(){overlay.classList.remove('is-active')});
+})();
+</script></body></html>
