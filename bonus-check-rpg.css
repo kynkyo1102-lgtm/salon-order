@@ -1,0 +1,85 @@
+/* NiNA GUIDE QUEST — original 16-bit RPG-inspired interface */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+body.bonus-rpg{--rpg-ink:#f5f4eb;--rpg-gold:#f7d78b;--rpg-blue:#101a38;--rpg-border:#c5d9ff;background:#0b132a!important;color:var(--rpg-ink);font-family:"DotGothic16","Yu Gothic",sans-serif}
+body.bonus-rpg .bonus-app-nav{background:linear-gradient(180deg,rgba(6,12,31,.92),transparent);padding-top:19px}
+body.bonus-rpg .bonus-app-nav a{color:#f7e8c2!important;text-shadow:1px 2px #050b19}
+body.bonus-rpg .bonus-app-close{background:#101a38;border:2px solid #b8caee;border-radius:3px;backdrop-filter:none;padding:7px 12px}
+body.bonus-rpg .bonus-page #bonus-journey-cover{background:linear-gradient(180deg,#0b1632 0%,#233f70 60%,#416e80 100%)!important;min-height:100dvh;overflow:hidden}
+body.bonus-rpg .bonus-page #bonus-journey-cover::before,body.bonus-rpg .bonus-page #bonus-journey-cover::after{display:none}
+body.bonus-rpg .rpg-landscape{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+body.bonus-rpg .rpg-stars{position:absolute;inset:0 0 25%;background-image:radial-gradient(#fff9d8 1.6px,transparent 2px),radial-gradient(#a6c5f8 1.4px,transparent 2px);background-size:67px 79px,113px 97px;background-position:12px 22px,42px 54px;opacity:.75}
+body.bonus-rpg .rpg-moon{position:absolute;width:88px;height:88px;border-radius:50%;top:17%;right:15%;background:#fff1b8;box-shadow:0 0 0 12px #f8df9a1a,0 0 80px #f6d18d55}
+body.bonus-rpg .rpg-hills{position:absolute;bottom:0;left:-15%;width:130%;height:43%;background:#1d4058;clip-path:polygon(0 76%,12% 45%,22% 67%,37% 19%,51% 65%,64% 35%,78% 60%,92% 22%,100% 58%,100% 100%,0 100%);filter:drop-shadow(0 -10px #325f77)}
+body.bonus-rpg .rpg-ground{position:absolute;bottom:0;width:100%;height:15%;background:repeating-linear-gradient(90deg,#1a3942 0 20px,#244a4b 20px 40px);clip-path:polygon(0 25%,13% 0,27% 23%,39% 5%,55% 28%,73% 0,86% 26%,100% 10%,100% 100%,0 100%)}
+body.bonus-rpg .rpg-castle{position:absolute;bottom:18%;left:14%;width:110px;height:90px;background:#9daac1;border:6px solid #394765;box-shadow:inset 0 -25px #65758e,0 12px #152b42}
+body.bonus-rpg .rpg-castle::before,body.bonus-rpg .rpg-castle::after{content:"";position:absolute;bottom:68px;width:35px;height:80px;background:#a6b6cf;border:5px solid #394765;clip-path:polygon(0 20%,20% 20%,20% 0,45% 0,45% 20%,70% 20%,70% 0,100% 0,100% 100%,0 100%)}
+body.bonus-rpg .rpg-castle::before{left:-21px}body.bonus-rpg .rpg-castle::after{right:-21px}
+body.bonus-rpg .rpg-castle i:first-child{position:absolute;bottom:0;left:39px;width:26px;height:42px;background:#1b2c47;border-radius:15px 15px 0 0}
+body.bonus-rpg .bonus-page #bonus-journey-cover .journey-cover-content{width:min(100%,650px);max-width:650px;padding:36px 25px;background:#0c1735e8;border:4px double #e2e9ff;box-shadow:0 0 0 5px #101a38,0 16px 0 #070d1c88;text-align:center}
+body.bonus-rpg .bonus-page #bonus-journey-cover h1{font-family:inherit;font-size:clamp(2rem,6vw,3.7rem);line-height:1.55;color:#fff!important;text-shadow:3px 4px #1b3b6b;margin:15px 0}
+body.bonus-rpg .bonus-page #bonus-journey-cover h1 span{color:#fff!important}
+body.bonus-rpg .bonus-page #bonus-journey-cover .bonus-kicker{background:transparent!important;border:0!important;color:#f5d58a!important;font-size:.8rem;letter-spacing:.15em}
+body.bonus-rpg .bonus-page #bonus-journey-cover p{color:#dbe6f8!important;font-size:1rem;line-height:2;margin:0 auto 26px}
+body.bonus-rpg .bonus-page .journey-start{background:#f1d081!important;color:#17233b!important;border:3px solid #fff1b6!important;border-radius:2px!important;box-shadow:5px 5px #101b35!important;font-family:inherit;font-weight:800;padding:15px 28px;transition:transform .15s}
+body.bonus-rpg .bonus-page .journey-start:hover{transform:translateY(-3px)}
+body.bonus-rpg .bonus-page .journey-cover-note{display:block;color:#c5d2e8!important;margin-top:20px}
+body.bonus-rpg .bonus-page #bonus-wizard{background:radial-gradient(circle at 50% 20%,#304f7d,#101c3c 58%,#090f24)!important;color:#f3f6ff;isolation:isolate}
+body.bonus-rpg .rpg-scene-backdrop{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+body.bonus-rpg .rpg-scene-backdrop span{position:absolute;color:#e9d59d77;font-size:40px;animation:rpgTwinkle 3s ease-in-out infinite alternate}
+body.bonus-rpg .rpg-scene-backdrop span:nth-child(1){top:22%;left:10%}
+body.bonus-rpg .rpg-scene-backdrop span:nth-child(2){top:38%;right:10%;animation-delay:1s}
+body.bonus-rpg .rpg-scene-backdrop span:nth-child(3){bottom:12%;left:24%;animation-delay:2s}
+@keyframes rpgTwinkle{from{opacity:.2;transform:scale(.8)}to{opacity:1;transform:scale(1.15)}}
+body.bonus-rpg .bonus-page .journey-stage-title span{color:#f4d88e!important}
+body.bonus-rpg .bonus-page .journey-stage-title h2{color:#fff!important;font-size:clamp(1.5rem,4vw,2.15rem)}
+body.bonus-rpg .bonus-page .journey-stage-title p{color:#c8d5ee!important}
+body.bonus-rpg .bonus-page #bonus-wizard .wizard-step{background:#101b3a!important;color:#fff;border:3px solid #d0def6!important;border-radius:5px!important;box-shadow:0 0 0 5px #0b1530,9px 12px #04091766!important}
+body.bonus-rpg .bonus-page #bonus-wizard .bonus-form-label{color:#fff!important;font-size:clamp(1.05rem,3vw,1.25rem)!important;line-height:1.7}
+body.bonus-rpg .bonus-page #bonus-wizard .bonus-form-hint{color:#bac9e0!important}
+body.bonus-rpg .bonus-page #bonus-wizard .wizard-track{height:9px;background:#38486c!important;border:1px solid #8397b9;border-radius:0}
+body.bonus-rpg .bonus-page #bonus-wizard #wizard-fill{background:#f1d07b!important;border-radius:0}
+body.bonus-rpg .bonus-page #bonus-wizard #wizard-count{color:#f4d88e!important}
+body.bonus-rpg .bonus-page #bonus-wizard button{font-family:inherit;border-radius:3px!important}
+body.bonus-rpg .bonus-page #bonus-wizard .wizard-choices button{background:#192a4d!important;border:2px solid #b8c8e4!important;color:#fff!important}
+body.bonus-rpg .bonus-page #bonus-wizard .wizard-choices button.selected{background:#4c5d7d!important;border-color:#f6d887!important}
+body.bonus-rpg .bonus-page #bonus-wizard .wizard-choices button:focus-visible,body.bonus-rpg .bonus-page button:focus-visible{outline:3px solid #f5d47e;outline-offset:4px}
+body.bonus-rpg .bonus-page #bonus-wizard .bonus-form-control{background:#f9f8ef!important;color:#162541!important;border:3px solid #9cabc4!important;border-radius:3px!important;font-family:inherit}
+body.bonus-rpg .bonus-page #bonus-wizard .wizard-actions button,body.bonus-rpg .bonus-page #bonus-wizard .bonus-submit{background:#f3d68e!important;color:#19243a!important;border:2px solid #fff0ba!important;box-shadow:3px 4px #0b1127!important}
+body.bonus-rpg .bonus-page #result-card{background:radial-gradient(circle at 50% 0,#304a77,#101c3c 45%,#0b1229 100%)!important;color:#fff}
+body.bonus-rpg .rpg-result-glow{position:absolute;top:0;left:0;right:0;height:400px;background:radial-gradient(ellipse,#f8d98e33,transparent 65%);pointer-events:none}
+body.bonus-rpg .bonus-page #result-card .bonus-result-head{padding-bottom:40px!important}
+body.bonus-rpg .bonus-page #result-card .bonus-result-head .small{color:#f5d78e!important;font-size:.85rem;letter-spacing:.2em}
+body.bonus-rpg .bonus-page #result-card .rpg-result-gem{font-size:70px;color:#a9dcff;text-shadow:0 0 30px #a3cfff,5px 6px #274878;margin:22px auto 10px;animation:rpgGem 2.4s ease-in-out infinite alternate}
+@keyframes rpgGem{from{transform:translateY(0);filter:brightness(.85)}to{transform:translateY(-10px);filter:brightness(1.3)}}
+body.bonus-rpg .bonus-page #result-card .bonus-result-head h2{color:#fff!important;font-size:clamp(1.9rem,5vw,2.8rem)!important}
+body.bonus-rpg .bonus-page #result-card .result-intro{color:#d3ddf2}
+body.bonus-rpg .bonus-page #result-card .bonus-result-block{background:#101b3ae8!important;border:3px solid #b9cbee!important;border-radius:5px!important;box-shadow:0 0 0 5px #0a1229,7px 10px #050a1b88!important;margin-bottom:28px!important}
+body.bonus-rpg .bonus-page #result-card .bonus-result-label{color:#f7d98e!important;font-size:.9rem!important}
+body.bonus-rpg .bonus-page #result-card .bonus-result-status{color:#fff!important}
+body.bonus-rpg .bonus-page #result-card .bonus-result-status.status-ng{color:#c6d1e5!important}
+body.bonus-rpg .bonus-page #result-card .bonus-title-label{color:#b9cbe4!important}
+body.bonus-rpg .bonus-page #result-card .bonus-title-name{color:#f7d88c!important;font-size:clamp(1.65rem,5vw,2.45rem)!important;text-shadow:2px 3px #263f66}
+body.bonus-rpg .bonus-page #result-card .bonus-next-guide{color:#d5def0!important;border-top-color:#455574!important}
+body.bonus-rpg .bonus-page #result-card .bonus-next-guide strong,body.bonus-rpg .bonus-page #result-card .bonus-next-guide .done{color:#f2d48e!important}
+body.bonus-rpg .bonus-page #result-card .bonus-result-note{color:#e8d7b5!important}
+body.bonus-rpg .bonus-page #result-card .bonus-earned-list{border-top-color:#48597a;color:#e1e8f6}
+body.bonus-rpg .bonus-page #result-card .bonus-earned-caption{color:#d7c593}
+body.bonus-rpg .bonus-page #result-card .bonus-earned-item::before{background:#f5d78e}
+body.bonus-rpg .bonus-page #wizard-answers,body.bonus-rpg .bonus-page #bonus-reference{background:#101b37!important;color:#fff;border:3px solid #b8c9e6!important;border-radius:5px!important;box-shadow:0 0 0 4px #0b1229!important}
+body.bonus-rpg .bonus-page #wizard-answers h2,body.bonus-rpg .bonus-page #bonus-reference .bonus-reference-title{color:#f5d78e!important}
+body.bonus-rpg .bonus-page #wizard-answers .wizard-answer-row{border-color:#3b4c6c!important;color:#e8eefb}
+body.bonus-rpg .bonus-page #wizard-answers .wizard-answer-row span{color:#c5d2e9!important}
+body.bonus-rpg .bonus-page #wizard-answers .wizard-answer-row strong{color:#fff!important}
+body.bonus-rpg .bonus-page #bonus-reference .bonus-reference-note{color:#c4d1e7!important}
+body.bonus-rpg .bonus-page #bonus-reference thead th{background:#263758!important;color:#f6d88c!important;border-color:#4e6081!important}
+body.bonus-rpg .bonus-page #bonus-reference tbody tr,body.bonus-rpg .bonus-page #bonus-reference tbody tr:nth-child(even){background:#14213e!important}
+body.bonus-rpg .bonus-page #bonus-reference tbody tr:nth-child(even){background:#1b2a49!important}
+body.bonus-rpg .bonus-page #bonus-reference tbody th,body.bonus-rpg .bonus-page #bonus-reference tbody td{color:#f4f5fb!important;border-bottom-color:#3d4c6c!important}
+body.bonus-rpg .bonus-page #wizard-edit{color:#f5d78e!important}
+@keyframes rpgResultEnter{0%{opacity:0;filter:brightness(3);transform:scale(.94)}45%{opacity:1;filter:brightness(1.6)}100%{opacity:1;filter:brightness(1);transform:scale(1)}}
+body.bonus-rpg .bonus-page #result-card.result-reveal{animation:rpgResultEnter 1s ease-out both!important}
+body.bonus-rpg .bonus-page #result-card.result-reveal .bonus-result-head{animation:bonusRevealContent .65s .35s ease-out both}
+body.bonus-rpg .bonus-page #result-card.result-reveal .bonus-result-block.commission{animation:bonusRevealContent .65s .65s ease-out both}
+body.bonus-rpg .bonus-page #result-card.result-reveal .bonus-result-block.title{animation:bonusRevealContent .65s .9s ease-out both}
+@media(max-width:600px){body.bonus-rpg .rpg-castle{left:5%;transform:scale(.7);transform-origin:bottom left}body.bonus-rpg .rpg-moon{right:9%;top:15%;width:60px;height:60px}body.bonus-rpg .bonus-page #bonus-journey-cover .journey-cover-content{padding:30px 16px}body.bonus-rpg .bonus-page #bonus-journey-cover h1{font-size:2.05rem}body.bonus-rpg .bonus-page #result-card .bonus-result-block{padding:22px 18px!important}body.bonus-rpg .bonus-page #bonus-reference tbody tr{background:transparent!important}body.bonus-rpg .bonus-page #bonus-reference tbody td::before{color:#a9b9d3!important}}
+@media(prefers-reduced-motion:reduce){body.bonus-rpg .rpg-scene-backdrop span,body.bonus-rpg .bonus-page #result-card .rpg-result-gem,body.bonus-rpg .bonus-page #result-card.result-reveal,body.bonus-rpg .bonus-page #result-card.result-reveal .bonus-result-head,body.bonus-rpg .bonus-page #result-card.result-reveal .bonus-result-block{animation:none!important}}
