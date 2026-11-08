@@ -812,3 +812,40 @@ body.guide-design-context .bonus-page{max-width:860px;position:relative;isolatio
 .bonus-page .bonus-result.active{animation:bonusFloatIn .7s ease-out both}
 @media(max-width:600px){.bonus-page #bonus-journey-cover{min-height:560px;padding:60px 21px 55px;border-radius:22px}.bonus-page #bonus-journey-cover h1{font-size:1.85rem}.bonus-page .journey-path{height:100px}.bonus-page .journey-stage-title{margin-bottom:16px}}
 @media(prefers-reduced-motion:reduce){.bonus-page .journey-start,.bonus-page .journey-path-lit{transition:none}.bonus-page .bonus-result.active{animation:none}}
+
+/* Cloud-scene redesign: clean typography and gentle sky changes. */
+.bonus-page{position:relative}
+.bonus-page #bonus-journey-cover{background:linear-gradient(180deg,#b9e0f8 0%,#e0f2fc 55%,#f9fcff 100%);border:0;border-radius:24px;min-height:590px;box-shadow:0 12px 40px rgba(55,110,165,.10)}
+.bonus-page #bonus-journey-cover .journey-cover-content{z-index:2}
+.bonus-page #bonus-journey-cover h1{font-size:clamp(2.3rem,6vw,3.6rem);line-height:1.38;letter-spacing:.02em;color:#174778;font-weight:800;text-shadow:none}
+.bonus-page #bonus-journey-cover h1 span{color:#174778}
+.bonus-page #bonus-journey-cover .bonus-kicker{letter-spacing:.15em;color:#356b9b;font-size:.75rem}
+.bonus-page #bonus-journey-cover p{color:#3d6484;max-width:25em;line-height:1.9}
+.bonus-page .journey-start{background:#185da5;border:0;box-shadow:0 7px 0 rgba(18,73,128,.15),0 14px 24px rgba(22,92,158,.13);font-size:1rem}
+.bonus-page .journey-start:hover{box-shadow:0 4px 0 rgba(18,73,128,.15),0 10px 22px rgba(22,92,158,.16)}
+.bonus-page .journey-cover-note{color:#537c9c}
+.bonus-page .cloud-scene{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;border-radius:inherit}
+.bonus-page .cloud-scene i{position:absolute;display:block;width:220px;height:66px;border-radius:100px;background:rgba(255,255,255,.88);filter:blur(1px);box-shadow:35px -24px 0 9px rgba(255,255,255,.85),85px -11px 0 25px rgba(255,255,255,.89),120px 4px 0 9px rgba(255,255,255,.8);animation:bonusCloudDrift 18s ease-in-out infinite alternate}
+.bonus-page .cloud-scene i:nth-child(1){top:17%;left:-12%;transform:scale(.85);opacity:.75}
+.bonus-page .cloud-scene i:nth-child(2){top:33%;right:-17%;transform:scale(1.15);opacity:.75;animation-delay:-7s}
+.bonus-page .cloud-scene i:nth-child(3){bottom:19%;left:-20%;transform:scale(1.35);opacity:.8;animation-delay:-12s}
+.bonus-page .cloud-scene i:nth-child(4){bottom:8%;right:-12%;transform:scale(.9);opacity:.7;animation-delay:-4s}
+@keyframes bonusCloudDrift{from{translate:-18px 0}to{translate:28px -9px}}
+.bonus-page #bonus-wizard{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(165deg,#cce9f9 0%,#edf7fc 68%,#fff 100%);border-radius:24px;padding:40px clamp(18px,5vw,54px) 48px;transition:background-color .45s ease;box-shadow:0 12px 38px rgba(59,119,163,.1)}
+.bonus-page #bonus-wizard[data-sky="1"]{background:linear-gradient(165deg,#cdeeea 0%,#e9f9f8 65%,#fff 100%)}
+.bonus-page #bonus-wizard[data-sky="2"]{background:linear-gradient(165deg,#d7e3fa 0%,#eef2fd 65%,#fff 100%)}
+.bonus-page #bonus-wizard .cloud-scene-question{z-index:-1;opacity:.65}
+.bonus-page #bonus-wizard[data-sky="1"] .cloud-scene-question{transform:translateX(9%);transition:transform .8s ease}
+.bonus-page #bonus-wizard[data-sky="2"] .cloud-scene-question{transform:translateX(-8%);transition:transform .8s ease}
+.bonus-page .journey-stage-title{position:relative;z-index:1}
+.bonus-page .journey-stage-title span{color:#426f9b;letter-spacing:.15em}
+.bonus-page .journey-stage-title h2{color:#1c4d7a}
+.bonus-page .journey-stage-title p{color:#54748b}
+.bonus-page #bonus-wizard .wizard-step{position:relative;z-index:1;background:rgba(255,255,255,.91);border:1px solid rgba(255,255,255,.95);box-shadow:0 10px 28px rgba(47,101,146,.09)}
+.bonus-page #bonus-wizard .wizard-progress{position:relative;z-index:1}
+.bonus-page #bonus-wizard .wizard-track{background:#d5e4ed}
+.bonus-page #bonus-wizard #wizard-fill{background:#347ec1}
+.bonus-page #bonus-wizard .wizard-choices button.selected{background:#e6f2fd;border-color:#347ec1}
+.bonus-page .cloud-result-mode #result-card{position:relative;border-top:7px solid #8dc5e9}
+@media(max-width:600px){.bonus-page #bonus-journey-cover{min-height:540px;padding:55px 20px}.bonus-page #bonus-journey-cover h1{font-size:2.25rem}.bonus-page #bonus-wizard{padding:28px 15px 34px;border-radius:18px}.bonus-page .cloud-scene i{opacity:.55}}
+@media(prefers-reduced-motion:reduce){.bonus-page .cloud-scene i{animation:none!important}.bonus-page #bonus-wizard .cloud-scene-question{transition:none!important}}
