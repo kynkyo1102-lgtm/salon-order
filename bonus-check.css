@@ -697,3 +697,12 @@ body:has(.bonus-page){background:#f7fbff}
   .bonus-page .bonus-hero{border-radius:18px}
   .bonus-page .bonus-wizard .wizard-step{border-radius:16px}
 }
+
+/* Shared guide page geometry (legacy common.css no longer loaded). */
+body.guide-design-context{margin:0;background:#fff;color:#273544;font-family:"Noto Sans JP",sans-serif;font-size:15px;line-height:1.8}
+body.guide-design-context .bonus-page{width:100%;max-width:860px;margin:0 auto;padding:52px 22px 110px;box-sizing:border-box;min-width:0}
+body.guide-design-context .bonus-page button,
+body.guide-design-context .bonus-page input{font:inherit}
+body.guide-design-context .bonus-page button{cursor:pointer}
+body.guide-design-context .bonus-page .bonus-form-control[type="number"]{font-size:1.14rem}
+@media(max-width:600px){body.guide-design-context .bonus-page{padding:30px 18px 95px}}
