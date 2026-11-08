@@ -5,33 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ボーナス取得・昇格条件チェック - メンバーズWebガイド</title>
 
+  
   <link rel="stylesheet" href="./bonus-check.css?v=20261108-cloud1">
   <link rel="stylesheet" href="./bonus-check-immersive.css?v=20261108-result3">
+  <link rel="stylesheet" href="./bonus-check-rpg.css?v=20261108-rpg1">
 </head>
 
-<body class="bonus-immersive">
+<body class="bonus-immersive bonus-rpg">
 
   <nav class="bonus-app-nav" aria-label="診断ナビゲーション"><a class="bonus-app-brand" href="./ninaguide.html">NiNA GUIDE</a><a class="bonus-app-close" href="./ninaguide.html" aria-label="診断を閉じてガイドへ戻る">閉じる <span aria-hidden="true">×</span></a></nav>
 <main class="container bonus-page" id="bonus-app">
 
     <div class="bonus-hero" id="bonus-journey-cover">
-      <div class="cloud-scene cloud-scene-cover" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="rpg-landscape" aria-hidden="true"><div class="rpg-stars"></div><div class="rpg-moon"></div><div class="rpg-hills"></div><div class="rpg-castle"><i></i><i></i><i></i></div><div class="rpg-ground"></div></div>
       
       <div class="journey-cover-content">
-      <span class="bonus-kicker">NiNA GUIDE · BONUS CHECK</span>
+      <span class="bonus-kicker">NiNA GUIDE QUEST</span>
       <h1>ボーナス＆<br><span>タイトル診断</span></h1>
       <p>
-        6つの質問に答えて、今の達成状況と次の目標を見つけましょう。
+        6つの質問でステータスを確認。<br>今月の結果と、次の目標を見つけよう。
       </p>
-      <button type="button" class="journey-start" id="journey-start" onclick="startBonusJourney()">診断をはじめる <span aria-hidden="true">→</span></button>
+      <button type="button" class="journey-start" id="journey-start" onclick="startBonusJourney()">冒険をはじめる <span aria-hidden="true">▶</span></button>
       <span class="journey-cover-note">約1分 ・ 全6問</span>
       </div>
     </div>
 
     <!-- 入力フォーム -->
     <div class="bonus-check-form bonus-wizard" id="bonus-wizard" hidden>
-      <div class="cloud-scene cloud-scene-question" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="journey-stage-title"><span>BONUS &amp; TITLE CHECK</span><h2>今月の達成状況をチェック</h2><p>全6問。ひとつずつ答えてください。</p></div>
+      <div class="rpg-scene-backdrop" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span></div>
+      <div class="journey-stage-title"><span>STATUS CHECK</span><h2>ステータスを確認</h2><p>6つの質問に答えてください。</p></div>
       
       <div class="wizard-progress"><span id="wizard-count">1 / 6</span><div class="wizard-track"><div id="wizard-fill"></div></div></div>
 
@@ -119,24 +121,24 @@
 
     <!-- 判定結果 -->
     <div id="result-card" class="bonus-result" hidden>
-      <div class="cloud-scene cloud-scene-result" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="rpg-result-glow" aria-hidden="true"></div>
 
 <div class="bonus-result-head">
-        <span class="small">YOUR RESULT</span>
-        <h2>診断結果</h2>
-        <p class="result-intro">今月の状況をまとめました。</p>
+        <span class="small">QUEST COMPLETE</span>
+        <div class="rpg-result-gem" aria-hidden="true">◆</div><h2>ステータス結果</h2>
+        <p class="result-intro">今月の判定結果を確認しよう。</p>
       </div>
 
       <!-- コミッション -->
       <div class="bonus-result-block commission">
-        <div class="bonus-result-label">コミッション</div>
+        <div class="bonus-result-label">獲得ボーナス</div>
         <div id="basic-status" class="bonus-result-status"></div>
         <div id="commission-next-guide"></div>
       </div>
 
       <!-- タイトル -->
       <div class="bonus-result-block title">
-        <div class="bonus-result-label">タイトル</div>
+        <div class="bonus-result-label">現在のタイトル</div>
         <div id="title-status"></div>
         <div id="title-next-guide"></div>
       </div>
@@ -144,17 +146,17 @@
     </div>
 
     <section class="wizard-answers" id="wizard-answers" hidden aria-labelledby="wizard-answers-title">
-      <h2 id="wizard-answers-title">今回の回答内容</h2>
+      <h2 id="wizard-answers-title">ステータス詳細</h2>
       <div class="wizard-answer-list" id="wizard-answer-list"></div>
     </section>
 
-    <button type="button" id="wizard-edit" class="wizard-edit" onclick="wizardEdit()" hidden>← 回答を修正する</button>
+    <button type="button" id="wizard-edit" class="wizard-edit" onclick="wizardEdit()" hidden>← ステータスを修正</button>
 
     <!-- 参考：昇格条件一覧表 -->
     <div class="bonus-reference" id="bonus-reference" style="margin-top: 24px;" hidden>
 
       <div class="bonus-reference-title">
-        タイトル昇格条件一覧
+        称号一覧
       </div>
 
       <p class="bonus-reference-note">
@@ -958,6 +960,7 @@
     document.getElementById("result-card").classList.remove("result-reveal");
     void document.getElementById("result-card").offsetWidth;
     document.getElementById("result-card").classList.add("result-reveal");
+    document.body.classList.add("rpg-results-visible");
     document.querySelector(".bonus-page").classList.add("cloud-result-mode");
     document.getElementById("bonus-reference").hidden=false;
     document.getElementById("wizard-answers").hidden=false;
@@ -983,6 +986,7 @@
     });
   }
   function wizardEdit(){
+    document.body.classList.remove("rpg-results-visible");
     document.getElementById("bonus-wizard").hidden=false;
     document.querySelector(".bonus-page").classList.remove("cloud-result-mode");
     document.querySelector(".bonus-hero").hidden=true;
