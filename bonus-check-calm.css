@@ -1,0 +1,31 @@
+/* Calm refinements: welcoming, informational, lightly interactive */
+body.bonus-modern-quest .bonus-page #bonus-journey-cover{background:linear-gradient(160deg,#f2f9fd 0%,#e2f1fb 58%,#f9fcff 100%)!important}
+body.bonus-modern-quest .rpg-landscape{opacity:.34}
+body.bonus-modern-quest .rpg-moon{width:100px;height:100px;opacity:.48;box-shadow:none}
+body.bonus-modern-quest .rpg-stars{opacity:.32;animation:none}
+body.bonus-modern-quest .rpg-hills,body.bonus-modern-quest .rpg-ground{opacity:.4}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover h1{font-size:clamp(2rem,5.6vw,3.1rem)!important;line-height:1.5!important;letter-spacing:0!important;margin:20px 0 14px!important;font-weight:800}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover .bonus-kicker{font-size:.66rem;letter-spacing:.08em;background:transparent!important;border:0!important}
+body.bonus-modern-quest .bonus-page #bonus-journey-cover p{font-size:.94rem;line-height:1.85;color:#5a788d!important;max-width:370px;margin-bottom:24px}
+body.bonus-modern-quest .bonus-page .journey-start{padding:14px 30px!important;box-shadow:0 6px 17px #216ea321!important;font-size:.96rem}
+body.bonus-modern-quest .bonus-page .journey-start:hover{box-shadow:0 8px 18px #216ea32a!important}
+body.bonus-modern-quest .bonus-page #bonus-wizard{background:linear-gradient(160deg,#eef7fd,#f7fbfe 60%,#eaf5fc)!important}
+body.bonus-modern-quest .rpg-scene-backdrop{display:none}
+body.bonus-modern-quest .bonus-page .journey-stage-title h2{font-size:clamp(1.3rem,3.6vw,1.8rem)!important}
+body.bonus-modern-quest .bonus-page #bonus-wizard .wizard-step{box-shadow:0 8px 28px #3a83b014!important;border:1px solid #e1ecf4!important;border-radius:18px!important}
+body.bonus-modern-quest .bonus-page #bonus-wizard .wizard-choices button{transition:background .15s,border-color .15s;box-shadow:none!important}
+body.bonus-modern-quest .bonus-page #bonus-wizard .wizard-choices button:hover{transform:none}
+body.bonus-modern-quest .bonus-page #result-card{background:linear-gradient(180deg,#eef7fd,#f9fcff 55%,#fff)!important}
+body.bonus-modern-quest .rpg-result-glow{display:none}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-head{padding-bottom:20px!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-head .small{font-size:.72rem;letter-spacing:.08em;color:#6d91a9!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-head h2{font-size:clamp(1.7rem,4vw,2.2rem)!important;margin-top:12px}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-block{box-shadow:0 6px 22px #397ca30d!important;border:1px solid #e3edf4!important;border-radius:17px!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-title-name{font-size:clamp(1.6rem,4.4vw,2.15rem)!important}
+body.bonus-modern-quest .bonus-page #result-card.result-reveal{animation:calmAppear .4s ease-out both!important}
+body.bonus-modern-quest .bonus-page #result-card.result-reveal .bonus-result-head{animation:calmAppear .45s .08s ease-out both!important}
+body.bonus-modern-quest .bonus-page #result-card.result-reveal .bonus-result-block.commission{animation:calmAppear .45s .2s ease-out both!important}
+body.bonus-modern-quest .bonus-page #result-card.result-reveal .bonus-result-block.title{animation:calmAppear .45s .32s ease-out both!important}
+@keyframes calmAppear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){body.bonus-modern-quest .bonus-page #bonus-journey-cover h1{font-size:2.15rem!important}body.bonus-modern-quest .bonus-page #bonus-journey-cover .journey-cover-content{padding:24px 18px}}
+@media(prefers-reduced-motion:reduce){body.bonus-modern-quest .bonus-page #result-card.result-reveal,body.bonus-modern-quest .bonus-page #result-card.result-reveal .bonus-result-head,body.bonus-modern-quest .bonus-page #result-card.result-reveal .bonus-result-block{animation:none!important}}
