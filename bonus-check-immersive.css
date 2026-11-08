@@ -37,3 +37,31 @@ body.bonus-immersive{margin:0;min-height:100dvh;background:#d5ebfa;color:#173d63
 .bonus-immersive .bonus-page #bonus-wizard[data-sky="2"] .cloud-scene-question{transform:translateX(-13%)}
 @media(max-width:600px){.bonus-immersive .bonus-app-nav{padding:15px 18px}.bonus-immersive .bonus-page #bonus-journey-cover{padding:90px 23px 55px}.bonus-immersive .bonus-page #bonus-wizard{padding:100px 20px 55px}.bonus-immersive .bonus-page #bonus-wizard .wizard-step{padding:25px 21px}.bonus-immersive .bonus-page #result-card{padding:110px 19px 55px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bonus-immersive .bonus-page #bonus-wizard .cloud-scene-question{transition:none}}
+
+/* Quiet, editorial results: hierarchy over decoration. */
+.bonus-immersive .bonus-page #result-card{padding-top:clamp(115px,15vh,165px);padding-bottom:75px;background:linear-gradient(180deg,#cfe9fa 0%,#e9f5fc 27%,#f8fcff 65%,#fff 100%)!important}
+.bonus-immersive .bonus-page #result-card .cloud-scene-result{opacity:.28;max-height:390px}
+.bonus-immersive .bonus-page #result-card.celebrate{animation:none!important}
+.bonus-immersive .bonus-page #result-card .bonus-confetti{display:none!important}
+.bonus-immersive .bonus-page #result-card .bonus-result-head{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0 0 37px!important;margin:0!important;text-align:center}
+.bonus-immersive .bonus-page #result-card .bonus-result-head .small{font-size:.73rem;letter-spacing:.2em;color:#527d9c!important;font-weight:750}
+.bonus-immersive .bonus-page #result-card .bonus-result-head h2{font-size:clamp(2.25rem,6vw,3.2rem)!important;letter-spacing:.07em;line-height:1.35;color:#173f66!important;margin:13px 0 9px!important}
+.bonus-immersive .bonus-page #result-card .result-intro{font-size:.9rem;color:#59758c;margin:0}
+.bonus-immersive .bonus-page #result-card .bonus-result-block{padding:28px clamp(20px,4vw,38px)!important;margin:0 0 16px!important;border:1px solid #e2ebf2!important;border-radius:19px!important;background:rgba(255,255,255,.94)!important;box-shadow:0 9px 30px rgba(49,98,139,.055)!important}
+.bonus-immersive .bonus-page #result-card .bonus-result-label{font-size:.78rem!important;letter-spacing:.1em;color:#547895!important;font-weight:750!important;margin:0 0 14px!important}
+.bonus-immersive .bonus-page #result-card .bonus-result-status{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;text-align:left!important;font-size:clamp(1.12rem,3vw,1.5rem)!important;line-height:1.6;color:#1b456d!important;font-weight:800!important}
+.bonus-immersive .bonus-page #result-card .bonus-result-status.status-ng{color:#526778!important}
+.bonus-immersive .bonus-page #result-card .bonus-title-achievement{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;text-align:left!important}
+.bonus-immersive .bonus-page #result-card .bonus-title-crown{display:none!important}
+.bonus-immersive .bonus-page #result-card .bonus-title-label{font-size:.78rem;color:#607d93!important;font-weight:600}
+.bonus-immersive .bonus-page #result-card .bonus-title-name{font-size:clamp(1.55rem,4vw,2.25rem)!important;color:#174a79!important;line-height:1.5;margin:6px 0}
+.bonus-immersive .bonus-page #result-card .bonus-next-guide{background:transparent!important;border:0!important;border-top:1px solid #e8eef3!important;border-radius:0!important;padding:18px 0 0!important;margin:18px 0 0!important;color:#526d83!important;font-size:.89rem!important;line-height:1.9!important;box-shadow:none!important}
+.bonus-immersive .bonus-page #result-card .bonus-next-guide strong{color:#225b8a!important}
+.bonus-immersive .bonus-page #result-card .bonus-next-guide .done{color:#225b8a!important}
+.bonus-immersive .bonus-page #result-card .bonus-result-note{color:#6a7580!important;font-weight:500!important}
+.bonus-immersive .bonus-page #wizard-answers,.bonus-immersive .bonus-page #bonus-reference{background:#fff!important;border:1px solid #e5edf4!important;border-radius:19px!important;box-shadow:none!important;padding:27px clamp(20px,4vw,34px)!important}
+.bonus-immersive .bonus-page #wizard-answers h2,.bonus-immersive .bonus-page .bonus-reference-title{font-size:1.12rem!important;color:#1d4a70!important;letter-spacing:.01em}
+.bonus-immersive .bonus-page #wizard-answers{margin-top:35px!important}
+.bonus-immersive .bonus-page #bonus-reference{margin-top:18px!important}
+.bonus-immersive .bonus-page #wizard-edit{background:transparent!important;color:#2a628e!important;border:0!important;box-shadow:none!important;font-size:.9rem!important;padding:12px 18px!important}
+@media(max-width:600px){.bonus-immersive .bonus-page #result-card{padding:105px 20px 45px!important}.bonus-immersive .bonus-page #result-card .bonus-result-head{padding-bottom:29px!important}.bonus-immersive .bonus-page #result-card .bonus-result-block{padding:23px 21px!important;margin-bottom:13px!important}.bonus-immersive .bonus-page #wizard-answers,.bonus-immersive .bonus-page #bonus-reference{margin-left:17px!important;margin-right:17px!important}}
