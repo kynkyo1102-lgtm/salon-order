@@ -706,3 +706,71 @@ body.guide-design-context .bonus-page input{font:inherit}
 body.guide-design-context .bonus-page button{cursor:pointer}
 body.guide-design-context .bonus-page .bonus-form-control[type="number"]{font-size:1.14rem}
 @media(max-width:600px){body.guide-design-context .bonus-page{padding:30px 18px 95px}}
+
+/* Dreamy blue-mint diagnosis experience — scoped beneath shared chrome. */
+body.guide-design-context:has(.bonus-page){
+  background:radial-gradient(ellipse 85% 480px at 8% 180px,rgba(175,238,224,.30),transparent 72%),
+             radial-gradient(ellipse 85% 560px at 100% 520px,rgba(190,215,255,.34),transparent 75%),
+             #f8fcff;
+}
+body.guide-design-context .bonus-page{max-width:860px;position:relative;isolation:isolate}
+.bonus-page .bonus-hero{
+  position:relative;overflow:hidden;text-align:center;
+  padding:62px 30px 58px;margin:0 auto 38px;max-width:760px;
+  border:1px solid rgba(255,255,255,.85);border-radius:34px;
+  background:radial-gradient(circle at 83% 12%,rgba(255,255,255,.95) 0 7%,transparent 26%),
+    radial-gradient(circle at 10% 95%,rgba(178,243,222,.6),transparent 47%),
+    linear-gradient(132deg,#e4f4ff 0%,#edfaff 47%,#e7f9ef 100%);
+  box-shadow:0 18px 54px rgba(75,143,171,.12),inset 0 1px 0 rgba(255,255,255,.95);
+}
+.bonus-page .bonus-hero:before,.bonus-page .bonus-hero:after{display:block;content:"";position:absolute;pointer-events:none;border-radius:50%}
+.bonus-page .bonus-hero:before{width:170px;height:170px;right:-65px;top:-80px;border:1px solid rgba(255,255,255,.8);box-shadow:0 0 0 24px rgba(255,255,255,.13),0 0 0 49px rgba(255,255,255,.10)}
+.bonus-page .bonus-hero:after{width:120px;height:120px;left:-65px;bottom:-64px;background:rgba(255,255,255,.27);filter:blur(3px)}
+.bonus-page .bonus-kicker{display:inline-block;background:rgba(255,255,255,.67);border:1px solid rgba(126,184,200,.22);color:#39869b;border-radius:999px;padding:7px 18px;letter-spacing:.12em;font-size:.75rem}
+.bonus-page .bonus-hero h1,.bonus-page .bonus-hero h1 span{color:#27566d}
+.bonus-page .bonus-hero h1{font-weight:800;font-size:clamp(1.75rem,4.8vw,2.55rem);line-height:1.52;letter-spacing:.045em;margin:20px 0}
+.bonus-page .bonus-hero p{color:#5c7b89;margin:0 auto;max-width:32em}
+.bonus-page .bonus-wizard{max-width:660px}
+.bonus-page .wizard-progress{font-size:.8rem;letter-spacing:.12em;color:#5b91a4;margin:0 5px 23px}
+.bonus-page .wizard-track{height:7px;background:#e3f1f3;border:1px solid rgba(255,255,255,.9)}
+.bonus-page #wizard-fill{background:linear-gradient(90deg,#7fbfe9,#8ed9c4);box-shadow:0 0 12px rgba(94,198,189,.35);transition:width .35s ease}
+.bonus-page .bonus-wizard .wizard-step{
+  position:relative;min-height:250px;padding:40px 36px 36px;
+  border-radius:28px;border:1px solid rgba(255,255,255,.96);
+  background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(250,255,255,.91));
+  box-shadow:0 15px 50px rgba(78,143,165,.10),0 2px 9px rgba(80,157,166,.04);
+  animation:bonusFloatIn .38s ease-out both;
+}
+.bonus-page .bonus-wizard .bonus-form-label{font-size:clamp(1.13rem,2.7vw,1.34rem);color:#31586c;letter-spacing:.025em;line-height:1.7}
+.bonus-page .bonus-form-hint{color:#718d9b}
+.bonus-page .bonus-form-control[type="number"]{
+  min-height:64px;border:1.5px solid #c7e2e9;border-radius:17px;
+  background:#fbfeff;color:#28566a;box-shadow:inset 0 1px 3px rgba(51,113,142,.03);
+}
+.bonus-page .bonus-form-control[type="number"]:focus{border-color:#74bbd5;box-shadow:0 0 0 5px rgba(130,204,225,.18)}
+.bonus-page .wizard-choices button{min-height:70px;background:#f3fbff;border:1px solid #d5e9ef;border-radius:17px;color:#38677c;transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
+.bonus-page .wizard-choices button:hover{transform:translateY(-2px);background:#e8f8fa;box-shadow:0 6px 18px rgba(82,160,176,.11)}
+.bonus-page .wizard-choices button.selected{background:linear-gradient(125deg,#e0f5ff,#e1f9ed);border-color:#83c6ca;box-shadow:inset 0 0 0 1px #83c6ca}
+.bonus-page .wizard-actions{gap:14px}
+.bonus-page .wizard-actions button,.bonus-page .bonus-submit{min-height:58px;border-radius:16px!important}
+.bonus-page .wizard-next,.bonus-page .bonus-submit{background:linear-gradient(110deg,#579bc8,#58bba9)!important;color:#fff;box-shadow:0 8px 20px rgba(71,159,175,.20)}
+.bonus-page .wizard-back{background:#e9f4f8;color:#527d8f}
+.bonus-page .point-shortcuts button{background:#eaf9f3;border-color:#d0ede3;color:#418979}
+.bonus-page .point-preview{color:#4c9e9d}
+.bonus-page .bonus-result,.bonus-page .bonus-reference,.bonus-page .wizard-answers{
+  border-radius:26px!important;background:rgba(255,255,255,.94)!important;border:1px solid #dceff0!important;box-shadow:0 14px 42px rgba(74,141,163,.09)!important;overflow:hidden;
+}
+.bonus-page .bonus-result-head{background:linear-gradient(125deg,#e2f4ff,#e3faee);padding-top:34px;padding-bottom:34px}
+.bonus-page .bonus-result-head h2,.bonus-page .bonus-reference-title,.bonus-page .wizard-answers h2{color:#315b70}
+.bonus-page .bonus-result-head .small,.bonus-page .bonus-result-label{color:#4b9eaa}
+.bonus-page .bonus-result-block.commission,.bonus-page .bonus-result-block.title{background:#f5fbfd;border-color:#dfeef0}
+.bonus-page .wizard-edit{border-radius:999px;border-color:#b7dce2;color:#4d8d9d;background:#f7fcfd}
+@keyframes bonusFloatIn{from{opacity:.55;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+ body.guide-design-context .bonus-page{padding-top:28px}
+ .bonus-page .bonus-hero{padding:43px 21px 39px;border-radius:25px;margin-bottom:30px}
+ .bonus-page .bonus-hero h1{font-size:1.7rem}
+ .bonus-page .bonus-wizard .wizard-step{padding:30px 22px;min-height:235px;border-radius:23px}
+ .bonus-page .wizard-choices button{min-height:65px}
+}
+@media(prefers-reduced-motion:reduce){.bonus-page .bonus-wizard .wizard-step{animation:none}.bonus-page #wizard-fill,.bonus-page .wizard-choices button{transition:none}}
