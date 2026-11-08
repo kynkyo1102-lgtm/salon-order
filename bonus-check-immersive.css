@@ -1,0 +1,39 @@
+/* Standalone bonus diagnostic: no site chrome; viewport-sized scenes. */
+:root{color-scheme:light}
+html{scroll-behavior:smooth}
+body.bonus-immersive{margin:0;min-height:100dvh;background:#d5ebfa;color:#173d63;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;overflow-x:hidden}
+.bonus-immersive *{box-sizing:border-box}
+.bonus-immersive .bonus-app-nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,4vw,48px);pointer-events:none}
+.bonus-immersive .bonus-app-nav a{pointer-events:auto;text-decoration:none;color:#164b7c;font-weight:800}
+.bonus-immersive .bonus-app-brand{font-size:.84rem;letter-spacing:.15em}
+.bonus-immersive .bonus-app-close{display:flex;align-items:center;gap:9px;font-size:.8rem;background:#ffffffb8;border:1px solid #ffffffdb;border-radius:99px;padding:9px 13px;backdrop-filter:blur(12px)}
+.bonus-immersive .bonus-app-close span{font-size:1.3rem;line-height:1}
+.bonus-immersive .bonus-page{width:100%;max-width:none;margin:0;padding:0;background:transparent}
+.bonus-immersive .bonus-page #bonus-journey-cover{width:100%;max-width:none;min-height:100dvh;margin:0;border-radius:0;box-shadow:none;padding:95px 24px 60px;display:flex;justify-content:center;align-items:center}
+.bonus-immersive .bonus-page #bonus-journey-cover .journey-cover-content{max-width:560px}
+.bonus-immersive .bonus-page #bonus-journey-cover h1{font-size:clamp(2.55rem,6vw,4.5rem);line-height:1.35}
+.bonus-immersive .bonus-page #bonus-journey-cover .cloud-scene{border-radius:0}
+.bonus-immersive .bonus-page #bonus-wizard{width:100%;max-width:none;min-height:100dvh;margin:0;border:0;border-radius:0;box-shadow:none;padding:105px max(22px,calc((100vw - 670px)/2)) 70px;display:flex;flex-direction:column;justify-content:center}
+.bonus-immersive .bonus-page #bonus-wizard[hidden]{display:none!important}
+.bonus-immersive .bonus-page .journey-stage-title{margin:0 auto 22px}
+.bonus-immersive .bonus-page .journey-stage-title h2{font-size:clamp(1.4rem,3.8vw,2rem)}
+.bonus-immersive .bonus-page #bonus-wizard .wizard-step{width:100%;margin:0 auto 22px;padding:clamp(23px,4vw,40px);border-radius:24px;box-shadow:0 15px 35px rgba(43,102,150,.09)}
+.bonus-immersive .bonus-page #bonus-wizard .wizard-progress{width:100%;max-width:none;margin:0 0 24px}
+.bonus-immersive .bonus-page #bonus-wizard .wizard-actions{position:relative;z-index:2}
+.bonus-immersive .bonus-page #bonus-wizard .bonus-submit{position:relative;z-index:2}
+.bonus-immersive .bonus-page #result-card{position:relative;isolation:isolate;overflow:hidden;max-width:none;width:100%;min-height:100dvh;border:0;border-radius:0;margin:0;padding:125px max(20px,calc((100vw - 760px)/2)) 80px;background:linear-gradient(160deg,#c5e6f8,#f4fbff 65%,#fff);box-shadow:none}
+.bonus-immersive .bonus-page #result-card .cloud-scene-result{z-index:-1;opacity:.55}
+.bonus-immersive .bonus-page #result-card .bonus-result-head,.bonus-immersive .bonus-page #result-card .bonus-result-block{position:relative;z-index:1}
+.bonus-immersive .bonus-page #wizard-answers,.bonus-immersive .bonus-page #bonus-reference{max-width:820px;margin:30px auto!important;padding-left:22px;padding-right:22px}
+.bonus-immersive .bonus-page #wizard-edit{display:block;max-width:820px;margin:25px auto}
+.bonus-immersive .bonus-page #wizard-edit[hidden]{display:none!important}
+.bonus-immersive .bonus-page #bonus-reference{margin-bottom:80px!important}
+.bonus-immersive .bonus-page #result-card[hidden],.bonus-immersive .bonus-page #wizard-answers[hidden],.bonus-immersive .bonus-page #bonus-reference[hidden]{display:none!important}
+.bonus-immersive .bonus-page #bonus-wizard[data-sky="0"]{background:linear-gradient(155deg,#c9e6fa,#edf8ff 70%,#fff)}
+.bonus-immersive .bonus-page #bonus-wizard[data-sky="1"]{background:linear-gradient(155deg,#c5eceb,#eefbf9 70%,#fff)}
+.bonus-immersive .bonus-page #bonus-wizard[data-sky="2"]{background:linear-gradient(155deg,#d5e2fa,#f1f5ff 70%,#fff)}
+.bonus-immersive .bonus-page #bonus-wizard .cloud-scene-question{z-index:0;opacity:.55;transition:transform .65s ease}
+.bonus-immersive .bonus-page #bonus-wizard[data-sky="1"] .cloud-scene-question{transform:translateX(13%)}
+.bonus-immersive .bonus-page #bonus-wizard[data-sky="2"] .cloud-scene-question{transform:translateX(-13%)}
+@media(max-width:600px){.bonus-immersive .bonus-app-nav{padding:15px 18px}.bonus-immersive .bonus-page #bonus-journey-cover{padding:90px 23px 55px}.bonus-immersive .bonus-page #bonus-wizard{padding:100px 20px 55px}.bonus-immersive .bonus-page #bonus-wizard .wizard-step{padding:25px 21px}.bonus-immersive .bonus-page #result-card{padding:110px 19px 55px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bonus-immersive .bonus-page #bonus-wizard .cloud-scene-question{transition:none}}
