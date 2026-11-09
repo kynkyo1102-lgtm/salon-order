@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="css/members-guide-banner.css?v=3">
   <link rel="stylesheet" href="css/home-news.css?v=8">
-  <link rel="stylesheet" href="css/members-guide-preview.css?v=12">
+  <link rel="stylesheet" href="css/members-guide-preview.css?v=13">
   <!-- Keep the homepage typography consistent with the ordering pages. -->
   <style>
     .home-page,
@@ -64,41 +64,29 @@
 
   <main>
 
-    <!-- プレビュー専用：写真と注文導線をひとつのエディトリアルな構成に -->
-    <section class="preview-editorial" aria-label="ご注文">
-      <div class="preview-editorial-hero">
-        <div class="preview-editorial-photo" role="img" aria-label="サロンの木製カウンターと商品棚"></div>
-        <div class="preview-editorial-shade"></div>
-        <div class="preview-editorial-hero-copy">
-          <span class="preview-editorial-eyebrow">PLACE DE NINA</span>
-          <h1>MEMBERS PAGE</h1>
-          
-        </div>
-        <span class="preview-editorial-index" aria-hidden="true">01 — ORDER</span>
+    <section class="app-home" aria-label="注文ツール">
+      <div class="app-home-heading">
+        <p class="app-home-kicker">メンバー専用</p>
+        <h1>ご注文</h1>
+        <p class="app-home-lead">注文方法を選択してください。</p>
       </div>
-      <div class="preview-editorial-workspace">
-        <div class="preview-editorial-heading">
-          <div><span class="preview-editorial-overline">ORDER TOOLS</span><h2>注文書を作成する</h2></div>
-          <span class="preview-editorial-heading-note">用途に合わせてお選びください</span>
-        </div>
-        <div class="preview-editorial-order-list">
-          <a class="preview-editorial-order" href="single.html">
-            <span class="preview-editorial-number">01</span>
-            <span class="preview-editorial-order-body"><strong>テキスト注文</strong><small>LINEノートに貼り付ける注文内容を作成</small></span>
-            <span class="preview-editorial-order-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="preview-editorial-order" href="bulk.html">
-            <span class="preview-editorial-number">02</span>
-            <span class="preview-editorial-order-body"><strong>画像注文書</strong><small>画像・PDF形式の注文書を作成</small></span>
-            <span class="preview-editorial-order-arrow" aria-hidden="true">↗</span>
-          </a>
-        </div>
-        <a class="preview-editorial-calc" href="calc.html">
-          <img src="assets/retro-guide-robot.svg" alt="" draggable="false">
-          <span><small>NEED A LITTLE HELP?</small><strong>計算サポート</strong><em>ポイントや金額の計算はこちら</em></span>
-          <span class="preview-editorial-calc-arrow" aria-hidden="true">→</span>
+      <div class="app-home-actions">
+        <a class="app-home-action" href="single.html">
+          <span class="app-home-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h8"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+          <span class="app-home-action-copy"><strong>テキスト注文</strong><small>LINEノートに貼り付ける注文内容を作成</small></span>
+          <span class="app-home-action-chevron" aria-hidden="true">›</span>
+        </a>
+        <a class="app-home-action" href="bulk.html">
+          <span class="app-home-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+          <span class="app-home-action-copy"><strong>画像注文書</strong><small>画像・PDF形式の注文書を作成</small></span>
+          <span class="app-home-action-chevron" aria-hidden="true">›</span>
         </a>
       </div>
+      <a class="app-home-helper" href="calc.html">
+        <span class="app-home-helper-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2"/></svg></span>
+        <span><strong>計算サポート</strong><small>ポイント・金額の計算はこちら</small></span>
+        <span class="app-home-helper-chevron" aria-hidden="true">›</span>
+      </a>
     </section>
 
     <!-- 通常のお知らせ：注文ツールの下に配置 -->
