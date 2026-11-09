@@ -1,0 +1,23 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>お知らせ詳細｜Place de Nina 南熊本店</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f3ed;color:#302b28;font-family:"Noto Sans JP",sans-serif}
+header{background:#315b43;padding:20px max(20px,calc((100vw - 900px)/2))}.logo{font:25px "DM Serif Display",Georgia,serif;color:white;text-decoration:none}header small{display:block;color:white;font-size:12px}
+main{max-width:760px;margin:auto;padding:35px 20px 85px}.back{font-size:13px;font-weight:700;color:#315b43;text-decoration:none}
+article{margin-top:25px;background:white;border:1px solid #e9ded0;border-radius:16px;padding:clamp(22px,5vw,46px)}
+.meta{display:flex;gap:12px;align-items:center;color:#777;font-size:13px}.tag{background:#edf4ee;color:#315b43;border-radius:5px;padding:5px 10px;font-weight:700}
+h1{font-size:clamp(23px,5vw,34px);line-height:1.5;color:#315b43;margin:20px 0}.body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px;line-height:2}
+.photo{display:block;max-width:100%;height:auto;margin:24px auto;border-radius:10px}
+footer{text-align:center;color:#777;font-size:11px;padding:22px}
+</style></head><body><header><a href="salon-preview.html" class="logo">Place de Nina</a><small>南熊本店</small></header>
+<main><a class="back" href="salon-preview.html">← お知らせに戻る</a><article id="article"><p>読み込み中…</p></article></main><footer>PLACE DE NINA MINAMIKUMAMOTO</footer>
+<script>
+"use strict";const el=document.getElementById("article");
+function node(tag,cls,value){const x=document.createElement(tag);if(cls)x.className=cls;if(value!==undefined)x.textContent=value;return x}
+(async()=>{try{const r=await fetch("./news.json?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error();const data=await r.json();const id=new URLSearchParams(location.search).get("id");const items=(data.newsList||[]).filter(n=>n.published!==false);const n=items.find((n,i)=>String(n.id||"news-"+(data.newsList.indexOf(n)+1))===id);if(!n){el.replaceChildren(node("p","","お知らせが見つかりません。"));return}
+el.replaceChildren();const meta=node("div","meta");meta.append(node("span","tag",n.category||"お知らせ"),node("span","",n.date||""));el.append(meta,node("h1","",n.title||n.text||"お知らせ"));
+if(n.image&&/^assets\/news\/[a-zA-Z0-9._-]+$/.test(n.image)){const img=node("img","photo");img.src=n.image;img.alt=n.title||"お知らせ画像";img.loading="lazy";el.append(img)}
+el.append(node("div","body",n.body||n.text||""));document.title=(n.title||n.text||"お知らせ")+"｜Place de Nina";
+}catch(e){el.replaceChildren(node("p","","お知らせを読み込めませんでした。時間をおいて再度お試しください。"))}})();
+</script></body></html>
