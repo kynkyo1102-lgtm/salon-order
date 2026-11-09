@@ -1,0 +1,43 @@
+/* お知らせの文字組み調整案。公開ページには読み込ませない。 */
+.home-page .home-news-section .news-box{
+  gap:16px;
+  padding:18px 0;
+  font-family:"Noto Sans JP",sans-serif;
+  line-height:1.7;
+}
+.home-page .home-news-section .news-date{
+  flex:0 0 95px;
+  gap:7px;
+  color:#777;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0;
+  padding-top:3px;
+}
+.home-page .home-news-section .news-text{
+  color:#302b28;
+  font-size:14px;
+  font-weight:400;
+  line-height:1.75;
+  letter-spacing:0;
+}
+.home-page .home-news-section .news-badge{
+  background:#edf4ee;
+  color:#315b43;
+  border-radius:4px;
+  padding:3px 6px;
+  font-size:10px;
+  font-weight:700;
+}
+.home-page .home-news-section .news-summary{
+  color:#6b6259!important;
+  font-size:12px;
+  font-weight:500;
+  padding:14px 0;
+}
+.home-page .home-news-section .news-toggle-icon{color:#777}
+@media(max-width:620px){
+  .home-page .home-news-section .news-box{padding:16px 0}
+  .home-page .home-news-section .news-date{margin-bottom:6px}
+  .home-page .home-news-section .news-text{font-size:14px}
+}
