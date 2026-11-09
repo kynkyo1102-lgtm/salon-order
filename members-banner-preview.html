@@ -57,7 +57,7 @@
     body.home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
     body.home-page .members-guide-banner-copy{
       position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;
-      gap:10px;flex:1;min-width:0;padding:0 29% 0 0!important;
+      gap:10px;flex:1;min-width:0;padding:0!important;
     }
     body.home-page .mg-eyebrow{
       display:inline-block;background:transparent!important;color:#005b9d!important;
@@ -83,28 +83,18 @@
       color:#0055a4!important;border:1px solid #d4e2ec!important;border-radius:999px!important;
       padding:6px 11px!important;font-size:11px!important;font-weight:800;white-space:nowrap;z-index:4;
     }
-    body.home-page .mg-art{
-      box-sizing:border-box;position:absolute;right:7%;bottom:5%;width:21%;height:78%;
-      display:flex;align-items:flex-end;justify-content:center;z-index:2;pointer-events:none;
-    }
-    body.home-page .mg-character{
-      display:block!important;width:100%;height:100%;max-width:175px;max-height:170px;
-      object-fit:contain;object-position:center bottom;margin:0!important;
-    }
-    body.home-page .mg-direction{display:none!important}
+    body.home-page .mg-art,body.home-page .mg-character,body.home-page .mg-direction{display:none!important}
     @media(max-width:600px){
       body.home-page .members-guide-entry{margin-top:22px!important;margin-bottom:30px!important}
       body.home-page .members-guide-banner{min-height:204px!important;padding:24px 20px!important}
       body.home-page .members-guide-banner::after{left:20px;width:62px}
-      body.home-page .members-guide-banner-copy{padding-right:22%!important;gap:9px}
+      body.home-page .members-guide-banner-copy{padding-right:0!important;gap:9px}
       body.home-page .mg-eyebrow{font-size:9px;letter-spacing:.14em}
       body.home-page .members-guide-banner-title{font-size:clamp(23px,6.4vw,29px)}
       body.home-page .members-guide-banner-description{font-size:11px;max-width:22em}
       body.home-page .mg-topics{gap:5px;max-width:250px}
       body.home-page .mg-topic{font-size:10px;padding:5px 8px}
       body.home-page .mg-status{top:13px;right:12px;font-size:9px!important;padding:5px 8px!important}
-      body.home-page .mg-art{right:5%;bottom:5%;width:23%;height:62%}
-      body.home-page .mg-character{max-height:125px;max-width:100px}
     }
   </style>
 </head>
@@ -190,9 +180,6 @@
           </div>
         </div>
         <span class="mg-status">準備中</span>
-        <div class="mg-art" aria-hidden="true">
-          <img class="mg-character" src="assets/mitochondria/02_explain.svg" alt="" loading="eager">
-        </div>
       </div>
     </section>
 
