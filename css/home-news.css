@@ -1,9 +1,9 @@
 /* Homepage announcements — unified soft-green list */
 .home-page .home-news-section{margin:0 0 48px;padding:0;background:transparent;border:0;box-shadow:none}
-.home-page .home-news-section #newsContainerArea{display:block;overflow:hidden;background:#edf3ec;border:1px solid #cfddce;border-radius:13px;box-shadow:none}
+.home-page .home-news-section #newsContainerArea{display:block;overflow:hidden;background:transparent;border:1px solid #cfddce;border-radius:13px;box-shadow:none}
 .home-page .home-news-section .news-card-link{display:flex;flex-direction:column;gap:9px;padding:20px 23px;color:#284a36;text-decoration:none;background:transparent;transition:background .2s}
 .home-page .home-news-section .news-card-link+.news-card-link{border-top:1px solid #cbd9ca}
-.home-page .home-news-section .news-card-link:hover{background:#e3ede1}
+.home-page .home-news-section .news-card-link:hover{background:rgba(49,91,67,.045)}
 .home-page .home-news-section .news-card-link:focus-visible{outline:2px solid #315b43;outline-offset:-3px}
 .home-page .home-news-section .news-card-meta{display:flex;align-items:center;gap:10px}
 .home-page .home-news-section .news-card-date{font-size:12px;font-weight:500;color:#647768}
