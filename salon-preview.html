@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="css/members-guide-banner.css?v=3">
   <link rel="stylesheet" href="css/home-news.css?v=8">
-  <link rel="stylesheet" href="css/members-guide-preview.css?v=6">
+  <link rel="stylesheet" href="css/members-guide-preview.css?v=7">
   <!-- Keep the homepage typography consistent with the ordering pages. -->
   <style>
     .home-page,
@@ -64,56 +64,42 @@
 
   <main>
 
-    <!-- プレビュー専用：サロンの空気感を控えめに伝える帯 -->
-    <section class="preview-salon-intro" aria-label="サロンのご案内">
-      <div class="preview-salon-photo" role="img" aria-label="サロンの木製カウンターと商品棚"></div>
-      <div class="preview-salon-intro-copy">
-        <span>PLACE DE NINA · MINAMI KUMAMOTO</span>
-        <p>いつものご注文を、もっとスムーズに。</p>
+    <!-- プレビュー専用：写真と注文導線をひとつのエディトリアルな構成に -->
+    <section class="preview-editorial" aria-label="ご注文">
+      <div class="preview-editorial-hero">
+        <div class="preview-editorial-photo" role="img" aria-label="サロンの木製カウンターと商品棚"></div>
+        <div class="preview-editorial-shade"></div>
+        <div class="preview-editorial-hero-copy">
+          <span class="preview-editorial-eyebrow">PLACE DE NINA / MINAMI KUMAMOTO</span>
+          <h1>いつものご注文を、<br>もっと心地よく。</h1>
+          <p>南熊本店 メンバー専用ページ</p>
+        </div>
+        <span class="preview-editorial-index" aria-hidden="true">01 — ORDER</span>
+      </div>
+      <div class="preview-editorial-workspace">
+        <div class="preview-editorial-heading">
+          <div><span class="preview-editorial-overline">ORDER TOOLS</span><h2>注文書を作成する</h2></div>
+          <span class="preview-editorial-heading-note">用途に合わせてお選びください</span>
+        </div>
+        <div class="preview-editorial-order-list">
+          <a class="preview-editorial-order" href="single.html">
+            <span class="preview-editorial-number">01</span>
+            <span class="preview-editorial-order-body"><strong>テキスト注文</strong><small>LINEノートに貼り付ける注文内容を作成</small></span>
+            <span class="preview-editorial-order-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="preview-editorial-order" href="bulk.html">
+            <span class="preview-editorial-number">02</span>
+            <span class="preview-editorial-order-body"><strong>画像注文書</strong><small>画像・PDF形式の注文書を作成</small></span>
+            <span class="preview-editorial-order-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <a class="preview-editorial-calc" href="calc.html">
+          <img src="assets/retro-guide-robot.svg" alt="" draggable="false">
+          <span><small>NEED A LITTLE HELP?</small><strong>計算サポート</strong><em>ポイントや金額の計算はこちら</em></span>
+          <span class="preview-editorial-calc-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
-
-    <!-- メイン：注文ツールセクション -->
-    <div class="hero-order-section">
-      <h2 class="section-title">注文書を作成する</h2>
-      
-      <div class="home-order-grid">
-      <!-- メイン注文ツール 1 -->
-      <a href="single.html" class="menu-card featured-card">
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5H8z"></path><path d="M16 3v5h5"></path><path d="M7 12h10M7 16h8"></path></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">テキスト注文</div>
-          <p class="card-desc">注文内容をコピーして、LINEノートにそのまま貼り付けられます。</p>
-        </div>
-      </a>
-
-      <!-- メイン注文ツール 2 -->
-      <a href="bulk.html" class="menu-card featured-card">
-        <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><rect x="7" y="11" width="10" height="7" rx="1"></rect><circle cx="10" cy="13.5" r=".7" fill="currentColor" stroke="none"></circle><path d="m8 17 3-3 2 2 2-2 2 3"></path></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">画像注文書</div>
-          <p class="card-desc">注文書を画像またはPDFで保存できます。</p>
-        </div>
-      </a>
-
-      </div>
-
-      <!-- 注文ツールに続く補助機能：プレビュー専用 -->
-      <a class="preview-calc-inline" href="calc.html">
-        <span class="preview-calc-inline-icon"><img src="assets/retro-guide-robot.svg" alt="" draggable="false"></span>
-        <span class="preview-calc-inline-copy">
-          <span class="preview-calc-inline-label">注文の計算に迷ったら</span>
-          <strong>計算サポート <span class="preview-calc-inline-dot">●</span></strong>
-          <span class="preview-calc-inline-desc">ロボットと一緒に、必要な計算をかんたんに。</span>
-        </span>
-        <span class="preview-calc-inline-arrow" aria-hidden="true">→</span>
-      </a>
-
-    </div>
 
     <!-- 通常のお知らせ：注文ツールの下に配置 -->
     <section class="home-news-section" aria-label="重要なお知らせ">
