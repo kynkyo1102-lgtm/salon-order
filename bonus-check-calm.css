@@ -182,3 +182,8 @@ body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-meta{colo
  body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main strong{font-size:13px}
  body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main span{font-size:13px}
 }
+
+/* Visible, restrained My Number reminder directly below the verdict */
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview:has(+ .bonus-overview-warning:not([hidden])){margin-bottom:10px}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-warning{margin:0 0 22px!important;padding:12px 15px!important;border:1px solid #e7d5a7;border-radius:12px;background:#fffaf0;color:#745521;font-size:13px;font-weight:600;line-height:1.75}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-warning[hidden]{display:none!important}
