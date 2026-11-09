@@ -18,3 +18,12 @@
 @media(max-width:380px){.home-page .preview-calc-gate{padding-left:78px}.home-page .preview-calc-robot{width:77px;height:77px}.home-page .preview-calc-console{padding-left:16px}.home-page .preview-guide-floating{right:8px}}
 
 @media(max-width:600px){.home-page .preview-calc-inline{margin-top:15px;padding:12px;gap:10px;min-height:83px}.home-page .preview-calc-inline-icon{width:50px;height:50px;flex-basis:50px}.home-page .preview-calc-inline-icon img{width:44px;height:44px}.home-page .preview-calc-inline-copy strong{font-size:17px}.home-page .preview-calc-inline-desc{font-size:11px}.home-page .preview-calc-inline-label{font-size:10px}.home-page .preview-calc-inline-arrow{width:26px;height:26px;flex-basis:26px}}
+
+/* Photo-led preview: keep the ordering actions above the fold. */
+.home-page .preview-salon-intro{position:relative;max-width:1100px;margin:18px auto 4px;padding:0 20px}
+.home-page .preview-salon-photo{height:clamp(116px,16vw,180px);border-radius:5px;background:linear-gradient(90deg,rgba(41,38,28,.18),rgba(41,38,28,.02)),url("https://kynkyo1102-lgtm.github.io/salon-order/assets/salon-hero-preview.jpg") center 52%/cover,linear-gradient(120deg,#705342,#b39270 52%,#e6d8c5);background-color:#b39270}
+.home-page .preview-salon-intro-copy{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 2px 0;color:#536456}
+.home-page .preview-salon-intro-copy span{font-size:10px;letter-spacing:.13em;color:#879487}
+.home-page .preview-salon-intro-copy p{margin:0;font-size:12px;letter-spacing:.035em}
+.home-page .preview-salon-intro+.hero-order-section{padding-top:16px}
+@media(max-width:600px){.home-page .preview-salon-intro{margin:12px auto 0;padding:0 14px}.home-page .preview-salon-photo{height:114px}.home-page .preview-salon-intro-copy{padding-top:9px;display:block}.home-page .preview-salon-intro-copy span{font-size:9px}.home-page .preview-salon-intro-copy p{margin:3px 0 0;font-size:11px}.home-page .preview-salon-intro+.hero-order-section{padding-top:13px}}
