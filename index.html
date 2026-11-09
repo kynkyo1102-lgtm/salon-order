@@ -175,54 +175,18 @@
           items = [{ date: data.newsDate || '', text: data.newsText || '' }];
         }
 
-        if (items.length > 0) {
-          const latest = items[0];
-          // JSONで登録した最新のお知らせを表示する（旧形式にも対応）
-          const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-          items = items.filter(item => item.published !== false);
-          if (!items.length) { container.innerHTML = ''; return; }
-          const current = items[0];
-          const itemId = current.id || 'news-' + (data.newsList ? data.newsList.indexOf(current) + 1 : 1);
-          const title = current.title || current.text || 'お知らせ';
-          const summary = current.summary || (current.body || current.text || '').slice(0, 100);
-          let html = `
-            <a class="news-feature-link" href="news-detail.html?id=${encodeURIComponent(itemId)}">
-              <div class="news-feature-meta">
-                <span class="news-feature-category">${escapeHtml(current.category || 'お知らせ')}</span>
-                <span class="news-feature-date">${escapeHtml(current.date || '')}</span>
-              </div>
-              <h3 class="news-feature-title">${escapeHtml(title)}</h3>
-              <p class="news-feature-description">${escapeHtml(summary)}</p>
-              <span class="news-feature-more">詳細を見る <span aria-hidden="true">→</span></span>
-            </a>
-          `;
-
-          // 過去のお知らせ（アコーディオン内・バッジなし）
-          if (items.length > 1) {
-            const pastItemsHtml = items.slice(1).map(item => `
-              <div class="news-box" style="margin-bottom: 10px;">
-                <span class="news-date">${escapeHtml(item.date)}</span>
-                <p class="news-text">${escapeHtml(item.title || item.text || "")}</p>
-              </div>
-            `).join('');
-
-            html += `
-              <details class="news-accordion">
-                <summary class="news-summary">
-                  <span>📢 過去のお知らせ一覧</span>
-                  <span class="news-toggle-icon">▶</span>
-                </summary>
-                <div class="news-content-body">
-                  ${pastItemsHtml}
-                </div>
-              </details>
-            `;
-          }
-
-          container.innerHTML = html;
-        } else {
-          container.innerHTML = '';
-        }
+        const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const published = items.map((item, index) => ({...item, _index: index})).filter(item => item.published !== false);
+        container.innerHTML = published.map(item => {
+          const id = item.id || 'news-' + (item._index + 1);
+          const title = item.title || item.text || 'お知らせ';
+          return `
+            <a class="news-list-link" href="news-detail.html?id=${encodeURIComponent(id)}">
+              <time class="news-list-date">${escapeHtml(item.date || '')}</time>
+              <span class="news-list-title">${escapeHtml(title)}</span>
+              <span class="news-list-arrow" aria-hidden="true">→</span>
+            </a>`;
+        }).join('');
       } catch (e) {
         console.error("お知らせの読み込みに失敗しました", e);
       }
