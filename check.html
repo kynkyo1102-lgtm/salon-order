@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./bonus-check.css?v=20261108-cloud1">
   <link rel="stylesheet" href="./bonus-check-immersive.css?v=20261108-result3">
   <link rel="stylesheet" href="./bonus-check-modern-quest.css?v=20261108-mq1">
-  <link rel="stylesheet" href="./bonus-check-calm.css?v=20261109-calm6">
+  <link rel="stylesheet" href="./bonus-check-calm.css?v=20261109-calm7">
 </head>
 
 <body class="bonus-immersive bonus-modern-quest">
@@ -162,6 +162,7 @@
           <small id="bonus-overview-title-note" hidden>系列条件は別途確認</small>
         </div>
       </div>
+      <p class="bonus-overview-warning" id="bonus-overview-mynumber-warning" hidden role="note">マイナンバーが未提出です。タイトル昇格には提出が必要です。</p>
       <!-- コミッション -->
       <div class="bonus-result-block commission">
         <div class="bonus-result-label">ボーナスの内訳・条件</div>
@@ -973,6 +974,8 @@
     const unverified=document.getElementById('title-status').textContent.includes('系列条件は未判定');
     titleNote.hidden=!unverified;
     title.classList.toggle('needs-confirmation',unverified);
+    const myNumberWarning=document.getElementById('bonus-overview-mynumber-warning');
+    myNumberWarning.hidden=!(name && name.textContent.trim()!=='メンバー' && !document.getElementById('chk-mynumber').checked);
   }
   function showWizardResult(){
     updateBonusOverview();
