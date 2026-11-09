@@ -35,48 +35,28 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview only: compact landscape banner with Nina Guide colors. */
-    .home-page .members-guide-entry{margin:30px auto 34px}
+    /* Banner-only preview: quiet horizontal ad using Nina Guide palette. */
+    .home-page .members-guide-entry{margin:29px auto 33px}
     .home-page .members-guide-banner{
-      position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;
-      gap:clamp(14px,2.5vw,26px);min-height:118px;padding:16px clamp(20px,3.2vw,34px);
-      border:2px solid #0055a4;border-radius:15px;background:linear-gradient(110deg,#e5f1f8 0%,#f2f7fb 62%,#eef4d7 100%);
-      box-shadow:4px 5px 0 #0055a4;color:#0055a4;cursor:default;transition:none
+      position:relative;overflow:hidden;display:flex;align-items:center;
+      min-height:98px;padding:17px 28px;border:1px solid #cbdde9;border-radius:13px;
+      background:linear-gradient(105deg,#e5f1f8 0%,#f2f7fb 75%,#eef4d7 100%);
+      box-shadow:none;cursor:default;transition:none
     }
-    .home-page .members-guide-banner::before{
-      content:"";position:absolute;right:-35px;top:-95px;width:240px;height:240px;border-radius:50%;
-      background:rgba(198,217,0,.28);z-index:-1;pointer-events:none
-    }
-    .home-page .members-guide-banner::after{
-      content:"";position:absolute;right:72px;bottom:-73px;width:150px;height:150px;border:2px solid rgba(0,85,164,.12);border-radius:50%;z-index:-1;pointer-events:none
-    }
-    .home-page .members-guide-banner:hover{border-color:#0055a4;box-shadow:4px 5px 0 #0055a4}
-    .home-page .mg-visual{position:relative;display:grid;place-items:center;flex:0 0 70px;width:70px;height:70px;background:#0055a4;border-radius:18px}
-    .home-page .mg-visual::before{content:"";position:absolute;inset:7px;border:1px solid rgba(255,255,255,.3);border-radius:13px}
-    .home-page .mg-orbit{display:none}
-    .home-page .mg-monogram{font-family:Georgia,serif;font-size:43px;font-weight:400;letter-spacing:-.12em;line-height:1;color:#fff;text-shadow:none}
-    .home-page .mg-monogram span{color:#c6d900}
-    .home-page .members-guide-banner-copy{position:relative;z-index:1;gap:3px;align-items:flex-start}
-    .home-page .members-guide-banner-eyebrow{color:#0055a4;font-size:9px;font-weight:800;letter-spacing:.14em}
-    .home-page .members-guide-banner-title{color:#0055a4;font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.025em;line-height:1.3}
-    .home-page .members-guide-banner-description{color:#506778;font-size:clamp(11px,1.25vw,13px);line-height:1.5}
-    .home-page .mg-status{position:absolute;right:25px;top:18px;display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border:1px solid #0055a4;border-radius:999px;background:#fff;color:#0055a4;font-size:10px;font-weight:700;white-space:nowrap}
-    .home-page .mg-status::before{content:"";width:5px;height:5px;background:#c6d900;border-radius:50%}
-    .home-page .mg-corner{display:none}
+    .home-page .members-guide-banner::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#0055a4}
+    .home-page .members-guide-banner:hover{border-color:#cbdde9;box-shadow:none}
+    .home-page .members-guide-banner-copy{display:flex;align-items:flex-start;gap:5px;min-width:0;flex:1}
+    .home-page .members-guide-banner-title{font-size:clamp(21px,2.5vw,27px);line-height:1.3;font-weight:800;color:#0055a4;letter-spacing:-.025em}
+    .home-page .members-guide-banner-description{font-size:clamp(11px,1.25vw,13px);color:#51697c;line-height:1.5}
+    .home-page .mg-status{position:absolute;right:25px;top:50%;transform:translateY(-50%);padding:5px 12px;border:1px solid #b8cbd8;border-radius:99px;background:#fff;color:#0055a4;font-size:11px;font-weight:700;white-space:nowrap}
     @media(max-width:600px){
       .home-page .members-guide-entry{margin:25px auto 29px}
-      .home-page .members-guide-banner{min-height:104px;padding:15px 13px;gap:12px;border-radius:13px;box-shadow:3px 4px 0 #0055a4}
-      .home-page .members-guide-banner:hover{box-shadow:3px 4px 0 #0055a4}
-      .home-page .mg-visual{flex:0 0 51px;width:51px;height:57px;border-radius:12px}
-      .home-page .mg-visual::before{inset:5px;border-radius:8px}
-      .home-page .mg-monogram{font-size:34px}
-      .home-page .members-guide-banner-copy{gap:3px;padding-right:0}
-      .home-page .members-guide-banner-eyebrow{font-size:8px;letter-spacing:.08em}
-      .home-page .members-guide-banner-title{font-size:clamp(18px,5vw,23px)}
-      .home-page .members-guide-banner-description{font-size:10px}
-      .home-page .mg-status{position:static;margin-top:5px;padding:3px 8px;font-size:9px}
+      .home-page .members-guide-banner{min-height:91px;padding:15px 16px 15px 19px;border-radius:12px}
+      .home-page .members-guide-banner-copy{gap:5px;padding-right:0}
+      .home-page .members-guide-banner-title{font-size:21px}
+      .home-page .members-guide-banner-description{font-size:11px}
+      .home-page .mg-status{position:static;transform:none;margin-top:5px;font-size:10px;padding:3px 9px}
     }
-    @media(max-width:360px){.home-page .members-guide-banner{padding:12px 10px;gap:9px}.home-page .mg-visual{flex-basis:43px;width:43px;height:51px}.home-page .mg-monogram{font-size:29px}.home-page .members-guide-banner-title{font-size:18px}}
   </style>
 </head>
 <body class="home-page">
@@ -150,17 +130,11 @@
     <!-- メンバーズガイド：バナー試作（プレビュー専用） -->
     <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
       <div class="members-guide-banner" aria-disabled="true">
-        <div class="mg-visual" aria-hidden="true">
-          <span class="mg-orbit mg-orbit-a"></span><span class="mg-orbit mg-orbit-b"></span>
-          <span class="mg-monogram">N<span>.</span></span>
-        </div>
         <div class="members-guide-banner-copy">
-          <span class="members-guide-banner-eyebrow">NINA MEMBERS GUIDE</span>
           <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
           <span class="members-guide-banner-description">ニナの情報を、もっとわかりやすく。</span>
           <span class="mg-status">ただいま準備中</span>
         </div>
-        <span class="mg-corner" aria-hidden="true">01 / GUIDE</span>
       </div>
     </section>
 
