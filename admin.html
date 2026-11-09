@@ -12,7 +12,7 @@
 <section class="card"><div class="row space"><h2>2. 商品・ポイント設定</h2><button class="btn secondary" id="addProduct">＋ 商品を追加</button></div>
 <p class="hint">基本価格は全月度共通。月度別価格が必要な商品だけ「個別価格」をオンにしてください。ポイントは月度ごとに入力します。</p>
 <div class="tablewrap"><table><thead id="productHead"></thead><tbody id="productBody"></tbody></table></div></section>
-<section class="card"><div class="row space"><h2>3. お知らせ管理</h2><button class="btn secondary" id="addNews">＋ お知らせを追加</button></div>
+<section class="card"><p class="note" style="background:#eef4ee;padding:14px;border-radius:10px"><strong>画像・詳細ページに対応した新しいお知らせ編集画面：</strong> <a href="news-admin.html" style="color:#315b43;font-weight:700">お知らせ編集を開く →</a><br><span class="hint">下の旧形式は日付と本文のみの簡易編集です。新形式のJSONを旧形式で書き出すと詳細情報が失われるため、今後のお知らせ編集には上の専用画面をご利用ください。</span></p><div class="row space"><h2>3. お知らせ管理（旧形式）</h2><button class="btn secondary" id="addNews">＋ お知らせを追加</button></div>
 <p class="hint">上から新しい順に並べてください。最初の1件がトップページにNEW表示されます。日付は表示用文字列です。</p><div id="newsRows"></div></section>
 <section class="card"><h2>4. JSONの読み込み・書き出し</h2>
 <p class="hint">初回は公開中のデータを自動で読み込みます。手元のJSONを読み込むこともできます。保存先は salon-order のルートです。</p>
