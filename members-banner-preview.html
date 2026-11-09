@@ -35,10 +35,10 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview only: two-color flat Nina Guide banner */
-    .home-page .members-guide-entry{width:calc(100% - 24px);max-width:none;margin:26px auto 30px;padding:0}
+    /* Preview only: two-color flat banner directly under the header */
+    .home-page .members-guide-entry{width:calc(100% - 24px);max-width:none;margin:10px auto 22px;padding:0}
     .home-page .members-guide-banner{
-      position:relative;display:flex;align-items:center;min-height:98px;
+      position:relative;display:flex;align-items:center;min-height:82px;
       padding:17px clamp(20px,4vw,44px);border:2px solid #0055a4;border-radius:14px;
       background:#0055a4;color:#c6d900;box-shadow:none;cursor:default;transition:none
     }
@@ -49,8 +49,8 @@
     .home-page .members-guide-banner-description{color:#e7f3d3;font-size:clamp(11px,1.4vw,14px);line-height:1.5}
     .home-page .mg-status{position:absolute;right:clamp(27px,3vw,45px);top:50%;transform:translateY(-50%);padding:5px 12px;border:1px solid #c6d900;border-radius:999px;background:#c6d900;color:#0055a4;font-size:11px;font-weight:800;white-space:nowrap}
     @media(max-width:600px){
-      .home-page .members-guide-entry{width:calc(100% - 16px);margin:23px auto 27px;padding:0}
-      .home-page .members-guide-banner{min-height:99px;padding:15px 18px;border-radius:12px}
+      .home-page .members-guide-entry{width:calc(100% - 16px);margin:8px auto 18px;padding:0}
+      .home-page .members-guide-banner{min-height:82px;padding:15px 18px;border-radius:12px}
       .home-page .members-guide-banner::before{width:8px;border-radius:0 9px 9px 0}
       .home-page .members-guide-banner-title{font-size:clamp(19px,5.4vw,24px)}
       .home-page .members-guide-banner-description{font-size:11px}
@@ -86,6 +86,18 @@
   </header>
 
   <main>
+
+    <!-- メンバーズガイド：バナー試作（プレビュー専用） -->
+    <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
+      <div class="members-guide-banner" aria-disabled="true">
+        <div class="members-guide-banner-copy">
+          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
+          <span class="members-guide-banner-description">ニナの情報を、もっとわかりやすく。</span>
+          <span class="mg-status">ただいま準備中</span>
+        </div>
+      </div>
+    </section>
+
 
     <!-- メイン：注文ツールセクション -->
     <div class="hero-order-section">
@@ -125,17 +137,6 @@
       <div id="newsContainerArea"></div>
     </section>
 
-
-    <!-- メンバーズガイド：バナー試作（プレビュー専用） -->
-    <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
-      <div class="members-guide-banner" aria-disabled="true">
-        <div class="members-guide-banner-copy">
-          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
-          <span class="members-guide-banner-description">ニナの情報を、もっとわかりやすく。</span>
-          <span class="mg-status">ただいま準備中</span>
-        </div>
-      </div>
-    </section>
 
     <!-- SNS・店舗情報・サポート：用途別に整理 -->
     <div class="sub-info-area">
