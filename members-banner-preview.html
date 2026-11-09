@@ -35,17 +35,17 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview only: informative guide banner below ordering tools */
+    /* Preview only: clean, flat blue-and-lime banner beneath news */
     body.home-page .members-guide-entry{
       box-sizing:border-box;width:calc(100% - 60px);max-width:1100px;
-      margin:8px auto 38px;padding:0;
+      margin:28px auto 40px;padding:0;
     }
     body.home-page .members-guide-banner{
       box-sizing:border-box;display:flex;align-items:center;position:relative;
-      width:100%;min-height:132px;padding:21px 28px;gap:22px;
-      background:#e5f1f8!important;color:#0055a4!important;
-      border:1px solid #b7d5e9!important;border-radius:16px!important;
-      box-shadow:none!important;cursor:default;transition:none;
+      width:100%;min-height:112px;padding:22px 28px;
+      background:#0055a4!important;color:#fff!important;
+      border:0!important;border-radius:12px!important;box-shadow:none!important;
+      cursor:default;transition:none;
     }
     body.home-page .members-guide-banner::before,
     body.home-page .members-guide-banner::after{display:none!important;content:none!important}
@@ -55,33 +55,30 @@
       min-width:0;flex:1;padding:0!important;
     }
     body.home-page .members-guide-banner-title{
-      color:#0055a4!important;font-size:clamp(23px,2.8vw,29px);
+      color:#fff!important;font-size:clamp(23px,2.8vw,30px);
       font-weight:800;line-height:1.3;letter-spacing:-.035em;
     }
     body.home-page .members-guide-banner-description{
-      display:block!important;color:#315e82!important;
-      font-size:clamp(12px,1.5vw,15px);line-height:1.6;
+      display:block!important;color:#fff!important;
+      font-size:clamp(12px,1.5vw,14px);line-height:1.5;
     }
     body.home-page .mg-status{
-      position:static!important;transform:none!important;align-self:flex-start;
-      margin:3px 0 0!important;background:#fff!important;color:#0055a4!important;
-      border:1px solid #aacbde!important;border-radius:999px;
-      padding:4px 10px!important;font-size:11px!important;font-weight:700;
+      position:absolute!important;top:18px;right:20px;transform:none!important;
+      margin:0!important;background:#c6d900!important;color:#0055a4!important;
+      border:0!important;border-radius:999px;
+      padding:5px 11px!important;font-size:11px!important;font-weight:800;white-space:nowrap;
     }
-    body.home-page .mg-character{
-      display:block;flex:0 0 auto;align-self:center;width:98px;height:112px;
-      object-fit:contain;object-position:center;margin:0!important;pointer-events:none;
-    }
+    body.home-page .mg-character,
     body.home-page .mg-direction{display:none!important}
     @media(max-width:600px){
-      body.home-page .members-guide-entry{width:calc(100% - 32px);margin:0 auto 34px}
+      body.home-page .members-guide-entry{width:calc(100% - 32px);margin:22px auto 34px}
       body.home-page .members-guide-banner{
-        min-height:125px;padding:16px 16px 16px 19px;gap:6px;border-radius:13px!important;
+        min-height:112px;padding:20px 18px;border-radius:10px!important;
       }
-      body.home-page .members-guide-banner-title{font-size:20px}
-      body.home-page .members-guide-banner-description{font-size:11px;line-height:1.55}
-      body.home-page .mg-status{font-size:10px!important;padding:3px 8px!important}
-      body.home-page .mg-character{width:72px;height:90px}
+      body.home-page .members-guide-banner-copy{padding-right:70px!important}
+      body.home-page .members-guide-banner-title{font-size:22px}
+      body.home-page .members-guide-banner-description{font-size:11px}
+      body.home-page .mg-status{top:17px;right:14px;font-size:9px!important;padding:4px 8px!important}
     }
   </style>
 </head>
@@ -146,24 +143,22 @@
 
     </div>
 
+    <!-- 通常のお知らせ：注文ツールの下に配置 -->
+    <section class="home-news-section" aria-label="重要なお知らせ">
+      <h2 class="home-section-heading">お知らせ</h2>
+      <div id="newsContainerArea"></div>
+    </section>
+
+
     <!-- メンバーズガイド：バナー試作（プレビュー専用） -->
     <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
       <div class="members-guide-banner" aria-disabled="true">
         <div class="members-guide-banner-copy">
           <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
-          <span class="members-guide-banner-description">商品・お手続き・ボーナスプランを、わかりやすくまとめたガイド。</span>
+          <span class="members-guide-banner-description">商品・お手続き・ボーナスプランを、もっとわかりやすく。</span>
           <span class="mg-status">準備中</span>
         </div>
-        <img class="mg-character" src="assets/mitochondria/07_guide.svg" alt="" aria-hidden="true" loading="eager">
-        <span class="mg-direction" aria-hidden="true">›</span>
       </div>
-    </section>
-
-
-    <!-- 通常のお知らせ：注文ツールの下に配置 -->
-    <section class="home-news-section" aria-label="重要なお知らせ">
-      <h2 class="home-section-heading">お知らせ</h2>
-      <div id="newsContainerArea"></div>
     </section>
 
 
