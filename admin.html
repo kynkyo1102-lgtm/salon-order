@@ -16,7 +16,7 @@
 <p class="hint">上から新しい順に並べてください。最初の1件がトップページにNEW表示されます。日付は表示用文字列です。</p><div id="newsRows"></div></section>
 <section class="card"><h2>4. JSONの読み込み・書き出し</h2>
 <p class="hint">初回は公開中のデータを自動で読み込みます。手元のJSONを読み込むこともできます。保存先は salon-order のルートです。</p>
-<div class="actions"><button class="btn" id="exportProducts">商品・月度 JSON をダウンロード</button><button class="btn" id="exportNews">お知らせ JSON をダウンロード</button></div>
+<div class="actions"><button class="btn" id="exportProducts">商品・月度 JSON をダウンロード</button><button class="btn" id="exportNews" disabled title="新しいお知らせ編集画面をご利用ください">旧形式のお知らせ書き出し（停止）</button></div>
 <div class="actions"><label>商品・月度 JSON を読み込む <input type="file" id="importProducts" accept=".json,application/json"></label><label>お知らせ JSON を読み込む <input type="file" id="importNews" accept=".json,application/json"></label></div>
 <p class="hint">出力名：month_config.json / news.json。価格の個別設定は prices に記録されます。月度別価格を利用する前に注文・計算ツール側の対応が必要です。</p></section>
 </main><script>
