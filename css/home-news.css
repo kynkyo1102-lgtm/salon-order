@@ -66,3 +66,14 @@
 .home-page .home-news-section .news-card-more{align-self:flex-end;color:#54705a;font-size:12px;font-weight:600}
 .home-page .home-news-section .news-card-more span{font-size:16px;margin-left:5px}
 @media(max-width:620px){.home-page .home-news-section #newsContainerArea{gap:10px}.home-page .home-news-section .news-card-link{padding:17px 16px;gap:9px}.home-page .home-news-section .news-card-title{font-size:15px}}
+
+/* Unified announcement panel: one container with dividing lines */
+.home-page .home-news-section #newsContainerArea{display:block;overflow:hidden;background:#fff;border:1px solid #e1e6dd;border-radius:13px;box-shadow:0 3px 13px rgba(49,70,52,.045)}
+.home-page .home-news-section #newsContainerArea .news-card-link{display:flex;flex-direction:column;gap:8px;margin:0;padding:20px 23px;border:0;border-radius:0;background:transparent;box-shadow:none;transform:none}
+.home-page .home-news-section #newsContainerArea .news-card-link+.news-card-link{border-top:1px solid #e6ebe4}
+.home-page .home-news-section #newsContainerArea .news-card-link:hover{background:#f6f9f5;border-color:transparent;box-shadow:none;transform:none}
+.home-page .home-news-section #newsContainerArea .news-card-meta{margin:0}
+.home-page .home-news-section #newsContainerArea .news-card-date{font-size:12px;color:#778379}
+.home-page .home-news-section #newsContainerArea .news-card-title{font-size:16px;line-height:1.65}
+.home-page .home-news-section #newsContainerArea .news-card-more{margin-top:2px}
+@media(max-width:620px){.home-page .home-news-section #newsContainerArea .news-card-link{padding:17px 16px}.home-page .home-news-section #newsContainerArea .news-card-title{font-size:15px}}
