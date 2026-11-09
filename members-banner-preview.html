@@ -35,7 +35,7 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview only: full-bleed typographic advertisement, no mascot */
+    /* Preview only: composed typographic pop-ad, full bleed, no mascot */
     body.home-page .members-guide-entry{
       box-sizing:border-box;position:relative;left:50%;
       width:100vw!important;width:100dvw!important;max-width:none!important;
@@ -44,60 +44,88 @@
     }
     body.home-page .members-guide-banner{
       box-sizing:border-box;display:flex;align-items:center;position:relative;
-      isolation:isolate;width:100%!important;min-height:148px!important;
-      padding:26px clamp(30px,6vw,84px)!important;overflow:hidden;
+      isolation:isolate;width:100%!important;min-height:166px!important;
+      padding:24px clamp(30px,6vw,84px)!important;overflow:hidden;
       background:#0055a4!important;color:#fff!important;
       border:0!important;border-radius:0!important;box-shadow:none!important;
       cursor:default;transition:none;
     }
     body.home-page .members-guide-banner::before{
       content:""!important;display:block!important;position:absolute;
-      width:260px;height:260px;right:-60px;top:-98px;
-      border:35px solid #c6d900;border-radius:50%;opacity:1;
+      width:42%;height:180%;right:-13%;top:-38%;
+      background:#c6d900;transform:skewX(-22deg) rotate(-5deg);
+      border:0!important;border-radius:0!important;
       pointer-events:none;z-index:-1;
     }
     body.home-page .members-guide-banner::after{
       content:""!important;display:block!important;position:absolute;
-      right:125px;bottom:-45px;width:95px;height:95px;
-      background:#c6d900;transform:rotate(25deg);
-      pointer-events:none;z-index:-1;
+      width:22%;height:125%;right:13%;top:-15%;
+      border:3px solid #fff!important;border-radius:0!important;
+      transform:skewX(-22deg) rotate(-5deg);
+      opacity:.65;pointer-events:none;z-index:-1;
     }
     body.home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
     body.home-page .members-guide-banner-copy{
-      display:flex;flex-direction:column;align-items:flex-start;gap:8px;
-      min-width:0;flex:1;padding:0 170px 0 0!important;
+      display:flex;flex-direction:column;align-items:flex-start;gap:9px;
+      min-width:0;flex:1;padding:0 36% 0 0!important;position:relative;z-index:2;
+    }
+    body.home-page .mg-eyebrow{
+      display:block;color:#c6d900;font-size:11px;font-weight:900;
+      letter-spacing:.15em;line-height:1.2;
     }
     body.home-page .members-guide-banner-title{
-      color:#fff!important;font-size:clamp(27px,4vw,42px);
-      font-weight:900;line-height:1.22;letter-spacing:-.055em;
+      color:#fff!important;font-size:clamp(29px,4.4vw,46px);
+      font-weight:900;line-height:1.16;letter-spacing:-.055em;
+      white-space:nowrap;
     }
     body.home-page .members-guide-banner-description{
       display:block!important;color:#fff!important;
-      font-size:clamp(12px,1.6vw,16px);line-height:1.55;max-width:32em;
+      font-size:clamp(12px,1.55vw,16px);line-height:1.6;
+      max-width:29em;text-wrap:balance;
     }
     body.home-page .mg-status{
-      position:absolute!important;top:20px;right:clamp(20px,4vw,54px);
+      position:absolute!important;top:19px;right:clamp(18px,4vw,58px);
       transform:none!important;margin:0!important;
-      background:#c6d900!important;color:#0055a4!important;
-      border:0!important;border-radius:999px!important;
+      background:#0055a4!important;color:#fff!important;
+      border:2px solid #0055a4!important;border-radius:0!important;
       padding:6px 13px!important;font-size:11px!important;font-weight:800;
-      white-space:nowrap;z-index:1;
+      white-space:nowrap;z-index:3;
     }
+    body.home-page .mg-art{
+      position:absolute;right:5%;bottom:16px;width:26%;height:75%;
+      display:flex;align-items:center;justify-content:center;z-index:1;
+      transform:rotate(-8deg);pointer-events:none;
+    }
+    body.home-page .mg-art-word{
+      display:block;color:#0055a4;font-size:clamp(28px,5vw,72px);
+      font-weight:1000;letter-spacing:-.09em;line-height:.9;
+      text-align:center;transform:rotate(-3deg);
+      text-shadow:3px 3px 0 #fff;
+    }
+    body.home-page .mg-spark{
+      position:absolute;display:block;color:#c6d900;font-size:24px;
+      line-height:1;pointer-events:none;z-index:2;
+    }
+    body.home-page .mg-spark-a{left:53%;top:15%}
+    body.home-page .mg-spark-b{left:57%;bottom:13%;font-size:15px}
+    body.home-page .mg-spark-c{right:3%;bottom:8%;color:#0055a4;font-size:25px}
     body.home-page .mg-character,
     body.home-page .mg-direction{display:none!important}
     @media(max-width:600px){
       body.home-page .members-guide-entry{margin-top:22px!important;margin-bottom:30px!important}
-      body.home-page .members-guide-banner{min-height:142px!important;padding:26px 24px!important}
-      body.home-page .members-guide-banner-copy{padding-right:88px!important;gap:8px}
-      body.home-page .members-guide-banner-title{font-size:27px}
-      body.home-page .members-guide-banner-description{font-size:11px;line-height:1.6}
-      body.home-page .members-guide-banner::before{
-        width:145px;height:145px;right:-77px;top:10px;border-width:22px;
-      }
-      body.home-page .members-guide-banner::after{
-        right:27px;bottom:-33px;width:70px;height:70px;
-      }
-      body.home-page .mg-status{top:15px;right:15px;font-size:9px!important;padding:5px 9px!important}
+      body.home-page .members-guide-banner{min-height:155px!important;padding:23px 22px!important}
+      body.home-page .members-guide-banner-copy{padding-right:27%!important;gap:9px}
+      body.home-page .mg-eyebrow{font-size:9px}
+      body.home-page .members-guide-banner-title{font-size:clamp(24px,6.5vw,29px);letter-spacing:-.06em}
+      body.home-page .members-guide-banner-description{font-size:11px;line-height:1.55;max-width:21em}
+      body.home-page .members-guide-banner::before{width:42%;right:-19%;top:-35%}
+      body.home-page .members-guide-banner::after{width:22%;right:10%;opacity:.5}
+      body.home-page .mg-art{right:1%;bottom:19px;width:29%;height:65%}
+      body.home-page .mg-art-word{font-size:clamp(24px,7vw,38px);text-shadow:2px 2px 0 #fff}
+      body.home-page .mg-status{top:12px;right:12px;font-size:9px!important;padding:4px 8px!important}
+      body.home-page .mg-spark-a{left:59%;top:12%;font-size:18px}
+      body.home-page .mg-spark-b{left:67%;bottom:9%;font-size:12px}
+      body.home-page .mg-spark-c{right:3%;bottom:6%;font-size:18px}
     }
   </style>
 </head>
@@ -173,8 +201,8 @@
     <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
       <div class="members-guide-banner" aria-disabled="true">
         <div class="members-guide-banner-copy">
-          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
-          <span class="members-guide-banner-description">商品・お手続き・ボーナスプランを、もっとわかりやすく。</span>
+          <span class="mg-eyebrow">NINA MEMBERS GUIDE</span>\n          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
+          <span class="members-guide-banner-description">ニナのこと、まるごとわかる。</span>
           <span class="mg-status">準備中</span>
         </div>
       </div>
