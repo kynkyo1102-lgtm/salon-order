@@ -1,20 +1,20 @@
-/* Preview: a retro robot console, deliberately distinct from the guide pill */
-.home-page .preview-calc-entry{width:100%;max-width:1100px;box-sizing:border-box;margin:38px auto 45px;padding:0 20px}
-.home-page .preview-calc-gate{position:relative;display:flex;align-items:flex-end;max-width:850px;min-height:172px;margin:auto;padding:15px 24px 15px 145px;text-decoration:none;color:#243c4a;background:transparent;isolation:isolate;transition:transform .2s}
-.home-page .preview-calc-gate:hover{transform:translateY(-3px)}
-.home-page .preview-calc-gate:focus-visible{outline:3px solid #315b43;outline-offset:5px}
-.home-page .preview-calc-console{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:7px;width:100%;min-height:142px;padding:17px 23px 15px;border:2px solid #263f50;border-radius:3px;background:#f7fafb;box-shadow:5px 5px 0 #b9ccd5;z-index:1}
-.home-page .preview-calc-console:before{content:"";position:absolute;left:-12px;top:31px;width:10px;height:16px;background:#263f50;clip-path:polygon(100% 0,0 50%,100% 100%)}
-.home-page .preview-calc-robot{position:absolute;z-index:2;left:24px;bottom:24px;width:124px;height:124px;display:grid;place-items:center;filter:drop-shadow(0 5px 3px rgba(31,56,68,.14))}
-.home-page .preview-calc-robot img{display:block;width:100%;height:100%;object-fit:contain}
-.home-page .preview-calc-kicker{display:flex;align-items:center;gap:8px;font:700 11px "DotGothic16",monospace;letter-spacing:.08em;color:#58788b}
-.home-page .preview-calc-light{width:9px;height:9px;border-radius:50%;background:#8dbd62;box-shadow:0 0 0 3px #e3eedc}
-.home-page .preview-calc-heading{font-size:clamp(24px,3vw,32px);font-weight:800;color:#263f50;line-height:1.25}
-.home-page .preview-calc-dialog{font:700 clamp(15px,2vw,19px) "DotGothic16",monospace;color:#365a6b}
-.home-page .preview-calc-go{align-self:flex-end;margin-top:5px;padding:7px 13px;background:#263f50;color:white;font:700 13px "DotGothic16",monospace}
+/* Preview: salon-native calculation shortcut, with the original robot as a quiet accent. */
+.home-page .preview-calc-inline{display:flex;align-items:center;gap:14px;margin:20px 0 0;padding:14px 20px;min-height:92px;border:1px solid #d6e0d4;border-radius:13px;background:#f9faf6;color:#315b43;text-decoration:none;box-shadow:0 2px 9px rgba(45,75,55,.035);transition:border-color .2s,background .2s,transform .2s}
+.home-page .preview-calc-inline:hover{border-color:#a9c0ac;background:#f3f7f0;transform:translateY(-1px)}
+.home-page .preview-calc-inline:focus-visible{outline:3px solid #315b43;outline-offset:3px}
+.home-page .preview-calc-inline-icon{display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border-radius:12px;background:#edf3ed}
+.home-page .preview-calc-inline-icon img{width:53px;height:53px;object-fit:contain}
+.home-page .preview-calc-inline-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
+.home-page .preview-calc-inline-label{font-size:11px;color:#748678;font-weight:600}
+.home-page .preview-calc-inline-copy strong{font-size:19px;line-height:1.35;font-weight:800;color:#315b43}
+.home-page .preview-calc-inline-dot{font-size:7px;color:#9dbbb0;vertical-align:middle;margin-left:3px}
+.home-page .preview-calc-inline-desc{font-size:12px;line-height:1.6;color:#667469}
+.home-page .preview-calc-inline-arrow{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border:1px solid #d6e0d4;border-radius:50%;font-size:17px;color:#315b43}
 .home-page .preview-guide-floating{position:fixed;z-index:100;right:16px;bottom:18px;display:flex;align-items:center;gap:9px;padding:13px 15px;border:1px solid #d5e0d4;border-radius:999px;background:#315b43;color:#fff;box-shadow:0 6px 20px rgba(30,60,42,.24);font-size:13px;font-weight:700;cursor:default}
 .home-page .preview-guide-floating svg{width:23px;height:23px;flex:none}
 .home-page .preview-guide-floating small{display:block;font-size:9px;font-weight:500;opacity:.8}
 .home-page .preview-guide-arrow{font-size:17px;margin-left:2px}
 @media(max-width:600px){.home-page .preview-calc-entry{margin:30px auto 37px;padding:0 14px}.home-page .preview-calc-gate{min-height:148px;padding:10px 7px 10px 89px}.home-page .preview-calc-robot{left:7px;bottom:28px;width:88px;height:88px}.home-page .preview-calc-console{min-height:128px;padding:13px 12px 12px 18px;gap:7px;box-shadow:5px 5px 0 #b9ccd5}.home-page .preview-calc-kicker{font-size:9px;letter-spacing:0}.home-page .preview-calc-heading{font-size:22px}.home-page .preview-calc-dialog{font-size:13px}.home-page .preview-calc-go{font-size:11px}.home-page .preview-guide-floating{right:10px;bottom:12px;padding:11px 13px;font-size:12px}}
 @media(max-width:380px){.home-page .preview-calc-gate{padding-left:78px}.home-page .preview-calc-robot{width:77px;height:77px}.home-page .preview-calc-console{padding-left:16px}.home-page .preview-guide-floating{right:8px}}
+
+@media(max-width:600px){.home-page .preview-calc-inline{margin-top:15px;padding:12px;gap:10px;min-height:83px}.home-page .preview-calc-inline-icon{width:50px;height:50px;flex-basis:50px}.home-page .preview-calc-inline-icon img{width:44px;height:44px}.home-page .preview-calc-inline-copy strong{font-size:17px}.home-page .preview-calc-inline-desc{font-size:11px}.home-page .preview-calc-inline-label{font-size:10px}.home-page .preview-calc-inline-arrow{width:26px;height:26px;flex-basis:26px}}
