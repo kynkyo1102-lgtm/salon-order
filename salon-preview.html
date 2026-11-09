@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="css/members-guide-banner.css?v=3">
   <link rel="stylesheet" href="css/home-news.css?v=3">
   <link rel="stylesheet" href="css/home-news-preview.css?v=1">
-  <link rel="stylesheet" href="css/members-guide-preview.css?v=1">
+  <link rel="stylesheet" href="css/members-guide-preview.css?v=2">
   <!-- Keep the homepage typography consistent with the ordering pages. -->
   <style>
     .home-page,
@@ -105,23 +105,17 @@
 
 
     <!-- メンバーズガイド：HTMLとCSSのみで構成 -->
-    <!-- メンバーズガイド：プレビュー専用デザイン。公開まではリンクなし -->
-    <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
-      <div class="members-guide-banner members-guide-banner-preview" aria-disabled="true">
-        <span class="members-guide-banner-icon" aria-hidden="true">
-          <svg viewBox="0 0 36 36" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 29c-4.1-2.6-8.4-3.5-14-2.4V7c5.9-1.2 10.3-.2 14 2.5v19.5Z"/>
-            <path d="M18 29c4.1-2.6 8.4-3.5 14-2.4V7c-5.9-1.2-10.3-.2-14 2.5v19.5Z"/>
-          </svg>
+    <!-- プレビュー専用：ロボットの世界観を残した計算サポート入口 -->
+    <section class="preview-calc-entry" aria-label="計算サポート">
+      <a class="preview-calc-card" href="calc.html">
+        <span class="preview-calc-art"><img src="assets/robot-floating-button-custom.svg" alt="" draggable="false"></span>
+        <span class="preview-calc-copy">
+          <span class="preview-calc-eyebrow">CALCULATION SUPPORT</span>
+          <strong class="preview-calc-title">計算サポート</strong>
+          <span class="preview-calc-desc">面倒な計算はロボットにおまかせ。</span>
+          <span class="preview-calc-action">計算ツールを開く <span aria-hidden="true">↗</span></span>
         </span>
-        <span class="members-guide-banner-copy">
-          <span class="members-guide-banner-eyebrow">NINA MEMBERS GUIDE</span>
-          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
-          <span class="members-guide-banner-description">登録・定期購入・ボーナスの仕組みをわかりやすく。</span>
-          <span class="members-guide-banner-status">公開準備中</span>
-        </span>
-        <span class="members-guide-banner-arrow" aria-hidden="true">↗</span>
-      </div>
+      </a>
     </section>
 
     <!-- SNS・店舗情報・サポート：用途別に整理 -->
@@ -157,9 +151,12 @@
 
   </main>
 
-  <a href="calc.html" class="home-floating-calc home-floating-custom" aria-label="計算サポートツールを開く" title="計算サポートツール">
-    <img src="assets/robot-floating-button-custom.svg" alt="" width="1983" height="793" draggable="false">
-  </a>
+  <!-- プレビュー専用：メンバーズガイドのフローティング入口。公開までリンクなし -->
+  <div class="preview-guide-floating" aria-disabled="true" aria-label="メンバーズガイド（公開準備中）">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20c-3-2-6-2.6-10-2V4c4-.6 7 .1 10 2v14Zm0 0c3-2 6-2.6 10-2V4c-4-.6-7 .1-10 2v14Z"/></svg>
+    <span>メンバーズガイド<small>公開準備中</small></span>
+    <span class="preview-guide-arrow" aria-hidden="true">↗</span>
+  </div>
   <footer class="site-unified-footer"><a href="privacy.html">プライバシーポリシー</a><span class="site-footer-copy">&copy; PLACE DE NINA MINAMIKUMAMOTO</span></footer>
 
   <script>
