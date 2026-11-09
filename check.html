@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./bonus-check.css?v=20261108-cloud1">
   <link rel="stylesheet" href="./bonus-check-immersive.css?v=20261108-result3">
   <link rel="stylesheet" href="./bonus-check-modern-quest.css?v=20261108-mq1">
-  <link rel="stylesheet" href="./bonus-check-calm.css?v=20261109-calm3">
+  <link rel="stylesheet" href="./bonus-check-calm.css?v=20261109-calm4">
 </head>
 
 <body class="bonus-immersive bonus-modern-quest">
@@ -145,7 +145,7 @@
       <div class="rpg-result-glow" aria-hidden="true"></div>
 
 <div class="bonus-result-head">
-        <span class="small">YOUR RESULT</span>
+        
         <h2>診断結果</h2>
         <p class="result-intro">入力内容をもとに、今月の条件を確認した結果です。</p>
       </div>
@@ -178,11 +178,11 @@
     <div class="bonus-reference" id="bonus-reference" style="margin-top: 24px;" hidden>
 
       <div class="bonus-reference-title">
-        タイトル昇格のステップ
+        タイトル昇格条件一覧
       </div>
 
       <p class="bonus-reference-note">
-        少ない方のグループ売上Pと必要なアクティブ紹介者数の目安です。系列条件などは別途確認してください。
+        左右のうち少ない方のグループ売上Pと、必要なアクティブ紹介者数です。プラチナ以上の系列条件などは別途確認してください。
       </p>
 
       <div class="table-container">
@@ -190,15 +190,8 @@
           <thead>
             <tr>
               <th>タイトル</th>
-              <th>
-                昇格条件<br>
-                <span style="font-size:0.75em; font-weight:normal;">
-                  (少ない方のグループ売上P)
-                </span>
-              </th>
-              <th>
-                必要アクティブ<br>紹介者数
-              </th>
+              <th>少ない側の<br>売上P</th>
+              <th>アクティブ<br>紹介者</th>
             </tr>
           </thead>
 
@@ -280,7 +273,7 @@
           const label = document.querySelector('label[for="' + input.id + '"]');
           return label ? label.textContent.trim().replace(/\\s+/g, ' ') : input.id;
         });
-        warning.textContent = '数字の入力が必要です：' + names.join('、') + '。該当しない場合は0を入力してください。チェック項目は任意です。';
+        warning.textContent = '入力・選択が必要です：' + names.join('、') + '。人数は0も選べます。チェック項目は任意です。';
         warning.hidden = false;
         missing[0].focus();
         missing[0].scrollIntoView({behavior:'smooth', block:'center'});
@@ -347,9 +340,9 @@
           'bonus-result-status status-ng';
 
         basicStatusEl.innerText =
-          'コミッション発生なし（会員資格が無効）';
+          '今月はボーナスの受取条件を満たしていません';
 
-        commissionNextGuideEl.innerHTML = '';
+        commissionNextGuideEl.innerHTML = '<div class="bonus-next-guide"><strong>確認すること</strong><p>会員資格が無効のため、ボーナスの受取条件を満たしていません。まずは会員資格をご確認ください。</p></div>';
 
         titleStatusEl.className =
           'bonus-result-status status-ng';
@@ -506,7 +499,7 @@
           'bonus-result-status status-ng';
 
         basicStatusEl.innerHTML =
-          'コミッション受取条件は未達成' +
+          '今月はボーナスの受取条件を満たしていません' +
           '<div class="bonus-result-note">' +
           '自己購入10,000P以上が必要です。' +
           '</div>';
@@ -585,7 +578,7 @@
           'bonus-result-status status-ng';
 
         basicStatusEl.innerText =
-          'コミッション条件を確認';
+          '今月はボーナスの受取条件を満たしていません';
       }
 
       // ----------------------------------------------------
