@@ -1,0 +1,76 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>お知らせ編集｜Place de Nina</title>
+<style>
+:root{font-family:"Noto Sans JP",Meiryo,sans-serif;color:#302b28;background:#f7f3ed}*{box-sizing:border-box}body{margin:0}main{max-width:920px;margin:auto;padding:24px 18px 70px}
+a{color:#315b43}h1{font-size:clamp(24px,4vw,32px);color:#315b43;margin:12px 0}h2{font-size:19px;margin:0}
+p{line-height:1.8}.muted{color:#6b6259;font-size:13px}.card{background:white;border:1px solid #e9ded0;border-radius:15px;padding:22px;margin:18px 0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+button,.button{font:inherit;border:0;border-radius:9px;background:#315b43;color:white;padding:11px 16px;font-weight:700;cursor:pointer}
+button.secondary{background:#e8efe9;color:#315b43}button.danger{background:#fff0ed;color:#9b302c}
+button:disabled{opacity:.5;cursor:not-allowed}label{display:block;font-size:13px;font-weight:700;margin:14px 0 5px}
+input,select,textarea{font:inherit;border:1px solid #cbd5cc;border-radius:8px;padding:11px;width:100%;background:#fff;color:#302b28}
+textarea{min-height:115px;resize:vertical}input[type=file],input[type=checkbox]{width:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}.news-item{border:1px solid #e4e9df;border-radius:12px;padding:20px;margin:16px 0;background:#fff}
+.news-item-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.news-item-head strong{color:#315b43}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{padding:8px 11px;font-size:12px}
+.thumb{display:block;max-width:100%;max-height:250px;object-fit:contain;margin-top:12px;border-radius:8px}
+.note{padding:14px 17px;background:#eef4ee;border-radius:9px;font-size:13px;line-height:1.85}
+#status{font-size:13px;color:#315b43;min-height:22px} .check{display:flex;align-items:center;gap:8px;font-size:13px}
+@media(max-width:620px){.card{padding:16px}.two{grid-template-columns:1fr}.news-item{padding:14px}}
+</style></head><body><main>
+<a href="admin.html">← データ管理に戻る</a>
+<h1>お知らせ編集</h1>
+<p class="muted">イベント・営業案内・キャンペーンなど、内容に合わせて自由に作成できます。画像なしのお知らせも作れます。</p>
+<div class="card"><div class="toolbar"><h2>お知らせ一覧</h2><button id="add" type="button">＋ お知らせを追加</button></div>
+<p class="muted">上にあるものほど新しく表示されます。「非公開」はサイトには表示しません。</p><div id="items"></div></div>
+<div class="card"><h2>GitHubへの公開手順</h2>
+<p class="note">① 下のボタンから <b>news.json</b> をダウンロード<br>② 画像を追加した場合は、各画像の「画像をダウンロード」も押す<br>③ GitHubの <b>salon-order</b> リポジトリに news.json をアップロードして上書き<br>④ 画像は <b>assets/news/</b> フォルダに、ダウンロードしたファイル名のままアップロード<br>⑤ 公開ページを確認する</p>
+<p class="muted">画像を選択しただけでは公開されません。JSONと画像の両方をGitHubへアップロードしてください。編集内容はこの画面に自動保存されません。</p>
+<div class="toolbar"><button id="export" type="button">news.json をダウンロード</button><label style="margin:0">既存JSONを読み込む <input id="import" type="file" accept=".json,application/json"></label></div>
+<p id="status" role="status"></p></div>
+</main><script>
+"use strict";
+const $=id=>document.getElementById(id);
+const clone=o=>JSON.parse(JSON.stringify(o));
+let items=[],files=new Map(),counter=0;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const slug=s=>String(s||"").replace(/[^a-zA-Z0-9_-]/g,"").slice(0,45);
+function normalize(n,i){
+ const legacy=!(n.title||n.body||n.summary);
+ return {id:String(n.id||("news-"+(i+1))),date:String(n.date||""),category:String(n.category||(legacy?"お知らせ":"その他")),
+ title:String(n.title||(legacy?n.text:"")),summary:String(n.summary||""),body:String(n.body||(legacy?n.text:"")),image:String(n.image||""),published:n.published!==false};
+}
+function uniqueId(){return "news-"+Date.now().toString(36)+"-"+(++counter)}
+function sync(){document.querySelectorAll(".news-item").forEach(node=>{const n=items.find(x=>x.id===node.dataset.id);if(!n)return;for(const key of ["date","category","title","summary","body"])n[key]=node.querySelector('[data-field="'+key+'"]').value;n.published=node.querySelector('[data-field="published"]').checked;});}
+function render(){
+ const root=$("items");root.innerHTML="";
+ items.forEach((n,i)=>{
+ const el=document.createElement("section");el.className="news-item";el.dataset.id=n.id;
+ el.innerHTML='<div class="news-item-head"><strong>お知らせ '+(i+1)+'</strong><div class="actions"><button class="secondary up" type="button">↑ 上へ</button><button class="secondary down" type="button">↓ 下へ</button><button class="danger remove" type="button">削除</button></div></div>'+
+ '<div class="two"><div><label>掲載日</label><input data-field="date" placeholder="例：11/09" value="'+esc(n.date)+'"></div><div><label>カテゴリ</label><select data-field="category">'+["イベント","営業案内","キャンペーン","お知らせ","その他"].map(v=>'<option '+(n.category===v?"selected":"")+'>'+v+'</option>').join("")+'</select></div></div>'+
+ '<label>タイトル</label><input data-field="title" placeholder="例：11/28 サロンイベント開催！" value="'+esc(n.title)+'">'+
+ '<label>トップページの概要（省略可）</label><textarea data-field="summary" placeholder="短い紹介文">'+esc(n.summary)+'</textarea>'+
+ '<label>詳細ページの本文（自由入力・改行可）</label><textarea data-field="body" placeholder="日時、内容、参加方法などを自由に入力">'+esc(n.body)+'</textarea>'+
+ '<label>画像（任意・JPEG / PNG / WebP / GIF、5MBまで）</label><input class="image-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif">'+
+ '<div class="image-info muted"></div><div class="actions"><button class="secondary download-image" type="button">画像をダウンロード</button><button class="secondary clear-image" type="button">画像を外す</button></div>'+
+ '<img class="thumb" alt="選択したお知らせ画像のプレビュー" hidden>'+
+ '<label class="check"><input data-field="published" type="checkbox" '+(n.published?"checked":"")+'>公開する</label>';
+ root.append(el);
+ const info=el.querySelector(".image-info"),img=el.querySelector(".thumb");
+ const preview=()=>{const f=files.get(n.id);info.textContent=n.image?"画像パス："+n.image:"画像なし";if(f){img.src=f.url;img.hidden=false}else if(n.image){img.src=n.image;img.hidden=false}else{img.removeAttribute("src");img.hidden=true}el.querySelector(".download-image").disabled=!f;};
+ preview();
+ el.querySelector(".image-input").onchange=e=>{const f=e.target.files[0];if(!f)return;const types={"image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif"};if(!types[f.type]||f.size>5*1024*1024){alert("JPEG・PNG・WebP・GIFの5MB以下の画像を選んでください。");e.target.value="";return}const old=files.get(n.id);if(old)URL.revokeObjectURL(old.url);const filename="news-"+slug(n.id)+"."+types[f.type];const url=URL.createObjectURL(f);files.set(n.id,{file:f,url,filename});n.image="assets/news/"+filename;preview();};
+ el.querySelector(".download-image").onclick=()=>{const f=files.get(n.id);if(!f)return;const a=document.createElement("a");a.href=f.url;a.download=f.filename;a.click()};
+ el.querySelector(".clear-image").onclick=()=>{const f=files.get(n.id);if(f)URL.revokeObjectURL(f.url);files.delete(n.id);n.image="";el.querySelector(".image-input").value="";preview()};
+ el.querySelector(".remove").onclick=()=>{if(!confirm("このお知らせを削除しますか？"))return;sync();const f=files.get(n.id);if(f)URL.revokeObjectURL(f.url);files.delete(n.id);items=items.filter(x=>x!==n);render()};
+ el.querySelector(".up").disabled=i===0;el.querySelector(".down").disabled=i===items.length-1;
+ el.querySelector(".up").onclick=()=>{sync();[items[i-1],items[i]]=[items[i],items[i-1]];render()};
+ el.querySelector(".down").onclick=()=>{sync();[items[i],items[i+1]]=[items[i+1],items[i]];render()};
+ });
+}
+function load(obj){if(!Array.isArray(obj.newsList))throw Error("newsList がありません");for(const f of files.values())URL.revokeObjectURL(f.url);files.clear();items=obj.newsList.map(normalize);const used=new Set();items.forEach(n=>{if(used.has(n.id))n.id=uniqueId();used.add(n.id)});render();}
+$("add").onclick=()=>{sync();items.unshift({id:uniqueId(),date:"",category:"お知らせ",title:"",summary:"",body:"",image:"",published:true});render()};
+$("export").onclick=()=>{sync();if(items.some(n=>!n.title.trim()||!n.date.trim()||(n.published&&!n.body.trim()))){alert("日付・タイトル、および公開するお知らせの本文を入力してください。");return}const json={newsList:items.map(n=>({...n,text:n.title}))};const url=URL.createObjectURL(new Blob([JSON.stringify(json,null,2)+"\n"],{type:"application/json"}));const a=document.createElement("a");a.href=url;a.download="news.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);$("status").textContent="JSONをダウンロードしました。新しい画像がある場合は画像もダウンロードしてGitHubへアップロードしてください。"};
+$("import").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{load(JSON.parse(await f.text()));$("status").textContent="JSONを読み込みました。"}catch(err){alert("読み込みに失敗しました："+err.message)}e.target.value=""};
+(async()=>{try{const r=await fetch("./news.json?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);load(await r.json());$("status").textContent="公開中の news.json を読み込みました。"}catch(err){$("status").textContent="公開データを読み込めませんでした。JSONを選択するか、新規作成してください。";render()}})();
+</script></body></html>
