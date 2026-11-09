@@ -35,49 +35,51 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview only: seamless, understated guide strip below green header. */
-    .home-page main{padding-top:0!important;margin-top:0!important}
-    .home-page .home-header{margin-bottom:0!important}
-    .home-page .members-guide-entry{
-      display:block;width:100%!important;max-width:none!important;
-      margin:0 0 20px!important;padding:0!important;
-      background:#e9efe7;
+    /* Preview only: full-bleed pale blue guide strip directly below header */
+    body.home-page > main{padding-top:0!important;margin-top:0!important}
+    body.home-page .home-header{margin-bottom:0!important}
+    body.home-page main > .members-guide-entry{
+      box-sizing:border-box;position:relative;left:50%;right:50%;
+      width:100vw!important;width:100dvw!important;max-width:none!important;
+      margin:0 0 20px -50vw!important;margin-left:-50dvw!important;
+      padding:0!important;border:0!important;background:#e5f1f8!important;
     }
-    .home-page .members-guide-banner{
-      display:flex;align-items:center;min-height:76px;position:relative;
-      padding:12px clamp(22px,5vw,54px);
-      background:#e9efe7!important;color:#305943!important;
+    body.home-page main > .members-guide-entry .members-guide-banner{
+      box-sizing:border-box;display:flex;align-items:center;position:relative;
+      width:100%!important;max-width:none!important;min-height:80px;
+      padding:13px clamp(20px,5vw,54px);margin:0!important;
+      background:#e5f1f8!important;color:#0055a4!important;
       border:0!important;border-radius:0!important;box-shadow:none!important;
       cursor:default;transition:none;
     }
-    .home-page .members-guide-banner::before,
-    .home-page .members-guide-banner::after{display:none!important;content:none!important}
-    .home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
-    .home-page .members-guide-banner-copy{
+    body.home-page .members-guide-banner::before,
+    body.home-page .members-guide-banner::after{display:none!important;content:none!important}
+    body.home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
+    body.home-page .members-guide-banner-copy{
       display:flex;flex-direction:column;align-items:flex-start;gap:3px;
-      min-width:0;flex:1;padding-right:90px;
+      min-width:0;flex:1;padding-right:100px;
     }
-    .home-page .members-guide-banner-title{
-      color:#305943!important;font-size:clamp(20px,2.5vw,26px);
+    body.home-page .members-guide-banner-title{
+      color:#0055a4!important;font-size:clamp(20px,2.5vw,26px);
       font-weight:800;line-height:1.35;letter-spacing:-.035em;
     }
-    .home-page .members-guide-banner-description{
-      color:#426752!important;font-size:clamp(11px,1.3vw,13px);line-height:1.5;
+    body.home-page .members-guide-banner-description{
+      color:#315e82!important;font-size:clamp(11px,1.3vw,13px);line-height:1.5;
     }
-    .home-page .mg-status{
+    body.home-page .mg-status{
       position:absolute;right:clamp(20px,4vw,52px);top:50%;
       transform:translateY(-50%);margin:0;
-      background:#c6d900!important;color:#305943!important;
+      background:#c6d900!important;color:#0055a4!important;
       border:0!important;border-radius:999px;
       padding:5px 10px;font-size:10px;font-weight:800;white-space:nowrap;
     }
     @media(max-width:600px){
-      .home-page .members-guide-entry{margin:0 0 16px!important}
-      .home-page .members-guide-banner{min-height:74px;padding:11px 20px}
-      .home-page .members-guide-banner-copy{padding-right:85px;gap:2px}
-      .home-page .members-guide-banner-title{font-size:20px}
-      .home-page .members-guide-banner-description{font-size:10px}
-      .home-page .mg-status{right:14px;font-size:9px;padding:5px 8px}
+      body.home-page main > .members-guide-entry{margin-bottom:16px!important}
+      body.home-page main > .members-guide-entry .members-guide-banner{min-height:76px;padding:11px 20px}
+      body.home-page .members-guide-banner-copy{padding-right:85px;gap:2px}
+      body.home-page .members-guide-banner-title{font-size:20px}
+      body.home-page .members-guide-banner-description{font-size:10px}
+      body.home-page .mg-status{right:14px;font-size:9px;padding:5px 8px}
     }
   </style>
 </head>
