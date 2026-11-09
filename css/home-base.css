@@ -1,58 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+/* お知らせの表示ルールは css/home-news.css に集約。
+   ここには他のスタイルで上書きされない共通設定だけ残す。 */
+#newsContainerArea { margin-bottom: 20px; }
+.news-summary { user-select: none; }
+
 /* ==========================================
-       1. お知らせエリア（ページ固有のアコーディオン表示）
-    ========================================== */
-    #newsContainerArea {
-      margin-bottom: 20px;
-    }
-
-    .news-accordion {
-      background-color: #fffdf9;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .news-summary {
-      padding: 10px 14px;
-      font-weight: bold;
-      font-size: 0.82rem;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-      background-color: #f7f3ed;
-      transition: background-color 0.2s;
-    }
-
-    .news-summary:hover {
-      background-color: #f0e8de;
-    }
-
-    .news-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .news-toggle-icon {
-      font-size: 0.75rem;
-      color: var(--accent-gold);
-      transition: transform 0.2s ease;
-    }
-
-    .news-accordion[open] .news-toggle-icon {
-      transform: rotate(90deg);
-    }
-
-    .news-content-body {
-      padding: 12px 14px;
-      border-top: 1px dashed var(--border-color);
-      font-size: 0.82rem;
-    }
-
-    /* ==========================================
        2. メイン注文ツール（フィーチャーカード）
     ========================================== */
     .hero-order-section {
