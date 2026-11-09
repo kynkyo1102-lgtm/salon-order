@@ -73,13 +73,25 @@
       border:0!important;border-radius:999px;
       padding:5px 10px;font-size:10px;font-weight:800;white-space:nowrap;
     }
+    body.home-page .members-guide-banner-copy{padding-right:0!important}
+    body.home-page .mg-status{
+      position:static!important;transform:none!important;align-self:flex-start;
+      margin-top:4px!important;padding:3px 9px!important;
+      background:#dce8ed!important;color:#0055a4!important;
+      border:1px solid #b9d2e1!important;font-size:10px!important;
+    }
+    body.home-page .mg-character{
+      display:block;flex:0 0 auto;align-self:flex-end;
+      width:74px;height:83px;object-fit:contain;object-position:center bottom;
+      margin:-5px 8px -13px 12px;pointer-events:none;
+    }
     @media(max-width:600px){
       body.home-page main > .members-guide-entry{margin-bottom:16px!important}
       body.home-page main > .members-guide-entry .members-guide-banner{min-height:76px;padding:11px 20px}
       body.home-page .members-guide-banner-copy{padding-right:85px;gap:2px}
       body.home-page .members-guide-banner-title{font-size:20px}
       body.home-page .members-guide-banner-description{font-size:10px}
-      body.home-page .mg-status{right:14px;font-size:9px;padding:5px 8px}
+      body.home-page .mg-status{font-size:9px!important;padding:2px 8px!important}\n      body.home-page .mg-character{width:63px;height:72px;margin:-2px -3px -11px 8px}
     }
   </style>
 </head>
@@ -118,8 +130,9 @@
         <div class="members-guide-banner-copy">
           <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
           <span class="members-guide-banner-description">ニナの情報を、もっとわかりやすく。</span>
-          <span class="mg-status">ただいま準備中</span>
+          <span class="mg-status">準備中</span>
         </div>
+        <img class="mg-character" src="assets/mitochondria/07_guide.svg" alt="" aria-hidden="true" loading="eager">
       </div>
     </section>
 
