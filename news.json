@@ -10,17 +10,6 @@
       "image": "assets/news-news-1.png",
       "published": true,
       "text": "【参加募集中】11/28サロンイベント開催します。"
-    },
-    {
-      "id": "news-demo-2",
-      "date": "11/09",
-      "category": "お知らせ",
-      "title": "【表示確認用】サロンからのお知らせ（ダミー）",
-      "summary": "",
-      "body": "こちらはお知らせ欄の表示を確認するためのダミー記事です。実際のご案内ではありません。",
-      "image": "",
-      "published": true,
-      "text": "【表示確認用】サロンからのお知らせ（ダミー）"
     }
   ]
 }
