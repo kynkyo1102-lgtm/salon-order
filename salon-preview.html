@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="css/members-guide-banner.css?v=3">
   <link rel="stylesheet" href="css/home-news.css?v=8">
-  <link rel="stylesheet" href="css/members-guide-preview.css?v=13">
+  <link rel="stylesheet" href="css/members-guide-preview.css?v=14">
   <!-- Keep the homepage typography consistent with the ordering pages. -->
   <style>
     .home-page,
@@ -64,29 +64,26 @@
 
   <main>
 
-    <section class="app-home" aria-label="注文ツール">
-      <div class="app-home-heading">
-        <p class="app-home-kicker">メンバー専用</p>
-        <h1>ご注文</h1>
-        <p class="app-home-lead">注文方法を選択してください。</p>
+    <section class="studio-home" aria-labelledby="studio-title">
+      <div class="studio-intro">
+        <span class="studio-intro-rule" aria-hidden="true"></span>
+        <p class="studio-intro-meta">Place de Nina <span>／</span> Members</p>
+        <h1 id="studio-title">いつもの注文を、<br><span>もっとスムーズに。</span></h1>
+        <p class="studio-intro-desc">ご希望の形式を選んで、注文書を作成できます。</p>
+        <div class="studio-intro-foot"><span class="studio-intro-dot" aria-hidden="true"></span>南熊本店 メンバー専用ページ</div>
       </div>
-      <div class="app-home-actions">
-        <a class="app-home-action" href="single.html">
-          <span class="app-home-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h8"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
-          <span class="app-home-action-copy"><strong>テキスト注文</strong><small>LINEノートに貼り付ける注文内容を作成</small></span>
-          <span class="app-home-action-chevron" aria-hidden="true">›</span>
+      <div class="studio-tools" aria-label="注文方法を選ぶ">
+        <div class="studio-tools-head"><span>注文書を作成</span><span>01 — 02</span></div>
+        <a class="studio-tool" href="single.html">
+          <span class="studio-tool-main"><span class="studio-tool-index">01</span><strong>テキスト注文</strong><small>LINEノートに貼り付ける注文内容を作成</small></span>
+          <span class="studio-tool-arrow" aria-hidden="true">↗</span>
         </a>
-        <a class="app-home-action" href="bulk.html">
-          <span class="app-home-action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
-          <span class="app-home-action-copy"><strong>画像注文書</strong><small>画像・PDF形式の注文書を作成</small></span>
-          <span class="app-home-action-chevron" aria-hidden="true">›</span>
+        <a class="studio-tool" href="bulk.html">
+          <span class="studio-tool-main"><span class="studio-tool-index">02</span><strong>画像注文書</strong><small>画像・PDF形式の注文書を作成</small></span>
+          <span class="studio-tool-arrow" aria-hidden="true">↗</span>
         </a>
+        <a class="studio-tool-assist" href="calc.html"><span>計算サポート <small>ポイント・金額の計算</small></span><span aria-hidden="true">↗</span></a>
       </div>
-      <a class="app-home-helper" href="calc.html">
-        <span class="app-home-helper-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2"/></svg></span>
-        <span><strong>計算サポート</strong><small>ポイント・金額の計算はこちら</small></span>
-        <span class="app-home-helper-chevron" aria-hidden="true">›</span>
-      </a>
     </section>
 
     <!-- 通常のお知らせ：注文ツールの下に配置 -->
