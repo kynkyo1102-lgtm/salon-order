@@ -154,3 +154,31 @@ body.bonus-modern-quest .bonus-page #bonus-wizard #wizard-next{min-height:48px!i
 body.bonus-modern-quest .bonus-page #bonus-wizard .bonus-submit{display:block!important;width:100%!important;max-width:390px!important;margin:24px auto 8px!important;min-height:54px!important}
 body.bonus-modern-quest .bonus-page #bonus-wizard .bonus-submit[hidden],body.bonus-modern-quest .bonus-page #bonus-wizard #wizard-back[hidden],body.bonus-modern-quest .bonus-page #bonus-wizard #wizard-next[hidden]{display:none!important}
 @media(max-width:600px){body.bonus-modern-quest .bonus-global-home{top:calc(env(safe-area-inset-top,0px) + 10px);left:12px;font-size:12px}body.bonus-modern-quest .bonus-page #bonus-wizard .wizard-actions{margin-top:23px!important}body.bonus-modern-quest .bonus-page #bonus-wizard .bonus-submit{margin-top:28px!important}}
+
+/* Diagnosis overview: conclusions first, details below */
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 22px}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-tile{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:9px;padding:22px 10px;border:1px solid #dbe8f0;border-radius:17px;background:#f2f7fb}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-tile.is-earned{background:#f3f6db;border-color:#dbe6a5}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-label{font-size:12px;font-weight:700;color:#526779}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-tile strong{font-size:clamp(20px,4.8vw,27px);font-weight:800;line-height:1.45;color:#0055A4;overflow-wrap:anywhere}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-tile small{font-size:11px;line-height:1.5;color:#657281}
+body.bonus-modern-quest .bonus-page #result-card .bonus-overview-tile small[hidden]{display:none}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-block{margin-bottom:16px!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-label{font-size:15px!important;font-weight:800!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-block.title .bonus-title-achievement{padding-top:4px}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list{border:1px solid #dce7ee;border-radius:13px;overflow:hidden}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-row{padding:15px 16px;border-bottom:1px solid #e5edf2;background:#fff}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-row:nth-child(even){background:#f8fbfd}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-row:last-child{border-bottom:0}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main{display:flex;justify-content:space-between;align-items:baseline;gap:15px;min-width:0}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main strong{color:#0055A4;font-size:14px;line-height:1.55;font-weight:800;overflow-wrap:anywhere;min-width:0}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main span{color:#273544;font-size:14px;line-height:1.55;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-meta{color:#657281;font-size:12px;line-height:1.65;margin-top:4px}
+@media(max-width:600px){
+ body.bonus-modern-quest .bonus-page #result-card .bonus-overview{gap:9px}
+ body.bonus-modern-quest .bonus-page #result-card .bonus-overview-tile{padding:18px 7px}
+ body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-row{padding:13px 12px}
+ body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main{gap:8px;flex-wrap:wrap}
+ body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main strong{font-size:13px}
+ body.bonus-modern-quest .bonus-page #bonus-reference .bonus-title-list-main span{font-size:13px}
+}
