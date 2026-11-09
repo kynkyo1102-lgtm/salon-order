@@ -89,3 +89,17 @@
 .home-page footer{background:#fff!important;color:#666!important;border-top:1px solid #e6e6e6!important}
 .home-page .preview-guide-floating{background:#315b43;border-color:#d5e0d4}
 @media(max-width:600px){.home-page .preview-editorial-hero-copy{padding:55px 24px 64px}.home-page .preview-editorial-hero h1{font-size:31px}}
+
+
+/* Preview concept: transparent navigation over the hero, without changing subpages. */
+.home-page{position:relative}
+.home-page .home-header{position:absolute!important;top:0;left:50%;transform:translateX(-50%);z-index:150;width:min(1120px,calc(100% - 44px));min-height:76px!important;padding:16px 28px!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.home-page .home-header .header-logo,.home-page .home-header .home-header-shop{color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.32)}
+.home-page .home-menu-toggle{color:#fff!important;background:rgba(0,0,0,.2)!important;border:1px solid rgba(255,255,255,.35)!important;border-radius:50%!important;width:44px;height:44px}
+.home-page .home-menu-toggle:hover{background:rgba(0,0,0,.35)!important}
+.home-page .home-menu-toggle:focus-visible{outline:2px solid #fff!important;outline-offset:3px}
+.home-page .home-site-menu{top:calc(100% + 2px)!important;color:#222!important;text-shadow:none!important}
+.home-page .preview-editorial-hero-copy{padding-top:132px!important}
+.home-page .preview-editorial-eyebrow{display:none!important}
+.home-page .preview-editorial-hero h1{margin-top:0!important}
+@media(max-width:600px){.home-page .home-header{width:100%;min-height:64px!important;padding:12px 20px!important}.home-page .home-header .header-logo{font-size:1.05rem!important}.home-page .home-header .home-header-shop{font-size:11px!important}.home-page .preview-editorial-hero{min-height:270px}.home-page .preview-editorial-hero-copy{padding-top:121px!important;padding-bottom:45px!important}}
