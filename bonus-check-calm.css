@@ -103,3 +103,41 @@ body.bonus-modern-quest .bonus-page #bonus-journey-cover .journey-cover-content:
 @keyframes bonusPageEnter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 body.bonus-modern-quest #bonus-journey-cover .journey-cover-content{animation:bonusPageEnter .55s ease-out both}
 @media(prefers-reduced-motion:reduce){body.bonus-modern-quest #bonus-journey-cover .journey-cover-content{animation:none!important}}
+
+/* Result clarity and consistent type rhythm */
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-head{margin-bottom:18px!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-head h2{margin:0 0 7px!important}
+body.bonus-modern-quest .bonus-page #result-card #basic-status.status-ng{font-size:clamp(1.08rem,3.6vw,1.3rem)!important;line-height:1.65!important;font-weight:800!important;color:#344d60!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-result-block.commission:not(:has(.bonus-celebration:not([hidden]))){background:#fff!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-next-guide{font-size:14px!important;line-height:1.8!important}
+body.bonus-modern-quest .bonus-page #result-card .bonus-next-guide p{margin:8px 0 0!important}
+body.bonus-modern-quest .bonus-page #wizard-answers{background:#fff!important;padding:23px 22px!important;margin-top:26px!important;font-family:"Noto Sans JP",sans-serif!important;color:#273544!important}
+body.bonus-modern-quest .bonus-page #wizard-answers h2{font-size:19px!important;line-height:1.5!important;letter-spacing:-.025em!important;margin:0 0 14px!important;font-weight:800!important}
+body.bonus-modern-quest .bonus-page #wizard-answers .wizard-answer-list{display:block!important}
+body.bonus-modern-quest .bonus-page #wizard-answers .wizard-answer-row{display:flex!important;justify-content:space-between!important;align-items:baseline!important;gap:12px!important;margin:0!important;padding:12px 0!important;border:0!important;border-bottom:1px solid #e6edf2!important;background:transparent!important;border-radius:0!important;box-shadow:none!important;font-size:13px!important;line-height:1.65!important}
+body.bonus-modern-quest .bonus-page #wizard-answers .wizard-answer-row:last-child{border-bottom:0!important}
+body.bonus-modern-quest .bonus-page #wizard-answers .wizard-answer-row span{color:#657281!important;font-size:13px!important;font-weight:500!important;flex:1;min-width:0}
+body.bonus-modern-quest .bonus-page #wizard-answers .wizard-answer-row strong{color:#273544!important;font-size:14px!important;font-weight:700!important;text-align:right!important;white-space:nowrap}
+body.bonus-modern-quest .bonus-page #bonus-reference{background:#fff!important;padding:23px 18px!important;margin-top:24px!important}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-reference-title{font-size:19px!important;line-height:1.5!important;font-weight:800!important;letter-spacing:-.025em!important;margin:0 0 10px!important}
+body.bonus-modern-quest .bonus-page #bonus-reference .bonus-reference-note{font-size:12px!important;line-height:1.8!important;color:#657281!important;margin:0 0 17px!important}
+body.bonus-modern-quest .bonus-page #bonus-reference .table-container{width:100%!important;overflow-x:visible!important;border:1px solid #dce7ee!important;border-radius:12px!important}
+body.bonus-modern-quest .bonus-page #bonus-reference table{width:100%!important;min-width:0!important;border-collapse:collapse!important;table-layout:fixed!important;margin:0!important;font-size:13px!important}
+body.bonus-modern-quest .bonus-page #bonus-reference th,body.bonus-modern-quest .bonus-page #bonus-reference td{padding:12px 9px!important;line-height:1.55!important;border:0!important;border-bottom:1px solid #e5edf2!important;vertical-align:middle!important;overflow-wrap:anywhere!important;word-break:normal!important}
+body.bonus-modern-quest .bonus-page #bonus-reference thead th{font-size:12px!important;font-weight:700!important;white-space:normal!important;text-align:center!important}
+body.bonus-modern-quest .bonus-page #bonus-reference th:first-child{width:39%!important;text-align:left!important}
+body.bonus-modern-quest .bonus-page #bonus-reference th:nth-child(2){width:36%!important}
+body.bonus-modern-quest .bonus-page #bonus-reference th:nth-child(3){width:25%!important}
+body.bonus-modern-quest .bonus-page #bonus-reference tbody th{font-size:13px!important;font-weight:700!important;color:#0055A4!important;background:transparent!important}
+body.bonus-modern-quest .bonus-page #bonus-reference tbody td{text-align:center!important;color:#273544!important;font-variant-numeric:tabular-nums!important;font-weight:600!important}
+body.bonus-modern-quest .bonus-page #bonus-reference tbody tr:last-child th,body.bonus-modern-quest .bonus-page #bonus-reference tbody tr:last-child td{border-bottom:0!important}
+@media(max-width:600px){
+ body.bonus-modern-quest .bonus-page #wizard-answers{padding:19px 17px!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference{padding:19px 12px!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference th,body.bonus-modern-quest .bonus-page #bonus-reference td{padding:11px 5px!important;font-size:11px!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference thead th{font-size:11px!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference tbody th{font-size:11px!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference th:first-child{width:42%!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference th:nth-child(2){width:35%!important}
+ body.bonus-modern-quest .bonus-page #bonus-reference th:nth-child(3){width:23%!important}
+}
