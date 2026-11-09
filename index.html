@@ -22,7 +22,7 @@
 
 
   <link rel="stylesheet" href="css/members-guide-banner.css?v=3">
-  <link rel="stylesheet" href="css/home-news.css?v=5">
+  <link rel="stylesheet" href="css/home-news.css?v=6">
   <!-- Keep the homepage typography consistent with the ordering pages. -->
   <style>
     .home-page,
@@ -183,7 +183,6 @@
           return `
             <a class="news-card-link" href="news-detail.html?id=${encodeURIComponent(id)}">
               <div class="news-card-meta">
-                <span class="news-card-category">${escapeHtml(item.category || 'お知らせ')}</span>
                 <span class="news-card-date">${escapeHtml(item.date || '')}</span>
               </div>
               <span class="news-card-title">${escapeHtml(title)}</span>
