@@ -17,7 +17,7 @@ footer{text-align:center;color:#777;font-size:11px;padding:22px}
 function node(tag,cls,value){const x=document.createElement(tag);if(cls)x.className=cls;if(value!==undefined)x.textContent=value;return x}
 (async()=>{try{const r=await fetch("./news.json?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error();const data=await r.json();const id=new URLSearchParams(location.search).get("id");const items=(data.newsList||[]).filter(n=>n.published!==false);const n=items.find((n,i)=>String(n.id||"news-"+(data.newsList.indexOf(n)+1))===id);if(!n){el.replaceChildren(node("p","","お知らせが見つかりません。"));return}
 el.replaceChildren();const meta=node("div","meta");meta.append(node("span","tag",n.category||"お知らせ"),node("span","",n.date||""));el.append(meta,node("h1","",n.title||n.text||"お知らせ"));
-if(n.image&&/^assets\/news\/[a-zA-Z0-9._-]+$/.test(n.image)){const img=node("img","photo");img.src=n.image;img.alt=n.title||"お知らせ画像";img.loading="lazy";el.append(img)}
+if(n.image&&/^assets\/news\/[a-zA-Z0-9._-]+$/.test(n.image)){const img=node("img","photo");img.src=n.image;img.alt=n.title||"お知らせ画像";img.loading="lazy";img.onerror=()=>img.remove();el.append(img)}
 el.append(node("div","body",n.body||n.text||""));document.title=(n.title||n.text||"お知らせ")+"｜Place de Nina";
 }catch(e){el.replaceChildren(node("p","","お知らせを読み込めませんでした。時間をおいて再度お試しください。"))}})();
 </script></body></html>
