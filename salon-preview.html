@@ -178,14 +178,18 @@
 
         if (items.length > 0) {
           const latest = items[0];
-          // 最新お知らせ（NEWバッジを追加）
+          // 最新のお知らせ：カード全体からサイト内の詳細ページへ
+          const eventTitle = '11/28 サロンイベント開催！';
           let html = `
-            <div class="news-box">
-              <span class="news-date">
-                <span class="news-badge">NEW</span>${latest.date}
-              </span>
-              <p class="news-text">${latest.text}</p>
-            </div>
+            <a class="news-feature-link" href="salon-event-preview.html" aria-label="11月28日サロンイベントの詳細を見る">
+              <div class="news-feature-meta">
+                <span class="news-feature-category">イベント</span>
+                <span class="news-feature-date">${latest.date}</span>
+              </div>
+              <h3 class="news-feature-title">${eventTitle}</h3>
+              <p class="news-feature-description">参加者募集中。イベントの詳しいご案内はこちらからご確認ください。</p>
+              <span class="news-feature-more">詳細を見る <span aria-hidden="true">→</span></span>
+            </a>
           `;
 
           // 過去のお知らせ（アコーディオン内・バッジなし）
