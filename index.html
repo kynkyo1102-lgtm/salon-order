@@ -181,10 +181,13 @@
           const id = item.id || 'news-' + (item._index + 1);
           const title = item.title || item.text || 'お知らせ';
           return `
-            <a class="news-list-link" href="news-detail.html?id=${encodeURIComponent(id)}">
-              <time class="news-list-date">${escapeHtml(item.date || '')}</time>
-              <span class="news-list-title">${escapeHtml(title)}</span>
-              <span class="news-list-arrow" aria-hidden="true">→</span>
+            <a class="news-card-link" href="news-detail.html?id=${encodeURIComponent(id)}">
+              <div class="news-card-meta">
+                <span class="news-card-category">${escapeHtml(item.category || 'お知らせ')}</span>
+                <span class="news-card-date">${escapeHtml(item.date || '')}</span>
+              </div>
+              <span class="news-card-title">${escapeHtml(title)}</span>
+              <span class="news-card-more">詳しく見る <span aria-hidden="true">→</span></span>
             </a>`;
         }).join('');
       } catch (e) {
