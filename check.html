@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./bonus-check.css?v=20261108-cloud1">
   <link rel="stylesheet" href="./bonus-check-immersive.css?v=20261108-result3">
   <link rel="stylesheet" href="./bonus-check-modern-quest.css?v=20261108-mq1">
-  <link rel="stylesheet" href="./bonus-check-calm.css?v=20261109-calm5">
+  <link rel="stylesheet" href="./bonus-check-calm.css?v=20261109-calm6">
 </head>
 
 <body class="bonus-immersive bonus-modern-quest">
@@ -143,7 +143,7 @@
 
     <!-- 判定結果 -->
     <div id="result-card" class="bonus-result" hidden>
-      <div class="rpg-result-glow" aria-hidden="true"></div>
+      
 
 <div class="bonus-result-head">
         
@@ -151,9 +151,20 @@
         <p class="result-intro">入力内容をもとに、今月の条件を確認した結果です。</p>
       </div>
 
+      <div class="bonus-overview" aria-label="診断のまとめ">
+        <div class="bonus-overview-tile" id="bonus-overview-commission">
+          <span class="bonus-overview-label">ボーナス判定</span>
+          <strong id="bonus-overview-commission-value">—</strong>
+        </div>
+        <div class="bonus-overview-tile" id="bonus-overview-title">
+          <span class="bonus-overview-label">判定タイトル</span>
+          <strong id="bonus-overview-title-value">—</strong>
+          <small id="bonus-overview-title-note" hidden>系列条件は別途確認</small>
+        </div>
+      </div>
       <!-- コミッション -->
       <div class="bonus-result-block commission">
-        <div class="bonus-result-label">ボーナスの判定</div>
+        <div class="bonus-result-label">ボーナスの内訳・条件</div>
         <div class="bonus-celebration" id="bonus-celebration" hidden aria-hidden="true"><span>✦</span><span class="bonus-celebration-mark">✓</span><span>✦</span></div>
         <div id="basic-status" class="bonus-result-status"></div>
         <div id="commission-next-guide"></div>
@@ -161,7 +172,7 @@
 
       <!-- タイトル -->
       <div class="bonus-result-block title">
-        <div class="bonus-result-label">タイトル</div>
+        <div class="bonus-result-label">タイトルと次の目標</div>
         <div id="title-status"></div>
         <div id="title-next-guide"></div>
       </div>
@@ -186,65 +197,15 @@
         左右のうち少ない方のグループ売上Pと、必要なアクティブ紹介者数です。プラチナ以上の系列条件などは別途確認してください。
       </p>
 
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>タイトル</th>
-              <th>少ない側の<br>売上P</th>
-              <th>アクティブ<br>紹介者</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <th>クリスタル</th>
-              <td>20万P〜</td>
-              <td>2人</td>
-            </tr>
-            <tr>
-              <th>ラピス</th>
-              <td>50万P〜</td>
-              <td>2人</td>
-            </tr>
-            <tr>
-              <th>サファイヤ</th>
-              <td>100万P〜</td>
-              <td>2人</td>
-            </tr>
-            <tr>
-              <th>エメラルド</th>
-              <td>300万P〜</td>
-              <td>2人</td>
-            </tr>
-            <tr>
-              <th>ゴールド</th>
-              <td>600万P〜</td>
-              <td>4人</td>
-            </tr>
-            <tr>
-              <th>プラチナ</th>
-              <td>1,200万P〜</td>
-              <td>4人</td>
-            </tr>
-            <tr>
-              <th>ダイヤモンド</th>
-              <td>3,000万P〜</td>
-              <td>4人</td>
-            </tr>
-            <tr>
-              <th>ロワイヤルダイヤモンド</th>
-              <td>6,000万P〜</td>
-              <td>4人</td>
-            </tr>
-            <tr>
-              <th>カリナンロワイヤルダイヤモンド</th>
-              <td>連続6つの月度ロワイヤルダイヤモンドを達成</td>
-              <td>4人</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bonus-title-list"><div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>クリスタル</strong><span>20万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 2人</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>ラピス</strong><span>50万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 2人</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>サファイヤ</strong><span>100万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 2人</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>エメラルド</strong><span>300万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 2人</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>ゴールド</strong><span>600万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 4人</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>プラチナ</strong><span>1,200万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 4人 ／ 系列条件あり</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>ダイヤモンド</strong><span>3,000万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 4人 ／ 系列条件あり</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>ロワイヤルダイヤモンド</strong><span>6,000万P〜</span></div><div class="bonus-title-list-meta">アクティブ紹介者 4人 ／ 系列条件あり</div></div>
+<div class="bonus-title-list-row"><div class="bonus-title-list-main"><strong>カリナンロワイヤルダイヤモンド</strong><span>6月度連続でロワイヤルダイヤモンド達成</span></div><div class="bonus-title-list-meta">アクティブ紹介者 4人 ／ 継続条件あり</div></div></div>
     </div>
 
   </main>
@@ -997,7 +958,24 @@
     document.getElementById('bonus-wizard').scrollIntoView({behavior:'smooth',block:'start'});
   }
   function wizardFinish(){checkConditions();}
+  function updateBonusOverview(){
+    const basic=document.getElementById('basic-status');
+    const commission=document.getElementById('bonus-overview-commission');
+    const title=document.getElementById('bonus-overview-title');
+    const commissionValue=document.getElementById('bonus-overview-commission-value');
+    const titleValue=document.getElementById('bonus-overview-title-value');
+    const titleNote=document.getElementById('bonus-overview-title-note');
+    const earned=basic.classList.contains('status-ok');
+    commissionValue.textContent=earned?'あり':'なし';
+    commission.classList.toggle('is-earned',earned);
+    const name=document.querySelector('#title-status .bonus-title-name');
+    titleValue.textContent=name?name.textContent.trim():(document.getElementById('title-status').textContent.includes('なし')?'なし':'メンバー');
+    const unverified=document.getElementById('title-status').textContent.includes('系列条件は未判定');
+    titleNote.hidden=!unverified;
+    title.classList.toggle('needs-confirmation',unverified);
+  }
   function showWizardResult(){
+    updateBonusOverview();
     document.getElementById("bonus-wizard").hidden=true;
     document.querySelector(".bonus-hero").hidden=true;
     document.getElementById("result-card").hidden=false;
