@@ -35,7 +35,7 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview-only: bright white-led pop banner, full bleed below news */
+    /* Preview only: white-led illustrated members guide promotion */
     body.home-page .members-guide-entry{
       box-sizing:border-box;position:relative;left:50%;
       width:100vw!important;width:100dvw!important;max-width:none!important;
@@ -44,31 +44,29 @@
     body.home-page .members-guide-banner{
       box-sizing:border-box;position:relative;isolation:isolate;display:flex;align-items:center;
       width:100%!important;min-height:205px!important;
-      padding:28px clamp(26px,6vw,80px)!important;overflow:hidden;
+      padding:27px clamp(26px,6vw,80px)!important;overflow:hidden;
       background:#fff!important;color:#0055a4!important;
       border:0!important;border-radius:0!important;box-shadow:none!important;
       cursor:default;transition:none;
     }
     body.home-page .members-guide-banner::before{
       content:""!important;display:block!important;position:absolute;
-      right:-8%;top:-45%;width:55%;height:200%;background:#0055a4!important;
-      transform:rotate(18deg);border:0!important;border-radius:0!important;
-      pointer-events:none;z-index:-1;
+      right:0;top:0;width:30%;height:100%;background:#0055a4!important;
+      border:0!important;border-radius:0!important;pointer-events:none;z-index:-1;
     }
     body.home-page .members-guide-banner::after{
       content:""!important;display:block!important;position:absolute;
-      right:21%;bottom:-90px;width:200px;height:200px;border-radius:50%;
-      background:#c6d900!important;border:0!important;
-      pointer-events:none;z-index:-1;
+      right:26%;top:0;width:6px;height:100%;background:#c6d900!important;
+      border:0!important;border-radius:0!important;pointer-events:none;z-index:-1;
     }
     body.home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
     body.home-page .members-guide-banner-copy{
       display:flex;flex-direction:column;align-items:flex-start;gap:10px;
-      min-width:0;max-width:730px;flex:1;padding:0 29% 0 0!important;position:relative;z-index:2;
+      min-width:0;flex:1;padding:0 32% 0 0!important;position:relative;z-index:2;
     }
     body.home-page .mg-eyebrow{
       display:inline-block;background:#c6d900;color:#0055a4;
-      padding:5px 10px;font-size:10px;font-weight:900;letter-spacing:.11em;line-height:1.2;
+      padding:5px 10px;font-size:10px;font-weight:900;letter-spacing:.1em;line-height:1.2;
     }
     body.home-page .members-guide-banner-title{
       color:#0055a4!important;font-size:clamp(30px,4.5vw,47px);
@@ -84,45 +82,34 @@
       padding:5px 10px;font-size:11px;font-weight:800;line-height:1.25;white-space:nowrap;
     }
     body.home-page .mg-status{
-      position:absolute!important;top:18px;right:clamp(18px,4vw,50px);
+      position:absolute!important;top:17px;right:clamp(17px,3vw,42px);
       transform:none!important;margin:0!important;background:#c6d900!important;
       color:#0055a4!important;border:0!important;border-radius:999px!important;
       padding:6px 11px!important;font-size:11px!important;font-weight:800;white-space:nowrap;z-index:4;
     }
     body.home-page .mg-art{
-      position:absolute;right:4%;bottom:16%;width:22%;height:55%;
-      display:flex;align-items:center;justify-content:center;z-index:1;pointer-events:none;
+      box-sizing:border-box;position:absolute;right:3%;bottom:0;width:23%;height:85%;
+      display:flex;align-items:flex-end;justify-content:center;z-index:2;pointer-events:none;
     }
-    body.home-page .mg-art-ring{
-      display:block;width:clamp(105px,15vw,185px);height:clamp(105px,15vw,185px);
-      border:15px solid #fff;border-radius:50%;transform:rotate(-18deg);
-      box-shadow:0 0 0 8px #c6d900;
+    body.home-page .mg-character{
+      display:block!important;width:100%;height:100%;max-width:190px;max-height:180px;
+      object-fit:contain;object-position:center bottom;margin:0!important;
     }
-    body.home-page .mg-spark{
-      position:absolute;display:block;color:#c6d900;font-size:28px;
-      line-height:1;pointer-events:none;z-index:3;
-    }
-    body.home-page .mg-spark-a{right:28%;top:16%}
-    body.home-page .mg-spark-b{right:4%;bottom:12%;color:#fff;font-size:19px}
-    body.home-page .mg-spark-c{right:26%;bottom:13%;color:#0055a4;font-size:23px}
-    body.home-page .mg-character,body.home-page .mg-direction{display:none!important}
+    body.home-page .mg-direction{display:none!important}
     @media(max-width:600px){
       body.home-page .members-guide-entry{margin-top:22px!important;margin-bottom:30px!important}
-      body.home-page .members-guide-banner{min-height:207px!important;padding:25px 22px!important}
-      body.home-page .members-guide-banner::before{width:49%;height:185%;right:-32%;top:-36%;transform:rotate(19deg)}
-      body.home-page .members-guide-banner::after{width:115px;height:115px;right:4%;bottom:-55px}
-      body.home-page .members-guide-banner-copy{padding-right:9%!important;gap:10px}
+      body.home-page .members-guide-banner{min-height:206px!important;padding:24px 20px!important}
+      body.home-page .members-guide-banner::before{width:28%}
+      body.home-page .members-guide-banner::after{right:28%;width:4px}
+      body.home-page .members-guide-banner-copy{padding-right:24%!important;gap:9px}
       body.home-page .mg-eyebrow{font-size:9px;padding:4px 8px}
-      body.home-page .members-guide-banner-title{font-size:clamp(23px,6.5vw,29px)}
+      body.home-page .members-guide-banner-title{font-size:clamp(23px,6.4vw,29px)}
       body.home-page .members-guide-banner-description{font-size:11px;max-width:22em}
       body.home-page .mg-topics{gap:5px;max-width:260px}
       body.home-page .mg-topic{font-size:10px;padding:5px 8px}
-      body.home-page .mg-status{top:14px;right:13px;font-size:9px!important;padding:5px 8px!important}
-      body.home-page .mg-art{right:-6%;bottom:20%;width:26%;height:46%}
-      body.home-page .mg-art-ring{width:75px;height:75px;border-width:9px;box-shadow:0 0 0 5px #c6d900}
-      body.home-page .mg-spark-a{right:23%;top:32%;font-size:18px}
-      body.home-page .mg-spark-b{right:3%;bottom:8%;font-size:14px}
-      body.home-page .mg-spark-c{right:26%;bottom:14%;font-size:16px}
+      body.home-page .mg-status{top:12px;right:10px;font-size:9px!important;padding:5px 8px!important}
+      body.home-page .mg-art{right:0;bottom:0;width:29%;height:65%}
+      body.home-page .mg-character{max-height:130px;max-width:105px}
     }
   </style>
 </head>
@@ -208,10 +195,9 @@
           </div>
         </div>
         <span class="mg-status">準備中</span>
-        <div class="mg-art" aria-hidden="true"><span class="mg-art-ring"></span></div>
-        <span class="mg-spark mg-spark-a" aria-hidden="true">✦</span>
-        <span class="mg-spark mg-spark-b" aria-hidden="true">✦</span>
-        <span class="mg-spark mg-spark-c" aria-hidden="true">✦</span>
+        <div class="mg-art" aria-hidden="true">
+          <img class="mg-character" src="assets/mitochondria/02_explain.svg" alt="" loading="eager">
+        </div>
       </div>
     </section>
 
