@@ -186,7 +186,7 @@
           const itemId = current.id || 'news-' + (data.newsList ? data.newsList.indexOf(current) + 1 : 1);
           const title = current.title || current.text || 'お知らせ';
           const summary = current.summary || (current.body || current.text || '').slice(0, 100);
-          const img = current.image && /^assets\/news\/[a-zA-Z0-9._-]+$/.test(current.image) ? '<img class="news-feature-image" src="' + escapeHtml(current.image) + '" alt="" loading="lazy">' : '';
+          const img = current.image && /^assets\/(?:news\/)?[a-zA-Z0-9._-]+$/.test(current.image) ? '<img class="news-feature-image" src="' + escapeHtml(current.image) + '" alt="" loading="lazy">' : '';
           let html = `
             <a class="news-feature-link" href="news-detail.html?id=${encodeURIComponent(itemId)}">
               <div class="news-feature-meta">
