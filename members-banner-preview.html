@@ -35,81 +35,76 @@
   </style>
 
   <style id="members-guide-banner-preview-only">
-    /* Preview only: white-led illustrated members guide promotion */
+    /* Preview only: visual language of the Members Guide landing page */
     body.home-page .members-guide-entry{
-      box-sizing:border-box;position:relative;left:50%;
-      width:100vw!important;width:100dvw!important;max-width:none!important;
-      margin:26px 0 34px -50vw!important;margin-left:-50dvw!important;padding:0!important;
+      box-sizing:border-box;position:relative;left:50%;width:100vw!important;width:100dvw!important;
+      max-width:none!important;margin:26px 0 34px -50vw!important;margin-left:-50dvw!important;padding:0!important;
     }
     body.home-page .members-guide-banner{
       box-sizing:border-box;position:relative;isolation:isolate;display:flex;align-items:center;
-      width:100%!important;min-height:205px!important;
-      padding:27px clamp(26px,6vw,80px)!important;overflow:hidden;
-      background:#fff!important;color:#0055a4!important;
-      border:0!important;border-radius:0!important;box-shadow:none!important;
-      cursor:default;transition:none;
+      width:100%!important;min-height:205px!important;padding:27px clamp(25px,6vw,80px)!important;
+      overflow:hidden;background:#e8f1f9!important;color:#0055a4!important;
+      border:0!important;border-radius:0!important;box-shadow:none!important;cursor:default;transition:none;
     }
     body.home-page .members-guide-banner::before{
-      content:""!important;display:block!important;position:absolute;
-      right:0;top:0;width:30%;height:100%;background:#0055a4!important;
-      border:0!important;border-radius:0!important;pointer-events:none;z-index:-1;
+      content:""!important;position:absolute;left:0;top:0;width:100%;height:5px;
+      background:#0055a4!important;border:0!important;border-radius:0!important;z-index:0;
     }
     body.home-page .members-guide-banner::after{
-      content:""!important;display:block!important;position:absolute;
-      right:26%;top:0;width:6px;height:100%;background:#c6d900!important;
-      border:0!important;border-radius:0!important;pointer-events:none;z-index:-1;
+      content:""!important;position:absolute;left:clamp(25px,6vw,80px);top:0;
+      width:75px;height:8px;background:#c6d900!important;border:0!important;border-radius:0!important;z-index:1;
     }
     body.home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
     body.home-page .members-guide-banner-copy{
-      display:flex;flex-direction:column;align-items:flex-start;gap:10px;
-      min-width:0;flex:1;padding:0 32% 0 0!important;position:relative;z-index:2;
+      position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;
+      gap:10px;flex:1;min-width:0;padding:0 29% 0 0!important;
     }
     body.home-page .mg-eyebrow{
-      display:inline-block;background:#c6d900;color:#0055a4;
-      padding:5px 10px;font-size:10px;font-weight:900;letter-spacing:.1em;line-height:1.2;
+      display:inline-block;background:transparent!important;color:#005b9d!important;
+      padding:0!important;font-size:11px;font-weight:900;letter-spacing:.18em;line-height:1.2;
     }
     body.home-page .members-guide-banner-title{
       color:#0055a4!important;font-size:clamp(30px,4.5vw,47px);
       font-weight:900;line-height:1.18;letter-spacing:-.06em;white-space:nowrap;
     }
     body.home-page .members-guide-banner-description{
-      display:block!important;color:#315e82!important;font-size:clamp(12px,1.55vw,16px);
+      display:block!important;color:#36576e!important;font-size:clamp(12px,1.55vw,16px);
       line-height:1.55;max-width:30em;
     }
     body.home-page .mg-topics{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px}
     body.home-page .mg-topic{
-      display:inline-block;background:#0055a4;color:#fff;border-radius:999px;
+      display:inline-block;background:#fff!important;color:#0055a4!important;
+      border:1px solid #cbdde9!important;border-radius:999px;
       padding:5px 10px;font-size:11px;font-weight:800;line-height:1.25;white-space:nowrap;
     }
     body.home-page .mg-status{
       position:absolute!important;top:17px;right:clamp(17px,3vw,42px);
-      transform:none!important;margin:0!important;background:#c6d900!important;
-      color:#0055a4!important;border:0!important;border-radius:999px!important;
+      transform:none!important;margin:0!important;background:#fff!important;
+      color:#0055a4!important;border:1px solid #d4e2ec!important;border-radius:999px!important;
       padding:6px 11px!important;font-size:11px!important;font-weight:800;white-space:nowrap;z-index:4;
     }
     body.home-page .mg-art{
-      box-sizing:border-box;position:absolute;right:3%;bottom:0;width:23%;height:85%;
+      box-sizing:border-box;position:absolute;right:5%;bottom:5%;width:23%;height:78%;
       display:flex;align-items:flex-end;justify-content:center;z-index:2;pointer-events:none;
     }
     body.home-page .mg-character{
-      display:block!important;width:100%;height:100%;max-width:190px;max-height:180px;
+      display:block!important;width:100%;height:100%;max-width:175px;max-height:170px;
       object-fit:contain;object-position:center bottom;margin:0!important;
     }
     body.home-page .mg-direction{display:none!important}
     @media(max-width:600px){
       body.home-page .members-guide-entry{margin-top:22px!important;margin-bottom:30px!important}
-      body.home-page .members-guide-banner{min-height:206px!important;padding:24px 20px!important}
-      body.home-page .members-guide-banner::before{width:28%}
-      body.home-page .members-guide-banner::after{right:28%;width:4px}
-      body.home-page .members-guide-banner-copy{padding-right:24%!important;gap:9px}
-      body.home-page .mg-eyebrow{font-size:9px;padding:4px 8px}
+      body.home-page .members-guide-banner{min-height:204px!important;padding:24px 20px!important}
+      body.home-page .members-guide-banner::after{left:20px;width:62px}
+      body.home-page .members-guide-banner-copy{padding-right:22%!important;gap:9px}
+      body.home-page .mg-eyebrow{font-size:9px;letter-spacing:.14em}
       body.home-page .members-guide-banner-title{font-size:clamp(23px,6.4vw,29px)}
       body.home-page .members-guide-banner-description{font-size:11px;max-width:22em}
-      body.home-page .mg-topics{gap:5px;max-width:260px}
+      body.home-page .mg-topics{gap:5px;max-width:250px}
       body.home-page .mg-topic{font-size:10px;padding:5px 8px}
-      body.home-page .mg-status{top:12px;right:10px;font-size:9px!important;padding:5px 8px!important}
-      body.home-page .mg-art{right:0;bottom:0;width:29%;height:65%}
-      body.home-page .mg-character{max-height:130px;max-width:105px}
+      body.home-page .mg-status{top:13px;right:12px;font-size:9px!important;padding:5px 8px!important}
+      body.home-page .mg-art{right:1%;bottom:5%;width:25%;height:62%}
+      body.home-page .mg-character{max-height:125px;max-width:100px}
     }
   </style>
 </head>
@@ -185,9 +180,9 @@
     <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
       <div class="members-guide-banner" aria-disabled="true">
         <div class="members-guide-banner-copy">
-          <span class="mg-eyebrow">NINA MEMBERS GUIDE</span>
+          <span class="mg-eyebrow">NINAPHARM JAPAN</span>
           <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
-          <span class="members-guide-banner-description">ニナのこと、知りたいことをひとまとめ。</span>
+          <span class="members-guide-banner-description">登録方法やボーナスのことなど、知りたい情報をここから探せます！</span>
           <div class="mg-topics" aria-label="ガイドで扱う内容">
             <span class="mg-topic">商品情報</span>
             <span class="mg-topic">お手続き</span>
@@ -196,7 +191,7 @@
         </div>
         <span class="mg-status">準備中</span>
         <div class="mg-art" aria-hidden="true">
-          <img class="mg-character" src="assets/mitochondria/02_explain.svg" alt="" loading="eager">
+          <img class="mg-character" src="assets/mitochondria/07_guide.svg" alt="" loading="eager">
         </div>
       </div>
     </section>
