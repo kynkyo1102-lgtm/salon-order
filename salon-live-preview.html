@@ -377,7 +377,7 @@ body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c
     const openAt=parse(startTime),closeAt=parse(endTime);
     if(minute>=openAt&&minute<closeAt){setStatus('open','ただいま営業中（予定）',endTime+'まで · 臨時変更の場合あり');}
     else if(minute<openAt){setStatus('closed','ただいま営業時間外',startTime+'から営業予定');}
-    else{setStatus('closed','本日のサロン営業は終了しました','次回の営業日は営業予定をご確認ください');}
+    else{setStatus('closed','本日のサロン営業は終了しました','通常営業時間 11:00〜17:00');}
   }
   updateStatus();setInterval(updateStatus,60000);
   fetch('https://holidays-jp.github.io/api/v1/date.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('holiday');return r.json()}).then(data=>{holidayDates=new Set(Object.keys(data));holidaysReady=true;updateStatus()}).catch(()=>{holidaysReady=true;holidayDates=null;updateStatus()});
