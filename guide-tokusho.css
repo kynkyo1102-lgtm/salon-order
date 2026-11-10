@@ -43,3 +43,24 @@
 .tokusho-page .tokusho-check-list input:checked+span{color:#647487}
 .tokusho-page .tokusho-disclaimer{margin-top:24px;color:#647487;font-size:13px;line-height:1.8}
 @media(max-width:600px){.tokusho-page .tokusho-rule-grid{grid-template-columns:1fr}.tokusho-page .tokusho-disclosure>summary{padding:16px;gap:12px}.tokusho-page .tokusho-visual{flex-basis:48px;width:48px;height:48px;font-size:24px}.tokusho-page .tokusho-summary-copy strong{font-size:16px}.tokusho-page .tokusho-detail{padding:0 17px 18px}.tokusho-page .tokusho-rule>summary{min-height:75px}.tokusho-page .tokusho-dialogue{padding:18px}.tokusho-page .tokusho-dialogue p{font-size:16px}}
+
+/* スクロールストーリー試作：既存のサイト配色のみ使用 */
+.tokusho-page .tokusho-scroll-story{margin:30px 0 38px;display:grid;gap:14px}
+.tokusho-page .tokusho-story-panel{min-height:min(68svh,590px);padding:clamp(25px,5.5vw,54px);border:1px solid #d9e5ed;border-radius:17px;background:#fff;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.tokusho-page .tokusho-story-opening{background:#f5f8fb}
+.tokusho-page .tokusho-story-reveal{background:#fff}
+.tokusho-page .tokusho-story-action{background:#f5f8fb}
+.tokusho-page .tokusho-story-index{margin:0 0 28px;font-size:11px;letter-spacing:.15em;font-weight:800;color:#5b7793}
+.tokusho-page .tokusho-story-kicker{font-size:14px;font-weight:700;color:#416484;margin:0 0 12px}
+.tokusho-page .tokusho-story-panel h2{font-size:clamp(25px,5.5vw,42px);line-height:1.55;letter-spacing:-.035em;color:#243d55;margin:0 0 20px;font-weight:800}
+.tokusho-page .tokusho-story-panel h2 em{font-style:normal;color:#0055a4}
+.tokusho-page .tokusho-story-panel>p:not(.tokusho-story-index):not(.tokusho-story-kicker):not(.tokusho-story-footnote){max-width:580px}
+.tokusho-page .tokusho-story-lead{font-size:clamp(17px,3vw,21px);font-weight:600}
+.tokusho-page .tokusho-story-scroll{align-self:flex-start;margin-top:34px;color:#0055a4;font-size:13px;font-weight:700;border-bottom:1px solid #b9cbdc;padding-bottom:9px}
+.tokusho-page .tokusho-story-scroll span{margin-left:10px}
+.tokusho-page .tokusho-story-highlight{font-weight:700;border-left:3px solid #0055a4;padding:12px 0 12px 18px;margin-top:14px}
+.tokusho-page .tokusho-story-quote{font-size:clamp(17px,3.2vw,23px);font-weight:700;line-height:1.8;border:1px solid #c9d9e8;background:#fff;border-radius:12px;padding:22px;margin:4px 0 20px;color:#243d55}
+.tokusho-page .tokusho-story-footnote{font-size:12px;color:#62778b;line-height:1.8;margin:8px 0 0}
+.tokusho-page .tokusho-story-next{align-self:flex-start;margin-top:24px;color:#0055a4;font-size:14px;font-weight:800;text-underline-offset:5px}
+@media(max-width:600px){.tokusho-page .tokusho-scroll-story{margin:22px 0 30px;gap:10px}.tokusho-page .tokusho-story-panel{min-height:58svh;padding:27px 22px;border-radius:13px}.tokusho-page .tokusho-story-index{margin-bottom:24px}.tokusho-page .tokusho-story-panel h2{font-size:clamp(24px,6.6vw,33px)}.tokusho-page .tokusho-story-quote{padding:16px}}
+@media(prefers-reduced-motion:no-preference){@supports(animation-timeline:view()){.tokusho-page .tokusho-story-panel>*{animation:tokusho-soft-reveal linear both;animation-timeline:view();animation-range:entry 0% entry 35%}@keyframes tokusho-soft-reveal{from{opacity:.65;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}}}
