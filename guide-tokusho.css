@@ -1,0 +1,17 @@
+/* 特商法ガイド固有のコンテンツ装飾のみ。
+   ページ幅・余白・タイトル・目次・見出しは共通CSSで管理。 */
+.tokusho-guide{background:#fff;color:#273544;font-family:"Noto Sans JP",sans-serif}
+.tokusho-page .tokusho-steps,.tokusho-page .tokusho-rules,.tokusho-page .tokusho-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.tokusho-page .tokusho-steps{grid-template-columns:1fr}
+.tokusho-page .tokusho-item{min-width:0;padding:19px 21px;border:1px solid #d9e5ed;border-radius:13px;background:#f7fafc}
+.tokusho-page .tokusho-item h3{margin:0 0 8px;font-size:17px;line-height:1.55;color:#004aad}
+.tokusho-page .tokusho-item p{margin:0;font-size:15px;line-height:1.85;color:#34495d}
+.tokusho-page .tokusho-step-label{display:block;margin-bottom:5px;font-size:12px;font-weight:800;letter-spacing:.07em;color:#0055a4}
+.tokusho-page .tokusho-note{margin:18px 0 0;padding:14px 16px;background:#f2f7fb;border-radius:12px;color:#536678;font-size:14px;line-height:1.8}
+.tokusho-page .tokusho-ng{background:#fff6f4;border-color:#f0d3ce}
+.tokusho-page .tokusho-ok{background:#f3f9f1;border-color:#d4e6ca}
+.tokusho-page .tokusho-check{list-style:none;margin:0;padding:0}
+.tokusho-page .tokusho-check li{padding:13px 0;border-bottom:1px solid #dce6ee;font-size:16px}
+.tokusho-page .tokusho-check li::before{content:"□";margin-right:11px;color:#0055a4;font-weight:800}
+.tokusho-page .tokusho-disclaimer{margin-top:24px;color:#647487;font-size:13px;line-height:1.8}
+@media(max-width:600px){.tokusho-page .tokusho-rules,.tokusho-page .tokusho-examples{grid-template-columns:1fr}.tokusho-page .tokusho-item{padding:17px}.tokusho-page .tokusho-item p{font-size:15px}}
