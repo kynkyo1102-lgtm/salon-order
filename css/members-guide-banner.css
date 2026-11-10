@@ -1,25 +1,34 @@
-/* Members guide banner: HTML/CSS only, matching the Nina Guide palette. */
-.home-page .members-guide-entry{width:100%;max-width:1100px;box-sizing:border-box;margin:34px auto 38px;padding:0 20px}
-.home-page .members-guide-banner{display:flex;align-items:center;gap:17px;box-sizing:border-box;min-height:135px;padding:21px 25px;border:1px solid #d9e7f8;border-radius:17px;background:#f4f8fd;color:#123778;text-decoration:none;box-shadow:0 4px 16px rgba(18,59,120,.07);transition:border-color .15s,box-shadow .15s}
-.home-page .members-guide-banner:hover{border-color:#9dbfe9;box-shadow:0 8px 22px rgba(18,59,120,.11)}
-.home-page .members-guide-banner:focus-visible{outline:3px solid #1557c0;outline-offset:3px}
-.home-page .members-guide-banner-icon{display:grid;place-items:center;flex:0 0 62px;width:62px;height:62px;border-radius:16px;background:#edf5ff;color:#1557c0}
-.home-page .members-guide-banner-icon svg{display:block;width:35px;height:35px;stroke:currentColor}
-.home-page .members-guide-banner-copy{display:flex;flex:1;min-width:0;flex-direction:column;align-items:flex-start;gap:5px}
-.home-page .members-guide-banner-eyebrow{color:#1557c0;font-size:11px;font-weight:800;letter-spacing:.13em}
-.home-page .members-guide-banner-title{color:#123778;font-size:clamp(22px,2.6vw,30px);font-weight:800;line-height:1.35}
-.home-page .members-guide-banner-description{color:#46556b;font-size:clamp(12px,1.35vw,14px);line-height:1.6}
-.home-page .members-guide-banner-accent{display:block;width:43px;height:3px;margin-top:4px;border-radius:9px;background:#8fbf18}
-.home-page .members-guide-banner-arrow{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border-radius:50%;background:#1557c0;color:white;font-size:23px;line-height:1}
-@media(max-width:600px){
-.home-page .members-guide-entry{margin:28px auto 34px;padding:0 16px}
-.home-page .members-guide-banner{min-height:126px;gap:12px;padding:15px 13px;border-radius:14px}
-.home-page .members-guide-banner-icon{flex-basis:43px;width:43px;height:43px;border-radius:12px}
-.home-page .members-guide-banner-icon svg{width:26px;height:26px}
-.home-page .members-guide-banner-copy{gap:3px}
-.home-page .members-guide-banner-eyebrow{font-size:9px;letter-spacing:.07em}
-.home-page .members-guide-banner-title{font-size:clamp(19px,5vw,23px)}
-.home-page .members-guide-banner-description{font-size:11px}
-.home-page .members-guide-banner-arrow{flex-basis:29px;width:29px;height:29px;font-size:19px}
-.home-page .members-guide-banner-accent{margin-top:3px;width:34px}
-}
+/* Members guide homepage banner. The preparation notice can be removed on launch. */
+    body.home-page .members-guide-entry{box-sizing:border-box;position:relative;left:50%;width:100vw!important;width:100dvw!important;max-width:none!important;margin:23px 0 30px -50vw!important;margin-left:-50dvw!important;padding:0!important}
+    body.home-page .members-guide-banner{box-sizing:border-box;position:relative;isolation:isolate;display:flex;align-items:center;gap:clamp(15px,3vw,32px);width:100%!important;min-height:155px!important;padding:20px clamp(25px,6vw,80px)!important;overflow:hidden;background:#e8f1f9!important;color:#0055a4!important;border:0!important;border-radius:0!important;box-shadow:none!important;cursor:default;transition:none}
+    body.home-page .members-guide-banner::before{content:""!important;position:absolute;left:0;top:0;width:100%;height:4px;background:#0055a4!important;border:0!important;border-radius:0!important;z-index:0}
+    body.home-page .members-guide-banner::after{content:""!important;position:absolute;left:clamp(25px,6vw,80px);top:0;width:65px;height:7px;background:#c6d900!important;border:0!important;border-radius:0!important;z-index:1}
+    body.home-page .members-guide-banner:hover{transform:none!important;box-shadow:none!important}
+    body.home-page .mg-art{order:0;position:relative!important;right:auto!important;bottom:auto!important;width:clamp(82px,12vw,126px)!important;height:clamp(106px,14vw,145px)!important;flex:0 0 auto;display:flex!important;align-items:center;justify-content:center;z-index:2;pointer-events:none}
+    body.home-page .mg-mascot-status{position:absolute;left:0;top:0;z-index:4;transform:rotate(-3deg);display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;height:100%;background:#fff;color:#233f5b;border:2px solid #d4dee7;border-radius:3px;padding:8px;font-size:16px;font-weight:900;line-height:1.2;white-space:nowrap;box-shadow:0 2px 5px #0055a426;pointer-events:none}
+    body.home-page .mg-character{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain;object-position:center}
+    body.home-page .members-guide-banner-copy{order:1;position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:8px;flex:1;min-width:0;padding:0!important}
+    body.home-page .mg-eyebrow{display:inline-block;background:transparent!important;color:#005b9d!important;padding:0!important;font-size:10px;font-weight:900;letter-spacing:.16em;line-height:1.2}
+    body.home-page .members-guide-banner-title{color:#0055a4!important;font-size:clamp(27px,3.6vw,40px);font-weight:900;line-height:1.18;letter-spacing:-.06em;white-space:nowrap}
+    body.home-page .members-guide-banner-description{display:block!important;color:#36576e!important;font-size:clamp(14px,1.5vw,17px);line-height:1.5;max-width:36em}
+    body.home-page .mg-topics{display:grid;grid-template-columns:repeat(2,max-content);column-gap:16px;row-gap:7px;margin-top:5px}
+    body.home-page .mg-topic{display:inline-flex;align-items:center;gap:5px;background:transparent!important;color:#0055a4!important;border:0!important;border-radius:0!important;padding:0!important;font-size:13px;font-weight:800;line-height:1.4;white-space:nowrap}
+    body.home-page .mg-topic::before{content:"✓";display:inline-grid;place-items:center;width:15px;height:15px;flex:0 0 15px;background:#c6d900;color:#0055a4;border-radius:50%;font-size:10px;font-weight:900}
+    body.home-page .mg-cta{position:absolute;right:clamp(25px,6vw,80px);bottom:18px;z-index:3;display:grid;place-items:center;width:42px;height:42px;box-sizing:border-box;background:#fff;border:2px solid #0055a4;border-radius:50%;color:#0055a4;pointer-events:none}
+    body.home-page .mg-cta-arrow{display:block;font-size:25px;font-weight:800;line-height:1;transform:translateY(-1px)}
+    @media(max-width:600px){
+      body.home-page .members-guide-entry{margin-top:22px!important;margin-bottom:28px!important}
+      body.home-page .members-guide-banner{min-height:174px!important;gap:10px;padding:14px 15px 17px!important}
+      body.home-page .members-guide-banner::after{left:15px;width:55px}
+      body.home-page .mg-art{width:82px!important;height:112px!important}
+      body.home-page .mg-mascot-status{left:0;top:0;bottom:auto;width:100%;height:100%;padding:7px;font-size:22px;border-width:2px;line-height:1.35;letter-spacing:.06em}
+      body.home-page .members-guide-banner-copy{gap:7px}
+      body.home-page .mg-eyebrow{font-size:8px;letter-spacing:.1em}
+      body.home-page .members-guide-banner-title{font-size:clamp(20px,5.8vw,27px)}
+      body.home-page .members-guide-banner-description{font-size:12px;max-width:26em}
+      body.home-page .mg-topics{column-gap:9px;row-gap:8px;margin-top:5px}
+      body.home-page .mg-topic{font-size:11px!important;padding:0!important;gap:4px}
+      body.home-page .mg-topic::before{width:13px;height:13px;flex-basis:13px;font-size:9px}
+      body.home-page .mg-cta{right:14px;bottom:12px;width:34px;height:34px;border-width:2px}
+      body.home-page .mg-cta-arrow{font-size:21px}
+    }
