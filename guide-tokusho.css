@@ -225,3 +225,15 @@
 @keyframes adventure-walk{25%{transform:translate(-16px,-8px)}50%{transform:translate(5px,5px)}75%{transform:translate(18px,-6px)}}
 @media(max-width:600px){.tokusho-page .adventure-shell{padding:7px;border-width:4px;box-shadow:4px 5px 0 #bfd7e7}.tokusho-page .adventure-field{height:245px}.tokusho-page .adventure-hud{font-size:10px}.tokusho-page .adventure-dialogue{padding:11px;min-height:160px}.tokusho-page .adventure-choice{padding:10px;font-size:14px}.tokusho-page .adventure-tile{transform:scale(.8)}}
 @media(prefers-reduced-motion:reduce){.tokusho-page .adventure-hero.walking{animation:none}}
+
+/* Exploratory movement and command controls */
+.tokusho-page .adventure-pad{display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;padding:15px 6px;background:#0d2340;border:3px solid #557ba2;margin-top:10px}
+.tokusho-page .adventure-pad>button[data-dir]{align-self:flex-start}
+.tokusho-page .adventure-pad>div{display:flex;gap:5px}
+.tokusho-page .adventure-pad button{touch-action:manipulation;min-width:52px;min-height:49px;background:#244e79;color:#fff;border:3px solid #a7c8e3;font-size:17px;font-weight:800;cursor:pointer}
+.tokusho-page #adventure-talk{padding:8px 16px;font-size:14px;background:#f1f6ff;color:#143355;border-color:#a7c8e3}
+.tokusho-page .adventure-map-instruction{background:#f2f8ff;color:#15365c;padding:10px 13px;font-size:13px;font-weight:800;margin-top:10px}
+.tokusho-page .adventure-pad[hidden],.tokusho-page .adventure-map-instruction[hidden]{display:none!important}
+.tokusho-page .adventure-npc{filter:drop-shadow(3px 3px 0 #14283d)}
+.tokusho-page .adventure-field{touch-action:pan-y}
+@media(max-width:600px){.tokusho-page .adventure-pad{gap:9px}.tokusho-page .adventure-pad button{min-width:46px;min-height:47px}.tokusho-page #adventure-talk{width:100%}}
