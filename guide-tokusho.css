@@ -72,3 +72,53 @@
 @keyframes tokusho-bob{50%{transform:translateY(8px)}}
 @media(max-width:600px){.tokusho-page .tokusho-cinematic{min-height:680px;margin-bottom:70px}.tokusho-page .tokusho-cinematic-inner{min-height:680px;padding:55px 23px 40px}.tokusho-page .tokusho-big-copy{font-size:clamp(43px,11vw,62px)}.tokusho-page .tokusho-cinematic-sub{font-size:15px}.tokusho-page .tokusho-cinematic-mascot{right:7%;bottom:95px;width:132px}.tokusho-page .tokusho-mascot-quote{left:20px;bottom:230px;max-width:calc(100% - 40px);padding:13px 15px;font-size:14px}.tokusho-page .tokusho-scroll-hint{left:23px}.tokusho-page .tokusho-moment{grid-template-columns:1fr;gap:14px;padding:26px 23px}.tokusho-page .tokusho-moment-number{font-size:45px}.tokusho-page .tokusho-flow-ending{gap:10px}.tokusho-page .tokusho-flow-ending img{width:70px}.tokusho-page .tokusho-flow-ending p{padding:13px;font-size:14px}}
 @media(prefers-reduced-motion:reduce){.tokusho-page .tokusho-scroll-hint span{animation:none}.tokusho-page .reveal{opacity:1!important;transform:none!important;transition:none!important}}
+
+/* MITO QUEST — サイトの青と白を使ったゲーム風スクロール体験 */
+.tokusho-page{--quest-blue:#0055a4;--quest-deep:#234a70;--quest-light:#edf6ff}
+.tokusho-page .tokusho-stage{position:relative;isolation:isolate}
+.tokusho-page .tokusho-cinematic{background:radial-gradient(circle at 87% 18%,#cce6fb 0 12%,transparent 12.3%),radial-gradient(circle at 77% 40%,#e3f2fd 0 4%,transparent 4.3%),repeating-linear-gradient(-35deg,transparent 0 42px,rgba(0,85,164,.025) 43px 45px),linear-gradient(145deg,#e7f4ff,#fff 72%);border:3px solid #0055a4;border-radius:28px;box-shadow:9px 10px 0 #c3ddf0}
+.tokusho-page .tokusho-cinematic::before{content:"★";position:absolute;top:14%;right:13%;font-size:60px;color:#6bb5e8;transform:rotate(-18deg);animation:quest-float 3s ease-in-out infinite}
+.tokusho-page .tokusho-cinematic::after{content:"✦";position:absolute;top:46%;right:38%;font-size:38px;color:#80bde7;transform:rotate(12deg)}
+.tokusho-page .tokusho-eyebrow{display:inline-flex;align-items:center;flex-wrap:wrap;gap:10px;background:#0055a4;color:#fff;border-radius:99px;padding:8px 17px;letter-spacing:.08em}
+.tokusho-page .tokusho-version{font-size:10px;opacity:.85}
+.tokusho-page .tokusho-big-copy{font-size:clamp(48px,8vw,87px);line-height:1.25;text-shadow:3px 3px 0 #d1e8fa;letter-spacing:-.075em}
+.tokusho-page .tokusho-big-copy span{display:inline-block;transform:rotate(-2deg);text-decoration:underline;text-decoration-color:#94c8ee;text-decoration-thickness:9px;text-underline-offset:10px}
+.tokusho-page .tokusho-mascot-quote{border:3px solid #0055a4;border-radius:22px;box-shadow:5px 5px 0 #c7e3f6;transform:rotate(-2deg)}
+.tokusho-page .tokusho-cinematic-mascot{animation:quest-float 3.2s ease-in-out infinite}
+.tokusho-page .tokusho-stage-label,.tokusho-page .tokusho-flow-eyebrow{display:inline-block;margin:0 0 16px;padding:6px 15px;border:2px solid #0055a4;border-radius:99px;color:#0055a4;background:#fff;font-size:12px;font-weight:800;letter-spacing:.09em}
+.tokusho-page .tokusho-scroll-flow,.tokusho-page .tokusho-warning-stage,.tokusho-page .tokusho-choice-stage,.tokusho-page .tokusho-clear-stage{padding:46px 35px 50px;border-radius:28px;margin-bottom:64px}
+.tokusho-page .tokusho-scroll-flow{background:#f0f8ff}
+.tokusho-page .tokusho-warning-stage{background:#e9f4fd}
+.tokusho-page .tokusho-choice-stage{background:#f4f9ff;border:2px dashed #b8d8ee}
+.tokusho-page .tokusho-clear-stage{background:linear-gradient(150deg,#e5f4ff,#f9fcff);border:3px solid #b9ddf4}
+.tokusho-page .tokusho-stage>h2{font-size:clamp(25px,4.2vw,39px);line-height:1.45;color:#164f83;letter-spacing:-.05em}
+.tokusho-page .tokusho-moment{position:relative;background:#fff;border:2px solid #bad8ee;box-shadow:6px 7px 0 #c7e3f6;transform:rotate(-.7deg);transition:box-shadow .25s}
+.tokusho-page .tokusho-moment:nth-of-type(even){transform:rotate(.7deg)}
+.tokusho-page .tokusho-moment-number{font-size:66px;text-shadow:3px 3px 0 #d5eaf8}
+.tokusho-page .tokusho-moment h3{font-weight:800}
+.tokusho-page .tokusho-rule-grid{gap:16px}
+.tokusho-page .tokusho-rule{border:2px solid #a8cce8;box-shadow:4px 5px 0 #d0e5f5;transition:transform .2s,box-shadow .2s}
+.tokusho-page .tokusho-rule:nth-child(3n+2){transform:rotate(1deg)}
+.tokusho-page .tokusho-rule:nth-child(3n+1){transform:rotate(-1deg)}
+.tokusho-page .tokusho-rule:hover{transform:translateY(-5px) rotate(0);box-shadow:4px 9px 0 #c0ddf2}
+.tokusho-page .tokusho-rule-icon{background:#e4f2fc;border-radius:50%}
+.tokusho-page .tokusho-choice-heading{font-size:17px;font-weight:800;text-align:center;margin:0 0 20px;color:#0055a4}
+.tokusho-page .tokusho-dialogue{border-width:3px;box-shadow:5px 6px 0 #dce9f3}
+.tokusho-page .tokusho-ng{background:#fff;border-color:#b3c4d2}
+.tokusho-page .tokusho-ok{background:#fff;border-color:#0055a4}
+.tokusho-page .tokusho-ng .tokusho-dialogue-label::before{content:"✕  ";font-size:19px}
+.tokusho-page .tokusho-ok .tokusho-dialogue-label::before{content:"◎  ";font-size:19px}
+.tokusho-page .tokusho-compare-arrow{font-size:34px;font-weight:800;animation:quest-bounce 2s infinite}
+.tokusho-page .tokusho-check-list label{background:#fff;border:2px solid #c5dff1;box-shadow:3px 4px 0 #d8e9f5;transition:transform .18s}
+.tokusho-page .tokusho-check-list label:has(input:checked){background:#e5f5ff;border-color:#80b8de;transform:translateX(5px)}
+.tokusho-page .tokusho-clear-message{display:flex;align-items:center;gap:18px;margin-top:30px;padding:18px 22px;border:2px solid #a8cde7;border-radius:18px;background:#fff}
+.tokusho-page .tokusho-clear-message img{width:85px;height:95px;object-fit:contain}
+.tokusho-page .tokusho-clear-message p{margin:0;font-size:15px;line-height:1.8}
+.tokusho-page .tokusho-clear-message strong{color:#0055a4;font-size:20px}
+.tokusho-page .tokusho-clear-message.is-clear{border-color:#0055a4;box-shadow:5px 6px 0 #b6dcf5;animation:quest-celebrate .6s ease both}
+.tokusho-page .tokusho-source-stage{padding:20px 0}
+@keyframes quest-float{50%{translate:0 -12px}}
+@keyframes quest-bounce{50%{translate:0 9px}}
+@keyframes quest-celebrate{50%{transform:scale(1.035)}}
+@media(max-width:600px){.tokusho-page .tokusho-scroll-flow,.tokusho-page .tokusho-warning-stage,.tokusho-page .tokusho-choice-stage,.tokusho-page .tokusho-clear-stage{padding:30px 18px 34px;border-radius:19px;margin-bottom:45px}.tokusho-page .tokusho-cinematic{box-shadow:5px 6px 0 #c3ddf0}.tokusho-page .tokusho-big-copy{font-size:clamp(40px,10.7vw,59px)}.tokusho-page .tokusho-moment{box-shadow:3px 4px 0 #c7e3f6}.tokusho-page .tokusho-moment-number{font-size:53px}.tokusho-page .tokusho-cinematic::before{right:8%;top:30%;font-size:37px}.tokusho-page .tokusho-clear-message{padding:12px;gap:8px}.tokusho-page .tokusho-clear-message img{width:65px}.tokusho-page .tokusho-clear-message strong{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.tokusho-page .tokusho-cinematic::before,.tokusho-page .tokusho-cinematic-mascot,.tokusho-page .tokusho-compare-arrow,.tokusho-page .tokusho-clear-message.is-clear{animation:none!important}}
