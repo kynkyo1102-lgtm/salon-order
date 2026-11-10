@@ -106,10 +106,21 @@ body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c
 .salon-live[data-time-theme="morning"] .salon-sun{background:#fff0bb;box-shadow:0 0 45px 15px #fff0bb85;top:72px}
 .salon-live[data-time-theme="night"] .salon-live-status{text-shadow:none}
 </style>
-</head>
-<body class="home-page">
-
-  <header class="home-header">
+<style id="sun-cycle-preview-css">
+body.home-page[data-time-theme="dawn"]{background-color:#f0edf5}
+body.home-page[data-time-theme="late-night"]{background-color:#e6e9f3;color:#27344b}
+.salon-live[data-time-theme="dawn"]{--sky-top:#516a99;--sky-bottom:#f2b7a5;--ink:#fff}
+.salon-live[data-time-theme="late-night"]{--sky-top:#0d1530;--sky-bottom:#25365c;--ink:#fff}
+.salon-live[data-time-theme="dawn"][data-weather="rain"]{--sky-top:#59647f;--sky-bottom:#aa9fa8}
+.salon-live[data-time-theme="late-night"][data-weather="rain"]{--sky-top:#0b1427;--sky-bottom:#29384c}
+.salon-live[data-time-theme="dawn"][data-weather="cloud"]{--sky-top:#7a829d;--sky-bottom:#cfb4b6}
+.salon-live[data-time-theme="late-night"][data-weather="cloud"]{--sky-top:#1d2942;--sky-bottom:#455371}
+.salon-live[data-time-theme="dawn"][data-weather="snow"]{--sky-top:#a4a5c1;--sky-bottom:#f3d6d6}
+.salon-live[data-time-theme="late-night"][data-weather="snow"]{--sky-top:#2b3459;--sky-bottom:#7482a2}
+.salon-live[data-time-theme="late-night"] .salon-sun{width:48px;height:48px;background:#f4f5e9;box-shadow:0 0 24px #f5f3de55}
+.salon-live[data-time-theme="dawn"] .salon-sun{width:58px;height:58px;background:#ffe5b6;box-shadow:0 0 45px #ffe1ad66}
+</style></head>
+<body class="home-page">  <header class="home-header">
     <div class="home-header-brand">
       <a href="index.html" class="header-logo">Place de Nina</a>
       <span class="home-header-shop">南熊本店</span>
@@ -330,12 +341,33 @@ body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c
   const localParts=()=>Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
   let holidayDates=null;
 
-  let chosenTime='auto',chosenWeather='auto',actualWeather='sun';
+  let chosenTime='auto',chosenWeather='auto',actualWeather='sun';let solar={sunrise:6*60+30,sunset:18*60},solarReady=false;
+  const toMinute=s=>{const m=/(\d{2}):(\d{2})$/.exec(s||'');return m?Number(m[1])*60+Number(m[2]):null};
+  const fmtMinute=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
+  async function loadSolar(){
+    const season='today';
+    const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    const day=season==='summer'?'2025-06-21':season==='winter'?'2025-12-21':today;
+    const base=season==='today'?'https://api.open-meteo.com/v1/forecast':'https://archive-api.open-meteo.com/v1/archive';
+    const params=new URLSearchParams({latitude:'32.7898',longitude:'130.7079',daily:'sunrise,sunset',timezone:'Asia/Tokyo'});
+    if(season==='today')params.set('forecast_days','1');
+    else{params.set('start_date',day);params.set('end_date',day)}
+    try{
+      const res=await fetch(base+'?'+params.toString(),{cache:'no-store'});
+      if(!res.ok)throw Error('HTTP '+res.status);
+      const d=await res.json(),sunrise=toMinute(d.daily?.sunrise?.[0]),sunset=toMinute(d.daily?.sunset?.[0]);
+      if(sunrise===null||sunset===null)throw Error('日の出・日の入りの値がありません');
+      solar={sunrise,sunset};solarReady=true;
+    }catch(e){
+      solarReady=false;
+      console.warn('日の出・日の入りの取得に失敗:',e);
+    }
+    applyScene();
+  }
   function applyScene(){
     const p=localParts(),hour=Number(p.hour);
-    const time=chosenTime==='auto'?(hour>=5&&hour<11?'morning':hour>=11&&hour<17?'day':hour>=17&&hour<19?'evening':'night'):chosenTime;
-    const weather=chosenWeather==='auto'?actualWeather:chosenWeather;
-    root.dataset.timeTheme=time;document.body.dataset.timeTheme=time;root.dataset.night=time==='night'?'true':'false';
+    const minute=hour*60+Number(p.minute);const dawnStart=Math.min(5*60,solar.sunrise-45),dawnEnd=solar.sunrise+45,eveningStart=solar.sunset-60,eveningEnd=solar.sunset+30;const time=minute>=23*60||minute<dawnStart?'late-night':minute<dawnEnd?'dawn':minute<11*60?'morning':minute<eveningStart?'day':minute<eveningEnd?'evening':'night';    const weather=chosenWeather==='auto'?actualWeather:chosenWeather;
+    root.dataset.timeTheme=time;document.body.dataset.timeTheme=time;root.dataset.night=(time==='night'||time==='late-night')?'true':'false';
     root.dataset.weather=weather;
     if(chosenWeather!=='auto'){
       const map={sun:['☀️','晴れ'],cloud:['☁️','くもり'],rain:['🌧️','雨'],snow:['❄️','雪']};
@@ -344,7 +376,7 @@ body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c
   }
   let actualLabel='天気を取得中',actualIcon='🌤️';
   function showActualWeather(){weatherIcon.textContent=actualIcon;weatherText.textContent=actualLabel;}
-  applyScene();setInterval(()=>{if(chosenTime==='auto')applyScene()},60000);
+  loadSolar();setInterval(applyScene,60000);setInterval(loadSolar,6*60*60*1000);
 
   let exceptions={};
   let holidaysReady=false,settingsReady=false,settingsValid=false;
