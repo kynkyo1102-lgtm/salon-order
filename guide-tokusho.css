@@ -169,3 +169,59 @@
 @keyframes rpg-step{50%{transform:translateY(-7px)}}@keyframes rpg-blink{50%{opacity:0}}
 @media(max-width:600px){.tokusho-page .rpg-intro{padding:7px;margin:18px 0 45px}.tokusho-page .rpg-title-screen{min-height:680px;padding:28px 12px 25px}.tokusho-page .rpg-logo{font-size:clamp(54px,15vw,78px)}.tokusho-page .rpg-map{height:245px}.tokusho-page .rpg-house{left:10%;transform:scale(.75);transform-origin:top left}.tokusho-page .rpg-tree-a{right:9%}.tokusho-page .rpg-tree-d{right:8%}.tokusho-page .rpg-intro-dialogue{margin-top:-12px;padding:13px 12px}.tokusho-page .tokusho-scroll-flow,.tokusho-page .tokusho-warning-stage,.tokusho-page .tokusho-choice-stage,.tokusho-page .tokusho-clear-stage{border-width:3px;box-shadow:4px 5px 0 #c4dce9}.tokusho-page .tokusho-moment{box-shadow:3px 4px 0 #a5c6dd}}
 @media(prefers-reduced-motion:reduce){.tokusho-page .rpg-hero,.tokusho-page .rpg-caret{animation:none}}
+
+/* Playable retro quest — self-contained, responsive and accessible */
+.tokusho-page .adventure{margin:26px 0 54px;max-width:100%;font-family:"Noto Sans JP",sans-serif}
+.tokusho-page .adventure-heading{text-align:center;background:#142a4c;color:#fff;padding:25px 12px;border:6px solid #426d96;box-shadow:0 7px 0 #adc9df}
+.tokusho-page .adventure-heading p{margin:0;color:#a8d4ed;font:700 12px monospace;letter-spacing:.2em}
+.tokusho-page .adventure-heading h2{color:#fff;font-size:clamp(30px,7vw,56px);margin:8px 0;text-shadow:4px 4px #426d96;letter-spacing:.08em}
+.tokusho-page .adventure-heading span{font-size:16px;font-weight:800}
+.tokusho-page .adventure-shell{margin:16px auto 0;padding:12px;background:#162b4d;border:6px solid #436c93;box-shadow:7px 8px 0 #bfd7e7;color:#fff}
+.tokusho-page .adventure-hud{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 10px 14px;font:700 12px/1.5 monospace;color:#e5f5ff}
+.tokusho-page .adventure-field{position:relative;height:330px;overflow:hidden;border:5px solid #081b35;background:repeating-conic-gradient(#9ecab1 0 25%,#a8d3bb 0 50%) 0 0/32px 32px;image-rendering:pixelated}
+.tokusho-page .adventure-field[data-scene=forest]{background:repeating-conic-gradient(#457c64 0 25%,#528d6e 0 50%) 0 0/32px 32px}
+.tokusho-page .adventure-field[data-scene=cave]{background:repeating-conic-gradient(#555a79 0 25%,#676d8c 0 50%) 0 0/32px 32px}
+.tokusho-page .adventure-field[data-scene=castle]{background:repeating-conic-gradient(#b6b8c9 0 25%,#a5a8bc 0 50%) 0 0/32px 32px}
+.tokusho-page .adventure-field::before{content:"";position:absolute;z-index:0;top:-20%;left:40%;width:22%;height:150%;background:repeating-linear-gradient(#e4d2a4 0 18px,#e9d8ae 18px 36px);transform:rotate(28deg);border-left:10px solid #cbb88a;border-right:10px solid #cbb88a}
+.tokusho-page .adventure-field[data-scene=cave]::before{background:#797e9b;border-color:#696e8c}.tokusho-page .adventure-field[data-scene=castle]::before{background:#e1e2eb;border-color:#9299b3}
+.tokusho-page .adventure-terrain{position:absolute;inset:0}
+.tokusho-page .adventure-tile{position:absolute;display:block;width:52px;height:52px;filter:drop-shadow(4px 5px 0 rgba(0,0,0,.2))}
+.tokusho-page .adventure-tile-tree{background:#2e7963;border:7px solid #225c55;box-shadow:0 10px #4c9c76}
+.tokusho-page .adventure-tile-house{background:#eee6c8;border:7px solid #31597b}
+.tokusho-page .adventure-tile-house::before{content:"";position:absolute;left:-10px;top:-19px;width:58px;height:18px;background:#507dab;border:4px solid #254b6e}
+.tokusho-page .adventure-tile-well{border:10px solid #477ba5;background:#8bc7df}
+.tokusho-page .adventure-tile-flower{width:20px;height:20px;background:#fff2b4;border:6px solid #73a4c3}
+.tokusho-page .adventure-tile-rock{background:#777f91;border:7px solid #414f68;transform:rotate(9deg)}
+.tokusho-page .adventure-tile-crystal{background:#9cddf2;border:7px solid #5b9ab9;transform:rotate(45deg);width:35px;height:35px}
+.tokusho-page .adventure-tile-tower{background:#e3e4ec;border:8px solid #637697;height:65px}
+.tokusho-page .adventure-tile-gate{background:#263f64;border:9px solid #c5ccdd;height:65px}
+.tokusho-page .adventure-tile-flag{background:#5d94bd;width:28px;height:35px;border-left:6px solid #e7e7ee}
+.tokusho-page .adventure-tile-stone{background:#a2a8b8;border:5px solid #788399}
+.tokusho-page .adventure-hero{position:absolute;z-index:3;left:47%;top:52%;width:36px;height:58px;filter:drop-shadow(4px 4px 0 #173047)}
+.tokusho-page .adventure-hero-head{display:block;width:30px;height:27px;margin:auto;background:#f7d4ac;border:7px solid #233c65;box-shadow:0 -7px #3d6fa1}
+.tokusho-page .adventure-hero-body{display:block;width:34px;height:26px;background:#376fa4;border:6px solid #203e65;box-shadow:-7px 8px #1c3457,7px 8px #1c3457}
+.tokusho-page .adventure-hero.walking{animation:adventure-walk .8s steps(3,end)}
+.tokusho-page .adventure-npc{position:absolute;z-index:2;left:66%;top:25%;width:35px;height:55px}
+.tokusho-page .adventure-npc span{position:absolute;top:-23px;left:8px;color:#fff;background:#204b77;padding:0 6px;font-weight:900}
+.tokusho-page .adventure-npc i{display:block;margin-top:12px;width:35px;height:38px;background:#e3d5a9;border:8px solid #485b82;box-shadow:0 10px #263b62}
+.tokusho-page .adventure-location{position:absolute;bottom:9px;left:10px;padding:5px 10px;background:#152e52;color:#fff;font-size:13px;font-weight:800}
+.tokusho-page .adventure-dialogue{margin-top:12px;min-height:145px;padding:15px 18px;border:5px double #fff;outline:3px solid #071a35;background:#112846}
+.tokusho-page .adventure-speaker{font-size:13px;color:#a9ddff;font-weight:800}
+.tokusho-page .adventure-dialogue p{margin:8px 0 0;color:#fff;font-size:clamp(15px,2.2vw,19px);font-weight:700;line-height:1.8;white-space:pre-line}
+.tokusho-page .adventure-choices{display:grid;gap:8px;margin:15px 0}
+.tokusho-page .adventure-choice{display:block;width:100%;text-align:left;background:#18365c;border:3px solid #87aed2;color:#fff;padding:12px 15px;font:700 15px/1.65 "Noto Sans JP",sans-serif;cursor:pointer}
+.tokusho-page .adventure-choice:not(:disabled):hover,.tokusho-page .adventure-choice:not(:disabled):focus-visible{background:#2c5784;outline:2px solid #fff;outline-offset:2px}
+.tokusho-page .adventure-choice.correct{border-color:#9ce4b4;background:#285d4e}
+.tokusho-page .adventure-choice.incorrect{border-color:#f0b5b5;background:#733e4a}
+.tokusho-page .adventure-choice:disabled{cursor:default;opacity:.85}
+.tokusho-page .adventure-feedback{padding:16px;border:3px solid #9bc6e9;background:#f2f9ff;color:#193c60;font-size:15px;line-height:1.85}
+.tokusho-page .adventure-feedback strong{font-size:17px}
+.tokusho-page .adventure-feedback p{margin:6px 0 0}
+.tokusho-page .adventure-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#bbd8ed;font-size:12px}
+.tokusho-page .adventure-controls button{border:1px solid #a7c7e0;color:#fff;background:transparent;padding:7px 10px;cursor:pointer}
+.tokusho-page .adventure-caption{font-size:13px;color:#596d7c;margin:19px 0 0}
+.tokusho-page .adventure-reference{border-top:2px solid #d7e6f1;padding-top:24px}
+.tokusho-page .adventure-reference h2{font-size:23px}
+@keyframes adventure-walk{25%{transform:translate(-16px,-8px)}50%{transform:translate(5px,5px)}75%{transform:translate(18px,-6px)}}
+@media(max-width:600px){.tokusho-page .adventure-shell{padding:7px;border-width:4px;box-shadow:4px 5px 0 #bfd7e7}.tokusho-page .adventure-field{height:245px}.tokusho-page .adventure-hud{font-size:10px}.tokusho-page .adventure-dialogue{padding:11px;min-height:160px}.tokusho-page .adventure-choice{padding:10px;font-size:14px}.tokusho-page .adventure-tile{transform:scale(.8)}}
+@media(prefers-reduced-motion:reduce){.tokusho-page .adventure-hero.walking{animation:none}}
