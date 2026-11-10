@@ -348,7 +348,7 @@ body.home-page[data-time-theme="late-night"]{background-color:#e6e9f3;color:#273
   let holidayDates=null;
 
   let chosenTime='auto',chosenWeather='auto',actualWeather='sun';let solar={sunrise:6*60+30,sunset:18*60},solarReady=false;
-  const toMinute=s=>{const m=/(\\d{2}):(\\d{2})$/.exec(s||'');return m?Number(m[1])*60+Number(m[2]):null};
+  const toMinute=s=>{const m=/(\d{2}):(\d{2})$/.exec(s||'');return m?Number(m[1])*60+Number(m[2]):null};
   const fmtMinute=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
   async function loadSolar(){
     const season=document.getElementById('sky-preview-season').value;
