@@ -71,6 +71,46 @@
 @keyframes salon-snowfall{to{background-position:25px 120px}}
 @media(max-width:600px){.salon-live,.salon-live-inner{min-height:150px}.salon-live-inner{padding:18px 16px;align-items:flex-start;flex-direction:column;gap:13px}.salon-scene-label{font-size:9px;margin-bottom:9px}.salon-live-status{font-size:18px;gap:9px}.salon-live-sub{font-size:10px;margin-left:21px;margin-top:6px}.salon-live-weather{align-self:flex-end;padding:7px 10px;border-radius:12px;font-size:11px;margin-top:-5px}.salon-live-weather-icon{font-size:22px}.salon-live-weather-caption{font-size:9px}.salon-sun{right:16%;top:21px;width:65px;height:65px}.salon-cloud.one{left:55%;top:85px}.salon-cloud.two{top:105px}}
 @media(prefers-reduced-motion:reduce){.salon-live *{animation:none!important;transition:none!important}}
+
+/* Four time-of-day themes; preserve functional cards and their contrast. */
+body.home-page{transition:background-color .65s ease,color .65s ease}
+body.home-page[data-time-theme="morning"]{background-color:#fff8f0}
+body.home-page[data-time-theme="day"]{background-color:#f5fbff}
+body.home-page[data-time-theme="evening"]{background-color:#fff4f0}
+body.home-page[data-time-theme="night"]{background-color:#e9edf7;color:#27344b}
+body.home-page[data-time-theme="night"] .hero-order-section,
+body.home-page[data-time-theme="night"] .home-news-section{background-color:transparent}
+body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c18}
+.salon-live[data-time-theme="morning"]{--sky-top:#f5b88d;--sky-bottom:#fff4d8;--ink:#754c43}
+.salon-live[data-time-theme="day"]{--sky-top:#83c8f1;--sky-bottom:#e5f8ff;--ink:#244b67}
+.salon-live[data-time-theme="evening"]{--sky-top:#bb84a8;--sky-bottom:#f9bf9f;--ink:#533e64}
+.salon-live[data-time-theme="night"]{--sky-top:#1b2c51;--sky-bottom:#4a5e88;--ink:#fff}
+.salon-live[data-time-theme="morning"][data-weather="rain"]{--sky-top:#b6a4a5;--sky-bottom:#e9d6cc}
+.salon-live[data-time-theme="evening"][data-weather="rain"]{--sky-top:#77758d;--sky-bottom:#bda5b0}
+.salon-live[data-time-theme="night"][data-weather="rain"]{--sky-top:#172541;--sky-bottom:#53647d}
+.salon-live[data-time-theme="day"][data-weather="rain"]{--sky-top:#748da8;--sky-bottom:#cadce7}
+.salon-live[data-time-theme="morning"][data-weather="cloud"]{--sky-top:#d9b8aa;--sky-bottom:#f5e9d9}
+.salon-live[data-time-theme="evening"][data-weather="cloud"]{--sky-top:#a99bac;--sky-bottom:#e9c4b9}
+.salon-live[data-time-theme="day"][data-weather="cloud"]{--sky-top:#aebfce;--sky-bottom:#e7edf3}
+.salon-live[data-time-theme="night"][data-weather="cloud"]{--sky-top:#344363;--sky-bottom:#71819a}
+.salon-live[data-time-theme="morning"][data-weather="snow"]{--sky-top:#d6d7e5;--sky-bottom:#fff1e7}
+.salon-live[data-time-theme="evening"][data-weather="snow"]{--sky-top:#b6a5c4;--sky-bottom:#f6dce5}
+.salon-live[data-time-theme="day"][data-weather="snow"]{--sky-top:#b9d5e8;--sky-bottom:#f3faff}
+.salon-live[data-time-theme="night"][data-weather="snow"]{--sky-top:#293957;--sky-bottom:#8a9cb9}
+.salon-live[data-time-theme="night"] .salon-stars{opacity:.85}
+.salon-live[data-time-theme="night"] .salon-cloud{background:#bac8de;opacity:.38}
+.salon-live[data-time-theme="night"] .salon-sun{width:58px;height:58px;background:#fff7d8;box-shadow:0 0 32px #fff9dc88}
+.salon-live[data-time-theme="evening"] .salon-sun{background:#ffe0a3;box-shadow:0 0 45px 15px #ffe0a36b;top:65px}
+.salon-live[data-time-theme="morning"] .salon-sun{background:#fff0bb;box-shadow:0 0 45px 15px #fff0bb85;top:72px}
+.salon-live[data-time-theme="night"] .salon-live-status{text-shadow:none}
+.salon-preview-controls{background:#fff;border-bottom:1px solid #e6e8eb;padding:12px 16px;font-family:"Noto Sans JP",sans-serif;color:#35465b}
+.salon-preview-controls-inner{max-width:1050px;margin:auto;display:flex;align-items:center;flex-wrap:wrap;gap:9px 16px}
+.salon-preview-controls-label{font-size:11px;font-weight:700;letter-spacing:.04em}
+.salon-preview-buttons{display:flex;flex-wrap:wrap;gap:5px}
+.salon-preview-buttons button{border:1px solid #cbd6df;border-radius:999px;background:#fff;color:#465a70;padding:6px 11px;font:600 11px "Noto Sans JP",sans-serif;cursor:pointer}
+.salon-preview-buttons button[aria-pressed="true"]{background:#344f6f;color:#fff;border-color:#344f6f}
+.salon-preview-note{font-size:10px;color:#69798b;margin:0}
+@media(max-width:600px){.salon-preview-controls-inner{gap:8px}.salon-preview-controls-label{width:100%}.salon-preview-buttons button{padding:6px 10px}}
 </style>
 </head>
 <body class="home-page">
@@ -100,6 +140,7 @@
     </nav>
   </header>
 
+<div class="salon-preview-controls" aria-label="プレビュー表示切り替え"><div class="salon-preview-controls-inner"><span class="salon-preview-controls-label">プレビューで比較</span><div class="salon-preview-buttons" id="salon-time-controls"><button type="button" data-time="auto" aria-pressed="true">自動</button><button type="button" data-time="morning" aria-pressed="false">朝</button><button type="button" data-time="day" aria-pressed="false">昼</button><button type="button" data-time="evening" aria-pressed="false">夕方</button><button type="button" data-time="night" aria-pressed="false">夜</button></div><div class="salon-preview-buttons" id="salon-weather-controls"><button type="button" data-weather="auto" aria-pressed="true">実際の天気</button><button type="button" data-weather="sun" aria-pressed="false">晴れ</button><button type="button" data-weather="cloud" aria-pressed="false">くもり</button><button type="button" data-weather="rain" aria-pressed="false">雨</button><button type="button" data-weather="snow" aria-pressed="false">雪</button></div><p class="salon-preview-note">切り替えは見た目の確認用。営業状況は実際の日本時間で判定します。</p></div></div>
 <aside class="salon-live" id="salon-live" aria-label="サロンの営業状況と熊本の天気" data-status="checking">
   <div class="salon-sky" aria-hidden="true"><div class="salon-stars"></div><div class="salon-sun"></div><div class="salon-cloud one"></div><div class="salon-cloud two"></div><div class="salon-cloud three"></div><div class="salon-rain"></div><div class="salon-snow"></div></div>
   <div class="salon-live-inner">
@@ -295,8 +336,31 @@
   if(!root)return;
   const localParts=()=>Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
   let holidayDates=null;
+
+  let chosenTime='auto',chosenWeather='auto',actualWeather='sun';
+  function applyScene(){
+    const p=localParts(),hour=Number(p.hour);
+    const time=chosenTime==='auto'?(hour>=5&&hour<11?'morning':hour>=11&&hour<17?'day':hour>=17&&hour<19?'evening':'night'):chosenTime;
+    const weather=chosenWeather==='auto'?actualWeather:chosenWeather;
+    root.dataset.timeTheme=time;document.body.dataset.timeTheme=time;root.dataset.night=time==='night'?'true':'false';
+    root.dataset.weather=weather;
+    if(chosenWeather!=='auto'){
+      const map={sun:['☀️','晴れ'],cloud:['☁️','くもり'],rain:['🌧️','雨'],snow:['❄️','雪']};
+      weatherIcon.textContent=map[weather][0];weatherText.textContent=map[weather][1]+'（表示例）';
+    }
+  }
+  function bindControls(id,attribute,change){
+    const group=document.getElementById(id);if(!group)return;
+    group.addEventListener('click',event=>{const btn=event.target.closest('button');if(!btn||!group.contains(btn))return;change(btn.dataset[attribute]);group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));applyScene();});
+  }
+  bindControls('salon-time-controls','time',v=>{chosenTime=v});
+  bindControls('salon-weather-controls','weather',v=>{chosenWeather=v;if(v==='auto')showActualWeather()});
+  let actualLabel='天気を取得中',actualIcon='🌤️';
+  function showActualWeather(){weatherIcon.textContent=actualIcon;weatherText.textContent=actualLabel;}
+  applyScene();setInterval(()=>{if(chosenTime==='auto')applyScene()},60000);
+
   function updateStatus(){
-    const p=localParts(),day=p.year+'-'+p.month+'-'+p.day,minute=Number(p.hour)*60+Number(p.minute);root.dataset.night=(minute<360||minute>=1080)?'true':'false';
+    const p=localParts(),day=p.year+'-'+p.month+'-'+p.day,minute=Number(p.hour)*60+Number(p.minute);if(chosenTime==='auto')applyScene();
     const regular=['Mon','Tue','Thu','Fri'].includes(p.weekday);
     if(!regular){root.dataset.status='closed';status.textContent='本日は定休日';sub.textContent='水・土・日・祝は基本お休み';return;}
     if(holidayDates===null){root.dataset.status='checking';status.textContent='営業状況を確認中';sub.textContent='通常営業時間 11:00〜17:00';return;}
@@ -315,8 +379,8 @@
     else if([45,48].includes(code)){label='霧';icon='🌫️';kind='cloud'}
     else if([51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99].includes(code)){label='雨';icon='🌧️';kind='rain'}
     else if([71,73,75,77,85,86].includes(code)){label='雪';icon='❄️';kind='snow'}
-    root.dataset.weather=kind;weatherIcon.textContent=icon;weatherText.textContent=label+(typeof temp==='number'?' · '+Math.round(temp)+'℃':'');
-  }).catch(()=>{weatherIcon.textContent='☁️';weatherText.textContent='天気を確認できません'});
+    actualWeather=kind;actualIcon=icon;actualLabel=label+(typeof temp==='number'?' · '+Math.round(temp)+'℃':'');if(chosenWeather==='auto')showActualWeather();applyScene();
+  }).catch(()=>{actualIcon='☁️';actualLabel='天気を確認できません';if(chosenWeather==='auto')showActualWeather()});
 })();
 </script>
 </body>
