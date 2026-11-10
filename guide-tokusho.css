@@ -122,3 +122,50 @@
 @keyframes quest-celebrate{50%{transform:scale(1.035)}}
 @media(max-width:600px){.tokusho-page .tokusho-scroll-flow,.tokusho-page .tokusho-warning-stage,.tokusho-page .tokusho-choice-stage,.tokusho-page .tokusho-clear-stage{padding:30px 18px 34px;border-radius:19px;margin-bottom:45px}.tokusho-page .tokusho-cinematic{box-shadow:5px 6px 0 #c3ddf0}.tokusho-page .tokusho-big-copy{font-size:clamp(40px,10.7vw,59px)}.tokusho-page .tokusho-moment{box-shadow:3px 4px 0 #c7e3f6}.tokusho-page .tokusho-moment-number{font-size:53px}.tokusho-page .tokusho-cinematic::before{right:8%;top:30%;font-size:37px}.tokusho-page .tokusho-clear-message{padding:12px;gap:8px}.tokusho-page .tokusho-clear-message img{width:65px}.tokusho-page .tokusho-clear-message strong{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.tokusho-page .tokusho-cinematic::before,.tokusho-page .tokusho-cinematic-mascot,.tokusho-page .tokusho-compare-arrow,.tokusho-page .tokusho-clear-message.is-clear{animation:none!important}}
+
+/* RETRO RPG : 8-bit map, framed dialogue, pixel edges. Shared Nina Guide palette. */
+.tokusho-page{--rpg-navy:#142e58;--rpg-blue:#0055a4;--rpg-sky:#b8dff6;--rpg-grass:#a8d4bf;--rpg-darkgrass:#7cb39d;--rpg-earth:#f4e7bd}
+.tokusho-page .rpg-intro{margin:24px 0 65px;background:#17385f;padding:12px;border:5px solid #163152;box-shadow:0 0 0 4px #b8d9f0,8px 8px 0 #d7e5ef;image-rendering:pixelated}
+.tokusho-page .rpg-title-screen{position:relative;overflow:hidden;min-height:740px;padding:30px 26px 25px;background:linear-gradient(#8cc7e8 0 42%,#a9d9c4 42%);text-align:center}
+.tokusho-page .rpg-topline{position:relative;z-index:3;margin:0;font:800 12px/1.5 monospace;letter-spacing:.24em;color:#163152}
+.tokusho-page .rpg-logo{position:relative;z-index:3;margin:10px auto 0;color:white;font:900 clamp(60px,11vw,112px)/.91 monospace;letter-spacing:.025em;text-shadow:5px 0 #163152,-5px 0 #163152,0 5px #163152,0 -5px #163152,7px 8px #0055a4}
+.tokusho-page .rpg-logo span{display:block;margin-top:20px;font:800 clamp(15px,3vw,23px)/1.4 "Noto Sans JP",sans-serif;letter-spacing:.14em;color:#163152;text-shadow:2px 2px #fff}
+.tokusho-page .rpg-map{position:relative;z-index:1;margin:20px auto 0;height:270px;max-width:720px;border:5px solid #396d81;background:repeating-conic-gradient(#a8d4bf 0 25%,#9acbb5 0 50%) 0 0/32px 32px;overflow:hidden}
+.tokusho-page .rpg-path{position:absolute;left:42%;top:-20px;width:115px;height:350px;background:repeating-linear-gradient(0deg,#e8d6a6 0 16px,#e3d0a0 16px 32px);transform:rotate(24deg);box-shadow:15px 0 #d8c18f,-15px 0 #d8c18f}
+.tokusho-page .rpg-house{position:absolute;left:14%;top:54px;width:92px;height:74px;background:#f5f0d8;border:8px solid #315d86;box-shadow:8px 8px 0 #588d97}
+.tokusho-page .rpg-house:before{content:"";position:absolute;left:-17px;top:-33px;width:110px;height:31px;background:#4778a4;border:5px solid #20456d;transform:skew(-12deg)}
+.tokusho-page .rpg-house i{position:absolute;bottom:-8px;left:34px;width:20px;height:35px;background:#20456d}
+.tokusho-page .rpg-tree{position:absolute;width:45px;height:45px;background:#397f70;border:7px solid #235f62;box-shadow:0 10px 0 #67a88d}
+.tokusho-page .rpg-tree-a{top:35px;right:18%}.tokusho-page .rpg-tree-b{top:105px;right:8%}.tokusho-page .rpg-tree-c{bottom:18px;left:8%}.tokusho-page .rpg-tree-d{bottom:22px;right:25%}
+.tokusho-page .rpg-water{position:absolute;right:-20px;top:-20px;width:100px;height:95px;background:repeating-linear-gradient(0deg,#80c8e8 0 12px,#5ba9d4 12px 22px);transform:rotate(-12deg);border:8px solid #d5e9d3}
+.tokusho-page .rpg-hero{position:absolute;left:48%;top:40%;width:75px;height:90px;filter:drop-shadow(5px 6px 0 #376d71);animation:rpg-step 1.2s steps(2,end) infinite}
+.tokusho-page .rpg-hero img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.tokusho-page .rpg-map-label{position:absolute;bottom:8px;left:10px;background:#163152;color:#fff;padding:4px 10px;font-size:12px;font-weight:800}
+.tokusho-page .rpg-window{position:relative;background:#17365d!important;color:#fff!important;border:5px double #fff!important;outline:4px solid #17365d;border-radius:2px!important;box-shadow:5px 7px 0 #a7c6d9!important;text-align:left}
+.tokusho-page .rpg-intro-dialogue{z-index:2;max-width:680px;margin:-15px auto 22px;padding:17px 22px 19px}
+.tokusho-page .rpg-speaker{font-size:12px;font-weight:800;color:#b9e3ff}
+.tokusho-page .rpg-intro-dialogue p{margin:5px 0 0;color:#fff;font-size:clamp(14px,2vw,18px);font-weight:700;line-height:1.85}
+.tokusho-page .rpg-caret{color:#b8e6ff;animation:rpg-blink 1s steps(2,end) infinite}
+.tokusho-page .rpg-start{display:inline-block;position:relative;z-index:2;padding:13px 25px;background:#fff;color:#17365d!important;border:4px solid #17365d;box-shadow:5px 5px 0 #6c9fc1;font-weight:800;text-decoration:none;transition:transform .2s}
+.tokusho-page .rpg-start:hover{transform:translateY(-4px)}
+.tokusho-page .rpg-scroll{margin:15px 0 0;font-size:12px;color:#17365d;font-weight:800}
+.tokusho-page .tokusho-scroll-flow,.tokusho-page .tokusho-warning-stage,.tokusho-page .tokusho-choice-stage,.tokusho-page .tokusho-clear-stage{border:5px solid #244c72;border-radius:4px;background:#eaf5fc;box-shadow:7px 8px 0 #c4dce9}
+.tokusho-page .tokusho-warning-stage{background:#e5f0e9}.tokusho-page .tokusho-choice-stage{background:#e9e9f4}.tokusho-page .tokusho-clear-stage{background:#edf5ff}
+.tokusho-page .tokusho-stage-label,.tokusho-page .tokusho-flow-eyebrow{border-radius:2px;border:3px solid #234a70;background:#234a70;color:#fff;box-shadow:4px 4px 0 #9cc1dc;font-family:monospace;font-size:12px}
+.tokusho-page .tokusho-stage>h2{font-weight:800}
+.tokusho-page .tokusho-moment{border:3px solid #234a70;border-radius:2px;box-shadow:6px 6px 0 #a5c6dd;transform:none!important}
+.tokusho-page .rpg-pixel-marker{position:absolute;right:12px;top:10px;color:#0055a4;font-size:21px}
+.tokusho-page .tokusho-moment-number{font-family:monospace}
+.tokusho-page .tokusho-rule{border:3px solid #315b7c;border-radius:2px;box-shadow:4px 5px 0 #a9c4d5;transform:none!important}
+.tokusho-page .tokusho-rule:hover{transform:translateY(-4px)!important}
+.tokusho-page .tokusho-rule-icon{border-radius:2px}
+.tokusho-page .tokusho-dialogue{border-radius:2px;border:3px solid #234a70;box-shadow:5px 5px 0 #aac7dc}
+.tokusho-page .tokusho-flow-ending.rpg-window{padding:16px 18px;max-width:650px}
+.tokusho-page .tokusho-flow-ending.rpg-window p{border:0;color:#fff;padding:0}
+.tokusho-page .tokusho-check-list label{border-radius:2px;border:2px solid #315b7c;box-shadow:4px 4px 0 #bed5e7}
+.tokusho-page .tokusho-clear-message.rpg-window{margin-top:30px;padding:16px}
+.tokusho-page .tokusho-clear-message.rpg-window p{color:#fff}
+.tokusho-page .tokusho-clear-message.rpg-window strong{color:#a9dfff}
+@keyframes rpg-step{50%{transform:translateY(-7px)}}@keyframes rpg-blink{50%{opacity:0}}
+@media(max-width:600px){.tokusho-page .rpg-intro{padding:7px;margin:18px 0 45px}.tokusho-page .rpg-title-screen{min-height:680px;padding:28px 12px 25px}.tokusho-page .rpg-logo{font-size:clamp(54px,15vw,78px)}.tokusho-page .rpg-map{height:245px}.tokusho-page .rpg-house{left:10%;transform:scale(.75);transform-origin:top left}.tokusho-page .rpg-tree-a{right:9%}.tokusho-page .rpg-tree-d{right:8%}.tokusho-page .rpg-intro-dialogue{margin-top:-12px;padding:13px 12px}.tokusho-page .tokusho-scroll-flow,.tokusho-page .tokusho-warning-stage,.tokusho-page .tokusho-choice-stage,.tokusho-page .tokusho-clear-stage{border-width:3px;box-shadow:4px 5px 0 #c4dce9}.tokusho-page .tokusho-moment{box-shadow:3px 4px 0 #a5c6dd}}
+@media(prefers-reduced-motion:reduce){.tokusho-page .rpg-hero,.tokusho-page .rpg-caret{animation:none}}
