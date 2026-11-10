@@ -72,6 +72,8 @@
 @media(max-width:600px){.salon-live,.salon-live-inner{min-height:150px}.salon-live-inner{padding:18px 16px;align-items:flex-start;flex-direction:column;gap:13px}.salon-scene-label{font-size:9px;margin-bottom:9px}.salon-live-status{font-size:18px;gap:9px}.salon-live-sub{font-size:10px;margin-left:21px;margin-top:6px}.salon-live-weather{align-self:flex-end;padding:7px 10px;border-radius:12px;font-size:11px;margin-top:-5px}.salon-live-weather-icon{font-size:22px}.salon-live-weather-caption{font-size:9px}.salon-sun{right:16%;top:21px;width:65px;height:65px}.salon-cloud.one{left:55%;top:85px}.salon-cloud.two{top:105px}}
 @media(prefers-reduced-motion:reduce){.salon-live *{animation:none!important;transition:none!important}}
 
+.salon-live-line-note{font-size:11px;font-weight:700;line-height:1.6;margin:9px 0 0 23px;color:inherit;opacity:.9;max-width:340px}
+@media(max-width:600px){.salon-live-line-note{font-size:10px;margin-left:21px;margin-top:7px;max-width:260px}.salon-live,.salon-live-inner{min-height:174px}}
 /* Four time-of-day themes; preserve functional cards and their contrast. */
 body.home-page{transition:background-color .65s ease,color .65s ease}
 body.home-page[data-time-theme="morning"]{background-color:#fff8f0}
@@ -144,7 +146,7 @@ body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c
 <aside class="salon-live" id="salon-live" aria-label="サロンの営業状況と熊本の天気" data-status="checking">
   <div class="salon-sky" aria-hidden="true"><div class="salon-stars"></div><div class="salon-sun"></div><div class="salon-cloud one"></div><div class="salon-cloud two"></div><div class="salon-cloud three"></div><div class="salon-rain"></div><div class="salon-snow"></div></div>
   <div class="salon-live-inner">
-    <div><p class="salon-scene-label">TODAY IN KUMAMOTO</p><div class="salon-live-status"><span class="salon-live-dot" aria-hidden="true"></span><span id="salon-live-status-text">営業状況を確認中</span></div><div class="salon-live-sub" id="salon-live-status-sub">通常営業時間 11:00〜17:00</div></div>
+    <div><p class="salon-scene-label">TODAY IN KUMAMOTO</p><div class="salon-live-status"><span class="salon-live-dot" aria-hidden="true"></span><span id="salon-live-status-text">営業状況を確認中</span></div><div class="salon-live-sub" id="salon-live-status-sub">通常営業時間 11:00〜17:00</div><div class="salon-live-line-note">LINEのお問い合わせはいつでも受付中 · 注文書は24時間作成OK</div></div>
     <div class="salon-live-weather" aria-label="熊本市の現在の天気"><span class="salon-live-weather-icon" id="salon-live-weather-icon" aria-hidden="true">🌤️</span><div><div id="salon-live-weather-text">天気を取得中</div><div class="salon-live-weather-caption">熊本市の空模様</div></div></div>
   </div>
 </aside>
@@ -359,17 +361,36 @@ body.home-page[data-time-theme="night"] .menu-card{box-shadow:0 8px 25px #28385c
   function showActualWeather(){weatherIcon.textContent=actualIcon;weatherText.textContent=actualLabel;}
   applyScene();setInterval(()=>{if(chosenTime==='auto')applyScene()},60000);
 
+  let exceptions={};
+  let holidaysReady=false,settingsReady=false,settingsValid=false;
+  function setStatus(kind,title,detail){root.dataset.status=kind;status.textContent=title;sub.textContent=detail;}
   function updateStatus(){
-    const p=localParts(),day=p.year+'-'+p.month+'-'+p.day,minute=Number(p.hour)*60+Number(p.minute);if(chosenTime==='auto')applyScene();
-    const regular=['Mon','Tue','Thu','Fri'].includes(p.weekday);
-    if(!regular){root.dataset.status='closed';status.textContent='本日は定休日';sub.textContent='水・土・日・祝は基本お休み';return;}
-    if(holidayDates===null){root.dataset.status='checking';status.textContent='営業状況を確認中';sub.textContent='通常営業時間 11:00〜17:00';return;}
-    if(holidayDates.has(day)){root.dataset.status='closed';status.textContent='本日は定休日';sub.textContent='祝日は基本お休み';return;}
-    if(minute>=660&&minute<1020){root.dataset.status='open';status.textContent='ただいま営業中（通常予定）';sub.textContent='17:00まで · 臨時変更の場合あり';}
-    else{root.dataset.status='closed';status.textContent=minute<660?'ただいま営業時間外':'本日の営業は終了しました';sub.textContent=minute<660?'11:00から営業予定':'通常営業時間 11:00〜17:00';}
+    const p=localParts(),day=p.year+'-'+p.month+'-'+p.day,minute=Number(p.hour)*60+Number(p.minute);
+    if(chosenTime==='auto')applyScene();
+    if(!holidaysReady||!settingsReady){setStatus('checking','営業状況を確認中','営業時間 11:00〜17:00');return;}
+    if(!settingsValid||!holidayDates){setStatus('checking','営業状況は要確認','最新の営業情報はLINEでご確認ください');return;}
+    const rule=exceptions[day],regular=['Mon','Tue','Thu','Fri'].includes(p.weekday),holiday=holidayDates.has(day);
+    if(rule?.type==='closed'){setStatus('closed','本日は臨時休業です','LINEのお問い合わせはいつでも受付中');return;}
+    if(!rule && (!regular||holiday)){setStatus('closed','本日は定休日です',holiday?'祝日は基本お休み':'水・土・日は基本お休み');return;}
+    const startTime=rule?.start||'11:00',endTime=rule?.end||'17:00';
+    const parse=t=>{const [hh,mm]=t.split(':').map(Number);return hh*60+mm;};
+    const openAt=parse(startTime),closeAt=parse(endTime);
+    if(minute>=openAt&&minute<closeAt){setStatus('open','ただいま営業中（予定）',endTime+'まで · 臨時変更の場合あり');}
+    else if(minute<openAt){setStatus('closed','ただいま営業時間外',startTime+'から営業予定');}
+    else{setStatus('closed','本日のサロン営業は終了しました','次回の営業日は営業予定をご確認ください');}
   }
   updateStatus();setInterval(updateStatus,60000);
-  fetch('https://holidays-jp.github.io/api/v1/date.json').then(r=>{if(!r.ok)throw Error('holiday');return r.json()}).then(data=>{holidayDates=new Set(Object.keys(data));updateStatus()}).catch(()=>{status.textContent='営業状況は要確認';root.dataset.status='checking';sub.textContent='祝日判定を取得できませんでした'});
+  fetch('https://holidays-jp.github.io/api/v1/date.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('holiday');return r.json()}).then(data=>{holidayDates=new Set(Object.keys(data));holidaysReady=true;updateStatus()}).catch(()=>{holidaysReady=true;holidayDates=null;updateStatus()});
+  fetch('salon-hours.json?v=1',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('settings');return r.json()}).then(data=>{
+    if(!data||!Array.isArray(data.exceptions))throw Error('invalid');
+    const next={};for(const item of data.exceptions){
+      if(!item||!/^\\d{4}-\\d{2}-\\d{2}$/.test(item.date)||!['closed','short','special'].includes(item.type))throw Error('invalid');
+      if(item.type!=='closed'&&(!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(item.start)||!/^([01]\\d|2[0-3]):[0-5]\\d$/.test(item.end)||item.start>=item.end))throw Error('invalid');
+      if(next[item.date])throw Error('duplicate');
+      next[item.date]=item;
+    }
+    exceptions=next;settingsValid=true;settingsReady=true;updateStatus();
+  }).catch(()=>{settingsReady=true;settingsValid=false;updateStatus()});
   fetch('https://api.open-meteo.com/v1/forecast?latitude=32.7898&longitude=130.7079&current=temperature_2m,weather_code&timezone=Asia%2FTokyo',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('weather');return r.json()}).then(data=>{
     const code=data.current?.weather_code,temp=data.current?.temperature_2m;
     if(typeof code!=='number')throw Error('weather');
