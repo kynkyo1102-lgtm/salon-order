@@ -43,3 +43,37 @@
 .tokusho-page .tokusho-check-list input:checked+span{color:#647487}
 .tokusho-page .tokusho-disclaimer{margin-top:24px;color:#647487;font-size:13px;line-height:1.8}
 @media(max-width:600px){.tokusho-page .tokusho-rule-grid{grid-template-columns:1fr}.tokusho-page .tokusho-disclosure>summary{padding:16px;gap:12px}.tokusho-page .tokusho-visual{flex-basis:48px;width:48px;height:48px;font-size:24px}.tokusho-page .tokusho-summary-copy strong{font-size:16px}.tokusho-page .tokusho-detail{padding:0 17px 18px}.tokusho-page .tokusho-rule>summary{min-height:75px}.tokusho-page .tokusho-dialogue{padding:18px}.tokusho-page .tokusho-dialogue p{font-size:16px}}
+
+/* 第1話：タップで進む紙芝居（既存の解説部分から独立） */
+.tokusho-story{margin:28px 0 56px}
+.tokusho-story-heading{text-align:center;margin-bottom:20px}
+.tokusho-story-kicker{display:inline-block;padding:6px 13px;border-radius:999px;background:#eaf3fd;color:#0055a4;font-size:12px;font-weight:800}
+.tokusho-story-heading h2{margin:14px 0 8px;font-size:25px;line-height:1.5;color:#0055a4}
+.tokusho-story-heading p{margin:0;color:#647487;font-size:14px}
+.tokusho-story-stage{border:1px solid #d9e5ed;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 10px 28px rgba(26,70,108,.07)}
+.tokusho-story-counter{display:flex;justify-content:space-between;padding:14px 21px;font-size:13px;font-weight:800;color:#0055a4}
+.tokusho-story-scene{background:linear-gradient(#edf7fd,#fff 75%);padding:0 20px 20px}
+.tokusho-story-art{position:relative;height:240px;max-width:520px;margin:0 auto;overflow:hidden;border-radius:16px;background:linear-gradient(#d9ecfa 0 73%,#e3d4bc 73% 100%)}
+.tokusho-story-window{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:135px;height:100px;border:8px solid #fff;border-radius:12px;background:#b6dff6;display:flex;justify-content:space-around;align-items:center;color:#fff;font-size:34px}
+.tokusho-story-person{position:absolute;bottom:45px;width:95px;height:132px;z-index:2}
+.tokusho-story-person.person-a{left:12%}.tokusho-story-person.person-b{right:12%}
+.tokusho-story-face{position:absolute;top:0;left:15px;width:65px;height:65px;display:grid;place-items:center;border-radius:50%;background:#f6c9a8;color:#704c42;font-size:40px;z-index:2}
+.tokusho-story-body{position:absolute;bottom:0;left:0;width:95px;height:80px;border-radius:46px 46px 8px 8px;background:#6a9fd0}
+.person-b .tokusho-story-body{background:#e5b777}
+.tokusho-story-table{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);z-index:3;width:180px;height:55px;border-radius:50% 50% 10px 10px;background:#bb9474;display:flex;justify-content:space-around;align-items:flex-start;padding-top:5px;font-size:25px}
+.tokusho-story-mascot{position:absolute;right:1%;top:8px;width:115px;height:115px;object-fit:contain;z-index:5;opacity:0;transform:translateY(12px) scale(.85);transition:opacity .25s,transform .25s;filter:drop-shadow(0 5px 5px rgba(0,0,0,.12))}
+.story-mascot-visible .tokusho-story-mascot{opacity:1;transform:translateY(0) scale(1)}
+.tokusho-story-dialogue{max-width:560px;margin:18px auto 0;background:#fff;border:2px solid #b6d6ec;border-radius:17px;padding:17px 21px;min-height:118px}
+.tokusho-story-dialogue span{font-size:13px;color:#0055a4;font-weight:800}
+.tokusho-story-dialogue p{margin:6px 0 0;font-size:17px;line-height:1.75;font-weight:650;color:#273544}
+.tokusho-story-bottom{padding:0 20px 22px}
+.tokusho-story-bottom>p{min-height:48px;margin:16px 0;color:#556777;text-align:center;font-size:14px}
+.tokusho-story-actions{display:flex;gap:12px;justify-content:center}
+.tokusho-story-actions button{min-width:130px;border:1px solid #0055a4;border-radius:11px;padding:12px 18px;background:#0055a4;color:#fff;font:700 15px "Noto Sans JP",sans-serif;cursor:pointer}
+.tokusho-story-actions button:first-child{background:#fff;color:#0055a4}
+.tokusho-story-actions button:disabled{opacity:.35;cursor:default}
+.tokusho-story-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.tokusho-story-dots span{width:8px;height:8px;border-radius:50%;background:#cddae5}
+.tokusho-story-dots span.active{width:23px;border-radius:8px;background:#0055a4}
+.tokusho-story-footnote{font-size:13px;color:#647487;text-align:center;margin:14px 0 0}
+@media(max-width:600px){.tokusho-story-heading h2{font-size:21px}.tokusho-story-art{height:195px}.tokusho-story-person.person-a{left:4%}.tokusho-story-person.person-b{right:4%}.tokusho-story-person{transform:scale(.8);transform-origin:bottom center}.tokusho-story-table{width:145px}.tokusho-story-mascot{width:87px;height:87px}.tokusho-story-scene{padding:0 12px 15px}.tokusho-story-dialogue{padding:14px 15px}.tokusho-story-dialogue p{font-size:15px}.tokusho-story-actions button{min-width:0;flex:1}}
