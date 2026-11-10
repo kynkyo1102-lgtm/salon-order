@@ -1,6 +1,6 @@
 /* 特商法ガイド固有のコンテンツ装飾のみ。
    ページ幅・余白・タイトル・目次・見出しは共通CSSで管理。 */
-.tokusho-guide{background:#fff;color:#273544;font-family:"Noto Sans JP",sans-serif}
+.tokusho-guide{margin:0;width:100%;max-width:100%}.tokusho-guide,.tokusho-guide *{box-sizing:border-box}.tokusho-guide{background:#fff;color:#273544;font-family:"Noto Sans JP",sans-serif}
 .tokusho-page .tokusho-steps,.tokusho-page .tokusho-rules,.tokusho-page .tokusho-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .tokusho-page .tokusho-steps{grid-template-columns:1fr}
 .tokusho-page .tokusho-item{min-width:0;padding:19px 21px;border:1px solid #d9e5ed;border-radius:13px;background:#f7fafc}
