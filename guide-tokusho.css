@@ -1,17 +1,45 @@
-/* 特商法ガイド固有のコンテンツ装飾のみ。
-   ページ幅・余白・タイトル・目次・見出しは共通CSSで管理。 */
-.tokusho-guide{margin:0;width:100%;max-width:100%}.tokusho-guide,.tokusho-guide *{box-sizing:border-box}.tokusho-guide{background:#fff;color:#273544;font-family:"Noto Sans JP",sans-serif}
-.tokusho-page .tokusho-steps,.tokusho-page .tokusho-rules,.tokusho-page .tokusho-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.tokusho-page .tokusho-steps{grid-template-columns:1fr}
-.tokusho-page .tokusho-item{min-width:0;padding:19px 21px;border:1px solid #d9e5ed;border-radius:13px;background:#f7fafc}
-.tokusho-page .tokusho-item h3{margin:0 0 8px;font-size:17px;line-height:1.55;color:#004aad}
-.tokusho-page .tokusho-item p{margin:0;font-size:15px;line-height:1.85;color:#34495d}
-.tokusho-page .tokusho-step-label{display:block;margin-bottom:5px;font-size:12px;font-weight:800;letter-spacing:.07em;color:#0055a4}
-.tokusho-page .tokusho-note{margin:18px 0 0;padding:14px 16px;background:#f2f7fb;border-radius:12px;color:#536678;font-size:14px;line-height:1.8}
-.tokusho-page .tokusho-ng{background:#fff6f4;border-color:#f0d3ce}
+/* 特商法ガイド：共通のページ幅・見出し・目次はguide-design-system / guide-section-layoutで管理 */
+.tokusho-guide{margin:0;width:100%;max-width:100%;background:#fff;color:#273544;font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.tokusho-guide,.tokusho-guide *{box-sizing:border-box}
+.tokusho-page .tokusho-section-lead{margin:0 0 23px;color:#556777}
+.tokusho-page .tokusho-flow{display:grid;gap:12px}
+.tokusho-page .tokusho-disclosure,.tokusho-page .tokusho-rule{min-width:0;border:1px solid #d9e5ed;border-radius:14px;background:#fff;overflow:hidden}
+.tokusho-page summary{cursor:pointer;list-style:none}
+.tokusho-page summary::-webkit-details-marker{display:none}
+.tokusho-page summary:focus-visible,.tokusho-page label:focus-within{outline:2px solid #80b9ff;outline-offset:2px}
+.tokusho-page .tokusho-disclosure>summary{display:flex;align-items:center;gap:17px;padding:20px}
+.tokusho-page .tokusho-visual{flex:0 0 58px;width:58px;height:58px;display:grid;place-items:center;background:#edf5fd;border-radius:14px;font-size:29px}
+.tokusho-page .tokusho-summary-copy{display:grid;gap:2px;min-width:0;flex:1}
+.tokusho-page .tokusho-summary-copy small{font-size:12px;color:#0055a4;font-weight:800}
+.tokusho-page .tokusho-summary-copy strong{font-size:18px;color:#234a70;line-height:1.5}
+.tokusho-page .tokusho-summary-copy em{font-size:13px;font-style:normal;color:#647487}
+.tokusho-page .tokusho-chevron{font-size:24px;color:#0055a4;line-height:1}
+.tokusho-page details[open] .tokusho-chevron{transform:rotate(45deg)}
+.tokusho-page .tokusho-detail{padding:0 22px 19px 95px;color:#34495d}
+.tokusho-page .tokusho-detail p{margin:0}
+.tokusho-page .tokusho-rule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.tokusho-page .tokusho-rule>summary{display:flex;align-items:center;gap:11px;min-height:94px;padding:15px}
+.tokusho-page .tokusho-rule-icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:11px;background:#f2f7fb;font-size:23px}
+.tokusho-page .tokusho-rule strong{flex:1;font-size:15px;line-height:1.5;color:#234a70}
+.tokusho-page .tokusho-rule summary>span:last-child{color:#0055a4;font-size:21px}
+.tokusho-page .tokusho-rule[open] summary>span:last-child{transform:rotate(45deg)}
+.tokusho-page .tokusho-rule p{margin:0;padding:0 17px 19px;color:#445a6f;font-size:14px;line-height:1.8}
+.tokusho-page .tokusho-conversation{max-width:660px;margin:0 auto}
+.tokusho-page .tokusho-dialogue{padding:22px;border-radius:15px;border:1px solid #d9e5ed}
+.tokusho-page .tokusho-ng{background:#fff7f5;border-color:#eed8d3}
 .tokusho-page .tokusho-ok{background:#f3f9f1;border-color:#d4e6ca}
-.tokusho-page .tokusho-check{list-style:none;margin:0;padding:0}
-.tokusho-page .tokusho-check li{padding:13px 0;border-bottom:1px solid #dce6ee;font-size:16px}
-.tokusho-page .tokusho-check li::before{content:"□";margin-right:11px;color:#0055a4;font-weight:800}
+.tokusho-page .tokusho-dialogue-label{display:block;font-weight:800;font-size:13px;color:#234a70;margin-bottom:11px}
+.tokusho-page .tokusho-dialogue p{margin:0;font-size:17px;font-weight:650;line-height:1.8}
+.tokusho-page .tokusho-dialogue-caption{display:block;margin-top:12px;color:#6c6170;font-size:13px}
+.tokusho-page .tokusho-compare-arrow{text-align:center;font-size:26px;color:#0055a4;line-height:1.8}
+.tokusho-page .tokusho-keypoint{margin:20px 0 0;padding:14px 17px;border-left:4px solid #0055a4;background:#f2f7fb}
+.tokusho-page .tokusho-note{margin:19px 0 0;padding:15px 17px;border-radius:12px;background:#f2f7fb;color:#536678;font-size:14px;line-height:1.8}
+.tokusho-page .tokusho-check-progress{display:grid;gap:9px;margin-bottom:17px;font-weight:700;color:#0055a4}
+.tokusho-page .tokusho-progress-track{height:8px;background:#e5edf4;border-radius:999px;overflow:hidden}
+.tokusho-page #tokusho-progress-fill{display:block;height:100%;width:0;background:#0055a4;border-radius:999px;transition:width .2s}
+.tokusho-page .tokusho-check-list{display:grid;gap:9px}
+.tokusho-page .tokusho-check-list label{display:flex;align-items:flex-start;gap:13px;padding:15px 16px;border:1px solid #d9e5ed;border-radius:11px;cursor:pointer}
+.tokusho-page .tokusho-check-list input{accent-color:#0055a4;width:20px;height:20px;flex:0 0 20px;margin:3px 0 0}
+.tokusho-page .tokusho-check-list input:checked+span{color:#647487}
 .tokusho-page .tokusho-disclaimer{margin-top:24px;color:#647487;font-size:13px;line-height:1.8}
-@media(max-width:600px){.tokusho-page .tokusho-rules,.tokusho-page .tokusho-examples{grid-template-columns:1fr}.tokusho-page .tokusho-item{padding:17px}.tokusho-page .tokusho-item p{font-size:15px}}
+@media(max-width:600px){.tokusho-page .tokusho-rule-grid{grid-template-columns:1fr}.tokusho-page .tokusho-disclosure>summary{padding:16px;gap:12px}.tokusho-page .tokusho-visual{flex-basis:48px;width:48px;height:48px;font-size:24px}.tokusho-page .tokusho-summary-copy strong{font-size:16px}.tokusho-page .tokusho-detail{padding:0 17px 18px}.tokusho-page .tokusho-rule>summary{min-height:75px}.tokusho-page .tokusho-dialogue{padding:18px}.tokusho-page .tokusho-dialogue p{font-size:16px}}
