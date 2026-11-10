@@ -34,22 +34,42 @@
     }
   </style>
 <style id="salon-live-preview-style">
-/* Preview-only live salon strip; leaves ordering controls untouched. */
-.salon-live{--sky1:#e9f4fb;--sky2:#f9fcff;position:relative;overflow:hidden;background:linear-gradient(115deg,var(--sky1),var(--sky2));border-bottom:1px solid #dce8f0;color:#26465b}
-.salon-live[data-weather="rain"]{--sky1:#dce8f0;--sky2:#edf3f7}
-.salon-live[data-weather="cloud"]{--sky1:#e7edf2;--sky2:#f6f8fa}
-.salon-live[data-weather="snow"]{--sky1:#e9f3fc;--sky2:#fff}
-.salon-live-inner{max-width:1100px;margin:auto;min-height:66px;padding:12px 22px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:1}
-.salon-live-status{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:800}
-.salon-live-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%;background:#8798a5;box-shadow:0 0 0 4px #8798a51c}
-.salon-live[data-status="open"] .salon-live-dot{background:#26916d;box-shadow:0 0 0 4px #26916d20}
-.salon-live-sub{font-size:10px;font-weight:500;color:#62798a;margin-top:3px}
-.salon-live-weather{display:flex;align-items:center;gap:8px;text-align:right;font-size:12px;font-weight:700;white-space:nowrap}
-.salon-live-weather-icon{font-size:28px;line-height:1}
-.salon-live-weather-caption{font-size:10px;font-weight:500;color:#62798a}
-.salon-live::before{content:"";position:absolute;right:12%;top:-42px;width:135px;height:135px;border-radius:50%;background:#fff6;filter:blur(8px);pointer-events:none}
-.salon-live[data-weather="rain"]::before{background:repeating-linear-gradient(105deg,transparent 0 13px,#9bb7ca4a 14px 15px,transparent 16px 28px);width:220px;filter:none;transform:rotate(-8deg)}
-@media(max-width:600px){.salon-live-inner{min-height:61px;padding:10px 15px;gap:8px}.salon-live-status{font-size:12px;gap:7px}.salon-live-weather{font-size:11px;gap:5px}.salon-live-weather-icon{font-size:25px}.salon-live-sub,.salon-live-weather-caption{font-size:9px}}
+.salon-live{--sky-top:#8ec9eb;--sky-bottom:#e8f8ff;--ink:#244b67;position:relative;isolation:isolate;overflow:hidden;min-height:170px;background:linear-gradient(165deg,var(--sky-top),var(--sky-bottom));color:var(--ink);border-bottom:1px solid #dce9ed;transition:background 1.2s ease}
+.salon-live[data-weather="cloud"]{--sky-top:#aebfce;--sky-bottom:#e7edf3}
+.salon-live[data-weather="rain"]{--sky-top:#748da8;--sky-bottom:#cadce7;--ink:#183a52}
+.salon-live[data-weather="snow"]{--sky-top:#b9d5e8;--sky-bottom:#f3faff}
+.salon-live[data-night="true"]{--sky-top:#263b65;--sky-bottom:#677a9d;--ink:#fff}
+.salon-sky{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.salon-sky::after{content:"";position:absolute;inset:auto 0 0;height:48%;background:linear-gradient(0deg,#fff8,transparent);opacity:.7}
+.salon-sun{position:absolute;right:19%;top:19px;width:76px;height:76px;border-radius:50%;background:#fff3bb;box-shadow:0 0 0 14px #fff6cf55,0 0 60px 20px #fff3bba0;transition:all 1s ease}
+.salon-live[data-night="true"] .salon-sun{width:58px;height:58px;background:#fff7d8;box-shadow:0 0 32px #fff9dc88}
+.salon-live[data-weather="rain"] .salon-sun,.salon-live[data-weather="cloud"] .salon-sun{opacity:.3}
+.salon-cloud{position:absolute;width:160px;height:43px;background:#fffdf5;border-radius:60px;filter:drop-shadow(0 6px 8px #446b8720);opacity:.86;animation:salon-cloud-drift 24s ease-in-out infinite alternate}
+.salon-cloud::before,.salon-cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.salon-cloud::before{width:72px;height:72px;left:29px;bottom:10px}.salon-cloud::after{width:91px;height:91px;right:17px;bottom:0}
+.salon-cloud.one{left:46%;top:73px;transform:scale(.68);animation-delay:-8s}
+.salon-cloud.two{right:-30px;top:101px;transform:scale(.9);animation-delay:-15s;opacity:.68}
+.salon-cloud.three{left:-55px;top:12px;transform:scale(.45);opacity:.4}
+.salon-live[data-weather="rain"] .salon-cloud,.salon-live[data-weather="cloud"] .salon-cloud{background:#dfe9ef;opacity:.9}
+.salon-live[data-night="true"] .salon-cloud{background:#bac8de;opacity:.38}
+.salon-rain{position:absolute;inset:0;opacity:0;background:repeating-linear-gradient(104deg,transparent 0 23px,#e6f5ffab 24px 25px,transparent 26px 45px);background-size:130px 190px;animation:salon-rainfall .8s linear infinite}
+.salon-live[data-weather="rain"] .salon-rain{opacity:.65}
+.salon-snow{position:absolute;inset:0;opacity:0;background-image:radial-gradient(2px 2px at 20px 30px,#fff 99%,transparent),radial-gradient(3px 3px at 90px 70px,#fff 99%,transparent),radial-gradient(2px 2px at 140px 12px,#fff 99%,transparent);background-size:170px 120px;animation:salon-snowfall 8s linear infinite}
+.salon-live[data-weather="snow"] .salon-snow{opacity:.9}
+.salon-stars{position:absolute;inset:0;opacity:0;background-image:radial-gradient(2px 2px at 10% 25%,#fff 99%,transparent),radial-gradient(2px 2px at 38% 18%,#fff 99%,transparent),radial-gradient(2px 2px at 72% 58%,#fff 99%,transparent),radial-gradient(2px 2px at 88% 15%,#fff 99%,transparent)}
+.salon-live[data-night="true"] .salon-stars{opacity:.85}
+.salon-live-inner{max-width:1100px;min-height:170px;margin:auto;padding:22px 28px;box-sizing:border-box;position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.salon-scene-label{font-size:10px;font-weight:800;letter-spacing:.18em;opacity:.76;margin:0 0 11px}
+.salon-live-status{display:flex;align-items:center;gap:11px;font-size:clamp(17px,2.5vw,25px);font-weight:800;letter-spacing:.03em;text-shadow:0 1px 6px #ffffff5c}
+.salon-live-dot{width:12px;height:12px;flex:0 0 12px;border-radius:50%;background:#8397a4;box-shadow:0 0 0 5px #ffffff80}
+.salon-live[data-status="open"] .salon-live-dot{background:#168b66;box-shadow:0 0 0 5px #ffffffa8,0 0 15px #4dc4a5}
+.salon-live-sub{font-size:12px;font-weight:600;opacity:.83;margin:9px 0 0 23px}
+.salon-live-weather{display:flex;align-items:center;gap:10px;align-self:flex-end;margin-bottom:0;background:#ffffffb9;border:1px solid #ffffffc7;border-radius:16px;padding:10px 13px;color:#36556a;box-shadow:0 8px 30px #426b831c;backdrop-filter:blur(8px);font-size:13px;font-weight:800;white-space:nowrap}
+.salon-live-weather-icon{font-size:28px;line-height:1}.salon-live-weather-caption{font-size:10px;font-weight:600;color:#6d8393;margin-top:3px}
+@keyframes salon-cloud-drift{from{translate:-14px 0}to{translate:27px 0}}
+@keyframes salon-rainfall{to{background-position:-55px 190px}}
+@keyframes salon-snowfall{to{background-position:25px 120px}}
+@media(max-width:600px){.salon-live,.salon-live-inner{min-height:150px}.salon-live-inner{padding:18px 16px;align-items:flex-start;flex-direction:column;gap:13px}.salon-scene-label{font-size:9px;margin-bottom:9px}.salon-live-status{font-size:18px;gap:9px}.salon-live-sub{font-size:10px;margin-left:21px;margin-top:6px}.salon-live-weather{align-self:flex-end;padding:7px 10px;border-radius:12px;font-size:11px;margin-top:-5px}.salon-live-weather-icon{font-size:22px}.salon-live-weather-caption{font-size:9px}.salon-sun{right:16%;top:21px;width:65px;height:65px}.salon-cloud.one{left:55%;top:85px}.salon-cloud.two{top:105px}}
 @media(prefers-reduced-motion:reduce){.salon-live *{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -81,15 +101,10 @@
   </header>
 
 <aside class="salon-live" id="salon-live" aria-label="サロンの営業状況と熊本の天気" data-status="checking">
+  <div class="salon-sky" aria-hidden="true"><div class="salon-stars"></div><div class="salon-sun"></div><div class="salon-cloud one"></div><div class="salon-cloud two"></div><div class="salon-cloud three"></div><div class="salon-rain"></div><div class="salon-snow"></div></div>
   <div class="salon-live-inner">
-    <div>
-      <div class="salon-live-status"><span class="salon-live-dot" aria-hidden="true"></span><span id="salon-live-status-text">営業状況を確認中</span></div>
-      <div class="salon-live-sub" id="salon-live-status-sub">通常営業時間 11:00〜17:00</div>
-    </div>
-    <div class="salon-live-weather" aria-label="熊本市の現在の天気">
-      <span class="salon-live-weather-icon" id="salon-live-weather-icon" aria-hidden="true">☁️</span>
-      <div><div id="salon-live-weather-text">天気を取得中</div><div class="salon-live-weather-caption">熊本市の空模様</div></div>
-    </div>
+    <div><p class="salon-scene-label">TODAY IN KUMAMOTO</p><div class="salon-live-status"><span class="salon-live-dot" aria-hidden="true"></span><span id="salon-live-status-text">営業状況を確認中</span></div><div class="salon-live-sub" id="salon-live-status-sub">通常営業時間 11:00〜17:00</div></div>
+    <div class="salon-live-weather" aria-label="熊本市の現在の天気"><span class="salon-live-weather-icon" id="salon-live-weather-icon" aria-hidden="true">🌤️</span><div><div id="salon-live-weather-text">天気を取得中</div><div class="salon-live-weather-caption">熊本市の空模様</div></div></div>
   </div>
 </aside>
   <main>
@@ -281,7 +296,7 @@
   const localParts=()=>Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
   let holidayDates=null;
   function updateStatus(){
-    const p=localParts(),day=p.year+'-'+p.month+'-'+p.day,minute=Number(p.hour)*60+Number(p.minute);
+    const p=localParts(),day=p.year+'-'+p.month+'-'+p.day,minute=Number(p.hour)*60+Number(p.minute);root.dataset.night=(minute<360||minute>=1080)?'true':'false';
     const regular=['Mon','Tue','Thu','Fri'].includes(p.weekday);
     if(!regular){root.dataset.status='closed';status.textContent='本日は定休日';sub.textContent='水・土・日・祝は基本お休み';return;}
     if(holidayDates===null){root.dataset.status='checking';status.textContent='営業状況を確認中';sub.textContent='通常営業時間 11:00〜17:00';return;}
