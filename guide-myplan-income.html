@@ -158,11 +158,11 @@ function diagram(m){
 
  const root=document.getElementById("binary-diagram");
  const node=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
- const top=node("div","plan-top");const img=node("img");img.src="./assets/avatar_01.svg";img.alt="";top.append(img,node("strong","", "あなた"));if(m.mega){top.classList.add("lapis-tap-person");top.setAttribute("role","button");top.setAttribute("tabindex","0");top.dataset.person="あなた";top.setAttribute("aria-label","あなたのベーシックコミッションを表示")}
+ const top=node("div","plan-top");const img=node("img");img.src="./assets/avatar_01.svg";img.alt="";top.append(img,node("strong","", "あなた"));{top.classList.add("lapis-tap-person");top.setAttribute("role","button");top.setAttribute("tabindex","0");top.dataset.person="あなた";top.setAttribute("aria-label","あなたのベーシックコミッションを表示")}
  const branches=node("div","plan-branches");
  const links=document.createElementNS("http://www.w3.org/2000/svg","svg");links.setAttribute("viewBox","0 0 600 100");links.setAttribute("preserveAspectRatio","none");links.setAttribute("class","plan-links");links.setAttribute("aria-hidden","true");for(const x of [150,450]){const line=document.createElementNS("http://www.w3.org/2000/svg","line");line.setAttribute("x1","300");line.setAttribute("y1","0");line.setAttribute("x2",String(x));line.setAttribute("y2","100");line.setAttribute("stroke","#94b5c9");line.setAttribute("stroke-width","3");line.setAttribute("vector-effect","non-scaling-stroke");links.append(line)}
  for(const [name,num,l,r] of [["Aさん",2,m.ax,m.ar],["Bさん",3,m.bl,m.br]]){
-  const block=node("div","plan-branch");const person=node("div","plan-person");const avatar=node("img");avatar.src="./assets/avatar_"+String(num).padStart(2,"0")+".svg";avatar.alt="";person.append(avatar,node("strong","",name),node("small","plan-direct-label","あなたが直紹介"));if(m.mega){person.classList.add("lapis-tap-person");person.setAttribute("role","button");person.setAttribute("tabindex","0");person.dataset.person=name;person.setAttribute("aria-label",name+"のボーナス計算を表示")}block.append(person);
+  const block=node("div","plan-branch");const person=node("div","plan-person");const avatar=node("img");avatar.src="./assets/avatar_"+String(num).padStart(2,"0")+".svg";avatar.alt="";person.append(avatar,node("strong","",name),node("small","plan-direct-label","あなたが直紹介"));{person.classList.add("lapis-tap-person");person.setAttribute("role","button");person.setAttribute("tabindex","0");person.dataset.person=name;person.setAttribute("aria-label",name+"のボーナス計算を表示")}block.append(person);
   const ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox","0 0 300 260");svg.setAttribute("class","plan-triangles");
   svg.setAttribute("role","img");svg.setAttribute("aria-label",name+" 左"+pts(l)+"、右"+pts(r));
   const make=(tag,attrs,text)=>{const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);if(text!==undefined)e.textContent=text;svg.append(e)};
@@ -175,7 +175,7 @@ function diagram(m){
   block.append(svg);
   if(m.doubleMega){const children=node("div","plan-children");for(const [j,child] of (name==="Aさん"?[["Cさん",4],["Dさん",5]]:[["Eさん",6],["Fさん",7]]).entries()){const [label,id]=child;const item=node("div","plan-child");const pic=node("img");pic.src="./assets/avatar_"+String(id).padStart(2,"0")+".svg";pic.alt="";item.append(pic,node("strong","",label),node("small","","左右 各4万PT"));children.append(item)}block.append(children)}branches.append(block)
  }
- root.replaceChildren(top,links,branches);if(m.mega){const hint=node("p","lapis-tap-hint","👆 人物をタップするとボーナス計算を確認できます");root.prepend(hint)}
+ root.replaceChildren(top,links,branches);{const hint=node("p","lapis-tap-hint","👆 人物をタップするとボーナス計算を確認できます");root.prepend(hint)}
 }
 let largeDiagramMode="pt";
 function diagramLapis(m){
@@ -539,7 +539,7 @@ function incomeModel(target){
  if(!useSecond){
   // A/Bの各左右に同額を配置。A/B各本人の1万PTを親のグループに加算。
   // 小さい目標はメガを前提とせず、ベーシック中心。
-  const x=Math.max(10000,Math.ceil(((target-(target>=30000?1000:1000))/(target>=30000?.4:.2))/10000)*10000);
+  let x=10000;while(true){const candidateSide=2*x+10000;const candidateTotal=Math.round(candidateSide*.1)+(candidateSide>=200000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=10000;}
   const side=2*x+10000;
   const own=Math.round(side*.1);
   const abasic=Math.round(x*.1);
