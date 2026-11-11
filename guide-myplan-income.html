@@ -618,7 +618,7 @@ function incomeThreeDiagram(m){
   ["01","あなたの01",190,285,1,"own"],["02","あなたの02",570,285,1,"own"],
   ["Aさん","Aさん",95,570,2,"direct"],["Cさん","Cさん",285,570,4,"other"],
   ["Bさん","Bさん",475,570,3,"direct"],["Dさん","Dさん",665,570,5,"other"],
-  ["Eさん","Eさん",95,860,6,"second"],["Fさん","Fさん",475,860,7,"second"]
+  ["Eさん","Eさん",55,860,6,"second"],["Fさん","Fさん",435,860,7,"second"]
  ]:[
   ["あなた","あなた（00）",380,35,1,"own"],
   ["01","あなたの01",190,285,1,"own"],["02","あなたの02",570,285,1,"own"],
@@ -640,11 +640,11 @@ function incomeThreeDiagram(m){
  // A/Bの直紹介E/Fは左枝。右枝は片側三角、C/Dは左右三角。
  // 元図のように三角形の横幅を絞り、ラベルは「万」「PT」の2段に分ける。
  const leafSpecs=deep?[
-  {x:95,top:1035,bottom:1345,half:43,mode:"both"},
-  {x:190,top:813,bottom:1345,half:34,mode:"right"},
+  {x:55,top:1035,bottom:1345,half:43,mode:"both"},
+  {x:175,top:813,bottom:1345,half:34,mode:"right"},
   {x:285,top:813,bottom:1345,half:43,mode:"both"},
-  {x:475,top:1035,bottom:1345,half:43,mode:"both"},
-  {x:570,top:813,bottom:1345,half:34,mode:"right"},
+  {x:435,top:1035,bottom:1345,half:43,mode:"both"},
+  {x:555,top:813,bottom:1345,half:34,mode:"right"},
   {x:665,top:813,bottom:1345,half:43,mode:"both"}
  ]:[95,285,475,665].map(x=>({x,top:725,bottom:1135,half:65,mode:"both"}));
  const leaves=leafSpecs.map(({x,top,bottom,half,mode})=>{
@@ -655,11 +655,11 @@ function incomeThreeDiagram(m){
    (mode==="both"?label(x-half/2):'')+label(x+half/2);
  }).join("");
  const directBadges=deep?[95,475].map(x=>'<g><rect x="'+(x-46)+'" y="757" width="92" height="34" rx="17" fill="#e7f4fb" stroke="#7aaeca" stroke-width="2"/><text x="'+x+'" y="781" text-anchor="middle" class="income-three-badge-text">直紹介</text></g>').join(""):'';
- const secondLines=deep?[[95,570,95,847],[475,570,475,847]].map(([x1,y1,x2,y2])=>'<line x1="'+x1+'" y1="'+(y1+145)+'" x2="'+x2+'" y2="'+(y2-1)+'" class="lapis-large-line"/>').join(""):'';
+ const secondLines=deep?[[95,570,55,847],[475,570,435,847]].map(([x1,y1,x2,y2])=>'<line x1="'+x1+'" y1="'+(y1+145)+'" x2="'+x2+'" y2="'+(y2-1)+'" class="lapis-large-line"/>').join(""):'';
  const height=deep?1440:1200;
  root.innerHTML='<div class="lapis-tree lapis-large"><p class="lapis-tree-summary">00の左右 各'+pts(m.left)+'</p><p class="lapis-tap-hint">👆 人物をタップするとボーナス計算を確認できます</p>'+
  '<svg class="lapis-large-svg lapis-full-tree" viewBox="0 0 760 '+height+'" role="img" aria-label="3点登録のバイナリー配置図">'+
- '<g>'+lines+'</g>'+people+directBadges+leaves+'</svg>'+
+ '<g>'+lines+(deep?[[95,175],[475,555]].map(([from,to])=>'<line x1="'+from+'" y1="715" x2="'+to+'" y2="813" class="lapis-large-line"/>').join(''):'')+'</g>'+people+directBadges+leaves+'</svg>'+
  '<p class="lapis-diagram-note">🟠 オレンジ枠：自分の01・02と、00の直紹介A・Bさん。00は本店のため枠なし。線は配置上のつながりを示します。'+
  (deep?' EさんはAさん、FさんはBさんの直紹介です。':'')+'</p></div>';
 }
