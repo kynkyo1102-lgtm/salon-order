@@ -600,7 +600,9 @@ function incomeThreeModel(target){
  return build(lo*10000);
 }
 function incomeThreeTitleLayout(m){
- diagramLapis(m);
+ // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
+ const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.unit,right:m.unit,basic:Math.round(m.unit*.1),title:"メンバー"}))};
+ diagramLapis(display);
  const root=document.getElementById("binary-diagram");
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  root.querySelectorAll(".lapis-tap-person").forEach(el=>{
