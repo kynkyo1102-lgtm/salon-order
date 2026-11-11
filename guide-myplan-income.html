@@ -590,7 +590,7 @@ function incomeThreeModel(target){
   const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
   const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
   const leadership=Math.round(leadershipBase*leadershipRate);
-  return {target,three:true,lapis:mid,deep,gold,crystal,ax:acSide,ar:x,bl:acSide,br:x,
+  return {target,three:true,lapis:true,deep,gold,crystal,ax:acSide,ar:x,bl:acSide,br:x,
    left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,mega,doubleMega,leadership,leadershipRate,
    leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
    positionsBasic:basic00+basic01+basic02,unit:x,acSide,side01};
@@ -796,7 +796,7 @@ function renderIncome(){
  if(m.three){incomeThreeDiagram(m);incomeThreeBreakdown(m)}else{diagram(m);incomeBreakdown(m)}
  const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
  const note=document.getElementById("income-prototype-note");
- note.textContent=registrationMode==="three"?"10・20・30万円はA・Bさんまで、50万円以上はE・Fさんまで配置。00・01・02のベーシックを合算し、クリスタル以上の場合にメガマッチ、50万円以上ではダブルメガも含めて目標額から逆算しています。配置線と直紹介は別です。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
+ note.textContent=registrationMode==="three"?"1〜30万円はA・BさんとC・Dさんまで、50万円以上はE・Fさんまで配置。00・01・02のベーシックを合算し、クリスタル以上の場合にメガマッチ、50万円以上ではダブルメガも含めて目標額から逆算しています。配置線と直紹介は別です。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
 document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEventListener("click",()=>{registrationMode=btn.dataset.registrationChoice;renderIncome()}));
