@@ -628,7 +628,7 @@ function incomeThreeDiagram(m){
  const edges=[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],...(deep?[[3,7],[5,8]]:[])];
  const lines=edges.map(([a,b])=>'<line x1="'+ns[a][2]+'" y1="'+(ns[a][3]+151)+'" x2="'+ns[b][2]+'" y2="'+(ns[b][3]-18)+'" class="lapis-large-line"/>').join("");
  const people=ns.map(([id,name,x,y,avatar,kind])=>{
-  const ring=kind==="own"||kind==="direct",color=ring?"#d99b56":kind==="second"?"#71a9d0":null;
+  const ring=(kind==="own"&&id!=="あなた")||kind==="direct",color=ring?"#d99b56":kind==="second"?"#71a9d0":null;
   return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+id+'" aria-label="'+name+'のボーナス計算を表示">'+
    (color?'<rect x="'+(x-62)+'" y="'+(y-13)+'" width="124" height="159" rx="19" fill="'+(ring?"#fff7eb":"#f0f8fd")+'" stroke="'+color+'" stroke-width="4"/>':'<rect x="'+(x-59)+'" y="'+(y-6)+'" width="118" height="147" fill="transparent"/>')+
    '<image href="./assets/avatar_0'+avatar+'.svg" x="'+(x-48)+'" y="'+y+'" width="96" height="96" pointer-events="none"/>'+
@@ -647,7 +647,7 @@ function incomeThreeDiagram(m){
  root.innerHTML='<div class="lapis-tree lapis-large"><p class="lapis-tree-summary">00の左右 各'+pts(m.left)+'</p><p class="lapis-tap-hint">👆 人物をタップするとボーナス計算を確認できます</p>'+
  '<svg class="lapis-large-svg lapis-full-tree" viewBox="0 0 760 '+height+'" role="img" aria-label="3点登録のバイナリー配置図">'+
  '<g>'+lines+'</g>'+people+leaves+'</svg>'+
- '<p class="lapis-diagram-note">🟠 オレンジ枠：自分の00・01・02と、00の直紹介A・Bさん。線は配置上のつながりを示します。'+
+ '<p class="lapis-diagram-note">🟠 オレンジ枠：自分の01・02と、00の直紹介A・Bさん。00は本店のため枠なし。線は配置上のつながりを示します。'+
  (deep?' EさんはAさん、FさんはBさんの直紹介です。':'')+'</p></div>';
 }
 function incomeThreeBreakdown(m){
