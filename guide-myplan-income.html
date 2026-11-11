@@ -564,62 +564,76 @@ function incomeModel(target){
  return {target,lapis:true,gold:fourDirect,leadership,leadershipRate,leadershipMultiplier,leadershipBase,ax:childSide,ar:childSide,bl:childSide,br:childSide,left:branchSide,right:branchSide,own,abasic,bbasic:abasic,mega,doubleMega,total:own+mega+doubleMega+leadership,secondary};
 }
 // 3点登録：00・01・02は同一人の3ポジション。01/02のベーシックも本人の合計に含める。
+
 function incomeThreeModel(target){
- const deep=target>=100000;
- const gold=target===2000000;
+ const deep=target>=500000,mid=target>=100000,gold=target===2000000;
  const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
  const build=x=>{
-  const childSide=deep?2*x+10000:x;
-  const side=2*childSide+10000;
-  const basic00=Math.round(side*.1),basic01=Math.round(childSide*.1),basic02=basic01;
-  // 01・02のベーシックを00のメガマッチとして計上。
-  // 下段の紹介者は、200万円では4人全員、それ以外はC・Eが00の直紹介。
-  const secondary=deep?["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({
-   name,parent:gold||i===0||i===2?"あなた":i===1?"Cさん":"Eさん",
-   left:x,right:x,basic:Math.round(x*.1)
-  })):[];
-  const mega=side>=200000?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((a,p)=>a+p.basic,0):0;
-  const doubleMega=side>=200000?secondary.filter(p=>p.parent!=="あなた").reduce((a,p)=>a+Math.round(p.basic*.1),0):0;
-  const leadershipMultiplier=gold?3:2;
-  const leadershipBase=leadershipRate?Math.min(side,side*leadershipMultiplier):0;
+  // 10〜30万円：A/Bの下に左右x。50万円〜：E/Fを追加して階層を深くする。
+  const leafSide=2*x+10000;
+  const branchSide=deep?2*leafSide+10000:mid?leafSide:x;
+  const side=2*branchSide+10000;
+  const basic00=Math.round(side*.1),basic01=Math.round(branchSide*.1),basic02=basic01;
+  const abBasic=Math.round(leafSide*.1),efBasic=Math.round(x*.1);
+  const secondary=mid?[
+   {name:"Aさん",parent:"あなた",left:deep?leafSide:x,right:deep?leafSide:x,basic:deep?abBasic:Math.round(x*.1)},
+   {name:"Bさん",parent:"あなた",left:deep?leafSide:x,right:deep?leafSide:x,basic:deep?abBasic:Math.round(x*.1)},
+   ...(deep?[{name:"Eさん",parent:"Aさん",left:x,right:x,basic:efBasic},{name:"Fさん",parent:"Bさん",left:x,right:x,basic:efBasic}]:[])
+  ]:[];
+  const crystal=side>=200000;
+  const mega=crystal?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
+  const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
+  const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
   const leadership=Math.round(leadershipBase*leadershipRate);
-  const total=basic00+basic01+basic02+mega+doubleMega+leadership;
-  return {target,three:true,lapis:deep,gold,ax:childSide,ar:childSide,bl:childSide,br:childSide,
-   left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,
-   mega,doubleMega,leadership,leadershipRate,leadershipMultiplier,leadershipBase,
-   secondary,total,positionsBasic:basic00+basic01+basic02};
+  return {target,three:true,lapis:mid,deep,gold,crystal,ax:branchSide,ar:branchSide,bl:branchSide,br:branchSide,
+   left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,mega,doubleMega,leadership,leadershipRate,
+   leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
+   positionsBasic:basic00+basic01+basic02,leafSide,unit:x};
  };
- let lo=0,hi=100000000;
- // 1万PT単位で目標を超える最小の左右PTを求める。
+ let lo=1,hi=1000000;
  while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*10000).total>=target)hi=mid;else lo=mid+1}
- return build(Math.max(1,lo)*10000);
+ return build(lo*10000);
 }
 function incomeThreeDiagram(m){
- diagram(m);
- const root=document.getElementById("binary-diagram");
- const labels={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
- if(m.lapis){
-  root.querySelectorAll(".lapis-tap-person").forEach(el=>{
-   const name=el.dataset.person;
-   if(labels[name]){
-    el.querySelectorAll("text").forEach(t=>{if(t.textContent===name)t.textContent=labels[name]});
-    if(name==="Aさん"||name==="Bさん"){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
-   }
-  });
-  const summary=root.querySelector(".lapis-tree-summary");
-  if(summary)summary.textContent="00の左右 各"+pts(m.left);
-  root.querySelector(".lapis-title-extra")?.remove();
-  const note=root.querySelector(".lapis-diagram-note");
-  if(note)note.textContent="00・01・02は自分のポジションです。01・02からの線は配置線で、直紹介を意味しません。A・Bさんは00からの直紹介です。";
-  root.querySelectorAll(".lapis-large-relation").forEach(t=>{const prev=t.previousElementSibling;if(prev&&prev.tagName.toLowerCase()==="rect")prev.remove();t.remove()});
- }else{
+ if(!m.lapis){
+  diagram(m);
+  const root=document.getElementById("binary-diagram");
   root.querySelector(".plan-top strong").textContent="あなた（00）";
   root.querySelectorAll(".plan-branch .plan-person").forEach((el,i)=>{
    el.querySelector("strong").textContent=i?"あなたの02":"あなたの01";
-   el.querySelector("img").src="./assets/avatar_01.svg";
-   const small=el.querySelector(".plan-direct-label");if(small)small.textContent="あなたのポジション";
+   const avatar=el.querySelector("img");if(avatar)avatar.src="./assets/avatar_01.svg";
+   const label=el.querySelector(".plan-direct-label");if(label)label.textContent="自分のポジション";
   });
+  return;
  }
+ const root=document.getElementById("binary-diagram"),deep=m.deep;
+ const nodes=[
+  {name:"あなた（00）",id:"あなた",x:380,y:36,kind:"own"},
+  {name:"あなたの01",id:"01",x:190,y:265,kind:"own"},
+  {name:"あなたの02",id:"02",x:570,y:265,kind:"own"},
+  {name:"Aさん",id:"Aさん",x:95,y:515,kind:"direct"},
+  {name:"Bさん",id:"Bさん",x:475,y:515,kind:"direct"},
+  ...(deep?[{name:"Cさん",id:"Cさん",x:285,y:515,kind:"other"},{name:"Dさん",id:"Dさん",x:665,y:515,kind:"other"},
+   {name:"Eさん",id:"Eさん",x:95,y:760,kind:"second"},{name:"Fさん",id:"Fさん",x:475,y:760,kind:"second"}]:[])
+ ];
+ const edges=[[0,1],[0,2],[1,3],[2,4],...(deep?[[1,5],[2,6],[3,7],[4,8]]:[])];
+ const lines=edges.map(([a,b])=>'<line x1="'+nodes[a].x+'" y1="'+(nodes[a].y+142)+'" x2="'+nodes[b].x+'" y2="'+(nodes[b].y-12)+'" stroke="#93b2c4" stroke-width="4"/>').join("");
+ const people=nodes.map(n=>{
+  const own=n.kind==="own",direct=n.kind==="direct",second=n.kind==="second";
+  const frame=own||direct?'#d49a55':second?'#73aac9':'#aabfc9';
+  const fill=own||direct?'#fff7ec':'#f0f8fd';
+  const avatar=own?'01':n.id==="Aさん"?'02':n.id==="Bさん"?'03':n.id==="Cさん"?'04':n.id==="Dさん"?'05':'06';
+  return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+n.id+'" aria-label="'+n.name+'のボーナス計算を表示"><rect x="'+(n.x-72)+'" y="'+(n.y-8)+'" width="144" height="166" rx="19" fill="'+fill+'" stroke="'+frame+'" stroke-width="3"/><image href="./assets/avatar_'+avatar+'.svg" x="'+(n.x-47)+'" y="'+n.y+'" width="94" height="94" pointer-events="none"/><text x="'+n.x+'" y="'+(n.y+130)+'" text-anchor="middle" class="lapis-large-name" pointer-events="none">'+n.name+'</text></g>';
+ }).join("");
+ const leafNames=deep?["Cさん","Dさん","Eさん","Fさん"]:["Aさん","Bさん"];
+ const leafNodes=nodes.filter(n=>leafNames.includes(n.id));
+ const triangleY=deep?985:735,triangleBottom=deep?1250:1010;
+ const leaves=leafNodes.map(n=>{
+  const val=deep?m.unit:m.unit;
+  return '<path d="M'+n.x+' '+triangleY+' L'+(n.x-66)+' '+triangleBottom+' L'+n.x+' '+triangleBottom+' Z" fill="#73b6e5"/><path d="M'+n.x+' '+triangleY+' L'+(n.x+66)+' '+triangleBottom+' L'+n.x+' '+triangleBottom+' Z" fill="#0055a4"/><text x="'+(n.x-37)+'" y="'+(triangleBottom+33)+'" text-anchor="middle" class="lapis-large-pt">'+pts(val)+'</text><text x="'+(n.x+37)+'" y="'+(triangleBottom+33)+'" text-anchor="middle" class="lapis-large-pt">'+pts(val)+'</text>';
+ }).join("");
+ const height=deep?1340:1100;
+ root.innerHTML='<div class="lapis-tree lapis-large"><p class="lapis-tree-summary">00の左右 各'+pts(m.left)+'</p><p class="lapis-tap-hint">👆 人物をタップするとボーナス計算を確認できます</p><svg class="lapis-large-svg lapis-full-tree" viewBox="0 0 760 '+height+'" role="img" aria-label="00から01・02へ、01・02の下にA・Bさんを配置。直紹介と配置を区別したバイナリー組織図。">'+lines+people+leaves+'</svg><p class="lapis-diagram-note">🟠 オレンジ枠：自分の00・01・02と、00の直紹介A・Bさん。01・02から伸びる線は配置線です。'+(deep?' EさんはAさん、FさんはBさんの直紹介です。':'')+'</p></div>';
 }
 function incomeThreeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
@@ -670,11 +684,11 @@ function updateIncomeSpotlight(m){
 function showIncomePerson(name){
  const m=registrationMode==="three"?incomeThreeModel(Number(document.getElementById("goal").value)):incomeModel(Number(document.getElementById("goal").value));
  const child=m.secondary.find(p=>p.name===name);
- const side=name==="あなた"?Math.min(m.left,m.right):name==="Aさん"?Math.min(m.ax,m.ar):name==="Bさん"?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
+ const side=name==="あなた"?Math.min(m.left,m.right):name==="01"||(name==="Aさん"&&!m.three)?Math.min(m.ax,m.ar):name==="02"||(name==="Bさん"&&!m.three)?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
  const basic=Math.round(side*.1);
- const displayName=m.three?({"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02"}[name]||name):name;
- const relation=m.three?(name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
- const rate=name==="あなた"||m.left<200000?0:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
+ const displayName=m.three?({"あなた":"あなた（00）","01":"あなたの01","02":"あなたの02"}[name]||name):name;
+ const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
+ const rate=name==="あなた"||m.left<200000?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
  const matchName=!rate?"":rate===1?"メガマッチ":"ダブルメガマッチ";
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
@@ -693,7 +707,7 @@ function renderIncome(){
  if(m.three){incomeThreeDiagram(m);incomeThreeBreakdown(m)}else{diagram(m);incomeBreakdown(m)}
  const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
  const note=document.getElementById("income-prototype-note");
- note.textContent=registrationMode==="three"?"00・01・02のベーシックを合算し、メガマッチは00がクリスタル以上の場合だけ計上しています。01・02からの直紹介者はいません。配置線と直紹介は別です。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
+ note.textContent=registrationMode==="three"?"10・20・30万円はA・Bさんまで、50万円以上はE・Fさんまで配置。00・01・02のベーシックを合算し、クリスタル以上の場合にメガマッチ、50万円以上ではダブルメガも含めて目標額から逆算しています。配置線と直紹介は別です。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
 document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEventListener("click",()=>{registrationMode=btn.dataset.registrationChoice;renderIncome()}));
