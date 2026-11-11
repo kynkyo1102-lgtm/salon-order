@@ -565,30 +565,35 @@ function incomeModel(target){
 }
 // 3点登録：00・01・02は同一人の3ポジション。01/02のベーシックも本人の合計に含める。
 
+
 function incomeThreeModel(target){
  const deep=target>=500000,mid=target>=100000,gold=target===2000000;
  const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
  const build=x=>{
-  // 10〜30万円：A/Bの下に左右x。50万円〜：E/Fを追加して階層を深くする。
-  const leafSide=2*x+10000;
-  const branchSide=deep?2*leafSide+10000:mid?leafSide:x;
-  const side=2*branchSide+10000;
-  const basic00=Math.round(side*.1),basic01=Math.round(branchSide*.1),basic02=basic01;
-  const abBasic=Math.round(leafSide*.1),efBasic=Math.round(x*.1);
+  // 01/02の左右に配置するA/C、B/D。50万円以上はA/Bの片側にE/Fを配置。
+  const acSide=deep?2*x+10000:x;
+  const side01=acSide+x+10000;
+  const side=2*side01+10000;
+  const basic00=Math.round(side*.1),basic01=Math.round(Math.min(acSide,x)*.1),basic02=basic01;
+  const basicAB=Math.round(Math.min(deep?x:x,deep?x:x)*.1);
+  const basicEF=Math.round(x*.1);
   const secondary=mid?[
-   {name:"Aさん",parent:"あなた",left:deep?leafSide:x,right:deep?leafSide:x,basic:deep?abBasic:Math.round(x*.1)},
-   {name:"Bさん",parent:"あなた",left:deep?leafSide:x,right:deep?leafSide:x,basic:deep?abBasic:Math.round(x*.1)},
-   ...(deep?[{name:"Eさん",parent:"Aさん",left:x,right:x,basic:efBasic},{name:"Fさん",parent:"Bさん",left:x,right:x,basic:efBasic}]:[])
+   {name:"Aさん",parent:"あなた",left:deep?x:x,right:deep?x:x,basic:basicAB},
+   {name:"Bさん",parent:"あなた",left:deep?x:x,right:deep?x:x,basic:basicAB},
+   ...(deep?[
+    {name:"Eさん",parent:"Aさん",left:x,right:x,basic:basicEF},
+    {name:"Fさん",parent:"Bさん",left:x,right:x,basic:basicEF}
+   ]:[])
   ]:[];
   const crystal=side>=200000;
   const mega=crystal?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
   const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
   const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
   const leadership=Math.round(leadershipBase*leadershipRate);
-  return {target,three:true,lapis:mid,deep,gold,crystal,ax:branchSide,ar:branchSide,bl:branchSide,br:branchSide,
+  return {target,three:true,lapis:mid,deep,gold,crystal,ax:acSide,ar:x,bl:acSide,br:x,
    left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,mega,doubleMega,leadership,leadershipRate,
    leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
-   positionsBasic:basic00+basic01+basic02,leafSide,unit:x};
+   positionsBasic:basic00+basic01+basic02,unit:x,acSide,side01};
  };
  let lo=1,hi=1000000;
  while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*10000).total>=target)hi=mid;else lo=mid+1}
@@ -606,38 +611,44 @@ function incomeThreeDiagram(m){
   });
   return;
  }
+ // タイトル別の既存SVGと同じ座標・アバター寸法・三角形を使う。
  const root=document.getElementById("binary-diagram"),deep=m.deep;
- const nodes=[
-  {name:"あなた（00）",id:"あなた",x:380,y:36,kind:"own"},
-  {name:"あなたの01",id:"01",x:190,y:265,kind:"own"},
-  {name:"あなたの02",id:"02",x:570,y:265,kind:"own"},
-  {name:"Aさん",id:"Aさん",x:95,y:515,kind:"direct"},
-  {name:"Bさん",id:"Bさん",x:475,y:515,kind:"direct"},
-  ...(deep?[{name:"Cさん",id:"Cさん",x:285,y:515,kind:"other"},{name:"Dさん",id:"Dさん",x:665,y:515,kind:"other"},
-   {name:"Eさん",id:"Eさん",x:95,y:760,kind:"second"},{name:"Fさん",id:"Fさん",x:475,y:760,kind:"second"}]:[])
+ const ns=deep?[
+  ["あなた","あなた（00）",380,35,1,"own"],
+  ["01","あなたの01",190,285,1,"own"],["02","あなたの02",570,285,1,"own"],
+  ["Aさん","Aさん",95,570,2,"direct"],["Cさん","Cさん",285,570,4,"other"],
+  ["Bさん","Bさん",475,570,3,"direct"],["Dさん","Dさん",665,570,5,"other"],
+  ["Eさん","Eさん",95,860,6,"second"],["Fさん","Fさん",475,860,7,"second"]
+ ]:[
+  ["あなた","あなた（00）",380,35,1,"own"],
+  ["01","あなたの01",190,285,1,"own"],["02","あなたの02",570,285,1,"own"],
+  ["Aさん","Aさん",95,570,2,"direct"],["Cさん","Cさん",285,570,4,"other"],
+  ["Bさん","Bさん",475,570,3,"direct"],["Dさん","Dさん",665,570,5,"other"]
  ];
- const edges=[[0,1],[0,2],[1,3],[2,4],...(deep?[[1,5],[2,6],[3,7],[4,8]]:[])];
- const lines=edges.map(([a,b])=>'<line x1="'+nodes[a].x+'" y1="'+(nodes[a].y+158)+'" x2="'+nodes[b].x+'" y2="'+(nodes[b].y-12)+'" stroke="#93b2c4" stroke-width="4"/>').join("");
- const people=nodes.map(n=>{
-  const own=n.kind==="own",direct=n.kind==="direct",second=n.kind==="second";
-  const frame=own||direct?'#d49a55':second?'#73aac9':'#aabfc9';
-  const fill=own||direct?'#fff7ec':'#f0f8fd';
-  const avatar=own?'01':n.id==="Aさん"?'02':n.id==="Bさん"?'03':n.id==="Cさん"?'04':n.id==="Dさん"?'05':'06';
-  return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+n.id+'" aria-label="'+n.name+'のボーナス計算を表示"><rect x="'+(n.x-72)+'" y="'+(n.y-8)+'" width="144" height="166" rx="19" fill="'+fill+'" stroke="'+frame+'" stroke-width="3"/><image href="./assets/avatar_'+avatar+'.svg" x="'+(n.x-47)+'" y="'+n.y+'" width="94" height="94" pointer-events="none"/><text x="'+n.x+'" y="'+(n.y+119)+'" text-anchor="middle" class="income-three-name" pointer-events="none">'+n.name+'</text></g>';
+ const edges=[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],...(deep?[[3,7],[5,8]]:[])];
+ const lines=edges.map(([a,b])=>'<line x1="'+ns[a][2]+'" y1="'+(ns[a][3]+151)+'" x2="'+ns[b][2]+'" y2="'+(ns[b][3]-18)+'" class="lapis-large-line"/>').join("");
+ const people=ns.map(([id,name,x,y,avatar,kind])=>{
+  const ring=kind==="own"||kind==="direct",color=ring?"#d99b56":kind==="second"?"#71a9d0":null;
+  return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+id+'" aria-label="'+name+'のボーナス計算を表示">'+
+   (color?'<rect x="'+(x-62)+'" y="'+(y-13)+'" width="124" height="159" rx="19" fill="'+(ring?"#fff7eb":"#f0f8fd")+'" stroke="'+color+'" stroke-width="4"/>':'<rect x="'+(x-59)+'" y="'+(y-6)+'" width="118" height="147" fill="transparent"/>')+
+   '<image href="./assets/avatar_0'+avatar+'.svg" x="'+(x-48)+'" y="'+y+'" width="96" height="96" pointer-events="none"/>'+
+   '<text x="'+x+'" y="'+(y+126)+'" text-anchor="middle" class="lapis-large-name" pointer-events="none">'+name+'</text></g>';
  }).join("");
- const triangleY=deep?1010:755,triangleBottom=deep?1215:960;
- const leafXs=deep?[95,285,475,665]:[95,475];
- const leaves=leafXs.map(x=>{
-  const w=48;
-  return '<path d="M'+x+' '+triangleY+' L'+(x-w)+' '+triangleBottom+' L'+x+' '+triangleBottom+' Z" fill="#73b6e5"/>'+
-  '<path d="M'+x+' '+triangleY+' L'+(x+w)+' '+triangleBottom+' L'+x+' '+triangleBottom+' Z" fill="#0055a4"/>'+
-  '<text x="'+(x-34)+'" y="'+(triangleBottom+25)+'" text-anchor="middle" class="income-three-pt">'+(m.unit/10000).toLocaleString("ja-JP")+'万</text>'+
-  '<text x="'+(x-34)+'" y="'+(triangleBottom+43)+'" text-anchor="middle" class="income-three-unit">PT</text>'+
-  '<text x="'+(x+34)+'" y="'+(triangleBottom+25)+'" text-anchor="middle" class="income-three-pt">'+(m.unit/10000).toLocaleString("ja-JP")+'万</text>'+
-  '<text x="'+(x+34)+'" y="'+(triangleBottom+43)+'" text-anchor="middle" class="income-three-unit">PT</text>';
+ // 10〜30万円はA/C/B/Dの4本、50万円以上はC/D/E/Fの4本。
+ const leaves=(deep?[[285,m.unit,m.unit],[665,m.unit,m.unit],[95,m.unit,m.unit],[475,m.unit,m.unit]]:[[95,m.unit,m.unit],[285,m.unit,m.unit],[475,m.unit,m.unit],[665,m.unit,m.unit]])
+ .map(([x,l,r])=>{
+  const top=deep?(x===95||x===475?1015:725):725,bottom=deep?(x===95||x===475?1350:1060):1135,half=89;
+  return '<path d="M'+x+' '+top+' L'+(x-half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#73b6e5"/>'+
+  '<path d="M'+x+' '+top+' L'+(x+half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#0055a4"/>'+
+  '<text x="'+(x-45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(l)+'</text>'+
+  '<text x="'+(x+45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(r)+'</text>';
  }).join("");
- const height=deep?1300:1045;
- root.innerHTML='<div class="lapis-tree lapis-large"><p class="lapis-tree-summary">00の左右 各'+pts(m.left)+'</p><p class="lapis-tap-hint">👆 人物をタップするとボーナス計算を確認できます</p><svg class="lapis-large-svg lapis-full-tree" viewBox="0 0 760 '+height+'" role="img" aria-label="00から01・02へ、01・02の下にA・Bさんを配置。直紹介と配置を区別したバイナリー組織図。">'+lines+people+leaves+'</svg><p class="lapis-diagram-note">🟠 オレンジ枠：自分の00・01・02と、00の直紹介A・Bさん。01・02から伸びる線は配置線です。'+(deep?' EさんはAさん、FさんはBさんの直紹介です。':'')+'</p></div>';
+ const height=deep?1440:1200;
+ root.innerHTML='<div class="lapis-tree lapis-large"><p class="lapis-tree-summary">00の左右 各'+pts(m.left)+'</p><p class="lapis-tap-hint">👆 人物をタップするとボーナス計算を確認できます</p>'+
+ '<svg class="lapis-large-svg lapis-full-tree" viewBox="0 0 760 '+height+'" role="img" aria-label="3点登録のバイナリー配置図">'+
+ '<g>'+lines+'</g>'+people+leaves+'</svg>'+
+ '<p class="lapis-diagram-note">🟠 オレンジ枠：自分の00・01・02と、00の直紹介A・Bさん。線は配置上のつながりを示します。'+
+ (deep?' EさんはAさん、FさんはBさんの直紹介です。':'')+'</p></div>';
 }
 function incomeThreeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
