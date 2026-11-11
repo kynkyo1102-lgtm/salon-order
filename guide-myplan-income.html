@@ -556,7 +556,7 @@ function incomeModel(target){
  const mega=abasic*2,doubleMega=4*Math.round(x*.1)*.1;
  const secondary=["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({name,parent:i<2?"Aさん":"Bさん",left:x,right:x,basic:Math.round(x*.1)}));
  const leadership=leadershipRate?Math.round(branchSide*leadershipRate):0;
- return {target,lapis:true,large:target>=1000000,gold:target>=2000000,leadership,leadershipRate,ax:childSide,ar:childSide,bl:childSide,br:childSide,left:branchSide,right:branchSide,own,abasic,bbasic:abasic,mega,doubleMega,total:own+mega+doubleMega+leadership,secondary};
+ return {target,lapis:true,leadership,leadershipRate,ax:childSide,ar:childSide,bl:childSide,br:childSide,left:branchSide,right:branchSide,own,abasic,bbasic:abasic,mega,doubleMega,total:own+mega+doubleMega+leadership,secondary};
 }
 function incomeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
@@ -580,7 +580,7 @@ function showIncomePerson(name){
  const side=name==="あなた"?Math.min(m.left,m.right):name==="Aさん"?Math.min(m.ax,m.ar):name==="Bさん"?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
  const basic=Math.round(side*.1);
  const relation=name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
- const rate=name==="あなた"?0:child?.parent==="あなた"?1:child?.parent?.includes("さん")?.1:1;
+ const rate=name==="あなた"?0:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
  const matchName=name==="あなた"?"":rate===1?"メガマッチ":"ダブルメガマッチ";
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
