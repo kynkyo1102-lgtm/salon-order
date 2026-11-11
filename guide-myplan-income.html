@@ -549,21 +549,24 @@ function incomeModel(target){
  // 二次紹介者C〜Fの左右の各グループを均等に設定。
  // 二次紹介者本人の1万PTも親の左右グループに含める。
  const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
- const coefficient=.84+leadershipRate*4;
+ const fourDirect=target===2000000;
+ const coefficient=(fourDirect?1.02:.84)+leadershipRate*4;
  const x=Math.max(10000,Math.ceil(((target-5000-leadershipRate*30000)/coefficient)/10000)*10000);
  const childSide=2*x+10000,branchSide=2*childSide+10000;
  const own=Math.round(branchSide*.1),abasic=Math.round(childSide*.1);
- const mega=abasic*2,doubleMega=4*Math.round(x*.1)*.1;
+ const directBasic=Math.round(x*.1);
+ const mega=abasic*2+(fourDirect?2*directBasic:0),doubleMega=(fourDirect?2:4)*directBasic*.1;
  const secondary=["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({name,parent:i<2?"Aさん":"Bさん",left:x,right:x,basic:Math.round(x*.1)}));
+ if(fourDirect){secondary[0].parent="あなた";secondary[3].parent="あなた";}
  const leadership=leadershipRate?Math.round(branchSide*leadershipRate):0;
- return {target,lapis:true,leadership,leadershipRate,ax:childSide,ar:childSide,bl:childSide,br:childSide,left:branchSide,right:branchSide,own,abasic,bbasic:abasic,mega,doubleMega,total:own+mega+doubleMega+leadership,secondary};
+ return {target,lapis:true,gold:fourDirect,leadership,leadershipRate,ax:childSide,ar:childSide,bl:childSide,br:childSide,left:branchSide,right:branchSide,own,abasic,bbasic:abasic,mega,doubleMega,total:own+mega+doubleMega+leadership,secondary};
 }
 function incomeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
  const add=(name,value,lines)=>{if(!value)return;const card=document.createElement("div");card.className="breakdown-card";const head=document.createElement("div");head.className="breakdown-card-head";const a=document.createElement("strong");a.textContent=name;const b=document.createElement("strong");b.textContent=yen(value);head.append(a,b);card.append(head);const details=document.createElement("div");details.className="breakdown-calcs";lines.forEach(([label,formula])=>{const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span"),f=document.createElement("span");l.textContent=label;f.textContent=formula;line.append(l,f);details.append(line)});card.append(details);body.append(card)};
  add("ベーシックコミッション",m.own,[["あなた（00）","左右の少ない側 "+pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
- add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさん",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],["Bさん",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)]]);
- add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.map(p=>[p.name,pts(Math.min(p.left,p.right))+" × 10％ × 10％ ＝ "+yen(p.basic*.1)]));
+ add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさん",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],["Bさん",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)],...m.secondary.filter(p=>p.parent==="あなた").map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])]);
+ add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(p=>p.parent!=="あなた").map(p=>[p.name,pts(Math.min(p.left,p.right))+" × 10％ × 10％ ＝ "+yen(p.basic*.1)]));
  add("リーダーシップボーナス（試算・タイトル条件要確認）",m.leadership,[["あなた",pts(Math.min(m.left,m.right))+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]]);
  document.getElementById("sum").textContent=yen(m.total);
 }
@@ -571,7 +574,7 @@ function updateIncomeSpotlight(m){
  const label=(m.target/10000).toLocaleString("ja-JP")+"万円";
  document.getElementById("title-plan-name").textContent=label;
  document.getElementById("title-plan-requirement").textContent=pts(Math.min(m.left,m.right));
- document.getElementById("title-plan-active").textContent="2人（想定）";
+ document.getElementById("title-plan-active").textContent=(m.gold?"4人":"2人")+"（想定）";
  
 }
 function showIncomePerson(name){
@@ -597,8 +600,9 @@ function renderIncome(){
  // 3点登録では00/01/02の位置を示す既存の図を流用。
  // 計算上は各ポジションのボーナスを重複計上しないよう、1点登録モデルの試算を表示。
  diagram(m);incomeBreakdown(m);
+ const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
  const note=document.getElementById("income-prototype-note");
- note.textContent=registrationMode==="three"?"3点登録の配置・追加ボーナスは調整中です。現在は1点登録と同じPT・試算を表示しています。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップは仮の適用率で、タイトル・系列条件を満たすか未検証です。実際の支給額とは異なります。";
+ note.textContent=registrationMode==="three"?"3点登録の配置・追加ボーナスは調整中です。現在は1点登録と同じPT・試算を表示しています。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップは仮の適用率です。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
 document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEventListener("click",()=>{registrationMode=btn.dataset.registrationChoice;renderIncome()}));
