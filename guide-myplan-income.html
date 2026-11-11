@@ -634,14 +634,22 @@ function incomeThreeDiagram(m){
    '<image href="./assets/avatar_0'+avatar+'.svg" x="'+(x-48)+'" y="'+y+'" width="96" height="96" pointer-events="none"/>'+
    '<text x="'+x+'" y="'+(y+126)+'" text-anchor="middle" class="income-three-person-name" pointer-events="none">'+name+'</text></g>';
  }).join("");
- // 10〜30万円はA/C/B/Dの4本、50万円以上はC/D/E/Fの4本。
- const leaves=(deep?[[285,m.unit,m.unit],[665,m.unit,m.unit],[95,m.unit,m.unit],[475,m.unit,m.unit]]:[[95,m.unit,m.unit],[285,m.unit,m.unit],[475,m.unit,m.unit],[665,m.unit,m.unit]])
- .map(([x,l,r])=>{
-  const top=deep?(x===95||x===475?1015:725):725,bottom=deep?(x===95||x===475?1350:1060):1135,half=89;
-  return '<path d="M'+x+' '+top+' L'+(x-half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#73b6e5"/>'+
-  '<path d="M'+x+' '+top+' L'+(x+half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#0055a4"/>'+
-  '<text x="'+(x-45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(l)+'</text>'+
-  '<text x="'+(x+45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(r)+'</text>';
+ // 50万円以上：A/Bの左にE/F、右は空欄ではなく片側の組織実績（三角形）。
+ // C/Dは両側の組織実績。三角形は同じ最下端に揃える。
+ const leafSpecs=deep?[
+  {x:95,top:1035,bottom:1350,half:60,mode:"both",left:m.unit,right:m.unit},
+  {x:190,top:815,bottom:1350,half:42,mode:"right",right:m.unit},
+  {x:285,top:815,bottom:1350,half:60,mode:"both",left:m.unit,right:m.unit},
+  {x:475,top:1035,bottom:1350,half:60,mode:"both",left:m.unit,right:m.unit},
+  {x:570,top:815,bottom:1350,half:42,mode:"right",right:m.unit},
+  {x:665,top:815,bottom:1350,half:60,mode:"both",left:m.unit,right:m.unit}
+ ]:[95,285,475,665].map(x=>({x,top:725,bottom:1135,half:79,mode:"both",left:m.unit,right:m.unit}));
+ const leaves=leafSpecs.map(({x,top,bottom,half,mode,left,right})=>{
+  const leftShape=mode==="both"?'<path d="M'+x+' '+top+' L'+(x-half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#73b6e5"/>':'';
+  const rightShape='<path d="M'+x+' '+top+' L'+(x+half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#0055a4"/>';
+  const leftLabel=mode==="both"?'<text x="'+(x-half/2)+'" y="'+(bottom+35)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(left)+'</text>':'';
+  const rightLabel='<text x="'+(x+half/2)+'" y="'+(bottom+35)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(right)+'</text>';
+  return leftShape+rightShape+leftLabel+rightLabel;
  }).join("");
  const height=deep?1440:1200;
  root.innerHTML='<div class="lapis-tree lapis-large"><p class="lapis-tree-summary">00の左右 各'+pts(m.left)+'</p><p class="lapis-tap-hint">👆 人物をタップするとボーナス計算を確認できます</p>'+
