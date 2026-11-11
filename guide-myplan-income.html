@@ -572,6 +572,10 @@ function updateIncomeSpotlight(m){
  document.getElementById("title-spotlight").dataset.gem=gem;
  document.getElementById("gem-art").src="./assets/gems/"+gem+".png";
 }
+function showIncomePerson(name){const m=incomeModel(Number(document.getElementById("goal").value));const value=name==="あなた"?m.own:["Aさん","Bさん"].includes(name)?m.abasic:m.secondary[0]?.basic||0;let dlg=document.getElementById("income-person-dialog");if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}dlg.replaceChildren();const wrap=document.createElement("div");wrap.style.padding="24px";const h=document.createElement("h3");h.textContent=name+"のベーシック（試算）";const p=document.createElement("p");p.textContent=yen(value);const n=document.createElement("p");n.textContent="左右の少ない側PT × 10％。タイトル・アクティブ条件によって実際の支給は変わります。";const btn=document.createElement("button");btn.type="button";btn.textContent="閉じる";btn.addEventListener("click",()=>dlg.close());wrap.append(h,p,n,btn);dlg.append(wrap);dlg.showModal()}
+const incomeDiagram=document.getElementById("binary-diagram");
+incomeDiagram.addEventListener("click",e=>{const person=e.target.closest(".lapis-tap-person");if(person){e.stopImmediatePropagation();showIncomePerson(person.dataset.person)}},true);
+incomeDiagram.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const person=e.target.closest(".lapis-tap-person");if(person){e.preventDefault();e.stopImmediatePropagation();showIncomePerson(person.dataset.person)}}},true);
 function renderIncome(){
  const m=incomeModel(Number(document.getElementById("goal").value));
  updateRegistrationPicker();
