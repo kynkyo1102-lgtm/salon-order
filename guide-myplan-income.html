@@ -543,7 +543,7 @@ function incomeModel(target){
   const side=2*x+10000;
   const own=Math.round(side*.1);
   const abasic=Math.round(x*.1);
-  const mega=target>=30000?2*abasic:0;
+  const mega=side>=200000?2*abasic:0;
   return {target,ax:x,ar:x,bl:x,br:x,left:side,right:side,own,abasic,bbasic:abasic,mega,doubleMega:0,total:own+mega,secondary:[]};
  }
  // 二次紹介者C〜Fの左右の各グループを均等に設定。
@@ -555,7 +555,7 @@ function incomeModel(target){
  const childSide=2*x+10000,branchSide=2*childSide+10000;
  const own=Math.round(branchSide*.1),abasic=Math.round(childSide*.1);
  const directBasic=Math.round(x*.1);
- const mega=abasic*2+(fourDirect?2*directBasic:0),doubleMega=(fourDirect?2:4)*directBasic*.1;
+ const mega=branchSide>=200000?abasic*2+(fourDirect?2*directBasic:0):0,doubleMega=branchSide>=200000?(fourDirect?2:4)*directBasic*.1:0;
  const secondary=["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({name,parent:i<2?"Aさん":"Bさん",left:x,right:x,basic:Math.round(x*.1)}));
  if(fourDirect){secondary[0].parent="あなた";secondary[3].parent="あなた";}
  const leadershipMultiplier=fourDirect?3:2;
@@ -578,8 +578,8 @@ function incomeThreeModel(target){
    name,parent:gold||i===0||i===2?"あなた":i===1?"Cさん":"Eさん",
    left:x,right:x,basic:Math.round(x*.1)
   })):[];
-  const mega=basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((a,p)=>a+p.basic,0);
-  const doubleMega=secondary.filter(p=>p.parent!=="あなた").reduce((a,p)=>a+Math.round(p.basic*.1),0);
+  const mega=side>=200000?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((a,p)=>a+p.basic,0):0;
+  const doubleMega=side>=200000?secondary.filter(p=>p.parent!=="あなた").reduce((a,p)=>a+Math.round(p.basic*.1),0):0;
   const leadershipMultiplier=gold?3:2;
   const leadershipBase=leadershipRate?Math.min(side,side*leadershipMultiplier):0;
   const leadership=Math.round(leadershipBase*leadershipRate);
@@ -597,20 +597,21 @@ function incomeThreeModel(target){
 function incomeThreeDiagram(m){
  diagram(m);
  const root=document.getElementById("binary-diagram");
- const labels={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02"};
+ const labels={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  if(m.lapis){
   root.querySelectorAll(".lapis-tap-person").forEach(el=>{
    const name=el.dataset.person;
    if(labels[name]){
     el.querySelectorAll("text").forEach(t=>{if(t.textContent===name)t.textContent=labels[name]});
-    if(name!=="あなた"){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
+    if(name==="Aさん"||name==="Bさん"){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
    }
   });
   const summary=root.querySelector(".lapis-tree-summary");
   if(summary)summary.textContent="00の左右 各"+pts(m.left);
   root.querySelector(".lapis-title-extra")?.remove();
   const note=root.querySelector(".lapis-diagram-note");
-  if(note)note.textContent="00・01・02はあなた自身のポジションです。線はバイナリー上の配置を示します。下段の人物の直紹介関係はボーナス内訳で確認できます。";
+  if(note)note.textContent="00・01・02は自分のポジションです。01・02からの線は配置線で、直紹介を意味しません。A・Bさんは00からの直紹介です。";
+  root.querySelectorAll(".lapis-large-relation").forEach(t=>{const prev=t.previousElementSibling;if(prev&&prev.tagName.toLowerCase()==="rect")prev.remove();t.remove()});
  }else{
   root.querySelector(".plan-top strong").textContent="あなた（00）";
   root.querySelectorAll(".plan-branch .plan-person").forEach((el,i)=>{
@@ -673,8 +674,8 @@ function showIncomePerson(name){
  const basic=Math.round(side*.1);
  const displayName=m.three?({"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02"}[name]||name):name;
  const relation=m.three?(name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
- const rate=name==="あなた"?0:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
- const matchName=name==="あなた"?"":rate===1?"メガマッチ":"ダブルメガマッチ";
+ const rate=name==="あなた"||m.left<200000?0:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
+ const matchName=!rate?"":rate===1?"メガマッチ":"ダブルメガマッチ";
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
  dlg.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％</div></div>'+(matchName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+matchName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate*100)+'％ ＝ <strong>'+yen(basic*rate)+'</strong></div></div>':'')+(name==="あなた"&&m.leadership?'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">リーダーシップボーナス（条件確認が必要）</div><div class="lapis-dialog-equation">'+pts(side)+' × '+m.leadershipMultiplier+'倍 → 再比較 '+pts(m.leadershipBase)+' × '+(m.leadershipRate*100)+'％ ＝ '+yen(m.leadership)+'</div></div>':'');
@@ -692,7 +693,7 @@ function renderIncome(){
  if(m.three){incomeThreeDiagram(m);incomeThreeBreakdown(m)}else{diagram(m);incomeBreakdown(m)}
  const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
  const note=document.getElementById("income-prototype-note");
- note.textContent=registrationMode==="three"?"00・01・02の3ポジション分のベーシックと、00のメガマッチ等を含めて目標金額から逆算した試算です。下段の紹介者の紹介関係と各タイトル・支給条件はモデル上の仮定です。実際の支給額とは異なります。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
+ note.textContent=registrationMode==="three"?"00・01・02のベーシックを合算し、メガマッチは00がクリスタル以上の場合だけ計上しています。01・02からの直紹介者はいません。配置線と直紹介は別です。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
 document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEventListener("click",()=>{registrationMode=btn.dataset.registrationChoice;renderIncome()}));
