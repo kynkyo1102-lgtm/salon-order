@@ -1042,7 +1042,7 @@ function incomeThreeBreakdown(m){
  ]);
  add("ダブルメガマッチ（二次紹介者のベーシック10％）",m.doubleMega,
   m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％（上限適用）＝ "+yen(incomeDoublePayout(p.basic,m.title))]));
- add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・条件要確認）",m.leadership,[
+ if(m.leadership>0)add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・条件要確認）",m.leadership,[
   ["少ない側を"+m.leadershipMultiplier+"倍",pts(Math.min(m.left,m.right))+" × "+m.leadershipMultiplier+" ＝ "+pts(Math.min(m.left,m.right)*m.leadershipMultiplier)],
   ["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]
  ]);
@@ -1054,7 +1054,7 @@ function incomeBreakdown(m){
  add("ベーシックコミッション",m.own,[["あなた（00）","左右の少ない側 "+pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
  add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさん",yen(m.abasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.abasic,m.title))],["Bさん",yen(m.bbasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.bbasic,m.title))],...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(p.basic,m.title))])]);
  add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name,pts(Math.min(p.left,p.right))+" × 10％ × 10％ ＝ "+yen(incomeDoublePayout(p.basic,m.title))]));
- add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・タイトル条件要確認）",m.leadership,[["左右の売上P","左 "+pts(m.left)+" ／ 右 "+pts(m.right)],["少ない側を"+m.leadershipMultiplier+"倍",pts(Math.min(m.left,m.right))+" × "+m.leadershipMultiplier+" ＝ "+pts(Math.min(m.left,m.right)*m.leadershipMultiplier)],["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]]);
+ if(m.leadership>0)add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・タイトル条件要確認）",m.leadership,[["左右の売上P","左 "+pts(m.left)+" ／ 右 "+pts(m.right)],["少ない側を"+m.leadershipMultiplier+"倍",pts(Math.min(m.left,m.right))+" × "+m.leadershipMultiplier+" ＝ "+pts(Math.min(m.left,m.right)*m.leadershipMultiplier)],["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]]);
  document.getElementById("sum").textContent=yen(m.total);
 }
 function updateIncomeSpotlight(m){
@@ -1098,7 +1098,7 @@ function renderIncome(){
  updateRegistrationPicker();
  updateIncomeSpotlight(m);
  // 3点登録では00/01/02の位置を示す既存の図を流用。
- // 計算上は各ポジションのボーナスを重複計上しないよう、1点登録モデルの試算を表示。
+ // 00・01・02の各ポジションのベーシックを含む3点登録専用モデルで試算。
  if(m.three){incomeThreeDiagram(m);incomeThreeBreakdown(m)}else{diagram(m);incomeBreakdown(m)}
  const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
 
