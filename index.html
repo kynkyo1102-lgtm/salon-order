@@ -412,7 +412,7 @@ body.home-page .salon-sky::after{opacity:.25}
     const startTime=rule?.start||'11:00',endTime=rule?.end||'17:00';
     const parse=t=>{const [hh,mm]=t.split(':').map(Number);return hh*60+mm;};
     const openAt=parse(startTime),closeAt=parse(endTime);
-    if(minute>=openAt&&minute<closeAt){setStatus('open','ただいま営業中（予定）',endTime+'まで · 臨時変更の場合あり');}
+    if(minute>=openAt&&minute<closeAt){setStatus('open','ただいま営業中',endTime+'まで · 臨時変更の場合あり');}
     else if(minute<openAt){setStatus('closed','ただいま営業時間外',startTime+'から営業予定');}
     else{setStatus('closed','本日のサロン営業は終了しました','通常営業時間 11:00〜17:00');}
   }
