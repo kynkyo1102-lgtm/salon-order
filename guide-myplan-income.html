@@ -567,6 +567,29 @@ function incomeModel(target){
 
 
 function incomeThreeModel(target){
+ if(target<=50000){
+  // A/B and C/D can carry different whole-10,000PT groups.
+  // Preserve left/right balance at 00 while avoiding an artificial uniform leaf size.
+  let best=null;
+  for(let a=1;a<=35;a++)for(let c=1;c<=35;c++){
+   const x=a*10000,y=c*10000,side01=x+y+10000,side=2*side01+10000;
+   const basic00=Math.round(side*.1),basic01=Math.round(Math.min(x,y)*.1);
+   const crystal=side>=200000,mega=crystal?2*basic01:0;
+   const total=basic00+2*basic01+mega;
+   if(total<target||total>=target+10000)continue;
+   const score=(total-target)*100+Math.abs(a-c)*90+(a+c)*2;
+   if(!best||score<best.score)best={score,x,y,side01,side,basic00,basic01,mega,total,crystal};
+  }
+  if(best){
+   const {x,y,side01,side,basic00,basic01,mega,total,crystal}=best;
+   return {target,three:true,lapis:true,deep:false,gold:false,crystal,
+    ax:x,ar:y,bl:x,br:y,left:side,right:side,own:basic00,
+    abasic:basic01,bbasic:basic01,mega,doubleMega:0,leadership:0,leadershipRate:0,
+    leadershipMultiplier:2,leadershipBase:0,secondary:[],total,
+    positionsBasic:basic00+2*basic01,unit:x,acSide:x,side01,
+    leafPT:{'Cさん':x,'Dさん':y,'Eさん':x,'Fさん':y}};
+  }
+ }
  const deep=target>=500000,mid=target>=100000,gold=target===2000000;
  const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
  const build=x=>{
@@ -601,7 +624,7 @@ function incomeThreeModel(target){
 }
 function incomeThreeTitleLayout(m){
  // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
- const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.unit,right:m.unit,basic:Math.round(m.unit*.1),title:"メンバー"}))};
+ const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.leafPT?.[name]||m.unit,right:m.leafPT?.[name]||m.unit,basic:Math.round((m.leafPT?.[name]||m.unit)*.1),title:"メンバー"}))};
  diagramLapis(display);
  const root=document.getElementById("binary-diagram");
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
