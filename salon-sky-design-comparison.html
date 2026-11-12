@@ -125,7 +125,7 @@ body.home-page[data-time-theme="late-night"]{background-color:#e6e9f3;color:#273
 .sky-compare-inner strong{font-size:13px;margin-right:8px}
 .sky-compare-inner button{appearance:none;border:1px solid #b9c9bf;background:#fff;color:#315843;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer}
 .sky-compare-inner button[aria-pressed="true"]{background:#315843;color:white;border-color:#315843}
-.sky-compare-desc{max-width:1100px;margin:8px auto 0;font-size:12px;color:#6b766c}
+.sky-compare-selectors{max-width:1100px;margin:10px auto 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center}.sky-compare-selectors label{display:flex;gap:6px;align-items:center;font-size:12px;font-weight:700}.sky-compare-selectors select{font:inherit;font-size:12px;border:1px solid #b9c9bf;border-radius:8px;padding:8px;background:#fff;color:#315843}.sky-compare-desc{max-width:1100px;margin:8px auto 0;font-size:12px;color:#6b766c}
 body[data-sky-style="soft"] .salon-live{--sky-top:#a8c8c3;--sky-bottom:#f2eee4;--ink:#31554e;border-bottom-color:#e2e0d5}
 body[data-sky-style="soft"] .salon-live[data-time-theme="morning"]{--sky-top:#d9b9a3;--sky-bottom:#f5ede0;--ink:#654f45}
 body[data-sky-style="soft"] .salon-live[data-time-theme="day"]{--sky-top:#a8c8c3;--sky-bottom:#f2eee4;--ink:#31554e}
@@ -154,7 +154,7 @@ body[data-sky-style="playful"] .salon-live-weather-caption{color:#5f7869}
 body[data-sky-style="playful"] .salon-sky::after{background:linear-gradient(0deg,#f7f1e877,transparent)}
 @media(max-width:600px){.sky-compare-inner{gap:7px}.sky-compare-inner strong{width:100%}.sky-compare-inner button{flex:1;padding:9px 5px;font-size:11px}}
 </style></head>
-<body class="home-page" data-sky-style="original"><section class="sky-compare-toolbar" aria-label="空のデザイン比較"><div class="sky-compare-inner"><strong>空のデザインを比較（プレビュー）</strong><button type="button" data-variant="original" aria-pressed="true">A 現在の雰囲気</button><button type="button" data-variant="soft" aria-pressed="false">B 落ち着いた雰囲気</button><button type="button" data-variant="playful" aria-pressed="false">C 少し遊び心</button></div><p class="sky-compare-desc" id="sky-compare-desc">A：現在の明るい空。変更前との比較用です。</p></section>  <header class="home-header">
+<body class="home-page" data-sky-style="original"><section class="sky-compare-toolbar" aria-label="空のデザイン比較"><div class="sky-compare-inner"><strong>空のデザインを比較（プレビュー）</strong><button type="button" data-variant="original" aria-pressed="true">A 現在の雰囲気</button><button type="button" data-variant="soft" aria-pressed="false">B 落ち着いた雰囲気</button><button type="button" data-variant="playful" aria-pressed="false">C 少し遊び心</button></div><div class="sky-compare-selectors"><label>時間帯 <select id="sky-test-time"><option value="auto">現在時刻（自動）</option><option value="02:00">02:00 深夜</option><option value="05:30">05:30 早朝</option><option value="08:00">08:00 朝</option><option value="12:00">12:00 昼</option><option value="17:00">17:00 夕方付近</option><option value="18:00">18:00 日没付近</option><option value="20:00">20:00 夜</option><option value="23:30">23:30 深夜</option></select></label><label>天気 <select id="sky-test-weather"><option value="auto">実際の天気（自動）</option><option value="sun">晴れ</option><option value="cloud">くもり</option><option value="rain">雨</option><option value="snow">雪</option></select></label><label>季節 <select id="sky-test-season"><option value="today">今日</option><option value="summer">夏至付近</option><option value="winter">冬至付近</option></select></label></div><p class="sky-compare-desc" id="sky-compare-desc">A：現在の明るい空。変更前との比較用です。</p></section>  <header class="home-header">
     <div class="home-header-brand">
       <a href="index.html" class="header-logo">Place de Nina</a>
       <span class="home-header-shop">南熊本店</span>
@@ -379,7 +379,7 @@ body[data-sky-style="playful"] .salon-sky::after{background:linear-gradient(0deg
   const toMinute=s=>{const m=/(\d{2}):(\d{2})$/.exec(s||'');return m?Number(m[1])*60+Number(m[2]):null};
   const fmtMinute=n=>String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');
   async function loadSolar(){
-    const season='today';
+    const season=document.getElementById('sky-test-season').value;
     const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const day=season==='summer'?'2025-06-21':season==='winter'?'2025-12-21':today;
     const base=season==='today'?'https://api.open-meteo.com/v1/forecast':'https://archive-api.open-meteo.com/v1/archive';
@@ -400,7 +400,7 @@ body[data-sky-style="playful"] .salon-sky::after{background:linear-gradient(0deg
   }
   function applyScene(){
     const p=localParts(),hour=Number(p.hour);
-    const minute=hour*60+Number(p.minute);const dawnStart=Math.min(5*60,solar.sunrise-45),dawnEnd=solar.sunrise+45,eveningStart=solar.sunset-60,eveningEnd=solar.sunset+30;const time=minute>=23*60||minute<dawnStart?'late-night':minute<dawnEnd?'dawn':minute<11*60?'morning':minute<eveningStart?'day':minute<eveningEnd?'evening':'night';    const weather=chosenWeather==='auto'?actualWeather:chosenWeather;
+    const selectedTime=document.getElementById('sky-test-time').value;const minute=selectedTime==='auto'?hour*60+Number(p.minute):toMinute(selectedTime);const dawnStart=Math.min(5*60,solar.sunrise-45),dawnEnd=solar.sunrise+45,eveningStart=solar.sunset-60,eveningEnd=solar.sunset+30;const time=minute>=23*60||minute<dawnStart?'late-night':minute<dawnEnd?'dawn':minute<11*60?'morning':minute<eveningStart?'day':minute<eveningEnd?'evening':'night';    const weather=chosenWeather==='auto'?actualWeather:chosenWeather;
     root.dataset.timeTheme=time;document.body.dataset.timeTheme=time;root.dataset.night=(time==='night'||time==='late-night')?'true':'false';
     root.dataset.weather=weather;
     if(chosenWeather!=='auto'){
@@ -410,7 +410,7 @@ body[data-sky-style="playful"] .salon-sky::after{background:linear-gradient(0deg
   }
   let actualLabel='天気を取得中',actualIcon='🌤️';
   function showActualWeather(){weatherIcon.textContent=actualIcon;weatherText.textContent=actualLabel;}
-  loadSolar();setInterval(applyScene,60000);setInterval(loadSolar,6*60*60*1000);
+  document.getElementById('sky-test-time').addEventListener('change',applyScene);document.getElementById('sky-test-weather').addEventListener('change',e=>{chosenWeather=e.target.value;if(chosenWeather==='auto')showActualWeather();applyScene()});document.getElementById('sky-test-season').addEventListener('change',loadSolar);loadSolar();setInterval(applyScene,60000);setInterval(loadSolar,6*60*60*1000);
 
   let exceptions={};
   let holidaysReady=false,settingsReady=false,settingsValid=false;
