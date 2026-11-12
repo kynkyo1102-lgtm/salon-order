@@ -1017,18 +1017,19 @@ function incomeThreeDiagram(m){
  incomeThreeTitleLayout(m);
  if(m.deep)incomeThreeTitleExtension(m);
 }
+function addIncomeBreakdownCard(body,name,value,lines){
+ if(!value)return;
+ const card=document.createElement("div");card.className="breakdown-card";
+ const head=document.createElement("div");head.className="breakdown-card-head";
+ for(const t of [name,yen(value)]){const e=document.createElement("strong");e.textContent=t;head.append(e)}
+ card.append(head);
+ const details=document.createElement("div");details.className="breakdown-calcs";
+ for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";for(const t of [label,formula]){const e=document.createElement("span");e.textContent=t;line.append(e)}details.append(line)}
+ card.append(details);body.append(card);
+}
 function incomeThreeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{
-  if(!value)return;
-  const card=document.createElement("div");card.className="breakdown-card";
-  const head=document.createElement("div");head.className="breakdown-card-head";
-  for(const t of [name,yen(value)]){const e=document.createElement("strong");e.textContent=t;head.append(e)}
-  card.append(head);
-  const details=document.createElement("div");details.className="breakdown-calcs";
-  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";for(const t of [label,formula]){const e=document.createElement("span");e.textContent=t;line.append(e)}details.append(line)}
-  card.append(details);body.append(card);
- };
+ const add=(name,value,lines)=>addIncomeBreakdownCard(body,name,value,lines);
  add("ベーシックコミッション（00・01・02合計）",m.positionsBasic,[
   ...([["00",Math.min(m.left,m.right),m.own],["01",Math.min(m.ax,m.ar),m.abasic],["02",Math.min(m.bl,m.br),m.bbasic]].filter(z=>z[2]>0).map(z=>[z[0],pts(z[1])+" × 10％ ＝ "+yen(z[2])]))
  ]);
@@ -1046,7 +1047,7 @@ function incomeThreeBreakdown(m){
 }
 function incomeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{if(!value)return;const card=document.createElement("div");card.className="breakdown-card";const head=document.createElement("div");head.className="breakdown-card-head";const a=document.createElement("strong");a.textContent=name;const b=document.createElement("strong");b.textContent=yen(value);head.append(a,b);card.append(head);const details=document.createElement("div");details.className="breakdown-calcs";lines.forEach(([label,formula])=>{const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span"),f=document.createElement("span");l.textContent=label;f.textContent=formula;line.append(l,f);details.append(line)});card.append(details);body.append(card)};
+ const add=(name,value,lines)=>addIncomeBreakdownCard(body,name,value,lines);
  add("ベーシックコミッション",m.own,[["あなた（00）","左右の少ない側 "+pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
  add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさん",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],["Bさん",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)],...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])]);
  add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name,pts(Math.min(p.left,p.right))+" × 10％ × 10％ ＝ "+yen(p.basic*.1)]));
