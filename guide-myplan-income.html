@@ -551,7 +551,16 @@ function incomeModel(target){
  const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
  const fourDirect=target===2000000;
  const coefficient=(fourDirect?1.02:.84)+leadershipRate*4;
- const x=Math.max(10000,Math.ceil(((target-5000-leadershipRate*30000)/coefficient)/10000)*10000);
+ // Search whole-10,000PT values against the actual commission formula.
+ const estimate=x=>{
+  const child=2*x+10000,branch=2*child+10000;
+  const base=branch*.1,childBasic=child>=30000?child*.1:0,leafBasic=x>=30000?x*.1:0;
+  const mega=branch>=200000?2*childBasic+(fourDirect?2*leafBasic:0):0;
+  const doubleMega=branch>=200000?(fourDirect?2:4)*leafBasic*.1:0;
+  return base+mega+doubleMega+(leadershipRate?Math.round(branch*leadershipRate):0);
+ };
+ let x=30000;
+ while(estimate(x)<target&&x<100000000)x+=10000;
  const childSide=2*x+10000,branchSide=2*childSide+10000;
  const own=branchSide>=30000?Math.round(branchSide*.1):0,abasic=childSide>=30000?Math.round(childSide*.1):0;
  const directBasic=x>=30000?Math.round(x*.1):0;
