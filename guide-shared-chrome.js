@@ -67,7 +67,8 @@ function addBottomReturnLink(){
  if(filename==='ninaguide.html'||filename==='index.html')return;
  const main=document.querySelector('main');if(!main)return;
  let href='./ninaguide.html',label='ガイドトップに戻る';
- if(filename.startsWith('guide-d-')||filename==='guide-procedures.html'){href='./guide-d.html';label='手続き一覧に戻る'}
+ if(filename==='guide-myplan-preview.html'){href='./ninaguide.html';label='ガイドトップに戻る'}
+ else if(filename.startsWith('guide-d-')||filename==='guide-procedures.html'){href='./guide-d.html';label='手続き一覧に戻る'}
  else if(filename.startsWith('guide-myplan-')){href='./guide-myplan.html';label='マイプランを探そう！に戻る'}
  else if(filename.startsWith('guide-c-bonus-')){href='./guide-c-bonus.html';label='ボーナスプラン一覧に戻る'}
  // Avoid duplicating an existing bottom return link with the same destination.
