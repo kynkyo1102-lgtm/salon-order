@@ -793,6 +793,43 @@ function incomeThreeModel(target){
    if(q<bestScore){values=v;best=m;bestScore=q}
   }
  }
+ // High-tier constrained search: prioritize 01/02 balance, then A/B and E/F.
+ // Simulated annealing permits intermediate moves that greedy PT transfers reject.
+ if(target===2000000){
+  let seed=20261112;
+  const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+  const objective=(v,m)=>{
+   const a=m.secondary;
+   const diffs=[
+    Math.abs(m.ax-m.ar),Math.abs(m.bl-m.br),
+    Math.abs(a[0].left-a[0].right),Math.abs(a[1].left-a[1].right),
+    Math.abs(a[2].left-a[2].right),Math.abs(a[3].left-a[3].right),
+    Math.abs(m.left-m.right)
+   ];
+   const max=Math.max(...diffs.slice(0,6));
+   return max*5+diffs[0]*2+diffs[1]*2+diffs[2]+diffs[3]+diffs[4]+diffs[5]+diffs[6]*.4+
+    Math.max(0,m.total-target)*3;
+  };
+  let global=objective(values,best);
+  for(let restart=0;restart<7;restart++){
+   let v=values.slice(),m=build(v,unit),q=objective(v,m);
+   for(let iter=0;iter<18000;iter++){
+    const w=v.slice();
+    const i=Math.floor(rand()*10),j=Math.floor(rand()*10);
+    if(i===j)continue;
+    const scale=iter<6000?Math.max(1,Math.floor(unit/2)):iter<12000?Math.max(1,Math.floor(unit/6)):Math.max(1,Math.floor(unit/25));
+    const amount=Math.min(w[i]-1,1+Math.floor(rand()*scale));
+    if(amount<=0)continue;
+    w[i]-=amount;w[j]+=amount;
+    const n=build(w,unit);
+    if(n.total<target||n.total>=target+10000)continue;
+    const nq=objective(w,n);
+    const temperature=(1-iter/18000)*(restart<3?180000:45000)+1000;
+    if(nq<q||rand()<Math.exp((q-nq)/temperature)){v=w;m=n;q=nq}
+    if(nq<global){values=w.slice();best=n;global=nq}
+   }
+  }
+ }
  // Equalize E/F left and right PT by moving units within each pair.
  // Pair totals stay unchanged, so all ancestors' PT remain consistent.
  for(let pass=0;pass<unit*2+10;pass++){
