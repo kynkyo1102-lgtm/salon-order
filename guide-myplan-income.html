@@ -588,7 +588,7 @@ function incomeModel(target){
 
 function incomeThreeModel(target){
  // Each visible person contributes 10,000 PT to their placement ancestor, not to their own sides.
- const fixed=target===50000?[3,4,5,5,3,4,5,5]:null;
+ const fixed=target===30000?[3,3,3,3,3,4,3,4]:target===50000?[3,4,5,5,3,4,5,5]:null;
  const deep=target>=500000;
  const build=(values,n)=>{
   const u=n*10000;
