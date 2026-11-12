@@ -576,66 +576,55 @@ function incomeModel(target){
 
 
 function incomeThreeModel(target){
- if(target===30000||target===50000){
-  // Four directly referred people A/C/B/D, each with two leaf groups.
-  const units=target===30000?[3,3,2,3,3,3,2,3]:[3,4,4,5,3,4,4,5];
-  const p=units.map(n=>n*10000);
-  const group=(i)=>p[i]+p[i+1]+10000;
-  const left01=group(0),right01=group(2),left02=group(4),right02=group(6);
-  const left=left01+right01+10000,right=left02+right02+10000;
-  const basic=(a,b)=>Math.min(a,b)>=30000?Math.round(Math.min(a,b)*.1):0;
-  const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
-  const direct=[{name:"Aさん",parent:"あなた",left:p[0],right:p[1],basic:basic(p[0],p[1])},{name:"Bさん",parent:"あなた",left:p[4],right:p[5],basic:basic(p[4],p[5])}];
-  const mega=left>=200000&&right>=200000?abasic+bbasic+direct.reduce((v,z)=>v+z.basic,0):0;
+ // Each visible person contributes 10,000 PT to their placement ancestor, not to their own sides.
+ const fixed=target===30000?[3,3,2,3,3,3,2,3]:target===50000?[3,4,4,5,3,4,4,5]:null;
+ const deep=target>=500000;
+ const build=(n)=>{
+  const u=n*10000;
+  const p=fixed?fixed.map(v=>v*10000):Array(8).fill(u);
+  // Four leaf persons A,C,B,D, each with two group triangles.
+  // At higher targets E/F are placed beneath A/B and contribute their own PT.
+  const extra=deep?2*u+10000:0;
   const leafPairs={"Cさん":[p[0],p[1]],"Dさん":[p[2],p[3]],"Eさん":[p[4],p[5]],"Fさん":[p[6],p[7]]};
-  return {target,three:true,lapis:true,deep:false,gold:false,crystal:mega>0,
-   ax:left01,ar:right01,bl:left02,br:right02,left,right,own,abasic,bbasic,
-   mega,doubleMega:0,leadership:0,leadershipRate:0,leadershipMultiplier:2,leadershipBase:0,
-   secondary:direct,total:own+abasic+bbasic+mega,positionsBasic:own+abasic+bbasic,
-   unit:p[0],leafPairs};
- }
- if(target===10000){
-  const p=20000,side01=2*p+10000,side=2*side01+10000;
-  const own=Math.round(side*.1),basic01=Math.round(p*.1);
-  return {target,three:true,lapis:true,deep:false,gold:false,crystal:false,
-   ax:side01,ar:side01,bl:side01,br:side01,left:side,right:side,own,
-   abasic:basic01,bbasic:basic01,mega:0,doubleMega:0,leadership:0,leadershipRate:0,
-   leadershipMultiplier:2,leadershipBase:0,secondary:[],total:own+2*basic01,
-   positionsBasic:own+2*basic01,unit:p,side01};
- }
- const deep=target>=500000,mid=target>=100000,gold=target===2000000;
- const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
- const build=x=>{
-  // 01/02の左右に配置するA/C、B/D。50万円以上はA/Bの片側にE/Fを配置。
-  const acSide=deep?2*x+10000:x;
-  const side01=acSide+x+20000; // includes the 10,000 PT of each placed A/C or B/D person
-  const side=2*side01+10000;
-  const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(acSide+10000,x+10000)>=30000?Math.round(Math.min(acSide+10000,x+10000)*.1):0,basic02=basic01;
-  const basicAB=x>=30000?Math.round(x*.1):0;
-  const basicEF=x>=30000?Math.round(x*.1):0;
-  const secondary=mid?[
-   {name:"Aさん",parent:"あなた",left:deep?x:x,right:deep?x:x,basic:basicAB},
-   {name:"Bさん",parent:"あなた",left:deep?x:x,right:deep?x:x,basic:basicAB},
-   ...(deep?[
-    {name:"Eさん",parent:"Aさん",left:x,right:x,basic:basicEF},
-    {name:"Fさん",parent:"Bさん",left:x,right:x,basic:basicEF}
-   ]:[])
-  ]:[];
-  const crystal=side>=200000;
-  const mega=crystal?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
-  const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
-  const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
-  const eligibleLeadership=leadershipRate>0&&side>=(gold?6000000:3000000);
-  const leadership=eligibleLeadership?Math.round(leadershipBase*leadershipRate):0;
-  return {target,three:true,lapis:true,deep,gold,crystal,ax:acSide+10000,ar:x+10000,bl:acSide+10000,br:x+10000,
-   left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,mega,doubleMega,leadership,leadershipRate,
-   leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
-   positionsBasic:basic00+basic01+basic02,unit:x,acSide,side01};
+  const left01=p[0]+p[1]+10000+extra,right01=p[2]+p[3]+10000;
+  const left02=p[4]+p[5]+10000+extra,right02=p[6]+p[7]+10000;
+  const left=left01+right01+10000,right=left02+right02+10000;
+  const side=Math.min(left,right);
+  const title=side>=6000000?"ゴールド":side>=3000000?"エメラルド":side>=1000000?"サファイヤ":side>=500000?"ラピス":side>=200000?"クリスタル":"メンバー";
+  const basic=(l,r)=>Math.min(l,r)>=30000?Math.round(Math.min(l,r)*.1):0;
+  const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
+  const aBasic=basic(p[0]+(deep?u+10000:0),p[1]+(deep?u+10000:0));
+  const bBasic=basic(p[4]+(deep?u+10000:0),p[5]+(deep?u+10000:0));
+  const secondary=[
+   {name:"Aさん",parent:"あなた",left:p[0]+(deep?u+10000:0),right:p[1]+(deep?u+10000:0),basic:aBasic},
+   {name:"Bさん",parent:"あなた",left:p[4]+(deep?u+10000:0),right:p[5]+(deep?u+10000:0),basic:bBasic},
+   ...(deep?[{name:"Eさん",parent:"Aさん",left:u,right:u,basic:basic(u,u)},{name:"Fさん",parent:"Bさん",left:u,right:u,basic:basic(u,u)}]:[])
+  ];
+  const crystal=side>=200000,cap=side>=3000000?400000:side>=1000000?200000:100000;
+  const mega=crystal?[abasic,bbasic,aBasic,bBasic].reduce((sum,v)=>sum+Math.min(v,cap),0):0;
+  const doubleMega=crystal?secondary.filter(v=>v.parent!=="あなた").reduce((sum,v)=>sum+Math.min(Math.round(v.basic*.1),side>=1000000?250000:100000),0):0;
+  const leadershipRate=side>=6000000?.02:side>=3000000?.015:0;
+  const leadershipMultiplier=side>=6000000?3:2;
+  // Multiply the smaller side, then compare it with the unchanged larger side.
+  const leadershipBase=leadershipRate?Math.min(Math.max(left,right),side*leadershipMultiplier):0;
+  const leadership=leadershipRate?Math.round(leadershipBase*leadershipRate):0;
+  return {target,three:true,lapis:true,deep,gold:title==="ゴールド",crystal,title,
+   ax:left01,ar:right01,bl:left02,br:right02,left,right,own,abasic,bbasic,mega,doubleMega,
+   leadership,leadershipRate,leadershipMultiplier,leadershipBase,secondary,
+   total:own+abasic+bbasic+mega+doubleMega+leadership,positionsBasic:own+abasic+bbasic,
+   unit:u,acSide:left01-10000,side01:left01+right01+10000,leafPairs};
  };
- let lo=1,hi=1000000;
- while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*10000).total>=target)hi=mid;else lo=mid+1}
- return build(lo*10000);
+ if(fixed)return build(3);
+ // Search the minimum whole-10,000 PT leaf size; titles are derived from PT, not the target amount.
+ let lo=1,hi=100000;
+ while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid).total>=target)hi=mid;else lo=mid+1}
+ const candidate=build(lo);
+ // Compare nearby valid units to avoid large overshoot at title boundaries.
+ let best=candidate;
+ for(let n=Math.max(1,lo-15);n<=lo+15;n++){const m=build(n);if(m.total>=target&&m.total<best.total)best=m}
+ return best;
 }
+
 function incomeThreeTitleLayout(m){
  // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
  const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.leafPairs?.[name]?.[0]||m.leafPT?.[name]||m.unit,right:m.leafPairs?.[name]?.[1]||m.leafPT?.[name]||m.unit,basic:Math.min(m.leafPairs?.[name]?.[0]||m.unit,m.leafPairs?.[name]?.[1]||m.unit)>=30000?Math.round(Math.min(m.leafPairs?.[name]?.[0]||m.unit,m.leafPairs?.[name]?.[1]||m.unit)*.1):0,title:"メンバー"}))};
@@ -781,7 +770,7 @@ function incomeThreeBreakdown(m){
   ...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])
  ]);
  add("ダブルメガマッチ（二次紹介者のベーシック10％）",m.doubleMega,
-  m.secondary.filter(p=>p.parent!=="あなた").map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％ ＝ "+yen(Math.round(p.basic*.1))]));
+  m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％ ＝ "+yen(Math.round(p.basic*.1))]));
  add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・条件要確認）",m.leadership,[
   ["少ない側を"+m.leadershipMultiplier+"倍",pts(m.left)+" × "+m.leadershipMultiplier+" ＝ "+pts(m.left*m.leadershipMultiplier)],
   ["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]
