@@ -152,6 +152,12 @@ body[data-sky-style="playful"] .salon-cloud{background:#fff7e8;filter:none;opaci
 body[data-sky-style="playful"] .salon-live-weather{border:1.5px solid #cbded1;background:#fffaf0e8;color:#315843;box-shadow:3px 4px 0 #31584316;backdrop-filter:none}
 body[data-sky-style="playful"] .salon-live-weather-caption{color:#5f7869}
 body[data-sky-style="playful"] .salon-sky::after{background:linear-gradient(0deg,#f7f1e877,transparent)}
+/* C only: dissolve the lower edge of the sky into the ivory content background. */
+body[data-sky-style="playful"] .salon-live{border-bottom:0}
+body[data-sky-style="playful"] .salon-live::after{content:"";position:absolute;left:0;right:0;bottom:0;height:92px;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(247,244,237,0) 0%,rgba(247,244,237,.18) 28%,rgba(247,244,237,.7) 70%,#f7f4ed 100%)}
+body[data-sky-style="playful"] .salon-live-inner{z-index:3}
+body[data-sky-style="playful"] .salon-sky::after{opacity:.25}
+
 @media(max-width:600px){.sky-compare-inner{gap:7px}.sky-compare-inner strong{width:100%}.sky-compare-inner button{flex:1;padding:9px 5px;font-size:11px}}
 </style></head>
 <body class="home-page" data-sky-style="original"><section class="sky-compare-toolbar" aria-label="空のデザイン比較"><div class="sky-compare-inner"><strong>空のデザインを比較（プレビュー）</strong><button type="button" data-variant="original" aria-pressed="true">A 現在の雰囲気</button><button type="button" data-variant="soft" aria-pressed="false">B 落ち着いた雰囲気</button><button type="button" data-variant="playful" aria-pressed="false">C 少し遊び心</button></div><div class="sky-compare-selectors"><label>時間帯 <select id="sky-test-time"><option value="auto">現在時刻（自動）</option><option value="02:00">02:00 深夜</option><option value="05:30">05:30 早朝</option><option value="08:00">08:00 朝</option><option value="12:00">12:00 昼</option><option value="17:00">17:00 夕方付近</option><option value="18:00">18:00 日没付近</option><option value="20:00">20:00 夜</option><option value="23:30">23:30 深夜</option></select></label><label>天気 <select id="sky-test-weather"><option value="auto">実際の天気（自動）</option><option value="sun">晴れ</option><option value="cloud">くもり</option><option value="rain">雨</option><option value="snow">雪</option></select></label><label>季節 <select id="sky-test-season"><option value="today">今日</option><option value="summer">夏至付近</option><option value="winter">冬至付近</option></select></label></div><p class="sky-compare-desc" id="sky-compare-desc">A：現在の明るい空。変更前との比較用です。</p></section>  <header class="home-header">
@@ -455,5 +461,5 @@ body[data-sky-style="playful"] .salon-sky::after{background:linear-gradient(0deg
   }).catch(()=>{actualIcon='☁️';actualLabel='天気を確認できません';if(chosenWeather==='auto')showActualWeather()});
 })();
 </script>
-<script>(function(){const descriptions={original:'A：現在の明るい空。変更前との比較用です。',soft:'B：くすみグリーンとアイボリー。太陽・雲を控えめにしてページ全体になじませる案。',playful:'C：グリーン寄りの空とクリーム色の雲。少しだけ温かく楽しい案。'};document.querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>{document.body.dataset.skyStyle=b.dataset.variant;document.querySelectorAll('[data-variant]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.getElementById('sky-compare-desc').textContent=descriptions[b.dataset.variant]}))})();</script></body>
+<script>(function(){const descriptions={original:'A：現在の明るい空。変更前との比較用です。',soft:'B：くすみグリーンとアイボリー。太陽・雲を控えめにしてページ全体になじませる案。',playful:'C：グリーン寄りの空とクリーム色の雲。下端をぼかして背景になじませた案。'};document.querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>{document.body.dataset.skyStyle=b.dataset.variant;document.querySelectorAll('[data-variant]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.getElementById('sky-compare-desc').textContent=descriptions[b.dataset.variant]}))})();</script></body>
 </html>
