@@ -539,10 +539,10 @@ function incomeModel(target){
  if(!useSecond){
   // A/Bの各左右に同額を配置。A/B各本人の1万PTを親のグループに加算。
   // 小さい目標はメガを前提とせず、ベーシック中心。
-  let x=10000;while(true){const candidateSide=2*x+10000;const candidateTotal=Math.round(candidateSide*.1)+(candidateSide>=200000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=10000;}
+  let x=10000;while(true){const candidateSide=2*x+10000;const candidateTotal=(candidateSide>=30000?Math.round(candidateSide*.1):0)+(candidateSide>=200000&&x>=30000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=10000;}
   const side=2*x+10000;
-  const own=Math.round(side*.1);
-  const abasic=Math.round(x*.1);
+  const own=side>=30000?Math.round(side*.1):0;
+  const abasic=x>=30000?Math.round(x*.1):0;
   const mega=side>=200000?2*abasic:0;
   return {target,ax:x,ar:x,bl:x,br:x,left:side,right:side,own,abasic,bbasic:abasic,mega,doubleMega:0,total:own+mega,secondary:[]};
  }
@@ -553,10 +553,10 @@ function incomeModel(target){
  const coefficient=(fourDirect?1.02:.84)+leadershipRate*4;
  const x=Math.max(10000,Math.ceil(((target-5000-leadershipRate*30000)/coefficient)/10000)*10000);
  const childSide=2*x+10000,branchSide=2*childSide+10000;
- const own=Math.round(branchSide*.1),abasic=Math.round(childSide*.1);
- const directBasic=Math.round(x*.1);
+ const own=branchSide>=30000?Math.round(branchSide*.1):0,abasic=childSide>=30000?Math.round(childSide*.1):0;
+ const directBasic=x>=30000?Math.round(x*.1):0;
  const mega=branchSide>=200000?abasic*2+(fourDirect?2*directBasic:0):0,doubleMega=branchSide>=200000?(fourDirect?2:4)*directBasic*.1:0;
- const secondary=["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({name,parent:i<2?"Aさん":"Bさん",left:x,right:x,basic:Math.round(x*.1)}));
+ const secondary=["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({name,parent:i<2?"Aさん":"Bさん",left:x,right:x,basic:x>=30000?Math.round(x*.1):0}));
  if(fourDirect){secondary[0].parent="あなた";secondary[3].parent="あなた";}
  const leadershipMultiplier=fourDirect?3:2;
  const leadershipBase=leadershipRate?Math.min(Math.max(branchSide,branchSide)*leadershipMultiplier,Math.min(branchSide,branchSide)):0;
@@ -573,7 +573,7 @@ function incomeThreeModel(target){
   let best=null;
   for(let a=1;a<=35;a++)for(let c=1;c<=35;c++){
    const x=a*10000,y=c*10000,side01=x+y+10000,side=2*side01+10000;
-   const basic00=Math.round(side*.1),basic01=Math.round(Math.min(x,y)*.1);
+   const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(x,y)>=30000?Math.round(Math.min(x,y)*.1):0;
    const crystal=side>=200000,mega=crystal?2*basic01:0;
    const total=basic00+2*basic01+mega;
    if(total<target||total>=target+10000)continue;
@@ -597,9 +597,9 @@ function incomeThreeModel(target){
   const acSide=deep?2*x+10000:x;
   const side01=acSide+x+10000;
   const side=2*side01+10000;
-  const basic00=Math.round(side*.1),basic01=Math.round(Math.min(acSide,x)*.1),basic02=basic01;
-  const basicAB=Math.round(Math.min(deep?x:x,deep?x:x)*.1);
-  const basicEF=Math.round(x*.1);
+  const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(acSide,x)>=30000?Math.round(Math.min(acSide,x)*.1):0,basic02=basic01;
+  const basicAB=x>=30000?Math.round(x*.1):0;
+  const basicEF=x>=30000?Math.round(x*.1):0;
   const secondary=mid?[
    {name:"Aさん",parent:"あなた",left:deep?x:x,right:deep?x:x,basic:basicAB},
    {name:"Bさん",parent:"あなた",left:deep?x:x,right:deep?x:x,basic:basicAB},
@@ -624,7 +624,7 @@ function incomeThreeModel(target){
 }
 function incomeThreeTitleLayout(m){
  // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
- const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.leafPT?.[name]||m.unit,right:m.leafPT?.[name]||m.unit,basic:Math.round((m.leafPT?.[name]||m.unit)*.1),title:"メンバー"}))};
+ const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.leafPT?.[name]||m.unit,right:m.leafPT?.[name]||m.unit,basic:(m.leafPT?.[name]||m.unit)>=30000?Math.round((m.leafPT?.[name]||m.unit)*.1):0,title:"メンバー"}))};
  diagramLapis(display);
  const root=document.getElementById("binary-diagram");
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
@@ -797,7 +797,7 @@ function showIncomePerson(name){
  const m=registrationMode==="three"?incomeThreeModel(Number(document.getElementById("goal").value)):incomeModel(Number(document.getElementById("goal").value));
  const child=m.secondary.find(p=>p.name===name);
  const side=name==="あなた"?Math.min(m.left,m.right):name==="01"||(name==="Aさん"&&!m.three)?Math.min(m.ax,m.ar):name==="02"||(name==="Bさん"&&!m.three)?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
- const basic=Math.round(side*.1);
+ const basic=side>=30000?Math.round(side*.1):0;
  const displayName=m.three?({"あなた":"あなた（00）","01":"あなたの01","02":"あなたの02"}[name]||name):name;
  const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
  const rate=name==="あなた"||m.left<200000?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
