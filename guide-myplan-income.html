@@ -769,6 +769,30 @@ function incomeThreeModel(target){
    }
   }
  }
+ // Balance 01 and 02 by redistributing volume between their opposite
+ // placement branch and A/B's opposite side; keep the income target.
+ if(target>=200000){
+  const score=m=>{
+   const ab=m.secondary.slice(0,2),ef=m.secondary.slice(2);
+   return (Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br))*6+
+    (Math.abs(ab[0].left-ab[0].right)+Math.abs(ab[1].left-ab[1].right))*5+
+    (Math.abs(ef[0].left-ef[0].right)+Math.abs(ef[1].left-ef[1].right))*4+
+    Math.abs(m.left-m.right);
+  };
+  let bestScore=score(best);
+  let seed=target+738;
+  const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+  for(let k=0;k<10000;k++){
+   const v=values.slice(),i=Math.floor(rand()*10),j=Math.floor(rand()*10);
+   if(i===j||v[i]<=1)continue;
+   const move=Math.min(v[i]-1,1+Math.floor(rand()*Math.max(1,unit/3)));
+   v[i]-=move;v[j]+=move;
+   const m=build(v,unit);
+   if(m.total<target||m.total>=target+10000)continue;
+   const q=score(m);
+   if(q<bestScore){values=v;best=m;bestScore=q}
+  }
+ }
  // Equalize E/F left and right PT by moving units within each pair.
  // Pair totals stay unchanged, so all ancestors' PT remain consistent.
  for(let pass=0;pass<unit*2+10;pass++){
@@ -807,7 +831,6 @@ function incomeThreeTitleLayout(m){
   }
   el.dataset.person={"あなた":"あなた","Aさん":"01","Bさん":"02","Cさん":"Aさん","Eさん":"Bさん","Dさん":"Cさん","Fさん":"Dさん"}[old];
   el.dataset.three100k=old;
-  el.classList.remove("lapis-tap-person");
   if(old!=="Dさん"&&old!=="Fさん")el.setAttribute("aria-label",names[old]+"のボーナス計算を表示");
   el.querySelectorAll("text").forEach(t=>{if(t.textContent===old)t.textContent=names[old]});
   if(["Aさん","Bさん"].includes(old)){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
@@ -919,6 +942,13 @@ function incomeThreeDiagram(m){
   root.querySelectorAll(".plan-branch .plan-person").forEach((el,i)=>{
    el.querySelector("strong").textContent=i?"あなたの02":"あなたの01";
    const avatar=el.querySelector("img");if(avatar)avatar.src="./assets/avatar_01.svg";
+  });
+  const people=root.querySelectorAll(".plan-top, .plan-branch .plan-person");
+  people.forEach((el,i)=>{
+   el.dataset.person=i===0?"あなた":i===1?"01":"02";
+   el.classList.add("lapis-tap-person");
+   el.setAttribute("role","button");el.setAttribute("tabindex","0");
+   el.setAttribute("aria-label",(i===0?"00":i===1?"01":"02")+"のボーナス計算を表示");
   });
   return;
  }
