@@ -585,8 +585,7 @@ function incomeThreeModel(target){
   const left=left01+right01+10000,right=left02+right02+10000;
   const basic=(a,b)=>Math.min(a,b)>=30000?Math.round(Math.min(a,b)*.1):0;
   const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
-  const names=["Aさん","Cさん","Bさん","Dさん"];
-  const direct=names.map((name,i)=>({name,parent:"あなた",left:p[2*i],right:p[2*i+1],basic:basic(p[2*i],p[2*i+1])}));
+  const direct=[{name:"Aさん",parent:"あなた",left:p[0],right:p[1],basic:basic(p[0],p[1])},{name:"Bさん",parent:"あなた",left:p[4],right:p[5],basic:basic(p[4],p[5])}];
   const mega=left>=200000&&right>=200000?abasic+bbasic+direct.reduce((v,z)=>v+z.basic,0):0;
   const leafPairs={"Cさん":[p[0],p[1]],"Dさん":[p[2],p[3]],"Eさん":[p[4],p[5]],"Fさん":[p[6],p[7]]};
   return {target,three:true,lapis:true,deep:false,gold:false,crystal:mega>0,
@@ -609,7 +608,7 @@ function incomeThreeModel(target){
  const build=x=>{
   // 01/02の左右に配置するA/C、B/D。50万円以上はA/Bの片側にE/Fを配置。
   const acSide=deep?2*x+10000:x;
-  const side01=acSide+x+20000;
+  const side01=acSide+x+20000; // includes the 10,000 PT of each placed A/C or B/D person
   const side=2*side01+10000;
   const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(acSide+10000,x+10000)>=30000?Math.round(Math.min(acSide+10000,x+10000)*.1):0,basic02=basic01;
   const basicAB=x>=30000?Math.round(x*.1):0;
@@ -626,7 +625,8 @@ function incomeThreeModel(target){
   const mega=crystal?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
   const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
   const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
-  const leadership=Math.round(leadershipBase*leadershipRate);
+  const eligibleLeadership=leadershipRate>0&&side>=(gold?6000000:3000000);
+  const leadership=eligibleLeadership?Math.round(leadershipBase*leadershipRate):0;
   return {target,three:true,lapis:true,deep,gold,crystal,ax:acSide+10000,ar:x+10000,bl:acSide+10000,br:x+10000,
    left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,mega,doubleMega,leadership,leadershipRate,
    leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
@@ -830,7 +830,7 @@ function renderIncome(){
  if(m.three){incomeThreeDiagram(m);incomeThreeBreakdown(m)}else{diagram(m);incomeBreakdown(m)}
  const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
  const note=document.getElementById("income-prototype-note");
- note.textContent=registrationMode==="three"?"1〜30万円はA・BさんとC・Dさんまで、50万円以上はE・Fさんまで配置。00・01・02のベーシックを合算し、クリスタル以上の場合にメガマッチ、50万円以上ではダブルメガも含めて目標額から逆算しています。配置線と直紹介は別です。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
+ note.textContent=registrationMode==="three"?"人物アイコンごとの自己購入1万PTを各上位グループへ加算した試算です。00の直紹介は01・02・A・Bさんのみ。ボーナスの取得条件・タイトル条件を満たすか確認してください。指定PTの3万円・5万円プランは目標金額と一致しない場合があります。":"各人の自己PTと紹介関係を単純化した試算です。100万円以上のリーダーシップはタイトル別の倍率・料率で計算しています。200万円モデルは直紹介4人で再計算していますが、タイトル・系列条件は未検証です。実際の支給額とは異なります。";
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
 document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEventListener("click",()=>{registrationMode=btn.dataset.registrationChoice;renderIncome()}));
