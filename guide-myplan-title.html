@@ -430,6 +430,7 @@ function showThree100kBonus(old){
  if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?101000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
  else if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
  if(root&&goal===500000)extra+=section('00のリーダーシップボーナス（エメラルド・条件要確認）',45450,'303万PT × 1.5％ ＝ '+yen(45450));
+ if(root&&goal===1000000)extra+=section('00のリーダーシップボーナス（ゴールド・条件要確認）',120200,'601万PT × 2.0％ ＝ '+yen(120200));
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
