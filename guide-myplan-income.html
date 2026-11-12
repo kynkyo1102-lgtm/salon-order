@@ -589,27 +589,36 @@ function incomeModel(target){
 function incomeThreeModel(target){
  // Each visible person contributes 10,000 PT to their placement ancestor, not to their own sides.
  const fixed=target===30000?[3,3,3,3,3,4,3,4]:target===50000?[3,4,5,5,3,4,5,5]:null;
- const deep=target>=500000;
+ const deep=target>=200000;
  const build=(values,n)=>{
   const u=n*10000;
   const p=values.map(v=>v*10000);
   // Four leaf persons A,C,B,D, each with two group triangles.
   // At higher targets E/F are placed beneath A/B and contribute their own PT.
-  const extra=deep?2*u+10000:0;
-  const leafPairs={"Cさん":[p[0],p[1]],"Dさん":[p[2],p[3]],"Eさん":[p[4],p[5]],"Fさん":[p[6],p[7]]};
-  const left01=p[0]+p[1]+10000+extra,right01=p[2]+p[3]+10000;
-  const left02=p[4]+p[5]+10000+extra,right02=p[6]+p[7]+10000;
+  // Deep layout: E/F are below A/B; their two triangles and own 10,000 PT
+  // contribute to one A/B side. Opposite A/B sides are independent triangles.
+  const eLeft=deep?p[0]:0,eRight=deep?p[1]:0,aRight=deep?p[2]:0;
+  const cLeft=deep?p[3]:p[2],cRight=deep?p[4]:p[3];
+  const fLeft=deep?p[5]:0,fRight=deep?p[6]:0,bRight=deep?p[7]:0;
+  const dLeft=deep?p[8]:p[6],dRight=deep?p[9]:p[7];
+  const aLeft=deep?eLeft+eRight+10000:p[0];
+  const bLeft=deep?fLeft+fRight+10000:p[4];
+  const aOpp=deep?aRight:p[1],bOpp=deep?bRight:p[5];
+  const leafPairs={"Cさん":[aLeft,aOpp],"Dさん":[cLeft,cRight],"Eさん":[bLeft,bOpp],"Fさん":[dLeft,dRight]};
+  const deepPairs=deep?{"Eさん":[eLeft,eRight],"Fさん":[fLeft,fRight]}:null;
+  const left01=aLeft+aOpp+10000,right01=cLeft+cRight+10000;
+  const left02=bLeft+bOpp+10000,right02=dLeft+dRight+10000;
   const left=left01+right01+10000,right=left02+right02+10000;
   const side=Math.min(left,right);
   const title=side>=6000000?"ゴールド":side>=3000000?"エメラルド":side>=1000000?"サファイヤ":side>=500000?"ラピス":side>=200000?"クリスタル":"メンバー";
   const basic=(l,r)=>Math.min(l,r)>=30000?Math.round(Math.min(l,r)*.1):0;
   const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
-  const aBasic=basic(p[0]+(deep?u+10000:0),p[1]+(deep?u+10000:0));
-  const bBasic=basic(p[4]+(deep?u+10000:0),p[5]+(deep?u+10000:0));
+  const aBasic=basic(aLeft,aOpp);
+  const bBasic=basic(bLeft,bOpp);
   const secondary=[
-   {name:"Aさん",parent:"あなた",left:p[0]+(deep?u+10000:0),right:p[1]+(deep?u+10000:0),basic:aBasic},
-   {name:"Bさん",parent:"あなた",left:p[4]+(deep?u+10000:0),right:p[5]+(deep?u+10000:0),basic:bBasic},
-   ...(deep?[{name:"Eさん",parent:"Aさん",left:u,right:u,basic:basic(u,u)},{name:"Fさん",parent:"Bさん",left:u,right:u,basic:basic(u,u)}]:[])
+   {name:"Aさん",parent:"あなた",left:aLeft,right:aOpp,basic:aBasic},
+   {name:"Bさん",parent:"あなた",left:bLeft,right:bOpp,basic:bBasic},
+   ...(deep?[{name:"Eさん",parent:"Aさん",left:eLeft,right:eRight,basic:basic(eLeft,eRight)},{name:"Fさん",parent:"Bさん",left:fLeft,right:fRight,basic:basic(fLeft,fRight)}]:[])
   ];
   const crystal=side>=200000,cap=side>=3000000?400000:side>=1000000?200000:100000;
   const mega=crystal?[abasic,bbasic,aBasic,bBasic].reduce((sum,v)=>sum+Math.min(v,cap),0):0;
@@ -623,40 +632,52 @@ function incomeThreeModel(target){
    ax:left01,ar:right01,bl:left02,br:right02,left,right,own,abasic,bbasic,mega,doubleMega,
    leadership,leadershipRate,leadershipMultiplier,leadershipBase,secondary,
    total:own+abasic+bbasic+mega+doubleMega+leadership,positionsBasic:own+abasic+bbasic,
-   unit:u,acSide:left01-10000,side01:left01+right01+10000,leafPairs};
+   unit:u,acSide:left01-10000,side01:left01+right01+10000,leafPairs,deepPairs};
  };
- // Independent leaf PT variables. Prefer target range, then lower total PT and balanced 01/02 sides.
- let lo=1,hi=100000;
- while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(Array(8).fill(mid),mid).total>=target)hi=mid;else lo=mid+1}
- const unit=lo;
- if(fixed)return build(fixed,unit);
- let values=Array(8).fill(unit);
- const acceptable=m=>m.total>=target&&m.total<target+10000;
- const imbalance=m=>Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br)+Math.abs(m.left-m.right);
- const score=m=>[m.total>=target+10000?1:0,m.left+m.right,imbalance(m),m.total-target];
- const less=(a,b)=>{const x=score(a),y=score(b);for(let i=0;i<x.length;i++){if(x[i]!==y[i])return x[i]<y[i]}return false};
- let best=build(values,unit);
- // First remove unnecessary volume from individual branches.
- for(let pass=0;pass<3;pass++){
-  let changed=false;
-  for(let i=0;i<8;i++){
-   let low=1,high=values[i];
-   while(low<high){const mid=Math.floor((low+high)/2),v=values.slice();v[i]=mid;if(build(v,unit).total>=target)high=mid;else low=mid+1}
-   const v=values.slice();v[i]=low;const candidate=build(v,unit);
-   if(candidate.total>=target&&(less(candidate,best)||!acceptable(best)&&acceptable(candidate))){values=v;best=candidate;changed=true}
+ if(!deep){
+  let lo=1,hi=100000;
+  while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(Array(8).fill(mid),mid).total>=target)hi=mid;else lo=mid+1}
+  if(fixed)return build(fixed,lo);
+  let v=Array(8).fill(lo),best=build(v,lo);
+  for(let pass=0;pass<4;pass++)for(let i=0;i<8;i++){
+   let low=1,high=v[i];
+   while(low<high){const mid=Math.floor((low+high)/2),w=v.slice();w[i]=mid;if(build(w,lo).total>=target)high=mid;else low=mid+1}
+   const w=v.slice();w[i]=low,m=build(w,lo);
+   if(m.total>=target&&m.left+m.right<=best.left+best.right){v=w;best=m}
   }
-  if(!changed)break;
+  return best;
  }
- // Redistribute a limited number of units between branches, without forcing symmetry.
- for(let pass=0;pass<5;pass++){
-  let next=null,nextValues=null;
-  for(let i=0;i<8;i++)for(let j=0;j<8;j++)if(i!==j&&values[i]>1){
-   const v=values.slice();v[i]--;v[j]++;
-   const m=build(v,unit);
-   if(m.total>=target&&less(m,next||best)){next=m;nextValues=v}
+ // Search all ten independent deep triangles, without assuming equal A/B sides.
+ const count=10;
+ let lo=1,hi=100000;
+ while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(Array(count).fill(mid),mid).total>=target)hi=mid;else lo=mid+1}
+ const unit=lo;
+ let values=Array(count).fill(unit),best=build(values,unit);
+ const ratio=m=>Math.max(m.secondary[0].left/m.secondary[0].right,m.secondary[0].right/m.secondary[0].left,m.secondary[1].left/m.secondary[1].right,m.secondary[1].right/m.secondary[1].left);
+ const imbalance=m=>Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br)+Math.abs(m.left-m.right);
+ const score=m=>[m.total>=target+10000?1:0,Math.max(0,ratio(m)-1.25)*10000000+(m.left+m.right),imbalance(m),m.total-target];
+ const less=(a,b)=>{const x=score(a),y=score(b);for(let i=0;i<x.length;i++)if(x[i]!==y[i])return x[i]<y[i];return false};
+ // Remove unnecessary PT while preserving the bonus target.
+ for(let pass=0;pass<5;pass++)for(let i=0;i<count;i++){
+  let low=1,high=values[i];
+  while(low<high){const mid=Math.floor((low+high)/2),v=values.slice();v[i]=mid;if(build(v,unit).total>=target)high=mid;else low=mid+1}
+  const v=values.slice();v[i]=low,m=build(v,unit);
+  if(m.total>=target&&less(m,best)){values=v;best=m}
+ }
+ // Adjust individual triangle values up/down, accepting only improved solutions.
+ for(let pass=0;pass<35;pass++){
+  let next=null,nv=null;
+  const step=Math.max(1,Math.floor(unit/Math.pow(1.5,Math.floor(pass/5))));
+  for(let i=0;i<count;i++)for(const delta of [-step,step]){
+   if(values[i]+delta<1)continue;
+   const v=values.slice();v[i]+=delta;const m=build(v,unit);
+   if(m.total>=target&&less(m,next||best)){next=m;nv=v}
   }
-  if(!next)break;
-  values=nextValues;best=next;
+  for(let i=0;i<count;i++)for(let j=0;j<count;j++)if(i!==j&&values[i]>step){
+   const v=values.slice();v[i]-=step;v[j]+=step;const m=build(v,unit);
+   if(m.total>=target&&less(m,next||best)){next=m;nv=v}
+  }
+  if(next){best=next;values=nv}
  }
  return best;
 }
@@ -759,11 +780,12 @@ function incomeThreeTitleExtension(m){
  }
  const pt=pts(m.unit);
  const pair=m.leafPairs||{};
+ const deepPair=m.deepPairs||{};
  for(const t of [
-  {x:65,y:943,w:37,pt:[pt,pt]},
+  {x:65,y:943,w:37,pt:(deepPair["Eさん"]||[m.unit,m.unit]).map(pts)},
   {x:154,y:750,w:43,pt:pts(pair["Cさん"]?.[1]||m.unit),side:"right"},
   {x:285,y:750,w:43,pt:(pair["Dさん"]||[m.unit,m.unit]).map(pts)},
-  {x:445,y:943,w:37,pt:[pt,pt]},
+  {x:445,y:943,w:37,pt:(deepPair["Fさん"]||[m.unit,m.unit]).map(pts)},
   {x:534,y:750,w:43,pt:pts(pair["Eさん"]?.[1]||m.unit),side:"right"},
   {x:665,y:750,w:43,pt:(pair["Fさん"]||[m.unit,m.unit]).map(pts)}
  ])triangle(t.x,t.y,t.w,t.pt,t.side);
