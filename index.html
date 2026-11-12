@@ -119,6 +119,26 @@ body.home-page[data-time-theme="late-night"]{background-color:#e6e9f3;color:#273
 .salon-live[data-time-theme="late-night"][data-weather="snow"]{--sky-top:#2b3459;--sky-bottom:#7482a2}
 .salon-live[data-time-theme="late-night"] .salon-sun{width:48px;height:48px;background:#f4f5e9;box-shadow:0 0 24px #f5f3de55}
 .salon-live[data-time-theme="dawn"] .salon-sun{width:58px;height:58px;background:#ffe5b6;box-shadow:0 0 45px #ffe1ad66}
+</style><style id="salon-sky-design-c">/* Adopted sky design C: soft green, cream clouds, seamless ivory transition. */
+body.home-page[data-time-theme]{background-color:#f7f4ed}
+body.home-page .salon-live{--sky-top:#8bbeb2;--sky-bottom:#f5e9d6;--ink:#285847}
+body.home-page .salon-live[data-time-theme="morning"]{--sky-top:#efb79c;--sky-bottom:#f7ead4;--ink:#654b3b}
+body.home-page .salon-live[data-time-theme="day"]{--sky-top:#8bbeb2;--sky-bottom:#f5e9d6;--ink:#285847}
+body.home-page .salon-live[data-time-theme="evening"]{--sky-top:#c99ba3;--sky-bottom:#f5d5ad;--ink:#563f47}
+body.home-page .salon-live[data-time-theme="dawn"]{--sky-top:#8497aa;--sky-bottom:#f4bda7;--ink:#fff}
+body.home-page .salon-live[data-time-theme="night"]{--sky-top:#2b4b59;--sky-bottom:#728c85;--ink:#fff}
+body.home-page .salon-live[data-time-theme="late-night"]{--sky-top:#213947;--sky-bottom:#4a6872;--ink:#fff}
+body.home-page .salon-sun{right:15%;top:22px;width:66px;height:66px;background:#ffedaa;box-shadow:0 0 0 9px #ffedaa44,0 0 0 22px #ffedaa1c}
+body.home-page .salon-cloud{background:#fff7e8;filter:none;opacity:.8;animation-duration:34s}
+body.home-page .salon-live-weather{border:1.5px solid #cbded1;background:#fffaf0e8;color:#315843;box-shadow:3px 4px 0 #31584316;backdrop-filter:none}
+body.home-page .salon-live-weather-caption{color:#5f7869}
+body.home-page .salon-sky::after{background:linear-gradient(0deg,#f7f1e877,transparent)}
+/* C only: dissolve the lower edge of the sky into the ivory content background. */
+body.home-page .salon-live{border-bottom:0}
+body.home-page .salon-live::after{content:"";position:absolute;left:0;right:0;bottom:0;height:92px;z-index:2;pointer-events:none;background:linear-gradient(to bottom,rgba(247,244,237,0) 0%,rgba(247,244,237,.18) 28%,rgba(247,244,237,.7) 70%,#f7f4ed 100%)}
+body.home-page .salon-live-inner{z-index:3}
+body.home-page .salon-sky::after{opacity:.25}
+
 </style></head>
 <body class="home-page">  <header class="home-header">
     <div class="home-header-brand">
