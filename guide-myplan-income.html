@@ -539,7 +539,7 @@ function incomeModel(target){
  if(!useSecond){
   // A/Bの各左右に同額を配置。A/B各本人の1万PTを親のグループに加算。
   // 小さい目標はメガを前提とせず、ベーシック中心。
-  let x=1000;while(true){const candidateSide=2*x+10000;const candidateTotal=Math.round(candidateSide*.1)+(candidateSide>=200000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=1000;}
+  let x=10000;while(true){const candidateSide=2*x+10000;const candidateTotal=Math.round(candidateSide*.1)+(candidateSide>=200000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=10000;}
   const side=2*x+10000;
   const own=Math.round(side*.1);
   const abasic=Math.round(x*.1);
@@ -595,9 +595,9 @@ function incomeThreeModel(target){
    leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
    positionsBasic:basic00+basic01+basic02,unit:x,acSide,side01};
  };
- let lo=1,hi=10000000;
- while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*1000).total>=target)hi=mid;else lo=mid+1}
- return build(lo*1000);
+ let lo=1,hi=1000000;
+ while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*10000).total>=target)hi=mid;else lo=mid+1}
+ return build(lo*10000);
 }
 function incomeThreeTitleLayout(m){
  // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
