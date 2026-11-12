@@ -525,7 +525,7 @@ function showPersonBonus(name){
  else{if(!m.secondary)return;const s=m.secondary.find(x=>x.name===name);if(!s)return;relation=s.parent==="あなた"?"あなたが直紹介した人":s.parent+"が直紹介した人";side=Math.min(s.left,s.right);basic=s.basic;bonusName=s.parent==="あなた"?"メガマッチ":"ダブルメガマッチ";rate=s.parent==="あなた"?1:.1}
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
- const base='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+displayName+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％</div></div>';
+ const base='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+displayName+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左 '+pts(personLeft)+' ／ 右 '+pts(personRight)+'<div>少ない側 '+pts(side)+' × 10％</div></div></div>';
  const match=bonusName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+bonusName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate===1?'100％':'10％')+' ＝ <strong>'+yen(basic*rate)+'</strong></div></div>':'';
  const titleNote=m.large&&(name==="あなた"||name==="Aさん"||name==="Bさん")?'<p class="lapis-dialog-relation">タイトル：'+(name==="あなた"?(m.gold?"ゴールド":"エメラルド"):(m.gold?"エメラルド":"サファイア"))+'</p>':m.large&&m.secondary.some(s=>s.name===name)?'<p class="lapis-dialog-relation">タイトル：'+m.secondary.find(s=>s.name===name).title+'</p>':m.lapis&&((name==="Aさん"||name==="Bさん")||(m.sapphire&&["Cさん","Dさん","Eさん","Fさん"].includes(name)))?'<p class="lapis-dialog-relation">タイトル：'+(name==="Aさん"||name==="Bさん"?(m.sapphire?"ラピス":"クリスタル"):"クリスタル")+'（左右の少ない側が'+(name==="Aさん"||name==="Bさん"&&m.sapphire?"50万PT":"20万PT")+'以上）</p>':"";
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+displayName+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+titleNote+base+match;
@@ -768,21 +768,30 @@ function incomeThreeTitleExtension(m){
  // Replace the original four wide PT triangles; keep the existing people and connections.
  Array.from(svg.querySelectorAll("path")).filter(p=>/^M(?:95|285|475|665) (?:715|725) L/.test(p.getAttribute("d")||"")&&["#73b6e5","#0055a4"].includes(p.getAttribute("fill"))).forEach(p=>p.remove());
  svg.querySelectorAll(".lapis-leaf-pt").forEach(t=>t.remove());
- const ptLabel=(x,pt)=>{
-  const number=el("text",{x,y:1204,"text-anchor":"middle",fill:"#245579","font-size":"17","font-weight":"800"});
+ const allPT=[...Object.values(m.deepPairs||{}).flat(),...Object.values(m.leafPairs||{}).flat()];
+ const maxPT=Math.max(...allPT,10000);
+ const ptLabel=(x,pt,y)=>{
+  const number=el("text",{x,y:y+22,"text-anchor":"middle",fill:"#245579","font-size":"17","font-weight":"800"});
   number.textContent=pt.replace("PT","");svg.append(number);
-  const unit=el("text",{x,y:1225,"text-anchor":"middle",fill:"#245579","font-size":"15","font-weight":"700"});
+  const unit=el("text",{x,y:y+42,"text-anchor":"middle",fill:"#245579","font-size":"15","font-weight":"700"});
   unit.textContent="PT";svg.append(unit);
  };
  const triangle=(x,y,half,pt,side="both")=>{
-  if(side==="both"||side==="left"){
-   svg.append(el("path",{d:"M"+x+" "+y+" L"+(x-half)+" 1180 L"+x+" 1180 Z",fill:"#73b6e5"}));
-   ptLabel(x-half/2,Array.isArray(pt)?pt[0]:pt);
-  }
-  if(side==="both"||side==="right"){
-   svg.append(el("path",{d:"M"+x+" "+y+" L"+(x+half)+" 1180 L"+x+" 1180 Z",fill:"#0055a4"}));
-   ptLabel(x+half/2,Array.isArray(pt)?pt[1]:pt);
-  }
+  const one=(value,direction)=>{
+   const n=Number(String(value).replace(/[^0-9]/g,""))||0;
+   const actual=typeof value==="number"?value:n;
+   // PT labels are formatted in Japanese; use the numeric values supplied separately.
+   const parsed=typeof value==="object"?value.value:actual;
+   const amount=typeof value==="object"?value.value:parsed;
+   const label=typeof value==="object"?value.label:String(value);
+   const fraction=Math.max(0,Math.min(1,amount/maxPT));
+   const end=y+(1180-y)*(.60+.40*Math.sqrt(fraction));
+   const w=half*(.88+.12*Math.sqrt(fraction));
+   svg.append(el("path",{d:"M"+x+" "+y+" L"+(x+direction*w)+" "+end+" L"+x+" "+end+" Z",fill:direction<0?"#73b6e5":"#0055a4"}));
+   ptLabel(x+direction*w/2,label,end);
+  };
+  if(side==="both"||side==="left")one(Array.isArray(pt)?pt[0]:pt,-1);
+  if(side==="both"||side==="right")one(Array.isArray(pt)?pt[1]:pt,1);
  };
  // E is A's referral; F is B's referral, alongside their parent's PT groups.
  for(const p of [{name:"Eさん",x:65,parent:95},{name:"Fさん",x:445,parent:475}]){
@@ -796,13 +805,14 @@ function incomeThreeTitleExtension(m){
  const pt=pts(m.unit);
  const pair=m.leafPairs||{};
  const deepPair=m.deepPairs||{};
+ const item=v=>({value:v,label:pts(v)});
  for(const t of [
-  {x:65,y:943,w:37,pt:(deepPair["Eさん"]||[m.unit,m.unit]).map(pts)},
-  {x:154,y:750,w:43,pt:pts(pair["Cさん"]?.[1]||m.unit),side:"right"},
-  {x:285,y:750,w:43,pt:(pair["Dさん"]||[m.unit,m.unit]).map(pts)},
-  {x:445,y:943,w:37,pt:(deepPair["Fさん"]||[m.unit,m.unit]).map(pts)},
-  {x:534,y:750,w:43,pt:pts(pair["Eさん"]?.[1]||m.unit),side:"right"},
-  {x:665,y:750,w:43,pt:(pair["Fさん"]||[m.unit,m.unit]).map(pts)}
+  {x:65,y:943,w:37,pt:(deepPair["Eさん"]||[m.unit,m.unit]).map(item)},
+  {x:154,y:750,w:43,pt:item(pair["Cさん"]?.[1]||m.unit),side:"right"},
+  {x:285,y:750,w:43,pt:(pair["Dさん"]||[m.unit,m.unit]).map(item)},
+  {x:445,y:943,w:37,pt:(deepPair["Fさん"]||[m.unit,m.unit]).map(item)},
+  {x:534,y:750,w:43,pt:item(pair["Eさん"]?.[1]||m.unit),side:"right"},
+  {x:665,y:750,w:43,pt:(pair["Fさん"]||[m.unit,m.unit]).map(item)}
  ])triangle(t.x,t.y,t.w,t.pt,t.side);
  root.querySelectorAll(".three-200k-referral").forEach(g=>{g.dataset.person=g.dataset.referral;g.classList.add("lapis-tap-person")});
  const hint=root.querySelector(".lapis-tap-hint");if(hint)hint.textContent="👆 00・01・02・A・B・E・Fさんをタップすると、あなたのボーナス計算を確認できます";
@@ -870,15 +880,17 @@ function updateIncomeSpotlight(m){
 function showIncomePerson(name){
  const m=registrationMode==="three"?incomeThreeModel(Number(document.getElementById("goal").value)):incomeModel(Number(document.getElementById("goal").value));
  const child=m.secondary.find(p=>p.name===name);
+ const personLeft=name==="あなた"?m.left:name==="01"?m.ax:name==="02"?m.bl:child?.left||0;
+ const personRight=name==="あなた"?m.right:name==="01"?m.ar:name==="02"?m.br:child?.right||0;
  const side=name==="あなた"?Math.min(m.left,m.right):name==="01"||(name==="Aさん"&&!m.three)?Math.min(m.ax,m.ar):name==="02"||(name==="Bさん"&&!m.three)?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
  const basic=side>=30000?Math.round(side*.1):0;
  const displayName=m.three?({"あなた":"あなた（00）","01":"あなたの01","02":"あなたの02"}[name]||name):name;
  const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
- const rate=name==="あなた"||m.left<200000?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
+ const rate=name==="あなた"||!m.crystal?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
  const matchName=!rate?"":rate===1?"メガマッチ":"ダブルメガマッチ";
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
- dlg.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％</div></div>'+(matchName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+matchName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate*100)+'％ ＝ <strong>'+yen(basic*rate)+'</strong></div></div>':'')+(name==="あなた"&&m.leadership?'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">リーダーシップボーナス（条件確認が必要）</div><div class="lapis-dialog-equation">'+pts(side)+' × '+m.leadershipMultiplier+'倍 → 再比較 '+pts(m.leadershipBase)+' × '+(m.leadershipRate*100)+'％ ＝ '+yen(m.leadership)+'</div></div>':'');
+ dlg.innerHTML='<div class="lapis-dialog-top"><h3>'+displayName+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+displayName+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(side)+' × 10％</div></div>'+(matchName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+matchName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate*100)+'％ ＝ <strong>'+yen(basic*rate)+'</strong></div></div>':'')+(name==="あなた"&&m.leadership?'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">リーダーシップボーナス（条件確認が必要）</div><div class="lapis-dialog-equation">'+pts(side)+' × '+m.leadershipMultiplier+'倍 → 再比較 '+pts(m.leadershipBase)+' × '+(m.leadershipRate*100)+'％ ＝ '+yen(m.leadership)+'</div></div>':'');
  dlg.querySelector("button").addEventListener("click",()=>dlg.close());dlg.showModal();
 }
 const incomeDiagram=document.getElementById("binary-diagram");
