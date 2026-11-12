@@ -678,6 +678,37 @@ function incomeThreeModel(target){
   }
   if(next){best=next;values=nv}
  }
+ // For the top tier, rebalance E/F and compensate on other branches where
+ // the bonus changes; preserve the requested income band.
+ if(target===2000000){
+  const initial=values.slice();
+  let seed=1729;
+  const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+  const efGap=v=>Math.abs(v[0]-v[1])+Math.abs(v[5]-v[6]);
+  const rank=(v,m)=>efGap(v)*100000+Math.abs(m.secondary[0].left-m.secondary[0].right)+Math.abs(m.secondary[1].left-m.secondary[1].right);
+  let bestRank=rank(values,best);
+  for(let restart=0;restart<12;restart++){
+   let v=restart?initial.slice():values.slice(),m=build(v,unit);
+   for(let iter=0;iter<1800;iter++){
+    const w=v.slice();
+    const pair=rand()<.5?[0,1]:[5,6];
+    const sign=w[pair[0]]>w[pair[1]]?-1:1;
+    const step=Math.min(Math.abs(w[pair[0]]-w[pair[1]])>>1,1+Math.floor(rand()*Math.max(1,unit/3)));
+    if(step<1)continue;
+    w[pair[0]]+=sign*step;w[pair[1]]-=sign*step;
+    if(w[pair[0]]<1||w[pair[1]]<1)continue;
+    const other=[2,3,4,7,8,9][Math.floor(rand()*6)];
+    const change=Math.floor((rand()-.5)*Math.max(2,unit/2));
+    w[other]=Math.max(1,w[other]+change);
+    const trial=build(w,unit);
+    if(trial.total>=target&&trial.total<target+10000){
+     const r=rank(w,trial);
+     if(r<rank(v,m)){v=w;m=trial}
+     if(r<bestRank){values=w.slice();best=trial;bestRank=r}
+    }
+   }
+  }
+ }
  // Equalize E/F left and right PT by moving units within each pair.
  // Pair totals stay unchanged, so all ancestors' PT remain consistent.
  for(let pass=0;pass<unit*2+10;pass++){
