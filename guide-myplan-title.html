@@ -368,12 +368,12 @@ function renderThree500k(){
   for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
   card.append(details);body.append(card);
  };
- const basic=303000+100000*2;
- const mega=100000*2+100000*2;
- const double=4900+5000;
+ const basic=303000+101000*2;
+ const mega=101000*2+100000*2;
+ const double=4900*2;
  add("ベーシックコミッション",basic,[["00",pts(3030000)+" × 10％ ＝ "+yen(303000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
  add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
- add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(49000)+" × 10％ ＝ "+yen(4900)],["Fさん",yen(50000)+" × 10％ ＝ "+yen(5000)]]);
+ add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(49000)+" × 10％ ＝ "+yen(4900)],["Fさん",yen(49000)+" × 10％ ＝ "+yen(4900)]]);
  document.getElementById("sum").textContent=yen(basic+mega+double);
 }
 function renderThree200k(){
@@ -419,13 +419,13 @@ function showThree100kBonus(old){
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
  const goal=Number(document.getElementById("goal").value);
  const side=root?(goal===200000?1010000:goal===1000000?6010000:goal===500000?3030000:m.left):branch?(goal===200000?500000:goal===1000000?3000000:goal===500000?1000000:m.ax):(goal===200000?240000:goal===1000000?1490000:goal===500000?1000000:m.secondary[0].left);
- const basic=side*.1,match=goal===200000?148000:goal===1000000?898000:goal===500000?400000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
+ const basic=side*.1,match=goal===200000?148000:goal===1000000?898000:goal===500000?402000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
  const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?100000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
+ if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?101000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
  else if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
