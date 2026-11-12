@@ -1061,7 +1061,7 @@ function updateIncomeSpotlight(m){
  const label=(m.target/10000).toLocaleString("ja-JP")+"万円";
  document.getElementById("title-plan-name").textContent=label;
  document.getElementById("title-plan-requirement").textContent=pts(Math.min(m.left,m.right));
- document.getElementById("title-plan-active").textContent=(m.three?"4人":m.active||2)+"（想定）";
+ document.getElementById("title-plan-active").textContent=(m.three?(m.lapis?"4人":"0人"):((m.active||2)+"人"))+"（図示モデル）";
  
 }
 function showIncomePerson(name){
