@@ -839,7 +839,7 @@ function incomeThreeModel(target){
   for(let i=0;i<10;i++)for(let step=1;step<=15;step++){
    const v=values.slice();v[i]+=step;
    const m=build(v,unit);
-   if(m.left>=6000000&&m.right>=6000000&&m.total>=target&&m.total<target+10000&&(!candidate||score(m)<score(candidate))){candidate=m;cv=v}
+   if(m.left>=6000000&&m.right>=6000000&&m.total>=target&&(!candidate||m.total<candidate.total||(m.total===candidate.total&&score(m)<score(candidate)))){candidate=m;cv=v}
   }
   if(candidate){values=cv;best=candidate}
  }
