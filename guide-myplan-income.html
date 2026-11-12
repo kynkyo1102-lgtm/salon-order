@@ -587,7 +587,7 @@ function incomeThreeModel(target){
   const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
   const names=["Aさん","Cさん","Bさん","Dさん"];
   const direct=names.map((name,i)=>({name,parent:"あなた",left:p[2*i],right:p[2*i+1],basic:basic(p[2*i],p[2*i+1])}));
-  const mega=left>=200000&&right>=200000?direct.reduce((v,z)=>v+z.basic,0):0;
+  const mega=left>=200000&&right>=200000?abasic+bbasic+direct.reduce((v,z)=>v+z.basic,0):0;
   const leafPairs={"Cさん":[p[0],p[1]],"Dさん":[p[2],p[3]],"Eさん":[p[4],p[5]],"Fさん":[p[6],p[7]]};
   return {target,three:true,lapis:true,deep:false,gold:false,crystal:mega>0,
    ax:left01,ar:right01,bl:left02,br:right02,left,right,own,abasic,bbasic,
@@ -623,7 +623,7 @@ function incomeThreeModel(target){
    ]:[])
   ]:[];
   const crystal=side>=200000;
-  const mega=crystal?secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
+  const mega=crystal?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
   const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
   const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
   const leadership=Math.round(leadershipBase*leadershipRate);
@@ -777,6 +777,7 @@ function incomeThreeBreakdown(m){
   ...([["00",Math.min(m.left,m.right),m.own],["01",Math.min(m.ax,m.ar),m.abasic],["02",Math.min(m.bl,m.br),m.bbasic]].filter(z=>z[2]>0).map(z=>[z[0],pts(z[1])+" × 10％ ＝ "+yen(z[2])]))
  ]);
  add("メガマッチ（直紹介ポジション・紹介者のベーシック100％）",m.mega,[
+  ...[["01",m.abasic],["02",m.bbasic]].filter(z=>z[1]>0).map(z=>[z[0],yen(z[1])+" × 100％ ＝ "+yen(z[1])]),
   ...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])
  ]);
  add("ダブルメガマッチ（二次紹介者のベーシック10％）",m.doubleMega,
