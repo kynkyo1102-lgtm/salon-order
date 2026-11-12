@@ -567,7 +567,6 @@ function incomeModel(target){
   const active=fourDirect?4:2;
   const crystal=branchSide>=200000&&active>=2;
   const title=branchSide>=6000000&&active>=4?"ゴールド":branchSide>=3000000?"エメラルド":branchSide>=1000000?"サファイヤ":branchSide>=500000?"ラピス":crystal?"クリスタル":"メンバー";
-  const cap=incomeMegaCap(title);
   const secondary=useSecond?["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({
    name,parent:fourDirect&&(i===0||i===3)?"あなた":i<2?"Aさん":"Bさん",
    left:x,right:x,basic:leafBasic
@@ -623,7 +622,7 @@ function incomeThreeModel(target){
    {name:"Bさん",parent:"あなた",left:bLeft,right:bOpp,basic:bBasic},
    ...(deep?[{name:"Eさん",parent:"Aさん",left:eLeft,right:eRight,basic:basic(eLeft,eRight)},{name:"Fさん",parent:"Bさん",left:fLeft,right:fRight,basic:basic(fLeft,fRight)}]:[])
   ];
-  const crystal=side>=200000,cap=side>=3000000?400000:side>=1000000?200000:100000;
+  const crystal=side>=200000;
   const mega=crystal?[abasic,bbasic,aBasic,bBasic].reduce((sum,v)=>sum+incomeMegaPayout(v,title),0):0;
   const doubleMega=crystal?secondary.filter(v=>v.parent!=="あなた").reduce((sum,v)=>sum+incomeDoublePayout(v.basic,title),0):0;
   const leadershipRate=side>=6000000?.02:side>=3000000?.015:0;
@@ -1076,8 +1075,6 @@ function showIncomePerson(name){
  const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
  const rate=name==="あなた"||!m.crystal?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
  const matchName=!rate?"":rate===1?"メガマッチ":"ダブルメガマッチ";
- const cap=incomeMegaCap(m.title);
- const doubleCap=incomeDoubleCap(m.title);
  const matchAmount=rate===1?incomeMegaPayout(basic,m.title):rate===.1?incomeDoublePayout(basic,m.title):0;
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
