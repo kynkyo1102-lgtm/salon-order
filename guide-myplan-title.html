@@ -370,8 +370,8 @@ function renderThree500k(){
  };
  const basic=303000+100000*2;
  const mega=100000*2+100000*2;
- const double=9800;
- add("ベーシックコミッション",basic,[["00",pts(3040000)+" × 10％ ＝ "+yen(303000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
+ const double=4900+5000;
+ add("ベーシックコミッション",basic,[["00",pts(3030000)+" × 10％ ＝ "+yen(303000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
  add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
  add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(49000)+" × 10％ ＝ "+yen(4900)],["Fさん",yen(50000)+" × 10％ ＝ "+yen(5000)]]);
  document.getElementById("sum").textContent=yen(basic+mega+double);
