@@ -890,6 +890,17 @@ function incomeThreeModel(target){
   }
   if(!improved)break;
  }
+ // C/D are placement-only in this illustration. Their own left/right
+ // split does not enter the displayed bonus formula; only their sum does.
+ // Equalize each pair without changing ancestor PT or the earnings.
+ if(target===2000000){
+  for(const [i,j] of [[3,4],[8,9]]){
+   const sum=values[i]+values[j];
+   values[i]=Math.floor(sum/2);
+   values[j]=sum-values[i];
+  }
+  best=build(values,unit);
+ }
  return best;
 }
 
