@@ -576,37 +576,42 @@ function incomeModel(target){
 
 
 function incomeThreeModel(target){
- if(target<=50000){
-  // A/B and C/D can carry different whole-10,000PT groups.
-  // Preserve left/right balance at 00 while avoiding an artificial uniform leaf size.
-  let best=null;
-  for(let a=1;a<=35;a++)for(let c=1;c<=35;c++){
-   const x=a*10000,y=c*10000,side01=x+y+10000,side=2*side01+10000;
-   const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(x,y)>=30000?Math.round(Math.min(x,y)*.1):0;
-   const crystal=side>=200000,mega=crystal?2*basic01:0;
-   const total=basic00+2*basic01+mega;
-   if(total<target||total>=target+10000)continue;
-   const score=(total-target)+Math.abs(a-c)*1200+(a+c)*2;
-   if(!best||score<best.score)best={score,x,y,side01,side,basic00,basic01,mega,total,crystal};
-  }
-  if(best){
-   const {x,y,side01,side,basic00,basic01,mega,total,crystal}=best;
-   return {target,three:true,lapis:true,deep:false,gold:false,crystal,
-    ax:x,ar:y,bl:x,br:y,left:side,right:side,own:basic00,
-    abasic:basic01,bbasic:basic01,mega,doubleMega:0,leadership:0,leadershipRate:0,
-    leadershipMultiplier:2,leadershipBase:0,secondary:[],total,
-    positionsBasic:basic00+2*basic01,unit:x,acSide:x,side01,
-    leafPT:{'Cさん':x,'Dさん':y,'Eさん':x,'Fさん':y}};
-  }
+ if(target===30000||target===50000){
+  // Four directly referred people A/C/B/D, each with two leaf groups.
+  const units=target===30000?[3,3,2,3,3,3,2,3]:[3,4,4,5,3,4,4,5];
+  const p=units.map(n=>n*10000);
+  const group=(i)=>p[i]+p[i+1]+10000;
+  const left01=group(0),right01=group(2),left02=group(4),right02=group(6);
+  const left=left01+right01+10000,right=left02+right02+10000;
+  const basic=(a,b)=>Math.min(a,b)>=30000?Math.round(Math.min(a,b)*.1):0;
+  const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
+  const names=["Aさん","Cさん","Bさん","Dさん"];
+  const direct=names.map((name,i)=>({name,parent:"あなた",left:p[2*i],right:p[2*i+1],basic:basic(p[2*i],p[2*i+1])}));
+  const mega=left>=200000&&right>=200000?direct.reduce((v,z)=>v+z.basic,0):0;
+  const leafPairs={"Cさん":[p[0],p[1]],"Dさん":[p[2],p[3]],"Eさん":[p[4],p[5]],"Fさん":[p[6],p[7]]};
+  return {target,three:true,lapis:true,deep:false,gold:false,crystal:mega>0,
+   ax:left01,ar:right01,bl:left02,br:right02,left,right,own,abasic,bbasic,
+   mega,doubleMega:0,leadership:0,leadershipRate:0,leadershipMultiplier:2,leadershipBase:0,
+   secondary:direct,total:own+abasic+bbasic+mega,positionsBasic:own+abasic+bbasic,
+   unit:p[0],leafPairs};
+ }
+ if(target===10000){
+  const p=20000,side01=2*p+10000,side=2*side01+10000;
+  const own=Math.round(side*.1),basic01=Math.round(p*.1);
+  return {target,three:true,lapis:true,deep:false,gold:false,crystal:false,
+   ax:side01,ar:side01,bl:side01,br:side01,left:side,right:side,own,
+   abasic:basic01,bbasic:basic01,mega:0,doubleMega:0,leadership:0,leadershipRate:0,
+   leadershipMultiplier:2,leadershipBase:0,secondary:[],total:own+2*basic01,
+   positionsBasic:own+2*basic01,unit:p,side01};
  }
  const deep=target>=500000,mid=target>=100000,gold=target===2000000;
  const leadershipRate=target>=2000000?.02:target>=1000000?.015:0;
  const build=x=>{
   // 01/02の左右に配置するA/C、B/D。50万円以上はA/Bの片側にE/Fを配置。
   const acSide=deep?2*x+10000:x;
-  const side01=acSide+x+10000;
+  const side01=acSide+x+20000;
   const side=2*side01+10000;
-  const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(acSide,x)>=30000?Math.round(Math.min(acSide,x)*.1):0,basic02=basic01;
+  const basic00=side>=30000?Math.round(side*.1):0,basic01=Math.min(acSide+10000,x+10000)>=30000?Math.round(Math.min(acSide+10000,x+10000)*.1):0,basic02=basic01;
   const basicAB=x>=30000?Math.round(x*.1):0;
   const basicEF=x>=30000?Math.round(x*.1):0;
   const secondary=mid?[
@@ -618,11 +623,11 @@ function incomeThreeModel(target){
    ]:[])
   ]:[];
   const crystal=side>=200000;
-  const mega=crystal?basic01+basic02+secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
+  const mega=crystal?secondary.filter(p=>p.parent==="あなた").reduce((n,p)=>n+p.basic,0):0;
   const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((n,p)=>n+Math.round(p.basic*.1),0):0;
   const leadershipMultiplier=gold?3:2,leadershipBase=leadershipRate?side:0;
   const leadership=Math.round(leadershipBase*leadershipRate);
-  return {target,three:true,lapis:true,deep,gold,crystal,ax:acSide,ar:x,bl:acSide,br:x,
+  return {target,three:true,lapis:true,deep,gold,crystal,ax:acSide+10000,ar:x+10000,bl:acSide+10000,br:x+10000,
    left:side,right:side,own:basic00,abasic:basic01,bbasic:basic02,mega,doubleMega,leadership,leadershipRate,
    leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
    positionsBasic:basic00+basic01+basic02,unit:x,acSide,side01};
@@ -633,7 +638,7 @@ function incomeThreeModel(target){
 }
 function incomeThreeTitleLayout(m){
  // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
- const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.leafPT?.[name]||m.unit,right:m.leafPT?.[name]||m.unit,basic:(m.leafPT?.[name]||m.unit)>=30000?Math.round((m.leafPT?.[name]||m.unit)*.1):0,title:"メンバー"}))};
+ const display={...m,gold:false,large:false,sapphire:false,secondary:["Aさん","Bさん","Cさん","Dさん","Eさん","Fさん"].map(name=>({name,left:m.leafPairs?.[name]?.[0]||m.leafPT?.[name]||m.unit,right:m.leafPairs?.[name]?.[1]||m.leafPT?.[name]||m.unit,basic:Math.min(m.leafPairs?.[name]?.[0]||m.unit,m.leafPairs?.[name]?.[1]||m.unit)>=30000?Math.round(Math.min(m.leafPairs?.[name]?.[0]||m.unit,m.leafPairs?.[name]?.[1]||m.unit)*.1):0,title:"メンバー"}))};
  diagramLapis(display);
  const root=document.getElementById("binary-diagram");
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
@@ -769,14 +774,10 @@ function incomeThreeBreakdown(m){
   card.append(details);body.append(card);
  };
  add("ベーシックコミッション（00・01・02合計）",m.positionsBasic,[
-  ["00",pts(m.left)+" × 10％ ＝ "+yen(m.own)],
-  ["01",pts(m.ax)+" × 10％ ＝ "+yen(m.abasic)],
-  ["02",pts(m.bl)+" × 10％ ＝ "+yen(m.bbasic)]
+  ...([["00",Math.min(m.left,m.right),m.own],["01",Math.min(m.ax,m.ar),m.abasic],["02",Math.min(m.bl,m.br),m.bbasic]].filter(z=>z[2]>0).map(z=>[z[0],pts(z[1])+" × 10％ ＝ "+yen(z[2])]))
  ]);
  add("メガマッチ（直紹介ポジション・紹介者のベーシック100％）",m.mega,[
-  ["01",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],
-  ["02",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)],
-  ...m.secondary.filter(p=>p.parent==="あなた").map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])
+  ...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])
  ]);
  add("ダブルメガマッチ（二次紹介者のベーシック10％）",m.doubleMega,
   m.secondary.filter(p=>p.parent!=="あなた").map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％ ＝ "+yen(Math.round(p.basic*.1))]));
