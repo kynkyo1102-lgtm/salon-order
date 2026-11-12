@@ -947,9 +947,9 @@ function incomeThreeTitleExtension(m){
  const allPT=[...Object.values(m.deepPairs||{}).flat(),...Object.values(m.leafPairs||{}).flat()];
  const maxPT=Math.max(...allPT,10000);
  const ptLabel=(x,pt,y)=>{
-  const number=el("text",{x,y:y+22,"text-anchor":"middle",fill:"#245579","font-size":"17","font-weight":"800"});
+  const number=el("text",{class:"income-tappable-pt",role:"button",tabindex:"0","aria-label":"PTを拡大表示",x,y:y+22,"text-anchor":"middle",fill:"#245579","font-size":"17","font-weight":"800"});
   number.textContent=pt.replace("PT","");svg.append(number);
-  const unit=el("text",{x,y:y+42,"text-anchor":"middle",fill:"#245579","font-size":"15","font-weight":"700"});
+  const unit=el("text",{class:"income-tappable-pt",role:"button",tabindex:"0","aria-label":"PTを拡大表示",x,y:y+42,"text-anchor":"middle",fill:"#245579","font-size":"15","font-weight":"700"});
   unit.textContent="PT";svg.append(unit);
  };
  const triangle=(x,y,half,pt,side="both")=>{
