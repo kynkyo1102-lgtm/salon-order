@@ -493,7 +493,7 @@ function render(){
  const body=document.getElementById("breakdown");body.replaceChildren();
  const add=(name,value,lines)=>{const card=document.createElement("div");card.className="breakdown-card";const head=document.createElement("div");head.className="breakdown-card-head";const title=document.createElement("strong");title.textContent=name;const amount=document.createElement("strong");amount.textContent=yen(value);head.append(title,amount);card.append(head);if(lines.length){const details=document.createElement("div");details.className="breakdown-calcs";for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}card.append(details)}body.append(card)};
  add("ベーシックコミッション",m.own,[["左右の少ない側",pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
- if(m.mega)add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさんのベーシック",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],["Bさんのベーシック",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)],...(m.gold?m.secondary.filter(s=>s.parent==="あなた").map(s=>[s.name+"のベーシック",yen(s.basic)+" × 100％ ＝ "+yen(s.basic)]):[])]);
+ if(m.mega)add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさんのベーシック",yen(m.abasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.abasic,m.title))],["Bさんのベーシック",yen(m.bbasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.bbasic,m.title))],...(m.gold?m.secondary.filter(s=>s.parent==="あなた").map(s=>[s.name+"のベーシック",yen(s.basic)+" × 100％ ＝ "+yen(s.basic)]):[])]);
  if(m.doubleMega)add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(s=>s.parent!=="あなた").map(s=>[s.name+"（"+s.parent+"の紹介）のベーシック",yen(s.basic)+" × 10％ ＝ "+yen(s.basic*.1)]));
 
  if(m.leadership){const smaller=Math.min(m.left,m.right),larger=Math.max(m.left,m.right),factor=m.gold?3:2,rate=m.gold?.02:.015,target=Math.min(larger,smaller*factor);add("リーダーシップボーナス（"+(m.gold?"ゴールド 2.0％":"エメラルド 1.5％")+"）",m.leadership,[["少ない側を"+factor+"倍にして再比較",pts(smaller)+" × "+factor+" ＝ "+pts(smaller*factor)],["計算対象ポイント",pts(target)+" × "+(rate*100).toFixed(1)+"％ ＝ "+yen(m.leadership)]]);}
@@ -550,6 +550,10 @@ function updateTitleSpotlight(){const plan=titlePlans[Number(document.getElement
 
 // 金額別の試作：元の図描画関数を再利用し、金額ごとにPTとボーナスを再計算。
 const incomeTargets=[10000,30000,50000,100000,200000,300000,500000,1000000,2000000];
+function incomeMegaCap(title){return title==="ゴールド"||title==="エメラルド"?400000:title==="サファイヤ"||title==="サファイア"?200000:100000;}
+function incomeDoubleCap(title){return title==="クリスタル"||title==="ラピス"?100000:250000;}
+function incomeMegaPayout(basic,title){return Math.min(basic,incomeMegaCap(title));}
+function incomeDoublePayout(basic,title){return Math.min(Math.round(basic*.1),incomeDoubleCap(title));}
 function incomeModel(target){
  const useSecond=target>=100000;
  const fourDirect=target===2000000;
@@ -563,13 +567,13 @@ function incomeModel(target){
   const active=fourDirect?4:2;
   const crystal=branchSide>=200000&&active>=2;
   const title=branchSide>=6000000&&active>=4?"ゴールド":branchSide>=3000000?"エメラルド":branchSide>=1000000?"サファイヤ":branchSide>=500000?"ラピス":crystal?"クリスタル":"メンバー";
-  const cap=title==="ゴールド"||title==="エメラルド"?400000:title==="サファイヤ"?200000:100000;
+  const cap=incomeMegaCap(title);
   const secondary=useSecond?["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({
    name,parent:fourDirect&&(i===0||i===3)?"あなた":i<2?"Aさん":"Bさん",
    left:x,right:x,basic:leafBasic
   })):[];
-  const mega=crystal?2*Math.min(abasic,cap)+secondary.filter(p=>p.parent==="あなた").reduce((sum,p)=>sum+Math.min(p.basic,cap),0):0;
-  const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((sum,p)=>sum+Math.min(Math.round(p.basic*.1),title==="クリスタル"||title==="ラピス"?100000:250000),0):0;
+  const mega=crystal?2*incomeMegaPayout(abasic,title)+secondary.filter(p=>p.parent==="あなた").reduce((sum,p)=>sum+incomeMegaPayout(p.basic,title),0):0;
+  const doubleMega=crystal?secondary.filter(p=>p.parent!=="あなた").reduce((sum,p)=>sum+incomeDoublePayout(p.basic,title),0):0;
   const leadershipRate=title==="ゴールド"?.02:title==="エメラルド"?.015:0;
   const leadershipMultiplier=title==="ゴールド"?3:2;
   const leadershipBase=leadershipRate?Math.min(branchSide*leadershipMultiplier,branchSide):0;
@@ -620,8 +624,8 @@ function incomeThreeModel(target){
    ...(deep?[{name:"Eさん",parent:"Aさん",left:eLeft,right:eRight,basic:basic(eLeft,eRight)},{name:"Fさん",parent:"Bさん",left:fLeft,right:fRight,basic:basic(fLeft,fRight)}]:[])
   ];
   const crystal=side>=200000,cap=side>=3000000?400000:side>=1000000?200000:100000;
-  const mega=crystal?[abasic,bbasic,aBasic,bBasic].reduce((sum,v)=>sum+Math.min(v,cap),0):0;
-  const doubleMega=crystal?secondary.filter(v=>v.parent!=="あなた").reduce((sum,v)=>sum+Math.min(Math.round(v.basic*.1),side>=1000000?250000:100000),0):0;
+  const mega=crystal?[abasic,bbasic,aBasic,bBasic].reduce((sum,v)=>sum+incomeMegaPayout(v,title),0):0;
+  const doubleMega=crystal?secondary.filter(v=>v.parent!=="あなた").reduce((sum,v)=>sum+incomeDoublePayout(v.basic,title),0):0;
   const leadershipRate=side>=6000000?.02:side>=3000000?.015:0;
   const leadershipMultiplier=side>=6000000?3:2;
   // Multiply the smaller side, then compare it with the unchanged larger side.
@@ -1034,11 +1038,11 @@ function incomeThreeBreakdown(m){
   ...([["00",Math.min(m.left,m.right),m.own],["01",Math.min(m.ax,m.ar),m.abasic],["02",Math.min(m.bl,m.br),m.bbasic]].filter(z=>z[2]>0).map(z=>[z[0],pts(z[1])+" × 10％ ＝ "+yen(z[2])]))
  ]);
  add("メガマッチ（直紹介ポジション・紹介者のベーシック100％）",m.mega,[
-  ...[["01",m.abasic],["02",m.bbasic]].filter(z=>z[1]>0).map(z=>[z[0],yen(z[1])+" × 100％ ＝ "+yen(z[1])]),
-  ...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])
+  ...[["01",m.abasic],["02",m.bbasic]].filter(z=>z[1]>0).map(z=>[z[0],yen(z[1])+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(z[1],m.title))]),
+  ...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(p.basic,m.title))])
  ]);
  add("ダブルメガマッチ（二次紹介者のベーシック10％）",m.doubleMega,
-  m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％ ＝ "+yen(Math.round(p.basic*.1))]));
+  m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％（上限適用）＝ "+yen(incomeDoublePayout(p.basic,m.title))]));
  add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・条件要確認）",m.leadership,[
   ["少ない側を"+m.leadershipMultiplier+"倍",pts(m.left)+" × "+m.leadershipMultiplier+" ＝ "+pts(m.left*m.leadershipMultiplier)],
   ["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]
@@ -1049,8 +1053,8 @@ function incomeBreakdown(m){
  const body=document.getElementById("breakdown");body.replaceChildren();
  const add=(name,value,lines)=>addIncomeBreakdownCard(body,name,value,lines);
  add("ベーシックコミッション",m.own,[["あなた（00）","左右の少ない側 "+pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
- add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさん",yen(m.abasic)+" × 100％ ＝ "+yen(m.abasic)],["Bさん",yen(m.bbasic)+" × 100％ ＝ "+yen(m.bbasic)],...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％ ＝ "+yen(p.basic)])]);
- add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name,pts(Math.min(p.left,p.right))+" × 10％ × 10％ ＝ "+yen(p.basic*.1)]));
+ add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさん",yen(m.abasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.abasic,m.title))],["Bさん",yen(m.bbasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.bbasic,m.title))],...m.secondary.filter(p=>p.parent==="あなた"&&p.basic>0).map(p=>[p.name,yen(p.basic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(p.basic,m.title))])]);
+ add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name,pts(Math.min(p.left,p.right))+" × 10％ × 10％ ＝ "+yen(incomeDoublePayout(p.basic,m.title))]));
  add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・タイトル条件要確認）",m.leadership,[["左右の売上P","左 "+pts(m.left)+" ／ 右 "+pts(m.right)],["少ない側を"+m.leadershipMultiplier+"倍",pts(Math.min(m.left,m.right))+" × "+m.leadershipMultiplier+" ＝ "+pts(Math.min(m.left,m.right)*m.leadershipMultiplier)],["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]]);
  document.getElementById("sum").textContent=yen(m.total);
 }
@@ -1072,9 +1076,9 @@ function showIncomePerson(name){
  const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
  const rate=name==="あなた"||!m.crystal?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
  const matchName=!rate?"":rate===1?"メガマッチ":"ダブルメガマッチ";
- const cap=m.title==="ゴールド"||m.title==="エメラルド"?400000:m.title==="サファイヤ"?200000:100000;
- const doubleCap=m.title==="クリスタル"||m.title==="ラピス"?100000:250000;
- const matchAmount=rate===1?Math.min(basic,cap):rate===.1?Math.min(Math.round(basic*.1),doubleCap):0;
+ const cap=incomeMegaCap(m.title);
+ const doubleCap=incomeDoubleCap(m.title);
+ const matchAmount=rate===1?incomeMegaPayout(basic,m.title):rate===.1?incomeDoublePayout(basic,m.title):0;
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
  dlg.innerHTML='<div class="lapis-dialog-top"><h3>'+displayName+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+displayName+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左 '+pts(personLeft)+' ／ 右 '+pts(personRight)+' ／ 少ない側 '+pts(side)+' × 10％</div></div>'+(matchName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+matchName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate*100)+'％（上限適用後）＝ <strong>'+yen(matchAmount)+'</strong></div></div>':'')+(name==="あなた"&&m.leadership?'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">リーダーシップボーナス（条件確認が必要）</div><div class="lapis-dialog-equation">'+pts(side)+' × '+m.leadershipMultiplier+'倍 → 再比較 '+pts(m.leadershipBase)+' × '+(m.leadershipRate*100)+'％ ＝ '+yen(m.leadership)+'</div></div>':'');
