@@ -183,7 +183,7 @@ function diagramLapis(m){
  const people=[{name:"あなた",id:1,x:380,y:35},{name:"Aさん",id:2,x:190,y:285},{name:"Bさん",id:3,x:570,y:285},{name:"Cさん",id:4,x:95,y:570},{name:"Dさん",id:5,x:285,y:570},{name:"Eさん",id:6,x:475,y:570},{name:"Fさん",id:7,x:665,y:570}];
  const edges=[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]];
  const lines=edges.map(([a,b])=>'<line x1="'+people[a].x+'" y1="'+(people[a].y+151)+'" x2="'+people[b].x+'" y2="'+(people[b].y-18)+'" class="lapis-large-line"/>').join("");
- const sponsorLines=m.gold?'<path d="M345 185 Q70 190 65 548 M415 185 Q690 190 695 548" fill="none" stroke="#b7773c" stroke-width="6" stroke-dasharray="12 8"/><rect x="12" y="354" width="115" height="42" rx="20" fill="#fff5e8" stroke="#d8a777"/><text x="69" y="383" text-anchor="middle" fill="#925d2f" font-size="23" font-weight="800">直紹介</text><rect x="633" y="354" width="115" height="42" rx="20" fill="#fff5e8" stroke="#d8a777"/><text x="690" y="383" text-anchor="middle" fill="#925d2f" font-size="23" font-weight="800">直紹介</text>':"";
+ const sponsorLines=m.gold?'<path d="M345 185 Q70 190 65 548 M415 185 Q690 190 695 548" fill="none" stroke="#b7773c" stroke-width="6" stroke-dasharray="12 8"/><rect x="12" y="354" width="115" height="42" rx="20" fill="#fff5e8" stroke="#d8a777"/><rect x="633" y="354" width="115" height="42" rx="20" fill="#fff5e8" stroke="#d8a777"/>':"";
  const nodes=people.map(p=>{const mine=m.gold&&["Aさん","Bさん","Cさん","Fさん"].includes(p.name),other=m.gold&&["Dさん","Eさん"].includes(p.name),ring=mine?"#d99b56":other?"#71a9d0":null;return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+p.name+'" aria-label="'+p.name+'のボーナス計算を表示">'+(ring?'<rect x="'+(p.x-62)+'" y="'+(p.y-13)+'" width="124" height="159" rx="19" fill="'+(mine?"#fff7eb":"#f0f8fd")+'" stroke="'+ring+'" stroke-width="4"/>':'<rect x="'+(p.x-59)+'" y="'+(p.y-6)+'" width="118" height="147" fill="transparent"/>')+'<image href="./assets/avatar_0'+p.id+'.svg" x="'+(p.x-48)+'" y="'+p.y+'" width="96" height="96" pointer-events="none"/><text x="'+p.x+'" y="'+(p.y+126)+'" text-anchor="middle" class="income-three-name" pointer-events="none">'+p.name+'</text></g>'}).join("");
  const titleMode=m.large&&largeDiagramMode==="title";
  const leaves=people.slice(3).map(p=>{const x=p.x,s=m.secondary.find(z=>z.name===p.name),top=m.large?715:725,bottom=m.large&&!m.gold&&s.title==="ラピス"?1045:1135,baseHalf=m.large&&!m.gold&&s.title==="ラピス"?71:89,reference=Math.max(...m.secondary.flatMap(z=>[z.left,z.right]),1000),leftHalf=Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.left/reference)))),rightHalf=Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.right/reference))));return '<path d="M'+x+' '+top+' L'+(x-leftHalf)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#73b6e5"/><path d="M'+x+' '+top+' L'+(x+rightHalf)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#0055a4"/><text x="'+(x-45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(s.left)+'</text><text x="'+(x+45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(s.right)+'</text>'}).join("");
@@ -571,11 +571,11 @@ function incomeModel(target){
 
 function incomeThreeModel(target){
  // Each visible person contributes 10,000 PT to their placement ancestor, not to their own sides.
- const fixed=target===30000?[3,3,2,3,3,3,2,3]:target===50000?[3,4,4,5,3,4,4,5]:null;
+ const fixed=null;
  const deep=target>=500000;
- const build=(n)=>{
+ const build=(values,n)=>{
   const u=n*10000;
-  const p=fixed?fixed.map(v=>v*10000):Array(8).fill(u);
+  const p=values.map(v=>v*10000);
   // Four leaf persons A,C,B,D, each with two group triangles.
   // At higher targets E/F are placed beneath A/B and contribute their own PT.
   const extra=deep?2*u+10000:0;
@@ -608,14 +608,38 @@ function incomeThreeModel(target){
    total:own+abasic+bbasic+mega+doubleMega+leadership,positionsBasic:own+abasic+bbasic,
    unit:u,acSide:left01-10000,side01:left01+right01+10000,leafPairs};
  };
- if(fixed)return build(3);
- // Search the minimum whole-10,000 PT leaf size; titles are derived from PT, not the target amount.
+ // Independent leaf PT variables. Prefer target range, then lower total PT and balanced 01/02 sides.
  let lo=1,hi=100000;
- while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid).total>=target)hi=mid;else lo=mid+1}
- const candidate=build(lo);
- // Compare nearby valid units to avoid large overshoot at title boundaries.
- let best=candidate;
- for(let n=Math.max(1,lo-15);n<=lo+15;n++){const m=build(n);if(m.total>=target&&m.total<best.total)best=m}
+ while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(Array(8).fill(mid),mid).total>=target)hi=mid;else lo=mid+1}
+ const unit=lo;
+ let values=Array(8).fill(unit);
+ const acceptable=m=>m.total>=target&&m.total<target+10000;
+ const imbalance=m=>Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br)+Math.abs(m.left-m.right);
+ const score=m=>[m.total>=target+10000?1:0,m.left+m.right,imbalance(m),m.total-target];
+ const less=(a,b)=>{const x=score(a),y=score(b);for(let i=0;i<x.length;i++){if(x[i]!==y[i])return x[i]<y[i]}return false};
+ let best=build(values,unit);
+ // First remove unnecessary volume from individual branches.
+ for(let pass=0;pass<3;pass++){
+  let changed=false;
+  for(let i=0;i<8;i++){
+   let low=1,high=values[i];
+   while(low<high){const mid=Math.floor((low+high)/2),v=values.slice();v[i]=mid;if(build(v,unit).total>=target)high=mid;else low=mid+1}
+   const v=values.slice();v[i]=low;const candidate=build(v,unit);
+   if(candidate.total>=target&&(less(candidate,best)||!acceptable(best)&&acceptable(candidate))){values=v;best=candidate;changed=true}
+  }
+  if(!changed)break;
+ }
+ // Redistribute a limited number of units between branches, without forcing symmetry.
+ for(let pass=0;pass<5;pass++){
+  let next=null,nextValues=null;
+  for(let i=0;i<8;i++)for(let j=0;j<8;j++)if(i!==j&&values[i]>1){
+   const v=values.slice();v[i]--;v[j]++;
+   const m=build(v,unit);
+   if(m.total>=target&&less(m,next||best)){next=m;nextValues=v}
+  }
+  if(!next)break;
+  values=nextValues;best=next;
+ }
  return best;
 }
 
@@ -716,13 +740,14 @@ function incomeThreeTitleExtension(m){
   const name=el("text",{x:p.x,y:906,"text-anchor":"middle",class:"lapis-large-name"});name.textContent=p.name;g.append(name);svg.append(g);
  }
  const pt=pts(m.unit);
+ const pair=m.leafPairs||{};
  for(const t of [
   {x:65,y:943,w:37,pt:[pt,pt]},
-  {x:154,y:750,w:43,pt:pt,side:"right"},
-  {x:285,y:750,w:43,pt:[pt,pt]},
+  {x:154,y:750,w:43,pt:pts(pair["Cさん"]?.[1]||m.unit),side:"right"},
+  {x:285,y:750,w:43,pt:(pair["Dさん"]||[m.unit,m.unit]).map(pts)},
   {x:445,y:943,w:37,pt:[pt,pt]},
-  {x:534,y:750,w:43,pt:pt,side:"right"},
-  {x:665,y:750,w:43,pt:[pt,pt]}
+  {x:534,y:750,w:43,pt:pts(pair["Eさん"]?.[1]||m.unit),side:"right"},
+  {x:665,y:750,w:43,pt:(pair["Fさん"]||[m.unit,m.unit]).map(pts)}
  ])triangle(t.x,t.y,t.w,t.pt,t.side);
  root.querySelectorAll(".three-200k-referral").forEach(g=>{g.dataset.person=g.dataset.referral;g.classList.add("lapis-tap-person")});
  const hint=root.querySelector(".lapis-tap-hint");if(hint)hint.textContent="👆 00・01・02・A・B・E・Fさんをタップすると、あなたのボーナス計算を確認できます";
