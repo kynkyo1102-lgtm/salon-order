@@ -741,6 +741,34 @@ function incomeThreeModel(target){
    values=candidateValues;best=candidate;bestQuality=lowest;
   }
  }
+ // Explore compensating PT moves across the four placement branches.
+ // Optimize A/B left-right gaps without sacrificing E/F balance or income.
+ if(target>=500000){
+  let seed=target+91;
+  const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296};
+  const score=(v,m)=>{
+   const a=m.secondary;
+   return (Math.abs(a[0].left-a[0].right)+Math.abs(a[1].left-a[1].right))*5+
+     (Math.abs(a[2].left-a[2].right)+Math.abs(a[3].left-a[3].right))*3+
+     Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br)+
+     Math.abs(m.left-m.right)+(m.total-target)*.04;
+  };
+  let bestScore=score(values,best);
+  for(let trial=0;trial<5000;trial++){
+   const v=values.slice();
+   const i=Math.floor(rand()*10),j=Math.floor(rand()*10);
+   if(i===j)continue;
+   const step=1+Math.floor(rand()*Math.max(1,unit/4));
+   const amount=Math.min(step,v[i]-1);
+   if(amount<=0)continue;
+   v[i]-=amount;v[j]+=amount;
+   const m=build(v,unit);
+   if(m.total>=target&&m.total<target+10000){
+    const q=score(v,m);
+    if(q<bestScore){values=v;best=m;bestScore=q}
+   }
+  }
+ }
  // Equalize E/F left and right PT by moving units within each pair.
  // Pair totals stay unchanged, so all ancestors' PT remain consistent.
  for(let pass=0;pass<unit*2+10;pass++){
