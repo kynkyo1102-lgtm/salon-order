@@ -1043,7 +1043,7 @@ function incomeThreeBreakdown(m){
  add("ダブルメガマッチ（二次紹介者のベーシック10％）",m.doubleMega,
   m.secondary.filter(p=>p.parent!=="あなた"&&p.basic>0).map(p=>[p.name+"（"+p.parent+"の紹介）",yen(p.basic)+" × 10％（上限適用）＝ "+yen(incomeDoublePayout(p.basic,m.title))]));
  add("リーダーシップボーナス（"+(m.gold?"ゴールド":"エメラルド")+"・条件要確認）",m.leadership,[
-  ["少ない側を"+m.leadershipMultiplier+"倍",pts(m.left)+" × "+m.leadershipMultiplier+" ＝ "+pts(m.left*m.leadershipMultiplier)],
+  ["少ない側を"+m.leadershipMultiplier+"倍",pts(Math.min(m.left,m.right))+" × "+m.leadershipMultiplier+" ＝ "+pts(Math.min(m.left,m.right)*m.leadershipMultiplier)],
   ["再比較した少ない側",pts(m.leadershipBase)+" × "+(m.leadershipRate*100)+"％ ＝ "+yen(m.leadership)]
  ]);
  document.getElementById("sum").textContent=yen(m.total);
