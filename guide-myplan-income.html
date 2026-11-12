@@ -433,7 +433,7 @@ function showThree100kBonus(old){
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
  const goal=Number(document.getElementById("goal").value);
- const side=root?(goal===200000?1010000:goal===1000000?6010000:goal===500000?3030000:m.left):branch?(goal===200000?500000:goal===1000000?3000000:goal===500000?1000000:m.ax):(goal===200000?240000:goal===1000000?1490000:goal===500000?1000000:m.secondary[0].left);
+ const side=root?(goal===200000?1010000:goal===1000000?6010000:goal===500000?3030000:m.left):branch?(goal===200000?500000:goal===1000000?3000000:goal===500000?1010000:m.ax):(goal===200000?240000:goal===1000000?1490000:goal===500000?1000000:m.secondary[0].left);
  const basic=side*.1,match=goal===200000?148000:goal===1000000?898000:goal===500000?402000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
