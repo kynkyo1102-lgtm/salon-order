@@ -260,7 +260,6 @@ function diagramThree100k(){
    el.classList.add("three-100k-person");
   }
   el.dataset.three100k=old;
-  el.classList.remove("lapis-tap-person");
   if(old!=="Dさん"&&old!=="Fさん")el.setAttribute("aria-label",names[old]+"のボーナス計算を表示");
   el.querySelectorAll("text").forEach(t=>{if(t.textContent===old)t.textContent=names[old]});
   if(["Aさん","Bさん"].includes(old)){const img=el.querySelector("image");if(img)img.setAttribute("href","./assets/avatar_01.svg")}
@@ -709,6 +708,39 @@ function incomeThreeModel(target){
    }
   }
  }
+ // Rebalance A/B too: transfer PT between their E/F subtree and opposite
+ // branch, while keeping E/F internally balanced and the target income band.
+ {
+  let current=best;
+  const quality=m=>{
+   const ab=m.secondary.slice(0,2);
+   const ef=m.secondary.slice(2);
+   return ab.reduce((v,p)=>v+Math.abs(p.left-p.right),0)*4+
+     ef.reduce((v,p)=>v+Math.abs(p.left-p.right),0)*3+
+     Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br)+
+     Math.abs(m.left-m.right)+Math.max(0,m.total-target)*.03;
+  };
+  let bestQuality=quality(current);
+  for(let pass=0;pass<90;pass++){
+   let candidate=null,candidateValues=null,lowest=bestQuality;
+   const step=Math.max(1,Math.floor(unit/Math.pow(1.45,Math.floor(pass/9))));
+   for(const [i,j,k] of [[0,1,2],[5,6,7]]){
+    for(const sign of [-1,1]){
+     for(const move of [step,1]){
+      const v=values.slice();
+      const amount=sign*move;
+      v[i]+=Math.floor(amount/2);v[j]+=amount-Math.floor(amount/2);
+      v[k]-=amount;
+      if(v[i]<1||v[j]<1||v[k]<1)continue;
+      const m=build(v,unit),q=quality(m);
+      if(m.total>=target&&m.total<target+10000&&q<lowest){lowest=q;candidate=m;candidateValues=v}
+     }
+    }
+   }
+   if(!candidate)break;
+   values=candidateValues;best=candidate;bestQuality=lowest;
+  }
+ }
  // Equalize E/F left and right PT by moving units within each pair.
  // Pair totals stay unchanged, so all ancestors' PT remain consistent.
  for(let pass=0;pass<unit*2+10;pass++){
@@ -911,8 +943,8 @@ function updateIncomeSpotlight(m){
 function showIncomePerson(name){
  const m=registrationMode==="three"?incomeThreeModel(Number(document.getElementById("goal").value)):incomeModel(Number(document.getElementById("goal").value));
  const child=m.secondary.find(p=>p.name===name);
- const personLeft=name==="あなた"?m.left:name==="01"?m.ax:name==="02"?m.bl:child?.left||0;
- const personRight=name==="あなた"?m.right:name==="01"?m.ar:name==="02"?m.br:child?.right||0;
+ const personLeft=name==="あなた"?m.left:name==="01"||(name==="Aさん"&&!m.three)?m.ax:name==="02"||(name==="Bさん"&&!m.three)?m.bl:child?.left||0;
+ const personRight=name==="あなた"?m.right:name==="01"||(name==="Aさん"&&!m.three)?m.ar:name==="02"||(name==="Bさん"&&!m.three)?m.br:child?.right||0;
  const side=name==="あなた"?Math.min(m.left,m.right):name==="01"||(name==="Aさん"&&!m.three)?Math.min(m.ax,m.ar):name==="02"||(name==="Bさん"&&!m.three)?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
  const basic=side>=30000?Math.round(side*.1):0;
  const displayName=m.three?({"あなた":"あなた（00）","01":"あなたの01","02":"あなたの02"}[name]||name):name;
