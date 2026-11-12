@@ -336,6 +336,25 @@ body{padding-bottom:0!important}
 .guide-extra-copy small{font-size:15px!important}
 .guide-extra-chevron{font-size:32px!important}
 @media(max-width:650px){.guide-extra-links{padding:0 16px!important;margin-top:36px!important}.guide-extra-item{min-height:108px!important;padding:20px 16px!important;gap:14px!important}.guide-extra-icon{width:56px!important;height:56px!important;flex-basis:56px!important}.guide-extra-icon svg{width:29px!important;height:29px!important}.guide-extra-copy strong{font-size:18px!important}.guide-extra-copy small{font-size:14px!important}.guide-extra-chevron{font-size:29px!important}}
+
+/* Independent but coordinated guide and utility sections */
+.guide-activity-feature,.guide-utility-feature{max-width:1100px;margin:36px auto 0;padding:0 20px}
+.guide-activity-feature h2,.guide-utility-feature h2{font-size:clamp(23px,3.2vw,29px);font-weight:800;color:#004aad;margin:0 0 17px}
+.guide-activity-link{display:flex;align-items:center;gap:18px;min-height:126px;padding:24px 26px;border:2px solid #cbddec;border-radius:22px;background:#fff;text-decoration:none;color:#26445e;box-shadow:0 5px 0 #e1eaf0}
+.guide-activity-icon{display:grid;place-items:center;flex:0 0 64px;width:64px;height:64px;border-radius:16px;background:#e9f1fa;color:#0055a4}
+.guide-activity-icon svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.guide-activity-copy,.guide-utility-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:7px}
+.guide-activity-copy strong{font-size:22px;color:#004aad;line-height:1.45}.guide-activity-copy small{font-size:15px;color:#607487;line-height:1.65}
+.guide-activity-arrow{font-size:28px;color:#0055a4}
+.guide-utility-feature{margin-top:43px}
+.guide-utility-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.guide-utility-card{display:flex;flex-direction:column;min-height:215px;padding:23px;border:2px solid #cbddec;border-radius:22px;background:#eef5fb;color:#244b72;text-decoration:none;position:relative;box-shadow:0 5px 0 #e1eaf0}
+.guide-utility-visual{display:grid;place-items:center;width:84px;height:84px;margin-bottom:16px;border-radius:18px;background:#fff9;overflow:hidden}
+.guide-utility-visual img{display:block;width:78%;height:78%;object-fit:contain}
+.guide-utility-copy strong{font-size:21px;color:#21476c;line-height:1.4}.guide-utility-copy small{font-size:14px;color:#587189;line-height:1.55}
+.guide-utility-arrow{position:absolute;right:22px;bottom:20px;color:#0055a4;font-size:27px;line-height:1}
+.guide-activity-link:hover,.guide-utility-card:hover{filter:brightness(.985)}
+@media(max-width:650px){.guide-activity-feature,.guide-utility-feature{padding:0 16px;margin-top:35px}.guide-activity-feature h2,.guide-utility-feature h2{font-size:24px;margin-bottom:15px}.guide-activity-link{min-height:118px;padding:20px 16px;gap:13px}.guide-activity-icon{width:56px;height:56px;flex-basis:56px;border-radius:14px}.guide-activity-icon svg{width:31px;height:31px}.guide-activity-copy strong{font-size:19px}.guide-activity-copy small{font-size:13px}.guide-utility-feature{margin-top:37px}.guide-utility-grid{gap:12px}.guide-utility-card{min-height:215px;padding:16px 13px;border-radius:18px}.guide-utility-visual{width:70px;height:70px;margin-bottom:17px;border-radius:15px}.guide-utility-copy strong{font-size:17px}.guide-utility-copy small{font-size:12px;padding-right:4px}.guide-utility-arrow{right:13px;bottom:13px;font-size:24px}}
 </style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-return1"></head><body id="top">
 
 <main>
@@ -362,10 +381,15 @@ body{padding-bottom:0!important}
 
 </div></section>
 
-<section class="guide-extra-links" aria-labelledby="extraLinksHeading"><h2 id="extraLinksHeading">もっと便利に使う</h2><div class="guide-extra-list">
-<a class="guide-extra-item" href="./guide-tokusho.html"><span class="guide-extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><span class="guide-extra-copy"><strong>特商法ガイド</strong><small>活動時に守りたいルールを確認</small></span><span class="guide-extra-chevron" aria-hidden="true">›</span></a>
-<a class="guide-extra-item" href="./ninaguide-salons.html"><span class="guide-extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span class="guide-extra-copy"><strong>全国のサロンを探す</strong><small>お近くのサロンをご案内</small></span><span class="guide-extra-chevron" aria-hidden="true">›</span></a>
-<a class="guide-extra-item" href="./guide-myplan.html"><span class="guide-extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h2M14 11h2M8 16h2M14 16h2"/></svg></span><span class="guide-extra-copy"><strong>マイプランを探そう！</strong><small>金額から組織とボーナスの例を見る</small></span><span class="guide-extra-chevron" aria-hidden="true">›</span></a>
+<section class="guide-activity-feature" aria-labelledby="guideActivityHeading">
+<h2 id="guideActivityHeading">活動に役立つガイド</h2>
+<a class="guide-activity-link" href="./guide-tokusho.html"><span class="guide-activity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><span class="guide-activity-copy"><strong>特商法ガイド</strong><small>安心して活動するために知っておきたいルール</small></span><span class="guide-activity-arrow" aria-hidden="true">↗</span></a>
+</section>
+<section class="guide-utility-feature" aria-labelledby="guideUtilityHeading">
+<h2 id="guideUtilityHeading">便利なコンテンツ</h2>
+<div class="guide-utility-grid">
+<a class="guide-utility-card" href="./ninaguide-salons.html"><span class="guide-utility-visual"><img src="./assets/preview/japan-salon-map.svg" alt="" loading="lazy"></span><span class="guide-utility-copy"><strong>サロンを探す</strong><small>全国のサロンを検索</small></span><span class="guide-utility-arrow" aria-hidden="true">↗</span></a>
+<a class="guide-utility-card" href="./guide-myplan.html"><span class="guide-utility-visual"><img src="./assets/mitochondria/13_magnifying-glass.svg" alt="" loading="lazy"></span><span class="guide-utility-copy"><strong>マイプラン</strong><small>金額からプランを探す</small></span><span class="guide-utility-arrow" aria-hidden="true">↗</span></a>
 </div></section>
 <a class="back-to-top" href="#top">↑　ページの先頭へ戻る</a></main>
 
