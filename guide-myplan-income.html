@@ -1072,7 +1072,7 @@ function showIncomePerson(name){
  const side=name==="あなた"?Math.min(m.left,m.right):name==="01"||(name==="Aさん"&&!m.three)?Math.min(m.ax,m.ar):name==="02"||(name==="Bさん"&&!m.three)?Math.min(m.bl,m.br):child?Math.min(child.left,child.right):0;
  const basic=side>=30000?Math.round(side*.1):0;
  const displayName=m.three?({"あなた":"あなた（00）","01":"あなたの01","02":"あなたの02"}[name]||name):name;
- const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
+ const relation=m.three?(name==="あなた"?"":name==="01"||name==="02"?"あなた自身のポジション（00の直紹介としてカウント）":child?(child.parent==="あなた"?"あなた（00）の直紹介":child.parent+"の直紹介"):""):name==="あなた"?"":name==="Aさん"||name==="Bさん"?"あなたが直紹介した人":(child?.parent||"")+"が直紹介した人";
  const rate=name==="あなた"||!m.crystal?0:name==="01"||name==="02"?1:child?.parent==="あなた"?1:child&&child.parent!=="あなた"?0.1:1;
  const matchName=!rate?"":rate===1?"メガマッチ":"ダブルメガマッチ";
  const matchAmount=rate===1?incomeMegaPayout(basic,m.title):rate===.1?incomeDoublePayout(basic,m.title):0;
