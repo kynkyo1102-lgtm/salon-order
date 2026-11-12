@@ -830,6 +830,19 @@ function incomeThreeModel(target){
    }
   }
  }
+ // At 2m yen, aim for the 6,000,000 PT Gold threshold on BOTH 00 sides.
+ // Rebuild after every adjustment because crossing the threshold changes bonuses.
+ if(target===2000000&&Math.min(best.left,best.right)<6000000){
+  let candidate=null,cv=null;
+  const score=m=>Math.abs(m.left-m.right)+Math.abs(m.ax-m.ar)+Math.abs(m.bl-m.br)+
+   m.secondary.reduce((sum,p)=>sum+Math.abs(p.left-p.right),0);
+  for(let i=0;i<10;i++)for(let step=1;step<=15;step++){
+   const v=values.slice();v[i]+=step;
+   const m=build(v,unit);
+   if(m.left>=6000000&&m.right>=6000000&&m.total>=target&&m.total<target+10000&&(!candidate||score(m)<score(candidate))){candidate=m;cv=v}
+  }
+  if(candidate){values=cv;best=candidate}
+ }
  // Equalize E/F left and right PT by moving units within each pair.
  // Pair totals stay unchanged, so all ancestors' PT remain consistent.
  for(let pass=0;pass<unit*2+10;pass++){
