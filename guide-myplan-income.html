@@ -577,7 +577,7 @@ function incomeThreeModel(target){
    const crystal=side>=200000,mega=crystal?2*basic01:0;
    const total=basic00+2*basic01+mega;
    if(total<target||total>=target+10000)continue;
-   const score=(total-target)*100+Math.abs(a-c)*90+(a+c)*2;
+   const score=(total-target)+Math.abs(a-c)*1200+(a+c)*2;
    if(!best||score<best.score)best={score,x,y,side01,side,basic00,basic01,mega,total,crystal};
   }
   if(best){
