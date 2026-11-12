@@ -440,7 +440,7 @@ function showThree100kBonus(old){
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
  const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
+ if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?100000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
  else if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
