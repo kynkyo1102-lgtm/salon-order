@@ -186,7 +186,7 @@ function diagramLapis(m){
  const sponsorLines=m.gold?'<path d="M345 185 Q70 190 65 548 M415 185 Q690 190 695 548" fill="none" stroke="#b7773c" stroke-width="6" stroke-dasharray="12 8"/><rect x="12" y="354" width="115" height="42" rx="20" fill="#fff5e8" stroke="#d8a777"/><text x="69" y="383" text-anchor="middle" fill="#925d2f" font-size="23" font-weight="800">直紹介</text><rect x="633" y="354" width="115" height="42" rx="20" fill="#fff5e8" stroke="#d8a777"/><text x="690" y="383" text-anchor="middle" fill="#925d2f" font-size="23" font-weight="800">直紹介</text>':"";
  const nodes=people.map(p=>{const mine=m.gold&&["Aさん","Bさん","Cさん","Fさん"].includes(p.name),other=m.gold&&["Dさん","Eさん"].includes(p.name),ring=mine?"#d99b56":other?"#71a9d0":null;return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+p.name+'" aria-label="'+p.name+'のボーナス計算を表示">'+(ring?'<rect x="'+(p.x-62)+'" y="'+(p.y-13)+'" width="124" height="159" rx="19" fill="'+(mine?"#fff7eb":"#f0f8fd")+'" stroke="'+ring+'" stroke-width="4"/>':'<rect x="'+(p.x-59)+'" y="'+(p.y-6)+'" width="118" height="147" fill="transparent"/>')+'<image href="./assets/avatar_0'+p.id+'.svg" x="'+(p.x-48)+'" y="'+p.y+'" width="96" height="96" pointer-events="none"/><text x="'+p.x+'" y="'+(p.y+126)+'" text-anchor="middle" class="income-three-name" pointer-events="none">'+p.name+'</text></g>'}).join("");
  const titleMode=m.large&&largeDiagramMode==="title";
- const leaves=people.slice(3).map(p=>{const x=p.x,s=m.secondary.find(z=>z.name===p.name),top=m.large?715:725,bottom=m.large&&!m.gold&&s.title==="ラピス"?1045:1135,half=m.large&&!m.gold&&s.title==="ラピス"?71:89;return '<path d="M'+x+' '+top+' L'+(x-half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#73b6e5"/><path d="M'+x+' '+top+' L'+(x+half)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#0055a4"/><text x="'+(x-45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(s.left)+'</text><text x="'+(x+45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(s.right)+'</text>'}).join("");
+ const leaves=people.slice(3).map(p=>{const x=p.x,s=m.secondary.find(z=>z.name===p.name),top=m.large?715:725,bottom=m.large&&!m.gold&&s.title==="ラピス"?1045:1135,baseHalf=m.large&&!m.gold&&s.title==="ラピス"?71:89,reference=Math.max(...m.secondary.flatMap(z=>[z.left,z.right]),1000),leftHalf=Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.left/reference)))),rightHalf=Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.right/reference))));return '<path d="M'+x+' '+top+' L'+(x-leftHalf)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#73b6e5"/><path d="M'+x+' '+top+' L'+(x+rightHalf)+' '+bottom+' L'+x+' '+bottom+' Z" fill="#0055a4"/><text x="'+(x-45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(s.left)+'</text><text x="'+(x+45)+'" y="'+(bottom+38)+'" text-anchor="middle" class="lapis-large-pt lapis-leaf-pt">'+pts(s.right)+'</text>'}).join("");
  const titleNodes=people.map((p,i)=>{const s=m.secondary.find(z=>z.name===p.name),rank=i===0?(m.gold?"ゴールド":m.large?"エメラルド":m.sapphire?"サファイア":"ラピス"):i<3?(m.gold?"エメラルド":m.large?"サファイア":m.sapphire?"ラピス":"クリスタル"):(m.large?s.title:m.sapphire?"クリスタル":"メンバー"),y=i===0?8:i<3?185:380;return '<g class="lapis-tap-person" role="button" tabindex="0" data-person="'+p.name+'" aria-label="'+p.name+'のボーナス計算を表示">'+(m.gold&&i>0?'<rect x="'+(p.x-83)+'" y="'+(y-4)+'" width="166" height="188" rx="18" fill="'+([1,2,3,6].includes(i)?'#fff7eb':'#f0f8fd')+'" stroke="'+([1,2,3,6].includes(i)?'#d99b56':'#71a9d0')+'" stroke-width="3"/>':'')+(i===0?'<image href="./assets/avatar_01.svg" x="'+(p.x-48)+'" y="'+y+'" width="96" height="96"/><text x="'+p.x+'" y="'+(y+125)+'" text-anchor="middle" class="lapis-title-name">あなた</text>':'<circle cx="'+p.x+'" cy="'+(y+35)+'" r="24" fill="#e1ebf1" stroke="#9bb5c5" stroke-width="2"/><path d="M'+(p.x-38)+' '+(y+95)+' Q'+p.x+' '+(y+36)+' '+(p.x+38)+' '+(y+95)+'" fill="#e1ebf1" stroke="#9bb5c5" stroke-width="2"/><text x="'+p.x+'" y="'+(y+130)+'" text-anchor="middle" class="lapis-title-name">'+p.name+'</text>')+'<rect x="'+(p.x-82)+'" y="'+(y+139)+'" width="164" height="42" rx="21" fill="'+(rank==="ラピス"?"#f1f2f6":rank==="ゴールド"?"#f8f2e5":rank==="エメラルド"?"#e6f3ef":rank==="クリスタル"?"#f0f5fa":rank==="メンバー"?"#f4f5f6":"#e8f1f8")+'"/><text x="'+p.x+'" y="'+(y+168)+'" text-anchor="middle" class="lapis-title-rank" fill="'+(rank==="ラピス"?"#596277":rank==="ゴールド"?"#8b713d":rank==="エメラルド"?"#31735e":rank==="メンバー"?"#65727b":"#2a6088")+'">'+rank+'</text></g>'}).join("");
  const titleLines=edges.map(([a,b])=>'<line x1="'+people[a].x+'" y1="'+(a===0?183:366)+'" x2="'+people[b].x+'" y2="'+(b<3?185:380)+'" stroke="#b3c7d3" stroke-width="3"/>').join("");
  const titleSponsorLines=m.gold?'<path d="M350 175 Q65 170 65 370 M410 175 Q695 170 695 370" fill="none" stroke="#c88c5e" stroke-width="3" stroke-dasharray="8 8"/>':"";
@@ -539,7 +539,7 @@ function incomeModel(target){
  if(!useSecond){
   // A/Bの各左右に同額を配置。A/B各本人の1万PTを親のグループに加算。
   // 小さい目標はメガを前提とせず、ベーシック中心。
-  let x=10000;while(true){const candidateSide=2*x+10000;const candidateTotal=Math.round(candidateSide*.1)+(candidateSide>=200000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=10000;}
+  let x=1000;while(true){const candidateSide=2*x+10000;const candidateTotal=Math.round(candidateSide*.1)+(candidateSide>=200000?2*Math.round(x*.1):0);if(candidateTotal>=target)break;x+=1000;}
   const side=2*x+10000;
   const own=Math.round(side*.1);
   const abasic=Math.round(x*.1);
@@ -595,9 +595,9 @@ function incomeThreeModel(target){
    leadershipMultiplier,leadershipBase,secondary,total:basic00+basic01+basic02+mega+doubleMega+leadership,
    positionsBasic:basic00+basic01+basic02,unit:x,acSide,side01};
  };
- let lo=1,hi=1000000;
- while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*10000).total>=target)hi=mid;else lo=mid+1}
- return build(lo*10000);
+ let lo=1,hi=10000000;
+ while(lo<hi){const mid=Math.floor((lo+hi)/2);if(build(mid*1000).total>=target)hi=mid;else lo=mid+1}
+ return build(lo*1000);
 }
 function incomeThreeTitleLayout(m){
  // タイトル別の描画関数が参照するA〜Fの末端PTを、金額別モデルから渡す。
@@ -767,7 +767,7 @@ function updateIncomeSpotlight(m){
  const label=(m.target/10000).toLocaleString("ja-JP")+"万円";
  document.getElementById("title-plan-name").textContent=label;
  document.getElementById("title-plan-requirement").textContent=pts(Math.min(m.left,m.right));
- document.getElementById("title-plan-active").textContent=(m.gold?"4人":"2人")+"（想定）";
+ document.getElementById("title-plan-active").textContent=(m.three?"4人":m.gold?"4人":"2人")+"（想定）";
  
 }
 function showIncomePerson(name){
