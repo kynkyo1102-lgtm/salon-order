@@ -806,8 +806,8 @@ function incomeThreeModel(target){
     Math.abs(a[2].left-a[2].right),Math.abs(a[3].left-a[3].right),
     Math.abs(m.left-m.right)
    ];
-   const max=Math.max(...diffs.slice(0,6));
-   return max*5+diffs[0]*2+diffs[1]*2+diffs[2]+diffs[3]+diffs[4]+diffs[5]+diffs[6]*.4+
+   const max=Math.max(...diffs);
+   return max*6+diffs[0]*2+diffs[1]*2+diffs[2]+diffs[3]+diffs[4]+diffs[5]+diffs[6]*4+
     Math.max(0,m.total-target)*3;
   };
   let global=objective(values,best);
