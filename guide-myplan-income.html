@@ -192,9 +192,8 @@ function diagramLapis(m){
   const baseHalf=m.large&&!m.gold&&s.title==="ラピス"?71:89;
   const reference=Math.max(...m.secondary.flatMap(z=>[z.left,z.right]),1000);
   const height=bottom-top;
-  const variableHeight=m.three&&(m.target===30000||m.target===50000);
-  // For the 50,000-yen three-position example, keep triangle widths fixed
-  // and vary their downward length so the PT difference is visually obvious.
+  const variableHeight=m.three&&(m.target===30000||m.target===50000||m.target===100000);
+  // For lower three-position examples, preserve triangle widths and scale their downward lengths by PT.
   const leftHalf=variableHeight?baseHalf:Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.left/reference))));
   const rightHalf=variableHeight?baseHalf:Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.right/reference))));
   const leftBottom=variableHeight?top+Math.round(height*(.30+.70*s.left/reference)):bottom;
@@ -678,6 +677,22 @@ function incomeThreeModel(target){
    if(m.total>=target&&less(m,next||best)){next=m;nv=v}
   }
   if(next){best=next;values=nv}
+ }
+ // Equalize E/F left and right PT by moving units within each pair.
+ // Pair totals stay unchanged, so all ancestors' PT remain consistent.
+ for(let pass=0;pass<unit*2+10;pass++){
+  let improved=false;
+  for(const [i,j] of [[0,1],[5,6]]){
+   const delta=values[i]-values[j];
+   if(Math.abs(delta)<=1)continue;
+   const v=values.slice();
+   if(delta>0){v[i]--;v[j]++}else{v[i]++;v[j]--}
+   const m=build(v,unit);
+   if(m.total>=target&&m.total<target+10000){
+    values=v;best=m;improved=true;
+   }
+  }
+  if(!improved)break;
  }
  return best;
 }
