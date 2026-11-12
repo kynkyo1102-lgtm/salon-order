@@ -321,21 +321,6 @@ body{padding-bottom:0!important}
 #search input:focus,#search input:focus-visible{outline:none!important;box-shadow:none!important;border-color:#0055a4!important}
 #results .guide-search-result:focus,#results .guide-search-result:focus-visible{outline:none!important;box-shadow:none!important;border-color:#0055a4!important}
 
-
-/* 3つの補助コンテンツを共通の一覧に統合 */
-.guide-extra-links{max-width:1100px;margin:36px auto 0;padding:0 22px}
-.guide-extra-links h2{font-size:clamp(21px,3vw,27px);font-weight:800;color:#004aad;margin:0 0 15px}
-.guide-extra-list{background:#fff;border:1px solid #d7e2ec;border-radius:17px;overflow:hidden}
-.guide-extra-item{display:flex;align-items:center;gap:16px;padding:18px 22px;text-decoration:none;color:#253e54;min-height:88px}
-.guide-extra-item+.guide-extra-item{border-top:1px solid #e5ebf0}
-.guide-extra-item:hover,.guide-extra-item:focus-visible{background:#f7f9fc}
-.guide-extra-icon{display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border-radius:12px;background:#edf3fa;color:#0055a4}
-.guide-extra-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.guide-extra-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}
-.guide-extra-copy strong{font-size:17px;line-height:1.5;color:#214c79}
-.guide-extra-copy small{font-size:13px;line-height:1.6;color:#657687}
-.guide-extra-chevron{font-size:27px;line-height:1;color:#0055a4}
-@media(max-width:650px){.guide-extra-links{padding:0 20px;margin-top:28px}.guide-extra-item{padding:15px 13px;gap:12px;min-height:80px}.guide-extra-icon{width:44px;height:44px;flex-basis:44px}.guide-extra-copy strong{font-size:15px}.guide-extra-copy small{font-size:12px}}
 </style><link rel="stylesheet" href="./guide-shared-chrome.css?v=20261105-return1"></head><body id="top">
 
 <main>
@@ -359,16 +344,16 @@ body{padding-bottom:0!important}
 <div class="category-block" id="bonus"><h3>ボーナスプラン</h3><ul><li><a href="./guide-c-reward-basics.html">ボーナスはどうやって決まるの？</a></li><li><a href="./guide-c-basic.html">基本条件</a></li><li><a href="./guide-c-payment.html">ボーナスの支払い</a></li><li><a href="./guide-c-bonus.html">ボーナスプラン</a></li><li><a href="./guide-c-title.html">タイトル昇格条件</a></li><li><a href="./guide-c-branch.html">ブランチ</a></li></ul></div>
 <div class="category-block"><h3>手続き・申請</h3><ul><li><a href="./guide-d.html#category=0&item=0">住所・連絡先の変更</a></li><li><a href="./guide-d.html#category=1&item=0">クレジットカードの登録・変更</a></li><li><a href="./guide-d.html#category=2">定期購入の変更・停止・再開</a></li><li><a href="./guide-d.html#category=3">会員資格・組織に関する手続き</a></li><li><a href="./guide-d.html#category=5">解約・クーリングオフ</a></li><li><a href="./guide-d.html">すべての手続きを見る</a></li></ul></div>
 <div class="category-block"><h3>こんなときどうする？</h3><p><a href="./guide-e.html">よくある困りごと</a></p></div>
+<div class="category-block" id="activity-rules"><h3>活動のルール</h3><ul><li><a href="./guide-tokusho.html">特商法ガイド</a></li></ul></div>
 </div></section>
 
-<section class="salon-feature" aria-labelledby="salonFeatureHeading"><h2 class="salon-section-heading">その他のコンテンツ</h2><a class="sa<section class="guide-extra-links" aria-labelledby="extraLinksHeading">
-<h2 id="extraLinksHeading">もっと便利に使う</h2>
-<div class="guide-extra-list">
-<a class="guide-extra-item" href="./guide-tokusho.html"><span class="guide-extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span><span class="guide-extra-copy"><strong>特商法ガイド</strong><small>活動時に守りたいルールを確認</small></span><span class="guide-extra-chevron" aria-hidden="true">›</span></a>
-<a class="guide-extra-item" href="./ninaguide-salons.html"><span class="guide-extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span class="guide-extra-copy"><strong>全国のサロンを探す</strong><small>お近くのサロンをご案内</small></span><span class="guide-extra-chevron" aria-hidden="true">›</span></a>
-<a class="guide-extra-item" href="./guide-myplan.html"><span class="guide-extra-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h2M14 11h2M8 16h2M14 16h2"/></svg></span><span class="guide-extra-copy"><strong>マイプランを探そう！</strong><small>金額から組織とボーナスの例を見る</small></span><span class="guide-extra-chevron" aria-hidden="true">›</span></a>
-</div></section>
-nd destinations stay synchronized. */
+<section class="salon-feature" aria-labelledby="salonFeatureHeading"><h2 class="salon-section-heading">その他のコンテンツ</h2><a class="salon-banner salon-banner-salons" href="./ninaguide-salons.html"><span class="salon-banner-icon" aria-hidden="true"><img src="./assets/preview/japan-salon-map.svg" alt=""></span><span class="salon-banner-copy"><strong class="salon-banner-title" id="salonFeatureHeading">全国のサロンを探す</strong><span class="salon-banner-desc">お近くのサロンをご案内します</span></span><span class="salon-banner-arrow" aria-hidden="true">→</span></a></section>
+<section class="salon-feature" aria-labelledby="quizFeatureHeading"><a class="salon-banner salon-banner-myplan" href="./guide-myplan.html"><span class="salon-banner-icon" aria-hidden="true"><img src="./assets/mitochondria/13_magnifying-glass.svg" alt=""></span><span class="salon-banner-copy"><strong class="salon-banner-title" id="quizFeatureHeading">マイプランを探そう！</strong><span class="salon-banner-desc">気になる金額から、組織とボーナスの例を見てみよう</span></span><span class="salon-banner-arrow" aria-hidden="true">→</span></a></section>
+<a class="back-to-top" href="#top">↑　ページの先頭へ戻る</a></main>
+
+
+<script>
+/* Build the menu from the actual category cards so labels and destinations stay synchronized. */
 const guideMenuCategories=document.getElementById('guide-menu-categories');
 if(guideMenuCategories){
  document.querySelectorAll('.category-grid .category-block').forEach(block=>{
