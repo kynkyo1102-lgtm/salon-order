@@ -193,8 +193,8 @@ function diagramLapis(m){
   const baseHalf=m.large&&!m.gold&&s.title==="ラピス"?71:89;
   const reference=Math.max(...m.secondary.flatMap(z=>[z.left,z.right]),1000);
   const height=bottom-top;
-  const variableHeight=m.three&&(m.target===30000||m.target===50000||m.target===100000);
-  // For lower three-position examples, preserve triangle widths and scale their downward lengths by PT.
+  const variableHeight=true;
+  // Scale each lower triangle length to its actual PT for both title and amount views.
   const leftHalf=variableHeight?baseHalf:Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.left/reference))));
   const rightHalf=variableHeight?baseHalf:Math.max(38,Math.round(baseHalf*(.55+.45*Math.sqrt(s.right/reference))));
   const leftBottom=variableHeight?top+Math.round(height*(.30+.70*s.left/reference)):bottom;
