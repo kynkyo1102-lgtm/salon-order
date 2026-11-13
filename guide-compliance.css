@@ -81,3 +81,12 @@ body.compliance-guide{margin:0!important;padding:0!important;width:100%;overflow
 @media(min-width:800px){.cg-story-step:nth-of-type(even) .cg-story-body{padding-left:38px}.cg-story-step:nth-of-type(even) .cg-story-visual{margin-left:20px}}
 @media(max-width:640px){.cg-story-hero{padding:48px 8px 70px}.cg-story-hero h1{font-size:clamp(25px,7vw,34px)}.cg-story-hero p{font-size:13px}.cg-law-intro{padding:28px 20px;margin-bottom:68px}.cg-law-examples{grid-template-columns:1fr}.cg-law-examples div{padding:10px 14px;gap:3px}.cg-story-part+.cg-story-part{margin-top:60px}.cg-part-intro{padding:28px 20px;min-height:160px;margin-bottom:36px}.cg-part-intro-inner{grid-template-columns:minmax(0,1fr) 58px;gap:8px}.cg-part-intro h2{font-size:clamp(22px,6vw,29px)}.cg-part-intro p{font-size:12px}.cg-part-art svg{max-width:55px}.cg-story-track{left:29px}.cg-story-step{grid-template-columns:60px minmax(0,1fr);gap:12px;min-height:420px;padding-bottom:78px}.cg-story-marker span{width:54px;height:54px;font-size:19px;border-radius:17px}.cg-story-body h3{font-size:clamp(21px,5.7vw,26px);margin-bottom:20px}.cg-story-body>p{font-size:14px;line-height:2}.cg-illustration{min-height:190px}.cg-illustration-paper{min-height:145px;padding:19px}.cg-illustration-symbol{font-size:38px}.cg-story-outro{padding:55px 10px}.cg-note{padding:20px}}
 @media(prefers-reduced-motion:reduce){.cg-story-body{transition:none;opacity:1;transform:none}.cg-story-track-fill{transition:none}}
+
+/* Prevent horizontal viewport scrolling from oversized SVG/illustration content. */
+html:has(body.compliance-guide){width:100%;max-width:100%;overflow-x:clip}
+body.compliance-guide{width:100%;max-width:100%;overflow-x:clip;position:relative}
+body.compliance-guide>.guide-shared-header{width:100%!important;max-width:100%!important;left:0!important;right:0!important}
+.registration-guide .guide-common-page.compliance-page{width:100%;max-width:var(--guide-page-width);min-width:0;margin-inline:auto;overflow-x:clip}
+.compliance-page .cg-story,.compliance-page .cg-story-flow,.compliance-page .cg-story-part,.compliance-page .cg-part-timeline,.compliance-page .cg-story-step,.compliance-page .cg-story-body{min-width:0;max-width:100%}
+.compliance-page svg{max-width:100%}
+.compliance-page .cg-story-hero h1,.compliance-page .cg-story-hero p,.compliance-page .cg-part-intro h2{max-width:100%;overflow-wrap:anywhere}
