@@ -42,7 +42,7 @@ const pages=[
 ['ボーナスの支払い','ボーナスプラン','ボーナスの支払時期や受け取りについて','guide-c-payment.html','振込 支給日 支払い 明細'],
 ['マイプラン・目標金額別','その他のコンテンツ','目標金額に応じた収入例と組織図','guide-myplan-income.html','収入 金額 シミュレーション ボーナス 組織図'],
 ['マイプラン・タイトル別','その他のコンテンツ','タイトル別の組織とボーナスの例','guide-myplan-title.html','昇格 タイトル ランク シミュレーション 組織図'],
-['活動のルール・コンプライアンス','活動のルール','特定商取引法や商品説明・勧誘に関する25のルール','guide-compliance.html','特商法 コンプライアンス 勧誘 クーリングオフ 薬機法 SNS 体験談 広告 組織配置'],
+['活動のルール・コンプライアンス','その他','特定商取引法や商品説明・勧誘に関する25のルール','guide-compliance.html','特商法 コンプライアンス 勧誘 クーリングオフ 薬機法 SNS 体験談 広告 組織配置'],
 ['全国のサロンを探す','その他のコンテンツ','全国のサロンを地域から探す','ninaguide-salons.html','サロン 店舗 地図 都道府県 近く 場所']
 ];
 const aliases=[['支払','決済','お支払','引落'],['登録','入会','申し込み','申込'],['解約','退会','やめる'],['配送','発送','配達','届く'],['住所','引越し','引っ越し'],['ボーナス','報酬','収入'],['ポイント','pt'],['カード','クレジット'],['変更','更新'],['停止','休止','中止'],['手続き','申請','届出'],['紹介','リクルート']];
@@ -60,7 +60,7 @@ const contentPaths=[
 'guide-c-bonus-amf.html','guide-c-bonus-cullinan-amf.html','guide-c-branch.html','guide-c-reward-basics.html','guide-c-title.html',
 'guide-cap-adjustment.html','guide-c-payment.html','guide-myplan.html','guide-myplan-income.html','guide-myplan-title.html','guide-compliance.html','guide-e.html','guide-e-extra-points.html','ninaguide-salons.html','check.html'
 ];
-const categoryFor=path=>path.startsWith('guide-a-')?'新規登録':path.startsWith('guide-b-')?'定期購入':path.startsWith('guide-c-')||path==='guide-cap-adjustment.html'?'ボーナスプラン':path.startsWith('guide-e-')||path==='guide-e.html'?'こんなときどうする？':path==='guide-compliance.html'?'活動のルール':'その他のコンテンツ';
+const categoryFor=path=>path.startsWith('guide-a-')?'新規登録':path.startsWith('guide-b-')?'定期購入':path.startsWith('guide-c-')||path==='guide-cap-adjustment.html'?'ボーナスプラン':path.startsWith('guide-e-')||path==='guide-e.html'?'こんなときどうする？':path==='guide-compliance.html'?'その他':'その他のコンテンツ';
 const contentRecords=[];
 let loading=null,loaded=false;
 function loadIndex(){
