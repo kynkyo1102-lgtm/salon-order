@@ -341,93 +341,6 @@ function extendThree200kDiagram(goal=200000){
  const note=root.querySelector(".lapis-diagram-note");
  if(note)note.textContent+=" EさんはAさん、FさんはBさんの直紹介として配置しています。";
 }
-function renderThree1000k(){
- diagramThree100k();
- extendThree200kDiagram(1000000);
- const root=document.getElementById("binary-diagram");
- const summary=root.querySelector(".lapis-tree-summary");
- if(summary)summary.innerHTML="00の左右 各601万PT <span>（各人物の1万PTを含む）</span>";
- const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{
-  const card=document.createElement("div");card.className="breakdown-card";
-  const head=document.createElement("div");head.className="breakdown-card-head";
-  const title=document.createElement("strong");title.textContent=name;
-  const amount=document.createElement("strong");amount.textContent=yen(value);head.append(title,amount);card.append(head);
-  const details=document.createElement("div");details.className="breakdown-calcs";
-  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
-  body.append(card);card.append(details);
- };
- const basic=601000+300000*2,mega=300000*2+149000*2,double=14800,leadership=120200;
- add("ベーシックコミッション",basic,[["00","601万PT × 10％ ＝ "+yen(601000)],["01・02","300万PT × 10％ × 2 ＝ "+yen(600000)]]);
- add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(300000)+" × 2"],["A・Bさん",yen(149000)+" × 2"]]);
- add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["E・Fさん","74万PT × 10％ × 10％ × 2 ＝ "+yen(14800)]]);
- add("リーダーシップボーナス（ゴールド 2.0％）",leadership,[["計算対象ポイント","601万PT × 2.0％ ＝ "+yen(leadership)]]);
- document.getElementById("sum").textContent=yen(basic+mega+double+leadership);
-}
-function renderThree500k(){
- diagramThree100k();
- extendThree200kDiagram(500000);
- const m=generate(500000)[0];
- const root=document.getElementById("binary-diagram");
- const summary=root.querySelector(".lapis-tree-summary");if(summary)summary.innerHTML="00の左右 各"+pts(3030000)+" <span>（01・02の各1万PTを含む）</span>";
- const note=root.querySelector(".lapis-diagram-note");
- if(note)note.textContent+=" ※50万円モデルのPTを表示しています。";
- const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{
-  const card=document.createElement("div");card.className="breakdown-card";
-  const head=document.createElement("div");head.className="breakdown-card-head";
-  const title=document.createElement("strong");title.textContent=name;
-  const amount=document.createElement("strong");amount.textContent=yen(value);
-  head.append(title,amount);card.append(head);
-  const details=document.createElement("div");details.className="breakdown-calcs";
-  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
-  card.append(details);body.append(card);
- };
- const basic=303000+101000*2;
- const mega=101000*2+100000*2;
- const double=9800;
- add("ベーシックコミッション",basic,[["00",pts(3040000)+" × 10％ ＝ "+yen(303000)],["01",yen(m.abasic)],["02",yen(m.bbasic)]]);
- add("メガマッチ（00の直紹介ポジション）",mega,[["01・02",yen(m.abasic)+" × 2"],["A・Bさん",yen(100000)+" × 2"]]);
- add("ダブルメガマッチ（二次紹介E・Fさん）",double,[["Eさん",yen(49000)+" × 10％ ＝ "+yen(4900)],["Fさん",yen(49000)+" × 10％ ＝ "+yen(4900)]]);
- document.getElementById("sum").textContent=yen(basic+mega+double);
-}
-function renderThree200k(){
- diagramThree100k();
- extendThree200kDiagram();
- const m=generate(200000)[0];
- const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{
-  const card=document.createElement("div");card.className="breakdown-card";
-  const head=document.createElement("div");head.className="breakdown-card-head";
-  const title=document.createElement("strong");title.textContent=name;
-  const amount=document.createElement("strong");amount.textContent=yen(value);
-  head.append(title,amount);card.append(head);
-  const details=document.createElement("div");details.className="breakdown-calcs";
-  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
-  card.append(details);body.append(card);
- };
- add("ベーシックコミッション",201000,[["00","101万PT × 10％ ＝ "+yen(101000)],["01","50万PT × 10％ ＝ "+yen(50000)],["02","50万PT × 10％ ＝ "+yen(50000)]]);
- add("メガマッチ（00の直紹介ポジションのベーシックの100％）",148000,[["00：01のベーシック",yen(50000)+" × 100％ ＝ "+yen(50000)],["00：02のベーシック",yen(50000)+" × 100％ ＝ "+yen(50000)],["00：A・Bさんのベーシック",yen(24000)+" × 2 ＝ "+yen(48000)]]);
- add("ダブルメガマッチ（二次紹介E・Fさん）",2200,[["Eさん","11万PT × 10％ × 10％ ＝ "+yen(1100)],["Fさん","11万PT × 10％ × 10％ ＝ "+yen(1100)]]);
- document.getElementById("sum").textContent=yen(351200);
-}
-function renderThree100k(){
- diagramThree100k();
- const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{
-  const card=document.createElement("div");card.className="breakdown-card";
-  const head=document.createElement("div");head.className="breakdown-card-head";
-  const title=document.createElement("strong");title.textContent=name;
-  const amount=document.createElement("strong");amount.textContent=yen(value);
-  head.append(title,amount);card.append(head);
-  const details=document.createElement("div");details.className="breakdown-calcs";
-  for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}
-  card.append(details);body.append(card);
- };
- add("ベーシックコミッション",101000,[["00","51万PT × 10％ ＝ "+yen(51000)],["01","25万PT × 10％ ＝ "+yen(25000)],["02","25万PT × 10％ ＝ "+yen(25000)]]);
- add("メガマッチ（00の直紹介ポジションのベーシックの100％）",74000,[["00：01のベーシック",yen(25000)+" × 100％ ＝ "+yen(25000)],["00：02のベーシック",yen(25000)+" × 100％ ＝ "+yen(25000)],["00：A・Bさんのベーシック",yen(12000)+" × 2 ＝ "+yen(24000)]]);
- document.getElementById("sum").textContent=yen(175000);
-}
 function showThree100kBonus(old){
  const m=generate(Number(document.getElementById("goal").value))[0];
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
@@ -445,45 +358,7 @@ function showThree100kBonus(old){
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
-function renderThree(){
- diagramThree();
- const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{
-  const card=document.createElement("div");card.className="breakdown-card";
-  const head=document.createElement("div");head.className="breakdown-card-head";
-  const title=document.createElement("strong");title.textContent=name;
-  const amount=document.createElement("strong");amount.textContent=yen(value);
-  head.append(title,amount);card.append(head);
-  const details=document.createElement("div");details.className="breakdown-calcs";
-  for(const [label,formula] of lines){
-   const line=document.createElement("div");line.className="breakdown-calc";
-   const l=document.createElement("span");l.textContent=label;
-   const f=document.createElement("span");f.textContent=formula;
-   line.append(l,f);details.append(line);
-  }
-  card.append(details);body.append(card);
- };
- add("ベーシックコミッション",41000,[
-  ["00","21万PT × 10％ ＝ "+yen(21000)],
-  ["01","10万PT × 10％ ＝ "+yen(10000)],
-  ["02","10万PT × 10％ ＝ "+yen(10000)]
- ]);
- add("メガマッチ（直紹介ポジションのベーシックの100％）",20000,[
-  ["01のベーシック",yen(10000)+" × 100％ ＝ "+yen(10000)],
-  ["02のベーシック",yen(10000)+" × 100％ ＝ "+yen(10000)]
- ]);
- document.getElementById("sum").textContent=yen(61000);
-}
 function updateRegistrationPicker(){document.querySelectorAll("[data-registration-choice]").forEach(btn=>{const active=btn.dataset.registrationChoice===registrationMode;btn.classList.toggle("is-active",active);btn.setAttribute("aria-pressed",String(active));});}
-function syncRegistration(){
- updateRegistrationPicker();
- const available=[40000,100000,200000,500000,1000000].includes(Number(document.getElementById("goal").value));
- document.getElementById("registration-reveal").hidden=!available;
- const btn=document.getElementById("registration-reveal-button");
- btn.textContent=registrationMode==="three"?"通常の1点登録の図に戻す":"3点登録の場合を見てみる";
- document.getElementById("registration-reveal-lead").textContent=registrationMode==="three"?"同じ組織で3点登録の場合は…？":"同じ組織で3点登録の場合は…？";
- document.getElementById("registration-comparison").hidden=registrationMode!=="three" || Number(document.getElementById("goal").value)!==40000;
-}
 function showThreePersonBonus(code){
  const data={
   "00":{name:"あなた（00）",side:210000,basic:21000,match:20000},
