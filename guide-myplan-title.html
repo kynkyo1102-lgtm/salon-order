@@ -416,12 +416,11 @@ function renderThree100k(){
  document.getElementById("sum").textContent=yen(175000);
 }
 function showThree100kBonus(old){
- const m=generate(Number(document.getElementById("goal").value))[0];
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
  const goal=Number(document.getElementById("goal").value);
  const side=root?(goal===200000?1010000:goal===1000000?6010000:goal===500000?3030000:510000):branch?(goal===200000?500000:goal===1000000?3000000:goal===500000?1010000:250000):(goal===200000?240000:goal===1000000?1490000:goal===500000?1000000:120000);
- const basic=side*.1,match=goal===200000?148000:goal===1000000?898000:goal===500000?402000:74000;
+ const basic=side*.1;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
@@ -489,7 +488,7 @@ function render(){
 
 function showThreePersonBonus(code){
  const data={
-  "00":{name:"あなた（00）",side:210000,basic:21000,match:20000},
+  "00":{name:"あなた（00）",side:210000,basic:21000},
   "01":{name:"あなたの01",side:100000,basic:10000},
   "02":{name:"あなたの02",side:100000,basic:10000}
  }[code];
