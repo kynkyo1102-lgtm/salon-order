@@ -827,7 +827,12 @@ function renderIncome(){
  // 3点登録では00/01/02の位置を示す既存の図を流用。
  // 00・01・02の各ポジションのベーシックを含む3点登録専用モデルで試算。
  if(m.three){incomeThreeDiagram(m);incomeThreeBreakdown(m)}else{diagram(m);incomeBreakdown(m)}
- const summary=document.querySelector(".lapis-tree-summary span");if(summary)summary.remove();
+ const root=document.getElementById("binary-diagram");
+ root.querySelectorAll(".lapis-tree-summary").forEach(el=>el.remove());
+ const summary=document.createElement("p");
+ summary.className="lapis-tree-summary";
+ summary.textContent="00の左右：左 "+pts(m.left)+" ／ 右 "+pts(m.right);
+ root.prepend(summary);
 
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
