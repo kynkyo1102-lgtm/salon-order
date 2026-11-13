@@ -332,3 +332,12 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-part-timeline{padding-top:12px}
 .compliance-page .cg-theme-blue,.compliance-page .cg-theme-green,.compliance-page .cg-theme-slate{--cg-part-bg:#fff}
 @media(max-width:600px){.compliance-page .cg-story-part{padding:0 15px 22px}.compliance-page .cg-story-part+.cg-story-part:before{height:65px;margin-bottom:20px}.compliance-page .cg-part-intro{margin:0 -15px 30px;min-height:245px}.compliance-page .cg-part-intro-inner{min-height:245px;padding:38px 24px;grid-template-columns:minmax(0,1fr) 94px;column-gap:8px}.compliance-page .cg-part-intro h2{font-size:26px;margin:16px 0 8px}.compliance-page .cg-part-intro p{font-size:13px}.compliance-page .cg-part-art svg{max-width:95px}.compliance-page .cg-part-intro:after{left:24px;right:24px}.compliance-page .cg-part-timeline{padding-top:0}}
+
+/* Integrated legal orientation: concise, distinct from the narrative timeline. */
+.compliance-page .cg-law-intro{max-width:860px;margin:0 auto 48px;padding:30px clamp(22px,5vw,42px);background:#f6f9fb;border-left:4px solid #0055a4;border-radius:4px}
+.compliance-page .cg-law-eyebrow{font-size:12px;letter-spacing:.08em;font-weight:800;color:#16815b}
+.compliance-page .cg-law-intro h2{margin:10px 0 15px;font-size:clamp(23px,4vw,29px);color:#0055a4}
+.compliance-page .cg-law-intro p{font-size:14px;line-height:1.95;color:#344b5d;margin:0 0 12px}
+.compliance-page .cg-law-mini{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.compliance-page .cg-law-mini span{padding:8px 12px;background:#fff;border:1px solid #d4e4ee;border-radius:999px;color:#345d80;font-size:12px;font-weight:700}
+@media(max-width:600px){.compliance-page .cg-law-intro{margin:0 8px 30px;padding:25px 18px}.compliance-page .cg-law-mini span{font-size:11px}}
