@@ -428,17 +428,53 @@ body.home-page .salon-sky::after{opacity:.25}
     }
     exceptions=next;settingsValid=true;settingsReady=true;updateStatus();
   }).catch(()=>{settingsReady=true;settingsValid=false;updateStatus()});
-  fetch('https://api.open-meteo.com/v1/forecast?latitude=32.7898&longitude=130.7079&current=temperature_2m,weather_code&timezone=Asia%2FTokyo',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('weather');return r.json()}).then(data=>{
-    const code=data.current?.weather_code,temp=data.current?.temperature_2m;
-    if(typeof code!=='number')throw Error('weather');
+  // Weather: refresh every 15 minutes; retry transient errors after 60 seconds.
+  // Retain a recent successful observation if the provider temporarily fails.
+  const WEATHER_URL='https://api.open-meteo.com/v1/forecast?latitude=32.7898&longitude=130.7079&current=temperature_2m,weather_code&timezone=Asia%2FTokyo';
+  let weatherLastSuccess=0,weatherRequestPending=false,weatherRetryTimer=null;
+  function weatherPresentation(code,temp){
     let label='晴れ',icon='☀️',kind='sun';
     if([1,2].includes(code)){label='晴れ時々くもり';icon='🌤️';kind='sun'}
     else if(code===3){label='くもり';icon='☁️';kind='cloud'}
     else if([45,48].includes(code)){label='霧';icon='🌫️';kind='cloud'}
     else if([51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99].includes(code)){label='雨';icon='🌧️';kind='rain'}
     else if([71,73,75,77,85,86].includes(code)){label='雪';icon='❄️';kind='snow'}
-    actualWeather=kind;actualIcon=icon;actualLabel=label+(typeof temp==='number'?' · '+Math.round(temp)+'℃':'');if(chosenWeather==='auto')showActualWeather();applyScene();
-  }).catch(()=>{actualIcon='☁️';actualLabel='天気を確認できません';if(chosenWeather==='auto')showActualWeather()});
+    return {label:label+(typeof temp==='number'?' · '+Math.round(temp)+'℃':''),icon,kind};
+  }
+  async function refreshWeather(){
+    if(weatherRequestPending)return;
+    weatherRequestPending=true;
+    try{
+      const response=await fetch(WEATHER_URL,{cache:'no-store'});
+      if(!response.ok)throw Error('Weather API HTTP '+response.status);
+      const data=await response.json();
+      const code=data.current?.weather_code,temp=data.current?.temperature_2m;
+      if(typeof code!=='number')throw Error('Weather API missing weather_code');
+      const result=weatherPresentation(code,temp);
+      actualWeather=result.kind;actualIcon=result.icon;actualLabel=result.label;
+      weatherLastSuccess=Date.now();
+      if(weatherRetryTimer){clearTimeout(weatherRetryTimer);weatherRetryTimer=null}
+      if(chosenWeather==='auto')showActualWeather();
+      applyScene();
+    }catch(error){
+      console.warn('天気の取得に失敗しました。再試行します。',error);
+      if(!weatherLastSuccess){
+        actualIcon='🌤️';
+        actualLabel='天気情報を更新中';
+      }else if(Date.now()-weatherLastSuccess>60*60*1000){
+        actualLabel='天気情報を更新中（前回取得から1時間以上）';
+      }else{
+        actualLabel=actualLabel.replace(/（前回取得[^）]*）$/,'')+'（前回取得）';
+      }
+      if(chosenWeather==='auto')showActualWeather();
+      if(!weatherRetryTimer)weatherRetryTimer=setTimeout(()=>{weatherRetryTimer=null;refreshWeather()},60*1000);
+    }finally{
+      weatherRequestPending=false;
+    }
+  }
+  refreshWeather();
+  setInterval(refreshWeather,15*60*1000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-weatherLastSuccess>15*60*1000)refreshWeather()});
 })();
 </script>
 </body>
