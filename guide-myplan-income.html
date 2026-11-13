@@ -269,7 +269,7 @@ function diagramThree100k(){
  const summary=root.querySelector(".lapis-tree-summary");
  if(summary)summary.innerHTML="00の左右 各"+pts(m.left)+" <span>（01・02の各1万PTを含む）</span>";
  const note=root.querySelector(".lapis-diagram-note");
- if(note)note.textContent="🟠 オレンジ枠のA・B・C・Dさんは全員00の直紹介です。01・02から下への線は組織上の配置を表し、紹介関係ではありません。00・01・02はすべて自分名義のポジションで、01・02は00の直紹介として数えます。01・02で発生したボーナスも自分の収入に合算します。";
+ if(note)note.textContent="🟠 00の直紹介は自分名義の01・02とA・Bさんの4ポジションです。01・02から下への線は組織上の配置を表し、紹介関係ではありません。00・01・02はすべて自分名義のポジションで、01・02は00の直紹介として数えます。01・02で発生したボーナスも自分の収入に合算します。";
  const extra=root.querySelector(".lapis-title-extra");if(extra)extra.remove();
  const svg=root.querySelector("svg.lapis-full-tree");
  if(svg){
@@ -904,7 +904,7 @@ function incomeThreeTitleLayout(m){
  const summary=root.querySelector(".lapis-tree-summary");
  if(summary)summary.textContent="00の左："+pts(m.left)+" ／ 右："+pts(m.right);
  const note=root.querySelector(".lapis-diagram-note");
- if(note)note.textContent="🟠 オレンジ枠のA・B・C・Dさんは全員00の直紹介です。01・02から下への線は組織上の配置を表し、紹介関係ではありません。00・01・02はすべて自分名義のポジションで、01・02は00の直紹介として数えます。01・02で発生したボーナスも自分の収入に合算します。";
+ if(note)note.textContent="🟠 00の直紹介は自分名義の01・02とA・Bさんの4ポジションです。01・02から下への線は組織上の配置を表し、紹介関係ではありません。00・01・02はすべて自分名義のポジションで、01・02は00の直紹介として数えます。01・02で発生したボーナスも自分の収入に合算します。";
  const extra=root.querySelector(".lapis-title-extra");if(extra)extra.remove();
  const svg=root.querySelector("svg.lapis-full-tree");
  if(svg){
