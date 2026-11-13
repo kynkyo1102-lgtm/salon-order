@@ -9,11 +9,11 @@ window.addEventListener('pageshow',()=>{
 });
 
 const groups=[
-['新規登録',[['登録ガイド','guide-a-chat.html'],['WEB登録ガイド','guide-a-web.html'],['郵送登録ガイド','guide-a-paper.html'],['初回費用','guide-a-cost.html']]],
-['定期購入',[['毎月の商品購入','guide-b-cost.html'],['お届けスケジュール','guide-b-schedule.html'],['お支払方法','guide-b-payment.html'],['締め日について','guide-b-deadline.html'],['定期購入の停止','guide-b-stop.html'],['６か月連続購入特典','guide-b-bonus.html']]],
-['ボーナスプラン',[['ボーナスはどうやって決まるの？','guide-c-reward-basics.html'],['基本条件','guide-c-basic.html'],['ボーナスプラン','guide-c-bonus.html'],['タイトル昇格条件','guide-c-title.html'],['ブランチ','guide-c-branch.html'],['ボーナス・タイトル診断','check.html']]],
+['新規登録',[['登録ガイド','guide-a-chat.html'],['WEB登録ガイド','guide-a-web.html'],['郵送登録ガイド','guide-a-paper.html'],['初回費用','guide-a-cost.html'],['組織の配置について','guide-a-placement.html'],['新規登録の締め日','guide-a-cutoff.html']]],
+['定期購入',[['毎月の商品購入','guide-b-cost.html'],['お届けスケジュール','guide-b-schedule.html'],['お支払方法','guide-b-payment.html'],['定期購入の変更・停止の締め日','guide-b-deadline.html'],['定期購入の停止','guide-b-stop.html'],['６か月連続購入特典','guide-b-bonus.html']]],
+['ボーナスプラン',[['ボーナスはどうやって決まるの？','guide-c-reward-basics.html'],['基本条件','guide-c-basic.html'],['ボーナスの支払い','guide-c-payment.html'],['ボーナスプラン','guide-c-bonus.html'],['タイトル昇格条件','guide-c-title.html'],['ブランチ','guide-c-branch.html']]],
 ['手続き・申請',[['住所・連絡先の変更','guide-d.html#category=0&item=0'],['クレジットカードの登録・変更','guide-d.html#category=1&item=0'],['定期購入の変更・停止・再開','guide-d.html#category=2'],['会員資格・組織に関する手続き','guide-d.html#category=3'],['解約・クーリングオフ','guide-d.html#category=5'],['すべての手続きを見る','guide-d.html']]],
-['こんなときどうする？',[['よくある困りごと','guide-e.html']]]
+['その他',[['よくある困りごと','guide-e.html'],['活動のルール（特商法・コンプライアンス）','guide-compliance.html']]]
 ];
 /* Provisional manual-page index. Replace each 1P after checking the printed manual.
    Category landing pages, top page and procedures are deliberately excluded. */
@@ -79,7 +79,7 @@ function addBottomReturnLink(){
 }
 function init(){
  const header=document.createElement('header');header.className='guide-shared-header';
- header.innerHTML='<div class="guide-shared-brand"><a class="guide-shared-logo" href="https://kynkyo1102-lgtm.github.io/salon-order/index.html">Place de Nina</a><span class="guide-shared-shop">南熊本店</span></div><button class="guide-shared-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="guide-shared-site-menu"><span class="guide-shared-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button><nav class="guide-shared-menu" id="guide-shared-site-menu" aria-label="サイトメニュー" hidden><a class="guide-shared-primary" href="./ninaguide.html">メンバーズガイド トップ</a><div id="guide-shared-groups"></div><details class="guide-shared-group guide-shared-accordion guide-shared-secondary"><summary class="guide-shared-group-title">その他のコンテンツ</summary><div class="guide-shared-accordion-content"><a href="./ninaguide-salons.html">全国のサロンを探す</a><a href="./guide-myplan.html">マイプランを探そう！</a><a href="https://kynkyo1102-lgtm.github.io/salon-order/index.html">サロンページへ</a></div></details></nav>';
+ header.innerHTML='<div class="guide-shared-brand"><a class="guide-shared-logo" href="https://kynkyo1102-lgtm.github.io/salon-order/index.html">Place de Nina</a><span class="guide-shared-shop">南熊本店</span></div><button class="guide-shared-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="guide-shared-site-menu"><span class="guide-shared-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button><nav class="guide-shared-menu" id="guide-shared-site-menu" aria-label="サイトメニュー" hidden><a class="guide-shared-primary" href="./ninaguide.html">メンバーズガイド トップ</a><div id="guide-shared-groups"></div><details class="guide-shared-group guide-shared-accordion guide-shared-secondary"><summary class="guide-shared-group-title">その他のコンテンツ</summary><div class="guide-shared-accordion-content"><a href="./ninaguide-salons.html">全国のサロンを探す</a><a href="./guide-myplan.html">マイプランを探そう！</a><a href="./check.html">ボーナス・タイトル診断</a><a href="https://kynkyo1102-lgtm.github.io/salon-order/index.html">サロンページへ</a></div></details></nav>';
  const groupWrap=header.querySelector('#guide-shared-groups');
  for(const [label,links] of groups){const group=document.createElement('details');group.className='guide-shared-group guide-shared-accordion';const title=document.createElement('summary');title.className='guide-shared-group-title';title.textContent=label;group.append(title);const content=document.createElement('div');content.className='guide-shared-accordion-content';for(const [name,path] of links){const link=document.createElement('a');link.className='guide-shared-sub';link.href='./'+path;link.textContent=name;content.append(link)}group.append(content);groupWrap.append(group)}
  const accordions=[...header.querySelectorAll('.guide-shared-accordion')];
