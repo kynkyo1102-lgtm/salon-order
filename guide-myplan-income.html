@@ -820,6 +820,69 @@ incomeDiagram.addEventListener("click",e=>{const pt=e.target.closest("text.lapis
 incomeDiagram.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const pt=e.target.closest("text.lapis-leaf-pt, text.income-tappable-pt");if(pt){e.preventDefault();e.stopImmediatePropagation();togglePtTextZoom(pt)}}},true);
 incomeDiagram.addEventListener("click",e=>{const person=e.target.closest(".lapis-tap-person");if(person){e.stopImmediatePropagation();showIncomePerson(person.dataset.person)}},true);
 incomeDiagram.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const person=e.target.closest(".lapis-tap-person");if(person){e.preventDefault();e.stopImmediatePropagation();showIncomePerson(person.dataset.person)}}},true);
+function appendPlanTitleComposition(model,mode){
+ const root=document.getElementById("binary-diagram");
+ if(mode==="one"&&root.querySelector(".lapis-title-extra"))return;
+ const rank=(left,right,active=2)=>{
+  if(left==null||right==null)return "判定対象外";
+  const side=Math.min(left,right);
+  return active>=4&&side>=60000000?"ロワイヤルダイヤモンド":active>=4&&side>=30000000?"ダイヤモンド":active>=4&&side>=12000000?"プラチナ":active>=4&&side>=6000000?"ゴールド":side>=3000000?"エメラルド":side>=1000000?"サファイヤ":side>=500000?"ラピス":side>=200000?"クリスタル":"メンバー";
+ };
+ const rows=[],edges=[];
+ const add=(name,left,right,active=2)=>rows.push({name,left,right,title:rank(left,right,active)});
+ if(mode==="one"){
+  add("00",model.left,model.right,model.active||2);
+  add("Aさん",model.ax,model.ar);
+  add("Bさん",model.bl,model.br);
+  edges.push([0,1],[0,2]);
+  for(const p of model.secondary||[]){
+   add(p.name,p.left,p.right);
+   edges.push([p.parent==="Aさん"?1:p.parent==="Bさん"?2:0,rows.length-1]);
+  }
+ }else{
+  add("00",model.left,model.right,4);
+  add("01",model.ax,model.ar);
+  add("02",model.bl,model.br);
+  edges.push([0,1],[0,2]);
+  const pairs=model.leafPairs||{};
+  for(const [name,parent] of [["Aさん",1],["Cさん",1],["Bさん",2],["Dさん",2]]){
+   const pair=pairs[name];
+   add(name,pair?.[0]??null,pair?.[1]??null);
+   edges.push([parent,rows.length-1]);
+  }
+  for(const [name,parentName] of [["Eさん","Aさん"],["Fさん","Bさん"]]){
+   const pair=model.deepPairs?.[name];
+   if(!pair)continue;
+   add(name,pair[0],pair[1]);
+   edges.push([rows.findIndex(x=>x.name===parentName),rows.length-1]);
+  }
+ }
+ const levels=rows.map((_,i)=>i===0?0:i<=2?1:mode==="three"&&i>=7?3:2);
+ const maxLevel=Math.max(...levels),width=760;
+ const positions=rows.map((r,i)=>{
+  const level=levels[i],indices=levels.map((v,j)=>v===level?j:-1).filter(v=>v>=0),order=indices.indexOf(i);
+  return {x:(order+1)*width/(indices.length+1),y:32+level*206};
+ });
+ const lineSvg=edges.map(([a,b])=>'<line x1="'+positions[a].x+'" y1="'+(positions[a].y+148)+'" x2="'+positions[b].x+'" y2="'+positions[b].y+'" stroke="#94b5c9" stroke-width="3"/>').join("");
+ const nodeSvg=rows.map((r,i)=>{
+  const {x,y}=positions[i],fill=r.title==="ゴールド"?"#f8f2e5":r.title==="エメラルド"?"#e6f3ef":r.title==="ラピス"?"#f1f2f6":r.title==="メンバー"?"#f4f5f6":"#e8f1f8";
+  return '<g><rect x="'+(x-79)+'" y="'+y+'" width="158" height="160" rx="18" fill="#fff" stroke="#c7dce8" stroke-width="2"/><circle cx="'+x+'" cy="'+(y+35)+'" r="22" fill="#e1ebf1" stroke="#9bb5c5" stroke-width="2"/><text x="'+x+'" y="'+(y+80)+'" text-anchor="middle" fill="#245579" font-size="19" font-weight="800">'+r.name+'</text><rect x="'+(x-72)+'" y="'+(y+96)+'" width="144" height="37" rx="18" fill="'+fill+'"/><text x="'+x+'" y="'+(y+121)+'" text-anchor="middle" fill="#245579" font-size="16" font-weight="800">'+r.title+'</text><text x="'+x+'" y="'+(y+150)+'" text-anchor="middle" fill="#526777" font-size="12">'+(r.left==null?"左右PT未設定":"少ない側 "+pts(Math.min(r.left,r.right)))+'</text></g>';
+ }).join("");
+ const details=document.createElement("details");
+ details.className="lapis-title-extra";
+ const summary=document.createElement("summary");
+ summary.innerHTML="タイトル構成も見る <span>（参考）</span>";
+ const caption=document.createElement("p");
+ caption.textContent="この組織例をタイトルで表すと（各人物は必要なアクティブ直紹介者数を満たす想定）";
+ const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+ svg.setAttribute("class","lapis-large-svg lapis-full-tree");
+ svg.setAttribute("viewBox","0 0 760 "+(maxLevel*206+205));
+ svg.setAttribute("role","img");
+ svg.setAttribute("aria-label",rows.map(r=>r.name+"："+r.title).join("、"));
+ svg.innerHTML=lineSvg+nodeSvg;
+ details.append(summary,caption,svg);
+ root.append(details);
+}
 function renderIncome(){
  const m=registrationMode==="three"?incomeThreeModel(Number(document.getElementById("goal").value)):incomeModel(Number(document.getElementById("goal").value));
  updateRegistrationPicker();
@@ -833,7 +896,7 @@ function renderIncome(){
  summary.className="lapis-tree-summary";
  summary.textContent="00の左右：左 "+pts(m.left)+" ／ 右 "+pts(m.right);
  root.prepend(summary);
-
+ appendPlanTitleComposition(m,registrationMode);
 }
 document.getElementById("goal").addEventListener("change",()=>{registrationMode="one";renderIncome()});
 document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEventListener("click",()=>{registrationMode=btn.dataset.registrationChoice;renderIncome()}));
