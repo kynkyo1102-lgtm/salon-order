@@ -27,3 +27,13 @@
 .compliance-page .cg-bottom p:last-child{margin-bottom:0}
 .compliance-page .cg-return{display:inline-block;margin-top:22px;color:#0055a4;font-weight:700;font-size:13px}
 @media(max-width:680px){.compliance-page .cg-grid{grid-template-columns:1fr;gap:10px}.compliance-page .cg-tile{padding:15px 13px}.compliance-page .cg-art{flex-basis:50px;width:50px;height:50px}.compliance-page .cg-art svg{width:29px;height:29px}.compliance-page .cg-scene{padding:14px}.compliance-page .cg-bubble{font-size:14px}}
+
+/* Scenario illustrations: SVGs are individual transparent figures; dialogue stays editable HTML. */
+.compliance-page .cg-conversation{display:grid;gap:14px}
+.compliance-page .cg-speaker{display:grid;grid-template-columns:108px minmax(0,1fr);align-items:center;gap:14px;max-width:92%}
+.compliance-page .cg-speaker img{display:block;width:108px;height:112px;object-fit:contain}
+.compliance-page .cg-speaker .cg-bubble{max-width:100%;width:fit-content;margin:0;padding:15px 19px;border:1px solid #d8e5f0;border-radius:15px 15px 15px 4px;background:#fff;font-weight:650}
+.compliance-page .cg-speaker-reply{justify-self:end;grid-template-columns:minmax(0,1fr) 108px}
+.compliance-page .cg-speaker-reply img{grid-column:2;grid-row:1}
+.compliance-page .cg-speaker-reply .cg-bubble{grid-column:1;grid-row:1;justify-self:end;border-radius:15px 15px 4px 15px;background:#e7f0f7}
+@media(max-width:680px){.compliance-page .cg-speaker{grid-template-columns:74px minmax(0,1fr);gap:8px;max-width:100%}.compliance-page .cg-speaker img{width:74px;height:85px}.compliance-page .cg-speaker-reply{grid-template-columns:minmax(0,1fr) 74px}.compliance-page .cg-speaker .cg-bubble{font-size:13px;padding:10px 12px}}
