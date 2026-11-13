@@ -43,9 +43,33 @@
 .compliance-page .cg-section-head{padding:35px 29px}
 .compliance-page .cg-section-head h2{font-size:clamp(26px,5vw,35px)}
 .compliance-page .cg-jump a{font-size:15px;padding:12px 17px}
-@media(prefers-reduced-motion:no-preference){
-.compliance-page .cg-rule{animation:cg-arrive .65s both;animation-timeline:view();animation-range:entry 0% entry 30%}
-.compliance-page .cg-section-head{animation:cg-arrive .7s both;animation-timeline:view();animation-range:entry 0% entry 35%}
-@keyframes cg-arrive{from{opacity:.55;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+}
 }
 @media(max-width:600px){.compliance-page .cg-rule{padding:30px 0 33px}.compliance-page .cg-rule-heading{gap:12px}.compliance-page .cg-number{min-width:40px;height:40px;font-size:15px}.compliance-page .cg-rule h3{font-size:21px}.compliance-page .cg-rule-text>p{font-size:16px;line-height:1.95}.compliance-page .cg-example p{font-size:15px;padding:13px 14px}.compliance-page .cg-section-head{padding:26px 19px}}
+
+/* Editorial story experiment: first five rules, all copy remains visible without JS. */
+.compliance-page .cg-feature{padding:0;border:0;margin:0 0 28px}
+.compliance-page .cg-feature-stage{position:relative;min-height:min(76svh,620px);padding:clamp(26px,5vw,52px);border-radius:20px;background:#004aad;color:#fff;display:flex;flex-direction:column;justify-content:center;overflow:hidden;isolation:isolate}
+.compliance-page .cg-feature-stage::after{content:"";position:absolute;right:-14%;bottom:-45%;width:65%;aspect-ratio:1;border:2px solid #ffffff30;border-radius:50%;z-index:-1}
+.compliance-page .cg-feature-index{position:absolute;top:30px;left:clamp(26px,5vw,52px);font-size:12px;letter-spacing:.17em;font-weight:800}
+.compliance-page .cg-feature-quote{font-size:clamp(31px,6.8vw,61px);line-height:1.45;font-weight:800;letter-spacing:-.045em;margin:0 0 34px}
+.compliance-page .cg-feature-reveal{font-size:clamp(23px,4.5vw,41px);font-weight:800;line-height:1.5;letter-spacing:-.04em;padding-top:22px;border-top:2px solid #ffffff70}
+.compliance-page .cg-feature-reveal em{font-style:normal;color:#c4efb7}
+.compliance-page .cg-feature-scroll{position:absolute;bottom:22px;right:28px;font-size:10px;font-weight:800;letter-spacing:.14em;opacity:.75}
+.compliance-page .cg-feature-detail{padding:32px clamp(12px,5vw,50px) 45px;background:#f2f7fb;border-radius:0 0 18px 18px}
+.compliance-page .cg-feature-label{font-size:12px;letter-spacing:.12em;font-weight:800;color:#0055a4}
+.compliance-page .cg-feature-detail h3{font-size:clamp(24px,4vw,34px);margin:9px 0 17px}
+.compliance-page .cg-feature-detail .cg-rule-text>p{font-size:18px;line-height:1.95}
+.compliance-page .cg-feature-editorial .cg-feature-stage{background:#fff;color:#004aad;border:3px solid #004aad}
+.compliance-page .cg-feature-editorial .cg-feature-stage::after{border-color:#004aad24}
+.compliance-page .cg-feature-editorial .cg-feature-reveal{border-top-color:#004aad55}
+.compliance-page .cg-feature-editorial .cg-feature-reveal em{color:#177443}
+.compliance-page .cg-feature-paper .cg-feature-stage{background:#163c64}
+.compliance-page .cg-feature-paper .cg-feature-stage::after{border-radius:12px;transform:rotate(-14deg)}
+@supports(animation-timeline:view()){
+@media(prefers-reduced-motion:no-preference){
+.compliance-page .cg-feature-quote{animation:cg-story-enter linear both;animation-timeline:view();animation-range:entry 0% entry 65%}
+.compliance-page .cg-feature-reveal{animation:cg-story-enter linear both;animation-timeline:view();animation-range:entry 20% entry 85%}
+@keyframes cg-story-enter{from{opacity:.45;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
+}}
+@media(max-width:600px){.compliance-page .cg-feature-stage{min-height:65svh;padding:30px 23px}.compliance-page .cg-feature-index{top:24px;left:23px}.compliance-page .cg-feature-quote{font-size:clamp(29px,8vw,43px)}.compliance-page .cg-feature-reveal{font-size:clamp(23px,6vw,30px)}.compliance-page .cg-feature-detail{padding:27px 20px 37px}.compliance-page .cg-feature-detail .cg-rule-text>p{font-size:17px}}
