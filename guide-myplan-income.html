@@ -226,8 +226,7 @@ function showThree100kBonus(old){
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
  const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?101000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
- else if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
+ if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
@@ -242,7 +241,7 @@ function showThreePersonBonus(code){
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const basic='<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+data.name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(data.basic)+'</div><div class="lapis-dialog-equation">左右の少ない側 '+pts(data.side)+' × 10％ ＝ '+yen(data.basic)+'</div></div>';
- const match=code==="00"?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00が受け取るメガマッチ（合計）</div><div class="lapis-dialog-amount">'+yen(data.match)+'</div><div class="lapis-dialog-equation">01のベーシック 10,000円 ＋ 02のベーシック 10,000円</div></div>':'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に、あなたの00が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(data.basic)+'</div><div class="lapis-dialog-equation">'+yen(data.basic)+' × 100％ ＝ '+yen(data.basic)+'</div></div><p class="lapis-dialog-relation">'+data.name+'のベーシックは自分名義の'+code+'に、メガマッチは自分名義の00に入ります。どちらも自分の収入に合算し、二重計上はしません。この試算では01・02にもアクティブ紹介者が2人以上いる前提で、ベーシックを10％で計算しています。</p>';
+ const match=code==="00"?'':'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">このベーシックを基準に、あなたの00が受け取るメガマッチ</div><div class="lapis-dialog-amount">'+yen(data.basic)+'</div><div class="lapis-dialog-equation">'+yen(data.basic)+' × 100％ ＝ '+yen(data.basic)+'</div></div><p class="lapis-dialog-relation">'+data.name+'のベーシックは自分名義の'+code+'に、メガマッチは自分名義の00に入ります。どちらも自分の収入に合算し、二重計上はしません。この試算では01・02にもアクティブ紹介者が2人以上いる前提で、ベーシックを10％で計算しています。</p>';
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+data.name+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+basic+match;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());
  dialog.showModal();
@@ -806,7 +805,7 @@ function showIncomePerson(name){
  const matchAmount=rate===1?incomeMegaPayout(basic,m.title):rate===.1?incomeDoublePayout(basic,m.title):0;
  let dlg=document.getElementById("income-person-dialog");
  if(!dlg){dlg=document.createElement("dialog");dlg.id="income-person-dialog";dlg.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dlg);dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()})}
- dlg.innerHTML='<div class="lapis-dialog-top"><h3>'+displayName+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+displayName+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左 '+pts(personLeft)+' ／ 右 '+pts(personRight)+' ／ 少ない側 '+pts(side)+' × 10％</div></div>'+(matchName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+matchName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate*100)+'％（上限適用後）＝ <strong>'+yen(matchAmount)+'</strong></div></div>':'');
+ dlg.innerHTML='<div class="lapis-dialog-top"><h3>'+displayName+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+(relation?'<p class="lapis-dialog-relation">'+relation+'</p>':'')+'<div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+displayName+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左 '+pts(personLeft)+' ／ 右 '+pts(personRight)+' ／ 少ない側 '+pts(side)+' × '+(side>=30000?'10％':'0％（少ない側が3万PT未満）')+'</div></div>'+(matchName?'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">この金額を基準に、あなたの'+matchName+'を計算</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(rate*100)+'％（上限適用後）＝ <strong>'+yen(matchAmount)+'</strong></div></div>':'');
  dlg.querySelector("button").addEventListener("click",()=>dlg.close());dlg.showModal();
 }
 function togglePtTextZoom(textNode){
