@@ -169,3 +169,25 @@
 html:has(body.compliance-guide){margin:0;padding:0;width:100%}
 body.compliance-guide{margin:0!important;padding:0!important;width:100%;min-width:0;overflow-x:clip}
 body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-footer{width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}
+
+/* Full 25-scene scroll narrative */
+.compliance-page .cg-story-chapter{position:relative;margin:25px 0 30px 83px;padding:45px 30px 43px;background:#0055a4;color:#fff;border-radius:20px;z-index:2;opacity:0;transform:translateY(28px);transition:opacity .65s,transform .65s}
+.compliance-page .cg-story-chapter.cg-story-visible{opacity:1;transform:none}
+.compliance-page .cg-story-chapter span{font-size:12px;font-weight:800;letter-spacing:.16em;color:#f9d59b}
+.compliance-page .cg-story-chapter h2{color:#fff;font-size:clamp(23px,4vw,32px);margin:10px 0 8px}
+.compliance-page .cg-story-chapter p{color:#fff;margin:0;font-size:14px}
+.compliance-page .cg-story-step{min-height:465px;padding-bottom:80px}
+.compliance-page .cg-story-step-alt .cg-story-visual{background:#f3f7fa}
+.compliance-page .cg-illustration{display:flex;align-items:center;justify-content:center;min-height:250px;background:#f6f8f9;isolation:isolate}
+.compliance-page .cg-illustration-paper{width:min(65%,250px);height:185px;background:#fff;border:3px solid #0055a4;border-radius:17px;box-shadow:12px 12px 0 #f39a30;transform:rotate(-5deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;z-index:1}
+.compliance-page .cg-illustration-small{font-size:11px;font-weight:900;letter-spacing:.17em;color:#0055a4}
+.compliance-page .cg-illustration-symbol{font-family:Georgia,"Noto Sans JP",serif;font-size:65px;line-height:1;color:#0055a4;font-weight:700}
+.compliance-page .cg-illustration-line{width:55%;height:5px;border-radius:6px;background:#d8e5ee}
+.compliance-page .cg-illustration-short{width:35%}
+.compliance-page .cg-illustration-accent{position:absolute;width:100px;height:100px;border:4px dashed #f39a30;border-radius:50%;top:17px;right:12%;opacity:.8}
+.compliance-page .cg-illustration-dots{position:absolute;bottom:14px;left:13%;font-size:31px;letter-spacing:12px;color:#0055a4}
+.compliance-page .cg-illustration-clock .cg-illustration-paper,.compliance-page .cg-illustration-stop .cg-illustration-paper,.compliance-page .cg-illustration-bottle .cg-illustration-paper,.compliance-page .cg-illustration-photo .cg-illustration-paper,.compliance-page .cg-illustration-approval .cg-illustration-paper{transform:rotate(5deg);border-radius:50%;width:190px;height:190px;box-shadow:10px 10px 0 #f39a30}
+.compliance-page .cg-illustration-phone .cg-illustration-paper,.compliance-page .cg-illustration-measure .cg-illustration-paper,.compliance-page .cg-illustration-cosmetic .cg-illustration-paper{width:140px;height:215px;border-radius:24px;transform:rotate(7deg)}
+.compliance-page .cg-illustration-network .cg-illustration-paper,.compliance-page .cg-illustration-tree .cg-illustration-paper,.compliance-page .cg-illustration-boxes .cg-illustration-paper{transform:rotate(2deg);box-shadow:-12px 12px 0 #f39a30}
+@media(max-width:600px){.compliance-page .cg-story-chapter{margin:15px 0 15px 62px;padding:29px 18px}.compliance-page .cg-story-chapter h2{font-size:22px}.compliance-page .cg-story-step{min-height:420px}.compliance-page .cg-illustration{min-height:215px}.compliance-page .cg-illustration-paper{height:160px}.compliance-page .cg-illustration-symbol{font-size:50px}}
+@media(prefers-reduced-motion:reduce){.compliance-page .cg-story-chapter{opacity:1;transform:none;transition:none}}
