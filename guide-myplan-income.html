@@ -484,23 +484,6 @@ function syncRegistration(){
  document.getElementById("registration-reveal-lead").textContent=registrationMode==="three"?"同じ組織で3点登録の場合は…？":"同じ組織で3点登録の場合は…？";
  document.getElementById("registration-comparison").hidden=registrationMode!=="three" || Number(document.getElementById("goal").value)!==40000;
 }
-function render(){
- syncRegistration();
- if(registrationMode==="three"){if(Number(document.getElementById("goal").value)===1000000)renderThree1000k();else if(Number(document.getElementById("goal").value)===500000)renderThree500k();else if(Number(document.getElementById("goal").value)===200000)renderThree200k();else if(Number(document.getElementById("goal").value)===100000)renderThree100k();else renderThree();return;}
- const goal=Number(document.getElementById("goal").value),m=generate(goal)[0];
- if(!m)return;
- diagram(m);
- const body=document.getElementById("breakdown");body.replaceChildren();
- const add=(name,value,lines)=>{const card=document.createElement("div");card.className="breakdown-card";const head=document.createElement("div");head.className="breakdown-card-head";const title=document.createElement("strong");title.textContent=name;const amount=document.createElement("strong");amount.textContent=yen(value);head.append(title,amount);card.append(head);if(lines.length){const details=document.createElement("div");details.className="breakdown-calcs";for(const [label,formula] of lines){const line=document.createElement("div");line.className="breakdown-calc";const l=document.createElement("span");l.textContent=label;const f=document.createElement("span");f.textContent=formula;line.append(l,f);details.append(line)}card.append(details)}body.append(card)};
- add("ベーシックコミッション",m.own,[["左右の少ない側",pts(Math.min(m.left,m.right))+" × 10％ ＝ "+yen(m.own)]]);
- if(m.mega)add("メガマッチ（直紹介者のベーシックの100％）",m.mega,[["Aさんのベーシック",yen(m.abasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.abasic,m.title))],["Bさんのベーシック",yen(m.bbasic)+" × 100％（上限適用）＝ "+yen(incomeMegaPayout(m.bbasic,m.title))],...(m.gold?m.secondary.filter(s=>s.parent==="あなた").map(s=>[s.name+"のベーシック",yen(s.basic)+" × 100％ ＝ "+yen(s.basic)]):[])]);
- if(m.doubleMega)add("ダブルメガマッチ（二次紹介者のベーシックの10％）",m.doubleMega,m.secondary.filter(s=>s.parent!=="あなた").map(s=>[s.name+"（"+s.parent+"の紹介）のベーシック",yen(s.basic)+" × 10％ ＝ "+yen(s.basic*.1)]));
-
- if(m.leadership){const smaller=Math.min(m.left,m.right),larger=Math.max(m.left,m.right),factor=m.gold?3:2,rate=m.gold?.02:.015,target=Math.min(larger,smaller*factor);add("リーダーシップボーナス（"+(m.gold?"ゴールド 2.0％":"エメラルド 1.5％")+"）",m.leadership,[["少ない側を"+factor+"倍にして再比較",pts(smaller)+" × "+factor+" ＝ "+pts(smaller*factor)],["計算対象ポイント",pts(target)+" × "+(rate*100).toFixed(1)+"％ ＝ "+yen(m.leadership)]]);}
- document.getElementById("sum").textContent=yen(m.total);
-}
-
-
 function showThreePersonBonus(code){
  const data={
   "00":{name:"あなた（00）",side:210000,basic:21000,match:20000},
