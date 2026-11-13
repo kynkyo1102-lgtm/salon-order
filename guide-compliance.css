@@ -341,3 +341,28 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-law-mini{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .compliance-page .cg-law-mini span{padding:8px 12px;background:#fff;border:1px solid #d4e4ee;border-radius:999px;color:#345d80;font-size:12px;font-weight:700}
 @media(max-width:600px){.compliance-page .cg-law-intro{margin:0 8px 30px;padding:25px 18px}.compliance-page .cg-law-mini span{font-size:11px}}
+
+/* Simplified section changes: no orphan connectors, horizontal rules, or chapter labels. */
+.compliance-page .cg-story-part+.cg-story-part:before{content:none;display:none}
+.compliance-page .cg-story-part+.cg-story-part{padding-top:85px}
+.compliance-page .cg-part-intro{min-height:230px;margin-bottom:38px}
+.compliance-page .cg-part-intro:after{content:none;display:none}
+.compliance-page .cg-part-intro-inner{min-height:230px;padding-top:32px;padding-bottom:32px;grid-template-rows:auto auto}
+.compliance-page .cg-part-intro h2{grid-row:1;margin:0 0 14px;font-size:clamp(29px,4.8vw,41px)}
+.compliance-page .cg-part-intro p{grid-row:2}
+.compliance-page .cg-part-art{grid-row:1 / 3}
+.compliance-page .cg-part-timeline{padding-top:0}
+.compliance-page .cg-story-step:last-child{padding-bottom:30px}
+.compliance-page .cg-law-intro{max-width:760px;margin:12px auto 70px;padding:38px clamp(20px,5vw,45px);border:0;border-radius:16px;background:#f7fafc;text-align:center}
+.compliance-page .cg-law-illustration{max-width:270px;margin:0 auto 8px}
+.compliance-page .cg-law-illustration svg{width:100%;height:auto}
+.compliance-page .cg-law-eyebrow{display:block;font-size:12px;color:#16815b;letter-spacing:.12em}
+.compliance-page .cg-law-intro h2{font-size:clamp(25px,4.5vw,34px);margin:10px 0 18px}
+.compliance-page .cg-law-intro .cg-law-lead{font-size:clamp(17px,3vw,21px);font-weight:800;color:#0055a4;margin:0 0 14px;line-height:1.6}
+.compliance-page .cg-law-intro>p:not(.cg-law-lead):not(.cg-law-footnote){max-width:570px;margin:0 auto 22px}
+.compliance-page .cg-law-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:26px 0 22px;text-align:left}
+.compliance-page .cg-law-examples div{background:#fff;border:1px solid #dbe7ef;border-radius:10px;padding:15px 12px;display:grid;gap:7px}
+.compliance-page .cg-law-examples strong{font-size:13px;color:#0055a4}
+.compliance-page .cg-law-examples span{font-size:12px;line-height:1.65;color:#526777}
+.compliance-page .cg-law-intro .cg-law-footnote{font-size:12px;line-height:1.8;color:#657989;text-align:left;margin:18px 0 0}
+@media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:55px}.compliance-page .cg-part-intro{min-height:195px;margin-bottom:22px}.compliance-page .cg-part-intro-inner{min-height:195px;padding:26px 24px}.compliance-page .cg-part-intro h2{font-size:27px;margin:0 0 12px}.compliance-page .cg-law-intro{margin:5px 8px 48px;padding:25px 18px}.compliance-page .cg-law-examples{grid-template-columns:1fr;gap:8px}.compliance-page .cg-law-examples div{padding:11px 14px;gap:3px}.compliance-page .cg-law-illustration{max-width:225px}}
