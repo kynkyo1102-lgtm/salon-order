@@ -28,12 +28,13 @@
 .compliance-page .cg-return{display:inline-block;margin-top:22px;color:#0055a4;font-weight:700;font-size:13px}
 @media(max-width:680px){.compliance-page .cg-grid{grid-template-columns:1fr;gap:10px}.compliance-page .cg-tile{padding:15px 13px}.compliance-page .cg-art{flex-basis:50px;width:50px;height:50px}.compliance-page .cg-art svg{width:29px;height:29px}.compliance-page .cg-scene{padding:14px}.compliance-page .cg-bubble{font-size:14px}}
 
-/* Scenario illustrations: SVGs are individual transparent figures; dialogue stays editable HTML. */
-.compliance-page .cg-conversation{display:grid;gap:14px}
-.compliance-page .cg-speaker{display:grid;grid-template-columns:108px minmax(0,1fr);align-items:center;gap:14px;max-width:92%}
-.compliance-page .cg-speaker img{display:block;width:108px;height:112px;object-fit:contain}
-.compliance-page .cg-speaker .cg-bubble{max-width:100%;width:fit-content;margin:0;padding:15px 19px;border:1px solid #d8e5f0;border-radius:15px 15px 15px 4px;background:#fff;font-weight:650}
-.compliance-page .cg-speaker-reply{justify-self:end;grid-template-columns:minmax(0,1fr) 108px}
-.compliance-page .cg-speaker-reply img{grid-column:2;grid-row:1}
-.compliance-page .cg-speaker-reply .cg-bubble{grid-column:1;grid-row:1;justify-self:end;border-radius:15px 15px 4px 15px;background:#e7f0f7}
-@media(max-width:680px){.compliance-page .cg-speaker{grid-template-columns:74px minmax(0,1fr);gap:8px;max-width:100%}.compliance-page .cg-speaker img{width:74px;height:85px}.compliance-page .cg-speaker-reply{grid-template-columns:minmax(0,1fr) 74px}.compliance-page .cg-speaker .cg-bubble{font-size:13px;padding:10px 12px}}
+
+/* Face-to-face illustrated scenes; figures are the focus, not chat UI. */
+.compliance-page .cg-scene{background:#fff;border:1px solid #dce5ec;padding:20px 18px 12px;border-radius:14px}
+.compliance-page .cg-scene .cg-label{margin-bottom:4px}
+.compliance-page .cg-conversation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:end}
+.compliance-page .cg-speaker,.compliance-page .cg-speaker-reply{display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;gap:8px;max-width:none;min-width:0}
+.compliance-page .cg-speaker img,.compliance-page .cg-speaker-reply img{display:block;grid-column:auto;grid-row:auto;width:min(100%,230px);height:235px;object-fit:contain;object-position:center bottom}
+.compliance-page .cg-speaker .cg-bubble,.compliance-page .cg-speaker-reply .cg-bubble{position:relative;grid-column:auto;grid-row:auto;align-self:center;justify-self:auto;width:fit-content;max-width:100%;min-height:55px;margin:0;padding:12px 15px;border:2px solid #0055a4;border-radius:16px;background:#fff;color:#273544;text-align:center;font-size:15px;line-height:1.5;font-weight:700}
+.compliance-page .cg-speaker .cg-bubble::before,.compliance-page .cg-speaker-reply .cg-bubble::before{content:"";position:absolute;bottom:-10px;left:calc(50% - 9px);width:16px;height:16px;background:#fff;border-right:2px solid #0055a4;border-bottom:2px solid #0055a4;transform:rotate(45deg)}
+@media(max-width:680px){.compliance-page .cg-scene{padding:14px 8px 8px}.compliance-page .cg-conversation{gap:5px}.compliance-page .cg-speaker img,.compliance-page .cg-speaker-reply img{width:100%;height:170px}.compliance-page .cg-speaker .cg-bubble,.compliance-page .cg-speaker-reply .cg-bubble{padding:9px 8px;font-size:12px;min-height:64px;border-radius:13px;overflow-wrap:anywhere}.compliance-page .cg-speaker .cg-bubble::before,.compliance-page .cg-speaker-reply .cg-bubble::before{bottom:-8px;width:12px;height:12px;left:calc(50% - 7px)}}
