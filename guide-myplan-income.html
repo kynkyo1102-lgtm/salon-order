@@ -826,13 +826,13 @@ function appendPlanTitleComposition(model,mode){
  const rows=[],edges=[];
  const add=(name,left,right,active=2)=>rows.push({name,left,right,title:rank(left,right,active)});
  if(mode==="one"){
-  add("00",model.left,model.right,model.active||2);
+  add("00",model.left,model.right,model.gold?4:(model.active||2));
   add("Aさん",model.ax,model.ar);
   add("Bさん",model.bl,model.br);
   edges.push([0,1],[0,2]);
   for(const p of model.secondary||[]){
    add(p.name,p.left,p.right);
-   edges.push([p.parent==="Aさん"?1:p.parent==="Bさん"?2:0,rows.length-1]);
+   edges.push([["Cさん","Dさん"].includes(p.name)?1:["Eさん","Fさん"].includes(p.name)?2:p.parent==="Aさん"?1:p.parent==="Bさん"?2:0,rows.length-1]);
   }
  }else{
   add("00",model.left,model.right,4);
