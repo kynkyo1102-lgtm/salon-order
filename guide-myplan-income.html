@@ -226,7 +226,7 @@ function showThree100kBonus(old){
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
  const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(branch||direct)extra=section('このベーシックを基準に00が受け取るメガマッチ',basic,yen(basic)+' × 100％');
+ if(branch||direct){const payout=incomeMegaPayout(basic,goal>=1000000?'エメラルド':goal>=500000?'サファイア':goal>=200000?'ラピス':'クリスタル');extra=section('このベーシックを基準に00が受け取るメガマッチ',payout,yen(basic)+' × 100％（上限適用後）＝ '+yen(payout));}
  dialog.innerHTML='<div class="lapis-dialog-top"><h3>'+names[old]+'のボーナス</h3><button type="button" class="lapis-dialog-close" aria-label="閉じる">閉じる ×</button></div>'+base+extra;
  dialog.querySelector("button").addEventListener("click",()=>dialog.close());dialog.showModal();
 }
@@ -267,7 +267,7 @@ function showThree200kReferral(name){
  const basic=side*.1,bonus=basic*.1;
  let d=document.getElementById("lapis-bonus-dialog");
  if(!d){d=document.createElement("dialog");d.id="lapis-bonus-dialog";d.className="lapis-bonus-dialog";document.querySelector(".myplan").append(d);d.addEventListener("click",e=>{if(e.target===d)d.close()})}
- d.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス計算</h3><button type="button" class="lapis-dialog-close">閉じる ×</button></div><p class="lapis-dialog-relation">'+(name==="Eさん"?"Aさん":"Bさん")+'の直紹介・00の二次紹介</p><div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側'+pts(side)+' × 10％</div></div><div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00が受け取るダブルメガマッチ</div><div class="lapis-dialog-amount">'+yen(bonus)+'</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(side>=30000?'10％':'0％（左右各3万PT未満）')+'</div></div>';
+ d.innerHTML='<div class="lapis-dialog-top"><h3>'+name+'のボーナス計算</h3><button type="button" class="lapis-dialog-close">閉じる ×</button></div><p class="lapis-dialog-relation">'+(name==="Eさん"?"Aさん":"Bさん")+'の直紹介・00の二次紹介</p><div class="lapis-dialog-section"><div class="lapis-dialog-section-label">'+name+'のベーシックコミッション</div><div class="lapis-dialog-amount">'+yen(basic)+'</div><div class="lapis-dialog-equation">左右の少ない側'+pts(side)+' × 10％</div></div><div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">00が受け取るダブルメガマッチ</div><div class="lapis-dialog-amount">'+yen(bonus)+'</div><div class="lapis-dialog-equation">'+yen(basic)+' × '+(side>=30000?'10％':'0％（少ない側が3万PT未満）')+'</div></div>';
  d.querySelector("button").addEventListener("click",()=>d.close());d.showModal();
 }
 document.getElementById("binary-diagram").addEventListener("click",e=>{const ef=e.target.closest(".three-200k-referral");if(ef){showThree200kReferral(ef.dataset.referral);return}const hundred=e.target.closest(".three-100k-person");if(hundred){showThree100kBonus(hundred.dataset.three100k);return}const three=e.target.closest(".three-tap-person");if(three){showThreePersonBonus(three.dataset.threePerson);return}const p=e.target.closest(".lapis-tap-person");if(p)showPersonBonus(p.dataset.person)});
