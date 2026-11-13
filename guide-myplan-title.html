@@ -536,7 +536,7 @@ function appendPlanTitleComposition(model,mode){
  const root=document.getElementById("binary-diagram");
  if(mode==="one"&&root.querySelector(".lapis-title-extra"))return;
  const rank=(left,right,active=2)=>{
-  if(left==null||right==null)return "判定対象外";
+  if(left==null||right==null)return "PT要確認";
   const side=Math.min(left,right);
   return active>=4&&side>=60000000?"ロワイヤルダイヤモンド":active>=4&&side>=30000000?"ダイヤモンド":active>=4&&side>=12000000?"プラチナ":active>=4&&side>=6000000?"ゴールド":side>=3000000?"エメラルド":side>=1000000?"サファイヤ":side>=500000?"ラピス":side>=200000?"クリスタル":"メンバー";
  };
@@ -578,7 +578,7 @@ function appendPlanTitleComposition(model,mode){
  const lineSvg=edges.map(([a,b])=>'<line x1="'+positions[a].x+'" y1="'+(positions[a].y+148)+'" x2="'+positions[b].x+'" y2="'+positions[b].y+'" stroke="#94b5c9" stroke-width="3"/>').join("");
  const nodeSvg=rows.map((r,i)=>{
   const {x,y}=positions[i],fill=r.title==="ゴールド"?"#f8f2e5":r.title==="エメラルド"?"#e6f3ef":r.title==="ラピス"?"#f1f2f6":r.title==="メンバー"?"#f4f5f6":"#e8f1f8";
-  return '<g><rect x="'+(x-79)+'" y="'+y+'" width="158" height="160" rx="18" fill="#fff" stroke="#c7dce8" stroke-width="2"/><circle cx="'+x+'" cy="'+(y+35)+'" r="22" fill="#e1ebf1" stroke="#9bb5c5" stroke-width="2"/><text x="'+x+'" y="'+(y+80)+'" text-anchor="middle" fill="#245579" font-size="19" font-weight="800">'+r.name+'</text><rect x="'+(x-72)+'" y="'+(y+96)+'" width="144" height="37" rx="18" fill="'+fill+'"/><text x="'+x+'" y="'+(y+121)+'" text-anchor="middle" fill="#245579" font-size="16" font-weight="800">'+r.title+'</text><text x="'+x+'" y="'+(y+150)+'" text-anchor="middle" fill="#526777" font-size="12">'+(r.left==null?"左右PT未設定":"少ない側 "+pts(Math.min(r.left,r.right)))+'</text></g>';
+  return '<g><rect x="'+(x-79)+'" y="'+y+'" width="158" height="160" rx="18" fill="#fff" stroke="#c7dce8" stroke-width="2"/><circle cx="'+x+'" cy="'+(y+35)+'" r="22" fill="#e1ebf1" stroke="#9bb5c5" stroke-width="2"/><text x="'+x+'" y="'+(y+80)+'" text-anchor="middle" fill="#245579" font-size="19" font-weight="800">'+r.name+'</text><rect x="'+(x-72)+'" y="'+(y+96)+'" width="144" height="37" rx="18" fill="'+fill+'"/><text x="'+x+'" y="'+(y+121)+'" text-anchor="middle" fill="#245579" font-size="16" font-weight="800">'+r.title+'</text><text x="'+x+'" y="'+(y+150)+'" text-anchor="middle" fill="#526777" font-size="12">'+(r.left==null?"左右PT要確認":"少ない側 "+pts(Math.min(r.left,r.right)))+'</text></g>';
  }).join("");
  const details=document.createElement("details");
  details.className="lapis-title-extra";
@@ -616,7 +616,7 @@ function titleThreeCompositionModel(goal,m){
  const directSide={40000:null,100000:120000,200000:240000,500000:1000000,1000000:1490000}[goal];
  const deepSide={200000:110000,500000:490000,1000000:740000}[goal];
  return {left:rootSide,right:rootSide,ax:childSide,ar:childSide,bl:childSide,br:childSide,
- leafPairs:goal===40000?{}:{"Aさん":[directSide,directSide],"Bさん":[directSide,directSide],"Cさん":[goal===100000?250000:goal===200000?250000:goal===500000?500000:1500000,goal===100000?240000:goal===200000?240000:goal===500000?500000:1490000],"Dさん":[goal===100000?250000:goal===200000?240000:goal===500000?500000:1500000,goal===100000?240000:goal===200000?240000:goal===500000?500000:1490000]},
+ leafPairs:goal===40000?{}:{"Aさん":[directSide,directSide],"Bさん":[directSide,directSide],"Cさん":[null,null],"Dさん":[null,null]},
  deepPairs:deepSide?{"Eさん":[goal===1000000?750000:goal===500000?500000:120000,deepSide],"Fさん":[goal===1000000?750000:goal===500000?500000:120000,deepSide]}:null};
 }
 const originalTitleRender=render;
