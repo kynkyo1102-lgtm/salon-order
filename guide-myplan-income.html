@@ -845,8 +845,8 @@ function appendPlanTitleComposition(model,mode){
   add("02",model.bl,model.br);
   edges.push([0,1],[0,2]);
   const pairs=model.leafPairs||{};
-  for(const [name,parent] of [["Aさん",1],["Cさん",1],["Bさん",2],["Dさん",2]]){
-   const pair=pairs[name];
+  for(const [name,parent,source] of [["Aさん",1,"Cさん"],["Cさん",1,"Dさん"],["Bさん",2,"Eさん"],["Dさん",2,"Fさん"]]){
+   const pair=pairs[source];
    add(name,pair?.[0]??null,pair?.[1]??null);
    edges.push([parent,rows.length-1]);
   }
