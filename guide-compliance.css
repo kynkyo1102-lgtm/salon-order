@@ -123,3 +123,8 @@ html:has(body.compliance-guide),body.compliance-guide{max-width:100%;overflow-x:
 .cg-end-chevron{font-size:28px;font-weight:600;line-height:16px}
 .cg-chapter-end-last{min-height:25px;margin-bottom:0}
 @media(max-width:640px){.cg-law-intro{padding:28px 19px 30px}.cg-law-intro h2{font-size:clamp(25px,6vw,31px)}.cg-law-intro .cg-law-summary{font-size:16px}.cg-law-examples{gap:10px;margin:20px 0}.cg-law-examples div{padding:14px 16px}.cg-law-examples strong{font-size:16px}.cg-law-examples span{font-size:14px}.cg-law-intro .cg-law-footnote{font-size:13px!important}.cg-chapter-end{width:60px;margin-bottom:-34px}}
+
+/* Chapter 1: lightweight, responsive vector illustrations. */
+.cg-image-visual{display:flex;align-items:center;justify-content:center;width:100%;max-width:500px;min-height:0;margin:14px 0 24px;overflow:hidden}
+.cg-image-visual img{display:block;width:100%;max-width:500px;height:auto;aspect-ratio:3/2;object-fit:contain}
+@media(max-width:640px){.cg-image-visual{margin:10px 0 18px}.cg-image-visual img{width:100%}}
