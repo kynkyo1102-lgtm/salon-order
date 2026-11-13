@@ -64,6 +64,7 @@
 .salon-live-dot{width:12px;height:12px;flex:0 0 12px;border-radius:50%;background:#8397a4;box-shadow:0 0 0 5px #ffffff80}
 .salon-live[data-status="open"] .salon-live-dot{background:#168b66;box-shadow:0 0 0 5px #ffffffa8,0 0 15px #4dc4a5}
 .salon-live-sub{font-size:12px;font-weight:600;opacity:.83;margin:9px 0 0 23px}
+.salon-live-weather[hidden]{display:none!important}
 .salon-live-weather{display:flex;align-items:center;gap:10px;align-self:flex-end;margin-bottom:0;background:#ffffffb9;border:1px solid #ffffffc7;border-radius:16px;padding:10px 13px;color:#36556a;box-shadow:0 8px 30px #426b831c;backdrop-filter:blur(8px);font-size:13px;font-weight:800;white-space:nowrap}
 .salon-live-weather-icon{font-size:28px;line-height:1}.salon-live-weather-caption{font-size:10px;font-weight:600;color:#6d8393;margin-top:3px}
 @keyframes salon-cloud-drift{from{translate:-14px 0}to{translate:27px 0}}
@@ -169,7 +170,7 @@ body.home-page .salon-sky::after{opacity:.25}
   <div class="salon-sky" aria-hidden="true"><div class="salon-stars"></div><div class="salon-sun"></div><div class="salon-cloud one"></div><div class="salon-cloud two"></div><div class="salon-cloud three"></div><div class="salon-rain"></div><div class="salon-snow"></div></div>
   <div class="salon-live-inner">
     <div><p class="salon-scene-label">TODAY IN KUMAMOTO</p><div class="salon-live-status"><span class="salon-live-dot" aria-hidden="true"></span><span id="salon-live-status-text">営業状況を確認中</span></div><div class="salon-live-sub" id="salon-live-status-sub">通常営業時間 11:00〜17:00</div><div class="salon-live-line-note">LINEのお問い合わせはいつでも受付中</div></div>
-    <div class="salon-live-weather" aria-label="熊本市の現在の天気"><span class="salon-live-weather-icon" id="salon-live-weather-icon" aria-hidden="true">🌤️</span><div><div id="salon-live-weather-text">天気を取得中</div><div class="salon-live-weather-caption">熊本市の空模様</div></div></div>
+    <div class="salon-live-weather" aria-label="熊本市の現在の天気" hidden><span class="salon-live-weather-icon" id="salon-live-weather-icon" aria-hidden="true">🌤️</span><div><div id="salon-live-weather-text">天気を取得中</div><div class="salon-live-weather-caption">熊本市の空模様</div></div></div>
   </div>
 </aside>
   <main>
@@ -357,6 +358,7 @@ body.home-page .salon-sky::after{opacity:.25}
   const sub=document.getElementById('salon-live-status-sub');
   const weatherText=document.getElementById('salon-live-weather-text');
   const weatherIcon=document.getElementById('salon-live-weather-icon');
+  const weatherPanel=weatherText.closest('.salon-live-weather');
   if(!root)return;
   const localParts=()=>Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
   let holidayDates=null;
@@ -395,7 +397,8 @@ body.home-page .salon-sky::after{opacity:.25}
     }
   }
   let actualLabel='天気を取得中',actualIcon='🌤️';
-  function showActualWeather(){weatherIcon.textContent=actualIcon;weatherText.textContent=actualLabel;}
+  function showActualWeather(){weatherIcon.textContent=actualIcon;weatherText.textContent=actualLabel;weatherPanel.hidden=false;}
+  function hideWeather(){weatherPanel.hidden=true;}
   loadSolar();setInterval(applyScene,60000);setInterval(loadSolar,6*60*60*1000);
 
   let exceptions={};
@@ -484,7 +487,7 @@ body.home-page .salon-sky::after{opacity:.25}
         weatherLastSuccess=0;
         actualIcon='🌤️';actualLabel='天気を取得できません（再試行中）';
       }
-      if(chosenWeather==='auto')showActualWeather();
+      if(chosenWeather==='auto'){if(weatherLastSuccess)showActualWeather();else hideWeather();}
       if(!weatherRetryTimer)weatherRetryTimer=setTimeout(()=>{weatherRetryTimer=null;refreshWeather()},60*1000);
     }finally{
       weatherRequestPending=false;
