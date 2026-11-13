@@ -259,3 +259,39 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-box-caption strong{color:#0055a4;font-size:19px}
 .compliance-page .cg-box-caption span{font-size:13px;color:#526777}
 @media(max-width:600px){.compliance-page .cg-story-chapter{margin:0 0 10px;padding:48px 8px 36px 62px;min-height:190px}.compliance-page .cg-story-chapter:before{left:2px;top:49px;width:38px;height:38px}.compliance-page .cg-story-chapter:after{left:15px;top:62px;width:12px;height:12px}.compliance-page .cg-scene-boxes{gap:12px}.compliance-page .cg-box-stack{transform:scale(.85);margin:-10px}.compliance-page .cg-box-caption{max-width:150px}}
+
+/* Five distinct editorial chapters, each with its own background and progress path. */
+.compliance-page .cg-story{background:#fff;border:0;overflow:hidden}
+.compliance-page .cg-story-flow{padding:0}
+.compliance-page .cg-story-part{--cg-part-bg:#f3f8fc;--cg-part-ink:#0055a4;position:relative;background:var(--cg-part-bg);padding:68px clamp(18px,5vw,52px) 32px;isolation:isolate}
+.compliance-page .cg-theme-green{--cg-part-bg:#eef7f2;--cg-part-ink:#16815b}
+.compliance-page .cg-theme-slate{--cg-part-bg:#f0f3f7;--cg-part-ink:#345d80}
+.compliance-page .cg-theme-blue{--cg-part-bg:#f3f8fc;--cg-part-ink:#0055a4}
+.compliance-page .cg-story-part+.cg-story-part{border-top:18px solid #fff}
+.compliance-page .cg-part-intro{position:relative;margin:0 0 52px;padding:0 0 30px;border-bottom:1px solid #cbdde5;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.compliance-page .cg-part-intro.cg-story-visible{opacity:1;transform:none}
+.compliance-page .cg-part-intro>span{display:flex;justify-content:space-between;gap:10px;color:var(--cg-part-ink);font-weight:800;letter-spacing:.12em;font-size:12px}
+.compliance-page .cg-part-range{letter-spacing:.04em}
+.compliance-page .cg-part-intro h2{font-size:clamp(26px,5vw,38px);line-height:1.45;color:#0055a4;margin:15px 0 8px}
+.compliance-page .cg-part-intro p{margin:0;font-size:15px;color:#526777}
+.compliance-page .cg-part-timeline{position:relative}
+.compliance-page .cg-part-timeline>.cg-story-track{left:25px;top:68px;bottom:125px}
+.compliance-page .cg-story-step{padding:35px 0 70px;min-height:415px}
+.compliance-page .cg-story-step:last-child{padding-bottom:60px}
+.compliance-page .cg-story-step .cg-story-body{max-width:610px}
+.compliance-page .cg-story-step .cg-story-visual{background:transparent}
+.compliance-page .cg-story-part .cg-story-marker{box-shadow:5px 5px 0 var(--cg-part-ink)}
+.compliance-page .cg-story-part .cg-story-kicker{color:var(--cg-part-ink)}
+.compliance-page .cg-story-part .cg-story-track-fill{background:var(--cg-part-ink)}
+.compliance-page .cg-theme-green .cg-story-marker{border-color:#16815b;color:#16815b}
+.compliance-page .cg-theme-green .cg-story-body h3{color:#126c4c}
+.compliance-page .cg-theme-green .cg-story-rulelink{color:#126c4c}
+.compliance-page .cg-theme-green .cg-illustration-paper{border-color:#16815b}
+.compliance-page .cg-theme-green .cg-illustration-symbol,.compliance-page .cg-theme-green .cg-illustration-small{color:#16815b}
+.compliance-page .cg-theme-slate .cg-story-marker{border-color:#345d80;color:#345d80}
+.compliance-page .cg-theme-slate .cg-story-body h3{color:#345d80}
+.compliance-page .cg-theme-slate .cg-story-rulelink{color:#345d80}
+.compliance-page .cg-theme-slate .cg-illustration-paper{border-color:#345d80}
+.compliance-page .cg-theme-slate .cg-illustration-symbol,.compliance-page .cg-theme-slate .cg-illustration-small{color:#345d80}
+@media(max-width:600px){.compliance-page .cg-story-part{padding:48px 15px 18px}.compliance-page .cg-story-part+.cg-story-part{border-top-width:12px}.compliance-page .cg-part-intro{margin-bottom:35px;padding-bottom:25px}.compliance-page .cg-part-timeline>.cg-story-track{left:26px;top:68px;bottom:110px}.compliance-page .cg-story-step{min-height:390px;padding:32px 0 62px}.compliance-page .cg-part-intro h2{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.compliance-page .cg-part-intro{opacity:1;transform:none;transition:none}}
