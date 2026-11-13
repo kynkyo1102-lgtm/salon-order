@@ -616,7 +616,7 @@ function titleThreeCompositionModel(goal,m){
  const directSide={40000:null,100000:120000,200000:240000,500000:1000000,1000000:1490000}[goal];
  const deepSide={200000:110000,500000:490000,1000000:740000}[goal];
  return {left:rootSide,right:rootSide,ax:childSide,ar:childSide,bl:childSide,br:childSide,
- leafPairs:goal===40000?{}:{"Aさん":[directSide,directSide],"Bさん":[directSide,directSide],"Cさん":[null,null],"Dさん":[null,null]},
+ leafPairs:goal===40000?{}:{"Aさん":[directSide,directSide],"Bさん":[directSide,directSide],"Cさん":goal===100000?[120000,120000]:goal===200000?[250000,240000]:goal===500000?[500000,500000]:[1500000,1490000],"Dさん":goal===100000?[120000,120000]:goal===200000?[240000,240000]:goal===500000?[500000,500000]:[1500000,1490000]},
  deepPairs:deepSide?{"Eさん":[goal===1000000?750000:goal===500000?500000:120000,deepSide],"Fさん":[goal===1000000?750000:goal===500000?500000:120000,deepSide]}:null};
 }
 const originalTitleRender=render;
