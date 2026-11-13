@@ -160,3 +160,7 @@
 .compliance-page .cg-story,.compliance-page .cg-list-intro,.compliance-page .cg-jump,.compliance-page .cg-section,.compliance-page .cg-note{width:100%;max-width:100%;margin-left:0;margin-right:0;min-width:0}
 .compliance-page .cg-story-flow,.compliance-page .cg-story-step,.compliance-page .cg-story-body,.compliance-page .cg-story-visual{min-width:0;max-width:100%}
 .compliance-page .cg-story-hero h1,.compliance-page .cg-story-body h3{overflow-wrap:anywhere}
+
+/* Match this story page's header/footer content edges to the 860px guide column (22px inner padding). */
+@media(min-width:861px){body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-footer{padding-left:max(22px,calc((100vw - 816px)/2))!important;padding-right:max(22px,calc((100vw - 816px)/2))!important}}
+@media(max-width:860px){body.compliance-guide>.guide-shared-header{padding-left:22px!important;padding-right:22px!important}body.compliance-guide>.guide-shared-footer{padding-left:22px!important;padding-right:22px!important}}
