@@ -431,7 +431,21 @@ body.home-page .salon-sky::after{opacity:.25}
   // Weather: refresh every 15 minutes; retry transient errors after 60 seconds.
   // Retain a recent successful observation if the provider temporarily fails.
   const WEATHER_URL='https://api.open-meteo.com/v1/forecast?latitude=32.7898&longitude=130.7079&current=temperature_2m,weather_code&timezone=Asia%2FTokyo';
+  const WEATHER_CACHE_KEY='salon-weather-v1';
+  const WEATHER_CACHE_MAX_AGE=60*60*1000;
   let weatherLastSuccess=0,weatherRequestPending=false,weatherRetryTimer=null;
+  function restoreWeatherCache(){
+    try{
+      const cached=JSON.parse(localStorage.getItem(WEATHER_CACHE_KEY)||'null');
+      if(!cached||typeof cached.savedAt!=='number'||Date.now()-cached.savedAt>WEATHER_CACHE_MAX_AGE||cached.savedAt>Date.now())return;
+      if(!['sun','cloud','rain','snow'].includes(cached.kind)||typeof cached.label!=='string'||typeof cached.icon!=='string')return;
+      weatherLastSuccess=cached.savedAt;
+      actualWeather=cached.kind;actualIcon=cached.icon;actualLabel=cached.label+'（前回取得）';
+      if(chosenWeather==='auto')showActualWeather();
+      applyScene();
+    }catch(error){console.warn('天気キャッシュを読み込めませんでした',error)}
+  }
+  restoreWeatherCache();
   function weatherPresentation(code,temp){
     let label='晴れ',icon='☀️',kind='sun';
     if([1,2].includes(code)){label='晴れ時々くもり';icon='🌤️';kind='sun'}
@@ -445,26 +459,30 @@ body.home-page .salon-sky::after{opacity:.25}
     if(weatherRequestPending)return;
     weatherRequestPending=true;
     try{
-      const response=await fetch(WEATHER_URL,{cache:'no-store'});
-      if(!response.ok)throw Error('Weather API HTTP '+response.status);
-      const data=await response.json();
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),5000);
+      let data;
+      try{
+        const response=await fetch(WEATHER_URL,{cache:'no-store',signal:controller.signal});
+        if(!response.ok)throw Error('Weather API HTTP '+response.status);
+        data=await response.json();
+      }finally{clearTimeout(timeout)}
       const code=data.current?.weather_code,temp=data.current?.temperature_2m;
       if(typeof code!=='number')throw Error('Weather API missing weather_code');
       const result=weatherPresentation(code,temp);
       actualWeather=result.kind;actualIcon=result.icon;actualLabel=result.label;
       weatherLastSuccess=Date.now();
+      try{localStorage.setItem(WEATHER_CACHE_KEY,JSON.stringify({...result,savedAt:weatherLastSuccess}))}catch(error){console.warn('天気キャッシュを保存できませんでした',error)}
       if(weatherRetryTimer){clearTimeout(weatherRetryTimer);weatherRetryTimer=null}
       if(chosenWeather==='auto')showActualWeather();
       applyScene();
     }catch(error){
       console.warn('天気の取得に失敗しました。再試行します。',error);
-      if(!weatherLastSuccess){
-        actualIcon='🌤️';
-        actualLabel='天気情報を更新中';
-      }else if(Date.now()-weatherLastSuccess>60*60*1000){
-        actualLabel='天気情報を更新中（前回取得から1時間以上）';
-      }else{
+      if(weatherLastSuccess&&Date.now()-weatherLastSuccess<=WEATHER_CACHE_MAX_AGE){
         actualLabel=actualLabel.replace(/（前回取得[^）]*）$/,'')+'（前回取得）';
+      }else{
+        weatherLastSuccess=0;
+        actualIcon='🌤️';actualLabel='天気を取得できません（再試行中）';
       }
       if(chosenWeather==='auto')showActualWeather();
       if(!weatherRetryTimer)weatherRetryTimer=setTimeout(()=>{weatherRetryTimer=null;refreshWeather()},60*1000);
