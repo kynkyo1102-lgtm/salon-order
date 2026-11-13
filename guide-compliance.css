@@ -393,3 +393,15 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-story-outro a{display:none}
 .compliance-page .cg-story-outro p{max-width:530px;margin-left:auto;margin-right:auto;line-height:1.85}
 @media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:46px}.compliance-page .cg-chapter-outline{top:34px}.compliance-page .cg-part-intro{margin-bottom:30px}.compliance-page .cg-part-intro-inner{padding-left:48px;padding-right:42px}.compliance-page .cg-part-art svg{max-width:65px}}
+
+/* Mobile-safe chapter framing: one stable coordinate system, legible titles. */
+.compliance-page .cg-story-part+.cg-story-part{padding-top:38px}
+.compliance-page .cg-part-intro{min-height:255px;margin-bottom:42px;overflow:visible}
+.compliance-page .cg-chapter-outline{position:absolute;top:0;left:0;width:100%;height:310px;z-index:1;pointer-events:none;overflow:visible}
+.compliance-page .cg-chapter-outline-path{fill:none;stroke:#82aebe;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.compliance-page .cg-part-intro-inner{min-height:255px;grid-template-columns:minmax(0,1fr) 100px;column-gap:14px;padding:60px clamp(44px,9vw,100px) 45px}
+.compliance-page .cg-part-intro h2{font-size:clamp(25px,4.5vw,38px);line-height:1.4;overflow-wrap:normal;word-break:keep-all;line-break:strict}
+.compliance-page .cg-part-intro p{overflow-wrap:normal;word-break:keep-all;line-break:strict}
+.compliance-page .cg-part-art svg{max-width:100px}
+@media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:24px}.compliance-page .cg-part-intro{min-height:220px;margin-bottom:35px}.compliance-page .cg-chapter-outline{top:0;height:280px}.compliance-page .cg-part-intro-inner{min-height:220px;display:grid;grid-template-columns:minmax(0,1fr) 52px;column-gap:8px;padding:49px 43px 40px 46px}.compliance-page .cg-part-intro h2{font-size:clamp(20px,5.7vw,27px);letter-spacing:-.035em;line-height:1.5;margin-bottom:9px}.compliance-page .cg-part-intro p{font-size:12px;line-height:1.6}.compliance-page .cg-part-art svg{max-width:52px}.compliance-page .cg-part-art{min-width:0}}
+@media(max-width:360px){.compliance-page .cg-part-intro-inner{grid-template-columns:minmax(0,1fr) 40px;padding-left:38px;padding-right:37px;column-gap:5px}.compliance-page .cg-part-intro h2{font-size:20px}.compliance-page .cg-part-art svg{max-width:40px}}
