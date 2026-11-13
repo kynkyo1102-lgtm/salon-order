@@ -420,14 +420,14 @@ function showThree100kBonus(old){
  const names={"あなた":"あなた（00）","Aさん":"あなたの01","Bさん":"あなたの02","Cさん":"Aさん","Dさん":"Cさん","Eさん":"Bさん","Fさん":"Dさん"};
  const root=old==="あなた",branch=old==="Aさん"||old==="Bさん",direct=old==="Cさん"||old==="Eさん";
  const goal=Number(document.getElementById("goal").value);
- const side=root?(goal===200000?1010000:goal===1000000?6010000:goal===500000?3030000:m.left):branch?(goal===200000?500000:goal===1000000?3000000:goal===500000?1010000:m.ax):(goal===200000?240000:goal===1000000?1490000:goal===500000?1000000:m.secondary[0].left);
- const basic=side*.1,match=goal===200000?148000:goal===1000000?898000:goal===500000?402000:m.abasic+m.bbasic+m.secondary[0].basic+m.secondary[2].basic;
+ const side=root?(goal===200000?1010000:goal===1000000?6010000:goal===500000?3030000:510000):branch?(goal===200000?500000:goal===1000000?3000000:goal===500000?1010000:250000):(goal===200000?240000:goal===1000000?1490000:goal===500000?1000000:120000);
+ const basic=side*.1,match=goal===200000?148000:goal===1000000?898000:goal===500000?402000:74000;
  let dialog=document.getElementById("lapis-bonus-dialog");
  if(!dialog){dialog=document.createElement("dialog");dialog.id="lapis-bonus-dialog";dialog.className="lapis-bonus-dialog";document.querySelector(".myplan").append(dialog);dialog.addEventListener("click",e=>{if(e.target===dialog)dialog.close()})}
  const section=(label,value,detail)=>'<div class="lapis-dialog-section lapis-dialog-match"><div class="lapis-dialog-section-label">'+label+'</div><div class="lapis-dialog-amount">'+yen(value)+'</div><div class="lapis-dialog-equation">'+detail+'</div></div>';
  const base=section(names[old]+'のベーシックコミッション',basic,pts(side)+' × 10％ ＝ '+yen(basic));
  let extra='';
- if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?101000:m.abasic)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:m.secondary[0].basic));
+ if(root)extra=section('00のメガマッチ（直紹介4ポジション分）',match,'01・02 各'+yen(goal===200000?50000:goal===500000?101000:goal===1000000?300000:25000)+' ＋ A・Bさん 各'+yen(goal===200000?24000:goal===500000?100000:goal===1000000?149000:12000));
  else if(branch||direct){const cap=goal===1000000||goal===500000?400000:goal===200000?200000:100000;const payout=Math.min(basic,cap);extra=section('このベーシックを基準に00が受け取るメガマッチ',payout,yen(basic)+' × 100％（上限適用後）＝ '+yen(payout));}
  if(root&&[200000,500000,1000000].includes(goal)){const dbl=goal===200000?2200:goal===500000?9800:14800;const sideEF=goal===200000?110000:goal===500000?490000:740000;extra+=section('00のダブルメガマッチ（A・Bさんの直紹介E・Fさん）',dbl,'E・Fさん 各 '+pts(sideEF)+' × 10％ × 10％ ＝ '+yen(dbl/2)+'、2人分で '+yen(dbl));}
  if(root&&goal===500000)extra+=section('00のリーダーシップボーナス（エメラルド・条件要確認）',45450,'303万PT × 1.5％ ＝ '+yen(45450));
