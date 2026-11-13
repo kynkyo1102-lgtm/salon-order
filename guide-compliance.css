@@ -405,3 +405,16 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-part-art svg{max-width:100px}
 @media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:24px}.compliance-page .cg-part-intro{min-height:220px;margin-bottom:35px}.compliance-page .cg-chapter-outline{top:0;height:280px}.compliance-page .cg-part-intro-inner{min-height:220px;display:grid;grid-template-columns:minmax(0,1fr) 52px;column-gap:8px;padding:49px 43px 40px 46px}.compliance-page .cg-part-intro h2{font-size:clamp(20px,5.7vw,27px);letter-spacing:-.035em;line-height:1.5;margin-bottom:9px}.compliance-page .cg-part-intro p{font-size:12px;line-height:1.6}.compliance-page .cg-part-art svg{max-width:52px}.compliance-page .cg-part-art{min-width:0}}
 @media(max-width:360px){.compliance-page .cg-part-intro-inner{grid-template-columns:minmax(0,1fr) 40px;padding-left:38px;padding-right:37px;column-gap:5px}.compliance-page .cg-part-intro h2{font-size:20px}.compliance-page .cg-part-art svg{max-width:40px}}
+
+/* Chapter-to-chapter guide path: deliberately stops before heading, never boxes it in. */
+.compliance-page .cg-story-part+.cg-story-part{padding-top:118px}
+.compliance-page .cg-chapter-outline{position:absolute;top:4px;left:0;width:100%;height:128px;z-index:1;overflow:visible;pointer-events:none}
+.compliance-page .cg-chapter-outline-path{fill:none;stroke:#91b5c7;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.compliance-page .cg-chapter-arrow{fill:none;stroke:#16815b;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.compliance-page .cg-part-intro{min-height:190px;margin-bottom:28px}
+.compliance-page .cg-part-intro-inner{min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:18px 20px;text-align:center}
+.compliance-page .cg-part-intro h2{font-size:clamp(25px,4.7vw,38px);line-height:1.45;margin:0;letter-spacing:0;word-break:keep-all;overflow-wrap:normal}
+.compliance-page .cg-part-intro p{font-size:14px;line-height:1.7;margin:0;word-break:keep-all;overflow-wrap:normal}
+.compliance-page .cg-part-art{order:-1;display:flex;justify-content:center;align-items:center;margin:0 0 5px}
+.compliance-page .cg-part-art svg{max-width:72px;height:58px}
+@media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:104px}.compliance-page .cg-chapter-outline{top:4px;height:116px}.compliance-page .cg-part-intro{min-height:180px;margin-bottom:24px}.compliance-page .cg-part-intro-inner{min-height:180px;display:flex;padding:14px 12px;gap:7px}.compliance-page .cg-part-intro h2{font-size:clamp(23px,6vw,29px);line-height:1.4}.compliance-page .cg-part-intro p{font-size:12px}.compliance-page .cg-part-art svg{max-width:58px;height:48px}}
