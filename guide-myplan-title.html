@@ -532,6 +532,21 @@ document.querySelectorAll("[data-registration-choice]").forEach(btn=>btn.addEven
 document.getElementById("registration-reveal-button").addEventListener("click",()=>{registrationMode=registrationMode==="one"?"three":"one";render();requestAnimationFrame(()=>document.querySelector(".myplan-diagram").scrollIntoView({behavior:"smooth",block:"start"}))});
 const titlePlans={40000:["クリスタル","少ない側 20万PT以上","2人以上"],100000:["ラピス","少ない側 50万PT以上","2人以上"],200000:["サファイヤ","少ない側 100万PT以上","2人以上"],500000:["エメラルド","少ない側 300万PT以上","2人以上"],1000000:["ゴールド","少ない側 600万PT以上","4人以上"]};
 function updateTitleSpotlight(){const plan=titlePlans[Number(document.getElementById("goal").value)];if(!plan)return;document.getElementById("title-plan-name").textContent=plan[0];document.getElementById("title-plan-requirement").textContent=plan[1].replace("少ない側 ","");document.getElementById("title-plan-active").textContent=plan[2];document.getElementById("title-spotlight").dataset.gem=({40000:"crystal",100000:"lapis",200000:"sapphire",500000:"emerald",1000000:"gold"})[Number(document.getElementById("goal").value)];document.getElementById("gem-art").src="./assets/gems/"+document.getElementById("title-spotlight").dataset.gem+".png"}
+function showTitleRootSideSummary(){
+ const goal=Number(document.getElementById("goal").value);
+ const m=generate(goal)[0];
+ if(!m)return;
+ const root=document.getElementById("binary-diagram");
+ root.querySelectorAll(".lapis-tree-summary").forEach(el=>el.remove());
+ const side=registrationMode==="three"?({40000:210000,100000:510000,200000:1010000,500000:3030000,1000000:6010000})[goal]:null;
+ const left=side??m.left,right=side??m.right;
+ const summary=document.createElement("p");
+ summary.className="lapis-tree-summary";
+ summary.textContent="00の左右：左 "+pts(left)+" ／ 右 "+pts(right);
+ root.prepend(summary);
+}
+const originalTitleRender=render;
+render=function(){originalTitleRender();showTitleRootSideSummary()};
 const titleDiagram=document.getElementById("binary-diagram");
 function toggleTitlePtZoom(node){
  const svg=node.ownerSVGElement;if(!svg)return;
