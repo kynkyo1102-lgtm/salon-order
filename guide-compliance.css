@@ -191,3 +191,40 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-illustration-network .cg-illustration-paper,.compliance-page .cg-illustration-tree .cg-illustration-paper,.compliance-page .cg-illustration-boxes .cg-illustration-paper{transform:rotate(2deg);box-shadow:-12px 12px 0 #f39a30}
 @media(max-width:600px){.compliance-page .cg-story-chapter{margin:15px 0 15px 62px;padding:29px 18px}.compliance-page .cg-story-chapter h2{font-size:22px}.compliance-page .cg-story-step{min-height:420px}.compliance-page .cg-illustration{min-height:215px}.compliance-page .cg-illustration-paper{height:160px}.compliance-page .cg-illustration-symbol{font-size:50px}}
 @media(prefers-reduced-motion:reduce){.compliance-page .cg-story-chapter{opacity:1;transform:none;transition:none}}
+
+/* Guide palette: blue, white and restrained green. */
+.compliance-page .cg-story{--story-orange:#16815b;--story-cream:#fff;background:#fff;border:1px solid #d9e5ed}
+.compliance-page .cg-story-hero{background:#fff}
+.compliance-page .cg-story-marker{box-shadow:5px 5px 0 #16815b}
+.compliance-page .cg-check-sheet{box-shadow:9px 9px 0 #16815b}
+.compliance-page .cg-clock-center{background:#16815b}
+.compliance-page .cg-phone{box-shadow:10px 10px 0 #16815b}
+.compliance-page .cg-story-chapter span{color:#d6f3e4}
+.compliance-page .cg-illustration-paper{box-shadow:12px 12px 0 #16815b}
+.compliance-page .cg-illustration-accent{border-color:#16815b}
+.compliance-page .cg-illustration-clock .cg-illustration-paper,.compliance-page .cg-illustration-stop .cg-illustration-paper,.compliance-page .cg-illustration-bottle .cg-illustration-paper,.compliance-page .cg-illustration-photo .cg-illustration-paper,.compliance-page .cg-illustration-approval .cg-illustration-paper{box-shadow:10px 10px 0 #16815b}
+.compliance-page .cg-illustration-network .cg-illustration-paper,.compliance-page .cg-illustration-tree .cg-illustration-paper,.compliance-page .cg-illustration-boxes .cg-illustration-paper{box-shadow:-12px 12px 0 #16815b}
+.compliance-page .cg-story-step-alt .cg-story-visual{background:#f5f8fa}
+.compliance-page .cg-story-hero h1 span{color:#273544}
+.compliance-page .cg-list-intro{padding-top:16px;margin-bottom:20px}
+.compliance-page .cg-list-intro h2{font-size:clamp(24px,4vw,29px)}
+.compliance-page .cg-jump{margin:20px 0 35px}
+.compliance-page .cg-section{margin-bottom:44px}
+.compliance-page .cg-section-head{background:#f2f7fb;color:#273544;border-left:4px solid #0055a4;border-radius:0;padding:19px 22px;margin-bottom:4px}
+.compliance-page .cg-section-head h2{color:#0055a4;font-size:21px}
+.compliance-page .cg-section-head p{color:#526777}
+.compliance-page details.cg-rule{border-bottom:1px solid #d9e5ed;padding:0;margin:0;scroll-margin-top:90px}
+.compliance-page details.cg-rule:first-child{border-top:1px solid #d9e5ed}
+.compliance-page details.cg-rule summary.cg-rule-heading{display:flex;align-items:center;gap:13px;padding:18px 9px;margin:0;cursor:pointer;list-style:none}
+.compliance-page details.cg-rule summary::-webkit-details-marker{display:none}
+.compliance-page details.cg-rule .cg-number{width:28px;color:#0055a4;font-size:13px}
+.compliance-page details.cg-rule .cg-rule-title{font-size:15px;line-height:1.6;font-weight:700;color:#273544;flex:1}
+.compliance-page details.cg-rule .cg-rule-toggle{width:25px;height:25px;display:grid;place-items:center;border:1px solid #cddce7;border-radius:50%;color:#0055a4;flex:none}
+.compliance-page details.cg-rule .cg-rule-toggle:before{content:"+";font-size:20px;line-height:1}
+.compliance-page details.cg-rule[open] .cg-rule-toggle:before{content:"−"}
+.compliance-page details.cg-rule[open] summary{background:#f6f9fb}
+.compliance-page details.cg-rule .cg-rule-content{padding:5px 16px 22px 50px}
+.compliance-page details.cg-rule .cg-rule-text>p{font-size:14px;line-height:1.85}
+.compliance-page details.cg-rule .cg-example p{font-size:13px;background:#f3f7f9}
+.compliance-page details.cg-rule summary:focus-visible{outline:3px solid #80b9ff;outline-offset:-3px}
+@media(max-width:600px){.compliance-page details.cg-rule summary.cg-rule-heading{padding:15px 4px;gap:9px}.compliance-page details.cg-rule .cg-rule-content{padding:4px 9px 20px 38px}.compliance-page .cg-section-head{padding:17px 16px}}
