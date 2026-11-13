@@ -277,7 +277,7 @@ document.getElementById("binary-diagram").addEventListener("click",e=>{const btn
 
 // 金額別の試作：元の図描画関数を再利用し、金額ごとにPTとボーナスを再計算。
 const incomeTargets=[10000,30000,50000,100000,200000,300000,500000,1000000,2000000];
-function incomeMegaCap(title){return title==="ゴールド"||title==="エメラルド"?400000:title==="サファイヤ"||title==="サファイア"?200000:100000;}
+function incomeMegaCap(title){return title==="ゴールド"||title==="エメラルド"?400000:title==="サファイア"||title==="サファイア"?200000:100000;}
 function incomeDoubleCap(title){return title==="クリスタル"||title==="ラピス"?100000:250000;}
 function incomeMegaPayout(basic,title){return Math.min(basic,incomeMegaCap(title));}
 function incomeDoublePayout(basic,title){return Math.min(Math.round(basic*.1),incomeDoubleCap(title));}
@@ -293,7 +293,7 @@ function incomeModel(target){
   const leafBasic=basic(x);
   const active=fourDirect?4:2;
   const crystal=branchSide>=200000&&active>=2;
-  const title=branchSide>=6000000&&active>=4?"ゴールド":branchSide>=3000000?"エメラルド":branchSide>=1000000?"サファイヤ":branchSide>=500000?"ラピス":crystal?"クリスタル":"メンバー";
+  const title=branchSide>=6000000&&active>=4?"ゴールド":branchSide>=3000000?"エメラルド":branchSide>=1000000?"サファイア":branchSide>=500000?"ラピス":crystal?"クリスタル":"メンバー";
   const secondary=useSecond?["Cさん","Dさん","Eさん","Fさん"].map((name,i)=>({
    name,parent:fourDirect&&(i===0||i===3)?"あなた":i<2?"Aさん":"Bさん",
    left:x,right:x,basic:leafBasic
@@ -339,7 +339,7 @@ function incomeThreeModel(target){
   const left02=bLeft+bOpp+10000,right02=dLeft+dRight+10000;
   const left=left01+right01+10000,right=left02+right02+10000;
   const side=Math.min(left,right);
-  const title=side>=6000000?"ゴールド":side>=3000000?"エメラルド":side>=1000000?"サファイヤ":side>=500000?"ラピス":side>=200000?"クリスタル":"メンバー";
+  const title=side>=6000000?"ゴールド":side>=3000000?"エメラルド":side>=1000000?"サファイア":side>=500000?"ラピス":side>=200000?"クリスタル":"メンバー";
   const basic=(l,r)=>Math.min(l,r)>=30000?Math.round(Math.min(l,r)*.1):0;
   const own=basic(left,right),abasic=basic(left01,right01),bbasic=basic(left02,right02);
   const aBasic=basic(aLeft,aOpp);
