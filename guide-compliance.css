@@ -17,8 +17,8 @@
 .compliance-page .cg-rule-heading{display:flex;align-items:baseline;gap:13px;margin:0 0 13px}
 .compliance-page .cg-number{font-size:14px;font-weight:800;color:#0055a4;min-width:24px}
 .compliance-page .cg-rule h3{font-size:clamp(17px,3.5vw,21px);line-height:1.5;color:#0055a4;margin:0}
-.compliance-page .cg-rule-content{display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:center}
-.compliance-page .cg-illustration{display:block;width:100%;height:142px;object-fit:contain}
+
+
 .compliance-page .cg-rule-text>p{margin:0;font-size:14px;line-height:1.9}
 .compliance-page .cg-example{margin-top:14px;display:grid;gap:7px}
 .compliance-page .cg-example p{display:flex;align-items:baseline;gap:10px;margin:0;padding:10px 13px;border-radius:9px;background:#f2f7fb;font-size:13px;line-height:1.75}
@@ -27,4 +27,25 @@
 .compliance-page .cg-note{border-top:2px solid #0055a4;padding:18px 4px;margin:35px 0;color:#526777;font-size:13px}
 .compliance-page .cg-note strong{display:block;color:#0055a4;font-size:15px}
 .compliance-page .cg-note p{margin:5px 0 0}
-@media(max-width:600px){.compliance-page .cg-introduction{padding:16px}.compliance-page .cg-section-head{padding:20px 17px}.compliance-page .cg-rule{padding:24px 0}.compliance-page .cg-rule-content{grid-template-columns:86px minmax(0,1fr);gap:13px;align-items:start}.compliance-page .cg-illustration{height:105px}.compliance-page .cg-rule-text>p{font-size:13px}.compliance-page .cg-example p{display:block;font-size:12px}.compliance-page .cg-example b{display:inline-block;margin-right:9px}.compliance-page .cg-rule-heading{gap:9px}}
+@media(max-width:600px){.compliance-page .cg-introduction{padding:16px}.compliance-page .cg-section-head{padding:20px 17px}.compliance-page .cg-rule{padding:24px 0}.compliance-page .cg-rule-text>p{font-size:13px}.compliance-page .cg-example p{display:block;font-size:12px}.compliance-page .cg-example b{display:inline-block;margin-right:9px}.compliance-page .cg-rule-heading{gap:9px}}
+
+/* Typography and progressive reading motion; no illustration dependency. */
+.compliance-page .cg-rule-content{display:block}
+.compliance-page .cg-rule{padding:37px 5px 40px;position:relative}
+.compliance-page .cg-rule-heading{align-items:center;gap:16px;margin-bottom:17px}
+.compliance-page .cg-number{display:grid;place-items:center;min-width:46px;height:46px;border-radius:12px;background:#0055a4;color:white;font-size:17px}
+.compliance-page .cg-rule h3{font-size:clamp(21px,4vw,27px);line-height:1.45}
+.compliance-page .cg-rule-text>p{font-size:17px;line-height:2;max-width:66ch}
+.compliance-page .cg-example{margin-top:22px;gap:10px}
+.compliance-page .cg-example p{font-size:16px;line-height:1.85;padding:16px 18px;border-left:3px solid #d7e2eb}
+.compliance-page .cg-example b{font-size:13px;min-width:48px}
+.compliance-page .cg-introduction p,.compliance-page .cg-section-head p{font-size:16px}
+.compliance-page .cg-section-head{padding:35px 29px}
+.compliance-page .cg-section-head h2{font-size:clamp(26px,5vw,35px)}
+.compliance-page .cg-jump a{font-size:15px;padding:12px 17px}
+@media(prefers-reduced-motion:no-preference){
+.compliance-page .cg-rule{animation:cg-arrive .65s both;animation-timeline:view();animation-range:entry 0% entry 30%}
+.compliance-page .cg-section-head{animation:cg-arrive .7s both;animation-timeline:view();animation-range:entry 0% entry 35%}
+@keyframes cg-arrive{from{opacity:.55;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+}
+@media(max-width:600px){.compliance-page .cg-rule{padding:30px 0 33px}.compliance-page .cg-rule-heading{gap:12px}.compliance-page .cg-number{min-width:40px;height:40px;font-size:15px}.compliance-page .cg-rule h3{font-size:21px}.compliance-page .cg-rule-text>p{font-size:16px;line-height:1.95}.compliance-page .cg-example p{font-size:15px;padding:13px 14px}.compliance-page .cg-section-head{padding:26px 19px}}
