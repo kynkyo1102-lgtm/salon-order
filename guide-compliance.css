@@ -418,3 +418,14 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-part-art{order:-1;display:flex;justify-content:center;align-items:center;margin:0 0 5px}
 .compliance-page .cg-part-art svg{max-width:72px;height:58px}
 @media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:104px}.compliance-page .cg-chapter-outline{top:4px;height:116px}.compliance-page .cg-part-intro{min-height:180px;margin-bottom:24px}.compliance-page .cg-part-intro-inner{min-height:180px;display:flex;padding:14px 12px;gap:7px}.compliance-page .cg-part-intro h2{font-size:clamp(23px,6vw,29px);line-height:1.4}.compliance-page .cg-part-intro p{font-size:12px}.compliance-page .cg-part-art svg{max-width:58px;height:48px}}
+
+/* Frame belongs to the chapter heading itself; its measured bounds prevent drift on mobile. */
+.compliance-page .cg-story-part+.cg-story-part{padding-top:40px}
+.compliance-page .cg-chapter-outline{display:none!important}
+.compliance-page .cg-part-intro{position:relative;min-height:190px;margin-bottom:32px;overflow:visible}
+.compliance-page .cg-heading-frame{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+.compliance-page .cg-heading-frame-path{fill:none;stroke:#8aafc1;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.compliance-page .cg-part-intro-inner{position:relative;z-index:1;box-sizing:border-box;min-height:190px;width:100%;padding:34px 38px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;text-align:center}
+.compliance-page .cg-part-intro h2{font-size:clamp(24px,4.5vw,37px);line-height:1.4;word-break:keep-all;overflow-wrap:normal;letter-spacing:0;margin:0}
+.compliance-page .cg-part-intro p{word-break:keep-all;overflow-wrap:normal;margin:0}
+@media(max-width:600px){.compliance-page .cg-story-part+.cg-story-part{padding-top:30px}.compliance-page .cg-part-intro{min-height:175px;margin-bottom:28px}.compliance-page .cg-part-intro-inner{min-height:175px;padding:28px 30px;gap:7px}.compliance-page .cg-part-intro h2{font-size:clamp(23px,6vw,29px)}.compliance-page .cg-part-intro p{font-size:12px}}
