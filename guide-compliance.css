@@ -1,0 +1,29 @@
+/* Compliance series: shared guide width, titles, section rhythm, and navigation come from the three guide CSS files. */
+.compliance-guide{margin:0;width:100%;max-width:100%;background:#fff;color:#273544;font:400 15px/1.8 "Noto Sans JP",sans-serif}
+.compliance-guide,.compliance-guide *{box-sizing:border-box}
+.compliance-page .cg-lead{margin:0 0 28px;color:#526777;font-size:14px}
+.compliance-page .cg-intro{margin:20px 0 32px;padding:16px 18px;border-left:3px solid var(--guide-primary);background:var(--guide-surface);border-radius:12px;font-size:14px}
+.compliance-page .cg-intro p{margin:0}
+.compliance-page .cg-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.compliance-page .cg-tile{display:flex;align-items:center;gap:14px;padding:19px 17px;border:1px solid var(--guide-border);border-radius:12px;background:#fff;text-decoration:none;color:inherit;min-width:0}
+.compliance-page .cg-art{flex:0 0 58px;width:58px;height:58px;display:grid;place-items:center;border-radius:15px;background:#edf3f8;color:#0055a4}
+.compliance-page .cg-art svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.compliance-page .cg-tile strong{display:block;color:#0055a4;font-size:16px;line-height:1.5}
+.compliance-page .cg-tile small{display:block;color:#526777;font-size:12px;line-height:1.6;margin-top:4px}
+.compliance-page .cg-tile .cg-arrow{margin-left:auto;color:#0055a4;font-size:22px}
+.compliance-page .cg-scene{padding:19px;border-radius:14px;background:#f2f7fb;margin:12px 0 17px}
+.compliance-page .cg-scene .cg-label{display:block;color:#0055a4;font-size:12px;font-weight:800;margin-bottom:10px}
+.compliance-page .cg-bubble{max-width:94%;width:fit-content;padding:11px 15px;border-radius:15px 15px 15px 3px;background:#fff;color:#273544;font-weight:650;font-size:15px}
+.compliance-page .cg-bubble+.cg-bubble{margin:10px 0 0 auto;border-radius:15px 15px 3px 15px;background:#dce9f5}
+.compliance-page .cg-answer{display:grid;grid-template-columns:30px 1fr;gap:10px;margin:15px 0}
+.compliance-page .cg-answer .cg-mark{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#0055a4;color:white;font-weight:800}
+.compliance-page .cg-answer strong{color:#0055a4}
+.compliance-page .cg-answer p{margin:4px 0 0;font-size:14px}
+.compliance-page .cg-case{margin-bottom:34px}
+.compliance-page .cg-case h3{font-size:18px;color:#0055a4;margin:0 0 10px}
+.compliance-page .cg-book{margin-top:18px;padding:12px 14px;border-top:1px solid var(--guide-border);font-size:12px;color:#526777}
+.compliance-page .cg-bottom{margin-top:35px;padding:18px;background:var(--guide-surface);border-radius:12px;font-size:14px}
+.compliance-page .cg-bottom p{margin:0 0 9px}
+.compliance-page .cg-bottom p:last-child{margin-bottom:0}
+.compliance-page .cg-return{display:inline-block;margin-top:22px;color:#0055a4;font-weight:700;font-size:13px}
+@media(max-width:680px){.compliance-page .cg-grid{grid-template-columns:1fr;gap:10px}.compliance-page .cg-tile{padding:15px 13px}.compliance-page .cg-art{flex-basis:50px;width:50px;height:50px}.compliance-page .cg-art svg{width:29px;height:29px}.compliance-page .cg-scene{padding:14px}.compliance-page .cg-bubble{font-size:14px}}
