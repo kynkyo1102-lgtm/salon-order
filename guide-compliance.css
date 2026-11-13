@@ -164,3 +164,8 @@
 /* Match this story page's header/footer content edges to the 860px guide column (22px inner padding). */
 @media(min-width:861px){body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-footer{padding-left:max(22px,calc((100vw - 816px)/2))!important;padding-right:max(22px,calc((100vw - 816px)/2))!important}}
 @media(max-width:860px){body.compliance-guide>.guide-shared-header{padding-left:22px!important;padding-right:22px!important}body.compliance-guide>.guide-shared-footer{padding-left:22px!important;padding-right:22px!important}}
+
+/* Remove browser default body inset: shared header/footer must span the viewport. */
+html:has(body.compliance-guide){margin:0;padding:0;width:100%}
+body.compliance-guide{margin:0!important;padding:0!important;width:100%;min-width:0;overflow-x:clip}
+body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-footer{width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}
