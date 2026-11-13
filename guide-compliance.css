@@ -295,3 +295,20 @@ body.compliance-guide>.guide-shared-header,body.compliance-guide>.guide-shared-f
 .compliance-page .cg-theme-slate .cg-illustration-symbol,.compliance-page .cg-theme-slate .cg-illustration-small{color:#345d80}
 @media(max-width:600px){.compliance-page .cg-story-part{padding:48px 15px 18px}.compliance-page .cg-story-part+.cg-story-part{border-top-width:12px}.compliance-page .cg-part-intro{margin-bottom:35px;padding-bottom:25px}.compliance-page .cg-part-timeline>.cg-story-track{left:26px;top:68px;bottom:110px}.compliance-page .cg-story-step{min-height:390px;padding:32px 0 62px}.compliance-page .cg-part-intro h2{font-size:27px}}
 @media(prefers-reduced-motion:reduce){.compliance-page .cg-part-intro{opacity:1;transform:none;transition:none}}
+
+/* High-contrast chapter entrances: visual scene breaks before each independent timeline. */
+.compliance-page .cg-story-part{padding:0 clamp(18px,5vw,52px) 32px;--cg-part-banner:#0055a4}
+.compliance-page .cg-theme-green{--cg-part-banner:#147650}
+.compliance-page .cg-theme-slate{--cg-part-banner:#345d80}
+.compliance-page .cg-story-part+.cg-story-part{border-top:24px solid #fff}
+.compliance-page .cg-part-intro{margin:0 calc(-1 * clamp(18px,5vw,52px)) 52px;padding:0;border:0;background:var(--cg-part-banner);color:#fff;min-height:310px;display:flex;align-items:center;position:relative;overflow:hidden}
+.compliance-page .cg-part-intro:before{content:"";position:absolute;width:330px;height:330px;border:2px solid rgba(255,255,255,.2);border-radius:50%;right:-95px;top:-125px;pointer-events:none}
+.compliance-page .cg-part-intro:after{content:"";position:absolute;width:160px;height:160px;border:2px dashed rgba(255,255,255,.32);border-radius:50%;right:100px;bottom:-110px;pointer-events:none}
+.compliance-page .cg-part-intro-inner{position:relative;z-index:1;width:100%;max-width:1050px;margin:0 auto;padding:65px clamp(28px,8vw,100px)}
+.compliance-page .cg-part-intro>span{color:#fff}
+.compliance-page .cg-part-intro-inner>span{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:13px;font-weight:800;letter-spacing:.16em;color:rgba(255,255,255,.88)}
+.compliance-page .cg-part-intro .cg-part-range{border:1px solid rgba(255,255,255,.5);padding:6px 13px;border-radius:99px;color:#fff;font-size:12px}
+.compliance-page .cg-part-intro h2{color:#fff;font-size:clamp(32px,5.6vw,50px);line-height:1.35;margin:28px 0 16px;letter-spacing:.02em}
+.compliance-page .cg-part-intro p{color:rgba(255,255,255,.91);font-size:clamp(15px,2vw,18px);line-height:1.75}
+.compliance-page .cg-part-timeline{padding-top:18px}
+@media(max-width:600px){.compliance-page .cg-story-part{padding:0 15px 18px}.compliance-page .cg-story-part+.cg-story-part{border-top-width:16px}.compliance-page .cg-part-intro{margin:0 -15px 38px;min-height:280px}.compliance-page .cg-part-intro-inner{padding:52px 26px}.compliance-page .cg-part-intro h2{font-size:33px;margin:26px 0 14px}.compliance-page .cg-part-intro:before{width:230px;height:230px;right:-100px;top:-80px}.compliance-page .cg-part-intro:after{right:25px}.compliance-page .cg-part-timeline{padding-top:0}}
