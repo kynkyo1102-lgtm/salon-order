@@ -10,4 +10,4 @@ const timeline=part.querySelector('.cg-part-timeline'),fill=part.querySelector('
 
 part.querySelectorAll('.cg-story-step,.cg-story-reveal').forEach(el=>{if(reduced||el.getBoundingClientRect().top<window.innerHeight*.84)el.classList.add('cg-story-visible')});
 })};let pending=false;const onScroll=()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{update();pending=false})};window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);update()})();
-</script><script src="./guide-shared-chrome.js?v=20261105-return1" defer></script></body></html>
+</script><script src="./guide-shared-chrome.js?v=20261114-menu2" defer></script></body></html>
