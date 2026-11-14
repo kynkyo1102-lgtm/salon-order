@@ -12,6 +12,7 @@
 - マイプラン金額別: `guide-myplan-income.html`（計算と描画）、`guide-myplan-income.css`（見た目）。
 - マイプランタイトル別: `guide-myplan-title.html`（計算と描画）、`guide-myplan-title.css`（見た目）。
 - 検索対象・キーワード: `guide-search.js`。新しいページを追加したら検索対象も確認。
+- メンバーズマニュアルの参照ページ: `guide-manual-references.js`。ページごとの配列に番号を入力（例 `[12]` / `[12, 13]`）。未確認のページは `[]` のままにする。マニュアル改訂時は `MANUAL_EDITION` と各ページ番号をこのファイルだけで更新。
 - コンプライアンス: `guide-compliance.html` と `guide-compliance.css`。トップのカテゴリでは「その他」に属する。
 
 ## 保守時の確認
