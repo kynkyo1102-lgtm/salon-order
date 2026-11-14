@@ -53,3 +53,7 @@ body>.guide-shared-footer{display:block!important;width:100%!important;max-width
 .guide-bottom-return{margin:34px 0 4px;padding:14px 0 0;border-top:1px solid #e7edf3;text-align:left}
 .guide-bottom-return a{font-size:12px;font-weight:400;color:#647b91;text-decoration:none;border:0;background:transparent;box-shadow:none}
 .guide-bottom-return a:hover{text-decoration:underline;color:#004AAD}
+
+/* Subtle source note shared by guide article pages */
+.guide-reference-note{margin:28px 0 18px!important;padding:0!important;border:0!important;background:transparent!important;color:#7b8791!important;font-size:11px!important;line-height:1.7!important;font-weight:400!important}
+.guide-reference-note a{color:inherit!important;text-decoration:underline!important;text-underline-offset:2px}
