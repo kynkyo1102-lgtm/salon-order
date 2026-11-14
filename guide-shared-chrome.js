@@ -15,32 +15,11 @@ const groups=[
 ['手続き・申請',[['住所・連絡先の変更','guide-d.html#category=0&item=0'],['クレジットカードの登録・変更','guide-d.html#category=1&item=0'],['定期購入の変更・停止・再開','guide-d.html#category=2'],['会員資格・組織に関する手続き','guide-d.html#category=3'],['解約・クーリングオフ','guide-d.html#category=5'],['すべての手続きを見る','guide-d.html']]],
 ['その他',[['よくある困りごと','guide-e.html'],['活動のルール（特商法・コンプライアンス）','guide-compliance.html']]]
 ];
-/* Provisional manual-page index. Replace each 1P after checking the printed manual.
-   Category landing pages, top page and procedures are deliberately excluded. */
-const manualPageRefs={
- 'guide-a-chat.html':'1P','guide-a-compare.html':'1P','guide-a-cost.html':'1P',
- 'guide-a-web.html':'1P','guide-a-paper.html':'1P','guide-a-registration-steps.html':'1P',
- 'guide-b-cost.html':'1P','guide-b-schedule.html':'1P','guide-b-payment.html':'1P',
- 'guide-b-deadline.html':'1P','guide-b-stop.html':'1P','guide-b-bonus.html':'1P',
- 'guide-c-basic.html':'1P','guide-c-title.html':'1P','guide-c-branch.html':'1P',
- 'guide-c-bonus-first-start.html':'1P','guide-c-bonus-5-active.html':'1P',
- 'guide-c-bonus-10-active.html':'1P','guide-c-bonus-basic-commission.html':'1P',
- 'guide-c-bonus-mega-match.html':'1P','guide-c-bonus-double-mega-match.html':'1P',
- 'guide-c-bonus-leadership.html':'1P','guide-c-bonus-amf.html':'1P',
- 'guide-c-bonus-cullinan-amf.html':'1P'
-};
-function addManualReference(){
- const filename=decodeURIComponent(location.pathname.split('/').pop());
- const page=manualPageRefs[filename];
- if(!page)return;
- const main=document.querySelector('main');
- if(!main)return;
- const existing=[...main.querySelectorAll('.manual-ref')].find(el=>/メンバーズマニュアル/.test(el.textContent));
- if(existing){existing.textContent='メンバーズマニュアル'+page+'参照（ページ番号は仮）';return;}
- const note=document.createElement('p');
- note.className='guide-manual-reference';
- note.textContent='メンバーズマニュアル'+page+'参照（ページ番号は仮）';
- main.append(note);
+function loadManualReferences(){
+ const script=document.createElement('script');
+ script.src='./guide-manual-references.js?v=20261114-refs1';
+ script.async=true;
+ document.head.append(script);
 }
 function addCategoryBreadcrumb(){
  const filename=decodeURIComponent(location.pathname.split('/').pop());
@@ -93,7 +72,7 @@ function init(){
  document.addEventListener('click',e=>{if(!menu.hidden&&!header.contains(e.target))setOpen(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){setOpen(false);toggle.focus()}});
  addCategoryBreadcrumb();
- addManualReference();
+ loadManualReferences();
  addBottomReturnLink();
  const footer=document.createElement('footer');footer.className='guide-shared-footer';footer.innerHTML='<p>当サイトはプラッス ドゥ ニナ 南熊本店が制作した非公式ガイドです。正式な内容は公式資料をご確認ください。</p>';document.body.append(footer);
  const floating=document.createElement('nav');floating.className='guide-shared-floating';floating.setAttribute('aria-label','便利なリンク');floating.innerHTML='<a class="guide-shared-eservice" href="https://share.google/YMkDp6tvydCq1D08A" target="_blank" rel="noopener noreferrer">E-Service</a><a class="guide-shared-diagnosis" href="./check.html">ボーナス診断</a>';document.body.append(floating);
