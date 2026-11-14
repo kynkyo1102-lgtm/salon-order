@@ -26,8 +26,10 @@ body>.guide-shared-footer{display:block!important;width:100%!important;max-width
 .guide-shared-floating .guide-shared-diagnosis{color:#fff!important;background:#004AAD!important;border:2px solid #004AAD!important}
 @media(max-width:420px){.guide-shared-menu{right:0;width:min(100vw,380px);border-radius:0 0 14px 14px;padding:20px 25px 24px}.guide-shared-floating{left:12px;right:12px;gap:8px}.guide-shared-floating a{flex:1;min-width:0;padding:10px 6px;font-size:13px}}
 
-/* Manual page locator, provisionally set to 1P until checked against print. */
-.guide-manual-reference{margin:38px 0 0;padding-top:14px;border-top:1px solid #e2e9ef;color:#66788a;font:400 12px/1.7 "Noto Sans JP",sans-serif;text-align:right}
+.guide-manual-reference{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:34px 0 4px;padding:12px 14px;border:1px solid #e2e9ef;border-radius:8px;background:#fbfcfd;color:#66788a;font:400 12px/1.7 "Noto Sans JP",sans-serif}
+.guide-manual-reference-title{font-weight:600;color:#526a80}
+.guide-manual-reference-pages{color:#66788a;text-align:right}
+@media(max-width:520px){.guide-manual-reference{align-items:flex-start;flex-direction:column;gap:3px}.guide-manual-reference-pages{text-align:left}}
 
 /* Breadcrumbs link directly to the matching category on the guide home. */
 .guide-category-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 24px;color:#64748b;font-size:12px;line-height:1.7}
