@@ -17,7 +17,7 @@ const groups=[
 ];
 function loadManualReferences(){
  const script=document.createElement('script');
- script.src='./guide-manual-references.js?v=20261114-refs1';
+ script.src='./guide-manual-references.js?v=20261114-refs2';
  script.async=true;
  document.head.append(script);
 }
