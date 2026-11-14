@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Read-only Members Guide audit. Run from any directory: node scripts/check-guide-links.js */
+/* Read-only Members Guide static-HTML audit. Run: node scripts/check-guide-links.js */
 const fs=require('node:fs');
 const path=require('node:path');
 const root=path.resolve(__dirname,'..');
@@ -7,18 +7,19 @@ const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 let errors=0,checked=0;
 const fail=message=>{console.error('ERROR:',message);errors++};
 
-// Check static local href/src references (including linked styles, scripts, images).
-const files=fs.readdirSync(root).filter(name=>/^(ninaguide|guide-|check|faq)/.test(name)&&/\.(html|js|css)$/.test(name));
+// Check literal local href/src in HTML. Ignore inline JS/CSS where paths are assembled dynamically.
+const files=fs.readdirSync(root).filter(name=>/^(ninaguide|guide-|check|faq)/.test(name)&&/\.html$/.test(name));
 for(const file of files){
  const source=read(file);
- const refs=[...source.matchAll(/(?:href|src)\s*=\s*["']([^"'<>]+)["']/g)].map(match=>match[1]);
+ const markup=source.replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi,'$1</script>').replace(/(<style\b[^>]*>)[\s\S]*?<\/style>/gi,'$1</style>');
+ const refs=[...markup.matchAll(/\b(?:href|src)\s*=\s*["']([^"'<>]+)["']/g)].map(match=>match[1]);
  for(const ref of refs){
   if(!ref.startsWith('./')&&!ref.startsWith('../'))continue;
   const target=decodeURIComponent(ref.split(/[?#]/)[0]);
   if(!target)continue;
   checked++;
   const resolved=path.resolve(root,path.dirname(file),target);
-  if(!resolved.startsWith(root+path.sep)||!fs.existsSync(resolved))fail(file+' → '+ref+' (missing or outside repository)');
+  if((resolved!==root&&!resolved.startsWith(root+path.sep))||!fs.existsSync(resolved))fail(file+' → '+ref+' (missing or outside repository)');
  }
 }
 
