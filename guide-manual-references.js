@@ -43,7 +43,7 @@ note.setAttribute('aria-label','参照資料');
 refs.forEach((ref,index)=>{
  if(index)note.append(document.createTextNode(' ／ '));
  const label=document.createElement('span');
- const type=ref.type==='manual'?'メンバーズマニュアル':ref.type==='original'?'当サイト独自':(ref.title||'参考資料');
+ const type=ref.type==='manual'?'メンバーズマニュアル':ref.type==='original'?'当サイト独自'+(ref.title?'：'+ref.title:''):(ref.title||'参考資料');
  let detail=type;
  if(ref.pages&&ref.pages.length)detail+=' '+ref.pages.join('・')+'P';
  if(ref.edition)detail+='（'+ref.edition+'）';
