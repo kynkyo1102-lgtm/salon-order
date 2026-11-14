@@ -1,11 +1,8 @@
-/* Central index for printed Members Manual references.
-   Edit only this file when the manual is revised.
-   Add page numbers to the array for each article, e.g. [12] or [12, 13].
-   Keep [] while the page number has not been checked. */
+/* Central source index for guide references.
+   Empty arrays mean no reference note is shown on the page. */
 (()=>{
 'use strict';
-const MANUAL_EDITION=''; // Example: '2026年11月改訂'
-const MANUAL_REFERENCES={
+const GUIDE_REFERENCES={
  'guide-a-chat.html':[],
  'guide-a-compare.html':[],
  'guide-a-cost.html':[],
@@ -35,32 +32,26 @@ const MANUAL_REFERENCES={
  'guide-c-reward-basics.html':[]
 };
 const filename=decodeURIComponent(location.pathname.split('/').pop()||'');
-if(!Object.prototype.hasOwnProperty.call(MANUAL_REFERENCES,filename))return;
+const refs=GUIDE_REFERENCES[filename];
+if(!refs||!refs.length)return;
 const main=document.querySelector('main');
 if(!main)return;
-
-// Remove only old numbered references; keep general official-document cautions.
-main.querySelectorAll('.manual-ref').forEach(el=>{
- if(/メンバーズマニュアル\s*1P参照/.test(el.textContent.trim()))el.remove();
+main.querySelectorAll('.guide-reference-note').forEach(el=>el.remove());
+const note=document.createElement('p');
+note.className='guide-reference-note';
+note.setAttribute('aria-label','参照資料');
+refs.forEach((ref,index)=>{
+ if(index)note.append(document.createTextNode(' ／ '));
+ const label=document.createElement('span');
+ const type=ref.type==='manual'?'メンバーズマニュアル':ref.type==='original'?'当サイト独自':(ref.title||'参考資料');
+ let detail=type;
+ if(ref.pages&&ref.pages.length)detail+=' '+ref.pages.join('・')+'P';
+ if(ref.edition)detail+='（'+ref.edition+'）';
+ label.textContent=detail;
+ if(ref.url){
+  const link=document.createElement('a');link.href=ref.url;link.textContent=detail;link.target='_blank';link.rel='noopener noreferrer';note.append(link);
+ }else note.append(label);
 });
-main.querySelectorAll('.guide-manual-reference').forEach(el=>el.remove());
-
-const box=document.createElement('aside');
-box.className='guide-manual-reference';
-box.setAttribute('aria-label','メンバーズマニュアルの参照ページ');
-const title=document.createElement('span');
-title.className='guide-manual-reference-title';
-title.textContent=MANUAL_EDITION
- ?'メンバーズマニュアル（'+MANUAL_EDITION+'）'
- :'メンバーズマニュアル';
-const page=document.createElement('span');
-page.className='guide-manual-reference-pages';
-const pageNumbers=MANUAL_REFERENCES[filename];
-page.textContent=pageNumbers.length
- ?'参照：'+pageNumbers.map(n=>String(n)+'P').join('・')
- :'参照ページ：未設定';
-box.append(title,page);
 const returnLink=main.querySelector('.guide-bottom-return');
-if(returnLink)main.insertBefore(box,returnLink);
-else main.append(box);
+if(returnLink)main.insertBefore(note,returnLink);else main.append(note);
 })();
