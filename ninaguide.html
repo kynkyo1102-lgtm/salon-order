@@ -34,27 +34,7 @@
 
 
 <script>
-/* Build the menu from the actual category cards so labels and destinations stay synchronized. */
-const guideMenuCategories=document.getElementById('guide-menu-categories');
-if(guideMenuCategories){
- document.querySelectorAll('.category-grid .category-block').forEach(block=>{
-  const group=document.createElement('div');group.className='guide-menu-group';
-  const heading=document.createElement('span');heading.className='guide-menu-group-title';heading.textContent=block.querySelector('h3')?.textContent||'';
-  group.append(heading);
-  block.querySelectorAll('a[href]').forEach(link=>{
-   const item=document.createElement('a');item.className='guide-menu-sub';item.href=link.getAttribute('href');item.textContent=link.textContent.trim();group.append(item);
-  });
-  guideMenuCategories.append(group);
- });
-}
-const guideMenuToggle=document.querySelector('.guide-menu-toggle');
-const guideSiteMenu=document.getElementById('guide-site-menu');
-if(guideMenuToggle&&guideSiteMenu){
- const setGuideMenu=(open)=>{guideSiteMenu.hidden=!open;guideMenuToggle.setAttribute('aria-expanded',String(open));guideMenuToggle.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く')};
- guideMenuToggle.addEventListener('click',()=>setGuideMenu(guideSiteMenu.hidden));
- document.addEventListener('click',e=>{if(!guideSiteMenu.hidden&&!guideSiteMenu.contains(e.target)&&!guideMenuToggle.contains(e.target))setGuideMenu(false)});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!guideSiteMenu.hidden){setGuideMenu(false);guideMenuToggle.focus()}});
-}
+/* The shared navigation is provided by guide-shared-chrome.js. */
 const pickupTrack=document.getElementById('pickup-track');
 const pickupPrev=document.getElementById('pickup-prev');
 const pickupNext=document.getElementById('pickup-next');
