@@ -23,7 +23,6 @@ const manualPageRefs={
  'guide-b-cost.html':'1P','guide-b-schedule.html':'1P','guide-b-payment.html':'1P',
  'guide-b-deadline.html':'1P','guide-b-stop.html':'1P','guide-b-bonus.html':'1P',
  'guide-c-basic.html':'1P','guide-c-title.html':'1P','guide-c-branch.html':'1P',
- 'guide-c-branch-white-preview.html':'1P',
  'guide-c-bonus-first-start.html':'1P','guide-c-bonus-5-active.html':'1P',
  'guide-c-bonus-10-active.html':'1P','guide-c-bonus-basic-commission.html':'1P',
  'guide-c-bonus-mega-match.html':'1P','guide-c-bonus-double-mega-match.html':'1P',
