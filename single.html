@@ -883,7 +883,7 @@ function generateText() {
         text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
     });
 
-    text += `総合計 ¥${data.grandTotalPrice.toLocaleString()}（${data.grandTotalPt.toLocaleString()}PT）\n\n`;
+    text += `総合計　${data.grandTotalQty}点　￥${data.grandTotalPrice.toLocaleString()}（${data.grandTotalPt.toLocaleString()}PT）\n\n`;
     
     const summaryKeys = Object.keys(data.itemSummaryMap);
     if (summaryKeys.length > 0) {
@@ -907,7 +907,7 @@ function generateText() {
 
 function updatePreview() {
     const result = generateText();
-    document.getElementById('total_summary_text').innerText = `総合計 ¥${result.grandTotalPrice.toLocaleString()}（${result.grandTotalPt.toLocaleString()}PT）`;
+    document.getElementById('total_summary_text').innerText = `総合計　${result.grandTotalQty}点　￥${result.grandTotalPrice.toLocaleString()}（${result.grandTotalPt.toLocaleString()}PT）`;
     
     const outputArea = document.getElementById('output_text');
     if (outputArea) {
