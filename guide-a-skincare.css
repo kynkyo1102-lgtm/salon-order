@@ -860,3 +860,82 @@
     transition: none;
   }
 }
+
+
+/* Usability refinements: distinguish routines and make the swipe card obvious. */
+.skincare-page .guide-section-nav a:first-child {
+  border-color:#cbbd91; background:#f7f2e4; color:#6c5b32;
+}
+.skincare-page .guide-section-nav a:last-child {
+  border-color:#a9bac8; background:#edf2f6; color:#38536b;
+}
+.skincare-routine#morning {
+  padding:22px 18px 26px; border:1px solid #e7dec7;
+  border-radius:20px; background:#fbf9f2;
+}
+.skincare-routine#night {
+  padding:22px 18px 26px; border:1px solid #d8e1e9;
+  border-radius:20px; background:#f3f6f8;
+}
+.skincare-routine#morning > h2 { color:#6c5b32; }
+.skincare-routine#morning > h2 span { color:#a18b50; }
+.skincare-routine#night > h2 { color:#38536b; }
+.skincare-routine#night > h2 span { color:#7892a8; }
+.skincare-routine#morning .skincare-progress-value { background:#b49b5e; }
+.skincare-routine#night .skincare-progress-value { background:#6686a3; }
+.skincare-routine#morning .skincare-steps.is-guided .skincare-step.is-current {
+  border-color:#d9cda9;
+  box-shadow:0 2px 0 #e9e1ce, 0 6px 0 #f0eadc, 0 15px 30px rgba(92,76,42,.13);
+}
+.skincare-routine#night .skincare-steps.is-guided .skincare-step.is-current {
+  border-color:#c4d1dc;
+  box-shadow:0 2px 0 #dce5ec, 0 6px 0 #e6edf2, 0 15px 30px rgba(45,67,88,.13);
+}
+/* The number beside the heading already identifies the step; remove the extra STEP label. */
+.skincare-steps.is-guided .skincare-step::before { content:none; display:none; }
+/* Stack product name and amount instead of squeezing them into two columns. */
+.skincare-steps.is-guided .skincare-product-option {
+  display:flex; flex-direction:column; align-items:stretch; gap:8px;
+  min-height:0; padding:13px 12px;
+  border:1px solid var(--skin-border); border-radius:12px;
+  background:rgba(255,255,255,.68);
+}
+.skincare-steps.is-guided .skincare-product-option:last-child {
+  border-bottom:1px solid var(--skin-border);
+}
+.skincare-steps.is-guided .skincare-dose {
+  display:flex; flex-direction:row; align-items:center; justify-content:flex-start;
+  gap:10px; width:100%; min-width:0; padding:7px 10px;
+  border:0; border-radius:9px; background:var(--skin-panel);
+}
+.skincare-steps.is-guided .skincare-dose-visual {
+  flex:0 0 42px; width:42px; height:42px; transform:scale(1);
+}
+.skincare-steps.is-guided .skincare-dose-text { text-align:left; }
+.skincare-steps.is-guided .skincare-dose-text strong { font-size:14px; }
+.skincare-steps.is-guided .skincare-card::after {
+  display:block; margin:17px 0 0; color:var(--guide-muted);
+  font-size:10px; font-weight:700; letter-spacing:.12em;
+  text-align:center; content:"← SWIPE →";
+}
+.skincare-deck-status { font-weight:700; }
+.skincare-routine#morning .skincare-deck-button:not(:disabled):last-child,
+.skincare-routine#morning .skincare-restart { border-color:#8d7847; background:#8d7847; }
+.skincare-routine#night .skincare-deck-button:not(:disabled):last-child,
+.skincare-routine#night .skincare-restart { border-color:#456782; background:#456782; }
+.skincare-complete[hidden] { display:none !important; }
+.skincare-complete {
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.skincare-restart {
+  padding:10px 22px; border:0; border-radius:999px;
+  color:#fff; font:inherit; font-size:13px; font-weight:700; cursor:pointer;
+}
+@media (max-width:600px) {
+  .skincare-routine#morning,.skincare-routine#night {
+    margin-left:-5px; margin-right:-5px; padding:18px 11px 22px; border-radius:17px;
+  }
+  .skincare-steps.is-guided .skincare-product-option { padding:11px; }
+  .skincare-steps.is-guided .skincare-dose { width:100%; }
+  .skincare-steps.is-guided .skincare-dose-text strong { font-size:13px; }
+}
