@@ -388,3 +388,6 @@ main .guide-utility-copy strong{font-size:22px!important;font-weight:800!importa
 main .guide-utility-copy small{font-size:14px!important;color:#526e86!important}
 main .guide-utility-arrow{font-size:31px!important}
 @media(max-width:650px){main .guide-activity-feature,main .guide-utility-feature{padding:0!important}main .guide-utility-feature h2{font-size:18px!important;margin-bottom:13px!important}main .guide-utility-card{min-height:116px!important;padding:15px 16px!important;gap:15px!important}main .guide-utility-visual{width:77px!important;height:77px!important;flex-basis:77px!important}main .guide-utility-copy strong{font-size:19px!important}main .guide-utility-copy small{font-size:13px!important}main .guide-utility-arrow{font-size:27px!important}}
+.category-all-pages{margin:21px 0 0;text-align:right}
+.category-all-pages a{display:inline-flex;align-items:center;gap:8px;color:#526777;font-size:13px;font-weight:700;text-decoration:none}
+.category-all-pages a:hover{text-decoration:underline;color:#0055a4}
