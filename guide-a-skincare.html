@@ -331,10 +331,10 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
     card.style.setProperty("--swipe-x", dx + "px");
     card.style.setProperty("--swipe-rotate", (dx * .045) + "deg");
   });
-  const finishPointer = (event) => {
+  const finishPointer = (event, cancelled = false) => {
     if (event.pointerId !== pointerId) return;
     const card = cards[active];
-    const shouldAdvance = isDragging && Math.abs(pointerDeltaX) > Math.max(48, card.offsetWidth * .16);
+    const shouldAdvance = !cancelled && isDragging && Math.abs(pointerDeltaX) > Math.max(48, card.offsetWidth * .16);
     const direction = pointerDeltaX < 0 ? 1 : -1;
     pointerId = null;
     card.classList.remove("is-pressed", "is-dragging");
@@ -360,8 +360,8 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
     isDragging = false;
     pointerDeltaX = 0;
   };
-  deck.addEventListener("pointerup", finishPointer);
-  deck.addEventListener("pointercancel", finishPointer);
+  deck.addEventListener("pointerup", (event) => finishPointer(event, false));
+  deck.addEventListener("pointercancel", (event) => finishPointer(event, true));
   deck.classList.add("is-guided");
   deck.insertAdjacentElement("afterend", controls);
   controls.insertAdjacentElement("afterend", completion);
