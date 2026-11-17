@@ -939,3 +939,34 @@
   .skincare-steps.is-guided .skincare-dose { width:100%; }
   .skincare-steps.is-guided .skincare-dose-text strong { font-size:13px; }
 }
+
+
+/* Lift-and-flick card interaction */
+.skincare-steps.is-guided .skincare-step.is-current {
+  transform: translate3d(0,0,0) scale(1);
+  transform-origin: center center;
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, opacity .22s ease;
+  will-change: transform;
+}
+.skincare-steps.is-guided .skincare-step.is-current.is-pressed {
+  transform: translate3d(0,-5px,0) scale(1.012);
+  box-shadow: 0 8px 16px rgba(35,48,60,.12), 0 22px 42px rgba(35,48,60,.16);
+}
+.skincare-steps.is-guided .skincare-step.is-current.is-dragging {
+  transform: translate3d(var(--swipe-x,0px),-10px,0) rotate(var(--swipe-rotate,0deg)) scale(1.025);
+  box-shadow: 0 12px 22px rgba(35,48,60,.14), 0 28px 50px rgba(35,48,60,.2);
+  transition: none;
+  cursor: grabbing;
+}
+.skincare-steps.is-guided .skincare-step.is-swipe-exit-left {
+  animation: skincare-flick-left .21s cubic-bezier(.2,.75,.25,1) forwards !important;
+}
+.skincare-steps.is-guided .skincare-step.is-swipe-exit-right {
+  animation: skincare-flick-right .21s cubic-bezier(.2,.75,.25,1) forwards !important;
+}
+@keyframes skincare-flick-left {
+  to { transform: translate3d(-125%, -7px, 0) rotate(-12deg) scale(1.04); opacity:0; }
+}
+@keyframes skincare-flick-right {
+  to { transform: translate3d(125%, -7px, 0) rotate(12deg) scale(1.04); opacity:0; }
+}
