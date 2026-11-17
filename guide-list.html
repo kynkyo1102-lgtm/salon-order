@@ -1,57 +1,33 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#123b78">
-  <title>記事を探す - ニナファームジャポン メンバーズWebガイド</title>
-  <link rel="stylesheet" href="./common.css?v=20261023-nav3">
-  <style>
-    .guide-list-page { background:#fff; }
-    .guide-list-wrap { max-width:1000px; margin:0 auto; padding:28px 20px 48px; }
-    .guide-list-head { padding:24px; border-radius:18px; background:#f4f8fd; margin-bottom:24px; }
-    .guide-list-head h1 { margin:0 0 8px; color:#123778; font-size:1.8rem; }
-    .guide-list-head p { margin:0; color:#46556b; line-height:1.7; }
-    .guide-list-tools { margin:20px 0 24px; }
-    .guide-list-tools label { display:block; margin-bottom:8px; font-weight:800; color:#123778; }
-    .guide-list-tools input { width:100%; min-height:50px; padding:10px 14px; border:2px solid #b9cfe9; border-radius:12px; font:inherit; }
-    .guide-list-keywords { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 22px; }
-    .guide-tag { display:inline-flex; align-items:center; padding:7px 12px; border:1px solid #cdddf0; border-radius:999px; background:#f5f9ff; color:#1557c0; text-decoration:none; font-size:.9rem; font-weight:700; cursor:pointer; }
-    .guide-tag:hover,.guide-tag[aria-pressed="true"] { background:#1557c0; border-color:#1557c0; color:#fff; }
-    .guide-list-status { margin:14px 0; color:#596579; font-size:.95rem; }
-    .guide-list-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .guide-list-card { display:flex; flex-direction:column; align-items:flex-start; gap:10px; min-width:0; padding:18px; border:1px solid #d9e7f8; border-radius:14px; color:inherit; text-decoration:none; background:#fff; box-shadow:0 3px 12px rgba(40,80,130,.04); }
-    .guide-list-card:hover { border-color:#9dbfe9; background:#f8fbff; }
-    .guide-list-card-title { color:#123778; font-size:1.08rem; font-weight:900; line-height:1.5; }
-    .guide-list-card-desc { color:#46556b; font-size:.95rem; line-height:1.7; }
-    .guide-list-card-category { color:#557500; background:#f1f8dc; border-radius:6px; padding:4px 8px; font-size:.78rem; font-weight:800; }
-    .guide-list-card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:4px; }
-    .guide-list-card-tags .guide-tag { padding:4px 8px; font-size:.78rem; cursor:default; }
-    .guide-list-empty { padding:22px 4px; color:#596579; }
-    .guide-list-back { display:inline-block; margin-bottom:16px; color:#1557c0; font-weight:800; text-decoration:none; }
-    @media(max-width:650px) {
-      .guide-list-wrap { padding:16px 13px 32px; }
-      .guide-list-head { padding:20px 16px; }
-      .guide-list-head h1 { font-size:1.5rem; }
-      .guide-list-cards { grid-template-columns:1fr; }
-      .guide-list-card { padding:16px; }
-    }
-  </style>
-<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261026-1"></head>
-<body class="guide-list-page">
-  
-
-  <main class="guide-list-wrap">
-    <a class="guide-list-back" href="./ninaguide.html">← メンバーズガイドへ戻る</a>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="メンバーズガイドのページをカテゴリ別に一覧できます。キーワードから検索もできます。">
+  <title>すべてのページ｜メンバーズガイド</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261117-list1">
+  <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
+  <link rel="stylesheet" href="./guide-list.css?v=20261117-1">
+</head>
+<body class="registration-guide guide-list-page">
+  <main class="guide-common-page guide-list-wrap">
+    <nav class="guide-category-breadcrumb" aria-label="パンくずリスト">
+      <a href="./ninaguide.html">メンバーズガイド</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">すべてのページ</span>
+    </nav>
 
     <section class="guide-list-head">
-      <h1 id="listTitle">記事を探す</h1>
-      <p id="listIntro">キーワード・カテゴリから、知りたい内容を探せます。</p>
+      <h1 class="guide-common-title" id="listTitle">すべてのページ</h1>
+      <p class="guide-list-intro" id="listIntro">カテゴリから探したり、キーワードで絞り込んだりできます。</p>
     </section>
 
     <div class="guide-list-tools">
-      <label for="listSearch">記事タイトル・タグで検索</label>
+      <label for="listSearch">ページ名やキーワードで検索</label>
       <input id="listSearch" type="search" placeholder="例：WEB登録、支払い、停止" autocomplete="off">
     </div>
 
@@ -63,12 +39,10 @@
 
     <p class="guide-list-status" id="resultStatus" aria-live="polite"></p>
     <div class="guide-list-cards" id="articleCards"></div>
-    <p class="guide-list-empty" id="emptyMessage" hidden>該当する記事がありません。別のキーワードで検索してください。</p>
+    <p class="guide-list-empty" id="emptyMessage" hidden>該当するページがありません。別のキーワードで検索してください。</p>
   </main>
 
-  
-
-  <script src="./guide-data.js"></script>
+  <script src="./guide-data.js?v=20261117-list1"></script>
   <script>
   (() => {
     const articles = window.NINA_GUIDE_ARTICLES || [];
@@ -127,7 +101,7 @@
       const q = rawQuery.toLocaleLowerCase('ja');
 
       // キーワード・カテゴリ・検索語が指定されている場合は、
-      // 探し方の一覧を隠し、記事の検索結果に集中できるようにする。
+      // 探し方の一覧を隠し、ページの検索結果に集中できるようにする。
       const showBrowseLists =
         !selectedTag && !selectedCategory && !rawQuery;
 
@@ -138,16 +112,16 @@
 
       if (selectedTag) {
         title.textContent = 'キーワード：「' + selectedTag + '」';
-        intro.textContent = '「' + selectedTag + '」に関連する記事です。';
+        intro.textContent = '「' + selectedTag + '」に関連するページです。';
       } else if (selectedCategory) {
         title.textContent = 'カテゴリ：' + selectedCategory;
-        intro.textContent = selectedCategory + 'に分類された記事です。';
+        intro.textContent = selectedCategory + 'に分類されたページです。';
       } else if (rawQuery) {
         title.textContent = '検索結果';
-        intro.textContent = '記事タイトルとタグから検索しています。';
+        intro.textContent = 'ページ名とキーワードから検索しています。';
       } else {
-        title.textContent = '記事を探す';
-        intro.textContent = 'キーワード・カテゴリから、知りたい内容を探せます。';
+        title.textContent = 'すべてのページ';
+        intro.textContent = 'カテゴリから探したり、キーワードで絞り込んだりできます。';
       }
 
       const found = articles.filter(item => {
@@ -204,7 +178,7 @@
         cards.appendChild(a);
       });
 
-      status.textContent = found.length + '件の記事';
+      status.textContent = found.length + 'ページ';
       empty.hidden = found.length !== 0;
     }
 
@@ -213,5 +187,5 @@
   })();
   </script>
   
-<script src="./guide-shared-chrome.js?v=20261026-1" defer></script></body>
+<script src="./guide-shared-chrome.js?v=20261117-directory" defer></script></body>
 </html>

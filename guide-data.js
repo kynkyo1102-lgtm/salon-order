@@ -157,6 +157,199 @@ window.NINA_GUIDE_ARTICLES = [
     description: "条件を入力して、ボーナスやタイトルに関する内容を確認する診断ページです。",
     tags: ["ボーナス", "タイトル", "診断"],
     type: "tool"
+  },
+  {
+    title: "登録ガイド",
+    href: "./guide-a-chat.html",
+    category: "登録・入会",
+    description: "質問に答えながら、登録方法や手続きの流れを確認できます。",
+    tags: ["登録", "入会", "手順"]
+  },
+  {
+    title: "会員登録の流れ",
+    href: "./guide-a-registration-steps.html",
+    category: "登録・入会",
+    description: "WEB登録と郵送登録、それぞれの手順を確認できます。",
+    tags: ["登録", "流れ", "WEB登録", "郵送登録"]
+  },
+  {
+    title: "登録方法の比較表",
+    href: "./guide-a-compare-table.html",
+    category: "登録・入会",
+    description: "登録方法ごとの違いを表で比較できます。",
+    tags: ["登録", "比較", "費用", "WEB登録", "郵送登録"]
+  },
+  {
+    title: "新規登録の締め日",
+    href: "./guide-a-cutoff.html",
+    category: "登録・入会",
+    description: "新規登録の受付期限について確認できます。",
+    tags: ["登録", "締め日", "受付期限"]
+  },
+  {
+    title: "組織の配置について",
+    href: "./guide-a-placement.html",
+    category: "登録・入会",
+    description: "登録時の組織配置とポジションについて確認できます。",
+    tags: ["登録", "組織", "配置", "ポジション"]
+  },
+  {
+    title: "定期購入ガイド",
+    href: "./guide-b.html",
+    category: "定期購入・商品",
+    description: "定期購入に関する案内をまとめて確認できます。",
+    tags: ["定期購入", "商品", "購入"]
+  },
+  {
+    title: "ボーナスプランガイド",
+    href: "./guide-c.html",
+    category: "ボーナス・タイトル",
+    description: "ボーナスプラン全体の案内を確認できます。",
+    tags: ["ボーナス", "タイトル", "概要"]
+  },
+  {
+    title: "ボーナスプラン",
+    href: "./guide-c-bonus.html",
+    category: "ボーナス・タイトル",
+    description: "ボーナスプランの種類と仕組みを確認できます。",
+    tags: ["ボーナス", "プラン", "仕組み"]
+  },
+  {
+    title: "ボーナスはどうやって決まるの？",
+    href: "./guide-c-reward-basics.html",
+    category: "ボーナス・タイトル",
+    description: "ボーナスの基本的な仕組みを確認できます。",
+    tags: ["ボーナス", "報酬", "仕組み", "ポイント"]
+  },
+  {
+    title: "タイトル昇格条件",
+    href: "./guide-c-title.html",
+    category: "ボーナス・タイトル",
+    description: "タイトル昇格に必要な条件を確認できます。",
+    tags: ["タイトル", "昇格", "条件", "ボーナス"]
+  },
+  {
+    title: "ボーナスの支払い",
+    href: "./guide-c-payment.html",
+    category: "ボーナス・タイトル",
+    description: "ボーナスの支払いや受け取りに関する案内です。",
+    tags: ["ボーナス", "支払い", "振込"]
+  },
+  {
+    title: "ブランチ",
+    href: "./guide-c-branch.html",
+    category: "ボーナス・タイトル",
+    description: "ブランチの仕組みについて確認できます。",
+    tags: ["ボーナス", "ブランチ", "組織"]
+  },
+  {
+    title: "キャップ調整",
+    href: "./guide-cap-adjustment.html",
+    category: "ボーナス・タイトル",
+    description: "ボーナスの上限や調整について確認できます。",
+    tags: ["ボーナス", "キャップ", "上限", "調整"]
+  },
+  {
+    title: "手続き・申請一覧",
+    href: "./guide-d.html",
+    category: "手続き・申請",
+    description: "住所変更や定期購入など、必要な申請を探せます。",
+    tags: ["手続き", "申請", "変更", "書類"]
+  },
+  {
+    title: "その他の手続き",
+    href: "./guide-procedures.html",
+    category: "手続き・申請",
+    description: "各種手続きの方法と提出書類を確認できます。",
+    tags: ["手続き", "申請", "書類"]
+  },
+  {
+    title: "よくある困りごと",
+    href: "./guide-e.html",
+    category: "困ったとき",
+    description: "よくある質問や困ったときの確認先をまとめています。",
+    tags: ["困った", "質問", "FAQ"]
+  },
+  {
+    title: "追加ポイントについて",
+    href: "./guide-e-extra-points.html",
+    category: "困ったとき",
+    description: "ポイントに関する追加の案内を確認できます。",
+    tags: ["ポイント", "追加", "困った"]
+  },
+  {
+    title: "活動のルール・コンプライアンス",
+    href: "./guide-compliance.html",
+    category: "ルール・コンプライアンス",
+    description: "活動時に確認しておきたいルールをまとめています。",
+    tags: ["ルール", "コンプライアンス", "特商法"]
+  },
+  {
+    title: "契約・特定商取引法",
+    href: "./guide-compliance-contract.html",
+    category: "ルール・コンプライアンス",
+    description: "契約や特定商取引法に関するルールです。",
+    tags: ["契約", "特商法", "コンプライアンス"]
+  },
+  {
+    title: "勧誘時のルール",
+    href: "./guide-compliance-invite.html",
+    category: "ルール・コンプライアンス",
+    description: "勧誘や説明を行う際のルールを確認できます。",
+    tags: ["勧誘", "ルール", "コンプライアンス"]
+  },
+  {
+    title: "商品説明のルール",
+    href: "./guide-compliance-products.html",
+    category: "ルール・コンプライアンス",
+    description: "商品を説明するときに気をつけたいルールです。",
+    tags: ["商品", "説明", "薬機法", "コンプライアンス"]
+  },
+  {
+    title: "SNS発信のルール",
+    href: "./guide-compliance-sns.html",
+    category: "ルール・コンプライアンス",
+    description: "SNSで発信するときの注意点を確認できます。",
+    tags: ["SNS", "発信", "広告", "コンプライアンス"]
+  },
+  {
+    title: "特定商取引法について",
+    href: "./guide-tokusho.html",
+    category: "ルール・コンプライアンス",
+    description: "特定商取引法に関する情報を確認できます。",
+    tags: ["特商法", "契約", "ルール"]
+  },
+  {
+    title: "マイプラン",
+    href: "./guide-myplan.html",
+    category: "便利なツール",
+    description: "目標に合わせたプランやシミュレーションを確認できます。",
+    tags: ["マイプラン", "目標", "シミュレーション"],
+    type: "tool"
+  },
+  {
+    title: "マイプラン・収入別",
+    href: "./guide-myplan-income.html",
+    category: "便利なツール",
+    description: "目標金額に応じた収入例を確認できます。",
+    tags: ["マイプラン", "収入", "金額"],
+    type: "tool"
+  },
+  {
+    title: "マイプラン・タイトル別",
+    href: "./guide-myplan-title.html",
+    category: "便利なツール",
+    description: "タイトル別のプラン例を確認できます。",
+    tags: ["マイプラン", "タイトル", "シミュレーション"],
+    type: "tool"
+  },
+  {
+    title: "全国のサロンを探す",
+    href: "./ninaguide-salons.html",
+    category: "便利なツール",
+    description: "地域からサロンを探せます。",
+    tags: ["サロン", "店舗", "地図"],
+    type: "tool"
   }
 ];
 
@@ -168,6 +361,7 @@ window.NINA_GUIDE_KEYWORDS = [
 
 /* 今後の記事追加に備えたカテゴリ一覧 */
 window.NINA_GUIDE_CATEGORIES = [
-  "登録・入会", "定期購入・商品", "支払い",
-  "スキンケア", "ボーナス・タイトル", "手続き", "困ったとき"
+  "登録・入会", "定期購入・商品", "支払い", "スキンケア",
+  "ボーナス・タイトル", "手続き・申請", "困ったとき",
+  "ルール・コンプライアンス", "便利なツール"
 ];
