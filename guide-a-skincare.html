@@ -89,6 +89,60 @@
 .skincare-detail-body .skincare-step-footnote{margin-top:6px}
 .skincare-product-option{min-height:62px}
 @media(prefers-reduced-motion:reduce){.skincare-step{animation:none!important}}
+
+/* Playing-card style horizontal skincare deck */
+.skincare-page,.skincare-page *{box-sizing:border-box}
+.skincare-page{width:100%;max-width:100%;overflow-x:clip}
+.skincare-page .guide-common-page{width:100%;max-width:860px}
+.skincare-intro{max-width:680px}
+.skincare-note{max-width:680px;margin:14px 0 30px;padding:10px 13px;font-size:12px;line-height:1.7}
+.skincare-routine{min-width:0;overflow:hidden}
+.skincare-routine-intro{font-size:13px;margin-bottom:15px}
+.skincare-steps{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;padding:8px 5px 22px;margin:0 -5px;scroll-snap-type:x mandatory;scroll-padding-inline:5px;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.skincare-steps::-webkit-scrollbar{display:none}
+.skincare-step{flex:0 0 clamp(280px,38vw,340px);width:clamp(280px,38vw,340px);min-height:430px;align-self:stretch;padding:20px 18px 17px;border:1.5px solid #b9cec5;border-radius:22px;background:linear-gradient(155deg,#fff 0%,#f8fbf8 68%,#eff6f1 100%);box-shadow:0 7px 18px #315b5018, inset 0 0 0 5px #ffffffb8;scroll-snap-align:start;animation:none;position:relative}
+.skincare-step::before,.skincare-step::after{position:absolute;left:12px;color:#398273;font-family:Georgia,serif;font-weight:700;line-height:1;pointer-events:none}
+.skincare-step::before{top:10px;content:attr(data-card-index);font-size:12px;opacity:.75}
+.skincare-step::after{right:12px;bottom:9px;left:auto;content:"✦";font-size:13px;opacity:.45}
+.skincare-step-heading{display:block;text-align:center;margin:9px 0 18px}
+.skincare-step-number{display:none}
+.skincare-step-title{max-width:260px;margin:0 auto;color:#285d50;font-family:"Noto Sans JP",sans-serif;font-size:18px;line-height:1.55;text-align:center}
+.skincare-product-options{gap:10px;margin-bottom:14px}
+.skincare-product-option{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:120px;padding:13px 11px;border:1px solid #dce9e1;border-radius:15px;background:#f4f8f4;text-align:center}
+.skincare-product-option>div:first-child{width:100%}
+.skincare-product-name{font-size:14px;line-height:1.55}
+.skincare-product-type{font-size:10px}
+.skincare-dose{flex-direction:column;gap:3px;justify-content:center}
+.skincare-dose-visual{width:48px;height:44px;flex-basis:44px;transform:scale(1.12)}
+.skincare-dose-text{text-align:center}
+.skincare-dose-text strong{font-size:14px}
+.skincare-dose-text small{font-size:10px}
+.skincare-detail{margin-top:auto;padding-top:11px;border-top:1px solid #dce9e1}
+.skincare-detail summary{justify-content:center;min-height:38px;font-size:12px}
+.skincare-detail-body{text-align:left}
+.skincare-instruction{font-size:12px;line-height:1.8}
+.skincare-step-footnote{font-size:10px}
+.skincare-deck-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 0 34px}
+.skincare-deck-button{display:grid;place-items:center;width:38px;height:38px;border:1px solid #b9cec5;border-radius:50%;background:#fff;color:#286b61;font-size:20px;cursor:pointer}
+.skincare-deck-button:disabled{opacity:.3;cursor:default}
+.skincare-deck-status{min-width:68px;color:#52746a;font-size:12px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
+.skincare-deck-dots{display:flex;justify-content:center;gap:5px}
+.skincare-deck-dot{width:6px;height:6px;border-radius:50%;background:#d4e1da}
+.skincare-deck-dot[aria-current="step"]{width:18px;border-radius:9px;background:#398273}
+.skincare-routine>h2{margin-bottom:9px}
+@media(max-width:600px){
+ .skincare-page{padding-left:0;padding-right:0}
+ .skincare-page>.guide-common-title,.skincare-page>.skincare-intro,.skincare-page>.guide-section-nav,.skincare-page>.skincare-note,.skincare-page>.skincare-source{margin-left:17px;margin-right:17px}
+ .skincare-routine{margin-bottom:42px;padding-left:17px;padding-right:0}
+ .skincare-routine>h2,.skincare-routine-intro{margin-right:17px}
+ .skincare-steps{gap:13px;padding:7px 4px 19px;margin-right:0}
+ .skincare-step{flex-basis:82vw;width:82vw;max-width:340px;min-height:410px;padding:19px 15px 16px}
+ .skincare-step-title{font-size:17px}
+ .skincare-product-option{min-height:112px}
+ .skincare-deck-controls{justify-content:flex-start;padding-right:17px}
+}
+@media(prefers-reduced-motion:reduce){.skincare-step{animation:none!important}}
+
 </style>
 </head>
 <body class="registration-guide skincare-guide">
@@ -243,6 +297,57 @@
 
 <p class="skincare-source">公式スキンケアマニュアル（31〜43ページ）を、毎日見ながら使えるよう手順に沿って整理しています。商品画像は使用せず、量のイメージは図形で表しています。</p>
 </main>
+
+<script>
+document.querySelectorAll(".skincare-routine").forEach((routine) => {
+  const deck = routine.querySelector(".skincare-steps");
+  if (!deck) return;
+  const cards = Array.from(deck.querySelectorAll(".skincare-step"));
+  cards.forEach((card, index) => {
+    card.dataset.cardIndex = String(index + 1).padStart(2, "0");
+    card.setAttribute("aria-label", (index + 1) + "枚目のカード");
+  });
+  const controls = document.createElement("div");
+  controls.className = "skincare-deck-controls";
+  controls.innerHTML = '<button class="skincare-deck-button" type="button" aria-label="前のカード">‹</button><span class="skincare-deck-status" aria-live="polite"></span><button class="skincare-deck-button" type="button" aria-label="次のカード">›</button><span class="skincare-deck-dots" aria-hidden="true"></span>';
+  deck.insertAdjacentElement("afterend", controls);
+  const [previous, next] = controls.querySelectorAll("button");
+  const status = controls.querySelector(".skincare-deck-status");
+  const dots = controls.querySelector(".skincare-deck-dots");
+  cards.forEach((_, index) => {
+    const dot = document.createElement("span");
+    dot.className = "skincare-deck-dot";
+    dots.appendChild(dot);
+  });
+  const dotItems = Array.from(dots.children);
+  let active = 0;
+  const update = () => {
+    const center = deck.scrollLeft + deck.clientWidth * 0.35;
+    let nearest = 0, distance = Infinity;
+    cards.forEach((card, index) => {
+      const d = Math.abs(card.offsetLeft - deck.offsetLeft - center + deck.clientWidth * 0.15);
+      if (d < distance) { distance = d; nearest = index; }
+    });
+    active = nearest;
+    status.textContent = (active + 1) + " / " + cards.length;
+    previous.disabled = active === 0;
+    next.disabled = active === cards.length - 1;
+    dotItems.forEach((dot, index) => {
+      if (index === active) dot.setAttribute("aria-current", "step");
+      else dot.removeAttribute("aria-current");
+    });
+  };
+  const move = (direction) => {
+    const target = Math.max(0, Math.min(cards.length - 1, active + direction));
+    deck.scrollTo({left: cards[target].offsetLeft - deck.offsetLeft, behavior: "smooth"});
+  };
+  previous.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+  deck.addEventListener("scroll", () => requestAnimationFrame(update), {passive:true});
+  window.addEventListener("resize", update);
+  update();
+});
+</script>
 <script src="./guide-shared-chrome.js?v=20261114-skincare2" defer></script>
 </body>
 </html>
