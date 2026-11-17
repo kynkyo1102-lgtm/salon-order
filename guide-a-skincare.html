@@ -229,7 +229,13 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   const completion = document.createElement("p");
   completion.className = "skincare-complete";
   completion.hidden = true;
-  completion.textContent = isNight ? "ぜんぶできた！今日もおつかれさま ☾" : "ぜんぶできた！気持ちよく一日を始めよう ☀";
+  const completionMessage = document.createElement("span");
+  completionMessage.textContent = isNight ? "ぜんぶできた！今日もおつかれさま ☾" : "ぜんぶできた！気持ちよく一日を始めよう ☀";
+  const restart = document.createElement("button");
+  restart.type = "button";
+  restart.className = "skincare-restart";
+  restart.textContent = "最初からやり直す";
+  completion.append(completionMessage, restart);
   let isAnimating = false;
   let pointerId = null;
   let pointerStartX = 0;
@@ -262,7 +268,7 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
     progressCount.textContent = (active + 1) + " / " + cards.length;
     progressTrack.setAttribute("aria-valuenow", String(active + 1));
     progressValue.style.width = ((active + 1) / cards.length * 100) + "%";
-    status.textContent = completed ? "今日のお手入れ、おしまい！" : active === cards.length - 1 ? "ラスト1つ！" : "矢印・スワイプで切替";
+    status.textContent = completed ? "今日のお手入れ、おしまい！" : "← スワイプで戻る ／ 右へ進む →";
     previous.disabled = active === 0;
     next.disabled = completed;
     next.textContent = "→";
@@ -286,6 +292,12 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
       render();
     }, 240);
   };
+  restart.addEventListener("click", () => {
+    active = 0;
+    completed = false;
+    render();
+    routine.scrollIntoView({ behavior:"smooth", block:"start" });
+  });
   previous.addEventListener("click", () => {
     move(-1);
   });
