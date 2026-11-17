@@ -93,6 +93,7 @@
 /* Playing-card style horizontal skincare deck */
 .skincare-page,.skincare-page *{box-sizing:border-box}
 .skincare-page{width:100%;max-width:100%;overflow-x:clip}
+.registration-guide .guide-common-page.skincare-page{padding-left:0;padding-right:0}
 .skincare-page .guide-common-page{width:100%;max-width:860px}
 .skincare-intro{max-width:680px}
 .skincare-note{max-width:680px;margin:14px 0 30px;padding:10px 13px;font-size:12px;line-height:1.7}
@@ -322,10 +323,9 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   const dotItems = Array.from(dots.children);
   let active = 0;
   const update = () => {
-    const center = deck.scrollLeft + deck.clientWidth * 0.35;
     let nearest = 0, distance = Infinity;
     cards.forEach((card, index) => {
-      const d = Math.abs(card.offsetLeft - deck.offsetLeft - center + deck.clientWidth * 0.15);
+      const d = Math.abs(card.offsetLeft - deck.scrollLeft);
       if (d < distance) { distance = d; nearest = index; }
     });
     active = nearest;
@@ -339,7 +339,7 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   };
   const move = (direction) => {
     const target = Math.max(0, Math.min(cards.length - 1, active + direction));
-    deck.scrollTo({left: cards[target].offsetLeft - deck.offsetLeft, behavior: "smooth"});
+    deck.scrollTo({left: cards[target].offsetLeft, behavior: "smooth"});
   };
   previous.addEventListener("click", () => move(-1));
   next.addEventListener("click", () => move(1));
