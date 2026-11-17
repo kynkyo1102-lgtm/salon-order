@@ -5,6 +5,7 @@ const form=document.getElementById('search'),input=document.getElementById('q'),
 if(!form||!input||!box)return;
 const pages=[
 ['新規登録の方法','新規登録','登録方法を確認して自分に合った方法を選べます','guide-a-chat.html','入会 会員登録 申し込み はじめる'],
+['スキンケアの手順','スキンケア','朝と夜のお手入れを、洗顔から保湿まで順番に確認できます','guide-a-skincare.html','洗顔 クレンジング 化粧水 美容液 保湿 ジェル クリーム UV 日焼け止め 朝 夜'],
 ['WEB登録ガイド','新規登録','オンラインで会員登録する手順','guide-a-web.html','web ネット インターネット スマホ 申込'],
 ['郵送登録ガイド','新規登録','書類を使った登録方法','guide-a-paper.html','紙 郵便 書面 申込'],
 ['登録方法を比較','新規登録','WEB登録と郵送登録の違いを比較','guide-a-compare.html','比較 どっち おすすめ'],
@@ -53,14 +54,14 @@ const expand=t=>{const out=new Set([t]);for(const group of aliases){if(group.som
 /* Read the actual published pages, not just a hand-maintained keyword list.
    Only public guide pages are indexed; no user-entered information is sent anywhere. */
 const contentPaths=[
-'guide-a-chat.html','guide-a-compare.html','guide-a-cost.html','guide-a-paper.html','guide-a-registration-steps.html','guide-a-web.html','guide-a-placement.html','guide-a-cutoff.html',
+'guide-a-chat.html','guide-a-compare.html','guide-a-cost.html','guide-a-paper.html','guide-a-registration-steps.html','guide-a-web.html','guide-a-placement.html','guide-a-cutoff.html','guide-a-skincare.html',
 'guide-b-bonus.html','guide-b-cost.html','guide-b-deadline.html','guide-b-payment.html','guide-b-schedule.html','guide-b-stop.html',
 'guide-c-basic.html','guide-c-bonus.html','guide-c-bonus-first-start.html','guide-c-bonus-5-active.html','guide-c-bonus-10-active.html',
 'guide-c-bonus-basic-commission.html','guide-c-bonus-mega-match.html','guide-c-bonus-double-mega-match.html','guide-c-bonus-leadership.html',
 'guide-c-bonus-amf.html','guide-c-bonus-cullinan-amf.html','guide-c-branch.html','guide-c-reward-basics.html','guide-c-title.html',
 'guide-cap-adjustment.html','guide-c-payment.html','guide-myplan.html','guide-myplan-income.html','guide-myplan-title.html','guide-compliance.html','guide-e.html','guide-e-extra-points.html','ninaguide-salons.html','check.html'
 ];
-const categoryFor=path=>path.startsWith('guide-a-')?'新規登録':path.startsWith('guide-b-')?'定期購入':path.startsWith('guide-c-')||path==='guide-cap-adjustment.html'?'ボーナスプラン':path.startsWith('guide-e-')||path==='guide-e.html'?'こんなときどうする？':path==='guide-compliance.html'?'その他':'その他のコンテンツ';
+const categoryFor=path=>path==='guide-a-skincare.html'?'スキンケア':path.startsWith('guide-a-')?'新規登録':path.startsWith('guide-b-')?'定期購入':path.startsWith('guide-c-')||path==='guide-cap-adjustment.html'?'ボーナスプラン':path.startsWith('guide-e-')||path==='guide-e.html'?'こんなときどうする？':path==='guide-compliance.html'?'その他':'その他のコンテンツ';
 const contentRecords=[];
 let loading=null,loaded=false;
 function loadIndex(){

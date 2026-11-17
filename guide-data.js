@@ -32,6 +32,13 @@ window.NINA_GUIDE_ARTICLES = [
     tags: ["登録", "初回費用", "支払い", "決済"]
   },
   {
+    title: "スキンケアの手順",
+    href: "./guide-a-skincare.html",
+    category: "スキンケア",
+    description: "朝と夜のお手入れを、洗顔から保湿まで順番に確認できます。",
+    tags: ["スキンケア", "洗顔", "クレンジング", "化粧水", "美容液", "保湿", "ジェル", "クリーム", "UVケア", "日焼け止め", "朝", "夜"]
+  },
+  {
     title: "毎月の商品購入",
     href: "./guide-b-cost.html",
     category: "定期購入・商品",
@@ -162,5 +169,5 @@ window.NINA_GUIDE_KEYWORDS = [
 /* 今後の記事追加に備えたカテゴリ一覧 */
 window.NINA_GUIDE_CATEGORIES = [
   "登録・入会", "定期購入・商品", "支払い",
-  "ボーナス・タイトル", "手続き", "困ったとき"
+  "スキンケア", "ボーナス・タイトル", "手続き", "困ったとき"
 ];
