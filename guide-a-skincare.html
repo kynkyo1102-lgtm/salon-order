@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="./guide-shared-chrome.css?v=20261114-skincare2">
 <link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
 <link rel="stylesheet" href="./guide-section-layout.css?v=20261029-2">
-<link rel="stylesheet" href="./guide-a-skincare.css?v=20261117-2">
+<link rel="stylesheet" href="./guide-a-skincare.css?v=20261117-3">
 </head>
 <body class="registration-guide skincare-guide">
 <main class="guide-common-page skincare-page">
@@ -314,28 +314,48 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
     pointerDeltaX = 0;
     isDragging = false;
     card.setPointerCapture(pointerId);
+    card.classList.add("is-pressed");
   });
   deck.addEventListener("pointermove", (event) => {
     if (event.pointerId !== pointerId) return;
     const dx = event.clientX - pointerStartX;
     const dy = event.clientY - pointerStartY;
-    if (!isDragging && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.15) {
+    if (!isDragging && Math.abs(dx) > 7 && Math.abs(dx) > Math.abs(dy) * 1.1) {
       isDragging = true;
       cards[active].classList.add("is-dragging");
     }
     if (!isDragging) return;
     event.preventDefault();
     pointerDeltaX = dx;
-    cards[active].style.transform = "translate3d(" + dx + "px,0,0) rotate(" + (dx * .012) + "deg)";
+    const card = cards[active];
+    card.style.setProperty("--swipe-x", dx + "px");
+    card.style.setProperty("--swipe-rotate", (dx * .045) + "deg");
   });
   const finishPointer = (event) => {
     if (event.pointerId !== pointerId) return;
     const card = cards[active];
+    const shouldAdvance = isDragging && Math.abs(pointerDeltaX) > Math.max(48, card.offsetWidth * .16);
+    const direction = pointerDeltaX < 0 ? 1 : -1;
     pointerId = null;
-    card.classList.remove("is-dragging");
-    card.style.transform = "";
-    if (isDragging && Math.abs(pointerDeltaX) > Math.min(90, card.offsetWidth * .22)) {
-      move(pointerDeltaX < 0 ? 1 : -1);
+    card.classList.remove("is-pressed", "is-dragging");
+    card.style.removeProperty("--swipe-x");
+    card.style.removeProperty("--swipe-rotate");
+    if (shouldAdvance) {
+      const target = active + direction;
+      if (target >= cards.length) {
+        completed = true;
+        render();
+      } else if (target >= 0) {
+        card.classList.add(direction > 0 ? "is-swipe-exit-left" : "is-swipe-exit-right");
+        isAnimating = true;
+        window.setTimeout(() => {
+          card.classList.remove("is-swipe-exit-left", "is-swipe-exit-right");
+          active = target;
+          completed = false;
+          isAnimating = false;
+          render(direction);
+        }, 210);
+      }
     }
     isDragging = false;
     pointerDeltaX = 0;
