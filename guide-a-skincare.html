@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="朝と夜のスキンケアを、商品の使用量と一緒に順番に確認できるガイドです。">
+<title>スキンケアの手順｜メンバーズガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./guide-shared-chrome.css?v=20261114-skincare2">
+<link rel="stylesheet" href="./guide-design-system.css?v=20261028-2">
+<link rel="stylesheet" href="./guide-section-layout.css?v=20261029-2">
+<style>
+.skincare-page{--skin-accent:#398273}
+.skincare-page .guide-common-title{color:#286b61}
+.skincare-intro{margin:0 0 24px;color:var(--guide-muted);line-height:1.9}
+.skincare-note{margin:20px 0 26px;padding:13px 16px;border-radius:12px;background:#eff7f3;color:#315b50;font-size:13px;line-height:1.8}
+.skincare-note strong{display:block;margin-bottom:3px}
+.skincare-routine{margin:0 0 62px;scroll-margin-top:85px}
+.skincare-routine>h2{display:flex;align-items:baseline;gap:10px;margin:0 0 9px;padding-bottom:13px;border-bottom:1px solid var(--guide-border);color:#286b61;font-size:23px}
+.skincare-routine>h2 span{font-size:12px;font-weight:600;letter-spacing:.08em}
+.skincare-routine-intro{margin:0 0 20px;color:var(--guide-muted);line-height:1.8}
+.skincare-steps{position:relative;display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.skincare-steps::before{position:absolute;top:24px;bottom:24px;left:22px;width:2px;background:linear-gradient(#c5ded5,#e7efeb);content:""}
+.skincare-step{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding:15px 16px 16px 0;border:1px solid var(--guide-border);border-radius:15px;background:#fff;box-shadow:0 4px 14px #315b5010;animation:skin-rise .45s both}
+.skincare-step:nth-child(2){animation-delay:.04s}.skincare-step:nth-child(3){animation-delay:.08s}.skincare-step:nth-child(4){animation-delay:.12s}.skincare-step:nth-child(5){animation-delay:.16s}.skincare-step:nth-child(6){animation-delay:.2s}
+.skincare-step:has(input:checked){background:#f4f8f6}
+.skincare-check{z-index:1;display:grid;place-items:start center;padding-top:4px}
+.skincare-check input{width:20px;height:20px;margin:0;accent-color:var(--skin-accent)}
+.skincare-check input:focus-visible{outline:3px solid #a7d6c6;outline-offset:3px}
+.skincare-card{min-width:0}
+.skincare-step-heading{display:flex;align-items:center;gap:9px;margin:0 0 9px}
+.skincare-step-number{display:grid;flex:0 0 28px;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8f3ee;color:#286b61;font-size:14px;font-weight:800}
+.skincare-step-title{margin:0;color:#273d4a;font-size:16px;font-weight:800;line-height:1.5}
+.skincare-product-options{display:grid;gap:8px;margin:0 0 10px}
+.skincare-product-option{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;background:#f3f7f5}
+.skincare-product-name{margin:0;color:#365b59;font-size:13px;font-weight:800;line-height:1.55}
+.skincare-product-type{display:block;margin-top:1px;color:#758580;font-size:10px;line-height:1.5}
+.skincare-dose{display:flex;align-items:center;gap:8px;min-width:0}
+.skincare-dose-visual{position:relative;display:grid;flex:0 0 42px;place-items:center;width:42px;height:42px;color:#438477}
+.skincare-dose-visual i{display:block}
+.skincare-dose-visual.grapes i{width:13px;height:13px;border-radius:50%;background:#b9cf93;box-shadow:8px 0 #b9cf93}
+.skincare-dose-visual.grapes::after{position:absolute;top:7px;left:20px;width:7px;height:5px;border-radius:7px 1px;background:#76966b;content:""}
+.skincare-dose-visual.cherry i{width:14px;height:14px;border-radius:50%;background:#e4a2a0;box-shadow:inset -2px -2px 3px #aa6d6c35}
+.skincare-dose-visual.pearl i{width:12px;height:12px;border:1px solid #afc5bf;border-radius:50%;background:#fff;box-shadow:inset -2px -2px 3px #b8c5c044}
+.skincare-dose-visual.pearl i:nth-child(2){transform:translate(-3px,3px)}.skincare-dose-visual.pearl i:nth-child(3){transform:translate(3px,3px)}
+.skincare-dose-visual.foam{width:48px;flex-basis:48px}
+.skincare-dose-visual.foam i{position:absolute;bottom:8px;width:21px;height:17px;border-radius:50% 50% 42% 42%;background:radial-gradient(circle at 35% 27%,#fff 0 2px,#e6f4f1 3px 6px,#cde6e0 7px);box-shadow:0 0 0 2px #e6f4f180,0 3px 7px #699e9233;animation:foam-float 2.8s ease-in-out infinite}
+.skincare-dose-visual.foam i:nth-child(1){left:2px;bottom:6px;transform:scale(.88);animation-delay:-.8s}
+.skincare-dose-visual.foam i:nth-child(2){left:14px;bottom:11px;z-index:1;transform:scale(1.15);animation-delay:-1.6s}
+.skincare-dose-visual.foam i:nth-child(3){right:1px;bottom:6px;transform:scale(.9);animation-delay:-.3s}
+.skincare-dose-visual.foam i:nth-child(4){left:9px;bottom:17px;transform:scale(.68);animation-delay:-2s}
+.skincare-dose-visual.foam i:nth-child(5){right:9px;bottom:17px;transform:scale(.7);animation-delay:-1.1s}
+.skincare-dose-visual.rings i{position:absolute;width:12px;height:12px;border:2px solid #70a99d;border-radius:50%;animation:ring-glow 2.4s ease-in-out infinite}
+.skincare-dose-visual.rings i:nth-child(2){width:23px;height:23px;animation-delay:.3s}
+.skincare-dose-visual.rings i:nth-child(3){width:34px;height:34px;animation-delay:.6s}
+.skincare-dose-visual.pumps{font-size:19px;font-weight:800;letter-spacing:-.08em}
+.skincare-dose-visual.bottle{width:34px;flex-basis:34px;height:38px;border:2px solid #7eaaa0;border-radius:7px 7px 10px 10px;background:linear-gradient(90deg,#d9ebe5,#f7fbf9 52%,#c6ded6);box-shadow:inset 0 -7px #c4ddd5}
+.skincare-dose-visual.bottle::before{position:absolute;top:-6px;width:12px;height:6px;border-radius:3px 3px 0 0;background:#7eaaa0;content:""}
+.skincare-dose-text{min-width:0}
+.skincare-dose-text strong{display:block;color:#245b52;font-size:13px;line-height:1.45}
+.skincare-dose-text small{display:block;margin-top:2px;color:#687b79;font-size:10px;line-height:1.45}
+.skincare-instruction{margin:0;color:#52677a;font-size:13px;line-height:1.85}
+.skincare-step-footnote{display:block;margin-top:6px;color:#72827e;font-size:11px;line-height:1.7}
+.skincare-last-note{margin:18px 0 0;padding:13px 15px;border-left:3px solid #8bb9ad;background:#f6f9f7;color:#627687;font-size:12px;line-height:1.8}
+.skincare-source{margin-top:38px;padding-top:15px;border-top:1px solid var(--guide-border);color:#74818b;font-size:12px;line-height:1.8}
+@keyframes skin-rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes foam-float{0%,100%{translate:0 1px}50%{translate:0 -3px}}
+@keyframes ring-glow{0%,100%{opacity:.55}50%{opacity:1}}
+@media(max-width:600px){
+ .skincare-routine>h2{font-size:20px}
+ .skincare-routine{margin-bottom:50px}
+ .skincare-step{grid-template-columns:25px minmax(0,1fr);gap:8px;padding:12px 10px 13px 0}
+ .skincare-steps::before{left:18px}
+ .skincare-step-number{flex-basis:25px;width:25px;height:25px;font-size:12px}
+ .skincare-step-title{font-size:15px}
+ .skincare-product-option{grid-template-columns:minmax(0,1fr);gap:4px;padding:9px 10px}
+ .skincare-dose{gap:7px}
+ .skincare-dose-visual{width:36px;height:36px;flex-basis:36px}
+ .skincare-dose-visual.foam{width:42px;flex-basis:42px}
+ .skincare-dose-text strong{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){.skincare-step,.skincare-dose-visual.foam i,.skincare-dose-visual.rings i{animation:none!important}}
+</style>
+</head>
+<body class="registration-guide skincare-guide">
+<main class="guide-common-page skincare-page">
+<h1 class="guide-common-title">スキンケアの手順</h1>
+<p class="skincare-intro">商品名・使う量・手順をひとまとまりにしました。朝または夜のお手入れを選び、終わったところにチェックを入れて進めてください。</p>
+<nav class="guide-section-nav" aria-label="お手入れの時間を選ぶ">
+<a href="#morning">朝のお手入れ</a>
+<a href="#night">夜のお手入れ</a>
+</nav>
+<aside class="skincare-note"><strong>使用量の目安</strong>粒・泡・スプレーの図で量をイメージできます。「×2回」は表示の量を2回に分けて使う意味です。肌の状態や商品の案内もあわせてご確認ください。</aside>
+
+<section class="skincare-routine" id="morning" aria-labelledby="morning-title">
+<h2 id="morning-title">朝のお手入れ <span>MORNING</span></h2>
+<p class="skincare-routine-intro">洗顔からはじめて、美容液・クリーム・ジェルの順に重ね、最後にUVケアで仕上げます。</p>
+<ol class="skincare-steps">
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝の洗顔を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">1</span><h3 class="skincare-step-title">泡を作って、やさしく洗顔</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール</p><span class="skincare-product-type">洗顔石けん｜朝・夜</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール ブランシュール</p><span class="skincare-product-type">洗顔石けん｜朝・夜</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+</div>
+<p class="skincare-instruction">泡立てネットを湿らせ、石けんをネットにこすりつけて成分を取ります。少しずつ水を加えて泡立て、顔をぬるま湯でぬらしてから、泡をクッションにTゾーンからやさしく洗います。</p>
+<small class="skincare-step-footnote">小鼻・あごは指の腹でそっと。目もと・口もとはこすらず、ぬるま湯ですすぎ、冷水で軽くパッティング。タオルは押し当てて水分を取ります。</small>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝のミストを完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">2</span><h3 class="skincare-step-title">ミストを顔にふんわり</h3></header>
+<div class="skincare-product-option"><div><p class="skincare-product-name">フローラ バイオシールド ミストウォーター</p><span class="skincare-product-type">洗顔後の肌を保護するミスト</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に3周</strong><small>約20cm離して</small></span></div></div>
+<p class="skincare-instruction">洗顔後、顔から約20cm離して、肌を包むようにふんわり吹きかけ、軽くなじませます。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝の化粧水を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">3</span><h3 class="skincare-step-title">化粧水でうるおいを補う</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ プレシャス+</p><span class="skincare-product-type">ハリ・うるおい化粧水</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true">17</span><span class="skincare-dose-text"><strong>17プッシュ × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン ローション プリュス</p><span class="skincare-product-type">透明感・うるおい化粧水</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に2周 × 2回</strong></span></div></div>
+</div>
+<p class="skincare-instruction">選んだ化粧水を顔全体に吹きかけます。肌がしっとりやわらかく感じるまでなじませ、目もと・口もとはハンドプレスします。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝の美容液を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">4</span><h3 class="skincare-step-title">美容液を顔全体になじませる</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ エフェクティブ+</p><span class="skincare-product-type">ハリ・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true">4</span><span class="skincare-dose-text"><strong>4プッシュ × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン セラム プリュス</p><span class="skincare-product-type">透明感・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に2周 × 2回</strong></span></div></div>
+</div>
+<p class="skincare-instruction">美容液を顔全体になじませてから、気になる部分に重ねます。複数使うときは軽いテクスチャーのものから。顔全体をやさしくハンドプレスします。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝の保湿を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">5</span><h3 class="skincare-step-title">クリームで栄養・うるおいを補う</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">クリーム レボリューション B-1789</p><span class="skincare-product-type">ボリューム集中クリーム</span></div><div class="skincare-dose"><span class="skincare-dose-visual pearl" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>パール粒 3個分</strong></span></div></div>
+</div>
+<p class="skincare-instruction">化粧水・美容液がなじんでから使います。額・鼻・両頬・あごの5か所に置き、顔全体になじませます。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝のジェル保湿を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">6</span><h3 class="skincare-step-title">ジェルでうるおいを閉じ込める</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ パスティーク+</p><span class="skincare-product-type">ハリ・うるおいジェル</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>小さいさくらんぼ粒 1個分 × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン ジェル プリュス</p><span class="skincare-product-type">透明感・うるおいジェル</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>小さいさくらんぼ粒 1個分 × 2回</strong></span></div></div>
+</div>
+<p class="skincare-instruction">クリームの後に使います。ジェルを手のひらで伸ばしてから、顔全体を包むようにやさしくハンドプレスします。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="朝のUVケアを完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">7</span><h3 class="skincare-step-title">日焼け止めをムラなくなじませる</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">UVリキッド ミュー ヴィサージュ</p><span class="skincare-product-type">日焼け止め・美容液（フェイス用）｜SPF25 PA++</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>小さいさくらんぼ粒 1個分</strong><small>顔全体</small></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">UVリキッド ミュー コール</p><span class="skincare-product-type">日焼け止め（ボディ・フェイス用）｜SPF50+ PA++++</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>顔 1個分 ＋ 首・デコルテ 2個分</strong><small>小さいさくらんぼ粒</small></span></div></div>
+</div>
+<p class="skincare-instruction">手に取り、額・鼻・両頬・あごに置いて顔の内側から外側へなじませます。頬骨やTゾーンなど高い部分は重ねづけし、顔全体をハンドプレスします。</p>
+<small class="skincare-step-footnote">生え際・耳の後ろ・首元も忘れずに。汗や皮脂の後は必要に応じてつけ直してください。</small>
+</div>
+</li>
+</ol>
+</section>
+
+<section class="skincare-routine" id="night" aria-labelledby="night-title">
+<h2 id="night-title">夜のお手入れ <span>EVENING</span></h2>
+<p class="skincare-routine-intro">メイクをした日は、クレンジングで落としてから洗顔します。</p>
+<ol class="skincare-steps">
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="夜のクレンジングを完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">1</span><h3 class="skincare-step-title">クレンジングでメイクを落とす</h3></header>
+<div class="skincare-product-option"><div><p class="skincare-product-name">デマキヤン アセニール</p><span class="skincare-product-type">夜、泡洗顔の前に</span></div><div class="skincare-dose"><span class="skincare-dose-visual grapes" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>マスカット粒 2個分</strong></span></div></div>
+<p class="skincare-instruction">額・鼻・両頬・あごの5か所に置き、指の腹でゆっくり円を描いてなじませます。目もと・口もとは力を抜き、指先の感触がふっと軽くなったら、ぬるま湯で丁寧にすすぎます。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="夜の洗顔を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">2</span><h3 class="skincare-step-title">濃密な泡をクッションにして洗う</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール</p><span class="skincare-product-type">洗顔石けん</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール ブランシュール</p><span class="skincare-product-type">洗顔石けん</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+</div>
+<p class="skincare-instruction">Tゾーンから泡をやさしく転がして洗います。ぬるま湯を手ですくってすすぎ、冷水で軽くパッティング。やわらかいタオルで押さえて水分を取ります。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="夜のミスト・化粧水を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">3</span><h3 class="skincare-step-title">ミストの後に、化粧水で補水</h3></header>
+<div class="skincare-product-option"><div><p class="skincare-product-name">フローラ バイオシールド ミストウォーター</p><span class="skincare-product-type">洗顔後の肌を保護するミスト</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に3周</strong><small>約20cm離して</small></span></div></div>
+<p class="skincare-instruction">顔から約20cm離してミストを3周吹きかけ、軽くなじませてから、朝と同じ化粧水（アクティアージュ プレシャス+ または ヴィブラン ローション プリュス）を使用量どおりに吹きかけます。肌がしっとりやわらかくなるまでなじませます。</p>
+<small class="skincare-step-footnote">化粧水の量：アクティアージュ プレシャス+ は17プッシュ×2回／ヴィブラン ローション プリュスは顔に2周×2回。</small>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="夜の美容液を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">4</span><h3 class="skincare-step-title">美容液を顔全体になじませる</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ エフェクティブ+</p><span class="skincare-product-type">ハリ・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true">4</span><span class="skincare-dose-text"><strong>4プッシュ × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン セラム プリュス</p><span class="skincare-product-type">透明感・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に2周 × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ゼロ グラビティ リペアセラム</p><span class="skincare-product-type">夜用・集中美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual bottle" aria-hidden="true"></span><span class="skincare-dose-text"><strong>1本を1回で使い切る</strong></span></div></div>
+</div>
+<p class="skincare-instruction">美容液は顔全体になじませ、気になる部分に重ねます。複数使う場合は軽いものから順に。ゼロ グラビティ リペアセラムは1本を使う日の1回分として使い切ります。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="夜用クリームのケアを完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">5</span><h3 class="skincare-step-title">クリームで栄養・うるおいを補う</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">クリーム レボリューション B-1789</p><span class="skincare-product-type">ボリューム集中クリーム</span></div><div class="skincare-dose"><span class="skincare-dose-visual pearl" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>パール粒 3個分</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ゼロ グラビティ リペアクリーム</p><span class="skincare-product-type">夜用集中トリートメント｜ハリ集中クリーム</span></div><div class="skincare-dose"><span class="skincare-dose-visual pearl" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>目もと・口もと 1個分 ＋ 顔全体 2個分</strong></span></div></div>
+</div>
+<p class="skincare-instruction">化粧水・美容液の後、ジェルより先に使います。「クリーム レボリューション B-1789」は額・鼻・両頬・あごの5か所に置いてなじませます。「ゼロ グラビティ リペアクリーム」は夜用集中トリートメントとして、目もと・口もと、続いて顔全体になじませます。</p>
+</div>
+</li>
+<li class="skincare-step">
+<label class="skincare-check"><input type="checkbox" aria-label="夜のジェル保湿を完了"></label>
+<div class="skincare-card">
+<header class="skincare-step-heading"><span class="skincare-step-number">6</span><h3 class="skincare-step-title">ジェルでうるおいを閉じ込める</h3></header>
+<div class="skincare-product-options">
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ パスティーク+</p><span class="skincare-product-type">ハリ・うるおいジェル</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>小さいさくらんぼ粒 1個分 × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン ジェル プリュス</p><span class="skincare-product-type">透明感・うるおいジェル</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>小さいさくらんぼ粒 1個分 × 2回</strong></span></div></div>
+</div>
+<p class="skincare-instruction">クリームの後に使います。手のひらでジェルを伸ばし、肌をこすらないよう顔全体を包んでやさしくハンドプレスします。</p>
+<small class="skincare-step-footnote">手に残ったジェルは、首・デコルテにもなじませます。</small>
+</div>
+</li>
+</ol>
+<p class="skincare-last-note">各商品の目安量はカード内に表示しています。使用量・使用順はお手元の最新の商品案内もあわせてご確認ください。</p>
+</section>
+
+<p class="skincare-source">公式スキンケアマニュアル（31〜43ページ）を、毎日見ながら使えるよう手順に沿って整理しています。商品画像は使用せず、量のイメージは図形で表しています。</p>
+</main>
+<script src="./guide-shared-chrome.js?v=20261114-skincare2" defer></script>
+</body>
+</html>

@@ -11,6 +11,7 @@ window.addEventListener('pageshow',()=>{
 const groups=[
 ['新規登録',[['登録ガイド','guide-a-chat.html'],['WEB登録ガイド','guide-a-web.html'],['郵送登録ガイド','guide-a-paper.html'],['初回費用','guide-a-cost.html'],['組織の配置について','guide-a-placement.html'],['新規登録の締め日','guide-a-cutoff.html']]],
 ['定期購入',[['毎月の商品購入','guide-b-cost.html'],['お届けスケジュール','guide-b-schedule.html'],['お支払方法','guide-b-payment.html'],['定期購入の変更・停止の締め日','guide-b-deadline.html'],['定期購入の停止','guide-b-stop.html'],['６か月連続購入特典','guide-b-bonus.html']]],
+['スキンケア',[['スキンケアの手順','guide-a-skincare.html']]],
 ['ボーナスプラン',[['ボーナスはどうやって決まるの？','guide-c-reward-basics.html'],['基本条件','guide-c-basic.html'],['ボーナスの支払い','guide-c-payment.html'],['ボーナスプラン','guide-c-bonus.html'],['タイトル昇格条件','guide-c-title.html'],['ブランチ','guide-c-branch.html']]],
 ['手続き・申請',[['住所・連絡先の変更','guide-d.html#category=0&item=0'],['クレジットカードの登録・変更','guide-d.html#category=1&item=0'],['定期購入の変更・停止・再開','guide-d.html#category=2'],['会員資格・組織に関する手続き','guide-d.html#category=3'],['解約・クーリングオフ','guide-d.html#category=5'],['すべての手続きを見る','guide-d.html']]],
 ['その他',[['よくある困りごと','guide-e.html'],['活動のルール（特商法・コンプライアンス）','guide-compliance.html']]]
@@ -23,7 +24,7 @@ function loadManualReferences(){
 }
 function addCategoryBreadcrumb(){
  const filename=decodeURIComponent(location.pathname.split('/').pop());
- const category=filename.startsWith('guide-a-')?'新規登録':filename.startsWith('guide-b-')&&filename!=='guide-b.html'?'定期購入':null;
+ const category=filename==='guide-a-skincare.html'?'スキンケア':filename.startsWith('guide-a-')?'新規登録':filename.startsWith('guide-b-')&&filename!=='guide-b.html'?'定期購入':null;
  if(!category)return;
  const main=document.querySelector('main');
  if(!main||main.querySelector('.guide-category-breadcrumb,.bonus-breadcrumb'))return;
@@ -34,7 +35,7 @@ function addCategoryBreadcrumb(){
  nav.setAttribute('aria-label','パンくずリスト');
  const home=document.createElement('a');home.href='./ninaguide.html';home.textContent='メンバーズガイド';
  const sep1=document.createElement('span');sep1.setAttribute('aria-hidden','true');sep1.textContent='›';
- const group=document.createElement('a');group.href='./ninaguide.html#'+(category==='新規登録'?'registration':'regular');group.textContent=category;
+ const group=document.createElement('a');group.href='./ninaguide.html#'+(category==='新規登録'?'registration':category==='定期購入'?'regular':'skincare');group.textContent=category;
  const sep2=document.createElement('span');sep2.setAttribute('aria-hidden','true');sep2.textContent='›';
  const current=document.createElement('span');current.setAttribute('aria-current','page');current.textContent=title.textContent.trim();
  nav.append(home,sep1,group,sep2,current);
