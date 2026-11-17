@@ -371,6 +371,88 @@ body.registration-guide.skincare-guide #night .skincare-complete{border:1px soli
 @keyframes skin-slide-from-left{from{transform:translate3d(-24px,0,0);opacity:0}to{transform:translate3d(0,0,0);opacity:1}}
 @media(max-width:600px){.skincare-deck-controls{grid-template-columns:44px 1fr 44px}.skincare-deck-button{width:40px;height:40px;min-height:40px;font-size:21px}}
 @media(prefers-reduced-motion:reduce){.skincare-steps.is-guided .skincare-step,.skincare-steps.is-guided .skincare-step.is-entering-from-right,.skincare-steps.is-guided .skincare-step.is-entering-from-left{animation:none;transition:none}}
+/* Keep product-name colors; simplify the surrounding UI to one calm accent. */
+.skincare-page>.guide-common-title,.skincare-page .guide-category-breadcrumb a,
+.skincare-routine>h2,.skincare-routine>h2 span,
+.skincare-page .guide-section-nav a,.skincare-progress-heading,
+.skincare-progress-count,.skincare-steps.is-guided .skincare-step-title,
+.skincare-steps.is-guided .skincare-detail summary,
+.skincare-deck-button{color:#405766}
+.skincare-page>.guide-common-title::after,
+.skincare-steps.is-guided .skincare-step::before{border-color:#dbe3e7;background:#f3f6f7;color:#526b7a}
+.skincare-page .guide-section-nav a,
+.skincare-deck-button{border-color:#dbe3e7;background:#fff;box-shadow:none}
+.skincare-page .guide-section-nav a:hover,.skincare-page .guide-section-nav a:focus-visible{background:#f3f6f7;color:#405766}
+.skincare-steps.is-guided .skincare-step.is-current,
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-step.is-current,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step.is-current{border:1px solid #dbe3e7;border-radius:16px;background:#fff;box-shadow:0 4px 14px #2537460d}
+.skincare-steps.is-guided .skincare-step-number,
+.skincare-routine#morning .skincare-steps.is-guided .skincare-step-number,
+.skincare-routine#night .skincare-steps.is-guided .skincare-step-number{border-color:#9aabb5;background:#fff;color:#405766}
+.skincare-progress-track,.skincare-routine#night .skincare-progress-track{background:#edf1f3}
+.skincare-progress-value,.skincare-routine#night .skincare-progress-value{background:#6f8795}
+.skincare-steps.is-guided .skincare-product-option,
+.skincare-routine#morning .skincare-steps.is-guided .skincare-product-option,
+.skincare-routine#night .skincare-steps.is-guided .skincare-product-option{border-color:#e5eaed}
+.skincare-steps.is-guided .skincare-dose,
+.skincare-routine#night .skincare-steps.is-guided .skincare-dose{border-color:#e1e7ea;border-radius:12px;background:#f5f7f8}
+.skincare-steps.is-guided .skincare-dose-text strong,
+.skincare-routine#night .skincare-steps.is-guided .skincare-dose-text strong{color:#405766}
+.skincare-steps.is-guided .skincare-detail,
+.skincare-routine#morning .skincare-steps.is-guided .skincare-detail,
+.skincare-routine#night .skincare-steps.is-guided .skincare-detail{border-left-color:#9aabb5;background:#f7f8f9}
+.skincare-deck-button:not(:disabled):last-child,
+.skincare-routine#night .skincare-deck-button:not(:disabled):last-child{border-color:#526b7a;background:#526b7a;color:#fff;box-shadow:none}
+.skincare-deck-button:not(:disabled):last-child:hover,
+.skincare-routine#night .skincare-deck-button:not(:disabled):last-child:hover{background:#405766}
+.skincare-complete,.skincare-routine#night .skincare-complete{border-color:#dbe3e7;background:#f3f6f7;color:#405766}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-step::before,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step::before{border-color:#dbe3e7;background:#f3f6f7;color:#526b7a}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-dose,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-dose{border-color:#e1e7ea;background:#f5f7f8}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-dose-text strong,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-dose-text strong{color:#405766}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-detail,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-detail{border-left-color:#9aabb5;background:#f7f8f9}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-detail summary::before,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-detail summary::before{background:#edf1f3;color:#526b7a}
+body.registration-guide.skincare-guide #morning>.guide-common-title::after,
+body.registration-guide.skincare-guide #night>.guide-common-title::after{border-color:#dbe3e7;background:#f3f6f7;color:#526b7a}
+body.registration-guide.skincare-guide #night>h2,
+body.registration-guide.skincare-guide #night>h2 span,
+body.registration-guide.skincare-guide #night .skincare-progress-heading,
+body.registration-guide.skincare-guide #night .skincare-progress-count,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step-title,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-detail summary,
+body.registration-guide.skincare-guide #night .skincare-deck-button{color:#405766}
+body.registration-guide.skincare-guide #night .skincare-progress-track{background:#edf1f3}
+body.registration-guide.skincare-guide #night .skincare-progress-value{background:#6f8795}
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-product-option{border-color:#e5eaed}
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step-number{border-color:#9aabb5;background:#fff;color:#405766}
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-dose{border-color:#e1e7ea;background:#f5f7f8}
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-dose-text strong{color:#405766}
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-detail{border-left-color:#9aabb5;background:#f7f8f9}
+body.registration-guide.skincare-guide #night .skincare-deck-button:not(:disabled):last-child{border-color:#526b7a;background:#526b7a;color:#fff;box-shadow:none}
+body.registration-guide.skincare-guide #night .skincare-deck-button:not(:disabled):last-child:hover{background:#405766}
+body.registration-guide.skincare-guide #night .skincare-complete{border-color:#dbe3e7;background:#f3f6f7;color:#405766}
+body.registration-guide.skincare-guide #morning>h2 span::before,
+body.registration-guide.skincare-guide #night>h2 span::before{color:#9aabb5}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-step-number,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step-number{border-color:#9aabb5;background:#fff;color:#405766}
+body.registration-guide.skincare-guide #morning .skincare-progress-heading,
+body.registration-guide.skincare-guide #morning .skincare-progress-count,
+body.registration-guide.skincare-guide #night .skincare-progress-heading,
+body.registration-guide.skincare-guide #night .skincare-progress-count{color:#405766}
+body.registration-guide.skincare-guide #morning .skincare-progress-track,
+body.registration-guide.skincare-guide #night .skincare-progress-track{background:#edf1f3}
+body.registration-guide.skincare-guide #morning .skincare-progress-value,
+body.registration-guide.skincare-guide #night .skincare-progress-value{background:#6f8795}
+body.registration-guide.skincare-guide #morning .skincare-deck-button:not(:disabled):last-child,
+body.registration-guide.skincare-guide #night .skincare-deck-button:not(:disabled):last-child{border-color:#526b7a;background:#526b7a;color:#fff;box-shadow:none}
+body.registration-guide.skincare-guide #morning .skincare-deck-button:not(:disabled):last-child:hover,
+body.registration-guide.skincare-guide #night .skincare-deck-button:not(:disabled):last-child:hover{background:#405766}
+body.registration-guide.skincare-guide #morning .skincare-complete,
+body.registration-guide.skincare-guide #night .skincare-complete{border-color:#dbe3e7;background:#f3f6f7;color:#405766}
 
 </style>
 </head>
