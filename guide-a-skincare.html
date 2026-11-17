@@ -35,18 +35,26 @@
 .skincare-dose{display:flex;align-items:center;gap:8px;min-width:0}
 .skincare-dose-visual{position:relative;display:grid;flex:0 0 42px;place-items:center;width:42px;height:42px;color:#438477}
 .skincare-dose-visual i{display:block}
-.skincare-dose-visual.grapes i{width:13px;height:13px;border-radius:50%;background:#b9cf93;box-shadow:8px 0 #b9cf93}
-.skincare-dose-visual.grapes::after{position:absolute;top:7px;left:20px;width:7px;height:5px;border-radius:7px 1px;background:#76966b;content:""}
-.skincare-dose-visual.cherry i{width:14px;height:14px;border-radius:50%;background:#e4a2a0;box-shadow:inset -2px -2px 3px #aa6d6c35}
-.skincare-dose-visual.pearl i{width:12px;height:12px;border:1px solid #afc5bf;border-radius:50%;background:#fff;box-shadow:inset -2px -2px 3px #b8c5c044}
-.skincare-dose-visual.pearl i:nth-child(2){transform:translate(-3px,3px)}.skincare-dose-visual.pearl i:nth-child(3){transform:translate(3px,3px)}
+.skincare-dose-visual.grapes i{position:absolute;width:34px;height:34px;border:1px solid #88a975;border-radius:50%;background:#b9cf93;box-shadow:inset -4px -4px 5px #718c5b40}
+.skincare-dose-visual.grapes i:first-child{transform:translateX(-17px)}.skincare-dose-visual.grapes i:nth-child(2){transform:translateX(17px)}
+.skincare-dose-visual.cherry i{position:absolute;width:29px;height:29px;border:1px solid #b66b6c;border-radius:50%;background:#e4a2a0;box-shadow:inset -4px -4px 5px #8e525344}
+.skincare-dose-visual.cherry i:nth-child(2){transform:translate(13px,10px)}.skincare-dose-visual.cherry i:nth-child(3){transform:translate(-13px,10px)}
+.skincare-dose-visual.pearl i{position:absolute;width:8px;height:8px;border:1px solid #8797a0;border-radius:50%;background:#f8fbff;box-shadow:inset -2px -2px 2px #8d9ba044}
+.skincare-dose-visual.pearl i:first-child{transform:translateX(-10px)}.skincare-dose-visual.pearl i:nth-child(3){transform:translateX(10px)}
 .skincare-dose-visual.foam{width:48px;flex-basis:48px}
-.skincare-dose-visual.foam i{position:absolute;bottom:8px;width:21px;height:17px;border-radius:50% 50% 42% 42%;background:#d9eeea;box-shadow:0 0 0 2px #e6f4f180,0 3px 7px #699e9233;animation:foam-float 2.8s ease-in-out infinite}
-.skincare-dose-visual.foam i:nth-child(1){left:2px;bottom:6px;transform:scale(.88);animation-delay:-.8s}
-.skincare-dose-visual.foam i:nth-child(2){left:14px;bottom:11px;z-index:1;transform:scale(1.15);animation-delay:-1.6s}
-.skincare-dose-visual.foam i:nth-child(3){right:1px;bottom:6px;transform:scale(.9);animation-delay:-.3s}
-.skincare-dose-visual.foam i:nth-child(4){left:9px;bottom:17px;transform:scale(.68);animation-delay:-2s}
-.skincare-dose-visual.foam i:nth-child(5){right:9px;bottom:17px;transform:scale(.7);animation-delay:-1.1s}
+.skincare-dose-visual.foam i{position:absolute;border:1px solid #94b5c8;border-radius:50%;background:#f7fbff;box-shadow:inset -3px -3px 4px #a8c6db55,0 1px 3px #487a9b25;animation:foam-float 2.8s ease-in-out infinite}
+.skincare-dose-visual.foam i:nth-child(1){left:2px;bottom:7px;width:21px;height:21px;animation-delay:-.8s}
+.skincare-dose-visual.foam i:nth-child(2){left:15px;bottom:5px;width:24px;height:24px;animation-delay:-1.6s}
+.skincare-dose-visual.foam i:nth-child(3){right:1px;bottom:7px;width:21px;height:21px;animation-delay:-.3s}
+.skincare-dose-visual.foam i:nth-child(4){left:8px;bottom:20px;width:19px;height:19px;animation-delay:-2s}
+.skincare-dose-visual.foam i:nth-child(5){left:24px;bottom:21px;width:20px;height:20px;animation-delay:-1.1s}
+.skincare-dose-visual.foam i:nth-child(6){right:2px;bottom:19px;width:17px;height:17px;animation-delay:-.5s}
+.skincare-dose-visual.foam i:nth-child(7){left:17px;bottom:31px;width:14px;height:14px;animation-delay:-1.3s}
+.skincare-dose-visual.foam i:nth-child(8){left:3px;bottom:29px;width:13px;height:13px;animation-delay:-.9s}
+.skincare-dose-visual.foam i:nth-child(9){right:9px;bottom:31px;width:13px;height:13px;animation-delay:-1.9s}
+.skincare-dose-visual.foam i:nth-child(10){left:27px;bottom:35px;width:11px;height:11px;animation-delay:-.4s}
+.skincare-dose-visual.foam i:nth-child(11){left:11px;bottom:38px;width:9px;height:9px;animation-delay:-1.5s}
+.skincare-dose-visual.foam i:nth-child(12){right:1px;bottom:27px;width:10px;height:10px;animation-delay:-2.2s}
 .skincare-dose-visual.rings i{position:absolute;width:12px;height:12px;border:2px solid #70a99d;border-radius:50%;animation:ring-glow 2.4s ease-in-out infinite}
 .skincare-dose-visual.rings i:nth-child(2){width:23px;height:23px;animation-delay:.3s}
 .skincare-dose-visual.rings i:nth-child(3){width:34px;height:34px;animation-delay:.6s}
@@ -144,59 +152,114 @@
 
 /* 1つずつ進めるお手入れモード */
 body.registration-guide.skincare-guide{margin:0}
+body.registration-guide.skincare-guide{background:#fffaf0}
 body.registration-guide.skincare-guide>.guide-shared-header{padding-right:max(17px,calc((100vw - 860px)/2 + 22px))!important;padding-left:max(17px,calc((100vw - 860px)/2 + 22px))!important}
 body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17px,calc((100vw - 860px)/2 + 22px))!important;padding-left:max(17px,calc((100vw - 860px)/2 + 22px))!important}
+.skincare-page .guide-category-breadcrumb{color:#7b847d}
+.skincare-page .guide-category-breadcrumb a{color:#5d7863}
+.skincare-page>.guide-common-title{color:#315f51}
+.skincare-page>.skincare-intro{max-width:680px;color:#68756f}
+.skincare-page .guide-section-nav{gap:9px;margin-bottom:27px}
+.skincare-page .guide-section-nav a{padding:9px 14px;border:1px solid #d5e0d7;border-radius:22px;background:#fff;box-shadow:none;color:#52675a;font-size:13px;font-weight:700}
+.skincare-page .guide-section-nav a::after{content:none}
+.skincare-page .guide-section-nav a:hover,.skincare-page .guide-section-nav a:focus-visible{background:#e8f1e7;color:#315f51}
+.skincare-note{border-left:3px solid #9bb19b;border-radius:0 10px 10px 0;background:#faf9f2;color:#657369}
 .skincare-routine{overflow:visible}
+.skincare-routine>h2{color:#315f51}
+.skincare-routine#morning>h2 span{color:#79916f}
+.skincare-routine#night>h2{color:#625e7b}
+.skincare-routine#night>h2 span{color:#8983a4}
+.skincare-routine-intro{color:#68756f}
 .skincare-steps.is-guided{display:block;overflow:visible;margin:0;padding:0}
 .skincare-steps.is-guided .skincare-step[hidden]{display:none!important}
-.skincare-steps.is-guided .skincare-step.is-current{display:block;flex:none;width:100%;max-width:none;min-height:0;padding:clamp(20px,4vw,34px);border:1px solid #d6e5dc;border-radius:26px;background:#fbfaf5;box-shadow:0 15px 38px #315b501a;scroll-snap-align:none;animation:skin-step-enter .35s ease both}
-.skincare-routine#night .skincare-steps.is-guided .skincare-step.is-current{border-color:#d8d5e8;background:#faf9ff}
+.skincare-steps.is-guided .skincare-step.is-current{display:block;flex:none;width:100%;max-width:none;min-height:0;padding:clamp(20px,4vw,34px);border:1px solid #c8d5c8;border-bottom-width:3px;border-radius:14px 22px 13px 20px;background:#fff;box-shadow:0 8px 20px #354a3810;scroll-snap-align:none;animation:skin-step-enter .35s ease both}
+.skincare-routine#night .skincare-steps.is-guided .skincare-step.is-current{border-color:#d1cede;background:#fff}
 .skincare-steps.is-guided .skincare-step::before{top:15px;left:auto;right:17px;font-family:"Noto Sans JP",sans-serif;font-size:12px;letter-spacing:.08em}
 .skincare-steps.is-guided .skincare-step::after{display:none}
 .skincare-steps.is-guided .skincare-step-heading{display:flex;align-items:center;gap:14px;margin:0 0 23px;text-align:left}
-.skincare-steps.is-guided .skincare-step-number{display:grid;flex:0 0 48px;width:48px;height:48px;border:1px solid #c8ded4;background:#e8f3ee;font-size:20px}
-.skincare-routine#night .skincare-steps.is-guided .skincare-step-number{border-color:#d7d4e9;background:#eeedf8;color:#5a5687}
-.skincare-steps.is-guided .skincare-step-title{max-width:none;margin:0;color:#294a40;font-size:clamp(20px,3vw,27px);text-align:left}
+.skincare-steps.is-guided .skincare-step-number{display:grid;flex:0 0 43px;width:43px;height:43px;border:1.5px solid #78987a;border-radius:47% 53% 48% 52%;background:#fff;color:#416c4e;font-size:19px;transform:rotate(-5deg)}
+.skincare-routine#night .skincare-steps.is-guided .skincare-step-number{border-color:#938ba9;background:#fff;color:#625e7b}
+.skincare-steps.is-guided .skincare-step-title{max-width:none;margin:0;color:#304e3e;font-size:clamp(20px,3vw,27px);text-align:left}
+.skincare-routine#morning .skincare-step:first-child .skincare-step-title::after{display:block;margin-top:5px;color:#79837c;content:"こすらず、泡をクッションに。";font-size:12px;font-weight:500;letter-spacing:.01em}
 .skincare-progress{margin:0 0 16px}
 .skincare-progress-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;color:#52746a;font-size:12px;font-weight:700}
-.skincare-progress-count{color:#286b61;font-variant-numeric:tabular-nums}
-.skincare-routine#night .skincare-progress-count{color:#5a5687}
-.skincare-progress-track{height:7px;overflow:hidden;border-radius:9px;background:#e6eee9}
-.skincare-routine#night .skincare-progress-track{background:#e8e7f0}
-.skincare-progress-value{width:0;height:100%;border-radius:inherit;background:#70aa91;transition:width .35s ease}
-.skincare-routine#night .skincare-progress-value{background:#8983b2}
+.skincare-progress-count{color:#557d5b;font-variant-numeric:tabular-nums}
+.skincare-routine#night .skincare-progress-count{color:#706987}
+.skincare-progress-track{height:6px;overflow:hidden;border-radius:2px;background:#e4e9e3}
+.skincare-routine#night .skincare-progress-track{background:#e9e7ed}
+.skincare-progress-value{width:0;height:100%;border-radius:2px;background:#729879;transition:width .35s ease}
+.skincare-routine#night .skincare-progress-value{background:#8983a4}
 .skincare-steps.is-guided .skincare-product-options{gap:10px;margin-bottom:17px}
-.skincare-steps.is-guided .skincare-product-option{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;min-height:108px;padding:15px 17px;border:1px solid #e2eae4;border-left:4px solid #9fc9b7;border-radius:16px;background:#fff;text-align:left}
-.skincare-routine#night .skincare-steps.is-guided .skincare-product-option{border-color:#e7e5ef;border-left-color:#aaa5d0;background:#fff}
+.skincare-steps.is-guided .skincare-product-option{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;min-height:92px;padding:14px 8px;border:0;border-top:1px dashed #cbd6cc;border-radius:0;background:transparent;text-align:left}
+.skincare-steps.is-guided .skincare-product-option:last-child{border-bottom:1px dashed #cbd6cc}
+.skincare-routine#night .skincare-steps.is-guided .skincare-product-option{border-top-color:#d5d0de}
+.skincare-routine#night .skincare-steps.is-guided .skincare-product-option:last-child{border-bottom-color:#d5d0de}
 .skincare-steps.is-guided .skincare-product-option>div:first-child{width:auto}
 .skincare-steps.is-guided .skincare-product-name{font-size:clamp(15px,2vw,18px)}
 .skincare-steps.is-guided .skincare-product-type{font-size:11px}
+.skincare-steps.is-guided .skincare-dose-visual.foam i{border:1px solid #94b5a2;border-radius:48% 52% 47% 53%;background:#eef6ef;box-shadow:none}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:nth-child(2){border-radius:55% 45% 51% 49%}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:nth-child(4),.skincare-steps.is-guided .skincare-dose-visual.foam i:nth-child(5){display:none}
+.skincare-steps.is-guided .skincare-dose-visual.foam::after{position:absolute;top:-2px;right:1px;color:#729879;content:"✧";font-size:13px}
+.skincare-steps.is-guided .skincare-dose-visual.grapes i,.skincare-steps.is-guided .skincare-dose-visual.cherry i{box-shadow:none}
 .skincare-steps.is-guided .skincare-dose{flex-direction:column;gap:4px;justify-content:center}
 .skincare-steps.is-guided .skincare-dose-visual{width:58px;height:54px;flex-basis:54px;transform:scale(1.25)}
 .skincare-steps.is-guided .skincare-dose-visual.foam{width:62px;flex-basis:54px}
 .skincare-steps.is-guided .skincare-dose-text{text-align:center}
-.skincare-steps.is-guided .skincare-dose-text strong{font-size:clamp(15px,2vw,19px);line-height:1.45}
+.skincare-steps.is-guided .skincare-dose-text strong{color:#315f51;font-size:clamp(15px,2vw,19px);line-height:1.45}
 .skincare-steps.is-guided .skincare-dose-text small{font-size:11px}
-.skincare-steps.is-guided .skincare-detail{margin:18px 0 0;padding:14px 16px;border:1px solid #e6ece8;border-radius:15px;background:#ffffffb8}
-.skincare-routine#night .skincare-steps.is-guided .skincare-detail{border-color:#e8e6f0;background:#ffffffc9}
-.skincare-steps.is-guided .skincare-detail summary{justify-content:flex-start;min-height:0;color:#58736a;font-size:12px}
+.skincare-steps.is-guided .skincare-detail{margin:18px 0 0;padding:13px 15px;border:0;border-left:2px solid #9bb19b;border-radius:0;background:#faf9f2}
+.skincare-routine#night .skincare-steps.is-guided .skincare-detail{border-left-color:#aaa2bd;background:#f8f6fa}
+.skincare-steps.is-guided .skincare-detail summary{justify-content:flex-start;min-height:0;color:#718078;font-size:11px;letter-spacing:.06em}
 .skincare-steps.is-guided .skincare-detail[open] summary{margin-bottom:6px}
 .skincare-steps.is-guided .skincare-detail-body{padding:0}
 .skincare-steps.is-guided .skincare-instruction{font-size:15px;line-height:1.9}
 .skincare-steps.is-guided .skincare-step-footnote{font-size:12px}
 .skincare-deck-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 0}
-.skincare-deck-button{display:inline-flex;width:auto;height:auto;min-height:48px;flex-shrink:0;align-items:center;justify-content:center;padding:0 19px;white-space:nowrap;border:1px solid #c8dad0;border-radius:999px;background:#fff;color:#286b61;font-family:inherit;font-size:14px;font-weight:750;transition:transform .18s ease,background .18s ease}
-.skincare-deck-button:hover:not(:disabled){transform:translateY(-2px);background:#f1f7f3}
+.skincare-deck-button{display:inline-flex;width:auto;height:auto;min-height:46px;flex-shrink:0;align-items:center;justify-content:center;padding:0 17px;white-space:nowrap;border:1px solid #8da78f;border-radius:9px 14px 10px 13px;background:#fff;color:#3e684b;font-family:inherit;font-size:13px;font-weight:800;transition:transform .18s ease,background .18s ease}
+.skincare-deck-button:hover:not(:disabled){transform:translateY(-2px);background:#f4f7f0}
 .skincare-deck-button:focus-visible{outline:3px solid #a7d6c6;outline-offset:3px}
 .skincare-deck-button:disabled{opacity:.42}
-.skincare-deck-status{flex:1;min-width:0;color:#70817b;font-size:12px;line-height:1.5;text-align:center}
-.skincare-routine#night .skincare-deck-button{border-color:#d2d0e3;color:#5a5687}
-.skincare-routine#night .skincare-deck-button:hover:not(:disabled){background:#f6f5fb}
-.skincare-complete{margin:14px 0 0;padding:13px 15px;border-radius:14px;background:#eaf5ee;color:#286b61;font-size:14px;font-weight:750;text-align:center;animation:skin-step-enter .35s ease both}
-.skincare-routine#night .skincare-complete{background:#f0eff9;color:#5a5687}
+.skincare-deck-status{flex:1;min-width:0;color:#77827c;font-size:12px;line-height:1.5;text-align:center}
+.skincare-routine#night .skincare-deck-button{border-color:#aaa2bd;color:#625e7b}
+.skincare-routine#night .skincare-deck-button:hover:not(:disabled){background:#f8f6fa}
+.skincare-complete{margin:14px 0 0;padding:13px 15px;border:1px dashed #91a991;border-radius:10px 15px 11px 14px;background:#f1f6ef;color:#416c4e;font-size:14px;font-weight:750;text-align:center;animation:skin-step-enter .35s ease both}
+.skincare-routine#night .skincare-complete{border-color:#aaa2bd;background:#f7f5fa;color:#625e7b}
+/* A little cheerful, hand-doodled character without adding product photos. */
+.skincare-page>.guide-common-title::after{content:none}
+.skincare-page .guide-section-nav a[href="#morning"]{border-color:#efd181;background:#fff2c4;color:#755c27}
+.skincare-page .guide-section-nav a[href="#night"]{border-color:#d6c9ef;background:#f3eefb;color:#62557b}
+.skincare-routine#morning>h2 span::before{margin-right:4px;color:#edaa45;content:"☀"}
+.skincare-routine#night>h2 span::before{margin-right:4px;color:#9182bf;content:"☾"}
+.skincare-routine#morning .skincare-steps.is-guided .skincare-step.is-current{border-color:#e8cf81;background:#fffdf6}
+.skincare-routine#night .skincare-steps.is-guided .skincare-step.is-current{border-color:#d0c3e8;background:#fcfaff}
+.skincare-routine#morning .skincare-steps.is-guided .skincare-step-number{border-color:#dfb84c;background:#ffe69a;color:#72551b}
+.skincare-routine#night .skincare-steps.is-guided .skincare-step-number{border-color:#b4a2d8;background:#e9defb;color:#5e4d7f}
+.skincare-steps.is-guided .skincare-step::before{top:12px;right:13px;padding:5px 10px;border:1px solid #ebc85f;border-radius:48% 52% 43% 57%;background:#fff0b8;color:#846427;content:"いまここ！";font-size:10px;letter-spacing:.03em;transform:rotate(3deg)}
+.skincare-routine#night .skincare-steps.is-guided .skincare-step::before{border-color:#c5b6df;background:#f0e9fa;color:#6b5b88}
+.skincare-routine#morning .skincare-steps.is-guided .skincare-product-option{border-top-color:#e8dcae}
+.skincare-routine#morning .skincare-steps.is-guided .skincare-product-option:last-child{border-bottom-color:#e8dcae}
+.skincare-routine#night .skincare-steps.is-guided .skincare-product-option{border-top-color:#ded5eb}
+.skincare-routine#night .skincare-steps.is-guided .skincare-product-option:last-child{border-bottom-color:#ded5eb}
+.skincare-steps.is-guided .skincare-dose{padding:7px 8px;border:1px solid #f0dda0;border-radius:12px 17px 13px 16px;background:#fff2c4}
+.skincare-routine#night .skincare-steps.is-guided .skincare-dose{border-color:#dfd3f0;background:#f3eefb}
+.skincare-steps.is-guided .skincare-dose-text strong{color:#755c27}
+.skincare-routine#night .skincare-steps.is-guided .skincare-dose-text strong{color:#62557b}
+.skincare-steps.is-guided .skincare-dose-visual.foam i{background:#e5f4e5}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:nth-child(3){background:#fff0c4}
+.skincare-steps.is-guided .skincare-dose-visual.foam::after{color:#e39a48}
+.skincare-routine#morning .skincare-steps.is-guided .skincare-detail{border-left-color:#e7c86d;background:#fff9e8}
+.skincare-routine#night .skincare-steps.is-guided .skincare-detail{border-left-color:#b8a8d7;background:#f8f4fc}
+.skincare-deck-button:not(:disabled):last-child{border-color:#e69a72;background:#f28e68;color:#fff}
+.skincare-deck-button:not(:disabled):last-child:hover{background:#e77b57}
+.skincare-routine#night .skincare-deck-button:not(:disabled):last-child{border-color:#8f82b2;background:#8174a8;color:#fff}
+.skincare-routine#night .skincare-deck-button:not(:disabled):last-child:hover{background:#716393}
+.skincare-complete{border-color:#e6bf60;background:#fff3c9;color:#755c27}
+.skincare-routine#night .skincare-complete{border-color:#c5b6df;background:#f0e9fa;color:#62557b}
+.skincare-page>.skincare-intro::after{content:none}
 @keyframes skin-step-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:600px){
- .skincare-steps.is-guided .skincare-step.is-current{padding:21px 16px;border-radius:21px}
+ .skincare-steps.is-guided .skincare-step.is-current{padding:21px 16px;border-radius:12px 19px 13px 17px}
  .skincare-steps.is-guided .skincare-step-heading{gap:11px;margin-bottom:18px}
  .skincare-steps.is-guided .skincare-step-number{flex-basis:42px;width:42px;height:42px;font-size:18px}
  .skincare-steps.is-guided .skincare-step-title{font-size:20px}
@@ -212,6 +275,103 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 }
 @media(prefers-reduced-motion:reduce){.skincare-progress-value,.skincare-deck-button{transition:none}.skincare-steps.is-guided .skincare-step.is-current,.skincare-complete{animation:none}}
 
+/* Match the NiNA GUIDE blue and lime accent palette. */
+body.registration-guide.skincare-guide{background:#fff}
+.skincare-page>.guide-common-title,.skincare-page .guide-category-breadcrumb a{color:#0055a4}
+.skincare-page>.guide-common-title::after{border-color:#c6d900;border-radius:999px;background:#f3f6db;color:#0055a4;transform:none}
+.skincare-page>.skincare-intro::after{color:#c6d900}
+.skincare-page .guide-section-nav a[href="#morning"],.skincare-page .guide-section-nav a[href="#night"]{border:1px solid #d4e2ed;background:#fff;color:#0055a4;box-shadow:2px 3px 0 #e8f0f6}
+.skincare-page .guide-section-nav a[href="#morning"]:hover,.skincare-page .guide-section-nav a[href="#morning"]:focus-visible,.skincare-page .guide-section-nav a[href="#night"]:hover,.skincare-page .guide-section-nav a[href="#night"]:focus-visible{background:#f2f7fb}
+.skincare-note{border-left-color:#c6d900;background:#f2f7fb;color:#3c5367}
+.skincare-routine>h2,.skincare-routine#night>h2,.skincare-routine>h2 span,.skincare-routine#night>h2 span{color:#0055a4}
+.skincare-routine>h2 span::before,.skincare-routine#night>h2 span::before{color:#c6d900}
+.skincare-steps.is-guided .skincare-step.is-current,.skincare-routine#night .skincare-steps.is-guided .skincare-step.is-current{border:2px solid #0055a4;border-radius:24px 24px 26px 10px;background:#f2f7fb;box-shadow:5px 6px 0 #c6d900}
+.skincare-steps.is-guided .skincare-step-number,.skincare-routine#morning .skincare-steps.is-guided .skincare-step-number,.skincare-routine#night .skincare-steps.is-guided .skincare-step-number{border:1px solid #0055a4;border-radius:50%;background:#fff;color:#0055a4;transform:none}
+.skincare-steps.is-guided .skincare-step-title{color:#0055a4}
+.skincare-routine#morning .skincare-step:first-child .skincare-step-title::after{color:#556777}
+.skincare-steps.is-guided .skincare-step::before,.skincare-routine#night .skincare-steps.is-guided .skincare-step::before{border:1px solid #c6d900;border-radius:999px;background:#f3f6db;color:#0055a4;content:"STEP";font-size:10px;letter-spacing:.08em;transform:none}
+.skincare-progress-heading,.skincare-progress-count,.skincare-routine#night .skincare-progress-count{color:#0055a4}
+.skincare-progress-track,.skincare-routine#night .skincare-progress-track{border-radius:8px;background:#d9e5ed}
+.skincare-progress-value,.skincare-routine#night .skincare-progress-value{border-radius:8px;background:#0055a4}
+.skincare-steps.is-guided .skincare-product-option,.skincare-routine#night .skincare-steps.is-guided .skincare-product-option,.skincare-routine#morning .skincare-steps.is-guided .skincare-product-option,.skincare-routine#night .skincare-steps.is-guided .skincare-product-option:last-child,.skincare-routine#morning .skincare-steps.is-guided .skincare-product-option:last-child{border-color:#d9e5ed}
+.skincare-steps.is-guided .skincare-product-name{color:#273544}
+.skincare-steps.is-guided .skincare-dose,.skincare-routine#night .skincare-steps.is-guided .skincare-dose{border:1px solid #c6d900;border-radius:14px;background:#f3f6db}
+.skincare-steps.is-guided .skincare-dose-text strong,.skincare-routine#night .skincare-steps.is-guided .skincare-dose-text strong{color:#0055a4}
+.skincare-steps.is-guided .skincare-dose-visual.foam i{border-color:#9bbbd0;background:#e2efff}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:nth-child(3){background:#f3f6db}
+.skincare-steps.is-guided .skincare-dose-visual.foam::after{color:#0055a4}
+.skincare-steps.is-guided .skincare-detail,.skincare-routine#morning .skincare-steps.is-guided .skincare-detail,.skincare-routine#night .skincare-steps.is-guided .skincare-detail{border-left-color:#c6d900;background:#fff}
+.skincare-steps.is-guided .skincare-detail summary{color:#0055a4}
+.skincare-deck-button,.skincare-routine#night .skincare-deck-button{border:1px solid #0055a4;border-radius:12px;background:#fff;color:#0055a4}
+.skincare-deck-button:not(:disabled):last-child,.skincare-routine#night .skincare-deck-button:not(:disabled):last-child{border:1px solid #0055a4;background:#0055a4;color:#fff;box-shadow:3px 4px 0 #c6d900}
+.skincare-deck-button:not(:disabled):last-child:hover,.skincare-routine#night .skincare-deck-button:not(:disabled):last-child:hover{background:#00458a}
+.skincare-complete,.skincare-routine#night .skincare-complete{border:1px solid #c6d900;border-radius:14px;background:#f3f6db;color:#0055a4}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-step.is-current,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step.is-current{border:2px solid #0055a4;border-radius:24px 24px 26px 10px;background:#f2f7fb;box-shadow:5px 6px 0 #c6d900}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-step-number,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step-number{border:1px solid #0055a4;border-radius:50%;background:#fff;color:#0055a4;transform:none}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-step::before,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-step::before{border:1px solid #c6d900;border-radius:999px;background:#f3f6db;color:#0055a4;content:"STEP";transform:none}
+body.registration-guide.skincare-guide #morning .skincare-progress-count,
+body.registration-guide.skincare-guide #night .skincare-progress-count{color:#0055a4}
+body.registration-guide.skincare-guide #morning .skincare-progress-track,
+body.registration-guide.skincare-guide #night .skincare-progress-track{border-radius:8px;background:#d9e5ed}
+body.registration-guide.skincare-guide #morning .skincare-progress-value,
+body.registration-guide.skincare-guide #night .skincare-progress-value{border-radius:8px;background:#0055a4}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-product-option,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-product-option{border-color:#d9e5ed}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-dose,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-dose{border:1px solid #c6d900;border-radius:14px;background:#f3f6db}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-dose-text strong,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-dose-text strong{color:#0055a4}
+body.registration-guide.skincare-guide #morning .skincare-steps.is-guided .skincare-detail,
+body.registration-guide.skincare-guide #night .skincare-steps.is-guided .skincare-detail{border-left-color:#c6d900;background:#fff}
+body.registration-guide.skincare-guide #night .skincare-deck-button:not(:disabled):last-child{border:1px solid #0055a4;background:#0055a4;color:#fff;box-shadow:3px 4px 0 #c6d900}
+body.registration-guide.skincare-guide #night .skincare-deck-button:not(:disabled):last-child:hover{background:#00458a}
+body.registration-guide.skincare-guide #night .skincare-complete{border:1px solid #c6d900;background:#f3f6db;color:#0055a4}
+/* One card at a time; arrows and horizontal swipes navigate the routine. */
+.skincare-steps.is-guided{position:relative;display:block;overflow:hidden;touch-action:pan-y}
+.skincare-steps.is-guided .skincare-step[hidden]{display:none!important}
+.skincare-steps.is-guided .skincare-step{touch-action:pan-y;user-select:none;transition:transform .24s cubic-bezier(.2,.75,.3,1),opacity .24s ease;cursor:grab}
+.skincare-steps.is-guided .skincare-step.is-dragging{transition:none;cursor:grabbing}
+.skincare-steps.is-guided .skincare-step.is-leaving-left{transform:translate3d(-28%,0,0);opacity:0}
+.skincare-steps.is-guided .skincare-step.is-leaving-right{transform:translate3d(28%,0,0);opacity:0}
+.skincare-steps.is-guided .skincare-step.is-entering-from-right{animation:skin-slide-from-right .24s ease both}
+.skincare-steps.is-guided .skincare-step.is-entering-from-left{animation:skin-slide-from-left .24s ease both}
+.skincare-deck-controls{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:12px}
+.skincare-deck-button{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;font-size:23px;line-height:1}
+.skincare-deck-status{grid-column:2;grid-row:1}
+.skincare-deck-button:first-child{grid-column:1;grid-row:1}
+.skincare-deck-button:last-child{grid-column:3;grid-row:1;justify-self:end}
+.skincare-product-name[data-brand]{display:table;width:fit-content;max-width:100%;padding:2px 7px;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.skincare-steps.is-guided .skincare-product-name[data-brand="demakiyan"]{background:#fff3c9;color:#765716}
+.skincare-steps.is-guided .skincare-product-name[data-brand="ambelir"]{background:#f1e4dc;color:#70452d}
+.skincare-steps.is-guided .skincare-product-name[data-brand="blancheur"]{background:#e7f2ff;color:#145d9b}
+.skincare-steps.is-guided .skincare-product-name[data-brand="flora"]{background:#e9eaec;color:#292d32}
+.skincare-steps.is-guided .skincare-product-name[data-brand="actia"]{background:#fde9e8;color:#ad303b}
+.skincare-steps.is-guided .skincare-product-name[data-brand="vibran"]{background:#f5f4ed;color:#5d5c53}
+.skincare-steps.is-guided .skincare-product-name[data-brand="revolution"]{background:#e9ecef;color:#5a626b}
+.skincare-steps.is-guided .skincare-product-name[data-brand="uv"]{background:#fdebf1;color:#994b68}
+.skincare-steps.is-guided .skincare-product-name[data-brand="repair"]{background:#e7edf7;color:#172d52}
+.skincare-steps.is-guided .skincare-dose-visual.foam i{display:none;border:0;background:#fff;box-shadow:0 1px 4px #a8c6db35;animation:none}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:first-child{display:block;left:7px;bottom:10px;width:48px;height:23px;border-radius:45% 55% 42% 48%;box-shadow:0 2px 5px #a8c6db35}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:first-child::before,.skincare-steps.is-guided .skincare-dose-visual.foam i:first-child::after{position:absolute;border-radius:50%;background:#fff;content:""}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:first-child::before{top:-9px;left:7px;width:23px;height:23px;box-shadow:0 1px 4px #a8c6db25}
+.skincare-steps.is-guided .skincare-dose-visual.foam i:first-child::after{top:-5px;right:4px;width:19px;height:19px;box-shadow:0 1px 4px #a8c6db25}
+.skincare-steps.is-guided .skincare-dose-visual.foam::after{content:none}
+.skincare-steps.is-guided .skincare-dose-visual.foam{height:56px;flex-basis:56px}
+.skincare-steps.is-guided .skincare-dose-visual.grapes{width:78px;height:54px;flex-basis:78px}
+.skincare-steps.is-guided .skincare-dose-visual.pumps{width:54px;height:54px;flex-basis:54px}
+.skincare-steps.is-guided .skincare-dose-visual.pumps i{position:absolute;bottom:10px;width:10px;height:14px;border:1.5px solid #0055a4;border-radius:3px 3px 4px 4px;background:#fff}
+.skincare-steps.is-guided .skincare-dose-visual.pumps i:first-child{left:15px}
+.skincare-steps.is-guided .skincare-dose-visual.pumps i:nth-child(2){left:30px}
+.skincare-steps.is-guided .skincare-dose-visual.pumps i::before{position:absolute;top:-5px;left:1px;width:5px;height:3px;border-top:1.5px solid #0055a4;border-right:1.5px solid #0055a4;content:""}
+.skincare-steps.is-guided .skincare-dose-visual{overflow:visible}
+@keyframes skin-slide-from-right{from{transform:translate3d(24px,0,0);opacity:0}to{transform:translate3d(0,0,0);opacity:1}}
+@keyframes skin-slide-from-left{from{transform:translate3d(-24px,0,0);opacity:0}to{transform:translate3d(0,0,0);opacity:1}}
+@media(max-width:600px){.skincare-deck-controls{grid-template-columns:44px 1fr 44px}.skincare-deck-button{width:40px;height:40px;min-height:40px;font-size:21px}}
+@media(prefers-reduced-motion:reduce){.skincare-steps.is-guided .skincare-step,.skincare-steps.is-guided .skincare-step.is-entering-from-right,.skincare-steps.is-guided .skincare-step.is-entering-from-left{animation:none;transition:none}}
+
 </style>
 </head>
 <body class="registration-guide skincare-guide">
@@ -222,7 +382,7 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <a href="#morning">朝のお手入れ</a>
 <a href="#night">夜のお手入れ</a>
 </nav>
-<aside class="skincare-note"><strong>使用量の目安</strong>量は図形でもイメージできるようにしています。「×2回」は表示の量を2回に分けて使う意味です。肌の状態や商品の最新案内もあわせてご確認ください。</aside>
+<aside class="skincare-note"><strong>使用量の目安</strong>丸は量の目安をイメージした図です。「×2回」は、表示量を2回分くり返す目安です。肌の状態や商品の最新案内もあわせてご確認ください。</aside>
 
 <section class="skincare-routine" id="morning" aria-labelledby="morning-title">
 <h2 id="morning-title">朝のお手入れ <span>MORNING</span></h2>
@@ -232,8 +392,8 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <div class="skincare-card">
 <header class="skincare-step-heading"><span class="skincare-step-number">1</span><h3 class="skincare-step-title">泡を作って、やさしく洗顔</h3></header>
 <div class="skincare-product-options">
-<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール</p><span class="skincare-product-type">洗顔石けん｜朝・夜</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
-<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール ブランシュール</p><span class="skincare-product-type">洗顔石けん｜朝・夜</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール</p><span class="skincare-product-type">洗顔石けん｜朝・夜</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール ブランシュール</p><span class="skincare-product-type">洗顔石けん｜朝・夜</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
 </div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">泡立てネットを湿らせ、石けんをネットにこすりつけて成分を取ります。少しずつ水を加えて泡立て、顔をぬるま湯でぬらしてから、泡をクッションにTゾーンからやさしく洗います。</p>
 <small class="skincare-step-footnote">小鼻・あごは指の腹でそっと。目もと・口もとはこすらず、ぬるま湯ですすぎ、冷水で軽くパッティング。タオルは押し当てて水分を取ります。</small></div></details>
@@ -250,7 +410,7 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <div class="skincare-card">
 <header class="skincare-step-heading"><span class="skincare-step-number">3</span><h3 class="skincare-step-title">化粧水でうるおいを補う</h3></header>
 <div class="skincare-product-options">
-<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ プレシャス+</p><span class="skincare-product-type">ハリ・うるおい化粧水</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true">17</span><span class="skincare-dose-text"><strong>17プッシュ × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ プレシャス+</p><span class="skincare-product-type">ハリ・うるおい化粧水</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>17プッシュ × 2セット</strong></span></div></div>
 <div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン ローション プリュス</p><span class="skincare-product-type">透明感・うるおい化粧水</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に2周 × 2回</strong></span></div></div>
 </div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">選んだ化粧水を顔全体に吹きかけます。肌がしっとりやわらかく感じるまでなじませ、目もと・口もとはハンドプレスします。</p></div></details>
@@ -260,7 +420,7 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <div class="skincare-card">
 <header class="skincare-step-heading"><span class="skincare-step-number">4</span><h3 class="skincare-step-title">美容液を顔全体になじませる</h3></header>
 <div class="skincare-product-options">
-<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ エフェクティブ+</p><span class="skincare-product-type">ハリ・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true">4</span><span class="skincare-dose-text"><strong>4プッシュ × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ エフェクティブ+</p><span class="skincare-product-type">ハリ・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>4プッシュ × 2セット</strong></span></div></div>
 <div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン セラム プリュス</p><span class="skincare-product-type">透明感・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に2周 × 2回</strong></span></div></div>
 </div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">美容液を顔全体になじませてから、気になる部分に重ねます。複数使うときは軽いテクスチャーのものから。顔全体をやさしくハンドプレスします。</p></div></details>
@@ -290,7 +450,7 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <header class="skincare-step-heading"><span class="skincare-step-number">7</span><h3 class="skincare-step-title">日焼け止めをムラなくなじませる</h3></header>
 <div class="skincare-product-options">
 <div class="skincare-product-option"><div><p class="skincare-product-name">UVリキッド ミュー ヴィサージュ</p><span class="skincare-product-type">日焼け止め・美容液（フェイス用）｜SPF25 PA++</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>小さいさくらんぼ粒 1個分</strong><small>顔全体</small></span></div></div>
-<div class="skincare-product-option"><div><p class="skincare-product-name">UVリキッド ミュー コール</p><span class="skincare-product-type">日焼け止め（ボディ・フェイス用）｜SPF50+ PA++++</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>顔 1個分 ＋ 首・デコルテ 2個分</strong><small>小さいさくらんぼ粒</small></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">UVリキッド ミュー コール</p><span class="skincare-product-type">日焼け止め（ボディ・フェイス用）｜SPF50+ PA++++</span></div><div class="skincare-dose"><span class="skincare-dose-visual cherry" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>顔 1個分 ＋ 首・デコルテ 2個分</strong><small>小さいさくらんぼ粒</small></span></div></div>
 </div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">手に取り、額・鼻・両頬・あごに置いて顔の内側から外側へなじませます。頬骨やTゾーンなど高い部分は重ねづけし、顔全体をハンドプレスします。</p>
 <small class="skincare-step-footnote">生え際・耳の後ろ・首元も忘れずに。汗や皮脂の後は必要に応じてつけ直してください。</small></div></details>
@@ -306,7 +466,7 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <li class="skincare-step">
 <div class="skincare-card">
 <header class="skincare-step-heading"><span class="skincare-step-number">1</span><h3 class="skincare-step-title">クレンジングでメイクを落とす</h3></header>
-<div class="skincare-product-option"><div><p class="skincare-product-name">デマキヤン アセニール</p><span class="skincare-product-type">夜、泡洗顔の前に</span></div><div class="skincare-dose"><span class="skincare-dose-visual grapes" aria-hidden="true"><i></i></span><span class="skincare-dose-text"><strong>マスカット粒 2個分</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">デマキヤン アセニール</p><span class="skincare-product-type">夜、泡洗顔の前に</span></div><div class="skincare-dose"><span class="skincare-dose-visual grapes" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>マスカット粒 2個分</strong></span></div></div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">額・鼻・両頬・あごの5か所に置き、指の腹でゆっくり円を描いてなじませます。目もと・口もとは力を抜き、指先の感触がふっと軽くなったら、ぬるま湯で丁寧にすすぎます。</p></div></details>
 </div>
 </li>
@@ -314,8 +474,8 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <div class="skincare-card">
 <header class="skincare-step-heading"><span class="skincare-step-number">2</span><h3 class="skincare-step-title">濃密な泡をクッションにして洗う</h3></header>
 <div class="skincare-product-options">
-<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール</p><span class="skincare-product-type">洗顔石けん</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
-<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール ブランシュール</p><span class="skincare-product-type">洗顔石けん</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール</p><span class="skincare-product-type">洗顔石けん</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">サヴォン アンベリール ブランシュール</p><span class="skincare-product-type">洗顔石けん</span></div><div class="skincare-dose"><span class="skincare-dose-visual foam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>両手いっぱいの濃密泡</strong></span></div></div>
 </div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">Tゾーンから泡をやさしく転がして洗います。ぬるま湯を手ですくってすすぎ、冷水で軽くパッティング。やわらかいタオルで押さえて水分を取ります。</p></div></details>
 </div>
@@ -325,14 +485,14 @@ body.registration-guide.skincare-guide>.guide-shared-footer{padding-right:max(17
 <header class="skincare-step-heading"><span class="skincare-step-number">3</span><h3 class="skincare-step-title">ミストの後に、化粧水で補水</h3></header>
 <div class="skincare-product-option"><div><p class="skincare-product-name">フローラ バイオシールド ミストウォーター</p><span class="skincare-product-type">洗顔後の肌を保護するミスト</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に3周</strong><small>約20cm離して</small></span></div></div>
 <details class="skincare-detail"><summary>使い方・ポイントを見る</summary><div class="skincare-detail-body"><p class="skincare-instruction">顔から約20cm離してミストを3周吹きかけ、軽くなじませてから、朝と同じ化粧水（アクティアージュ プレシャス+ または ヴィブラン ローション プリュス）を使用量どおりに吹きかけます。肌がしっとりやわらかくなるまでなじませます。</p>
-<small class="skincare-step-footnote">化粧水の量：アクティアージュ プレシャス+ は17プッシュ×2回／ヴィブラン ローション プリュスは顔に2周×2回。</small></div></details>
+<small class="skincare-step-footnote">化粧水の量：アクティアージュ プレシャス+ は17プッシュ×2セット／ヴィブラン ローション プリュスは顔に2周×2セット。</small></div></details>
 </div>
 </li>
 <li class="skincare-step">
 <div class="skincare-card">
 <header class="skincare-step-heading"><span class="skincare-step-number">4</span><h3 class="skincare-step-title">美容液を顔全体になじませる</h3></header>
 <div class="skincare-product-options">
-<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ エフェクティブ+</p><span class="skincare-product-type">ハリ・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true">4</span><span class="skincare-dose-text"><strong>4プッシュ × 2回</strong></span></div></div>
+<div class="skincare-product-option"><div><p class="skincare-product-name">アクティアージュ エフェクティブ+</p><span class="skincare-product-type">ハリ・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual pumps" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>4プッシュ × 2セット</strong></span></div></div>
 <div class="skincare-product-option"><div><p class="skincare-product-name">ヴィブラン セラム プリュス</p><span class="skincare-product-type">透明感・うるおい美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual rings" aria-hidden="true"><i></i><i></i></span><span class="skincare-dose-text"><strong>顔に2周 × 2回</strong></span></div></div>
 <div class="skincare-product-option"><div><p class="skincare-product-name">ゼロ グラビティ リペアセラム</p><span class="skincare-product-type">夜用・集中美容液</span></div><div class="skincare-dose"><span class="skincare-dose-visual bottle" aria-hidden="true"></span><span class="skincare-dose-text"><strong>1本を1回で使い切る</strong></span></div></div>
 </div>
@@ -374,13 +534,27 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   const cards = Array.from(deck.querySelectorAll(".skincare-step"));
   if (!cards.length) return;
   const isNight = routine.id === "night";
+  routine.querySelectorAll(".skincare-product-name").forEach((name) => {
+    const text = name.textContent;
+    const brand = text.includes("リペア") ? "repair"
+      : text.includes("デマキヤン") ? "demakiyan"
+      : text.includes("ブランシュール") ? "blancheur"
+      : text.includes("アンベリール") ? "ambelir"
+      : text.includes("フローラ") ? "flora"
+      : text.includes("アクティアージュ") ? "actia"
+      : text.includes("ヴィブラン") ? "vibran"
+      : text.includes("クリーム レボリューション") ? "revolution"
+      : text.startsWith("UV") ? "uv"
+      : "";
+    if (brand) name.dataset.brand = brand;
+  });
   const progress = document.createElement("div");
   progress.className = "skincare-progress";
   progress.setAttribute("aria-label", isNight ? "夜のお手入れの進み具合" : "朝のお手入れの進み具合");
   const progressHeading = document.createElement("div");
   progressHeading.className = "skincare-progress-heading";
   const progressLabel = document.createElement("span");
-  progressLabel.textContent = "いまの手順";
+  progressLabel.textContent = isNight ? "夜のお手入れ" : "朝のお手入れ";
   const progressCount = document.createElement("span");
   progressCount.className = "skincare-progress-count";
   progressHeading.append(progressLabel, progressCount);
@@ -400,7 +574,8 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   const previous = document.createElement("button");
   previous.className = "skincare-deck-button";
   previous.type = "button";
-  previous.textContent = "← 前の手順";
+  previous.setAttribute("aria-label", "前の手順へ");
+  previous.textContent = "←";
   const status = document.createElement("span");
   status.className = "skincare-deck-status";
   status.setAttribute("aria-live", "polite");
@@ -408,42 +583,114 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   const next = document.createElement("button");
   next.className = "skincare-deck-button";
   next.type = "button";
+  next.setAttribute("aria-label", "次の手順へ");
   controls.append(previous, status, next);
   let active = 0;
   let completed = false;
   const completion = document.createElement("p");
   completion.className = "skincare-complete";
   completion.hidden = true;
-  completion.textContent = isNight ? "夜のお手入れ完了。今日もおつかれさまでした。" : "朝のお手入れ完了。気持ちよく一日を始めましょう。";
-  const render = () => {
+  completion.textContent = isNight ? "ぜんぶできた！今日もおつかれさま ☾" : "ぜんぶできた！気持ちよく一日を始めよう ☀";
+  let isAnimating = false;
+  let pointerId = null;
+  let pointerStartX = 0;
+  let pointerStartY = 0;
+  let pointerDeltaX = 0;
+  let isDragging = false;
+  const render = (entryDirection = 0) => {
     cards.forEach((card, index) => {
       const current = index === active;
       card.hidden = !current;
       card.classList.toggle("is-current", current);
+      card.classList.remove("is-next", "is-leaving-left", "is-leaving-right");
       if (current) card.setAttribute("aria-current", "step");
       else card.removeAttribute("aria-current");
+      if (current) {
+        card.removeAttribute("aria-hidden");
+        card.inert = false;
+        if (entryDirection) {
+          const entryClass = entryDirection > 0 ? "is-entering-from-right" : "is-entering-from-left";
+          card.classList.add(entryClass);
+          window.setTimeout(() => card.classList.remove(entryClass), 260);
+        }
+      } else {
+        card.setAttribute("aria-hidden", "true");
+        card.inert = true;
+      }
       const detail = card.querySelector(".skincare-detail");
       if (current && detail) detail.open = true;
     });
     progressCount.textContent = (active + 1) + " / " + cards.length;
     progressTrack.setAttribute("aria-valuenow", String(active + 1));
     progressValue.style.width = ((active + 1) / cards.length * 100) + "%";
-    status.textContent = completed ? "今日の手順はすべて完了です" : active === cards.length - 1 ? "最後の手順です" : "あと" + (cards.length - active - 1) + "手順";
+    status.textContent = completed ? "今日のお手入れ、おしまい！" : active === cards.length - 1 ? "ラスト1つ！" : "矢印・スワイプで切替";
     previous.disabled = active === 0;
     next.disabled = completed;
-    next.textContent = active === cards.length - 1 ? completed ? "完了！" : "お手入れ完了 ✓" : "次へ進む →";
+    next.textContent = "→";
     completion.hidden = !completed;
   };
+  const move = (direction) => {
+    if (isAnimating) return;
+    const target = active + direction;
+    if (target < 0) return;
+    if (target >= cards.length) {
+      completed = true;
+      render(direction);
+      return;
+    }
+    isAnimating = true;
+    cards[active].classList.add(direction < 0 ? "is-leaving-right" : "is-leaving-left");
+    window.setTimeout(() => {
+      active = target;
+      completed = false;
+      isAnimating = false;
+      render();
+    }, 240);
+  };
   previous.addEventListener("click", () => {
-    if (active > 0) active--;
-    completed = false;
-    render();
+    move(-1);
   });
   next.addEventListener("click", () => {
-    if (active < cards.length - 1) active++;
-    else completed = true;
-    render();
+    move(1);
   });
+  deck.addEventListener("pointerdown", (event) => {
+    const card = event.target.closest(".skincare-step.is-current");
+    if (!card || event.target.closest("button,summary,a,input,select,textarea")) return;
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    pointerId = event.pointerId;
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
+    pointerDeltaX = 0;
+    isDragging = false;
+    card.setPointerCapture(pointerId);
+  });
+  deck.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== pointerId) return;
+    const dx = event.clientX - pointerStartX;
+    const dy = event.clientY - pointerStartY;
+    if (!isDragging && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.15) {
+      isDragging = true;
+      cards[active].classList.add("is-dragging");
+    }
+    if (!isDragging) return;
+    event.preventDefault();
+    pointerDeltaX = dx;
+    cards[active].style.transform = "translate3d(" + dx + "px,0,0) rotate(" + (dx * .012) + "deg)";
+  });
+  const finishPointer = (event) => {
+    if (event.pointerId !== pointerId) return;
+    const card = cards[active];
+    pointerId = null;
+    card.classList.remove("is-dragging");
+    card.style.transform = "";
+    if (isDragging && Math.abs(pointerDeltaX) > Math.min(90, card.offsetWidth * .22)) {
+      move(pointerDeltaX < 0 ? 1 : -1);
+    }
+    isDragging = false;
+    pointerDeltaX = 0;
+  };
+  deck.addEventListener("pointerup", finishPointer);
+  deck.addEventListener("pointercancel", finishPointer);
   deck.classList.add("is-guided");
   deck.insertAdjacentElement("afterend", controls);
   controls.insertAdjacentElement("afterend", completion);

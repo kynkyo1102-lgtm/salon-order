@@ -16,6 +16,9 @@ main section.pickup-section{padding-top:45px;padding-bottom:40px}.pickup-heading
 @media(max-width:700px){.pickup-card{flex-basis:72%;max-width:235px;min-height:252px}.pickup-art{height:92px}.pickup-main-title{font-size:22px}}
 .hero-brand{text-align:center;margin:0 auto 34px}
 .hero-title-row{display:flex;align-items:center;justify-content:center;gap:10px}
+.category-section>h2{margin-bottom:8px}
+.category-lead{margin:0 0 24px;color:#657281;font-size:14px}
+@media(max-width:650px){.category-lead{font-size:12px;margin-bottom:19px}}
 .hero-title-row h1{margin:0;font-size:clamp(44px,6.7vw,76px)}
 .hero-mascot{width:57px;height:78px;object-fit:contain;flex-shrink:0}
 .hero-brand>p:first-child{font-size:12px;font-weight:700;letter-spacing:.18em;color:#0055A4;margin:0 0 8px}
