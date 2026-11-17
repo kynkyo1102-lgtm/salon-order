@@ -90,6 +90,57 @@ body.skincare-guide { background:#f3f1ec; color:#26333b; }
  .skincare-steps.is-guided .skincare-dose-text strong { font-size:11px; }
  .skincare-detail { margin-top:12px; }
 }
+
+/* Usability pass: clearer AM/PM identity, stacked cards, and explicit swipe cues. */
+.skincare-page .guide-section-nav a:first-child { border-color:#c9b98d; background:#f5f0df; color:#66552f; }
+.skincare-page .guide-section-nav a:last-child { border-color:#9daebd; background:#e9eff4; color:#344e66; }
+.skincare-routine#morning { padding:24px 18px 30px; border:1px solid #e5dcc5; border-radius:22px; background:#faf8f0; }
+.skincare-routine#night { padding:24px 18px 30px; border:1px solid #d4dfe8; border-radius:22px; background:#f0f4f7; }
+.skincare-routine#morning > h2 { color:#66552f; }
+.skincare-routine#morning > h2 span { color:#a18a50; }
+.skincare-routine#night > h2 { color:#344e66; }
+.skincare-routine#night > h2 span { color:#718da8; }
+.skincare-routine#morning .skincare-progress-value { background:#b49b5e; }
+.skincare-routine#night .skincare-progress-value { background:#6686a3; }
+.skincare-routine#morning .skincare-step.is-current {
+  border-color:#d9cda9 !important;
+  box-shadow:0 2px 0 #e9e1ce, 0 6px 0 #f0eadc, 0 15px 30px rgba(92,76,42,.13) !important;
+}
+.skincare-routine#night .skincare-step.is-current {
+  border-color:#c4d1dc !important;
+  box-shadow:0 2px 0 #dce5ec, 0 6px 0 #e6edf2, 0 15px 30px rgba(45,67,88,.13) !important;
+}
+/* Remove the decorative top-right STEP/diamond marker. */
+.skincare-steps.is-guided .skincare-step.is-current::before { content:none !important; display:none !important; }
+/* Product and amount are easier to scan vertically on a phone. */
+.skincare-steps.is-guided .skincare-product-option {
+  display:flex; flex-direction:column; align-items:stretch; gap:9px;
+  min-height:0; padding:14px 15px;
+}
+.skincare-steps.is-guided .skincare-dose {
+  display:flex; align-items:center; justify-content:flex-start; gap:10px;
+  width:100%; min-width:0; padding:8px 10px;
+}
+.skincare-steps.is-guided .skincare-dose-visual { flex:0 0 auto; }
+.skincare-steps.is-guided .skincare-dose-text { text-align:left; }
+.skincare-deck-controls { margin-top:20px; }
+.skincare-deck-status { font-weight:700; letter-spacing:.02em; }
+.skincare-routine#morning .skincare-deck-button:not(:disabled):last-child { border-color:#8d7847; background:#8d7847; }
+.skincare-routine#night .skincare-deck-button:not(:disabled):last-child { border-color:#456782; background:#456782; }
+.skincare-complete { display:flex; flex-direction:column; align-items:center; gap:13px; padding:20px; text-align:center; }
+.skincare-restart {
+  padding:11px 22px; border:0; border-radius:999px; background:#405b61;
+  color:white; font:inherit; font-size:13px; font-weight:700; cursor:pointer;
+}
+.skincare-routine#morning .skincare-restart { background:#8d7847; }
+.skincare-routine#night .skincare-restart { background:#456782; }
+@media(max-width:600px) {
+ .skincare-routine#morning,.skincare-routine#night { margin-left:-5px; margin-right:-5px; padding:19px 11px 24px; border-radius:18px; }
+ .skincare-steps.is-guided .skincare-product-option { display:flex; flex-direction:column; gap:8px; padding:12px; }
+ .skincare-steps.is-guided .skincare-dose { width:100%; min-width:0; }
+ .skincare-steps.is-guided .skincare-dose-text strong { font-size:12px; }
+}
+
 </style>
 </head>
 <body class="registration-guide skincare-guide">
@@ -309,7 +360,13 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
   const completion = document.createElement("p");
   completion.className = "skincare-complete";
   completion.hidden = true;
-  completion.textContent = isNight ? "ぜんぶできた！今日もおつかれさま ☾" : "ぜんぶできた！気持ちよく一日を始めよう ☀";
+  const completionMessage = document.createElement("span");
+  completionMessage.textContent = isNight ? "ぜんぶできた！今日もおつかれさま ☾" : "ぜんぶできた！気持ちよく一日を始めよう ☀";
+  const restart = document.createElement("button");
+  restart.type = "button";
+  restart.className = "skincare-restart";
+  restart.textContent = "最初からやり直す";
+  completion.append(completionMessage, restart);
   let isAnimating = false;
   let pointerId = null;
   let pointerStartX = 0;
@@ -341,7 +398,7 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
     progressCount.textContent = (active + 1) + " / " + cards.length;
     progressTrack.setAttribute("aria-valuenow", String(active + 1));
     progressValue.style.width = ((active + 1) / cards.length * 100) + "%";
-    status.textContent = completed ? "今日のお手入れ、おしまい！" : active === cards.length - 1 ? "ラスト1つ！" : "矢印・スワイプで切替";
+    status.textContent = completed ? "今日のお手入れ、おしまい！" : "← スワイプで戻る ／ 右へ進む →";
     previous.disabled = active === 0;
     next.disabled = completed;
     next.textContent = "→";
@@ -365,6 +422,12 @@ document.querySelectorAll(".skincare-routine").forEach((routine) => {
       render();
     }, 240);
   };
+  restart.addEventListener("click", () => {
+    active = 0;
+    completed = false;
+    render();
+    routine.scrollIntoView({ behavior:"smooth", block:"start" });
+  });
   previous.addEventListener("click", () => {
     move(-1);
   });
